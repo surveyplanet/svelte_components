@@ -1,0 +1,49 @@
+import {
+	Meta,
+	Canvas,
+	ColorPalette,
+	ColorItem,
+	Description,
+	Story,
+} from '@storybook/addon-docs';
+import ButtonGroup from '../../lib/ButtonGroup.svelte';
+
+<style>
+	{`
+	#example {
+		padding: 50px 0 50px;
+	}
+  `}
+</style>
+
+<Meta
+	title="Button Group/Documentation"
+	component={ButtonGroup}
+/>
+
+# Button Group component
+
+<div id="example">
+	<Story id="button-group-horizontal--primary" />
+</div>
+
+## Usage
+
+```ts
+<script>
+	import {ButtonGroup} from '@surveyplanet/svelte-components';
+	const props = {
+		buttons: [],
+		disabled: false,
+		activeIndex: 0,
+	}
+</script>
+
+<ButtonGroup {...props}></ButtonGroup>
+```
+
+## Options
+
+| Name | Type   | Description    |
+| ---- | ------ | -------------- |
+| name | string | description... |
