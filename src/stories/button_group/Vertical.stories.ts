@@ -11,8 +11,8 @@ const meta: Meta<ButtonGroup> = {
 	component: ButtonGroup,
 	parameters: {
 		docs: {
-			page: Documentation
-		}
+			page: Documentation,
+		},
 	},
 	argTypes: [
 		{
@@ -22,43 +22,43 @@ const meta: Meta<ButtonGroup> = {
 			loader: { control: 'boolean' },
 			mode: {
 				control: { type: 'select' },
-				options: ['primary', 'secondary', 'tertiary']
+				options: ['primary', 'secondary', 'tertiary'],
 			},
 			size: {
 				control: { type: 'select' },
-				options: ['small', 'medium', 'large']
-			}
-		}
+				options: ['small', 'medium', 'large'],
+			},
+		},
 	],
-	vertical: { control: 'boolean' }
+	vertical: { control: 'boolean' },
 };
 export default meta;
 
 type Story = StoryObj<ButtonGroup>;
 
-export const Primary: Story = {
+export const Vertical: Story = {
 	args: {
 		options: [
 			{
 				label: '1st label',
-				mode: 'primary'
+				mode: 'primary',
 			},
 			{
 				label: '2nd label',
-				mode: 'primary'
+				mode: 'primary',
 			},
 			{
 				label: '3rd label',
-				mode: 'primary'
-			}
+				mode: 'primary',
+			},
 		],
-		vertical: true
+		vertical: true,
 	},
 
 	render: (args) => {
 		return {
 			Component: ButtonGroup,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -79,5 +79,5 @@ export const Primary: Story = {
 		await expect(style.backgroundColor).toBe(color);
 		await expect(btn1).toHaveFocus();
 		await expect(btn1.disabled).toBe(false);
-	}
+	},
 };
