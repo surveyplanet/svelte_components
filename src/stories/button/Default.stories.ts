@@ -26,15 +26,17 @@ export const Primary: Story = {
 		mode: 'primary',
 		label: 'Primary button',
 	},
-	render: (args) => {
+	render: (args: StoryObj) => {
 		console.log('--->', args);
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async (res) => {
+		console.log('------------->', res);
+
+		const canvas = within(res.canvasElement);
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);

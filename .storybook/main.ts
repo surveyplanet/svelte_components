@@ -24,4 +24,5 @@ module.exports = {
 		defaultName: 'Documentation',
 		docsPage: true,
 	},
+	staticDirs: ['../src/assets'],
 };
