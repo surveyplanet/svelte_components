@@ -50,6 +50,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@surveyplanet/styles": "^0.0.5"
+		"@surveyplanet/styles": "^0.1.1"
 	}
 }
