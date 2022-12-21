@@ -1,7 +1,6 @@
 <script lang="ts">
 	// import '@surveyplanet/styles.scss';
 	import Button from './Button.svelte';
-	import { add_classes } from 'svelte/internal';
 
 	export let options: any[] = [
 		// {label: 'button', mode: 'secondary', size: 'medium', loader: true, disabled: false}
@@ -31,12 +30,10 @@
 
 <style lang="scss">
 	.sp-button-group {
-		// show content vertically and make it the width match the biggest button for which the size is related to its content width
 		&.vertical {
 			display: flex;
 			flex-direction: column;
 			width: max-content;
-			// make the edges rounded on the first and last component of the group that are stacked vertically
 			& :global(.sp-button) {
 				margin: 0;
 				border-radius: 0;

@@ -283,7 +283,7 @@ export const Large_Vertical: Story = {
 				size: 'large',
 			},
 		],
-		vertical: false,
+		vertical: true,
 	},
 
 	render: (args) => {
