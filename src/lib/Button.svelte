@@ -5,13 +5,13 @@
 	enum BUTTON_SIZES {
 		SMALL = 'small',
 		MEDIUM = 'medium',
-		LARGE = 'large'
+		LARGE = 'large',
 	}
 
 	enum BUTTON_MODES {
 		PRIMARY = 'primary',
 		SECONDARY = 'secondary',
-		TERTIARY = 'tertiary'
+		TERTIARY = 'tertiary',
 	}
 
 	const SP_BUTTON_CLICK_EVENT: string = 'SurveyPlanetButtonClickEvent';
@@ -22,7 +22,7 @@
 	 * Optional click handler
 	 */
 	const clickHandler = (event: MouseEvent): void => {
-		console.log('click');
+		// console.log('click');
 
 		dispatch(SP_BUTTON_CLICK_EVENT, event);
 	};
@@ -58,8 +58,7 @@
 	class="sp-button sp-button--{mode} sp-button--{size}"
 	class:loader
 	{disabled}
-	on:click={clickHandler}
->
+	on:click={clickHandler}>
 	{label}
 </button>
 
@@ -83,7 +82,8 @@
 	}
 
 	.sp-button {
-		font-family: 'Suisse Intl', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		font-family: 'Suisse Intl', 'Helvetica Neue', Helvetica, Arial,
+			sans-serif;
 		font-weight: normal;
 		border: 0;
 		border-radius: 3em;
