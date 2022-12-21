@@ -1,4 +1,5 @@
 import SurveyPlanetTheme from './surveyplanet_theme';
+import './main.scss';
 
 export const parameters = {
 	actions: { argTypesRegex: '^on[A-Z].*' },

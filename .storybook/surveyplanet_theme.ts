@@ -21,6 +21,10 @@ export default create({
 	appBorderColor: darkLight,
 	appBorderRadius: 0,
 
+	// Typography
+	fontBase: '"Suisse Int", sans-serif',
+	fontCode: '"Suisse Mono", monospace',
+
 	// Toolbar default and active colors
 	barTextColor: darkLight,
 	barSelectedColor: light,
