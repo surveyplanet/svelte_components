@@ -14,11 +14,8 @@
 			openMenu();
 		}
 	}
-	function handleClick(e) {
+	function handleClick() {
 		toggleMenu();
-		if (e.target === document.querySelector('.sp-dropdown')) {
-			selectOption(e.target);
-		}
 	}
 
 	//TODO: buttonText won't change when the dropdown is clicked
@@ -38,13 +35,14 @@
 	}
 </script>
 
-<Button
-	label={buttonText}
-	on:click{handleClick} />
-<div>
+<div class="sp-dropdown">
+	<Button
+		on:SurveyPlanetButtonClickEvent={handleClick}
+		label={buttonText} />
 	{#if showMenu}
-		<div class="sp-dropdown">
+		<div>
 			<ButtonGroup
+				on:SurveyPlanetButtonClickEvent={selectOption}
 				options={options[0].dropdownLabels}
 				vertical />
 		</div>
