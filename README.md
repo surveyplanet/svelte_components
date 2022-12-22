@@ -40,3 +40,54 @@ npm run storybook:build
 ```
 
 You can preview the production build with `npm run preview`.
+
+## Components
+
+https://m3.material.io/components
+
+### Button
+
+-   Add icons to buttons
+-   Icon only button
+-   Callout dot
+-   Callout color (default pink)
+-   Active state
+
+### Button group
+
+-   Toggle state
+
+### Badge
+
+### Breadcrumb
+
+### Profile badge
+
+### Nav bar
+
+-   Icon view
+-   Icons with labels
+-   Ellipse submenu
+
+### Toggle switch
+
+### Menu
+
+-   Submenu
+
+### Loader (progress indicator)
+
+### Card
+
+-   Display: grid or column
+
+### Card list
+
+-   Sort
+-   Add new
+
+### Header
+
+### Sidebar
+
+### Footer

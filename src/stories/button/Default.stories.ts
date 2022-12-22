@@ -27,22 +27,22 @@ export const Primary: Story = {
 		label: 'Primary button',
 	},
 	render: (args: StoryObj) => {
-		console.log('--->', args);
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
 	play: async (res) => {
-		console.log('------------->', res);
-
 		const canvas = within(res.canvasElement);
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
 		const color = 'rgb(255, 233, 120)';
 
-		await userEvent.click(btn);
+		const promise = userEvent.click(btn);
+		console.log(promise);
+
+		await promise;
 
 		await expect(btn).toBeVisible();
 
@@ -79,35 +79,6 @@ export const Secondary: Story = {
 		await expect(btn.disabled).toBe(false);
 	},
 };
-
-// export const Secondary: Story = {
-// 	args: {
-// 		...Primary.args,
-// 		mode: 'secondary',
-// 		label: 'Yep',
-// 	},
-// 	render: (args) => {
-// 		return {
-// 			Component: Button,
-// 			args: args,
-// 		};
-// 	},
-// 	play: async ({ canvasElement }) => {
-// 		const canvas = within(canvasElement);
-
-// 		const btn: HTMLButtonElement = canvas.getByRole('button');
-// 		const style = window.getComputedStyle(btn);
-// 		const color = 'rgb(181, 152, 255)';
-// 		await userEvent.click(btn);
-
-// 		await expect(btn).toBeVisible();
-
-// 		await expect(style.backgroundColor).toBe(color);
-// 		await expect(btn.innerText).toBe('Secondary button');
-// 		await expect(btn).toHaveFocus();
-// 		await expect(btn.disabled).toBe(false);
-// 	},
-// };
 
 export const Tertiary: Story = {
 	args: {

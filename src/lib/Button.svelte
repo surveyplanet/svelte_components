@@ -1,5 +1,5 @@
 <script lang="ts">
-	// import '@surveyplanet/styles.scss';
+	// import '@surveyplanet/styles';
 	import { createEventDispatcher } from 'svelte';
 
 	enum BUTTON_SIZES {
@@ -65,7 +65,7 @@
 <style lang="scss">
 	@use 'sass:color';
 	$color--primary: #ffe978;
-	$color--secondary: #b598ff;
+	$color--secondary: #a185e7;
 	$color--tertiary: #a1fda5;
 	$color--black: #262b35;
 	$height: 35px;

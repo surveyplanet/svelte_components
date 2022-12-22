@@ -1,3 +1,4 @@
+// import type { PlayFunctionContext } from '@storybook/types';
 import type { Meta, StoryObj } from '@storybook/svelte';
 import argTypes from './default_metadata';
 import Button from '../../lib/Button.svelte';
@@ -8,7 +9,7 @@ import { expect } from '@storybook/jest';
 const meta: Meta<Button> = {
 	title: 'Button/Size',
 	component: Button,
-	argTypes
+	argTypes,
 };
 
 export default meta;
@@ -17,12 +18,12 @@ type Story = StoryObj<Button>;
 export const Large: Story = {
 	args: {
 		label: 'Large',
-		size: 'large'
+		size: 'large',
 	},
-	render: (args) => {
+	render: (args: StoryObj) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -38,17 +39,17 @@ export const Large: Story = {
 		await expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		await expect(btn.innerText).toBe('Large');
 		await expect(btn.offsetHeight).toBe(44);
-	}
+	},
 };
 
 export const Medium: Story = {
 	args: {
-		label: 'Medium'
+		label: 'Medium',
 	},
-	render: (args) => {
+	render: (args: StoryObj) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -64,18 +65,18 @@ export const Medium: Story = {
 		await expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		await expect(btn.innerText).toBe('Medium');
 		await expect(btn.offsetHeight).toBe(35);
-	}
+	},
 };
 
 export const Small: Story = {
 	args: {
 		label: 'Small',
-		size: 'small'
+		size: 'small',
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -91,5 +92,5 @@ export const Small: Story = {
 		await expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		await expect(btn.innerText).toBe('Small');
 		await expect(btn.offsetHeight).toBe(26);
-	}
+	},
 };
