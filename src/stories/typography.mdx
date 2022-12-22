@@ -1,0 +1,53 @@
+import { Meta, Typeset } from '@storybook/addon-docs';
+
+<Meta title="Typography" />
+
+<style>
+	{`
+	.docblock-typeset {
+		color: white;
+	}
+  `}
+</style>
+
+# Typography
+
+The base font for these components is [Suisse Intl](https://www.swisstypefaces.com/fonts/suisse) created by [Swiss Typefaces](https://www.swisstypefaces.com).
+
+## Suisse Intl
+
+### Regular
+
+<Typeset
+	fontSizes={[12, 14, 16, 20, 24, 28, 32, 40, 48]}
+	fontWeight={400}
+	sampleText={'The quick brown fox jumps over the lazy dog.'}
+	fontFamily={'"Suisse Intl", monospace'}
+/>
+
+### Bold
+
+<Typeset
+	fontSizes={[12, 14, 16, 20, 24, 28, 32, 40, 48]}
+	fontWeight={700}
+	sampleText={'The quick brown fox jumps over the lazy dog.'}
+	fontFamily={'"Suisse Intl", monospace'}
+/>
+
+## Suisse Works
+
+<Typeset
+	fontSizes={[12, 14, 16, 20, 24, 28, 32, 40, 48]}
+	fontWeight={400}
+	sampleText={'The quick brown fox jumps over the lazy dog.'}
+	fontFamily={'"Suisse Works", monospace'}
+/>
+
+## Suisse Mono
+
+<Typeset
+	fontSizes={[12, 14, 16, 20, 24, 28, 32, 40, 48]}
+	fontWeight={400}
+	sampleText={'The quick brown fox jumps over the lazy dog.'}
+	fontFamily={'"Suisse Mono", serif'}
+/>

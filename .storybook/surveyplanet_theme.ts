@@ -1,9 +1,10 @@
-// .storybook/YourTheme.js
-
 import { create } from '@storybook/theming/create';
 import { themes } from '@storybook/theming';
 
+const light = 'rgb(245, 240, 255)';
 const dark = 'rgb(38,43,53)';
+const darkLight = 'rgb(70, 76, 87)';
+const accent = '#5BC84D';
 
 export default create({
 	base: 'dark',
@@ -12,22 +13,26 @@ export default create({
 	brandImage:
 		'https://public.surveyplanet.com/logos/surveyplanet-logo-light.svg',
 	brandTarget: '_self',
-	textColor: 'rgb(245, 240, 255)',
+	textColor: light,
 
 	// UI
 	appBg: dark,
 	appContentBg: dark,
-	appBorderColor: 'rgb(70, 76, 87)',
+	appBorderColor: darkLight,
 	appBorderRadius: 0,
 
+	// Typography
+	fontBase: '"Suisse Int", sans-serif',
+	fontCode: '"Suisse Mono", monospace',
+
 	// Toolbar default and active colors
-	barTextColor: 'white',
-	barSelectedColor: dark,
+	barTextColor: darkLight,
+	barSelectedColor: light,
 	barBg: dark,
 
 	// // Form colors
-	inputBg: 'white',
-	inputBorder: 'silver',
-	inputTextColor: 'black',
-	inputBorderRadius: 0,
+	inputBg: darkLight,
+	inputBorder: 'black',
+	inputTextColor: light,
+	inputBorderRadius: 2,
 });
