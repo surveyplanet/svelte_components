@@ -1,17 +1,17 @@
 <script lang="ts">
-	// import '@surveyplanet/styles.scss';
+	// import '@surveyplanet/styles';
 	import { createEventDispatcher } from 'svelte';
 
 	enum BUTTON_SIZES {
 		SMALL = 'small',
 		MEDIUM = 'medium',
-		LARGE = 'large'
+		LARGE = 'large',
 	}
 
 	enum BUTTON_MODES {
 		PRIMARY = 'primary',
 		SECONDARY = 'secondary',
-		TERTIARY = 'tertiary'
+		TERTIARY = 'tertiary',
 	}
 
 	const SP_BUTTON_CLICK_EVENT: string = 'SurveyPlanetButtonClickEvent';
@@ -58,15 +58,14 @@
 	class="sp-button sp-button--{mode} sp-button--{size}"
 	class:loader
 	{disabled}
-	on:click={clickHandler}
->
+	on:click={clickHandler}>
 	{label}
 </button>
 
 <style lang="scss">
 	@use 'sass:color';
 	$color--primary: #ffe978;
-	$color--secondary: #b598ff;
+	$color--secondary: #a185e7;
 	$color--tertiary: #a1fda5;
 	$color--black: #262b35;
 	$height: 35px;
@@ -83,7 +82,8 @@
 	}
 
 	.sp-button {
-		font-family: 'Suisse Intl', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		font-family: 'Suisse Intl', 'Helvetica Neue', Helvetica, Arial,
+			sans-serif;
 		font-weight: normal;
 		border: 0;
 		border-radius: 3em;
