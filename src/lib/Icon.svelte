@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	// Sizes
 	// '8px'
 	// '16px'
@@ -66,30 +66,35 @@
 		},
 	];
 
-	$: color = 'black';
+	$: color = 'red';
 	$: size = 24; // todo icon must me multiples of 8
-	$: name = 'answers';
-	$: data = ICONS.find((itm) => itm.name === name) || { path: '' };
+	$: name = 'hamburger';
+	// $: data = ICONS.find((itm) => itm.name === name) || { path: '' };
+	let path = '';
 
-	// console.log('path:', path);
+	$: {
+		nameChangeHandler(name);
+	}
+
+	function nameChangeHandler<T extends string>(val: T): void {
+		const data = ICONS.find((itm) => itm.name === val);
+		if (data && data.path && data.path.length) {
+			path = data.path;
+		}
+	}
 </script>
 
 <svg
 	xmlns="http://www.w3.org/2000/svg"
-	xmlns:xlink="http://www.w3.org/1999/xlink"
 	width={size}
 	height={size}>
-	<defs>
-		<symbol id="icn-{name}">
-			<path d={data.path} />
-		</symbol>
-
-		<use
-			xlink:href="#icn-{name}"
-			x="0"
-			y="0"
-			fill={color} />
-	</defs>
+	<path
+		x="0"
+		y="0"
+		fill={color}
+		fill-rule="evenodd"
+		clip-rule="evenodd"
+		d={path} />
 </svg>
 
 <style lang="scss">

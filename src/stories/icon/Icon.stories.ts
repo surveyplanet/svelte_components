@@ -20,7 +20,7 @@ const meta: Meta<Icon> = {
 			control: { type: 'number' },
 			// options: ['small', 'medium', 'large'],
 		},
-		vertical: { control: 'boolean' },
+		color: { control: 'color' },
 	},
 };
 
@@ -30,7 +30,7 @@ type Story = StoryObj<Icon>;
 
 export const Primary: Story = {
 	args: {
-		name: 'search',
+		// name: 'search',
 	},
 	render: (args: StoryObj) => {
 		return {
