@@ -22,8 +22,6 @@
 	 * Optional click handler
 	 */
 	const clickHandler = (event: MouseEvent): void => {
-		console.log('click');
-
 		dispatch(SP_BUTTON_CLICK_EVENT, event);
 	};
 

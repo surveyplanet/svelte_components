@@ -16,6 +16,11 @@
 	font: $font--default;
 }
 
+html {
+	/* 62.5% of 16px browser font size is 10px */
+	font-size: $font-percentage;
+}
+
 h1 {
 	font-family: 'Suisse Intl', serif !important;
 }
