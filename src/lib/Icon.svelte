@@ -66,7 +66,8 @@
 		},
 	];
 
-	export let color = 'red';
+	export let color = 'black';
+	// $: color = color;
 	export let size = 24; // todo icon must me multiples of 8
 	export let name = 'hamburger';
 
@@ -87,16 +88,26 @@
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	width={size}
-	height={size}>
-	<path
-		x="0"
-		y="0"
-		width={size}
-		height={size}
-		fill={color}
-		fill-rule="evenodd"
-		clip-rule="evenodd"
-		d={path} />
+	height={size}
+	viewBox="0 0 24 24"
+	fill="none">
+	<g clip-path="url(#clip-{name})">
+		<path
+			x="0"
+			y="0"
+			fill={color}
+			fill-rule="evenodd"
+			clip-rule="evenodd"
+			d={path} />
+	</g>
+	<defs>
+		<clipPath id="clip-{name}">
+			<rect
+				width="24"
+				height="24"
+				fill="white" />
+		</clipPath>
+	</defs>
 </svg>
 
 <style lang="scss">
