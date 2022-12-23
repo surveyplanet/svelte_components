@@ -86,6 +86,12 @@ https://m3.material.io/components
 -   Sort
 -   Add new
 
+### Icon
+
+-   change color
+-   change size
+-   add new icons easily
+
 ### Header
 
 ### Sidebar
