@@ -66,10 +66,10 @@
 		},
 	];
 
-	$: color = 'red';
-	$: size = 24; // todo icon must me multiples of 8
-	$: name = 'hamburger';
-	// $: data = ICONS.find((itm) => itm.name === name) || { path: '' };
+	export let color = 'red';
+	export let size = 24; // todo icon must me multiples of 8
+	export let name = 'hamburger';
+
 	let path = '';
 
 	$: {
@@ -91,6 +91,8 @@
 	<path
 		x="0"
 		y="0"
+		width={size}
+		height={size}
 		fill={color}
 		fill-rule="evenodd"
 		clip-rule="evenodd"
