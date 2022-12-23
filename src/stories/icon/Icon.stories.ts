@@ -21,6 +21,7 @@ const meta: Meta<Icon> = {
 			// options: ['small', 'medium', 'large'],
 		},
 		color: { control: 'color' },
+		debug: { control: 'boolean' },
 	},
 };
 
@@ -32,6 +33,7 @@ export const Primary: Story = {
 	args: {
 		name: 'search',
 		size: 128,
+		color: 'white',
 	},
 	render: (args: StoryObj) => {
 		return {

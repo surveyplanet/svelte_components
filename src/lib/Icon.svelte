@@ -66,10 +66,11 @@
 		},
 	];
 
-	export let color = 'black';
+	export let color = '#262b35';
 	// $: color = color;
 	export let size = 24; // todo icon must me multiples of 8
 	export let name = 'hamburger';
+	export let debug = false;
 
 	let path = '';
 
@@ -90,7 +91,8 @@
 	width={size}
 	height={size}
 	viewBox="0 0 24 24"
-	fill="none">
+	fill="none"
+	style={debug ? 'background-color: red;' : ''}>
 	<g clip-path="url(#clip-{name})">
 		<path
 			x="0"
