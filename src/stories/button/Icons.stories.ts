@@ -97,3 +97,31 @@ export const Small: Story = {
 		await expect(btn.offsetHeight).toBe(26);
 	},
 };
+
+export const labless: Story = {
+	args: {
+		label: '',
+		size: 'medium',
+		icon: 'search',
+	},
+	render: (args: StoryObj) => {
+		return {
+			Component: Button,
+			props: args,
+		};
+	},
+	play: async ({ canvasElement }) => {
+		const canvas = within(canvasElement);
+
+		const btn = canvas.getByRole('button');
+		const style = window.getComputedStyle(btn);
+
+		await userEvent.click(btn);
+
+		await expect(btn).toBeVisible();
+
+		await expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
+		await expect(btn.innerText).toBe('Large');
+		await expect(btn.offsetHeight).toBe(44);
+	},
+};
