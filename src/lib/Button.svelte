@@ -47,7 +47,7 @@
 	 * The button label
 	 */
 	export let label: string = '';
-
+	// add options to move icon on the left or the reight depending on
 	export let iconOptions: {
 		size?: number;
 		color?: string;
@@ -70,11 +70,12 @@
 	class:loader
 	{disabled}
 	on:click={clickHandler}>
-	<span class="button-text"> {label}</span>
-	<Icon
-		color={iconOptions.color}
-		size={iconOptions.size}
-		name={iconOptions.name} />
+	<span class="sp-button--text"> {label}</span>
+	{#if iconOptions.name}
+		<span class="sp-button--icon">
+			<Icon {...iconOptions} />
+		</span>
+	{/if}
 </button>
 
 <style lang="scss">
@@ -104,7 +105,7 @@
 		cursor: pointer;
 		display: inline-block;
 		height: $height;
-		line-height: $height;
+
 		padding: 0 $height - 10px;
 		font-size: 14px;
 		background-color: $color--secondary;
@@ -114,9 +115,13 @@
 		justify-content: center;
 		align-items: center;
 
-		&.button-text {
+		&.sp-button--text {
 			// this should work, but it doesn't
-			margin-right: 0.3rem;
+			margin-right: 1rem;
+			display: inline-block;
+		}
+		& span {
+			display: inline-block;
 		}
 		&:focus {
 			outline: none;
