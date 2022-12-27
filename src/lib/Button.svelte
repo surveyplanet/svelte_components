@@ -47,17 +47,7 @@
 	 * The button label
 	 */
 	export let label: string = '';
-	// add options to move icon on the left or the reight depending on
-	export let iconOptions: {
-		size?: number;
-		color?: string;
-		name?: string;
-	} = {
-		size: 0,
-		color: 'white',
-		name: '',
-	};
-
+	export let icon: string | null;
 	/**
 	 * The button mode, either: 'primary', 'secondary' or 'tertiary'
 	 */
@@ -71,9 +61,15 @@
 	{disabled}
 	on:click={clickHandler}>
 	<span class="sp-button--text"> {label}</span>
-	{#if iconOptions.name}
+	{#if icon && icon.length}
 		<span class="sp-button--icon">
-			<Icon {...iconOptions} />
+			<Icon
+				name={icon}
+				size={size !== BUTTON_SIZES.MEDIUM
+					? size === BUTTON_SIZES.LARGE
+						? 24
+						: 16
+					: 20} />
 		</span>
 	{/if}
 </button>

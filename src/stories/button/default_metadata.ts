@@ -11,5 +11,5 @@ export default {
 		control: { type: 'select' },
 		options: ['small', 'medium', 'large'],
 	},
-	iconOptions: { control: 'object' },
+	icon: { type: 'string' },
 };
