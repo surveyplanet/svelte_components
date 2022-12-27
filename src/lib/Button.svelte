@@ -1,6 +1,7 @@
 <script lang="ts">
 	// import '@surveyplanet/styles';
 	import { createEventDispatcher } from 'svelte';
+	import Icon from './Icon.svelte';
 
 	enum BUTTON_SIZES {
 		SMALL = 'small',
@@ -47,6 +48,16 @@
 	 */
 	export let label: string = '';
 
+	export let iconOptions: {
+		size?: number;
+		color?: string;
+		name?: string;
+	} = {
+		size: 0,
+		color: 'white',
+		name: '',
+	};
+
 	/**
 	 * The button mode, either: 'primary', 'secondary' or 'tertiary'
 	 */
@@ -59,7 +70,11 @@
 	class:loader
 	{disabled}
 	on:click={clickHandler}>
-	{label}
+	<span class="button-text"> {label}</span>
+	<Icon
+		color={iconOptions.color}
+		size={iconOptions.size}
+		name={iconOptions.name} />
 </button>
 
 <style lang="scss">
@@ -80,7 +95,6 @@
 			transform: rotate(360deg);
 		}
 	}
-
 	.sp-button {
 		font-family: 'Suisse Intl', 'Helvetica Neue', Helvetica, Arial,
 			sans-serif;
@@ -96,6 +110,14 @@
 		background-color: $color--secondary;
 		color: $color--black;
 
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		&.button-text {
+			// this should work, but it doesn't
+			margin-right: 0.3rem;
+		}
 		&:focus {
 			outline: none;
 			box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
