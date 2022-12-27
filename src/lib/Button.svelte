@@ -60,7 +60,9 @@
 	class:loader
 	{disabled}
 	on:click={clickHandler}>
-	<span class="sp-button--text"> {label}</span>
+	{#if label && label.length}
+		<span class="sp-button--text"> {label}</span>
+	{/if}
 	{#if icon && icon.length}
 		<span class="sp-button--icon">
 			<Icon
