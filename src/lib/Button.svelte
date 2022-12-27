@@ -1,5 +1,4 @@
 <script lang="ts">
-	// import '@surveyplanet/styles';
 	import { createEventDispatcher } from 'svelte';
 	import Icon from './Icon.svelte';
 
@@ -29,6 +28,11 @@
 	};
 
 	/**
+	 * The button mode, either: 'primary', 'secondary' or 'tertiary'
+	 */
+	export let mode: BUTTON_MODES = BUTTON_MODES.SECONDARY;
+
+	/**
 	 * Whether the button is disabled or not
 	 */
 	export let disabled: boolean = false;
@@ -47,11 +51,18 @@
 	 * The button label
 	 */
 	export let label: string = '';
-	export let icon: string | null;
+
 	/**
-	 * The button mode, either: 'primary', 'secondary' or 'tertiary'
+	 * The name of the icon to use inside the button
 	 */
-	export let mode: BUTTON_MODES = BUTTON_MODES.SECONDARY;
+	export let icon: string | null;
+
+	let iconSize: 16 | 20 | 24 =
+		size !== BUTTON_SIZES.MEDIUM
+			? size === BUTTON_SIZES.LARGE
+				? 24
+				: 16
+			: 20;
 </script>
 
 <button
@@ -60,16 +71,15 @@
 	class:loader
 	{disabled}
 	on:click={clickHandler}>
-	<span class="sp-button--text"> {label}</span>
+	{#if label && label.length}
+		<span class="sp-button--text">{label}</span>
+	{/if}
 	{#if icon && icon.length}
 		<span class="sp-button--icon">
 			<Icon
 				name={icon}
-				size={size !== BUTTON_SIZES.MEDIUM
-					? size === BUTTON_SIZES.LARGE
-						? 24
-						: 16
-					: 20} />
+				size={iconSize}
+				debug="true" />
 		</span>
 	{/if}
 </button>
@@ -80,9 +90,9 @@
 	$color--secondary: #a185e7;
 	$color--tertiary: #a1fda5;
 	$color--black: #262b35;
-	$height: 35px;
-	$height--small: 26px; // round($height * 0.75);;
-	$height--large: 44px; // round($height + ($height * 0.25));;
+	$height: 34px;
+	$height--small: 28px;
+	$height--large: 44px;
 
 	@keyframes spin {
 		from {
@@ -92,6 +102,7 @@
 			transform: rotate(360deg);
 		}
 	}
+
 	.sp-button {
 		font-family: 'Suisse Intl', 'Helvetica Neue', Helvetica, Arial,
 			sans-serif;
@@ -101,24 +112,24 @@
 		cursor: pointer;
 		display: inline-block;
 		height: $height;
-
 		padding: 0 $height - 10px;
 		font-size: 14px;
 		background-color: $color--secondary;
 		color: $color--black;
-
 		display: flex;
 		justify-content: center;
 		align-items: center;
 
-		&.sp-button--text {
-			// this should work, but it doesn't
-			margin-right: 1rem;
-			display: inline-block;
-		}
 		& span {
 			display: inline-block;
 		}
+
+		.sp-button--text {
+			& + .sp-button--icon {
+				margin-left: 10px; // this should change depending on the size of the button
+			}
+		}
+
 		&:focus {
 			outline: none;
 			box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
@@ -146,13 +157,11 @@
 			font-size: 12px;
 			padding: 0 $height--small - 10px;
 			height: $height--small;
-			line-height: $height--small;
 		}
 		&.sp-button--large {
 			font-size: 16px;
 			padding: 0 $height--large - 10px;
 			height: $height--large;
-			line-height: $height--large;
 		}
 		&:disabled {
 			color: gray !important;
