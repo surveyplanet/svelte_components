@@ -1,15 +1,5 @@
 <script lang="ts">
-	// Sizes
-	// '8px'
-	// '16px'
-	// '20px'
-	// '24px'
-	// '32px'
-	// '48px'
-	// '64px'
-	// '128px'
-	// '256px'
-	// '512px'
+	const DEFAULT_SIZE = 24;
 
 	const ICONS = [
 		{
@@ -33,7 +23,7 @@
 			path: 'M7.8 12C9.83109 12 11.475 10.4344 11.475 8.5C11.475 6.56562 9.83109 5 7.8 5C5.76891 5 4.125 6.56562 4.125 8.5C4.125 10.4344 5.76891 12 7.8 12ZM10.32 13H10.0477C9.36516 13.3125 8.60719 13.5 7.8 13.5C6.99281 13.5 6.23812 13.3125 5.55234 13H5.28C3.19312 13 1.5 14.6125 1.5 16.6V17.5C1.5 18.3281 2.20547 19 3.075 19H12.525C13.3945 19 14.1 18.3281 14.1 17.5V16.6C14.1 14.6125 12.4069 13 10.32 13ZM17.25 12C18.9891 12 20.4 10.6562 20.4 9C20.4 7.34375 18.9891 6 17.25 6C15.5109 6 14.1 7.34375 14.1 9C14.1 10.6562 15.5109 12 17.25 12ZM18.825 13H18.7003C18.2442 13.15 17.7619 13.25 17.25 13.25C16.7381 13.25 16.2558 13.15 15.7997 13H15.675C15.0056 13 14.3887 13.1844 13.8473 13.4812C14.648 14.3031 15.15 15.3938 15.15 16.6V17.8C15.15 17.8688 15.1336 17.9344 15.1303 18H20.925C21.7945 18 22.5 17.3281 22.5 16.5C22.5 14.5656 20.8561 13 18.825 13Z',
 		},
 		{
-			name: 'question',
+			name: 'branch',
 			path: 'M4.3501 6.15C4.3501 4.4103 5.7604 3 7.5001 3C9.2398 3 10.6501 4.4103 10.6501 6.15C10.6501 7.58061 9.6964 8.78848 8.3901 9.17251C9.00917 11.2001 10.8949 12.675 13.1251 12.675H13.4225C13.7316 11.2597 14.9921 10.2 16.5001 10.2C18.2398 10.2 19.6501 11.6103 19.6501 13.35C19.6501 15.0897 18.2398 16.5 16.5001 16.5C14.9921 16.5 13.7316 15.4403 13.4225 14.025H13.1251C11.1172 14.025 9.32874 13.0857 8.1751 11.6225V14.7724C9.59043 15.0815 10.6501 16.342 10.6501 17.85C10.6501 19.5897 9.2398 21 7.5001 21C5.7604 21 4.3501 19.5897 4.3501 17.85C4.3501 16.342 5.40977 15.0815 6.8251 14.7724V9.22751C5.40977 8.91851 4.3501 7.658 4.3501 6.15Z',
 		},
 		{
@@ -66,9 +56,26 @@
 		},
 	];
 
-	export let color = 'red';
-	export let size = 24; // todo icon must me multiples of 8
-	export let name = 'hamburger';
+	/**
+	 * The icon color. default: '#262b35'
+	 */
+	export let color = '#262b35';
+
+	/**
+	 * The icon width and height in pixes. default: 24
+	 */
+	export let size: 8 | 16 | 20 | 24 | 32 | 48 | 64 | 128 | 256 | 512 =
+		DEFAULT_SIZE;
+
+	/**
+	 * The name of the icon used to display the vector path
+	 */
+	export let name = ICONS[0].name;
+
+	/**
+	 * Display a red background behind the icon for debugging
+	 */
+	export let debug = false;
 
 	let path = '';
 
@@ -86,6 +93,7 @@
 
 <svg
 	xmlns="http://www.w3.org/2000/svg"
+<<<<<<< HEAD
 	width={24}
 	height={24}
 	viewBox="0 0 {size} {size}">
@@ -96,7 +104,32 @@
 		fill-rule="evenodd"
 		clip-rule="evenodd"
 		d={path} />
+=======
+	width={size}
+	height={size}
+	viewBox="0 0 {DEFAULT_SIZE} {DEFAULT_SIZE}"
+	class="sp-icon sp-icon--{name}"
+	fill="none"
+	style={debug ? 'background-color: red;' : ''}>
+	<g clip-path="url(#clip-{name})">
+		<path
+			x="0"
+			y="0"
+			fill={color}
+			fill-rule="evenodd"
+			clip-rule="evenodd"
+			d={path} />
+	</g>
+
+	<defs>
+		<clipPath id="clip-{name}">
+			<rect
+				width={DEFAULT_SIZE}
+				height={DEFAULT_SIZE}
+				fill="white" />
+		</clipPath>
+	</defs>
+>>>>>>> origin
 </svg>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

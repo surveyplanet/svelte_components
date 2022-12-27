@@ -21,6 +21,7 @@ const meta: Meta<Icon> = {
 			// options: ['small', 'medium', 'large'],
 		},
 		color: { control: 'color' },
+		debug: { control: 'boolean' },
 	},
 };
 
@@ -31,7 +32,11 @@ type Story = StoryObj<Icon>;
 export const Primary: Story = {
 	args: {
 		name: 'search',
+<<<<<<< HEAD
 		size: 24,
+=======
+		color: 'white',
+>>>>>>> origin
 	},
 	render: (args: StoryObj) => {
 		return {
