@@ -5,10 +5,11 @@ export default {
 	loader: { control: 'boolean' },
 	mode: {
 		control: { type: 'select' },
-		options: ['primary', 'secondary', 'tertiary']
+		options: ['primary', 'secondary', 'tertiary'],
 	},
 	size: {
 		control: { type: 'select' },
-		options: ['small', 'medium', 'large']
-	}
+		options: ['small', 'medium', 'large'],
+	},
+	iconOptions: { control: 'object' },
 };

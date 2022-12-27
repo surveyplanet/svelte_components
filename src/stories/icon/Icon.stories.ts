@@ -32,7 +32,7 @@ type Story = StoryObj<Icon>;
 export const Primary: Story = {
 	args: {
 		name: 'search',
-		color: 'white',
+		size: 24,
 	},
 	render: (args: StoryObj) => {
 		return {
