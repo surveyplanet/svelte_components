@@ -93,16 +93,30 @@
 
 <svg
 	xmlns="http://www.w3.org/2000/svg"
-	width={24}
-	height={24}
-	viewBox="0 0 {size} {size}">
-	<path
-		x="0"
-		y="0"
-		fill={color}
-		fill-rule="evenodd"
-		clip-rule="evenodd"
-		d={path} />
+	width={size}
+	height={size}
+	viewBox="0 0 {DEFAULT_SIZE} {DEFAULT_SIZE}"
+	class="sp-icon sp-icon--{name}"
+	fill="none"
+	style={debug ? 'background-color: red;' : ''}>
+	<g clip-path="url(#clip-{name})">
+		<path
+			x="0"
+			y="0"
+			fill={color}
+			fill-rule="evenodd"
+			clip-rule="evenodd"
+			d={path} />
+	</g>
+
+	<defs>
+		<clipPath id="clip-{name}">
+			<rect
+				width={DEFAULT_SIZE}
+				height={DEFAULT_SIZE}
+				fill="white" />
+		</clipPath>
+	</defs>
 </svg>
 
 <style lang="scss"></style>
