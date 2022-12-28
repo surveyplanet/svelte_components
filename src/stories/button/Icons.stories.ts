@@ -98,7 +98,7 @@ export const Small: Story = {
 	},
 };
 
-export const labless: Story = {
+export const Labless: Story = {
 	args: {
 		label: '',
 		size: 'medium',
