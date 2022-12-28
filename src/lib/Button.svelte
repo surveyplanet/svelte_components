@@ -22,15 +22,13 @@
 	 * Optional click handler
 	 */
 	const clickHandler = (event: MouseEvent): void => {
-		// console.log('click');
-
 		dispatch(SP_BUTTON_CLICK_EVENT, event);
 	};
 
 	/**
 	 * The button mode, either: 'primary', 'secondary' or 'tertiary'
 	 */
-	export let mode: BUTTON_MODES = BUTTON_MODES.SECONDARY;
+	export let mode: BUTTON_MODES = BUTTON_MODES.PRIMARY;
 
 	/**
 	 * Whether the button is disabled or not
@@ -75,93 +73,66 @@
 		<span class="sp-button--text">{label}</span>
 	{/if}
 	{#if icon && icon.length}
-		<span class="sp-button--icon">
-			<Icon
-				name={icon}
-				size={iconSize}
-				debug="true" />
-		</span>
+		<Icon
+			name={icon}
+			size={iconSize} />
 	{/if}
 </button>
 
 <style lang="scss">
 	@use 'sass:color';
-	$color--primary: #ffe978;
-	$color--secondary: #a185e7;
-	$color--tertiary: #a1fda5;
-	$color--black: #262b35;
-	$height: 34px;
-	$height--small: 28px;
-	$height--large: 44px;
+	@use './node_modules/@surveyplanet/styles/index.scss' as *;
 
-	@keyframes spin {
-		from {
-			transform: rotate(0deg);
-		}
-		to {
-			transform: rotate(360deg);
-		}
-	}
+	@include spin(); // spin animation
 
 	.sp-button {
 		font-family: 'Suisse Intl', 'Helvetica Neue', Helvetica, Arial,
 			sans-serif;
 		font-weight: normal;
 		border: 0;
-		border-radius: 3em;
+		border-radius: 3rem;
 		cursor: pointer;
 		display: inline-block;
-		height: $height;
-		padding: 0 $height - 10px;
+		height: $gutter--half;
+		padding: 0 $gutter--quarter;
 		font-size: 14px;
-		background-color: $color--secondary;
-		color: $color--black;
+		background-color: $color--purple;
+		color: $color--dark;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-
-		& span {
-			display: inline-block;
-		}
-
-		.sp-button--text {
-			& + .sp-button--icon {
-				margin-left: 10px; // this should change depending on the size of the button
-			}
-		}
-
+		column-gap: 0.5rem; // this should change depending on the size of the button
 		&:focus {
 			outline: none;
 			box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 		}
 		&:hover {
-			background-color: $color--black;
+			background-color: $color--dark;
 			color: white;
 		}
-		&.sp-button--primary {
-			color: $color--black;
-			background-color: $color--primary;
+		&.sp-button--secondary {
+			background-color: $color--yellow;
 			&:hover {
-				background-color: $color--black;
+				background-color: $color--dark;
 				color: white;
 			}
 		}
 		&.sp-button--tertiary {
-			background-color: $color--tertiary;
+			background-color: $color--green;
 			&:hover {
-				background-color: $color--black;
+				background-color: $color--dark;
 				color: white;
 			}
 		}
 		&.sp-button--small {
 			font-size: 12px;
-			padding: 0 $height--small - 10px;
-			height: $height--small;
+			padding: 0 $gutter--half;
+			height: $gutter--half;
 		}
 		&.sp-button--large {
 			font-size: 16px;
-			padding: 0 $height--large - 10px;
-			height: $height--large;
+			padding: 0 $gutter--double;
+			height: $gutter--double;
 		}
 		&:disabled {
 			color: gray !important;
@@ -169,7 +140,6 @@
 			cursor: default !important;
 			transition: background-color 25ms 500ms;
 		}
-
 		&.loader {
 			position: relative;
 			transition: none;
@@ -185,7 +155,7 @@
 				top: calc(50% - 9px);
 				left: calc(50% - 8px);
 				border: 2px solid #fff;
-				border-top: 2px solid $color--black;
+				border-top: 2px solid $color--dark;
 				border-radius: 100%;
 				animation: spin 1s linear infinite;
 			}
@@ -196,12 +166,10 @@
 				top: 0;
 				bottom: 0;
 			}
-
 			&:disabled:before,
 			&:disabled:after {
 				display: block; // show loader when disabled
 			}
-
 			&.sp-button--small:before {
 				left: 12px;
 				right: 12px;
@@ -210,7 +178,6 @@
 				left: 30px;
 				right: 30px;
 			}
-
 			&.sp-button--small:after {
 				width: 12px;
 				height: 12px;
@@ -218,44 +185,42 @@
 				left: calc(50% - 6px);
 				border-width: 2px;
 			}
-
 			&.sp-button--large:after {
 				width: 18px;
 				height: 18px;
 				top: calc(50% - 11px);
 				left: calc(50% - 9px);
 			}
-			// primary loader
 			&.sp-button--primary {
-				background-color: $color--primary !important;
+				background-color: $color--yellow !important;
 			}
 			&.sp-button--primary:before {
-				background-color: $color--primary !important;
+				background-color: $color--yellow !important;
 			}
 			&.sp-button--primary:after {
-				border-color: mix(white, $color--primary, 85%);
-				border-top-color: mix(black, $color--primary, 45%);
+				border-color: mix(white, $color--yellow, 85%);
+				border-top-color: mix(black, $color--yellow, 45%);
 			}
 			// secondary loader
 			&.sp-button--secondary {
-				background-color: $color--secondary !important;
+				background-color: $color--purple !important;
 			}
 			&.sp-button--secondary:before {
-				background-color: $color--secondary !important;
+				background-color: $color--purple !important;
 			}
 			&.sp-button--secondary:after {
-				border-color: mix(white, $color--secondary, 85%);
-				border-top-color: mix(black, $color--secondary, 45%);
+				border-color: mix(white, $color--purple, 85%);
+				border-top-color: mix(black, $color--purple, 45%);
 			}
 			&.sp-button--tertiary {
-				background-color: $color--tertiary !important;
+				background-color: $color--green !important;
 			}
 			&.sp-button--tertiary:before {
-				background-color: $color--tertiary !important;
+				background-color: $color--green !important;
 			}
 			&.sp-button--tertiary:after {
-				border-color: mix(white, $color--tertiary, 85%);
-				border-top-color: mix(black, $color--tertiary, 45%);
+				border-color: mix(white, $color--green, 85%);
+				border-top-color: mix(black, $color--green, 45%);
 			}
 		}
 	}

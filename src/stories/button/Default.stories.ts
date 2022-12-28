@@ -23,7 +23,6 @@ type Story = StoryObj<Button>;
 // More on writing stories with args: https://storybook.js.org/docs/7.0/svelte/writing-stories/args
 export const Primary: Story = {
 	args: {
-		mode: 'primary',
 		label: 'Primary button',
 	},
 	render: (args: StoryObj) => {
@@ -55,6 +54,7 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
 	args: {
+		mode: 'secondary',
 		label: 'Secondary button',
 	},
 	render: (args: StoryObj) => {
