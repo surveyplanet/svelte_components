@@ -43,12 +43,9 @@ export const Primary: Story = {
 	play: async (res) => {
 		const canvas = within(res.canvasElement);
 
-		const icon = canvas.getByTestId('sp-icon');
+		const icon = canvas.getByTitle('icon search');
+
+		expect(icon).toBeVisible();
 		expect(icon).toBeTruthy();
-		expect(icon).toHaveAttribute('src', '/assets/icons/search.svg');
-		expect(icon).toHaveAttribute('alt', 'search');
-		expect(icon).toHaveAttribute('width', '24');
-		expect(icon).toHaveAttribute('height', '24');
-		expect(icon).toHaveAttribute('fill', 'white');
 	},
 };

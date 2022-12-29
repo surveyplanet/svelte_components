@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
-
+import { within, userEvent, getByTestId } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
 import Badge from '../../lib/Badge.svelte';
 import Documentation from './documentation.mdx';
 
@@ -36,6 +37,21 @@ export const Primary: Story = {
 			props: args,
 		};
 	},
+	play: async (res) => {
+		const canvas = within(res.canvasElement);
+
+		const badge = canvas.getByText('PRO');
+
+		const style = window.getComputedStyle(badge);
+		const color = style.getPropertyValue('background-color');
+
+		expect(badge).toBeTruthy();
+		expect(badge).toHaveTextContent('PRO');
+		expect(badge).toHaveClass('sp-badge');
+		expect(badge).toHaveClass('sp-badge--primary');
+		expect(badge).toHaveClass('sp-badge--medium');
+		expect(color).toBe('rgb(255, 233, 120)');
+	},
 };
 
 export const Secondary: Story = {
@@ -49,6 +65,21 @@ export const Secondary: Story = {
 			Component: Badge,
 			props: args,
 		};
+	},
+	play: async (res) => {
+		const canvas = within(res.canvasElement);
+
+		const badge = canvas.getByText('PRO');
+
+		const style = window.getComputedStyle(badge);
+		const color = style.getPropertyValue('background-color');
+
+		expect(badge).toBeTruthy();
+		expect(badge).toHaveTextContent('PRO');
+		expect(badge).toHaveClass('sp-badge');
+		expect(badge).toHaveClass('sp-badge--secondary');
+		expect(badge).toHaveClass('sp-badge--medium');
+		expect(color).toBe('rgb(161, 133, 231)');
 	},
 };
 
@@ -64,6 +95,21 @@ export const Success: Story = {
 			props: args,
 		};
 	},
+	play: async (res) => {
+		const canvas = within(res.canvasElement);
+
+		const badge = canvas.getByText('PRO');
+		const style = window.getComputedStyle(badge);
+		const color = style.getPropertyValue('background-color');
+
+		expect(badge).toBeTruthy();
+		expect(badge).toHaveTextContent('PRO');
+		expect(badge).toHaveClass('sp-badge');
+		expect(badge).toHaveClass('sp-badge--success');
+		expect(badge).toHaveClass('sp-badge--medium');
+
+		expect(color).toBe('rgb(161, 253, 165)');
+	},
 };
 
 export const Danger: Story = {
@@ -78,6 +124,21 @@ export const Danger: Story = {
 			props: args,
 		};
 	},
+	play: async (res) => {
+		const canvas = within(res.canvasElement);
+
+		const badge = canvas.getByText('PRO');
+
+		const style = window.getComputedStyle(badge);
+		const color = style.getPropertyValue('background-color');
+
+		expect(badge).toBeTruthy();
+		expect(badge).toHaveTextContent('PRO');
+		expect(badge).toHaveClass('sp-badge');
+		expect(badge).toHaveClass('sp-badge--danger');
+		expect(badge).toHaveClass('sp-badge--small');
+		expect(color).toBe('rgb(255, 138, 138)');
+	},
 };
 
 export const Warning: Story = {
@@ -91,5 +152,22 @@ export const Warning: Story = {
 			Component: Badge,
 			props: args,
 		};
+	},
+
+	play: async (res) => {
+		const canvas = within(res.canvasElement);
+
+		const badge = canvas.getByText('PRO');
+		const style = window.getComputedStyle(badge);
+		const color = style.getPropertyValue('background-color');
+
+		expect(badge).toBeTruthy();
+		expect(badge).toHaveTextContent('PRO');
+		expect(badge).toHaveClass('sp-badge');
+		expect(badge).toHaveClass('sp-badge--warning');
+		expect(badge).toHaveClass('sp-badge--large');
+		expect(color).toBe('rgb(255, 233, 120)');
+		expect(badge).toHaveStyle('font-size: 28px');
+		// expect(badge).toHaveStyle('width: 80px');
 	},
 };
