@@ -40,23 +40,15 @@ export const Primary: Story = {
 			props: args,
 		};
 	},
-	// play: async (res) => {
-	// 	const canvas = within(res.canvasElement);
+	play: async (res) => {
+		const canvas = within(res.canvasElement);
 
-	// 	const btn: HTMLButtonElement = canvas.getByRole('button');
-	// 	const style = window.getComputedStyle(btn);
-	// 	const color = 'rgb(255, 233, 120)';
-
-	// 	const promise = userEvent.click(btn);
-	// 	console.log(promise);
-
-	// 	await promise;
-
-	// 	await expect(btn).toBeVisible();
-
-	// 	await expect(style.backgroundColor).toBe(color);
-	// 	await expect(btn.innerText).toBe('Primary button');
-	// 	await expect(btn).toHaveFocus();
-	// 	await expect(btn.disabled).toBe(false);
-	// },
+		const icon = canvas.getByTestId('sp-icon');
+		expect(icon).toBeTruthy();
+		expect(icon).toHaveAttribute('src', '/assets/icons/search.svg');
+		expect(icon).toHaveAttribute('alt', 'search');
+		expect(icon).toHaveAttribute('width', '24');
+		expect(icon).toHaveAttribute('height', '24');
+		expect(icon).toHaveAttribute('fill', 'white');
+	},
 };
