@@ -14,7 +14,9 @@ export default meta;
 type Story = StoryObj<Toggle>;
 
 export const Default: Story = {
-	args: {},
+	args: {
+		disabled: false,
+	},
 	render: (args: StoryObj) => {
 		return {
 			Component: Toggle,

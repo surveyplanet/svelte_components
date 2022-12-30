@@ -1,0 +1,64 @@
+import {
+	Meta,
+	Canvas,
+	ColorPalette,
+	ColorItem,
+	Description,
+	Story,
+} from '@storybook/addon-docs';
+import Badge from '../../lib/Badge.svelte';
+
+<Meta
+	title="Badge/Documentation"
+	component={Badge}
+/>
+
+# Badge component
+
+## Badge
+
+SurveyPlanet Badge component has 4 distinct presentations. It can be Primary, Secondary, Tertiary or Disabeled.
+
+Badge is a component that is used to trigger an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.
+
+## Usage
+
+```js
+<script>import Badge from 'surveyplanet-svelte-Badge';</script>
+```
+
+## Testing
+
+```bash
+npm run test
+```
+
+Testing is also automatically done upon runnig storybooks. When run, switch to the Interactions tab to see the tests.
+
+```bash
+npm run sb
+```
+
+## Badge states
+
+There are 4 states of the Badge:
+
+-   **Primary**
+-   **Secondary**
+-   **Tertiary**
+-   **Disabled**
+
+### Choosing the Badge style
+
+The Badge style is determined by the class that is applied to the Badge. The class can be one of the following:
+
+-   `sp-Badge--primary`
+-   `sp-Badge--secondary`
+-   `sp-Badge--tertiary`
+-   `sp-Badge--disabled`
+
+By adding - `sp-Badge-large` to the Badge, the Badge will be large
+
+### Primary
+
+<Story id="badge-default--primary" />

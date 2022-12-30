@@ -86,10 +86,11 @@
 
 <style lang="scss">
 	@use 'sass:color';
-	$color--primary: #ffe978;
-	$color--secondary: #a185e7;
-	$color--tertiary: #a1fda5;
-	$color--black: #262b35;
+	@use '@surveyplanet/styles' as *;
+	// $color--yellow: #ffe978;
+	// $color--purple: #a185e7;
+	// $color--green: #a1fda5;
+	// $color--dark: #262b35;
 	$height: 34px;
 	$height--small: 28px;
 	$height--large: 44px;
@@ -114,11 +115,13 @@
 		height: $height;
 		padding: 0 $height - 10px;
 		font-size: 14px;
-		background-color: $color--secondary;
-		color: $color--black;
+		background-color: $color--purple;
+		color: $color--dark;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		font-family: $font-family--default;
+		font: $font--xsmall-bold;
 
 		& span {
 			display: inline-block;
@@ -135,21 +138,21 @@
 			box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 		}
 		&:hover {
-			background-color: $color--black;
+			background-color: $color--dark;
 			color: white;
 		}
 		&.sp-button--primary {
-			color: $color--black;
-			background-color: $color--primary;
+			color: $color--dark;
+			background-color: $color--yellow;
 			&:hover {
-				background-color: $color--black;
+				background-color: $color--dark;
 				color: white;
 			}
 		}
 		&.sp-button--tertiary {
-			background-color: $color--tertiary;
+			background-color: $color--green;
 			&:hover {
-				background-color: $color--black;
+				background-color: $color--dark;
 				color: white;
 			}
 		}
@@ -185,7 +188,7 @@
 				top: calc(50% - 9px);
 				left: calc(50% - 8px);
 				border: 2px solid #fff;
-				border-top: 2px solid $color--black;
+				border-top: 2px solid $color--dark;
 				border-radius: 100%;
 				animation: spin 1s linear infinite;
 			}
@@ -227,35 +230,35 @@
 			}
 			// primary loader
 			&.sp-button--primary {
-				background-color: $color--primary !important;
+				background-color: $color--yellow !important;
 			}
 			&.sp-button--primary:before {
-				background-color: $color--primary !important;
+				background-color: $color--yellow !important;
 			}
 			&.sp-button--primary:after {
-				border-color: mix(white, $color--primary, 85%);
-				border-top-color: mix(black, $color--primary, 45%);
+				border-color: mix(white, $color--yellow, 85%);
+				border-top-color: mix(black, $color--yellow, 45%);
 			}
 			// secondary loader
 			&.sp-button--secondary {
-				background-color: $color--secondary !important;
+				background-color: $color--purple !important;
 			}
 			&.sp-button--secondary:before {
-				background-color: $color--secondary !important;
+				background-color: $color--purple !important;
 			}
 			&.sp-button--secondary:after {
-				border-color: mix(white, $color--secondary, 85%);
-				border-top-color: mix(black, $color--secondary, 45%);
+				border-color: mix(white, $color--purple, 85%);
+				border-top-color: mix(black, $color--purple, 45%);
 			}
 			&.sp-button--tertiary {
-				background-color: $color--tertiary !important;
+				background-color: $color--green !important;
 			}
 			&.sp-button--tertiary:before {
-				background-color: $color--tertiary !important;
+				background-color: $color--green !important;
 			}
 			&.sp-button--tertiary:after {
-				border-color: mix(white, $color--tertiary, 85%);
-				border-top-color: mix(black, $color--tertiary, 45%);
+				border-color: mix(white, $color--green, 85%);
+				border-top-color: mix(black, $color--green, 45%);
 			}
 		}
 	}
