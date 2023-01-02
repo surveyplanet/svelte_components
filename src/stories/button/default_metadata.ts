@@ -3,9 +3,10 @@ export default {
 	clickHandler: { action: 'SurveyPlanetButtonClickEvent' },
 	disabled: { control: 'boolean' },
 	loader: { control: 'boolean' },
+	round: { control: 'boolean' },
 	mode: {
 		control: { type: 'select' },
-		options: ['primary', 'secondary', 'tertiary'],
+		options: ['primary', 'secondary', 'tertiary', 'quaternary', 'dark'],
 	},
 	size: {
 		control: { type: 'select' },

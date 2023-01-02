@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/svelte';
 import Icon from '../../lib/Icon.svelte';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import Documentation from './documentation.mdx';
+import Documentation from './icon.mdx';
 
 // More on how to set up stories at: https://storybook.js.org/docs/svelte/writing-stories/introduction#default-export
 const meta: Meta<Icon> = {

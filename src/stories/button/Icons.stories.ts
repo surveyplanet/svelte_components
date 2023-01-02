@@ -19,7 +19,7 @@ export const Large: Story = {
 	args: {
 		label: 'Large',
 		size: 'large',
-		icon: 'search',
+		icon: 'surveys',
 	},
 	render: (args: StoryObj) => {
 		return {
@@ -46,7 +46,7 @@ export const Large: Story = {
 export const Medium: Story = {
 	args: {
 		label: 'Medium',
-		icon: 'search',
+		icon: 'surveys',
 	},
 	render: (args: StoryObj) => {
 		return {
@@ -74,7 +74,7 @@ export const Small: Story = {
 	args: {
 		label: 'Small',
 		size: 'small',
-		icon: 'search',
+		icon: 'surveys',
 	},
 	render: (args) => {
 		return {

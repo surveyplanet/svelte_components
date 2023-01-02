@@ -2,16 +2,18 @@
 	import { createEventDispatcher } from 'svelte';
 	import Icon from './Icon.svelte';
 
-	enum BUTTON_SIZES {
+	const enum BUTTON_SIZES {
 		SMALL = 'small',
 		MEDIUM = 'medium',
 		LARGE = 'large',
 	}
 
-	enum BUTTON_MODES {
+	const enum BUTTON_MODES {
 		PRIMARY = 'primary',
 		SECONDARY = 'secondary',
 		TERTIARY = 'tertiary',
+		QUATERNARY = 'quaternary',
+		DARK = 'dark',
 	}
 
 	const SP_BUTTON_CLICK_EVENT: string = 'SurveyPlanetButtonClickEvent';
@@ -41,6 +43,11 @@
 	export let loader: boolean = false;
 
 	/**
+	 * Whether the left and right edges should be rounded off
+	 */
+	export let round: boolean = false;
+
+	/**
 	 * The button size, either: 'small', 'medium' or 'large'
 	 */
 	export let size: BUTTON_SIZES = BUTTON_SIZES.MEDIUM;
@@ -67,6 +74,7 @@
 	type="button"
 	class="sp-button sp-button--{mode} sp-button--{size}"
 	class:loader
+	class:round
 	{disabled}
 	on:click={clickHandler}>
 	{#if label && label.length}
@@ -82,74 +90,85 @@
 <style lang="scss">
 	@use 'sass:color';
 	@use './node_modules/@surveyplanet/styles/index.scss' as *;
-
 	@include spin(); // spin animation
 
 	.sp-button {
-		font-family: 'Suisse Intl', 'Helvetica Neue', Helvetica, Arial,
-			sans-serif;
-		font-weight: normal;
-		border: 0;
-		border-radius: 3rem;
 		cursor: pointer;
-		display: inline-block;
-		height: $gutter--half;
-		padding: 0 $gutter--quarter;
-		font-size: 14px;
-		background-color: $color--purple;
-		color: $color--dark;
-		display: flex;
+		display: inline-flex;
 		justify-content: center;
 		align-items: center;
 		column-gap: 0.5rem; // this should change depending on the size of the button
+		height: $gutter;
+		padding: 0 $gutter--half;
+		border: 0;
+		border-radius: 5px;
+		font: $font--default;
+		background-color: $color--purple;
+		color: $color--dark;
 		&:focus {
 			outline: none;
-			box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+			box-shadow: inset 0 0 3px $color--purple-lightest;
 		}
 		&:hover {
-			background-color: $color--dark;
-			color: white;
+			background-color: $color--purple-dark;
 		}
+		&.round {
+			border-radius: $gutter--half;
+		}
+
 		&.sp-button--secondary {
 			background-color: $color--yellow;
 			&:hover {
-				background-color: $color--dark;
-				color: white;
+				background-color: $color--yellow-dark;
 			}
 		}
 		&.sp-button--tertiary {
 			background-color: $color--green;
 			&:hover {
-				background-color: $color--dark;
-				color: white;
+				background-color: $color--green-dark;
+			}
+		}
+		&.sp-button--quaternary {
+			background-color: $color--blue;
+			&:hover {
+				background-color: $color--blue-dark;
+			}
+		}
+		&.sp-button--dark {
+			background-color: $color--dark;
+			color: $color--light;
+			&:hover {
+				background-color: $color--light;
+				color: $color--dark;
 			}
 		}
 		&.sp-button--small {
-			font-size: 12px;
+			font-size: $font-size--12;
 			padding: 0 $gutter--half;
-			height: $gutter--half;
+			height: $gutter - 0.5rem;
 		}
 		&.sp-button--large {
-			font-size: 16px;
-			padding: 0 $gutter--double;
-			height: $gutter--double;
+			font-size: $font-size--16;
+			padding: 0 $gutter;
+			height: $gutter + 1rem;
 		}
-		&:disabled {
-			color: gray !important;
-			background-color: lightgray !important;
+		&:disabled:not(.loader) {
+			color: $color--purple-light;
+			background-color: $color--purple-lighter;
 			cursor: default !important;
-			transition: background-color 25ms 500ms;
 		}
 		&.loader {
 			position: relative;
 			transition: none;
-			&:before,
+			.sp-button--text,
+			:global(.sp-icon) {
+				visibility: hidden;
+				opacity: 0;
+			}
 			&:after {
 				content: '';
 				position: absolute;
 				display: none; // hide loader when not disabled
-			}
-			&:after {
 				width: 14px;
 				height: 14px;
 				top: calc(50% - 9px);
@@ -159,24 +178,11 @@
 				border-radius: 100%;
 				animation: spin 1s linear infinite;
 			}
-			&:before {
-				background-color: rgba(255, 166, 0, 0.5);
-				left: 18px;
-				right: 18px;
-				top: 0;
-				bottom: 0;
-			}
-			&:disabled:before,
-			&:disabled:after {
-				display: block; // show loader when disabled
-			}
-			&.sp-button--small:before {
-				left: 12px;
-				right: 12px;
-			}
-			&.sp-button--large:before {
-				left: 30px;
-				right: 30px;
+			&:disabled {
+				cursor: default !important;
+				&:after {
+					display: block; // show loader when disabled
+				}
 			}
 			&.sp-button--small:after {
 				width: 12px;
@@ -190,37 +196,6 @@
 				height: 18px;
 				top: calc(50% - 11px);
 				left: calc(50% - 9px);
-			}
-			&.sp-button--primary {
-				background-color: $color--yellow !important;
-			}
-			&.sp-button--primary:before {
-				background-color: $color--yellow !important;
-			}
-			&.sp-button--primary:after {
-				border-color: mix(white, $color--yellow, 85%);
-				border-top-color: mix(black, $color--yellow, 45%);
-			}
-			// secondary loader
-			&.sp-button--secondary {
-				background-color: $color--purple !important;
-			}
-			&.sp-button--secondary:before {
-				background-color: $color--purple !important;
-			}
-			&.sp-button--secondary:after {
-				border-color: mix(white, $color--purple, 85%);
-				border-top-color: mix(black, $color--purple, 45%);
-			}
-			&.sp-button--tertiary {
-				background-color: $color--green !important;
-			}
-			&.sp-button--tertiary:before {
-				background-color: $color--green !important;
-			}
-			&.sp-button--tertiary:after {
-				border-color: mix(white, $color--green, 85%);
-				border-top-color: mix(black, $color--green, 45%);
 			}
 		}
 	}

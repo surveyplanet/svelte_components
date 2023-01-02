@@ -3,7 +3,7 @@ import argTypes from './default_metadata';
 import Button from '../../lib/Button.svelte';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import Documentation from './documentation.mdx';
+import Documentation from './button.mdx';
 
 // More on how to set up stories at: https://storybook.js.org/docs/svelte/writing-stories/introduction#default-export
 const meta: Meta<Button> = {
@@ -23,7 +23,7 @@ type Story = StoryObj<Button>;
 // More on writing stories with args: https://storybook.js.org/docs/7.0/svelte/writing-stories/args
 export const Primary: Story = {
 	args: {
-		label: 'Primary button',
+		label: 'Button',
 	},
 	render: (args: StoryObj) => {
 		return {
@@ -36,7 +36,7 @@ export const Primary: Story = {
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
-		const color = 'rgb(255, 233, 120)';
+		const color = 'rgb(181, 152, 255)';
 
 		const promise = userEvent.click(btn);
 		console.log(promise);
@@ -46,7 +46,7 @@ export const Primary: Story = {
 		await expect(btn).toBeVisible();
 
 		await expect(style.backgroundColor).toBe(color);
-		await expect(btn.innerText).toBe('Primary button');
+		await expect(btn.innerText).toBe('Button');
 		await expect(btn).toHaveFocus();
 		await expect(btn.disabled).toBe(false);
 	},
