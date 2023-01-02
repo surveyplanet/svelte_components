@@ -1,29 +1,9 @@
-@use '@surveyplanet/styles/index.scss' as *;
-
-// @font-face {
-// 	font-family: 'Suisse Mono';
-// 	src: url('@surveyplanet/styles/src/fonts/suisse/mono/regular.woff2')
-// 		format('woff2');
-// }
+@use '@surveyplanet/styles' as *;
 
 @include load-suisse-font(); /* Suisse Intl */
 @include load-suisse-font(intl, bold); /* Suisse Intl (bold) */
-@include load-suisse-font(works); /* Suisse Works (serif) */
 @include load-suisse-font(mono); /* Suisse Mono */
-
-:root {
-	font-family: 'Suisse Intl', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font: $font--default;
-}
-
-html {
-	/* 62.5% of 16px browser font size is 10px */
-	font-size: $font-percentage;
-}
-
-h1 {
-	font-family: 'Suisse Intl', serif !important;
-}
+@include load-suisse-font(works); /* Suisse Works (serif) */
 
 #example {
 	padding: 50px 0 50px 20px;

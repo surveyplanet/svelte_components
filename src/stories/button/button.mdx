@@ -1,0 +1,46 @@
+import {
+	Meta,
+	Canvas,
+	ColorPalette,
+	ColorItem,
+	Description,
+	Story,
+} from '@storybook/addon-docs';
+
+import Button from '../../lib/Button.svelte';
+
+<Meta
+	title="Button/Documentation"
+	component={Button}
+/>
+
+# Button component
+
+<div id="example">
+	<p>
+		<Story id="button-default--primary" />
+	</p>
+</div>
+
+## Usage
+
+```ts
+<script>
+	import {Button} from '@surveyplanet/svelte-components';
+	const props = {
+		label: 'Click Me!',
+	}
+</script>
+
+<Button {...props}></Button>
+```
+
+## Options
+
+| Name           | Type    | Description                                                     |
+| -------------- | ------- | --------------------------------------------------------------- |
+| label          | string  | Button label.                                                   |
+| disabled=false | boolean | Whether the button is disabled or not.                          |
+| loader=false   | boolean | Whether the button should display a loader when it is disabled. |
+| size='medium'  | string  | The size of the button. Either: 'small', 'medium', 'large'.     |
+| icon           | string  | The name of the icon to use. See Iconograpy.mdx                 |

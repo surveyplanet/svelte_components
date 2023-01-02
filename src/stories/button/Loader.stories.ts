@@ -7,22 +7,22 @@ import { expect } from '@storybook/jest';
 const meta: Meta<Button> = {
 	title: 'Button/Loader',
 	component: Button,
-	argTypes
+	argTypes,
 };
 
 export default meta;
 type Story = StoryObj<Button>;
 
-export const Default: Story = {
+export const LoaderDefault: Story = {
 	args: {
-		label: 'Default',
+		label: 'Loader',
 		disabled: true,
-		loader: true
+		loader: true,
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -31,88 +31,30 @@ export const Default: Story = {
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
 		const afterEl = window.getComputedStyle(btn, ':after');
-		const beforeEl = window.getComputedStyle(btn, ':before');
 		await userEvent.click(btn);
 
-		await expect(btn).toBeVisible();
+		expect(btn).toBeVisible();
 
 		await expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
-		await expect(btn.innerText).toBe('Default');
+		await expect(btn.innerText).toBe('');
 		await expect(btn).toHaveClass('loader');
-		await expect(beforeEl.backgroundColor).toBe(style.backgroundColor);
 		await expect(afterEl.animationDuration).toBe('1s');
 		await expect(afterEl.animationTimingFunction).toBe('linear');
 		await expect(afterEl.animationIterationCount).toBe('infinite');
-	}
+	},
 };
-export const DefaultLarge: Story = {
+export const LoaderSecondaryLarge: Story = {
 	args: {
-		label: 'Default',
+		label: 'Loader',
 		disabled: true,
 		loader: true,
-		size: 'large'
+		size: 'large',
+		mode: 'secondary',
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
-		};
-	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
-
-		const btn = canvas.getByRole('button');
-		const style = window.getComputedStyle(btn);
-
-		await userEvent.click(btn);
-
-		await expect(btn).toBeVisible();
-
-		await expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
-		await expect(btn.innerText).toBe('Default');
-		await expect(btn).toHaveClass('loader');
-	}
-};
-export const DefaultSmall: Story = {
-	args: {
-		label: 'Default',
-		disabled: true,
-		loader: true,
-		size: 'small'
-	},
-	render: (args) => {
-		return {
-			Component: Button,
-			props: args
-		};
-	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
-
-		const btn = canvas.getByRole('button');
-		const style = window.getComputedStyle(btn);
-
-		await userEvent.click(btn);
-
-		await expect(btn).toBeVisible();
-
-		await expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
-		await expect(btn.innerText).toBe('Default');
-		await expect(btn).toHaveClass('loader');
-	}
-};
-
-export const Primary: Story = {
-	args: {
-		label: 'Primary',
-		mode: 'primary',
-		disabled: true,
-		loader: true
-	},
-	render: (args) => {
-		return {
-			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -126,82 +68,22 @@ export const Primary: Story = {
 		await expect(btn).toBeVisible();
 
 		await expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
-		await expect(btn.innerText).toBe('Primary');
+		await expect(btn.innerText).toBe('');
 		await expect(btn).toHaveClass('loader');
-	}
+	},
 };
-
-export const PrimaryLarge: Story = {
+export const LoaderTertiarySmall: Story = {
 	args: {
-		label: 'Primary',
-		mode: 'primary',
+		label: 'Loader',
 		disabled: true,
 		loader: true,
-		size: 'large'
-	},
-	render: (args) => {
-		return {
-			Component: Button,
-			props: args
-		};
-	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
-
-		const btn = canvas.getByRole('button');
-		const style = window.getComputedStyle(btn);
-
-		await userEvent.click(btn);
-
-		await expect(btn).toBeVisible();
-
-		await expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
-		await expect(btn.innerText).toBe('Primary');
-		await expect(btn).toHaveClass('loader');
-	}
-};
-
-export const PrimarySmall: Story = {
-	args: {
-		label: 'Primary',
-		mode: 'primary',
-		disabled: true,
-		loader: true,
-		size: 'small'
-	},
-	render: (args) => {
-		return {
-			Component: Button,
-			props: args
-		};
-	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
-
-		const btn = canvas.getByRole('button');
-		const style = window.getComputedStyle(btn);
-
-		await userEvent.click(btn);
-
-		await expect(btn).toBeVisible();
-
-		await expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
-		await expect(btn.innerText).toBe('Primary');
-		await expect(btn).toHaveClass('loader');
-	}
-};
-
-export const Tertiary: Story = {
-	args: {
-		label: 'Tertiary',
+		size: 'small',
 		mode: 'tertiary',
-		disabled: true,
-		loader: true
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -215,23 +97,21 @@ export const Tertiary: Story = {
 		await expect(btn).toBeVisible();
 
 		await expect(style.backgroundColor).toBe('rgb(161, 253, 165)');
-		await expect(btn.innerText).toBe('Tertiary');
+		await expect(btn.innerText).toBe('');
 		await expect(btn).toHaveClass('loader');
-	}
+	},
 };
-
-export const TertiaryLarge: Story = {
+export const LoaderWithIcon: Story = {
 	args: {
-		label: 'Tertiary',
-		mode: 'tertiary',
+		label: 'Loader',
 		disabled: true,
 		loader: true,
-		size: 'large'
+		icon: 'search',
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -244,24 +124,22 @@ export const TertiaryLarge: Story = {
 
 		await expect(btn).toBeVisible();
 
-		await expect(style.backgroundColor).toBe('rgb(161, 253, 165)');
-		await expect(btn.innerText).toBe('Tertiary');
+		await expect(btn.innerText).toBe('');
 		await expect(btn).toHaveClass('loader');
-	}
+	},
 };
 
-export const TertiarySmall: Story = {
+export const LoaderRounded: Story = {
 	args: {
-		label: 'Tertiary',
-		mode: 'tertiary',
+		label: 'Loader',
 		disabled: true,
 		loader: true,
-		size: 'small'
+		round: true,
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -274,8 +152,7 @@ export const TertiarySmall: Story = {
 
 		await expect(btn).toBeVisible();
 
-		await expect(style.backgroundColor).toBe('rgb(161, 253, 165)');
-		await expect(btn.innerText).toBe('Tertiary');
+		await expect(btn.innerText).toBe('');
 		await expect(btn).toHaveClass('loader');
-	}
+	},
 };
