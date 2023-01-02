@@ -55,7 +55,7 @@ export const Primary: Story = {
 export const Secondary: Story = {
 	args: {
 		mode: 'secondary',
-		label: 'Secondary button',
+		label: 'Secondary',
 	},
 	render: (args: StoryObj) => {
 		return {
@@ -83,7 +83,35 @@ export const Secondary: Story = {
 export const Tertiary: Story = {
 	args: {
 		mode: 'tertiary',
-		label: 'Tertiary button',
+		label: 'Tertiary',
+	},
+	render: (args) => {
+		return {
+			Component: Button,
+			props: args,
+		};
+	},
+	play: async ({ canvasElement }) => {
+		const canvas = within(canvasElement);
+
+		const btn: HTMLButtonElement = canvas.getByRole('button');
+		const style = window.getComputedStyle(btn);
+		const color = 'rgb(161, 253, 165)';
+		await userEvent.click(btn);
+
+		await expect(btn).toBeVisible();
+
+		await expect(style.backgroundColor).toBe(color);
+		await expect(btn.innerText).toBe('Tertiary button');
+		await expect(btn).toHaveFocus();
+		await expect(btn.disabled).toBe(false);
+	},
+};
+
+export const Rounded: Story = {
+	args: {
+		label: 'Rounded',
+		round: true,
 	},
 	render: (args) => {
 		return {

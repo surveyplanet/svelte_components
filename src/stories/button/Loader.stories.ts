@@ -128,3 +128,31 @@ export const LoaderWithIcon: Story = {
 		await expect(btn).toHaveClass('loader');
 	},
 };
+
+export const LoaderRounded: Story = {
+	args: {
+		label: 'Loader',
+		disabled: true,
+		loader: true,
+		round: true,
+	},
+	render: (args) => {
+		return {
+			Component: Button,
+			props: args,
+		};
+	},
+	play: async ({ canvasElement }) => {
+		const canvas = within(canvasElement);
+
+		const btn = canvas.getByRole('button');
+		const style = window.getComputedStyle(btn);
+
+		await userEvent.click(btn);
+
+		await expect(btn).toBeVisible();
+
+		await expect(btn.innerText).toBe('');
+		await expect(btn).toHaveClass('loader');
+	},
+};

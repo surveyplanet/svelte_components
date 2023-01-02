@@ -17,7 +17,7 @@ import Icon from '../../lib/Icon.svelte';
 # Icon component
 
 <div id="example">
-	<Story id="icon-default--primary" />
+	<Story id="icon-default--basic" />
 </div>
 
 ## Usage
@@ -27,8 +27,8 @@ import Icon from '../../lib/Icon.svelte';
 	import {Icon} from '@surveyplanet/svelte-components';
 	const props = {
 		color: '#FF0000',
-		size: 24,
-		name: 'x',
+		size: 512,
+		name: 'search',
 	}
 </script>
 
@@ -37,8 +37,9 @@ import Icon from '../../lib/Icon.svelte';
 
 ## Options
 
-| Name  | Type   | Description |
-| ----- | ------ | ----------- |
-| name  | string | Icon name   |
-| color | string | Icon color  |
-| size  | string | Icon size   |
+| Name    | Type    | Description                                                                                                      |
+| ------- | ------- | ---------------------------------------------------------------------------------------------------------------- |
+| name='' | string  | The Icon name.                                                                                                   |
+| color   | string  | The Icon color.                                                                                                  |
+| size=24 | string  | The Icon size in pixels. Either: 8, 16, 20, 24, 32, 48, 64, 128, 256 or 512                                      |
+| debug   | boolean | Render a red backround behinde the icon to reveal its true edges. This can help with aliging the icon correctly. |
