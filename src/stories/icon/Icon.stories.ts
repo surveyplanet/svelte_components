@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 
 import Icon from '../../lib/Icon.svelte';
-import { within, userEvent } from '@storybook/testing-library';
+import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import Documentation from './documentation.mdx';
 

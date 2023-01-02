@@ -87,10 +87,6 @@
 <style lang="scss">
 	@use 'sass:color';
 	@use '@surveyplanet/styles' as *;
-	// $color--yellow: #ffe978;
-	// $color--purple: #a185e7;
-	// $color--green: #a1fda5;
-	// $color--dark: #262b35;
 	$height: 34px;
 	$height--small: 28px;
 	$height--large: 44px;

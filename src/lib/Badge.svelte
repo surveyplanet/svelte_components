@@ -28,8 +28,7 @@
 		white-space: nowrap;
 		vertical-align: baseline;
 		border-radius: $gutter--sixteenth;
-		font-family: $font-family--default;
-		// font: $font--xsmall-bold; this breaks the badge
+		font: $font--xsmall-bold;
 	}
 
 	.sp-badge {

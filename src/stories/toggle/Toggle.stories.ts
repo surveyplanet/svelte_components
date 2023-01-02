@@ -1,30 +1,36 @@
-// import type { PlayFunctionContext } from '@storybook/types';
 import type { Meta, StoryObj } from '@storybook/svelte';
 import Toggle from '../../lib/Toggle.svelte';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
+import Documentation from './documentation.mdx';
 
-// More on how to set up stories at: https://storybook.js.org/docs/svelte/writing-stories/introduction#default-export
 const meta: Meta<Toggle> = {
 	title: 'Toggle/Default',
 	component: Toggle,
+	argTypes: {
+		disabled: { control: 'boolean' },
+		checked: { control: 'boolean' },
+	},
+	parameters: {
+		docs: {
+			page: Documentation,
+		},
+	},
 };
 
 export default meta;
 type Story = StoryObj<Toggle>;
 
 export const Default: Story = {
-	args: {
-		disabled: false,
-	},
+	args: {},
 	render: (args: StoryObj) => {
 		return {
 			Component: Toggle,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }: PlayFunctionContext) => {
-		const canvas = within(canvasElement);
+	play: async (res) => {
+		const canvas = within(res.canvasElement);
 
 		const toggle: HTMLInputElement = canvas.getByRole('checkbox');
 		const style = window.getComputedStyle(toggle);
@@ -49,8 +55,8 @@ export const Disabled: Story = {
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }: PlayFunctionContext) => {
-		const canvas = within(canvasElement);
+	play: async (res) => {
+		const canvas = within(res.canvasElement);
 
 		const toggle: HTMLInputElement = canvas.getByRole('checkbox');
 		const style = window.getComputedStyle(toggle);

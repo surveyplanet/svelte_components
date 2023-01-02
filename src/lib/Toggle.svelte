@@ -5,43 +5,25 @@
 
 	const dispatch = createEventDispatcher();
 
-	const clickHandler = (event: MouseEvent): void => {
+	const changeHandler = (event: Event): void => {
+		if (disabled) {
+			return event.preventDefault();
+		}
 		dispatch(SP_TOGGLE_CLICK_EVENT, event);
-		switchChecked();
 	};
 
 	export let checked: boolean = false;
 
 	export let disabled: boolean = false;
-
-	const toggleSwitch = <HTMLButtonElement>(
-		document.querySelector('.sp-toggle--input')
-	);
-
-	function switchChecked(): void {
-		if (checked) {
-			toggleSwitch.classList.add('sp-toggle--input-checked');
-		} else {
-			toggleSwitch.classList.remove('sp-toggle--input-checked');
-		}
-	}
 </script>
 
 <div class="sp-toggle">
-	{#if disabled}
-		<input
-			type="checkbox"
-			class="sp-toggle--input"
-			bind:checked
-			disabled
-			on:click={clickHandler} />
-	{:else}
-		<input
-			type="checkbox"
-			class="sp-toggle--input"
-			bind:checked
-			on:click={clickHandler} />
-	{/if}
+	<input
+		type="checkbox"
+		class="sp-toggle--input"
+		bind:checked
+		{disabled}
+		on:change={changeHandler} />
 
 	<span class="sp-toggle--slider" />
 </div>

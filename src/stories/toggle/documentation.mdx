@@ -1,0 +1,44 @@
+import {
+	Meta,
+	Canvas,
+	ColorPalette,
+	ColorItem,
+	Description,
+	Story,
+} from '@storybook/addon-docs';
+
+import Toggle from '../../lib/Toggle.svelte';
+
+<Meta
+	title="Toggle/Documentation"
+	component={Toggle}
+/>
+
+# Toggle component
+
+<div id="example">
+	<Story id="toggle-default--default" />
+</div>
+
+## Usage
+
+```ts
+<script>
+	import {Toggle} from '@surveyplanet/svelte-components';
+	const props = {
+		color: '#FF0000',
+		size: 24,
+		name: 'x',
+	}
+</script>
+
+<Toggle {...props}></Toggle>
+```
+
+## Options
+
+| Name  | Type   | Description  |
+| ----- | ------ | ------------ |
+| name  | string | Toggle name  |
+| color | string | Toggle color |
+| size  | string | Toggle size  |
