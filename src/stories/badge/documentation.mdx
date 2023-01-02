@@ -1,0 +1,42 @@
+import {
+	Meta,
+	Canvas,
+	ColorPalette,
+	ColorItem,
+	Description,
+	Story,
+} from '@storybook/addon-docs';
+
+import Badge from '../../lib/Badge.svelte';
+
+<Meta
+	title="Badge/Documentation"
+	component={Badge}
+/>
+
+# Badge component
+
+<div id="example">
+	<Story id="badge-default--primary" />
+</div>
+
+## Usage
+
+```ts
+<script>
+	import {Badge} from '@surveyplanet/svelte-components';
+	const args = {
+		label: 'Pro',
+		color: 'primary',
+	};
+</script>
+
+```
+
+## Options
+
+| Name  | Type   | Description |
+| ----- | ------ | ----------- |
+| name  | string | Badge name  |
+| color | string | Badge color |
+| size  | string | Badge size  |

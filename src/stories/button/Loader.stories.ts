@@ -49,7 +49,63 @@ export const LoaderSecondaryLarge: Story = {
 		disabled: true,
 		loader: true,
 		size: 'large',
-		mode: 'secondary',
+	},
+	render: (args) => {
+		return {
+			Component: Button,
+			props: args,
+		};
+	},
+	play: async ({ canvasElement }) => {
+		const canvas = within(canvasElement);
+
+		const btn = canvas.getByRole('button');
+		const style = window.getComputedStyle(btn);
+
+		await userEvent.click(btn);
+
+		await expect(btn).toBeVisible();
+
+		await expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
+		await expect(btn.innerText).toBe('Default');
+		await expect(btn).toHaveClass('loader');
+	},
+};
+export const DefaultSmall: Story = {
+	args: {
+		label: 'Default',
+		disabled: true,
+		loader: true,
+		size: 'small',
+	},
+	render: (args) => {
+		return {
+			Component: Button,
+			props: args,
+		};
+	},
+	play: async ({ canvasElement }) => {
+		const canvas = within(canvasElement);
+
+		const btn = canvas.getByRole('button');
+		const style = window.getComputedStyle(btn);
+
+		await userEvent.click(btn);
+
+		await expect(btn).toBeVisible();
+
+		await expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
+		await expect(btn.innerText).toBe('Default');
+		await expect(btn).toHaveClass('loader');
+	},
+};
+
+export const Primary: Story = {
+	args: {
+		label: 'Primary',
+		mode: 'primary',
+		disabled: true,
+		loader: true,
 	},
 	render: (args) => {
 		return {

@@ -30,7 +30,7 @@
 	/**
 	 * The button mode, either: 'primary', 'secondary' or 'tertiary'
 	 */
-	export let mode: BUTTON_MODES = BUTTON_MODES.PRIMARY;
+	export let mode: BUTTON_MODES | string = BUTTON_MODES.SECONDARY;
 
 	/**
 	 * Whether the button is disabled or not
@@ -50,7 +50,7 @@
 	/**
 	 * The button size, either: 'small', 'medium' or 'large'
 	 */
-	export let size: BUTTON_SIZES = BUTTON_SIZES.MEDIUM;
+	export let size: BUTTON_SIZES | string = BUTTON_SIZES.MEDIUM;
 
 	/**
 	 * The button label

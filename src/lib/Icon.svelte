@@ -99,6 +99,7 @@
 	class="sp-icon sp-icon--{name}"
 	fill="none"
 	style={debug ? 'background-color: red;' : ''}>
+	<title>{'icon ' + name}</title>
 	<g clip-path="url(#clip-{name})">
 		<path
 			x="0"
