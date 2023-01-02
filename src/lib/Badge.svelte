@@ -9,7 +9,7 @@
 		DANGER = 'danger',
 	}
 
-	export let color: COLORS = COLORS.PRIMARY;
+	export let color: COLORS | string = COLORS.PRIMARY;
 </script>
 
 <div>

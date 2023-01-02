@@ -20,7 +20,7 @@ export const Large: Story = {
 		label: 'Large',
 		size: 'large',
 	},
-	render: (args: StoryObj) => {
+	render: (args) => {
 		return {
 			Component: Button,
 			props: args,
@@ -46,7 +46,7 @@ export const Medium: Story = {
 	args: {
 		label: 'Medium',
 	},
-	render: (args: StoryObj) => {
+	render: (args) => {
 		return {
 			Component: Button,
 			props: args,

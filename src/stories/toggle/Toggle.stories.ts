@@ -23,7 +23,7 @@ type Story = StoryObj<Toggle>;
 
 export const Default: Story = {
 	args: {},
-	render: (args: StoryObj) => {
+	render: (args) => {
 		return {
 			Component: Toggle,
 			props: args,
@@ -49,7 +49,7 @@ export const Disabled: Story = {
 	args: {
 		disabled: true,
 	},
-	render: (args: StoryObj) => {
+	render: (args) => {
 		return {
 			Component: Toggle,
 			props: args,

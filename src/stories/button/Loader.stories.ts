@@ -7,7 +7,7 @@ import { expect } from '@storybook/jest';
 const meta: Meta<Button> = {
 	title: 'Button/Loader',
 	component: Button,
-	argTypes
+	argTypes,
 };
 
 export default meta;
@@ -17,12 +17,12 @@ export const Default: Story = {
 	args: {
 		label: 'Default',
 		disabled: true,
-		loader: true
+		loader: true,
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -43,19 +43,19 @@ export const Default: Story = {
 		await expect(afterEl.animationDuration).toBe('1s');
 		await expect(afterEl.animationTimingFunction).toBe('linear');
 		await expect(afterEl.animationIterationCount).toBe('infinite');
-	}
+	},
 };
 export const DefaultLarge: Story = {
 	args: {
 		label: 'Default',
 		disabled: true,
 		loader: true,
-		size: 'large'
+		size: 'large',
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -71,19 +71,19 @@ export const DefaultLarge: Story = {
 		await expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		await expect(btn.innerText).toBe('Default');
 		await expect(btn).toHaveClass('loader');
-	}
+	},
 };
 export const DefaultSmall: Story = {
 	args: {
 		label: 'Default',
 		disabled: true,
 		loader: true,
-		size: 'small'
+		size: 'small',
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -99,7 +99,7 @@ export const DefaultSmall: Story = {
 		await expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		await expect(btn.innerText).toBe('Default');
 		await expect(btn).toHaveClass('loader');
-	}
+	},
 };
 
 export const Primary: Story = {
@@ -107,12 +107,12 @@ export const Primary: Story = {
 		label: 'Primary',
 		mode: 'primary',
 		disabled: true,
-		loader: true
+		loader: true,
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -128,7 +128,7 @@ export const Primary: Story = {
 		await expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
 		await expect(btn.innerText).toBe('Primary');
 		await expect(btn).toHaveClass('loader');
-	}
+	},
 };
 
 export const PrimaryLarge: Story = {
@@ -137,12 +137,12 @@ export const PrimaryLarge: Story = {
 		mode: 'primary',
 		disabled: true,
 		loader: true,
-		size: 'large'
+		size: 'large',
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -158,7 +158,7 @@ export const PrimaryLarge: Story = {
 		await expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
 		await expect(btn.innerText).toBe('Primary');
 		await expect(btn).toHaveClass('loader');
-	}
+	},
 };
 
 export const PrimarySmall: Story = {
@@ -167,12 +167,12 @@ export const PrimarySmall: Story = {
 		mode: 'primary',
 		disabled: true,
 		loader: true,
-		size: 'small'
+		size: 'small',
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -188,7 +188,7 @@ export const PrimarySmall: Story = {
 		await expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
 		await expect(btn.innerText).toBe('Primary');
 		await expect(btn).toHaveClass('loader');
-	}
+	},
 };
 
 export const Tertiary: Story = {
@@ -196,12 +196,12 @@ export const Tertiary: Story = {
 		label: 'Tertiary',
 		mode: 'tertiary',
 		disabled: true,
-		loader: true
+		loader: true,
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -217,7 +217,7 @@ export const Tertiary: Story = {
 		await expect(style.backgroundColor).toBe('rgb(161, 253, 165)');
 		await expect(btn.innerText).toBe('Tertiary');
 		await expect(btn).toHaveClass('loader');
-	}
+	},
 };
 
 export const TertiaryLarge: Story = {
@@ -226,12 +226,12 @@ export const TertiaryLarge: Story = {
 		mode: 'tertiary',
 		disabled: true,
 		loader: true,
-		size: 'large'
+		size: 'large',
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -247,7 +247,7 @@ export const TertiaryLarge: Story = {
 		await expect(style.backgroundColor).toBe('rgb(161, 253, 165)');
 		await expect(btn.innerText).toBe('Tertiary');
 		await expect(btn).toHaveClass('loader');
-	}
+	},
 };
 
 export const TertiarySmall: Story = {
@@ -256,12 +256,12 @@ export const TertiarySmall: Story = {
 		mode: 'tertiary',
 		disabled: true,
 		loader: true,
-		size: 'small'
+		size: 'small',
 	},
 	render: (args) => {
 		return {
 			Component: Button,
-			props: args
+			props: args,
 		};
 	},
 	play: async ({ canvasElement }) => {
@@ -277,5 +277,5 @@ export const TertiarySmall: Story = {
 		await expect(style.backgroundColor).toBe('rgb(161, 253, 165)');
 		await expect(btn.innerText).toBe('Tertiary');
 		await expect(btn).toHaveClass('loader');
-	}
+	},
 };

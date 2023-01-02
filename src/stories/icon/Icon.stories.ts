@@ -34,7 +34,7 @@ export const Primary: Story = {
 		name: 'search',
 		color: 'white',
 	},
-	render: (args: StoryObj) => {
+	render: (args) => {
 		return {
 			Component: Icon,
 			props: args,

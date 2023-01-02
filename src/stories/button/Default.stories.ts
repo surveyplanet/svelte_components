@@ -26,7 +26,7 @@ export const Primary: Story = {
 		mode: 'primary',
 		label: 'Primary button',
 	},
-	render: (args: StoryObj) => {
+	render: (args) => {
 		return {
 			Component: Button,
 			props: args,
@@ -38,7 +38,7 @@ export const Secondary: Story = {
 	args: {
 		label: 'Secondary button',
 	},
-	render: (args: StoryObj) => {
+	render: (args) => {
 		return {
 			Component: Button,
 			props: args,

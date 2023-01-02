@@ -7,12 +7,13 @@ import Documentation from './documentation.mdx';
 // More on how to set up stories at: https://storybook.js.org/docs/svelte/writing-stories/introduction#default-export
 const meta: Meta<Badge> = {
 	title: 'Badge/Default',
-	arg: {
-		label: 'Badge',
-		color: 'primary',
+	argTypes: {
+		label: { control: 'text' },
+		color: {
+			control: { type: 'select' },
+			options: ['primary', 'secondary', 'tertiary', 'success', 'danger'],
+		},
 	},
-
-	component: Badge,
 	parameters: {
 		docs: {
 			page: Documentation,
@@ -29,7 +30,7 @@ export const Primary: Story = {
 		label: 'PRO',
 		color: 'primary',
 	},
-	render: (args: StoryObj) => {
+	render: (args) => {
 		return {
 			Component: Badge,
 			props: args,
@@ -56,7 +57,7 @@ export const Secondary: Story = {
 		label: 'PRO',
 		color: 'secondary',
 	},
-	render: (args: StoryObj) => {
+	render: (args) => {
 		return {
 			Component: Badge,
 			props: args,
@@ -83,7 +84,7 @@ export const Tertiary: Story = {
 		label: 'PRO',
 		color: 'tertiary',
 	},
-	render: (args: StoryObj) => {
+	render: (args) => {
 		return {
 			Component: Badge,
 			props: args,
@@ -109,7 +110,7 @@ export const Danger: Story = {
 		label: 'PRO',
 		color: 'danger',
 	},
-	render: (args: StoryObj) => {
+	render: (args) => {
 		return {
 			Component: Badge,
 			props: args,

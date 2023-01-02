@@ -21,7 +21,7 @@ export const Large: Story = {
 		size: 'large',
 		icon: 'search',
 	},
-	render: (args: StoryObj) => {
+	render: (args) => {
 		return {
 			Component: Button,
 			props: args,
@@ -48,7 +48,7 @@ export const Medium: Story = {
 		label: 'Medium',
 		icon: 'search',
 	},
-	render: (args: StoryObj) => {
+	render: (args) => {
 		return {
 			Component: Button,
 			props: args,
@@ -104,7 +104,7 @@ export const Labless: Story = {
 		size: 'medium',
 		icon: 'search',
 	},
-	render: (args: StoryObj) => {
+	render: (args) => {
 		return {
 			Component: Button,
 			props: args,
