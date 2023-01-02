@@ -23,4 +23,44 @@ export const Default: Story = {
 			props: args,
 		};
 	},
+	play: async ({ canvasElement }: PlayFunctionContext) => {
+		const canvas = within(canvasElement);
+
+		const toggle: HTMLInputElement = canvas.getByRole('checkbox');
+		const style = window.getComputedStyle(toggle);
+		const color = 'rgb(181, 152, 255)';
+		await userEvent.click(toggle);
+
+		await expect(toggle).toBeVisible();
+
+		await expect(style.backgroundColor).toBe(color);
+		await expect(toggle).toHaveFocus();
+		await expect(toggle.disabled).toBe(false);
+	},
+};
+
+export const Disabled: Story = {
+	args: {
+		disabled: true,
+	},
+	render: (args: StoryObj) => {
+		return {
+			Component: Toggle,
+			props: args,
+		};
+	},
+	play: async ({ canvasElement }: PlayFunctionContext) => {
+		const canvas = within(canvasElement);
+
+		const toggle: HTMLInputElement = canvas.getByRole('checkbox');
+		const style = window.getComputedStyle(toggle);
+		const color = 'rgb(181, 152, 255)';
+		await userEvent.click(toggle);
+
+		await expect(toggle).toBeVisible();
+
+		await expect(style.backgroundColor).toBe(color);
+		await expect(toggle).toHaveFocus();
+		await expect(toggle.disabled).toBe(true);
+	},
 };
