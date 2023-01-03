@@ -12,5 +12,8 @@ export default {
 		control: { type: 'select' },
 		options: ['small', 'medium', 'large'],
 	},
-	icon: { type: 'string' },
+	icon: {
+		control: { type: 'select' },
+		options: ['add', 'search', 'delete', 'close', 'menu'],
+	},
 };

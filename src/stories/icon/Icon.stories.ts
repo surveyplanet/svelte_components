@@ -15,7 +15,7 @@ const meta: Meta<Icon> = {
 	argTypes: {
 		name: { control: 'text' },
 		size: {
-			control: { type: 'number' },
+			control: { type: 'number', min: 4, max: 512, step: 4 },
 			// options: ['small', 'medium', 'large'],
 		},
 		color: { control: 'color' },

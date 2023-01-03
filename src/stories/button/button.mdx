@@ -1,11 +1,4 @@
-import {
-	Meta,
-	Canvas,
-	ColorPalette,
-	ColorItem,
-	Description,
-	Story,
-} from '@storybook/addon-docs';
+import { Meta, Story } from '@storybook/addon-docs';
 
 import Button from '../../lib/Button.svelte';
 
@@ -17,22 +10,20 @@ import Button from '../../lib/Button.svelte';
 # Button component
 
 <div id="example">
-	<p>
-		<Story id="button-default--primary" />
-	</p>
+	<Story id="button-default--primary" />
 </div>
 
 ## Usage
 
-```ts
+```html
 <script>
-	import {Button} from '@surveyplanet/svelte-components';
+	import { Button } from '@surveyplanet/svelte-components';
 	const props = {
 		label: 'Click Me!',
-	}
+	};
 </script>
 
-<Button {...props}></Button>
+<button {...props} />
 ```
 
 ## Options
