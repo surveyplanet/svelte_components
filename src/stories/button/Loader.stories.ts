@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 import argTypes from './default_metadata';
+import { BUTTON_MODES, BUTTON_SIZES } from '../../lib/_definitions';
 import Button from '../../lib/Button.svelte';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
@@ -35,12 +36,12 @@ export const LoaderDefault: Story = {
 
 		expect(btn).toBeVisible();
 
-		await expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
-		await expect(btn.innerText).toBe('');
-		await expect(btn).toHaveClass('loader');
-		await expect(afterEl.animationDuration).toBe('1s');
-		await expect(afterEl.animationTimingFunction).toBe('linear');
-		await expect(afterEl.animationIterationCount).toBe('infinite');
+		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(btn.innerText).toBe('');
+		expect(btn).toHaveClass('loader');
+		expect(afterEl.animationDuration).toBe('1s');
+		expect(afterEl.animationTimingFunction).toBe('linear');
+		expect(afterEl.animationIterationCount).toBe('infinite');
 	},
 };
 export const LoaderSecondaryLarge: Story = {
@@ -48,8 +49,7 @@ export const LoaderSecondaryLarge: Story = {
 		label: 'Loader',
 		disabled: true,
 		loader: true,
-		size: 'large',
-		mode: 'secondary',
+		size: BUTTON_SIZES.LARGE,
 	},
 	render: (args) => {
 		return {
@@ -65,11 +65,66 @@ export const LoaderSecondaryLarge: Story = {
 
 		await userEvent.click(btn);
 
-		await expect(btn).toBeVisible();
+		expect(btn).toBeVisible();
 
-		await expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
-		await expect(btn.innerText).toBe('');
-		await expect(btn).toHaveClass('loader');
+		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(btn).toHaveClass('loader');
+	},
+};
+export const DefaultSmall: Story = {
+	args: {
+		label: 'Default',
+		disabled: true,
+		loader: true,
+		size: BUTTON_SIZES.SMALL,
+	},
+	render: (args) => {
+		return {
+			Component: Button,
+			props: args,
+		};
+	},
+	play: async ({ canvasElement }) => {
+		const canvas = within(canvasElement);
+
+		const btn = canvas.getByRole('button');
+		const style = window.getComputedStyle(btn);
+
+		await userEvent.click(btn);
+
+		expect(btn).toBeVisible();
+
+		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(btn).toHaveClass('loader');
+	},
+};
+
+export const Primary: Story = {
+	args: {
+		label: 'Primary',
+		mode: BUTTON_MODES.PRIMARY,
+		disabled: true,
+		loader: true,
+	},
+	render: (args) => {
+		return {
+			Component: Button,
+			props: args,
+		};
+	},
+	play: async ({ canvasElement }) => {
+		const canvas = within(canvasElement);
+
+		const btn = canvas.getByRole('button');
+		const style = window.getComputedStyle(btn);
+
+		await userEvent.click(btn);
+
+		expect(btn).toBeVisible();
+
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
+		expect(btn.innerText).toBe('');
+		expect(btn).toHaveClass('loader');
 	},
 };
 export const LoaderTertiarySmall: Story = {
@@ -77,8 +132,8 @@ export const LoaderTertiarySmall: Story = {
 		label: 'Loader',
 		disabled: true,
 		loader: true,
-		size: 'small',
-		mode: 'tertiary',
+		size: BUTTON_SIZES.SMALL,
+		mode: BUTTON_MODES.TERTIARY,
 	},
 	render: (args) => {
 		return {
@@ -94,11 +149,11 @@ export const LoaderTertiarySmall: Story = {
 
 		await userEvent.click(btn);
 
-		await expect(btn).toBeVisible();
+		expect(btn).toBeVisible();
 
-		await expect(style.backgroundColor).toBe('rgb(161, 253, 165)');
-		await expect(btn.innerText).toBe('');
-		await expect(btn).toHaveClass('loader');
+		expect(style.backgroundColor).toBe('rgb(161, 253, 165)');
+		expect(btn.innerText).toBe('');
+		expect(btn).toHaveClass('loader');
 	},
 };
 export const LoaderWithIcon: Story = {
@@ -118,14 +173,12 @@ export const LoaderWithIcon: Story = {
 		const canvas = within(canvasElement);
 
 		const btn = canvas.getByRole('button');
-		const style = window.getComputedStyle(btn);
-
 		await userEvent.click(btn);
 
-		await expect(btn).toBeVisible();
+		expect(btn).toBeVisible();
 
-		await expect(btn.innerText).toBe('');
-		await expect(btn).toHaveClass('loader');
+		expect(btn.innerText).toBe('');
+		expect(btn).toHaveClass('loader');
 	},
 };
 
@@ -146,13 +199,11 @@ export const LoaderRounded: Story = {
 		const canvas = within(canvasElement);
 
 		const btn = canvas.getByRole('button');
-		const style = window.getComputedStyle(btn);
-
 		await userEvent.click(btn);
 
-		await expect(btn).toBeVisible();
+		expect(btn).toBeVisible();
 
-		await expect(btn.innerText).toBe('');
-		await expect(btn).toHaveClass('loader');
+		expect(btn.innerText).toBe('');
+		expect(btn).toHaveClass('loader');
 	},
 };
