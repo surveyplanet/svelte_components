@@ -25,20 +25,14 @@ import Toggle from '../../lib/Toggle.svelte';
 ```ts
 <script>
 	import {Toggle} from '@surveyplanet/svelte-components';
-	const props = {
-		color: '#FF0000',
-		size: 24,
-		name: 'x',
-	}
+	const disabled = false;
 </script>
 
-<Toggle {...props}></Toggle>
+<Toggle {disabled}></Toggle>
 ```
 
 ## Options
 
-| Name  | Type   | Description  |
-| ----- | ------ | ------------ |
-| name  | string | Toggle name  |
-| color | string | Toggle color |
-| size  | string | Toggle size  |
+| Name      | Type    | Description     |
+| --------- | ------- | --------------- |
+| disabeled | boolean | disables toggle |

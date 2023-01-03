@@ -43,10 +43,8 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-
 		width: 100%;
 		height: 100%;
-
 		opacity: 0;
 		cursor: pointer;
 		z-index: 1;
@@ -66,10 +64,10 @@
 	.sp-toggle--slider:before {
 		position: absolute;
 		content: '';
-		height: 18px;
-		width: 18px;
-		left: 3px;
-		bottom: 3px;
+		height: 0.8rem;
+		width: 0.8rem;
+		left: 0.18rem;
+		bottom: 0.1rem;
 
 		background-color: $color--light;
 		transition: 0.4s;

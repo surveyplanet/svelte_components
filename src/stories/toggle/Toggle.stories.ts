@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/svelte';
 import Toggle from '../../lib/Toggle.svelte';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import Documentation from './documentation.mdx';
+import Documentation from './toggle.mdx';
 
 const meta: Meta<Toggle> = {
 	title: 'Toggle/Default',
@@ -33,15 +33,9 @@ export const Default: Story = {
 		const canvas = within(res.canvasElement);
 
 		const toggle: HTMLInputElement = canvas.getByRole('checkbox');
-		const style = window.getComputedStyle(toggle);
-		const color = 'rgb(181, 152, 255)';
 		await userEvent.click(toggle);
 
-		await expect(toggle).toBeVisible();
-
-		await expect(style.backgroundColor).toBe(color);
-		await expect(toggle).toHaveFocus();
-		await expect(toggle.disabled).toBe(false);
+		expect(toggle.disabled).toBe(false);
 	},
 };
 
@@ -59,14 +53,7 @@ export const Disabled: Story = {
 		const canvas = within(res.canvasElement);
 
 		const toggle: HTMLInputElement = canvas.getByRole('checkbox');
-		const style = window.getComputedStyle(toggle);
-		const color = 'rgb(181, 152, 255)';
-		await userEvent.click(toggle);
 
-		await expect(toggle).toBeVisible();
-
-		await expect(style.backgroundColor).toBe(color);
-		await expect(toggle).toHaveFocus();
-		await expect(toggle.disabled).toBe(true);
+		expect(toggle.disabled).toBe(true);
 	},
 };

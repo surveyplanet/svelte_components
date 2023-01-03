@@ -1,15 +1,9 @@
 <script lang="ts">
+	import { COLORS } from './_definitions';
+
 	export let label: string = 'Pro';
 
-	enum COLORS {
-		PRIMARY = 'primary',
-		SECONDARY = 'secondary',
-		TERTIARY = 'tertiary',
-		SUCCESS = 'success',
-		DANGER = 'danger',
-	}
-
-	export let color: COLORS | string = COLORS.PRIMARY;
+	export let color: COLORS = COLORS.PRIMARY;
 </script>
 
 <div>

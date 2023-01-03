@@ -4,7 +4,6 @@ import Icon from '../../lib/Icon.svelte';
 import Documentation from './icon.mdx';
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import Documentation from './documentation.mdx';
 
 // More on how to set up stories at: https://storybook.js.org/docs/svelte/writing-stories/introduction#default-export
 const meta: Meta<Icon> = {

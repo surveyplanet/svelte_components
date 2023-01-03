@@ -1,20 +1,8 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import { BUTTON_MODES, BUTTON_SIZES } from './_definitions';
+
 	import Icon from './Icon.svelte';
-
-	const enum BUTTON_SIZES {
-		SMALL = 'small',
-		MEDIUM = 'medium',
-		LARGE = 'large',
-	}
-
-	const enum BUTTON_MODES {
-		PRIMARY = 'primary',
-		SECONDARY = 'secondary',
-		TERTIARY = 'tertiary',
-		QUATERNARY = 'quaternary',
-		DARK = 'dark',
-	}
 
 	const SP_BUTTON_CLICK_EVENT: string = 'SurveyPlanetButtonClickEvent';
 

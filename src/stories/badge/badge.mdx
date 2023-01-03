@@ -25,9 +25,10 @@ import Badge from '../../lib/Badge.svelte';
 ```ts
 <script>
 	import {Badge} from '@surveyplanet/svelte-components';
-	const args = {
+	import {COLOR} from '../../lib/_definitions.ts';
+	const options = {
 		label: 'Pro',
-		color: 'primary',
+		color: COLOR.PRIMARY,
 	};
 </script>
 
@@ -37,6 +38,5 @@ import Badge from '../../lib/Badge.svelte';
 
 | Name  | Type   | Description |
 | ----- | ------ | ----------- |
-| name  | string | Badge name  |
-| color | string | Badge color |
-| size  | string | Badge size  |
+| color | ENUM   | Badge cplor |
+| label | string | Badge label |
