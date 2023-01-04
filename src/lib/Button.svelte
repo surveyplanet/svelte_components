@@ -86,8 +86,8 @@
 		justify-content: center;
 		align-items: center;
 		column-gap: 0.25rem; // this should change depending on the size of the button
-		height: $gutter;
-		padding: 0 $gutter--half;
+		height: $size-gutter;
+		padding: 0 $size-gutter--half;
 		border: 0;
 		border-radius: 5px;
 		font: $font--default;
@@ -101,7 +101,7 @@
 			background-color: $color--purple-dark;
 		}
 		&.round {
-			border-radius: $gutter;
+			border-radius: $size-gutter;
 		}
 
 		&.sp-button--secondary {
@@ -132,14 +132,14 @@
 		}
 		&.sp-button--small {
 			font-size: $font-size--12;
-			padding: 0 $gutter--half;
-			height: $gutter - 0.5rem;
+			padding: 0 $size-gutter--half;
+			height: $size-gutter - 0.5rem;
 			column-gap: 0.125rem;
 		}
 		&.sp-button--large {
 			font-size: $font-size--16;
-			padding: 0 $gutter;
-			height: $gutter + 1rem;
+			padding: 0 $size-gutter;
+			height: $size-gutter + 1rem;
 			column-gap: 0.5rem;
 		}
 		&:disabled:not(.loader) {

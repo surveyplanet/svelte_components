@@ -21,7 +21,7 @@
 		text-align: center;
 		white-space: nowrap;
 		vertical-align: baseline;
-		border-radius: $gutter--sixteenth;
+		border-radius: $size-gutter--sixteenth;
 		font: $font--xsmall-bold;
 	}
 

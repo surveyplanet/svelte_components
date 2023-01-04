@@ -51,6 +51,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@surveyplanet/styles": "^0.1.7-4"
+		"@surveyplanet/styles": "^0.1.7-8"
 	}
 }
