@@ -20,14 +20,14 @@ export const LoaderDefault: Story = {
 		disabled: true,
 		loader: true,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -51,14 +51,14 @@ export const LoaderSecondaryLarge: Story = {
 		loader: true,
 		size: BUTTON_SIZES.LARGE,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -78,14 +78,14 @@ export const DefaultSmall: Story = {
 		loader: true,
 		size: BUTTON_SIZES.SMALL,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -106,14 +106,14 @@ export const Primary: Story = {
 		disabled: true,
 		loader: true,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -135,14 +135,14 @@ export const LoaderTertiarySmall: Story = {
 		size: BUTTON_SIZES.SMALL,
 		mode: BUTTON_MODES.TERTIARY,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -163,14 +163,14 @@ export const LoaderWithIcon: Story = {
 		loader: true,
 		icon: 'search',
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		await userEvent.click(btn);
@@ -189,14 +189,14 @@ export const LoaderRounded: Story = {
 		loader: true,
 		round: true,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		await userEvent.click(btn);

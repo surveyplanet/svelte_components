@@ -19,17 +19,18 @@ const meta: Meta<Toggle> = {
 };
 
 export default meta;
+
 type Story = StoryObj<Toggle>;
 
 export const Default: Story = {
 	args: {},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Toggle,
 			props: args,
 		};
 	},
-	play: async (res) => {
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
 		const canvas = within(res.canvasElement);
 
 		const toggle: HTMLInputElement = canvas.getByRole('checkbox');
@@ -43,13 +44,13 @@ export const Disabled: Story = {
 	args: {
 		disabled: true,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Toggle,
 			props: args,
 		};
 	},
-	play: async (res) => {
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
 		const canvas = within(res.canvasElement);
 
 		const toggle: HTMLInputElement = canvas.getByRole('checkbox');

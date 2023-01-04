@@ -31,13 +31,13 @@ export const Primary: Story = {
 		label: 'PRO',
 		color: COLORS.PRIMARY,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Badge,
 			props: args,
 		};
 	},
-	play: async (res) => {
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
 		const canvas = within(res.canvasElement);
 
 		const badge = canvas.getByText('PRO');
@@ -58,13 +58,13 @@ export const Secondary: Story = {
 		label: 'PRO',
 		color: COLORS.SECONDARY,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Badge,
 			props: args,
 		};
 	},
-	play: async (res) => {
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
 		const canvas = within(res.canvasElement);
 
 		const badge = canvas.getByText('PRO');
@@ -85,13 +85,13 @@ export const Tertiary: Story = {
 		label: 'PRO',
 		color: COLORS.TERTIARY,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Badge,
 			props: args,
 		};
 	},
-	play: async (res) => {
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
 		const canvas = within(res.canvasElement);
 
 		const badge = canvas.getByText('PRO');
@@ -111,13 +111,13 @@ export const Danger: Story = {
 		label: 'PRO',
 		color: COLORS.DANGER,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Badge,
 			props: args,
 		};
 	},
-	play: async (res) => {
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
 		const canvas = within(res.canvasElement);
 
 		const badge = canvas.getByText('PRO');

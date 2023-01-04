@@ -19,17 +19,17 @@ type Story = StoryObj<Button>;
 export const Large: Story = {
 	args: {
 		label: 'Large',
+		icon: 'add',
 		size: BUTTON_SIZES.LARGE,
-		icon: 'surveys',
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -47,16 +47,16 @@ export const Large: Story = {
 export const Medium: Story = {
 	args: {
 		label: 'Medium',
-		icon: 'surveys',
+		icon: 'add',
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -74,17 +74,17 @@ export const Medium: Story = {
 export const Small: Story = {
 	args: {
 		label: 'Small',
+		icon: 'add',
 		size: BUTTON_SIZES.SMALL,
-		icon: 'surveys',
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -105,14 +105,14 @@ export const Labless: Story = {
 		size: BUTTON_SIZES.SMALL,
 		icon: 'search',
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
