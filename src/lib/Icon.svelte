@@ -66,6 +66,7 @@
 	height={size}
 	viewBox="0 0 {DEFAULT_SIZE} {DEFAULT_SIZE}"
 	style={debug ? 'background-color: red;' : ''}>
+	<title>{'icon ' + name}</title>
 	<path
 		fill={color}
 		fill-rule="evenodd"

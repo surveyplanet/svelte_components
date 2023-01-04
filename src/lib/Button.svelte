@@ -1,20 +1,8 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import { BUTTON_MODES, BUTTON_SIZES } from './_definitions';
+
 	import Icon from './Icon.svelte';
-
-	const enum BUTTON_SIZES {
-		SMALL = 'small',
-		MEDIUM = 'medium',
-		LARGE = 'large',
-	}
-
-	const enum BUTTON_MODES {
-		PRIMARY = 'primary',
-		SECONDARY = 'secondary',
-		TERTIARY = 'tertiary',
-		QUATERNARY = 'quaternary',
-		DARK = 'dark',
-	}
 
 	const SP_BUTTON_CLICK_EVENT: string = 'SurveyPlanetButtonClickEvent';
 
@@ -30,7 +18,7 @@
 	/**
 	 * The button mode, either: 'primary', 'secondary' or 'tertiary'
 	 */
-	export let mode: BUTTON_MODES = BUTTON_MODES.PRIMARY;
+	export let mode: BUTTON_MODES | string = BUTTON_MODES.SECONDARY;
 
 	/**
 	 * Whether the button is disabled or not
@@ -50,7 +38,7 @@
 	/**
 	 * The button size, either: 'small', 'medium' or 'large'
 	 */
-	export let size: BUTTON_SIZES = BUTTON_SIZES.MEDIUM;
+	export let size: BUTTON_SIZES | string = BUTTON_SIZES.MEDIUM;
 
 	/**
 	 * The button label
@@ -89,7 +77,7 @@
 
 <style lang="scss">
 	@use 'sass:color';
-	@use './node_modules/@surveyplanet/styles/index.scss' as *;
+	@use '@surveyplanet/styles' as *;
 	@include spin(); // spin animation
 
 	.sp-button {

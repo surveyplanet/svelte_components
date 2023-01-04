@@ -10,7 +10,13 @@ import Button from '../../lib/Button.svelte';
 # Button component
 
 <div id="example">
+<<<<<<< HEAD
 	<Story id="button-default--primary" />
+=======
+	<p>
+		<Story id="button-basic--primary" />
+	</p>
+>>>>>>> main
 </div>
 
 ## Usage
@@ -28,10 +34,11 @@ import Button from '../../lib/Button.svelte';
 
 ## Options
 
-| Name           | Type    | Description                                                     |
-| -------------- | ------- | --------------------------------------------------------------- |
-| label          | string  | Button label.                                                   |
-| disabled=false | boolean | Whether the button is disabled or not.                          |
-| loader=false   | boolean | Whether the button should display a loader when it is disabled. |
-| size='medium'  | string  | The size of the button. Either: 'small', 'medium', 'large'.     |
-| icon           | string  | The name of the icon to use. See Iconograpy.mdx                 |
+| Name           | Type    | Description                                                                                                 |
+| -------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
+| label          | string  | Button label.                                                                                               |
+| disabled=false | boolean | Whether the button is disabled or not.                                                                      |
+| loader=false   | boolean | Whether the button should display a loader when it is disabled.                                             |
+| size='medium'  | ENUM    | The size of the button. Either: 'small', 'medium', 'large'.                                                 |
+| icon           | string  | The name of the icon to use. See Iconograpy.mdx                                                             |
+| mode           | ENUM    | The mode of the button. Either: 'primary', 'secondary', 'tertiary', 'danger', 'warning', 'success', 'info'. |

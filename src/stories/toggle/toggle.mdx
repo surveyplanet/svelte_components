@@ -1,0 +1,38 @@
+import {
+	Meta,
+	Canvas,
+	ColorPalette,
+	ColorItem,
+	Description,
+	Story,
+} from '@storybook/addon-docs';
+
+import Toggle from '../../lib/Toggle.svelte';
+
+<Meta
+	title="Toggle/Documentation"
+	component={Toggle}
+/>
+
+# Toggle component
+
+<div id="example">
+	<Story id="toggle-default--default" />
+</div>
+
+## Usage
+
+```ts
+<script>
+	import {Toggle} from '@surveyplanet/svelte-components';
+	const disabled = false;
+</script>
+
+<Toggle {disabled}></Toggle>
+```
+
+## Options
+
+| Name      | Type    | Description     |
+| --------- | ------- | --------------- |
+| disabeled | boolean | disables toggle |

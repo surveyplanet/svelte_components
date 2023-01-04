@@ -1,13 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 import argTypes from './default_metadata';
 import Button from '../../lib/Button.svelte';
+import { BUTTON_MODES } from '../../lib/_definitions';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import Documentation from './button.mdx';
 
 // More on how to set up stories at: https://storybook.js.org/docs/svelte/writing-stories/introduction#default-export
 const meta: Meta<Button> = {
-	title: 'Button/Default',
+	title: 'Button/Basic',
 	argTypes,
 	component: Button,
 	parameters: {
@@ -24,59 +25,57 @@ type Story = StoryObj<Button>;
 export const Primary: Story = {
 	args: {
 		label: 'Button',
+		mode: BUTTON_MODES.PRIMARY,
 	},
-	render: (args: StoryObj) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async (res) => {
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
 		const canvas = within(res.canvasElement);
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
 		const color = 'rgb(181, 152, 255)';
 
-		const promise = userEvent.click(btn);
-		console.log(promise);
+		await userEvent.click(btn);
 
-		await promise;
+		expect(btn).toBeVisible();
 
-		await expect(btn).toBeVisible();
-
-		await expect(style.backgroundColor).toBe(color);
-		await expect(btn.innerText).toBe('Button');
-		await expect(btn).toHaveFocus();
-		await expect(btn.disabled).toBe(false);
+		expect(style.backgroundColor).toBe(color);
+		expect(btn.innerText).toBe('Button');
+		expect(btn).toHaveFocus();
+		expect(btn.disabled).toBe(false);
 	},
 };
 
 export const Secondary: Story = {
 	args: {
-		mode: 'secondary',
+		mode: BUTTON_MODES.SECONDARY,
 		label: 'Secondary',
 	},
-	render: (args: StoryObj) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
-		const color = 'rgb(181, 152, 255)';
+		const color = 'rgb(255, 233, 120)';
 		await userEvent.click(btn);
 
-		await expect(btn).toBeVisible();
+		expect(btn).toBeVisible();
 
-		await expect(style.backgroundColor).toBe(color);
-		await expect(btn.innerText).toBe('Secondary button');
-		await expect(btn).toHaveFocus();
-		await expect(btn.disabled).toBe(false);
+		expect(style.backgroundColor).toBe(color);
+		expect(btn.innerText).toBe('Secondary');
+		expect(btn).toHaveFocus();
+		expect(btn.disabled).toBe(false);
 	},
 };
 
@@ -85,26 +84,26 @@ export const Tertiary: Story = {
 		mode: 'tertiary',
 		label: 'Tertiary',
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
 		const color = 'rgb(161, 253, 165)';
 		await userEvent.click(btn);
 
-		await expect(btn).toBeVisible();
+		expect(btn).toBeVisible();
 
-		await expect(style.backgroundColor).toBe(color);
-		await expect(btn.innerText).toBe('Tertiary button');
-		await expect(btn).toHaveFocus();
-		await expect(btn.disabled).toBe(false);
+		expect(style.backgroundColor).toBe(color);
+		expect(btn.innerText).toBe('Tertiary');
+		expect(btn).toHaveFocus();
+		expect(btn.disabled).toBe(false);
 	},
 };
 
@@ -113,26 +112,26 @@ export const Rounded: Story = {
 		label: 'Rounded',
 		round: true,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
-		const color = 'rgb(161, 253, 165)';
+		const color = 'rgb(255, 233, 120)';
 		await userEvent.click(btn);
 
-		await expect(btn).toBeVisible();
+		expect(btn).toBeVisible();
 
-		await expect(style.backgroundColor).toBe(color);
-		await expect(btn.innerText).toBe('Tertiary button');
-		await expect(btn).toHaveFocus();
-		await expect(btn.disabled).toBe(false);
+		expect(style.backgroundColor).toBe(color);
+		expect(btn.innerText).toBe('Rounded');
+		expect(btn).toHaveFocus();
+		expect(btn.disabled).toBe(false);
 	},
 };
 
@@ -141,25 +140,25 @@ export const Disabled: Story = {
 		label: 'Disabled',
 		disabled: true,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
-		const color = 'rgb(211, 211, 211)';
+		const color = 'rgb(237, 226, 255)';
 		await userEvent.click(btn);
 
-		await expect(btn).toBeVisible();
+		expect(btn).toBeVisible();
 
-		await expect(style.backgroundColor).toBe(color);
-		await expect(btn.innerText).toBe('Disabled');
-		await expect(btn).not.toHaveFocus();
-		await expect(btn.disabled).toBe(true);
+		expect(style.backgroundColor).toBe(color);
+		expect(btn.innerText).toBe('Disabled');
+		expect(btn).not.toHaveFocus();
+		expect(btn.disabled).toBe(true);
 	},
 };

@@ -1,3 +1,5 @@
+import type { ArgTypes } from '@storybook/svelte';
+
 export default {
 	label: { control: 'text' },
 	clickHandler: { action: 'SurveyPlanetButtonClickEvent' },
@@ -16,4 +18,4 @@ export default {
 		control: { type: 'select' },
 		options: ['add', 'search', 'delete', 'close', 'menu'],
 	},
-};
+} as ArgTypes;
