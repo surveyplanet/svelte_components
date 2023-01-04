@@ -39,7 +39,7 @@ export const Basic: Story = {
 			props: args,
 		};
 	},
-	// play: async (res) => {
+	// play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
 	// 	const canvas = within(res.canvasElement);
 
 	// 	const btn: HTMLButtonElement = canvas.getByRole('button');
@@ -65,13 +65,13 @@ export const Light: Story = {
 		name: 'search',
 		color: 'white',
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Icon,
 			props: args,
 		};
 	},
-	play: async (res) => {
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
 		const canvas = within(res.canvasElement);
 
 		const icon = canvas.getByTitle('icon search');

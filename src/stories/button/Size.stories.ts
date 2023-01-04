@@ -21,14 +21,14 @@ export const Large: Story = {
 		label: 'Large',
 		size: BUTTON_SIZES.LARGE,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -47,14 +47,14 @@ export const Medium: Story = {
 	args: {
 		label: 'Medium',
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -74,14 +74,14 @@ export const Small: Story = {
 		label: 'Small',
 		size: BUTTON_SIZES.SMALL,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);

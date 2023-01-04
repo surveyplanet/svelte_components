@@ -27,21 +27,20 @@ export const Primary: Story = {
 		label: 'Button',
 		mode: BUTTON_MODES.PRIMARY,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async (res) => {
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
 		const canvas = within(res.canvasElement);
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
 		const color = 'rgb(181, 152, 255)';
 
-		const promise = userEvent.click(btn);
-		await promise;
+		await userEvent.click(btn);
 
 		expect(btn).toBeVisible();
 
@@ -57,14 +56,14 @@ export const Secondary: Story = {
 		mode: BUTTON_MODES.SECONDARY,
 		label: 'Secondary',
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -85,14 +84,14 @@ export const Tertiary: Story = {
 		mode: 'tertiary',
 		label: 'Tertiary',
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -113,14 +112,14 @@ export const Rounded: Story = {
 		label: 'Rounded',
 		round: true,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -141,14 +140,14 @@ export const Disabled: Story = {
 		label: 'Disabled',
 		disabled: true,
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);

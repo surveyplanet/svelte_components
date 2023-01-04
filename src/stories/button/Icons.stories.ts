@@ -22,14 +22,14 @@ export const Large: Story = {
 		size: BUTTON_SIZES.LARGE,
 		icon: 'surveys',
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -49,14 +49,14 @@ export const Medium: Story = {
 		label: 'Medium',
 		icon: 'surveys',
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -77,14 +77,14 @@ export const Small: Story = {
 		size: BUTTON_SIZES.SMALL,
 		icon: 'surveys',
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
@@ -105,14 +105,14 @@ export const Labless: Story = {
 		size: BUTTON_SIZES.SMALL,
 		icon: 'search',
 	},
-	render: (args) => {
+	render: <T extends object>(args: T) => {
 		return {
 			Component: Button,
 			props: args,
 		};
 	},
-	play: async ({ canvasElement }) => {
-		const canvas = within(canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
 		const btn = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
