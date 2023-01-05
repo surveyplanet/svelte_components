@@ -4,15 +4,13 @@
 
 	import Icon from './Icon.svelte';
 
-	const SP_BUTTON_CLICK_EVENT: string = 'SurveyPlanetButtonClickEvent';
-
 	const dispatch = createEventDispatcher();
 
 	/**
 	 * Optional click handler
 	 */
 	const clickHandler = (event: MouseEvent): void => {
-		dispatch(SP_BUTTON_CLICK_EVENT, event);
+		dispatch('clickEvent', event);
 	};
 
 	/**
@@ -48,7 +46,7 @@
 	/**
 	 * The name of the icon to use inside the button
 	 */
-	export let icon: string | null;
+	export let icon: string | undefined | null = undefined;
 
 	let iconSize: 16 | 20 | 24 =
 		size !== BUTTON_SIZES.MEDIUM

@@ -1,15 +1,13 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	const SP_TOGGLE_CLICK_EVENT: string = 'SurveyPlanetToggleClickEvent';
-
 	const dispatch = createEventDispatcher();
 
 	const changeHandler = (event: Event): void => {
 		if (disabled) {
 			return event.preventDefault();
 		}
-		dispatch(SP_TOGGLE_CLICK_EVENT, event);
+		dispatch('toggleEvent', event);
 	};
 
 	export let checked: boolean = false;
