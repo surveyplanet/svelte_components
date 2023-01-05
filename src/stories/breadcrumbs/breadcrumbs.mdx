@@ -25,11 +25,20 @@ import Breadcrumbs from '../../lib/Breadcrumbs.svelte';
 ```ts
 <script>
 	import {Breadcrumbs} from '@surveyplanet/svelte-components';
-	const props = {
-		color: '#FF0000',
-		size: 512,
-		name: 'search',
-	}
+	const breadcrumbs = [
+		{
+			name: 'Home',
+			url: '/',
+		},
+		{
+			name: 'About',
+			url: '/about',
+		},
+		{
+			name: 'Contact',
+			url: '/contact',
+		},
+	];
 </script>
 
 <Breadcrumbs {...props}></Breadcrumbs>
@@ -37,9 +46,9 @@ import Breadcrumbs from '../../lib/Breadcrumbs.svelte';
 
 ## Options
 
-| Name    | Type    | Description                                                                                                                    |
-| ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| name='' | string  | The Breadcrumbs name.                                                                                                          |
-| color   | string  | The Breadcrumbs color.                                                                                                         |
-| size=24 | string  | The Breadcrumbs size in pixels. Either: 8, 16, 20, 24, 32, 48, 64, 128, 256 or 512                                             |
-| debug   | boolean | Render a red backround behinde the Breadcrumbs to reveal its true edges. This can help with aliging the Breadcrumbs correctly. |
+| Name             | Type   | Description                              |
+| ---------------- | ------ | ---------------------------------------- |
+| Title            | string | Add title to the breadcrumbs component   |
+| breadcrumbs      | array  | attay of objects containing name and url |
+| breadcrumbs.name | string | name of the breadcrumb                   |
+| breadcrumbs.url  | string | url of the breadcrumb                    |
