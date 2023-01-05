@@ -3,64 +3,66 @@
 		name: string;
 		url: string;
 	};
-	export let breadcrumbs: Breadcrumb[] = [
-		{
-			name: 'Home',
-			url: '/',
-		},
-		{
-			name: 'Our test survey will show you how its done as an example ',
-			url: '/about',
-		},
-		{
-			name: 'Contact',
-			url: '/contact',
-		},
-		{
-			name: 'Submit',
-			url: '/submit',
-		},
-	];
-	export let onBreadcrumbClick = (breadcrumb: object) => {
-		console.log(breadcrumb);
-	};
+
+	export let breadcrumbs: Breadcrumb[] = [];
 </script>
 
-<ul class="sp-breadcrumbs">
-	{#each breadcrumbs as breadcrumb}
-		<li>
-			<a
-				class="sp-breadcrumbs--breadcrumb"
-				on:click={() => onBreadcrumbClick(breadcrumb)}
-				href={breadcrumb.url}>
-				{breadcrumb.name}
-			</a>
-			{#if breadcrumb !== breadcrumbs[breadcrumbs.length - 1]}
-				<span>/</span>
-			{/if}
-		</li>
-	{/each}
-</ul>
+<nav class="sp-breadcrumbs">
+	<ul>
+		{#each breadcrumbs as breadcrumb, i}
+			<li>
+				<a
+					class="sp-breadcrumbs--link"
+					href={breadcrumb.url}>
+					{breadcrumb.name}
+				</a>
+				{#if i !== breadcrumbs.length - 1}
+					<span class="sp-breadcrumbs--divider">/</span>
+				{/if}
+			</li>
+		{/each}
+	</ul>
+</nav>
 
 <!-- Path: src/lib/Breadcrumbs.svelte -->
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
-	.sp-breadcrumbs {
-		align-items: baseline;
+	.sp-breadcrumbs ul {
 		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		align-items: flex-start;
 		list-style: none;
 		padding: 0;
 		margin: 0;
-		font: $font--default;
+		font-size: 0; // remove the space between inline-block elements
 	}
-	.sp-breadcrumbs--breadcrumb {
+
+	.sp-breadcrumbs--link,
+	.sp-breadcrumbs--divider {
+		display: inline-block;
+		vertical-align: top;
+		font: $font--default-bold;
+		white-space: nowrap;
+		color: $color--dark;
+	}
+
+	.sp-breadcrumbs--link {
 		cursor: pointer;
 		text-decoration: none;
-		color: black;
-		display: inline-block;
 		@include truncate($size-gutter--quadruple);
+		&:hover {
+			text-decoration: underline;
+			color: $color--purple;
+		}
+		&:last-child {
+			color: $color--darkest;
+		}
 	}
-	.sp-breadcrumbs--breadcrumb:hover {
-		text-decoration: underline;
+
+	.sp-breadcrumbs--divider {
+		margin: 0 $size--4;
+		padding: 0;
 	}
 </style>

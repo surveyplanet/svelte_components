@@ -90,7 +90,7 @@
 		border-radius: 5px;
 		font: $font--default;
 		background-color: $color--purple;
-		color: $color--dark;
+		color: $color--darkest;
 		&:focus {
 			outline: none;
 			box-shadow: inset 0 0 3px $color--purple-lightest;
@@ -121,11 +121,11 @@
 			}
 		}
 		&.sp-button--dark {
-			background-color: $color--dark;
+			background-color: $color--darkest;
 			color: $color--light;
 			&:hover {
 				background-color: $color--light;
-				color: $color--dark;
+				color: $color--darkest;
 			}
 		}
 		&.sp-button--small {
@@ -162,7 +162,7 @@
 				top: calc(50% - 9px);
 				left: calc(50% - 8px);
 				border: 2px solid #fff;
-				border-top: 2px solid $color--dark;
+				border-top: 2px solid $color--darkest;
 				border-radius: 100%;
 				animation: spin 1s linear infinite;
 			}

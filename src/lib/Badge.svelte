@@ -30,7 +30,7 @@
 	}
 
 	.sp-badge--text {
-		color: $color--dark;
+		color: $color--darkest;
 	}
 
 	.sp-badge--primary {

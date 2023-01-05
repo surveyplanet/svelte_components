@@ -14,19 +14,40 @@ const meta: Meta<Breadcrumbs> = {
 			page: Documentation,
 		},
 	},
-	argTypes: [
-		{
-			name: 'name',
-			url: 'https://www.google.com',
+	argTypes: {
+		breadcrumbs: {
+			control: {
+				type: null,
+			},
 		},
-	],
+	},
 };
 
 export default meta;
 
 type Story = StoryObj<Breadcrumbs>;
 
-export const Default: Story = {
+export const Basic: Story = {
+	args: {
+		breadcrumbs: [
+			{
+				name: 'Home',
+				url: '/',
+			},
+			{
+				name: 'Our test survey will show you how its done as an example ',
+				url: '/about',
+			},
+			{
+				name: 'Contact',
+				url: '/contact',
+			},
+			{
+				name: 'Submit',
+				url: '/submit',
+			},
+		],
+	},
 	render: (args: StoryObj) => {
 		return {
 			Component: Breadcrumbs,
@@ -36,12 +57,12 @@ export const Default: Story = {
 	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
 		const canvas = within(res.canvasElement);
 
-		const home: HTMLElement = canvas.getByText('Home');
-		const elipsees: HTMLElement = canvas.getByText(
+		const home = canvas.getByText('Home');
+		const elipsees = canvas.getByText(
 			'Our test survey will show you how its done as an example'
 		);
-		const contact: HTMLElement = canvas.getByText('Contact');
-		const submit: HTMLElement = canvas.getByText('Submit');
+		const contact = canvas.getByText('Contact');
+		const submit = canvas.getByText('Submit');
 		const styleHome = window.getComputedStyle(home);
 
 		expect(home).toBeTruthy();
