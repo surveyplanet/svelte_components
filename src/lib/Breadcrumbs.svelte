@@ -1,6 +1,9 @@
 <script lang="ts">
-	export let title: string = 'Breadcrumbs';
-	export let breadcrumbs: object[] = [
+	type Breadcrumb = {
+		name: string;
+		url: string;
+	};
+	export let breadcrumbs: Breadcrumb[] = [
 		{
 			name: 'Home',
 			url: '/',
@@ -13,16 +16,16 @@
 			name: 'Contact',
 			url: '/contact',
 		},
+		{
+			name: 'Submit',
+			url: '/submit',
+		},
 	];
 	export let onBreadcrumbClick = (breadcrumb: object) => {
 		console.log(breadcrumb);
 	};
 </script>
 
-<!-- Path: src/lib/Breadcrumbs.svelte -->
-<p>
-	{title}
-</p>
 <ul class="sp-breadcrumbs">
 	{#each breadcrumbs as breadcrumb}
 		<li>
@@ -30,22 +33,21 @@
 				class="sp-breadcrumbs--breadcrumb"
 				on:click={() => onBreadcrumbClick(breadcrumb)}
 				href={breadcrumb.url}>
-				{#if breadcrumb.name.length > 20}
-					{breadcrumb.name.slice(0, 20)}... /
-				{:else}
-					{breadcrumb.name} /
-				{/if}
+				{breadcrumb.name}
 			</a>
+			{#if breadcrumb !== breadcrumbs[breadcrumbs.length - 1]}
+				<span>/</span>
+			{/if}
 		</li>
 	{/each}
 </ul>
 
 <!-- Path: src/lib/Breadcrumbs.svelte -->
 <style lang="scss">
-	@use './node_modules/@surveyplanet/styles/index.scss' as *;
+	@use '@surveyplanet/styles' as *;
 	.sp-breadcrumbs {
+		align-items: baseline;
 		display: flex;
-		flex-wrap: wrap;
 		list-style: none;
 		padding: 0;
 		margin: 0;
@@ -53,12 +55,12 @@
 	}
 	.sp-breadcrumbs--breadcrumb {
 		cursor: pointer;
+		text-decoration: none;
+		color: black;
+		display: inline-block;
+		@include truncate($size-gutter--quadruple);
 	}
 	.sp-breadcrumbs--breadcrumb:hover {
 		text-decoration: underline;
-	}
-	a {
-		text-decoration: none;
-		color: black;
 	}
 </style>
