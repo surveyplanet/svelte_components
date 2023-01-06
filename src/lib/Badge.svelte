@@ -1,51 +1,32 @@
 <script lang="ts">
-	import { COLORS } from './_definitions';
-
-	export let label: string = 'Pro';
-
-	export let color: COLORS = COLORS.PRIMARY;
+	export let label: string = '';
+	export let color: string | null;
+	export let labelColor: string | null;
 </script>
 
-<div>
-	<span class="sp-badge sp-badge--{color}">{label}</span>
-</div>
+<span
+	class="sp-badge"
+	style:background-color={color && color.length ? color : undefined}
+	style:color={labelColor && labelColor.length ? labelColor : undefined}>
+	{label}
+</span>
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 
 	.sp-badge {
-		display: inline-block;
-		height: 0.875rem;
-		padding: 0.25em 0.4em;
-		line-height: 1;
+		display: inline;
+		height: $size--14;
+		padding: 0 $size--4;
 		text-align: center;
 		white-space: nowrap;
 		vertical-align: baseline;
-		border-radius: $size-gutter--sixteenth;
-		font: $font--xsmall-bold;
-	}
-
-	.sp-badge {
-		background-color: $color--yellow;
-	}
-
-	.sp-badge--text {
+		border-radius: $size-radius--large;
 		color: $color--darkest;
-	}
-
-	.sp-badge--primary {
+		font: $font--xsmall-bold;
+		line-height: $size--14;
+		font-size: $size--8;
+		text-transform: uppercase;
 		background-color: $color--yellow;
-	}
-
-	.sp-badge--secondary {
-		background-color: $color--purple;
-	}
-
-	.sp-badge--tertiary {
-		background-color: $color--green;
-	}
-
-	.sp-badge--danger {
-		background-color: $color--pink-dark;
 	}
 </style>

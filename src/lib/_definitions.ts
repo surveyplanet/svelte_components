@@ -11,11 +11,3 @@ export const enum BUTTON_MODES {
 	QUATERNARY = 'quaternary',
 	DARK = 'dark',
 }
-
-export enum COLORS {
-	PRIMARY = 'primary',
-	SECONDARY = 'secondary',
-	TERTIARY = 'tertiary',
-	SUCCESS = 'success',
-	DANGER = 'danger',
-}

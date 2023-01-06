@@ -1,19 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
-import { COLORS } from '../../lib/_definitions';
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import Badge from '../../lib/Badge.svelte';
 import Documentation from './badge.mdx';
 
-// More on how to set up stories at: https://storybook.js.org/docs/svelte/writing-stories/introduction#default-export
 const meta: Meta<Badge> = {
 	title: 'Badge/Default',
 	argTypes: {
 		label: { control: 'text' },
-		color: {
-			control: { type: 'select' },
-			options: ['primary', 'secondary', 'tertiary', 'success', 'danger'],
-		},
+		color: { control: { type: 'color' } },
+		labelColor: { control: { type: 'color' } },
 	},
 	parameters: {
 		docs: {
@@ -25,11 +21,9 @@ const meta: Meta<Badge> = {
 export default meta;
 type Story = StoryObj<Badge>;
 
-// More on writing stories with args: https://storybook.js.org/docs/7.0/svelte/writing-stories/args
 export const Primary: Story = {
 	args: {
 		label: 'PRO',
-		color: COLORS.PRIMARY,
 	},
 	render: <T extends object>(args: T) => {
 		return {
@@ -44,19 +38,22 @@ export const Primary: Story = {
 
 		const style = window.getComputedStyle(badge);
 		const color = style.getPropertyValue('background-color');
+		const labelColor = style.getPropertyValue('color');
+		const textTransform = style.getPropertyValue('text-transform');
 
 		expect(badge).toBeTruthy();
-		expect(badge).toHaveTextContent('PRO');
 		expect(badge).toHaveClass('sp-badge');
-		expect(badge).toHaveClass('sp-badge--primary');
 		expect(color).toBe('rgb(255, 233, 120)');
+		expect(labelColor).toBe('rgb(38, 43, 53)');
+		expect(textTransform).toBe('uppercase');
 	},
 };
 
-export const Secondary: Story = {
+export const Inverted: Story = {
 	args: {
-		label: 'PRO',
-		color: COLORS.SECONDARY,
+		label: 'Inverted',
+		color: 'black',
+		labelColor: 'white',
 	},
 	render: <T extends object>(args: T) => {
 		return {
@@ -67,68 +64,15 @@ export const Secondary: Story = {
 	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
 		const canvas = within(res.canvasElement);
 
-		const badge = canvas.getByText('PRO');
+		const badge = canvas.getByText('Inverted');
 
 		const style = window.getComputedStyle(badge);
 		const color = style.getPropertyValue('background-color');
+		const labelColor = style.getPropertyValue('color');
 
 		expect(badge).toBeTruthy();
-		expect(badge).toHaveTextContent('PRO');
 		expect(badge).toHaveClass('sp-badge');
-		expect(badge).toHaveClass('sp-badge--secondary');
-		expect(color).toBe('rgb(181, 152, 255)');
-	},
-};
-
-export const Tertiary: Story = {
-	args: {
-		label: 'PRO',
-		color: COLORS.TERTIARY,
-	},
-	render: <T extends object>(args: T) => {
-		return {
-			Component: Badge,
-			props: args,
-		};
-	},
-	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
-		const canvas = within(res.canvasElement);
-
-		const badge = canvas.getByText('PRO');
-		const style = window.getComputedStyle(badge);
-		const color = style.getPropertyValue('background-color');
-
-		expect(badge).toBeTruthy();
-		expect(badge).toHaveTextContent('PRO');
-		expect(badge).toHaveClass('sp-badge');
-		expect(badge).toHaveClass('sp-badge--tertiary');
-		expect(color).toBe('rgb(161, 253, 165)');
-	},
-};
-
-export const Danger: Story = {
-	args: {
-		label: 'PRO',
-		color: COLORS.DANGER,
-	},
-	render: <T extends object>(args: T) => {
-		return {
-			Component: Badge,
-			props: args,
-		};
-	},
-	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
-		const canvas = within(res.canvasElement);
-
-		const badge = canvas.getByText('PRO');
-
-		const style = window.getComputedStyle(badge);
-		const color = style.getPropertyValue('background-color');
-
-		expect(badge).toBeTruthy();
-		expect(badge).toHaveTextContent('PRO');
-		expect(badge).toHaveClass('sp-badge');
-		expect(badge).toHaveClass('sp-badge--danger');
-		expect(color).toBe('rgb(234, 131, 197)');
+		expect(color).toBe('rgb(0, 0, 0)');
+		expect(labelColor).toBe('rgb(255, 255, 255)');
 	},
 };
