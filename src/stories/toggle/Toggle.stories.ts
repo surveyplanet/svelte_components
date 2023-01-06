@@ -65,3 +65,22 @@ export const Disabled: Story = {
 		expect(toggle.disabled).toBe(true);
 	},
 };
+
+export const Tall: Story = {
+	args: {
+		tall: true,
+	},
+	render: <T extends object>(args: T) => {
+		return {
+			Component: Toggle,
+			props: args,
+		};
+	},
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
+
+		const toggle: HTMLInputElement = canvas.getByTestId('toggle');
+
+		expect(toggle).toHaveClass('sp-toggle--tall');
+	},
+};

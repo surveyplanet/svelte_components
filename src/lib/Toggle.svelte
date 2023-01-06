@@ -24,7 +24,7 @@
 	// 		knobColor = disabledKnobColor;
 	// 	} else if (on) {
 	// 		trackColor = onTrackColor;
-	// 		knobColor = onKnobColor;
+	// 		knobColor = onKnobColor;q
 	// 	} else {
 	// 		trackColor = offTrackColor;
 	// 		knobColor = offKnobColor;
@@ -41,6 +41,7 @@
 </script>
 
 <div
+	data-testid="toggle"
 	class="sp-toggle sp-toggle--{on ? 'on' : 'off'}
 		{tall ? 'sp-toggle--tall' : ''}">
 	<input
