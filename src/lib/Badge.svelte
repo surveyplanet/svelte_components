@@ -6,8 +6,8 @@
 
 <span
 	class="sp-badge"
-	style:background-color={color && color.length ? color : undefined}
-	style:color={labelColor && labelColor.length ? labelColor : undefined}>
+	style:background-color={color && color.length ? color : void 0}
+	style:color={labelColor && labelColor.length ? labelColor : void 0}>
 	{label}
 </span>
 
