@@ -36,7 +36,7 @@
 			on = false;
 			return event.preventDefault();
 		}
-		dispatch('toggleEvent', event);
+		dispatch('toggleEvent', on);
 	};
 </script>
 
