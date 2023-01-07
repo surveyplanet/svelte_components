@@ -128,6 +128,13 @@
 				color: $color--darkest;
 			}
 		}
+		&.sp-button--light {
+			background-color: $color--light;
+			// border: 1px solid #dcdee1;
+			&:hover {
+				background-color: $color--light;
+			}
+		}
 		&.sp-button--small {
 			font-size: $font-size--12;
 			padding: 0 $size-gutter--half;

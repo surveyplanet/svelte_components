@@ -1,14 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
-import argTypes from './default_metadata';
 import { BUTTON_MODES, BUTTON_SIZES } from '../../lib/_definitions';
 import Button from '../../lib/Button.svelte';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
+import basicMeta from './Basic.stories';
 
 const meta: Meta<Button> = {
 	title: 'Button/Loader',
-	component: Button,
-	argTypes,
+	...basicMeta,
 };
 
 export default meta;

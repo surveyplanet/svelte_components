@@ -7,30 +7,6 @@
 	export let disabled: boolean = false;
 	export let tall: boolean = false;
 
-	// This won't work in dark mode, just overwrite will global styles
-	// export let onTrackColor = '#262b35';
-	// export let onKnobColor = '#f7f8f7';
-	// export let offTrackColor = '#ede2ff';
-	// export let offKnobColor = '#f7f8f7';
-	// export let disabledTrackColor = '#67748e';
-	// export let disabledKnobColor = '#f7f8f7';
-
-	// let trackColor: string | undefined;
-	// let knobColor: string | undefined;
-
-	// $: {
-	// 	if (disabled) {
-	// 		trackColor = disabledTrackColor;
-	// 		knobColor = disabledKnobColor;
-	// 	} else if (on) {
-	// 		trackColor = onTrackColor;
-	// 		knobColor = onKnobColor;q
-	// 	} else {
-	// 		trackColor = offTrackColor;
-	// 		knobColor = offKnobColor;
-	// 	}
-	// }
-
 	const changeHandler = (event: Event): void => {
 		if (disabled) {
 			on = false;
