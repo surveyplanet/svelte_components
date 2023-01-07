@@ -39,31 +39,30 @@ export const Basic: Story = {
 			props: args,
 		};
 	},
-	// play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
-	// 	const canvas = within(res.canvasElement);
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
 
-	// 	const btn: HTMLButtonElement = canvas.getByRole('button');
-	// 	const style = window.getComputedStyle(btn);
-	// 	const color = 'rgb(255, 233, 120)';
+		const icon: HTMLElement = canvas.getByTitle('icon search');
 
-	// 	const promise = userEvent.click(btn);
-	// 	console.log(promise);
+		// Can't get size of icon for some reason.
+		// const dimensions: DOMRect = icon.getBoundingClientRect();
+		// console.log('dimensions:', dimensions);
 
-	// 	await promise;
-
-	// 	await expect(btn).toBeVisible();
-
-	// 	await expect(style.backgroundColor).toBe(color);
-	// 	await expect(btn.innerText).toBe('Primary button');
-	// 	await expect(btn).toHaveFocus();
-	// 	await expect(btn.disabled).toBe(false);
-	// },
+		expect(icon).toBeVisible();
+		expect(icon).toBeTruthy();
+		// expect(icon.offsetHeight).toBe(48);
+	},
 };
 
 export const Light: Story = {
 	args: {
 		name: 'search',
 		color: 'white',
+	},
+	parameters: {
+		backgrounds: {
+			default: 'darkest',
+		},
 	},
 	render: <T extends object>(args: T) => {
 		return {
@@ -74,9 +73,10 @@ export const Light: Story = {
 	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
 		const canvas = within(res.canvasElement);
 
-		const icon = canvas.getByTitle('icon search');
+		const icon: HTMLElement = canvas.getByTitle('icon search');
 
 		expect(icon).toBeVisible();
 		expect(icon).toBeTruthy();
+		// expect(icon.getAttribute('width')).toBe(48);
 	},
 };

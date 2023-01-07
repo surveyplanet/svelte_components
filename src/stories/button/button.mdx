@@ -17,7 +17,7 @@ import Button from '../../lib/Button.svelte';
 
 ## Usage
 
-```html
+```js
 <script>
 	import { Button } from '@surveyplanet/svelte-components';
 	const props = {
@@ -25,16 +25,18 @@ import Button from '../../lib/Button.svelte';
 	};
 </script>
 
-<button {...props} />
+<Button {...props} />
 ```
 
-## Options
+## Parameters
 
-| Name           | Type    | Description                                                                                                 |
-| -------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
-| label          | string  | Button label.                                                                                               |
-| disabled=false | boolean | Whether the button is disabled or not.                                                                      |
-| loader=false   | boolean | Whether the button should display a loader when it is disabled.                                             |
-| size='medium'  | ENUM    | The size of the button. Either: 'small', 'medium', 'large'.                                                 |
-| icon           | string  | The name of the icon to use. See Iconograpy.mdx                                                             |
-| mode           | ENUM    | The mode of the button. Either: 'primary', 'secondary', 'tertiary', 'danger', 'warning', 'success', 'info'. |
+| Name               | Type    | Description                                                                               |
+| ------------------ | ------- | ----------------------------------------------------------------------------------------- |
+| label              | string  | Button label.                                                                             |
+| disabled=false     | boolean | Whether the button is disabled or not.                                                    |
+| loader=false       | boolean | Whether the button should display a loader when it is disabled.                           |
+| size='medium'      | ENUM    | The size of the button. Either: 'small', 'medium', 'large'.                               |
+| icon               | string  | The name of the icon to use. See Iconograpy.mdx                                           |
+| iconPosition='end' | string  | The position of the icon. Either 'start' or 'end'.                                        |
+| round              | string  | Whether the button should be pill shaped with fully rounded edges                         |
+| mode               | ENUM    | The mode of the button. Either: 'primary', 'secondary', 'tertiary', 'quaternary', 'dark'. |

@@ -25,18 +25,13 @@ import Badge from '../../lib/Badge.svelte';
 ```ts
 <script>
 	import {Badge} from '@surveyplanet/svelte-components';
-	import {COLOR} from '../../lib/_definitions.ts';
-	const options = {
-		label: 'Pro',
-		color: COLOR.PRIMARY,
-	};
 </script>
+<Badge color="rgba(225,0,0,.5)">Pro</Badge>
 
 ```
 
-## Options
+## Parameters
 
-| Name  | Type   | Description |
-| ----- | ------ | ----------- |
-| color | ENUM   | Badge cplor |
-| label | string | Badge label |
+| Name  | Type   | Description               |
+| ----- | ------ | ------------------------- |
+| color | string | An alternate badge color. |
