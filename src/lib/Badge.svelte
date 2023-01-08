@@ -22,7 +22,7 @@
 		white-space: nowrap;
 		vertical-align: baseline;
 		border-radius: $size-radius--large;
-		color: $color--darkest;
+		color: $color--slate-dark;
 		font: $font--xsmall-bold;
 		line-height: $size--14;
 		font-size: $size--8;

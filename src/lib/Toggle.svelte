@@ -7,30 +7,6 @@
 	export let disabled: boolean = false;
 	export let tall: boolean = false;
 
-	// This won't work in dark mode, just overwrite will global styles
-	// export let onTrackColor = '#262b35';
-	// export let onKnobColor = '#f7f8f7';
-	// export let offTrackColor = '#ede2ff';
-	// export let offKnobColor = '#f7f8f7';
-	// export let disabledTrackColor = '#67748e';
-	// export let disabledKnobColor = '#f7f8f7';
-
-	// let trackColor: string | undefined;
-	// let knobColor: string | undefined;
-
-	// $: {
-	// 	if (disabled) {
-	// 		trackColor = disabledTrackColor;
-	// 		knobColor = disabledKnobColor;
-	// 	} else if (on) {
-	// 		trackColor = onTrackColor;
-	// 		knobColor = onKnobColor;q
-	// 	} else {
-	// 		trackColor = offTrackColor;
-	// 		knobColor = offKnobColor;
-	// 	}
-	// }
-
 	const changeHandler = (event: Event): void => {
 		if (disabled) {
 			on = false;
@@ -43,7 +19,7 @@
 <div
 	data-testid="toggle"
 	class="sp-toggle sp-toggle--{on ? 'on' : 'off'}
-		{tall ? 'sp-toggle--tall' : ''}">
+		{tall ? 'sp-toggle--tall' : void 0}">
 	<input
 		type="checkbox"
 		class="sp-toggle--input"
@@ -97,14 +73,14 @@
 		z-index: 1;
 
 		&:checked + .sp-toggle--track {
-			background-color: $color--darkest;
+			background-color: $color--slate-dark;
 			&:after {
 				transform: translateX(calc(100% + 4px));
 			}
 		}
 
 		&:disabled + .sp-toggle--track {
-			background-color: $color--dark;
+			background-color: $color--slate-light;
 		}
 	}
 	.sp-toggle--track {
@@ -114,7 +90,7 @@
 		width: 100%;
 		height: 100%;
 		border-radius: $size--20;
-		background-color: $color--purple-lighter;
+		background-color: $color--light-purple;
 		transition: 0.4s;
 
 		&:after {
@@ -124,7 +100,7 @@
 			width: calc($size--20 - 4px);
 			left: 2px;
 			top: 2px;
-			background-color: $color--light;
+			background-color: $color--white;
 			transition: 0.4s;
 			border-radius: 50%;
 		}

@@ -83,17 +83,17 @@
 		display: inline-flex;
 		justify-content: center;
 		align-items: center;
-		column-gap: 0.25rem; // this should change depending on the size of the button
-		height: $size-gutter;
-		padding: 0 $size-gutter--half;
+		column-gap: $size--6; // this should change depending on the size of the button
+		height: $size--40;
+		padding: 0 $size--20;
 		border: 0;
 		border-radius: 5px;
 		font: $font--default;
 		background-color: $color--purple;
-		color: $color--darkest;
+		color: $color--slate-dark;
 		&:focus {
 			outline: none;
-			box-shadow: inset 0 0 3px $color--purple-lightest;
+			box-shadow: inset 0 0 3px $color--light-purple-light;
 		}
 		&:hover {
 			background-color: $color--purple-dark;
@@ -121,28 +121,28 @@
 			}
 		}
 		&.sp-button--dark {
-			background-color: $color--darkest;
-			color: $color--light;
+			background-color: $color--slate-dark;
+			color: $color--slate-light;
 			&:hover {
-				background-color: $color--light;
-				color: $color--darkest;
+				background-color: $color--slate-light;
+				color: $color--slate-dark;
 			}
 		}
 		&.sp-button--small {
 			font-size: $font-size--12;
 			padding: 0 $size-gutter--half;
 			height: $size-gutter - 0.5rem;
-			column-gap: 0.125rem;
+			column-gap: $size--2;
 		}
 		&.sp-button--large {
 			font-size: $font-size--16;
 			padding: 0 $size-gutter;
 			height: $size-gutter + 1rem;
-			column-gap: 0.5rem;
+			column-gap: $size--8;
 		}
 		&:disabled:not(.loader) {
 			color: $color--purple-light;
-			background-color: $color--purple-lighter;
+			background-color: $color--light-purple;
 			cursor: default !important;
 		}
 		&.loader {
@@ -162,7 +162,7 @@
 				top: calc(50% - 9px);
 				left: calc(50% - 8px);
 				border: 2px solid #fff;
-				border-top: 2px solid $color--darkest;
+				border-top: 2px solid $color--slate-dark;
 				border-radius: 100%;
 				animation: spin 1s linear infinite;
 			}
