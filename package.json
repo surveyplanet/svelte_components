@@ -17,6 +17,7 @@
 		"test": "./node_modules/.bin/test-storybook"
 	},
 	"devDependencies": {
+		"@storybook/addon-a11y": "^7.0.0-beta.19",
 		"@storybook/addon-docs": "^7.0.0-beta.12",
 		"@storybook/addon-essentials": "^7.0.0-beta.12",
 		"@storybook/addon-interactions": "^7.0.0-beta.12",
@@ -51,6 +52,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@surveyplanet/styles": "^0.1.7-3"
+		"@surveyplanet/styles": "^0.1.7-16"
 	}
 }

@@ -1,22 +1,8 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import { BUTTON_MODES, BUTTON_SIZES } from './_definitions';
+
 	import Icon from './Icon.svelte';
-
-	const enum BUTTON_SIZES {
-		SMALL = 'small',
-		MEDIUM = 'medium',
-		LARGE = 'large',
-	}
-
-	const enum BUTTON_MODES {
-		PRIMARY = 'primary',
-		SECONDARY = 'secondary',
-		TERTIARY = 'tertiary',
-		QUATERNARY = 'quaternary',
-		DARK = 'dark',
-	}
-
-	const SP_BUTTON_CLICK_EVENT: string = 'SurveyPlanetButtonClickEvent';
 
 	const dispatch = createEventDispatcher();
 
@@ -24,13 +10,13 @@
 	 * Optional click handler
 	 */
 	const clickHandler = (event: MouseEvent): void => {
-		dispatch(SP_BUTTON_CLICK_EVENT, event);
+		dispatch('clickEvent', event);
 	};
 
 	/**
 	 * The button mode, either: 'primary', 'secondary' or 'tertiary'
 	 */
-	export let mode: BUTTON_MODES = BUTTON_MODES.PRIMARY;
+	export let mode: BUTTON_MODES | string = BUTTON_MODES.SECONDARY;
 
 	/**
 	 * Whether the button is disabled or not
@@ -50,7 +36,7 @@
 	/**
 	 * The button size, either: 'small', 'medium' or 'large'
 	 */
-	export let size: BUTTON_SIZES = BUTTON_SIZES.MEDIUM;
+	export let size: BUTTON_SIZES | string = BUTTON_SIZES.MEDIUM;
 
 	/**
 	 * The button label
@@ -60,7 +46,7 @@
 	/**
 	 * The name of the icon to use inside the button
 	 */
-	export let icon: string | null;
+	export let icon: string | undefined | null = undefined;
 
 	let iconSize: 16 | 20 | 24 =
 		size !== BUTTON_SIZES.MEDIUM
@@ -89,7 +75,7 @@
 
 <style lang="scss">
 	@use 'sass:color';
-	@use './node_modules/@surveyplanet/styles/index.scss' as *;
+	@use '@surveyplanet/styles' as *;
 	@include spin(); // spin animation
 
 	.sp-button {
@@ -97,23 +83,23 @@
 		display: inline-flex;
 		justify-content: center;
 		align-items: center;
-		column-gap: 0.5rem; // this should change depending on the size of the button
-		height: $gutter;
-		padding: 0 $gutter--half;
+		column-gap: $size--6; // this should change depending on the size of the button
+		height: $size--40;
+		padding: 0 $size--20;
 		border: 0;
 		border-radius: 5px;
 		font: $font--default;
 		background-color: $color--purple;
-		color: $color--dark;
+		color: $color--slate-dark;
 		&:focus {
 			outline: none;
-			box-shadow: inset 0 0 3px $color--purple-lightest;
+			box-shadow: inset 0 0 3px $color--light-purple-light;
 		}
 		&:hover {
 			background-color: $color--purple-dark;
 		}
 		&.round {
-			border-radius: $gutter--half;
+			border-radius: $size-gutter;
 		}
 
 		&.sp-button--secondary {
@@ -135,26 +121,28 @@
 			}
 		}
 		&.sp-button--dark {
-			background-color: $color--dark;
-			color: $color--light;
+			background-color: $color--slate-dark;
+			color: $color--slate-light;
 			&:hover {
-				background-color: $color--light;
-				color: $color--dark;
+				background-color: $color--slate-light;
+				color: $color--slate-dark;
 			}
 		}
 		&.sp-button--small {
 			font-size: $font-size--12;
-			padding: 0 $gutter--half;
-			height: $gutter - 0.5rem;
+			padding: 0 $size-gutter--half;
+			height: $size-gutter - 0.5rem;
+			column-gap: $size--2;
 		}
 		&.sp-button--large {
 			font-size: $font-size--16;
-			padding: 0 $gutter;
-			height: $gutter + 1rem;
+			padding: 0 $size-gutter;
+			height: $size-gutter + 1rem;
+			column-gap: $size--8;
 		}
 		&:disabled:not(.loader) {
 			color: $color--purple-light;
-			background-color: $color--purple-lighter;
+			background-color: $color--light-purple;
 			cursor: default !important;
 		}
 		&.loader {
@@ -174,7 +162,7 @@
 				top: calc(50% - 9px);
 				left: calc(50% - 8px);
 				border: 2px solid #fff;
-				border-top: 2px solid $color--dark;
+				border-top: 2px solid $color--slate-dark;
 				border-radius: 100%;
 				animation: spin 1s linear infinite;
 			}
