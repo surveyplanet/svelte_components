@@ -19,7 +19,7 @@
 <div
 	data-testid="toggle"
 	class="sp-toggle sp-toggle--{on ? 'on' : 'off'}
-		{tall ? 'sp-toggle--tall' : ''}">
+		{tall ? 'sp-toggle--tall' : void 0}">
 	<input
 		type="checkbox"
 		class="sp-toggle--input"
@@ -73,14 +73,14 @@
 		z-index: 1;
 
 		&:checked + .sp-toggle--track {
-			background-color: $color--darkest;
+			background-color: $color--slate-dark;
 			&:after {
 				transform: translateX(calc(100% + 4px));
 			}
 		}
 
 		&:disabled + .sp-toggle--track {
-			background-color: $color--dark;
+			background-color: $color--slate-light;
 		}
 	}
 	.sp-toggle--track {
@@ -90,7 +90,7 @@
 		width: 100%;
 		height: 100%;
 		border-radius: $size--20;
-		background-color: $color--purple-lighter;
+		background-color: $color--light-purple;
 		transition: 0.4s;
 
 		&:after {
@@ -100,7 +100,7 @@
 			width: calc($size--20 - 4px);
 			left: 2px;
 			top: 2px;
-			background-color: $color--light;
+			background-color: $color--white;
 			transition: 0.4s;
 			border-radius: 50%;
 		}

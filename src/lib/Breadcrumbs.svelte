@@ -45,7 +45,7 @@
 		vertical-align: top;
 		font: $font--default-bold;
 		white-space: nowrap;
-		color: $color--dark;
+		color: $color--slate;
 	}
 
 	.sp-breadcrumbs--link {
@@ -57,7 +57,7 @@
 			color: $color--purple;
 		}
 		&:last-child {
-			color: $color--darkest;
+			color: $color--slate-dark;
 		}
 	}
 

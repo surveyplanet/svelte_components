@@ -96,10 +96,9 @@ export const Small: Story = {
 	},
 };
 
-export const Labless: Story = {
+export const ActionButton: Story = {
 	args: {
 		label: '',
-		size: BUTTON_SIZES.SMALL,
 		icon: 'search',
 	},
 	render: <T extends object>(args: T) => {
