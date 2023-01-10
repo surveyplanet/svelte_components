@@ -334,12 +334,53 @@
 			}
 		}
 		&:disabled:not(.sp-button--loader) {
+			cursor: default !important;
 			color: $color--purple-light;
 			background: $color--light-purple;
-			cursor: default !important;
+			:global(svg path) {
+				fill: $color--purple-light;
+			}
+
 			&:before {
 				background: unset;
 				background-image: unset;
+			}
+
+			&.sp-button--secondary {
+				color: $color--yellow-dark;
+				background-color: $color--yellow-light;
+				:global(svg path) {
+					fill: $color--yellow-dark;
+				}
+			}
+			&.sp-button--tertiary {
+				color: $color--green-dark;
+				background-color: $color--green-light;
+				:global(svg path) {
+					fill: $color--green-dark;
+				}
+			}
+			&.sp-button--quaternary {
+				color: $color--blue-dark;
+				background-color: $color--blue-light;
+				:global(svg path) {
+					fill: $color--blue-dark;
+				}
+			}
+			&.sp-button--dark {
+				color: $color--slate;
+				background-color: $color--slate-lighter;
+				:global(svg path) {
+					fill: $color--slate;
+				}
+			}
+			&.sp-button--light {
+				color: $color--slate-lighter;
+				background-color: $color--white;
+				box-shadow: inset 0px 0px 0px 1px $color--slate-lighter;
+				:global(svg path) {
+					fill: $color--slate-lighter;
+				}
 			}
 		}
 		&.sp-button--loader {

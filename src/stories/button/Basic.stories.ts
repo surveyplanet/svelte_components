@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/svelte';
 // import argTypes from './default_metadata';
 import Button from '../../lib/Button.svelte';
 import { BUTTON_MODES, BUTTON_SIZES } from '../../lib/_definitions';
-import { within, userEvent, screen } from '@storybook/testing-library';
+import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import Documentation from './button.mdx';
 
@@ -10,9 +10,10 @@ const meta: Meta<Button> = {
 	title: 'Button/Basic',
 	argTypes: {
 		label: { control: 'text' },
-		disabled: { control: 'boolean' },
-		loader: { control: 'boolean' },
-		round: { control: 'boolean' },
+		disabled: { control: 'boolean', defaultValue: false },
+		loader: { control: 'boolean', defaultValue: false },
+		round: { control: 'boolean', defaultValue: false },
+		block: { control: 'boolean', defaultValue: false },
 		mode: {
 			control: { type: 'select' },
 			options: ['primary', 'secondary', 'tertiary', 'quaternary', 'dark'],
@@ -20,6 +21,7 @@ const meta: Meta<Button> = {
 		size: {
 			control: { type: 'select' },
 			options: ['small', 'medium', 'large'],
+			defaultValue: BUTTON_SIZES.MEDIUM,
 		},
 		icon: {
 			control: { type: 'select' },
