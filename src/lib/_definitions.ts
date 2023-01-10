@@ -10,6 +10,7 @@ export const enum BUTTON_MODES {
 	TERTIARY = 'tertiary',
 	QUATERNARY = 'quaternary',
 	DARK = 'dark',
+	LIGHT = 'light',
 }
 
 export const COLORS = {

@@ -1,16 +1,14 @@
 // import type { PlayFunctionContext } from '@storybook/types';
 import type { Meta, StoryObj } from '@storybook/svelte';
-import argTypes from './default_metadata';
 import Button from '../../lib/Button.svelte';
 import { BUTTON_SIZES } from '../../lib/_definitions';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
+import basicMeta from './Basic.stories';
 
-// More on how to set up stories at: https://storybook.js.org/docs/svelte/writing-stories/introduction#default-export
 const meta: Meta<Button> = {
 	title: 'Button/Size',
-	component: Button,
-	argTypes,
+	...basicMeta,
 };
 
 export default meta;
@@ -37,7 +35,7 @@ export const Large: Story = {
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		expect(btn.innerText).toBe('Large');
 		expect(btn.offsetHeight).toBe(48);
 	},
@@ -63,9 +61,9 @@ export const Medium: Story = {
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		expect(btn.innerText).toBe('Medium');
-		expect(btn.offsetHeight).toBe(32);
+		expect(btn.offsetHeight).toBe(40);
 	},
 };
 
@@ -90,7 +88,7 @@ export const Small: Story = {
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		expect(btn.innerText).toBe('Small');
 		expect(btn.offsetHeight).toBe(24);
 	},

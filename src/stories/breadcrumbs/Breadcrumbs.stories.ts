@@ -1,11 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
-
 import Breadcrumbs from '../../lib/Breadcrumbs.svelte';
 import Documentation from './breadcrumbs.mdx';
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
-// More on how to set up stories at: https://storybook.js.org/docs/svelte/writing-stories/introduction#default-export
 const meta: Meta<Breadcrumbs> = {
 	title: 'Breadcrumbs/Default',
 	component: Breadcrumbs,
