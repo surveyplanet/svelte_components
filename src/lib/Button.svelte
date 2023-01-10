@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { create_in_transition } from 'svelte/internal';
-	import { scale, fade } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import { sineOut } from 'svelte/easing';
 	import { BUTTON_MODES, BUTTON_SIZES } from './_definitions';
 
@@ -28,6 +27,11 @@
 	 * Whether the left and right edges should be rounded off
 	 */
 	export let round: boolean = false;
+
+	/**
+	 * Whether the button should consume all available horizontal space.
+	 */
+	export let block: boolean = false;
 
 	/**
 	 * The button size, either: 'small', 'medium' or 'large'
@@ -101,6 +105,7 @@
 	class:sp-button--round={round}
 	class:sp-button--loader={loader}
 	class:sp-button--active={active}
+	class:sp-button--block={block}
 	{disabled}
 	on:click={clickHandler}
 	on:mouseup={mouseUpHandler}
@@ -131,9 +136,9 @@
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
-	$anim--hover-speed: 500ms;
+	$anim--hover-speed: 250ms;
 	$anim--active-speed: 250ms;
-	$anim--active-size: $size--256;
+	$anim--active-size: px-to-rem(150);
 
 	@include spin(); // loader animation
 	@include fadeInOut(); // click animation
@@ -153,15 +158,39 @@
 		font: $font--default;
 		background-color: $color--purple;
 		color: $color--slate-dark;
-		transition: background-color $anim--hover-speed;
+		&:before {
+			@include pseudo();
+			z-index: 0;
+			width: 150%;
+			height: 100%;
+			background-image: linear-gradient(
+				90deg,
+				$color--purple-dark 75%,
+				transparent 100%
+			);
+			opacity: 0;
+			transform: translateX(-100%);
+			transition-timing-function: ease-out;
+			transition: transform $anim--hover-speed, opacity $anim--hover-speed;
+		}
+
+		&:hover {
+			&:before {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
+
 		&:focus {
 			outline: none;
 			// box-shadow: inset 0px 0px 3px 2px $color--blue;
 		}
-		&:hover {
-			background: linear-gradient(90deg, $color--purple-dark, transparent)
-				$color--purple-dark;
+
+		&.sp-button--block {
+			display: flex;
+			width: 100%;
 		}
+
 		&.sp-button--round {
 			border-radius: $size-gutter;
 		}
@@ -174,13 +203,13 @@
 
 		&.sp-button--secondary {
 			background-color: $color--yellow;
-			&:hover {
-				background: linear-gradient(
-						90deg,
-						$color--yellow-dark,
-						transparent
-					)
-					$color--yellow-dark;
+
+			&:before {
+				background-image: linear-gradient(
+					90deg,
+					$color--yellow-dark 75%,
+					transparent 100%
+				);
 			}
 
 			.sp-button--active-animation {
@@ -194,13 +223,13 @@
 		}
 		&.sp-button--tertiary {
 			background-color: $color--green;
-			&:hover {
-				background: linear-gradient(
-						90deg,
-						$color--green-dark,
-						transparent
-					)
-					$color--green-dark;
+
+			&:before {
+				background-image: linear-gradient(
+					90deg,
+					$color--green-dark 75%,
+					transparent 100%
+				);
 			}
 
 			.sp-button--active-animation {
@@ -214,13 +243,13 @@
 		}
 		&.sp-button--quaternary {
 			background-color: $color--blue;
-			&:hover {
-				background: linear-gradient(
-						90deg,
-						$color--blue-dark,
-						transparent
-					)
-					$color--blue-dark;
+
+			&:before {
+				background-image: linear-gradient(
+					90deg,
+					$color--blue-dark 75%,
+					transparent 100%
+				);
 			}
 
 			.sp-button--active-animation {
@@ -234,20 +263,26 @@
 		}
 		&.sp-button--dark {
 			background-color: $color--slate-dark;
-			color: $color--slate-light;
+			color: $color--slate-lighter;
 			:global(svg path) {
 				fill: white;
 			}
+
+			&:before {
+				background-image: linear-gradient(
+					90deg,
+					#454d5f 75%,
+					#454d5f 100%
+				);
+			}
+
 			&:hover {
-				background: linear-gradient(90deg, $color--slate, transparent)
-					$color--slate;
 				:global(svg path) {
 					fill: $color--slate-dark;
 				}
 			}
 
 			.sp-button--active-animation {
-				background: $color--slate-dark;
 				background: radial-gradient(
 					circle,
 					$color--slate-dark 0%,
@@ -257,19 +292,23 @@
 		}
 		&.sp-button--light {
 			background-color: $color--white;
-			box-shadow: inset 0px 0px 0px 1px #c4c7cd;
+			box-shadow: inset 0px 0px 0px 1px $color--slate-lighter;
+
+			&:before {
+				background: unset;
+				background-image: unset;
+			}
+
 			&:hover {
-				background: $color--white;
+				box-shadow: inset 0px 0px 0px 1px #c4c7cd;
+			}
+
+			&:active {
 				box-shadow: inset 0px 0px 0px 1px $color--slate;
 			}
 
 			.sp-button--active-animation {
-				background: $color--slate-light;
-				background: radial-gradient(
-					circle,
-					$color--slate-light 0%,
-					transparent 60%
-				);
+				display: none;
 			}
 		}
 		&.sp-button--small {
@@ -298,6 +337,10 @@
 			color: $color--purple-light;
 			background: $color--light-purple;
 			cursor: default !important;
+			&:before {
+				background: unset;
+				background-image: unset;
+			}
 		}
 		&.sp-button--loader {
 			position: relative;
@@ -363,7 +406,7 @@
 			background: $color--purple;
 			background: radial-gradient(
 				circle,
-				$color--purple 0%,
+				$color--purple 50%,
 				transparent 60%
 			);
 			transition-timing-function: ease-out;

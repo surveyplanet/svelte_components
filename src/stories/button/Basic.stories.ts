@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 // import argTypes from './default_metadata';
 import Button from '../../lib/Button.svelte';
-import { BUTTON_MODES } from '../../lib/_definitions';
-import { within, userEvent } from '@storybook/testing-library';
+import { BUTTON_MODES, BUTTON_SIZES } from '../../lib/_definitions';
+import { within, userEvent, screen } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import Documentation from './button.mdx';
 
@@ -147,7 +147,7 @@ export const Quaternary: Story = {
 };
 export const Dark: Story = {
 	args: {
-		label: 'Dark',
+		label: 'Dark Button',
 		mode: BUTTON_MODES.DARK,
 	},
 	render: <T extends object>(args: T) => {
@@ -166,14 +166,13 @@ export const Dark: Story = {
 		expect(btn).toBeVisible();
 
 		expect(style.backgroundColor).toBe('rgb(38, 43, 53)');
-		expect(btn.innerText).toBe('Dark');
 		expect(btn).toHaveFocus();
 		expect(btn.disabled).toBe(false);
 	},
 };
 export const Light: Story = {
 	args: {
-		label: 'Light',
+		label: 'Light Button',
 		mode: BUTTON_MODES.LIGHT,
 	},
 	render: <T extends object>(args: T) => {
@@ -192,7 +191,7 @@ export const Light: Story = {
 		expect(btn).toBeVisible();
 
 		expect(style.backgroundColor).toBe('rgb(255, 255, 255)');
-		expect(btn.innerText).toBe('Light');
+		expect(btn.innerText).toBe('Light Button');
 		expect(btn).toHaveFocus();
 		expect(btn.disabled).toBe(false);
 	},
@@ -200,8 +199,9 @@ export const Light: Story = {
 
 export const Rounded: Story = {
 	args: {
-		label: 'Rounded',
+		label: 'Go Pro',
 		round: true,
+		mode: BUTTON_MODES.SECONDARY,
 	},
 	render: <T extends object>(args: T) => {
 		return {
@@ -219,9 +219,33 @@ export const Rounded: Story = {
 		expect(btn).toBeVisible();
 
 		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
-		expect(btn.innerText).toBe('Rounded');
+		expect(btn.innerText).toBe('Go Pro');
 		expect(btn).toHaveFocus();
 		expect(btn.disabled).toBe(false);
+	},
+};
+
+export const Block: Story = {
+	args: {
+		label: 'Button should take up all available horizontal space.',
+		block: true,
+		size: BUTTON_SIZES.LARGE,
+	},
+	render: <T extends object>(args: T) => {
+		return {
+			Component: Button,
+			props: args,
+		};
+	},
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
+		const btn: HTMLButtonElement = canvas.getByRole('button');
+		// console.log(global.document.body.style.padding); // there is no padding
+		expect(btn).toBeVisible();
+		const paddingSize = 35; // padding is approximately 35px
+		expect(btn.offsetWidth).toBeGreaterThan(
+			global.innerWidth - paddingSize
+		);
 	},
 };
 

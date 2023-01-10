@@ -18,8 +18,8 @@
 
 <div
 	data-testid="toggle"
-	class="sp-toggle sp-toggle--{on ? 'on' : 'off'}
-		{tall ? 'sp-toggle--tall' : void 0}">
+	class="sp-toggle sp-toggle--{on ? 'on' : 'off'}"
+	class:sp-toggle--tall={tall}>
 	<input
 		type="checkbox"
 		class="sp-toggle--input"
@@ -38,26 +38,6 @@
 		position: relative;
 		width: $size--40;
 		height: $size--20;
-	}
-
-	.sp-toggle--tall {
-		width: $size--36;
-		height: $size--24;
-		.sp-toggle--track {
-			&:after {
-				position: absolute;
-				content: '';
-				height: calc($size--24 - 4px);
-				width: calc($size--24 - 4px);
-			}
-		}
-		.sp-toggle--input {
-			&:checked + .sp-toggle--track {
-				&:after {
-					transform: translateX(calc(100% - 8px));
-				}
-			}
-		}
 	}
 
 	.sp-toggle--input {
@@ -80,7 +60,7 @@
 		}
 
 		&:disabled + .sp-toggle--track {
-			background-color: $color--slate-light;
+			background-color: $color--slate-lighter;
 		}
 	}
 	.sp-toggle--track {
@@ -103,6 +83,26 @@
 			background-color: $color--white;
 			transition: 0.4s;
 			border-radius: 50%;
+		}
+	}
+
+	.sp-toggle--tall {
+		width: $size--36;
+		height: $size--24;
+		.sp-toggle--track {
+			&:after {
+				position: absolute;
+				content: '';
+				height: calc($size--24 - 4px);
+				width: calc($size--24 - 4px);
+			}
+		}
+		.sp-toggle--input {
+			&:checked + .sp-toggle--track {
+				&:after {
+					transform: translateX(calc(100% - 8px));
+				}
+			}
 		}
 	}
 </style>

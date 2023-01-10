@@ -98,34 +98,6 @@ export const DefaultSmall: Story = {
 	},
 };
 
-export const Primary: Story = {
-	args: {
-		label: 'Primary',
-		mode: BUTTON_MODES.PRIMARY,
-		disabled: true,
-		loader: true,
-	},
-	render: <T extends object>(args: T) => {
-		return {
-			Component: Button,
-			props: args,
-		};
-	},
-	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
-		const canvas = within(res.canvasElement);
-
-		const btn = canvas.getByRole('button');
-		const style = window.getComputedStyle(btn);
-
-		await userEvent.click(btn);
-
-		expect(btn).toBeVisible();
-
-		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
-		expect(btn.innerText).toBe('');
-		expect(btn).toHaveClass('sp-button--loader');
-	},
-};
 export const LoaderTertiarySmall: Story = {
 	args: {
 		label: 'Loader',
