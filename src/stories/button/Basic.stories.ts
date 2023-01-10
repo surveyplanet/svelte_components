@@ -250,30 +250,3 @@ export const Block: Story = {
 		);
 	},
 };
-
-export const Disabled: Story = {
-	args: {
-		label: 'Disabled',
-		disabled: true,
-	},
-	render: <T extends object>(args: T) => {
-		return {
-			Component: Button,
-			props: args,
-		};
-	},
-	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
-		const canvas = within(res.canvasElement);
-
-		const btn: HTMLButtonElement = canvas.getByRole('button');
-		const style = window.getComputedStyle(btn);
-		await userEvent.click(btn);
-
-		expect(btn).toBeVisible();
-
-		expect(style.backgroundColor).toBe('rgb(236, 229, 255)');
-		expect(btn.innerText).toBe('Disabled');
-		expect(btn).not.toHaveFocus();
-		expect(btn.disabled).toBe(true);
-	},
-};

@@ -9,6 +9,11 @@
 	const dispatch = createEventDispatcher();
 
 	/**
+	 * A Button Component
+	 * @component
+	 */
+
+	/**
 	 * The button mode. See BUTTON_MODES.
 	 */
 	export let mode: BUTTON_MODES = BUTTON_MODES.PRIMARY;
@@ -35,11 +40,13 @@
 
 	/**
 	 * The button size, either: 'small', 'medium' or 'large'
+	 * @required
 	 */
 	export let size: BUTTON_SIZES = BUTTON_SIZES.MEDIUM;
 
 	/**
 	 * The button label
+	 * @required
 	 */
 	export let label: string = '';
 
@@ -387,10 +394,13 @@
 			position: relative;
 			transition: none;
 
-			.sp-button--text,
-			:global(.sp-icon) {
-				visibility: hidden;
-				opacity: 0;
+			// hide the text/icon so only spinner is seen
+			&:disabled {
+				.sp-button--text,
+				:global(.sp-icon) {
+					visibility: hidden;
+					opacity: 0;
+				}
 			}
 
 			&:after {
