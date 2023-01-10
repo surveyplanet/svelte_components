@@ -44,6 +44,9 @@
 	 */
 	export let icon: string | undefined | null = undefined;
 
+	/**
+	 * The size of the icon is not configurable, it is dependant on the button size
+	 */
 	const iconSize: 16 | 20 | 24 = (() => {
 		switch (size) {
 			case BUTTON_SIZES.LARGE:
@@ -57,6 +60,9 @@
 
 	let clickAnimationEl: HTMLElement;
 
+	/**
+	 * Whether or not the button is in a depressed (mousedown) state.
+	 */
 	let active: boolean = false;
 
 	const clickHandler = (e: MouseEvent): void => {
@@ -73,7 +79,6 @@
 		const x = e.clientX - rect.left;
 		const y = e.clientY - rect.top;
 		activate(x, y);
-		console.log('active', active);
 	};
 
 	const deactivate = () => {
