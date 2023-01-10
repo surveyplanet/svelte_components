@@ -361,6 +361,7 @@
 				$color--purple 0%,
 				transparent 60%
 			);
+			transition-timing-function: ease-out;
 			transition: transform $anim--active-speed,
 				opacity $anim--active-speed;
 		}
