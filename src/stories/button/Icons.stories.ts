@@ -122,3 +122,59 @@ export const ActionButton: Story = {
 		expect(btn.offsetHeight).toBe(24);
 	},
 };
+
+export const ActionButtonLarge: Story = {
+	args: {
+		label: '',
+		icon: 'search',
+		size: BUTTON_SIZES.LARGE,
+	},
+	render: <T extends object>(args: T) => {
+		return {
+			Component: Button,
+			props: args,
+		};
+	},
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
+
+		const btn = canvas.getByRole('button');
+		const style = window.getComputedStyle(btn);
+
+		await userEvent.click(btn);
+
+		expect(btn).toBeVisible();
+
+		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(btn.innerText).toBe('');
+		expect(btn.offsetHeight).toBe(24);
+	},
+};
+
+export const ActionButtonSmall: Story = {
+	args: {
+		label: '',
+		icon: 'search',
+		size: BUTTON_SIZES.SMALL,
+	},
+	render: <T extends object>(args: T) => {
+		return {
+			Component: Button,
+			props: args,
+		};
+	},
+	play: async <T extends { canvasElement: HTMLElement }>(res: T) => {
+		const canvas = within(res.canvasElement);
+
+		const btn = canvas.getByRole('button');
+		const style = window.getComputedStyle(btn);
+
+		await userEvent.click(btn);
+
+		expect(btn).toBeVisible();
+
+		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(btn.innerText).toBe('');
+		expect(btn.offsetHeight).toBe(24);
+	},
+};
