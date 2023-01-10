@@ -53,13 +53,12 @@ export const Primary: Story = {
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
-		const color = 'rgb(181, 152, 255)';
 
 		await userEvent.click(btn);
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe(color);
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		expect(btn.innerText).toBe('Button');
 		expect(btn).toHaveFocus();
 		expect(btn.disabled).toBe(false);
@@ -82,12 +81,11 @@ export const Secondary: Story = {
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
-		const color = 'rgb(255, 233, 120)';
 		await userEvent.click(btn);
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe(color);
+		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
 		expect(btn.innerText).toBe('Secondary');
 		expect(btn).toHaveFocus();
 		expect(btn.disabled).toBe(false);
@@ -110,12 +108,11 @@ export const Tertiary: Story = {
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
-		const color = 'rgb(161, 253, 165)';
 		await userEvent.click(btn);
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe(color);
+		expect(style.backgroundColor).toBe('rgb(161, 253, 165)');
 		expect(btn.innerText).toBe('Tertiary');
 		expect(btn).toHaveFocus();
 		expect(btn.disabled).toBe(false);
@@ -138,13 +135,12 @@ export const Quaternary: Story = {
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
-		const color = 'rgb(161, 253, 165)';
 		await userEvent.click(btn);
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe(color);
-		expect(btn.innerText).toBe('Tertiary');
+		expect(style.backgroundColor).toBe('rgb(158, 228, 250)');
+		expect(btn.innerText).toBe('Quaternary');
 		expect(btn).toHaveFocus();
 		expect(btn.disabled).toBe(false);
 	},
@@ -165,13 +161,12 @@ export const Dark: Story = {
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
-		const color = 'rgb(161, 253, 165)';
 		await userEvent.click(btn);
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe(color);
-		expect(btn.innerText).toBe('Tertiary');
+		expect(style.backgroundColor).toBe('rgb(38, 43, 53)');
+		expect(btn.innerText).toBe('Dark');
 		expect(btn).toHaveFocus();
 		expect(btn.disabled).toBe(false);
 	},
@@ -192,13 +187,12 @@ export const Light: Story = {
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
-		const color = 'rgb(161, 253, 165)';
 		await userEvent.click(btn);
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe(color);
-		expect(btn.innerText).toBe('Tertiary');
+		expect(style.backgroundColor).toBe('rgb(255, 255, 255)');
+		expect(btn.innerText).toBe('Light');
 		expect(btn).toHaveFocus();
 		expect(btn.disabled).toBe(false);
 	},
@@ -220,12 +214,11 @@ export const Rounded: Story = {
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
-		const color = 'rgb(255, 233, 120)';
 		await userEvent.click(btn);
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe(color);
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		expect(btn.innerText).toBe('Rounded');
 		expect(btn).toHaveFocus();
 		expect(btn.disabled).toBe(false);
@@ -248,12 +241,11 @@ export const Disabled: Story = {
 
 		const btn: HTMLButtonElement = canvas.getByRole('button');
 		const style = window.getComputedStyle(btn);
-		const color = 'rgb(237, 226, 255)';
 		await userEvent.click(btn);
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe(color);
+		expect(style.backgroundColor).toBe('rgb(236, 229, 255)');
 		expect(btn.innerText).toBe('Disabled');
 		expect(btn).not.toHaveFocus();
 		expect(btn.disabled).toBe(true);
