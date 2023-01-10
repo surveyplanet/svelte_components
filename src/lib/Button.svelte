@@ -101,6 +101,7 @@
 	on:mouseup={mouseUpHandler}
 	on:mousedown={mouseDownHandler}>
 	<span
+		class="sp-button--active-animation"
 		bind:this={clickAnimationEl}
 		in:fade={{
 			duration: 250,
@@ -110,8 +111,7 @@
 		out:fade={{
 			duration: 250,
 			easing: sineOut,
-		}}
-		class="sp-button--click-animation" />
+		}} />
 
 	{#if label && label.length}
 		<span class="sp-button--text">{label}</span>
@@ -178,7 +178,7 @@
 					$color--yellow-dark;
 			}
 
-			.sp-button--click-animation {
+			.sp-button--active-animation {
 				background: $color--yellow;
 				background: radial-gradient(
 					circle,
@@ -198,7 +198,7 @@
 					$color--green-dark;
 			}
 
-			.sp-button--click-animation {
+			.sp-button--active-animation {
 				background: $color--green;
 				background: radial-gradient(
 					circle,
@@ -218,7 +218,7 @@
 					$color--blue-dark;
 			}
 
-			.sp-button--click-animation {
+			.sp-button--active-animation {
 				background: $color--blue;
 				background: radial-gradient(
 					circle,
@@ -241,7 +241,7 @@
 				}
 			}
 
-			.sp-button--click-animation {
+			.sp-button--active-animation {
 				background: $color--slate-dark;
 				background: radial-gradient(
 					circle,
@@ -258,7 +258,7 @@
 				box-shadow: inset 0px 0px 0px 1px $color--slate;
 			}
 
-			.sp-button--click-animation {
+			.sp-button--active-animation {
 				background: $color--slate-light;
 				background: radial-gradient(
 					circle,
@@ -344,7 +344,7 @@
 			z-index: 1;
 		}
 
-		.sp-button--click-animation {
+		.sp-button--active-animation {
 			position: absolute;
 			z-index: 0;
 			left: calc(50% - ($anim--active-size * 0.5));
@@ -366,7 +366,7 @@
 		}
 
 		&.sp-button--active {
-			.sp-button--click-animation {
+			.sp-button--active-animation {
 				transform: scale(1);
 				opacity: 1;
 			}
