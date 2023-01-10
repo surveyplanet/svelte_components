@@ -35,7 +35,7 @@ export const Large: Story = {
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		expect(btn.innerText).toBe('Large');
 		expect(btn.offsetHeight).toBe(48);
 	},
@@ -62,9 +62,9 @@ export const Medium: Story = {
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		expect(btn.innerText).toBe('Medium');
-		expect(btn.offsetHeight).toBe(32);
+		expect(btn.offsetHeight).toBe(40);
 	},
 };
 
@@ -90,7 +90,7 @@ export const Small: Story = {
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		expect(btn.innerText).toBe('Small');
 		expect(btn.offsetHeight).toBe(24);
 	},
@@ -117,9 +117,9 @@ export const ActionButton: Story = {
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		expect(btn.innerText).toBe('');
-		expect(btn.offsetHeight).toBe(24);
+		expect(btn.offsetHeight).toBe(32);
 	},
 };
 
@@ -145,9 +145,9 @@ export const ActionButtonLarge: Story = {
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		expect(btn.innerText).toBe('');
-		expect(btn.offsetHeight).toBe(24);
+		expect(btn.offsetHeight).toBe(48);
 	},
 };
 
@@ -173,7 +173,7 @@ export const ActionButtonSmall: Story = {
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		expect(btn.innerText).toBe('');
 		expect(btn.offsetHeight).toBe(24);
 	},

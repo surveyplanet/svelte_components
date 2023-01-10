@@ -35,9 +35,9 @@ export const LoaderDefault: Story = {
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		expect(btn.innerText).toBe('');
-		expect(btn).toHaveClass('loader');
+		expect(btn).toHaveClass('sp-button--loader');
 		expect(afterEl.animationDuration).toBe('1s');
 		expect(afterEl.animationTimingFunction).toBe('linear');
 		expect(afterEl.animationIterationCount).toBe('infinite');
@@ -66,8 +66,8 @@ export const LoaderSecondaryLarge: Story = {
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
-		expect(btn).toHaveClass('loader');
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
+		expect(btn).toHaveClass('sp-button--loader');
 	},
 };
 export const DefaultSmall: Story = {
@@ -93,8 +93,8 @@ export const DefaultSmall: Story = {
 
 		expect(btn).toBeVisible();
 
-		expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
-		expect(btn).toHaveClass('loader');
+		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
+		expect(btn).toHaveClass('sp-button--loader');
 	},
 };
 
@@ -123,7 +123,7 @@ export const Primary: Story = {
 
 		expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 		expect(btn.innerText).toBe('');
-		expect(btn).toHaveClass('loader');
+		expect(btn).toHaveClass('sp-button--loader');
 	},
 };
 export const LoaderTertiarySmall: Story = {
@@ -152,7 +152,7 @@ export const LoaderTertiarySmall: Story = {
 
 		expect(style.backgroundColor).toBe('rgb(161, 253, 165)');
 		expect(btn.innerText).toBe('');
-		expect(btn).toHaveClass('loader');
+		expect(btn).toHaveClass('sp-button--loader');
 	},
 };
 export const LoaderWithIcon: Story = {
@@ -177,7 +177,7 @@ export const LoaderWithIcon: Story = {
 		expect(btn).toBeVisible();
 
 		expect(btn.innerText).toBe('');
-		expect(btn).toHaveClass('loader');
+		expect(btn).toHaveClass('sp-button--loader');
 	},
 };
 
@@ -203,6 +203,6 @@ export const LoaderRounded: Story = {
 		expect(btn).toBeVisible();
 
 		expect(btn.innerText).toBe('');
-		expect(btn).toHaveClass('loader');
+		expect(btn).toHaveClass('sp-button--loader');
 	},
 };
