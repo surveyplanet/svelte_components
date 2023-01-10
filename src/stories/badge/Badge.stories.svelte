@@ -1,16 +1,12 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { doc } from 'prettier';
-
+	import { Primary, Inverted } from './badgeFunctions';
 	import Badge from '../../lib/Badge.svelte';
-	import { within } from '@storybook/testing-library';
-	import { expect } from '@storybook/jest';
 </script>
 
 <Meta
 	title="Badge/Default"
-	component={Badge}
-	parameters={doc} />
+	component={Badge} />
 
 <Template let:args>
 	<Badge {...args} />
@@ -21,24 +17,9 @@
 	args={{
 		label: 'PRO',
 	}}
-	play={async (res) => {
-		const canvas = within(res.canvasElement);
-
-		const badge = canvas.getByText('PRO');
-
-		const style = window.getComputedStyle(badge);
-		const color = style.getPropertyValue('background-color');
-		const labelColor = style.getPropertyValue('color');
-		const textTransform = style.getPropertyValue('text-transform');
-
-		expect(badge).toBeTruthy();
-		expect(badge).toHaveClass('sp-badge');
-		expect(color).toBe('rgb(255, 233, 120)');
-		expect(labelColor).toBe('rgb(38, 43, 53)');
-		expect(textTransform).toBe('uppercase');
-	}} />
-
+	play={Primary} />
 <Story
 	name="Inverted"
 	source
-	args={{ label: 'Inverted', color: 'black', labelColor: 'white' }} />
+	args={{ label: 'Inverted', color: 'black', labelColor: 'white' }}
+	play={Inverted} />

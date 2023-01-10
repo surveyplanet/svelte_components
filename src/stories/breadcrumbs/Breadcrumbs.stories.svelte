@@ -2,7 +2,7 @@
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 
 	import Breadcrumbs from '../../lib/Breadcrumbs.svelte';
-	import { play, render } from './breadcrumbsFunctions';
+	import { play } from './breadcrumbsFunctions';
 </script>
 
 <Meta
@@ -35,5 +35,4 @@
 			},
 		],
 	}}
-	{play}
-	{render} />
+	{play} />
