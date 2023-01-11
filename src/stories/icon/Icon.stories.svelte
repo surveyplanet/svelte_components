@@ -24,5 +24,13 @@
 <Story
 	name="Light"
 	source
-	args={{ name: 'search', color: 'white' }}
+	args={{
+		name: 'search',
+		color: 'white',
+	}}
+	parameters={{
+		backgrounds: {
+			default: 'darkest',
+		},
+	}}
 	play={light} />
