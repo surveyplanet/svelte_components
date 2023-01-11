@@ -18,7 +18,7 @@ export const Primary = async <T extends { canvasElement: HTMLElement }>(
 	expect(badge).toBeTruthy();
 	expect(badge).toHaveClass('sp-badge');
 	expect(color).toBe('rgb(255, 233, 120)');
-	expect(labelColor).toBe('rgb(38, 43, 53)');
+	expect(labelColor).toBe('rgb(22, 33, 55)');
 	expect(textTransform).toBe('uppercase');
 };
 

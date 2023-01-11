@@ -2,7 +2,7 @@
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 
 	import Icon from '../../lib/Icon.svelte';
-	import { basic, light } from './iconFunctions';
+	import { basic, light } from './icon.test';
 </script>
 
 <Meta

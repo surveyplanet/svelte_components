@@ -1,6 +1,6 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { Primary, Inverted } from './badgeFunctions';
+	import { Primary, Inverted } from './badge.test';
 	import Badge from '../../lib/Badge.svelte';
 </script>
 
