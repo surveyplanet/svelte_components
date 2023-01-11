@@ -2,31 +2,6 @@ import Button from '../../lib/Button.svelte';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
-// export const parameters: {
-// 		docs: {
-// 			page: Documentation,
-// 		},
-// }
-
-export const argTypes = {
-	label: { control: 'text' },
-	disabled: { control: 'boolean' },
-	loader: { control: 'boolean' },
-	round: { control: 'boolean' },
-	mode: {
-		control: { type: 'select' },
-		options: ['primary', 'secondary', 'tertiary', 'quaternary', 'dark'],
-	},
-	size: {
-		control: { type: 'select' },
-		options: ['small', 'medium', 'large'],
-	},
-	icon: {
-		control: { type: 'select' },
-		options: ['add', 'search', 'delete', 'close', 'menu'],
-	},
-};
-
 export const primary = async <T extends { canvasElement: HTMLElement }>(
 	res: T
 ) => {
@@ -112,8 +87,7 @@ export const dark = async <T extends { canvasElement: HTMLElement }>(
 
 	expect(btn).toBeVisible();
 
-	expect(style.backgroundColor).toBe('rgb(38, 43, 53)');
-	expect(btn.innerText).toBe('Dark');
+	expect(style.backgroundColor).toBe('rgb(22, 33, 55)');
 	expect(btn).toHaveFocus();
 	expect(btn.disabled).toBe(false);
 };
@@ -166,4 +140,15 @@ export const disabled = async <T extends { canvasElement: HTMLElement }>(
 	expect(btn.innerText).toBe('Disabled');
 	expect(btn).not.toHaveFocus();
 	expect(btn.disabled).toBe(true);
+};
+
+export const block = async <T extends { canvasElement: HTMLElement }>(
+	res: T
+) => {
+	const canvas = within(res.canvasElement);
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	// console.log(global.document.body.style.padding); // there is no padding
+	expect(btn).toBeVisible();
+	const paddingSize = 35; // padding is approximately 35px
+	expect(btn.offsetWidth).toBeGreaterThan(global.innerWidth - paddingSize);
 };

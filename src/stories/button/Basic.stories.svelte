@@ -1,19 +1,9 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { BUTTON_MODES } from '../../lib/_definitions';
-
+	import { BUTTON_MODES, BUTTON_SIZES } from '../../lib/_definitions';
 	import Button from '../../lib/Button.svelte';
-	import {
-		primary,
-		secondary,
-		tertiary,
-		quaternary,
-		dark,
-		light,
-		disabled,
-		rounded,
-		argTypes,
-	} from './buttonFunctions';
+	import * as test from './button.test';
+	import argTypes from './button_args';
 </script>
 
 <Meta
@@ -31,7 +21,7 @@
 		label: 'Button',
 		mode: BUTTON_MODES.PRIMARY,
 	}}
-	play={primary} />
+	play={test.primary} />
 
 <Story
 	name="Secondary"
@@ -39,7 +29,7 @@
 		label: 'Secondary',
 		mode: BUTTON_MODES.SECONDARY,
 	}}
-	play={secondary} />
+	play={test.secondary} />
 
 <Story
 	name="Tertiary"
@@ -47,7 +37,7 @@
 		label: 'Tertiary',
 		mode: BUTTON_MODES.TERTIARY,
 	}}
-	play={tertiary} />
+	play={test.tertiary} />
 
 <Story
 	name="Quaternary"
@@ -55,7 +45,7 @@
 		label: 'Quaternary',
 		mode: BUTTON_MODES.QUATERNARY,
 	}}
-	play={quaternary} />
+	play={test.quaternary} />
 
 <Story
 	name="Dark"
@@ -63,7 +53,7 @@
 		label: 'Button',
 		mode: BUTTON_MODES.DARK,
 	}}
-	play={dark} />
+	play={test.dark} />
 
 <Story
 	name="Light"
@@ -71,7 +61,7 @@
 		label: 'Light',
 		mode: BUTTON_MODES.LIGHT,
 	}}
-	play={light} />
+	play={test.light} />
 
 <Story
 	name="Disabled"
@@ -79,7 +69,7 @@
 		label: 'Disabled',
 		disabled: true,
 	}}
-	play={disabled} />
+	play={test.disabled} />
 
 <Story
 	name="Round"
@@ -87,4 +77,13 @@
 		label: 'Rounded',
 		round: true,
 	}}
-	play={rounded} />
+	play={test.rounded} />
+
+<Story
+	name="Block"
+	args={{
+		label: 'Button should take up all available horizontal space.',
+		block: true,
+		size: BUTTON_SIZES.LARGE,
+	}}
+	play={test.block} />

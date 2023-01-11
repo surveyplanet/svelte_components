@@ -1,13 +1,17 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { create_in_transition } from 'svelte/internal';
-	import { scale, fade } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import { sineOut } from 'svelte/easing';
 	import { BUTTON_MODES, BUTTON_SIZES } from './_definitions';
 
 	import Icon from './Icon.svelte';
 
 	const dispatch = createEventDispatcher();
+
+	/**
+	 * A Button Component
+	 * @component
+	 */
 
 	/**
 	 * The button mode. See BUTTON_MODES.
@@ -30,12 +34,19 @@
 	export let round: boolean = false;
 
 	/**
+	 * Whether the button should consume all available horizontal space.
+	 */
+	export let block: boolean = false;
+
+	/**
 	 * The button size, either: 'small', 'medium' or 'large'
+	 * @required
 	 */
 	export let size: BUTTON_SIZES = BUTTON_SIZES.MEDIUM;
 
 	/**
 	 * The button label
+	 * @required
 	 */
 	export let label: string = '';
 
@@ -44,6 +55,9 @@
 	 */
 	export let icon: string | undefined | null = undefined;
 
+	/**
+	 * The size of the icon is not configurable, it is dependant on the button size
+	 */
 	const iconSize: 16 | 20 | 24 = (() => {
 		switch (size) {
 			case BUTTON_SIZES.LARGE:
@@ -57,6 +71,9 @@
 
 	let clickAnimationEl: HTMLElement;
 
+	/**
+	 * Whether or not the button is in a depressed (mousedown) state.
+	 */
 	let active: boolean = false;
 
 	const clickHandler = (e: MouseEvent): void => {
@@ -73,7 +90,6 @@
 		const x = e.clientX - rect.left;
 		const y = e.clientY - rect.top;
 		activate(x, y);
-		console.log('active', active);
 	};
 
 	const deactivate = () => {
@@ -96,11 +112,13 @@
 	class:sp-button--round={round}
 	class:sp-button--loader={loader}
 	class:sp-button--active={active}
+	class:sp-button--block={block}
 	{disabled}
 	on:click={clickHandler}
 	on:mouseup={mouseUpHandler}
 	on:mousedown={mouseDownHandler}>
 	<span
+		class="sp-button--active-animation"
 		bind:this={clickAnimationEl}
 		in:fade={{
 			duration: 250,
@@ -110,8 +128,7 @@
 		out:fade={{
 			duration: 250,
 			easing: sineOut,
-		}}
-		class="sp-button--click-animation" />
+		}} />
 
 	{#if label && label.length}
 		<span class="sp-button--text">{label}</span>
@@ -126,9 +143,9 @@
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
-	$anim--hover-speed: 500ms;
+	$anim--hover-speed: 250ms;
 	$anim--active-speed: 250ms;
-	$anim--active-size: $size--256;
+	$anim--active-size: px-to-rem(150);
 
 	@include spin(); // loader animation
 	@include fadeInOut(); // click animation
@@ -148,15 +165,39 @@
 		font: $font--default;
 		background-color: $color--purple;
 		color: $color--slate-dark;
-		transition: background-color $anim--hover-speed;
+		&:before {
+			@include pseudo();
+			z-index: 0;
+			width: 150%;
+			height: 100%;
+			background-image: linear-gradient(
+				90deg,
+				$color--purple-dark 75%,
+				transparent 100%
+			);
+			opacity: 0;
+			transform: translateX(-100%);
+			transition-timing-function: ease-out;
+			transition: transform $anim--hover-speed, opacity $anim--hover-speed;
+		}
+
+		&:hover {
+			&:before {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
+
 		&:focus {
 			outline: none;
 			// box-shadow: inset 0px 0px 3px 2px $color--blue;
 		}
-		&:hover {
-			background: linear-gradient(90deg, $color--purple-dark, transparent)
-				$color--purple-dark;
+
+		&.sp-button--block {
+			display: flex;
+			width: 100%;
 		}
+
 		&.sp-button--round {
 			border-radius: $size-gutter;
 		}
@@ -169,16 +210,16 @@
 
 		&.sp-button--secondary {
 			background-color: $color--yellow;
-			&:hover {
-				background: linear-gradient(
-						90deg,
-						$color--yellow-dark,
-						transparent
-					)
-					$color--yellow-dark;
+
+			&:before {
+				background-image: linear-gradient(
+					90deg,
+					$color--yellow-dark 75%,
+					transparent 100%
+				);
 			}
 
-			.sp-button--click-animation {
+			.sp-button--active-animation {
 				background: $color--yellow;
 				background: radial-gradient(
 					circle,
@@ -189,16 +230,16 @@
 		}
 		&.sp-button--tertiary {
 			background-color: $color--green;
-			&:hover {
-				background: linear-gradient(
-						90deg,
-						$color--green-dark,
-						transparent
-					)
-					$color--green-dark;
+
+			&:before {
+				background-image: linear-gradient(
+					90deg,
+					$color--green-dark 75%,
+					transparent 100%
+				);
 			}
 
-			.sp-button--click-animation {
+			.sp-button--active-animation {
 				background: $color--green;
 				background: radial-gradient(
 					circle,
@@ -209,16 +250,16 @@
 		}
 		&.sp-button--quaternary {
 			background-color: $color--blue;
-			&:hover {
-				background: linear-gradient(
-						90deg,
-						$color--blue-dark,
-						transparent
-					)
-					$color--blue-dark;
+
+			&:before {
+				background-image: linear-gradient(
+					90deg,
+					$color--blue-dark 75%,
+					transparent 100%
+				);
 			}
 
-			.sp-button--click-animation {
+			.sp-button--active-animation {
 				background: $color--blue;
 				background: radial-gradient(
 					circle,
@@ -229,20 +270,26 @@
 		}
 		&.sp-button--dark {
 			background-color: $color--slate-dark;
-			color: $color--slate-light;
+			color: $color--slate-lighter;
 			:global(svg path) {
 				fill: white;
 			}
+
+			&:before {
+				background-image: linear-gradient(
+					90deg,
+					#454d5f 75%,
+					#454d5f 100%
+				);
+			}
+
 			&:hover {
-				background: linear-gradient(90deg, $color--slate, transparent)
-					$color--slate;
 				:global(svg path) {
 					fill: $color--slate-dark;
 				}
 			}
 
-			.sp-button--click-animation {
-				background: $color--slate-dark;
+			.sp-button--active-animation {
 				background: radial-gradient(
 					circle,
 					$color--slate-dark 0%,
@@ -252,19 +299,23 @@
 		}
 		&.sp-button--light {
 			background-color: $color--white;
-			box-shadow: inset 0px 0px 0px 1px #c4c7cd;
+			box-shadow: inset 0px 0px 0px 1px $color--slate-lighter;
+
+			&:before {
+				background: unset;
+				background-image: unset;
+			}
+
 			&:hover {
-				background: $color--white;
+				box-shadow: inset 0px 0px 0px 1px #c4c7cd;
+			}
+
+			&:active {
 				box-shadow: inset 0px 0px 0px 1px $color--slate;
 			}
 
-			.sp-button--click-animation {
-				background: $color--slate-light;
-				background: radial-gradient(
-					circle,
-					$color--slate-light 0%,
-					transparent 60%
-				);
+			.sp-button--active-animation {
+				display: none;
 			}
 		}
 		&.sp-button--small {
@@ -290,18 +341,66 @@
 			}
 		}
 		&:disabled:not(.sp-button--loader) {
+			cursor: default !important;
 			color: $color--purple-light;
 			background: $color--light-purple;
-			cursor: default !important;
+			:global(svg path) {
+				fill: $color--purple-light;
+			}
+
+			&:before {
+				background: unset;
+				background-image: unset;
+			}
+
+			&.sp-button--secondary {
+				color: $color--yellow-dark;
+				background-color: $color--yellow-light;
+				:global(svg path) {
+					fill: $color--yellow-dark;
+				}
+			}
+			&.sp-button--tertiary {
+				color: $color--green-dark;
+				background-color: $color--green-light;
+				:global(svg path) {
+					fill: $color--green-dark;
+				}
+			}
+			&.sp-button--quaternary {
+				color: $color--blue-dark;
+				background-color: $color--blue-light;
+				:global(svg path) {
+					fill: $color--blue-dark;
+				}
+			}
+			&.sp-button--dark {
+				color: $color--slate;
+				background-color: $color--slate-lighter;
+				:global(svg path) {
+					fill: $color--slate;
+				}
+			}
+			&.sp-button--light {
+				color: $color--slate-lighter;
+				background-color: $color--white;
+				box-shadow: inset 0px 0px 0px 1px $color--slate-lighter;
+				:global(svg path) {
+					fill: $color--slate-lighter;
+				}
+			}
 		}
 		&.sp-button--loader {
 			position: relative;
 			transition: none;
 
-			.sp-button--text,
-			:global(.sp-icon) {
-				visibility: hidden;
-				opacity: 0;
+			// hide the text/icon so only spinner is seen
+			&:disabled {
+				.sp-button--text,
+				:global(.sp-icon) {
+					visibility: hidden;
+					opacity: 0;
+				}
 			}
 
 			&:after {
@@ -344,7 +443,7 @@
 			z-index: 1;
 		}
 
-		.sp-button--click-animation {
+		.sp-button--active-animation {
 			position: absolute;
 			z-index: 0;
 			left: calc(50% - ($anim--active-size * 0.5));
@@ -358,15 +457,16 @@
 			background: $color--purple;
 			background: radial-gradient(
 				circle,
-				$color--purple 0%,
+				$color--purple 50%,
 				transparent 60%
 			);
+			transition-timing-function: ease-out;
 			transition: transform $anim--active-speed,
 				opacity $anim--active-speed;
 		}
 
 		&.sp-button--active {
-			.sp-button--click-animation {
+			.sp-button--active-animation {
 				transform: scale(1);
 				opacity: 1;
 			}
