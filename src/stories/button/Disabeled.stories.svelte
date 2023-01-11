@@ -7,7 +7,7 @@
 </script>
 
 <Meta
-	title="Button/Loader"
+	title="Button/Disabled"
 	component={Button}
 	{argTypes} />
 
@@ -16,7 +16,7 @@
 </Template>
 
 <Story
-	name="Disabled"
+	name="Primary"
 	args={{
 		label: 'Disabled Button',
 		disabled: true,
@@ -25,7 +25,7 @@
 	play={test.DefaultDisabled} />
 
 <Story
-	name="Secondary Disabled"
+	name="Secondary"
 	args={{
 		label: 'Disabled Button',
 		disabled: true,
@@ -35,7 +35,7 @@
 	play={test.SecondaryDisabled} />
 
 <Story
-	name="Tertiary Disabled"
+	name="Tertiary"
 	args={{
 		label: 'Disabled Button',
 		disabled: true,
@@ -45,7 +45,7 @@
 	play={test.TertiaryDisabled} />
 
 <Story
-	name="Disabled Quaternary"
+	name="Quaternary"
 	args={{
 		label: 'Disabled Button',
 		disabled: true,
@@ -55,7 +55,7 @@
 	play={test.QuaternaryDisabled} />
 
 <Story
-	name="Disabled Dark"
+	name="Dark"
 	args={{
 		label: 'Disabled Button',
 		disabled: true,
@@ -65,7 +65,7 @@
 	play={test.DarkDisabled} />
 
 <Story
-	name="Disabled Light"
+	name="Light"
 	args={{
 		label: 'Disabled Button',
 		disabled: true,

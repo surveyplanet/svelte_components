@@ -1,7 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/svelte';
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import Badge from '../../lib/Badge.svelte';
 
 export const Primary = async <T extends { canvasElement: HTMLElement }>(
 	res: T

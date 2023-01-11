@@ -18,6 +18,7 @@
 		label: 'PRO',
 	}}
 	play={Primary} />
+
 <Story
 	name="Badge Inverted"
 	source
