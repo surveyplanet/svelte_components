@@ -13,13 +13,13 @@
 </Template>
 
 <Story
-	name="Primary"
+	name="Badge Primary"
 	args={{
 		label: 'PRO',
 	}}
 	play={Primary} />
 <Story
-	name="Inverted"
+	name="Badge Inverted"
 	source
 	args={{ label: 'Inverted', color: 'black', labelColor: 'white' }}
 	play={Inverted} />

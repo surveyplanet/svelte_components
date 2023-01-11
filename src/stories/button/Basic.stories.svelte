@@ -8,7 +8,7 @@
 </script>
 
 <Meta
-	title="Button/Default"
+	title="Button/Basic"
 	component={Button}
 	{argTypes} />
 
