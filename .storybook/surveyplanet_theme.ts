@@ -12,6 +12,8 @@ export default create({
 		'https://public.surveyplanet.com/logos/surveyplanet-logo-light.svg',
 	brandTarget: '_self',
 	textColor: COLORS.slate_lighter,
+	colorPrimary: COLORS.purple,
+	colorSecondary: COLORS.purple,
 
 	// UI
 	appBg: COLORS.slate_dark,
@@ -24,7 +26,7 @@ export default create({
 	fontCode: '"Suisse Mono", monospace',
 
 	// Toolbar default and active colors
-	barTextColor: lightTransparent,
+	barTextColor: 'white',
 	barSelectedColor: COLORS.slate_lighter,
 	barBg: COLORS.slate_dark,
 
