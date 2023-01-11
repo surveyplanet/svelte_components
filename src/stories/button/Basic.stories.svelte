@@ -14,12 +14,14 @@
 		rounded,
 		argTypes,
 	} from './buttonFunctions';
+	import Documentation from './button.mdx';
 </script>
 
 <Meta
 	title="Button/Default"
 	component={Button}
-	{argTypes} />
+	{argTypes}
+	parameters={{ docs: { page: Documentation } }} />
 
 <Template let:args>
 	<Button {...args} />

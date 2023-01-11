@@ -24,12 +24,3 @@ export const tall = async <T extends { canvasElement: HTMLElement }>(
 	await userEvent.click(toggle);
 	expect(toggle.disabled).toBe(false);
 };
-
-export const render = {
-	render: (args) => {
-		return {
-			Component: Toggle,
-			props: args,
-		};
-	},
-};

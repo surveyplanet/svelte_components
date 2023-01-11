@@ -1,12 +1,13 @@
 import Button from '../../lib/Button.svelte';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
+import Documentation from './button.mdx';
 
-// export const parameters: {
-// 		docs: {
-// 			page: Documentation,
-// 		},
-// }
+export const parameters = {
+	docs: {
+		page: Documentation,
+	},
+};
 
 export const argTypes = {
 	label: { control: 'text' },
