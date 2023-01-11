@@ -2,30 +2,15 @@
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 	import { BUTTON_MODES, BUTTON_SIZES } from '../../lib/_definitions';
 	import Button from '../../lib/Button.svelte';
-<<<<<<< HEAD
 	import * as test from './button.test';
 	import argTypes from './button_args';
-=======
-	import {
-		primary,
-		secondary,
-		tertiary,
-		quaternary,
-		dark,
-		light,
-		disabled,
-		rounded,
-		argTypes,
-	} from './buttonFunctions';
-	import Documentation from './button.mdx';
->>>>>>> origin/ssf
+	// import Documentation from './button.mdx';
 </script>
 
 <Meta
 	title="Button/Default"
 	component={Button}
-	{argTypes}
-	parameters={{ docs: { page: Documentation } }} />
+	{argTypes} />
 
 <Template let:args>
 	<Button {...args} />
