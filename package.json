@@ -2,7 +2,7 @@
 	"name": "svelte-components",
 	"version": "0.0.1",
 	"scripts": {
-		"clean": "rm -rf package coverage node_modules dist static package-lock.json && npm i",
+		"clean": "rm -rf package coverage node_modules dist static && npm i",
 		"build": "svelte-kit sync && svelte-package",
 		"package": "npm run build",
 		"prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
