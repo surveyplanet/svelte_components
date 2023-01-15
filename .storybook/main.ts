@@ -11,7 +11,6 @@ module.exports = {
 		'@storybook/addon-a11y',
 		'@storybook/addon-interactions',
 		'@storybook/addon-svelte-csf',
-
 		{
 			name: '@storybook/addon-docs',
 			options: {
@@ -21,6 +20,9 @@ module.exports = {
 			},
 		},
 	],
+	features: {
+		interactionsDebugger: true,
+	},
 	framework: {
 		name: '@storybook/sveltekit',
 		options: {},

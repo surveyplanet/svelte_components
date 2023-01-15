@@ -3,70 +3,56 @@
 	import { BUTTON_MODES, BUTTON_SIZES } from '../../lib/_definitions';
 	import argTypes from './button_args';
 	import Button from '../../lib/Button.svelte';
-	import * as test from './button.test';
+	import Icon from '../../lib/Icon.svelte';
+	import * as tests from './button.test';
 </script>
 
 <Meta
 	title="Button/Loader"
 	component={Button}
-	{argTypes} />
+	argTypes={{
+		...argTypes,
+		disabled: { control: 'boolean', defaultValue: true },
+		loader: { control: 'boolean', defaultValue: true },
+	}} />
 
 <Template let:args>
-	<Button {...args} />
+	<Button {...args}>Button</Button>
 </Template>
 
 <Story
-	name="Loader Default"
-	args={{
-		label: 'Loader',
-		disabled: true,
-		loader: true,
-	}}
-	play={test.LoaderDefault} />
+	name="Default"
+	play={tests.loaderDefault} />
 
 <Story
 	name="Loader Secondary Large"
 	args={{
-		label: 'Loader',
-		disabled: true,
-		loader: true,
+		mode: BUTTON_MODES.SECONDARY,
 		size: BUTTON_SIZES.LARGE,
 	}}
-	play={test.LoaderSecondaryLarge} />
-<Story
-	name="Default Small"
-	args={{
-		label: 'Default',
-		disabled: true,
-		loader: true,
-		size: BUTTON_SIZES.SMALL,
-	}}
-	play={test.DefaultSmall} />
+	play={tests.loaderSecondaryLarge} />
+
 <Story
 	name="Loader Tertiary Small"
 	args={{
-		label: 'Loader',
-		disabled: true,
-		loader: true,
 		size: BUTTON_SIZES.SMALL,
 		mode: BUTTON_MODES.TERTIARY,
 	}}
-	play={test.LoaderTertiarySmall} />
+	play={tests.loaderTertiarySmall} />
+
 <Story
 	name="Loader With Icon"
-	args={{
-		label: 'Loader',
-		disabled: true,
-		loader: true,
-		icon: 'search',
-	}}
-	play={test.LoaderWithIcon} />
+	play={tests.loaderWithIcon}>
+	<Button
+		disabled={true}
+		loader={true}
+		>Icon loader<Icon name="add" />
+	</Button>
+</Story>
+
 <Story
 	name="Loader Rounded"
 	args={{
-		label: 'Loader',
-		disabled: true,
-		loader: true,
-		rounded: true,
+		round: true,
 	}}
-	play={test.LoaderRounded} />
+	play={tests.loaderRounded} />
