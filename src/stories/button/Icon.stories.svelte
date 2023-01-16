@@ -43,13 +43,13 @@
 	play={tests.iconLarge} />
 
 <Story
-	name="Action Button"
+	name="Action button"
 	play={tests.action}>
 	<Button action={true}><Icon name="add" /></Button>
 </Story>
 
 <Story
-	name="Small Action Button"
+	name="Small action button"
 	play={tests.actionSmall}>
 	<Button
 		action={true}
@@ -57,7 +57,7 @@
 </Story>
 
 <Story
-	name="Large Action Button"
+	name="Large action button"
 	play={tests.actionLarge}>
 	<Button
 		action={true}

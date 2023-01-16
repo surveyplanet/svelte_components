@@ -1,10 +1,10 @@
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
-export const Primary = async (res: StoryBookPlayArgs) => {
+export const primary = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
-	const badge = canvas.getByText('PRO');
+	const badge = canvas.getByText('Pro');
 
 	const style = window.getComputedStyle(badge);
 	const color = style.getPropertyValue('background-color');
@@ -18,7 +18,7 @@ export const Primary = async (res: StoryBookPlayArgs) => {
 	expect(textTransform).toBe('uppercase');
 };
 
-export const Inverted = async (res: StoryBookPlayArgs) => {
+export const inverted = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
 	const badge = canvas.getByText('Inverted');
@@ -33,12 +33,12 @@ export const Inverted = async (res: StoryBookPlayArgs) => {
 	expect(labelColor).toBe('rgb(255, 255, 255)');
 };
 
-export const Icon = async <T extends { canvasElement: HTMLElement }>(
+export const icon = async <T extends { canvasElement: HTMLElement }>(
 	res: T
 ) => {
 	const canvas = within(res.canvasElement);
 
-	const badge = canvas.getByText('Icon');
+	const badge = canvas.getByText('Inverted with icon');
 
 	const style = window.getComputedStyle(badge);
 	const color = style.getPropertyValue('background-color');
@@ -46,6 +46,6 @@ export const Icon = async <T extends { canvasElement: HTMLElement }>(
 
 	expect(badge).toBeTruthy();
 	expect(badge).toHaveClass('sp-badge');
-	expect(color).toBe('rgb(255, 233, 120)');
-	expect(labelColor).toBe('rgb(22, 33, 55)');
+	expect(color).toBe('rgb(0, 0, 0)');
+	expect(labelColor).toBe('rgb(255, 255, 255)');
 };

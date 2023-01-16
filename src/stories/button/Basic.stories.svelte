@@ -6,8 +6,6 @@
 	import * as tests from './button.test';
 	import argTypes from './button_args';
 	import { getNodeText } from '@storybook/testing-library';
-
-	import { within, userEvent, fireEvent } from '@storybook/testing-library';
 	import { expect } from '@storybook/jest';
 	import { delay } from '../../lib/_utils';
 
