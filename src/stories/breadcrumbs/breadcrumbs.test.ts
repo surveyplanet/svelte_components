@@ -9,9 +9,7 @@ export const render = (args: StoryObj) => {
 		props: args,
 	};
 };
-export const play = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
+export const play = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
 	const home = canvas.getByText('Home');

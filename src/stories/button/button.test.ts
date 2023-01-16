@@ -1,422 +1,494 @@
-import Button from '../../lib/Button.svelte';
-import { within, userEvent } from '@storybook/testing-library';
+import { within, userEvent, fireEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { BUTTON_MODES, BUTTON_SIZES } from '../../lib/_definitions';
+import { delay } from '../../lib/_utils';
 
-export const primary = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
+export const primary = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
 	const btn: HTMLButtonElement = canvas.getByRole('button');
 	const style = window.getComputedStyle(btn);
+	const btnRect = btn.getBoundingClientRect();
+	const ripple = btn.querySelector('.sp-button--ripple');
 
-	await userEvent.click(btn);
-
+	expect(btn).toBeInTheDocument();
 	expect(btn).toBeVisible();
-
-	expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
+	expect(btn).toHaveClass('sp-button');
+	expect(btn).toHaveClass('sp-button--primary');
+	expect(btn).toHaveClass('sp-button--medium');
+	// expect(btn).toHaveClass('sp-button--active');
 	expect(btn.innerText).toBe('Button');
-	expect(btn).toHaveFocus();
-	expect(btn.disabled).toBe(false);
-};
-export const render = <T extends object>(args: T) => {
-	return {
-		Component: Button,
-		props: args,
-	};
-};
-
-export const secondary = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
-	const canvas = within(res.canvasElement);
-
-	const btn: HTMLButtonElement = canvas.getByRole('button');
-	const style = window.getComputedStyle(btn);
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
-	expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
-	expect(btn.innerText).toBe('Secondary');
-	expect(btn).toHaveFocus();
-	expect(btn.disabled).toBe(false);
-};
-
-export const tertiary = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
-	const canvas = within(res.canvasElement);
-
-	const btn: HTMLButtonElement = canvas.getByRole('button');
-	const style = window.getComputedStyle(btn);
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
-	expect(style.backgroundColor).toBe('rgb(161, 253, 165)');
-	expect(btn.innerText).toBe('Tertiary');
-	expect(btn).toHaveFocus();
-	expect(btn.disabled).toBe(false);
-};
-
-export const quaternary = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
-	const canvas = within(res.canvasElement);
-
-	const btn: HTMLButtonElement = canvas.getByRole('button');
-	const style = window.getComputedStyle(btn);
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
-	expect(style.backgroundColor).toBe('rgb(158, 228, 250)');
-	expect(btn.innerText).toBe('Quaternary');
-	expect(btn).toHaveFocus();
-	expect(btn.disabled).toBe(false);
-};
-export const dark = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
-	const canvas = within(res.canvasElement);
-
-	const btn: HTMLButtonElement = canvas.getByRole('button');
-	const style = window.getComputedStyle(btn);
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
-	expect(style.backgroundColor).toBe('rgb(22, 33, 55)');
-	expect(btn).toHaveFocus();
-	expect(btn.disabled).toBe(false);
-};
-export const light = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
-	const canvas = within(res.canvasElement);
-
-	const btn: HTMLButtonElement = canvas.getByRole('button');
-	const style = window.getComputedStyle(btn);
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
-	expect(style.backgroundColor).toBe('rgb(255, 255, 255)');
-	expect(btn.innerText).toBe('Light');
-	expect(btn).toHaveFocus();
-	expect(btn.disabled).toBe(false);
-};
-
-export const rounded = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
-	const canvas = within(res.canvasElement);
-
-	const btn: HTMLButtonElement = canvas.getByRole('button');
-	const style = window.getComputedStyle(btn);
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
 	expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
-	expect(btn.innerText).toBe('Rounded');
-	expect(btn).toHaveFocus();
-	expect(btn.disabled).toBe(false);
-};
+	expect(style.borderRadius).toBe('5px');
+	expect(style.color).toBe('rgb(22, 33, 55)');
 
-export const disabled = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
-	const canvas = within(res.canvasElement);
+	// test hover effect
+	const hoverPseudoStyle = window.getComputedStyle(btn, ':before');
+	const hoverPseudoWidth = Number(hoverPseudoStyle.width.replace('px', ''));
+	const hoverPseudoHeight = Number(hoverPseudoStyle.height.replace('px', ''));
+	expect(hoverPseudoStyle.opacity).toBe('0');
+	expect(hoverPseudoWidth).toBeGreaterThan(btnRect.width);
+	expect(hoverPseudoHeight).toBe(btnRect.height);
+	expect(hoverPseudoStyle.transform).toMatch(
+		// /^matrix\(1, 0, 0, 1, -?[0-9]{1-3}(.[0-9]{1-2})?, 0\)/
+		/^matrix\(1, 0, 0, 1, -.*/
+	);
+	// can't test result of hover state for some reason
+	// await userEvent.hover(btn);
+	// await delay(500); // transition speed
+	// expect(hoverPseudoStyle.opacity).toBe('1');
 
-	const btn: HTMLButtonElement = canvas.getByRole('button');
-	const style = window.getComputedStyle(btn);
+	// test ripple effect
+	expect(ripple).toBeInTheDocument();
+	expect(ripple).not.toBeVisible();
+	await fireEvent.mouseDown(btn);
+	expect(btn).toHaveClass('sp-button--active');
+	await delay(250);
+	expect(ripple).toBeVisible();
+	await fireEvent.mouseUp(btn);
+	expect(btn).not.toHaveClass('sp-button--active');
+	await delay(250);
+	expect(ripple).not.toBeVisible();
+
 	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
-	expect(style.backgroundColor).toBe('rgb(236, 229, 255)');
-	expect(btn.innerText).toBe('Disabled');
-	expect(btn).not.toHaveFocus();
-	expect(btn.disabled).toBe(true);
+	await expect(res.args.clickHandler).toHaveBeenCalled();
+	expect(btn).toHaveFocus();
 };
 
-export const block = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
+export const secondary = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toHaveClass('sp-button--secondary');
+	const style = window.getComputedStyle(btn);
+	expect(btn).toBeVisible();
+	expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+};
+
+export const tertiary = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toHaveClass('sp-button--tertiary');
+	const style = window.getComputedStyle(btn);
+	expect(btn).toBeVisible();
+	expect(style.backgroundColor).toBe('rgb(161, 253, 165)');
+};
+
+export const quaternary = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toHaveClass('sp-button--quaternary');
+	const style = window.getComputedStyle(btn);
+	expect(btn).toBeVisible();
+	expect(style.backgroundColor).toBe('rgb(158, 228, 250)');
+};
+
+export const dark = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toHaveClass('sp-button--dark');
+	const style = window.getComputedStyle(btn);
+	expect(btn).toBeVisible();
+	expect(style.backgroundColor).toBe('rgb(22, 33, 55)');
+	expect(style.color).toBe('rgb(220, 222, 225)');
+};
+
+export const light = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toHaveClass('sp-button--light');
+	const style = window.getComputedStyle(btn);
+	expect(btn).toBeVisible();
+	expect(style.backgroundColor).toBe('rgb(255, 255, 255)');
+	expect(style.boxShadow).toBe('rgb(220, 222, 225) 0px 0px 0px 1px inset');
+	// can't get inner shadow change...
+	// await userEvent.hover(btn);
+	// style = window.getComputedStyle(btn);
+	// await delay(250);
+	// expect(style.boxShadow).toBe('rgb(196, 199, 205) 0px 0px 0px 1px inset');
+};
+
+export const rounded = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toHaveClass('sp-button--round');
+	expect(btn).toBeVisible();
+	const style = window.getComputedStyle(btn);
+	expect(style.borderRadius).toBe('32px');
+};
+
+export const block = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toHaveClass('sp-button--block');
 	// console.log(global.document.body.style.padding); // there is no padding
 	expect(btn).toBeVisible();
 	const paddingSize = 35; // padding is approximately 35px
 	expect(btn.offsetWidth).toBeGreaterThan(global.innerWidth - paddingSize);
 };
 
+export const empty = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toBeVisible();
+};
+
 //disabled button
 
-export const DefaultDisabled = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
+export const defaultDisabled = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-
 	const btn: HTMLButtonElement = canvas.getByRole('button');
 	const style = window.getComputedStyle(btn);
-
-	await userEvent.click(btn);
-
+	const icon: SVGSVGElement | null = btn.querySelector('svg path');
+	const iconStyle = window.getComputedStyle(icon as Element);
 	expect(btn).toBeVisible();
-
+	expect(btn.disabled).toBe(true);
 	expect(style.backgroundColor).toBe('rgb(236, 229, 255)');
 	expect(style.color).toBe('rgb(219, 204, 255)');
+	expect(iconStyle.fill).toBe(style.color);
+	await userEvent.click(btn);
 	expect(btn).not.toHaveFocus();
-	expect(btn.disabled).toBe(true);
 };
 
-export const SecondaryDisabled = async <
-	T extends { canvasElement: HTMLElement }
->(
-	res: T
-) => {
+export const secondaryDisabled = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-
 	const btn: HTMLButtonElement = canvas.getByRole('button');
 	const style = window.getComputedStyle(btn);
-
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
+	const icon: SVGSVGElement | null = btn.querySelector('svg path');
+	const iconStyle = window.getComputedStyle(icon as Element);
+	expect(btn.disabled).toBe(true);
 	expect(style.backgroundColor).toBe('rgb(255, 245, 188)');
 	expect(style.color).toBe('rgb(250, 199, 102)');
-	expect(btn).not.toHaveFocus();
-	expect(btn.disabled).toBe(true);
+	expect(iconStyle.fill).toBe(style.color);
 };
 
-export const TertiaryDisabled = async <
-	T extends { canvasElement: HTMLElement }
->(
-	res: T
-) => {
+export const tertiaryDisabled = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-
 	const btn: HTMLButtonElement = canvas.getByRole('button');
 	const style = window.getComputedStyle(btn);
-
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
+	const icon: SVGSVGElement | null = btn.querySelector('svg path');
+	const iconStyle = window.getComputedStyle(icon as Element);
+	expect(btn.disabled).toBe(true);
 	expect(style.backgroundColor).toBe('rgb(217, 254, 219)');
 	expect(style.color).toBe('rgb(123, 228, 146)');
-	expect(btn).not.toHaveFocus();
-	expect(btn.disabled).toBe(true);
+	expect(iconStyle.fill).toBe(style.color);
 };
 
-export const QuaternaryDisabled = async <
-	T extends { canvasElement: HTMLElement }
->(
-	res: T
-) => {
+export const quaternaryDisabled = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-
 	const btn: HTMLButtonElement = canvas.getByRole('button');
 	const style = window.getComputedStyle(btn);
-
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
+	const icon: SVGSVGElement | null = btn.querySelector('svg path');
+	const iconStyle = window.getComputedStyle(icon as Element);
+	expect(btn.disabled).toBe(true);
 	expect(style.backgroundColor).toBe('rgb(216, 244, 253)');
 	expect(style.color).toBe('rgb(120, 196, 238)');
-	expect(btn).not.toHaveFocus();
-	expect(btn.disabled).toBe(true);
+	expect(iconStyle.fill).toBe(style.color);
 };
-export const DarkDisabled = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
-	const canvas = within(res.canvasElement);
 
+export const darkDisabled = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
 	const btn: HTMLButtonElement = canvas.getByRole('button');
 	const style = window.getComputedStyle(btn);
+	const icon: SVGSVGElement | null = btn.querySelector('svg path');
+	const iconStyle = window.getComputedStyle(icon as Element);
 
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
+	expect(btn.disabled).toBe(true);
 	expect(style.backgroundColor).toBe('rgb(220, 222, 225)');
 	expect(style.color).toBe('rgb(115, 122, 135)');
-	expect(btn).not.toHaveFocus();
-	expect(btn.disabled).toBe(true);
+	expect(iconStyle.fill).toBe(style.color);
 };
 
-export const LightDisabled = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
+export const lightDisabled = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
 	const btn: HTMLButtonElement = canvas.getByRole('button');
 	const style = window.getComputedStyle(btn);
+	const icon: SVGSVGElement | null = btn.querySelector('svg path');
+	const iconStyle = window.getComputedStyle(icon as Element);
 
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
+	expect(btn.disabled).toBe(true);
 	expect(style.backgroundColor).toBe('rgb(255, 255, 255)');
 	expect(style.color).toBe('rgb(220, 222, 225)');
-	expect(btn).not.toHaveFocus();
-	expect(btn.disabled).toBe(true);
+	expect(iconStyle.fill).toBe(style.color);
+};
+
+// icon buttons
+
+export const iconDefault = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	const btnStyle = window.getComputedStyle(btn);
+	expect(btnStyle.backgroundColor).toBe('rgb(181, 152, 255)');
+	expect(btnStyle.color).toBe('rgb(22, 33, 55)');
+	expect(btn).toBeVisible();
+
+	const icon: SVGSVGElement | null = btn.querySelector('svg');
+
+	if (!icon) {
+		throw new Error('could not find icon svg');
+	}
+
+	const bBox = icon.getBoundingClientRect();
+	const iconPath: SVGSVGElement | null = btn.querySelector('svg path');
+
+	if (!iconPath) {
+		throw new Error('could not find icon path');
+	}
+
+	const iconStyle = window.getComputedStyle(iconPath as Element);
+
+	expect(icon).toBeVisible();
+	expect(bBox.width).toBe(20);
+	expect(bBox.height).toBe(20);
+	expect(iconStyle.fill).toBe(btnStyle.color);
+};
+
+export const iconDark = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	const btnStyle = window.getComputedStyle(btn);
+	expect(btnStyle.backgroundColor).toBe('rgb(22, 33, 55)');
+	expect(btnStyle.color).toBe('rgb(220, 222, 225)');
+	expect(btn).toBeVisible();
+
+	const icon: SVGSVGElement | null = btn.querySelector('svg');
+
+	if (!icon) {
+		throw new Error('could not find icon svg');
+	}
+
+	const bBox = icon.getBoundingClientRect();
+	const iconPath: SVGSVGElement | null = btn.querySelector('svg path');
+
+	if (!iconPath) {
+		throw new Error('could not find icon path');
+	}
+
+	const iconStyle = window.getComputedStyle(iconPath as Element);
+
+	expect(icon).toBeVisible();
+	expect(bBox.width).toBe(20);
+	expect(bBox.height).toBe(20);
+	expect(iconStyle.fill).toBe(btnStyle.color);
+};
+
+export const iconSmall = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toBeVisible();
+
+	const icon: SVGSVGElement | null = btn.querySelector('svg');
+
+	if (!icon) {
+		throw new Error('could not find icon svg');
+	}
+
+	const bBox = icon.getBoundingClientRect();
+	expect(icon).toBeVisible();
+	expect(bBox.width).toBe(16);
+	expect(bBox.height).toBe(16);
+};
+
+export const iconLarge = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toBeVisible();
+
+	const icon: SVGSVGElement | null = btn.querySelector('svg');
+
+	if (!icon) {
+		throw new Error('could not find icon svg');
+	}
+
+	const bBox = icon.getBoundingClientRect();
+	expect(icon).toBeVisible();
+	expect(bBox.width).toBe(24);
+	expect(bBox.height).toBe(24);
+};
+
+export const action = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toBeVisible();
+	const btnRect = btn.getBoundingClientRect();
+	expect(btnRect.width).toBe(32);
+	expect(btnRect.height).toBe(32);
+
+	const icon: SVGSVGElement | null = btn.querySelector('svg');
+
+	if (!icon) {
+		throw new Error('could not find icon svg');
+	}
+
+	const iconRect = icon.getBoundingClientRect();
+	expect(icon).toBeVisible();
+	expect(iconRect.width).toBe(20);
+	expect(iconRect.height).toBe(20);
+};
+
+export const actionSmall = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toBeVisible();
+	const btnRect = btn.getBoundingClientRect();
+	expect(btnRect.width).toBe(24);
+	expect(btnRect.height).toBe(24);
+
+	const icon: SVGSVGElement | null = btn.querySelector('svg');
+
+	if (!icon) {
+		throw new Error('could not find icon svg');
+	}
+
+	const iconRect = icon.getBoundingClientRect();
+	expect(icon).toBeVisible();
+	expect(iconRect.width).toBe(16);
+	expect(iconRect.height).toBe(16);
+};
+
+export const actionLarge = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toBeVisible();
+	const btnRect = btn.getBoundingClientRect();
+	expect(btnRect.width).toBe(48);
+	expect(btnRect.height).toBe(48);
+
+	const icon: SVGSVGElement | null = btn.querySelector('svg');
+
+	if (!icon) {
+		throw new Error('could not find icon svg');
+	}
+
+	const iconRect = icon.getBoundingClientRect();
+	expect(icon).toBeVisible();
+	expect(iconRect.width).toBe(24);
+	expect(iconRect.height).toBe(24);
+};
+
+export const actionTertiaryRoundLarge = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toBeVisible();
+	const btnRect = btn.getBoundingClientRect();
+	expect(btnRect.width).toBe(48);
+	expect(btnRect.height).toBe(48);
+
+	const icon: SVGSVGElement | null = btn.querySelector('svg');
+
+	if (!icon) {
+		throw new Error('could not find icon svg');
+	}
+
+	const iconRect = icon.getBoundingClientRect();
+	expect(icon).toBeVisible();
+	expect(iconRect.width).toBe(24);
+	expect(iconRect.height).toBe(24);
+	const style = window.getComputedStyle(btn);
+	expect(style.borderRadius).toBe('32px');
 };
 
 //loader button
 
-export const LoaderDefault = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
+export const loaderDefault = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-
 	const btn = canvas.getByRole('button');
+	const btnLabel = btn.querySelector('.sp-button--label');
 	const style = window.getComputedStyle(btn);
 	const afterEl = window.getComputedStyle(btn, ':after');
 	await userEvent.click(btn);
-
 	expect(btn).toBeVisible();
-
+	expect(btnLabel).not.toBeVisible();
+	expect(btn).not.toHaveFocus();
 	expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
 	expect(btn.innerText).toBe('');
 	expect(btn).toHaveClass('sp-button--loader');
+	expect(afterEl.display).toBe('block');
+	expect(afterEl.width).toBe('16px');
+	expect(afterEl.height).toBe(afterEl.width);
+	expect(afterEl.borderRadius).toBe('100%');
 	expect(afterEl.animationDuration).toBe('1s');
 	expect(afterEl.animationTimingFunction).toBe('linear');
 	expect(afterEl.animationIterationCount).toBe('infinite');
-};
-export const LoaderSecondaryLarge = async <
-	T extends { canvasElement: HTMLElement }
->(
-	res: T
-) => {
-	const canvas = within(res.canvasElement);
-
-	const btn = canvas.getByRole('button');
-	const style = window.getComputedStyle(btn);
-
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
-	expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
-	expect(btn).toHaveClass('sp-button--loader');
-};
-export const DefaultSmall = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
-	const canvas = within(res.canvasElement);
-
-	const btn = canvas.getByRole('button');
-	const style = window.getComputedStyle(btn);
-
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
-	expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
-	expect(btn).toHaveClass('sp-button--loader');
+	expect(afterEl.borderBottom).toBe('2px solid rgb(22, 33, 55)');
+	expect(afterEl.borderTop).toBe('2px solid rgba(0, 0, 0, 0)');
 };
 
-export const LoaderTertiarySmall = async <
-	T extends { canvasElement: HTMLElement }
->(
-	res: T
-) => {
+export const loaderSecondaryLarge = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-
 	const btn = canvas.getByRole('button');
-	const style = window.getComputedStyle(btn);
-
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
-	expect(style.backgroundColor).toBe('rgb(161, 253, 165)');
+	const afterEl = window.getComputedStyle(btn, ':after');
 	expect(btn.innerText).toBe('');
 	expect(btn).toHaveClass('sp-button--loader');
-};
-export const LoaderWithIcon = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
-	const canvas = within(res.canvasElement);
-
-	const btn = canvas.getByRole('button');
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
-	expect(btn.innerText).toBe('');
-	expect(btn).toHaveClass('sp-button--loader');
+	expect(btn).toHaveClass('sp-button--large');
+	expect(afterEl.display).toBe('block');
+	expect(afterEl.width).toBe('18px');
+	expect(afterEl.height).toBe(afterEl.width);
 };
 
-export const LoaderRounded = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
+export const loaderTertiarySmall = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-
 	const btn = canvas.getByRole('button');
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
+	const afterEl = window.getComputedStyle(btn, ':after');
 	expect(btn.innerText).toBe('');
 	expect(btn).toHaveClass('sp-button--loader');
+	expect(btn).toHaveClass('sp-button--small');
+	expect(afterEl.display).toBe('block');
+	expect(afterEl.width).toBe('12px');
+	expect(afterEl.height).toBe(afterEl.width);
+};
+
+export const loaderWithIcon = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+	const btn = canvas.getByRole('button');
+	const btnLabel = btn.querySelector('.sp-button--label');
+	if (!btnLabel) {
+		throw new Error('Button label should be present but hidden ');
+	}
+	expect(btn).toHaveClass('sp-button--loader');
+	expect(btnLabel.innerHTML).toContain('svg');
+	expect(btnLabel).not.toBeVisible();
+};
+
+export const loaderRounded = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+	const btn = canvas.getByRole('button');
+	const afterEl = window.getComputedStyle(btn, ':after');
+	expect(btn.innerText).toBe('');
+	expect(btn).toHaveClass('sp-button--loader');
+	expect(btn).toHaveClass('sp-button--round');
+	expect(afterEl.display).toBe('block');
+	expect(afterEl.width).toBe('16px');
+	expect(afterEl.height).toBe(afterEl.width);
 };
 
 //size button
 
-export const Large = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
+export const large = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-
 	const btn = canvas.getByRole('button');
-	const style = window.getComputedStyle(btn);
-
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
-	expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
-	expect(btn.innerText).toBe('Large');
-	expect(btn.offsetHeight).toBe(48);
+	const btnRect = btn.getBoundingClientRect();
+	expect(btnRect.height).toBe(48);
 };
 
-export const Medium = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
+export const medium = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-
 	const btn = canvas.getByRole('button');
-	const style = window.getComputedStyle(btn);
-
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
-	expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
-	expect(btn.innerText).toBe('Medium');
-	expect(btn.offsetHeight).toBe(40);
+	const btnRect = btn.getBoundingClientRect();
+	expect(btnRect.height).toBe(40);
 };
 
-export const Small = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
+export const small = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-
 	const btn = canvas.getByRole('button');
-	const style = window.getComputedStyle(btn);
-
-	await userEvent.click(btn);
-
-	expect(btn).toBeVisible();
-
-	expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
-	expect(btn.innerText).toBe('Small');
-	expect(btn.offsetHeight).toBe(24);
+	const btnRect = btn.getBoundingClientRect();
+	expect(btnRect.height).toBe(24);
 };

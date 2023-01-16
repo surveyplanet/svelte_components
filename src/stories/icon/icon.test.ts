@@ -1,9 +1,7 @@
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
-export const basic = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
+export const basic = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
 	const icon: HTMLElement = canvas.getByTitle('icon search');
@@ -16,9 +14,7 @@ export const basic = async <T extends { canvasElement: HTMLElement }>(
 	expect(icon).toBeTruthy();
 	// expect(icon.offsetHeight).toBe(48);
 };
-export const light = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
+export const light = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
 	const icon: HTMLElement = canvas.getByTitle('icon search');

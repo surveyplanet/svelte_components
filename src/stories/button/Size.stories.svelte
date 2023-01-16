@@ -12,29 +12,26 @@
 	{argTypes} />
 
 <Template let:args>
-	<Button {...args} />
+	<Button {...args}>Button</Button>
 </Template>
 
 <Story
 	name="Small"
 	args={{
-		label: 'Small',
-
 		size: BUTTON_SIZES.SMALL,
 	}}
-	play={test.Small} />
+	play={test.small} />
 
 <Story
 	name="Medium"
 	args={{
 		label: 'Medium',
 	}}
-	play={test.Medium} />
+	play={test.medium} />
 
 <Story
 	name="Large"
 	args={{
-		label: 'Large',
 		size: BUTTON_SIZES.LARGE,
 	}}
-	play={test.Large} />
+	play={test.large} />

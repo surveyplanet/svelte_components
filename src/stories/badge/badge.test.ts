@@ -1,9 +1,7 @@
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
-export const Primary = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
+export const Primary = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
 	const badge = canvas.getByText('PRO');
@@ -20,9 +18,7 @@ export const Primary = async <T extends { canvasElement: HTMLElement }>(
 	expect(textTransform).toBe('uppercase');
 };
 
-export const Inverted = async <T extends { canvasElement: HTMLElement }>(
-	res: T
-) => {
+export const Inverted = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
 	const badge = canvas.getByText('Inverted');

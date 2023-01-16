@@ -1,10 +1,19 @@
-<script>
+<script lang="ts">
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
+	import { action } from '@storybook/addon-actions';
 	import { BUTTON_MODES, BUTTON_SIZES } from '../../lib/_definitions';
 	import Button from '../../lib/Button.svelte';
-	import * as test from './button.test';
+	import * as tests from './button.test';
 	import argTypes from './button_args';
-	// import Documentation from './button.mdx';
+	import { getNodeText } from '@storybook/testing-library';
+
+	import { within, userEvent, fireEvent } from '@storybook/testing-library';
+	import { expect } from '@storybook/jest';
+	import { delay } from '../../lib/_utils';
+
+	// const clickEventHandler = (e) => {
+	// 	return action('clickEvent')(e);
+	// };
 </script>
 
 <Meta
@@ -13,78 +22,58 @@
 	{argTypes} />
 
 <Template let:args>
-	<Button {...args} />
+	<Button
+		{...args}
+		on:clickEvent={args.clickHandler}>Button</Button>
 </Template>
 
 <Story
 	name="Primary"
-	args={{
-		label: 'Button',
-		mode: BUTTON_MODES.PRIMARY,
-	}}
-	play={test.primary} />
+	let:args
+	play={tests.primary} />
 
 <Story
 	name="Secondary"
-	args={{
-		label: 'Secondary',
-		mode: BUTTON_MODES.SECONDARY,
-	}}
-	play={test.secondary} />
+	args={{ mode: BUTTON_MODES.SECONDARY }}
+	play={tests.secondary} />
 
 <Story
 	name="Tertiary"
-	args={{
-		label: 'Tertiary',
-		mode: BUTTON_MODES.TERTIARY,
-	}}
-	play={test.tertiary} />
+	args={{ mode: BUTTON_MODES.TERTIARY }}
+	play={tests.tertiary} />
 
 <Story
 	name="Quaternary"
-	args={{
-		label: 'Quaternary',
-		mode: BUTTON_MODES.QUATERNARY,
-	}}
-	play={test.quaternary} />
+	args={{ mode: BUTTON_MODES.QUATERNARY }}
+	play={tests.quaternary} />
 
 <Story
 	name="Dark"
-	args={{
-		label: 'Button',
-		mode: BUTTON_MODES.DARK,
-	}}
-	play={test.dark} />
+	args={{ mode: BUTTON_MODES.DARK }}
+	play={tests.dark} />
 
 <Story
 	name="Light"
-	args={{
-		label: 'Light',
-		mode: BUTTON_MODES.LIGHT,
-	}}
-	play={test.light} />
-
-<Story
-	name="Disabled"
-	args={{
-		label: 'Disabled',
-		disabled: true,
-	}}
-	play={test.disabled} />
+	args={{ mode: BUTTON_MODES.LIGHT }}
+	play={tests.light} />
 
 <Story
 	name="Round"
-	args={{
-		label: 'Rounded',
-		round: true,
-	}}
-	play={test.rounded} />
+	args={{ round: true }}
+	play={tests.rounded} />
 
 <Story
 	name="Block"
-	args={{
-		label: 'Button should take up all available horizontal space.',
-		block: true,
-		size: BUTTON_SIZES.LARGE,
-	}}
-	play={test.block} />
+	play={tests.block}>
+	<Button
+		block={true}
+		size={BUTTON_SIZES.LARGE}>
+		Button should take up all available horizontal space.
+	</Button>
+</Story>
+
+<Story
+	name="Empty"
+	play={tests.empty}>
+	<Button />
+</Story>
