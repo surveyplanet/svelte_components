@@ -1,4 +1,4 @@
-export const enum BUTTON_SIZES {
+export const enum SIZES {
 	SMALL = 'small',
 	MEDIUM = 'medium',
 	LARGE = 'large',
@@ -11,6 +11,13 @@ export const enum BUTTON_MODES {
 	QUATERNARY = 'quaternary',
 	DARK = 'dark',
 	LIGHT = 'light',
+}
+
+export const enum MASCOTS {
+	marvin = 'https://via.placeholder.com/32/0000FF/108080?text=MARVIN',
+	dylan = 'https://via.placeholder.com/38/0020FF/898080?text=DYLAN',
+	aaron = 'https://via.placeholder.com/23/0040FF/888080?text=AARON',
+	jack = 'https://via.placeholder.com/32/0060FF/802080?text=JACK',
 }
 
 export const COLORS = {

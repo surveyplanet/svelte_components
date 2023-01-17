@@ -1,6 +1,6 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { BUTTON_SIZES } from '../../lib/_definitions';
+	import { SIZES } from '../../lib/_definitions';
 	import argTypes from './button_args';
 	import Button from '../../lib/Button.svelte';
 	import * as test from './button.test';
@@ -18,7 +18,7 @@
 <Story
 	name="Small"
 	args={{
-		size: BUTTON_SIZES.SMALL,
+		size: SIZES.SMALL,
 	}}
 	play={test.small} />
 
@@ -32,6 +32,6 @@
 <Story
 	name="Large"
 	args={{
-		size: BUTTON_SIZES.LARGE,
+		size: SIZES.LARGE,
 	}}
 	play={test.large} />
