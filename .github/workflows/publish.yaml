@@ -2,8 +2,10 @@ name: Test and publish module
 
 on:
     push:
-        tags:
-            - v*.*.*
+        branches:
+            - deploy
+        # tags:
+        #     - v*.*.*
 
 jobs:
     build:
@@ -23,6 +25,15 @@ jobs:
                   npm ci --ignore-scripts
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+            - name: Deploy 🚀
+              uses: JamesIves/github-pages-deploy-action@4
+              with:
+                  folder: static # The folder that the build-storybook script generates files.
+                  clean: true # Automatically remove deleted files from the deploy branch
+                  target_folder: storybook # The folder that we serve our Storybook files from
+              env:
+                  NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Run unit test
               run: 'npm test'
