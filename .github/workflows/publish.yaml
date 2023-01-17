@@ -59,8 +59,8 @@ jobs:
             - name: Serve Storybook and run tests
               run: |
                   npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-                  npx http-server static --port 6006 --silent \
-                  npx wait-on tcp:6006 && npm ./node_modules/.bin/test-storybook
+                  "npx http-server ./static --port 6006 --silent" \
+                  "npx wait-on tcp:6006 && ./node_modules/.bin/test-storybook"
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v1
