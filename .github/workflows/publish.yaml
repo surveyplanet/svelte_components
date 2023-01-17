@@ -56,11 +56,16 @@ jobs:
             - name: Install Playwright
               run: npx playwright install --with-deps
 
-            - name: Serve Storybook and run tests
-              run: |
-                  npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-                  "npx http-server ./static --port 6006 --silent" \
-                  "npx wait-on tcp:6006 && ./node_modules/.bin/test-storybook"
+            - name: Run Storybook tests
+              run: ./node_modules/.bin/test-storybook
+              env:
+                  TARGET_URL: '${{ github.event.deployment_status.target_url }}'
+
+            # - name: Serve Storybook and run tests
+            #   run: |
+            #       npx concurrently -k -s first -n "Storybook,tests" -c "green,blue" \
+            #       "npx http-server static --port 6006 --silent" \
+            #       "npx wait-on tcp:6006 && ./node_modules/.bin/test-storybook"
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v1
