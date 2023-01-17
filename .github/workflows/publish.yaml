@@ -46,6 +46,7 @@ jobs:
                   npm ci --ignore-scripts
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
             - name: Build
               run: npm run storybook:build
 
@@ -69,3 +70,6 @@ jobs:
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v1
+
+            - name: Publish !!! - DRY RUN - !!!
+              run: npm publish --access public --dry-run
