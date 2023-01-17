@@ -51,7 +51,7 @@ jobs:
               run: npm run storybook:build
 
             - name: Test
-              run: npm test --url https://ui.surveyplanet.com
+              run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v1
