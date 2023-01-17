@@ -50,8 +50,17 @@ jobs:
             - name: Build
               run: npm run storybook:build
 
-            - name: Test
-              run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
+            # - name: Test
+            #   run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
+
+            - name: Install Playwright
+              run: npx playwright install --with-deps
+
+            - name: Serve Storybook and run tests
+              run: |
+                  npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+                  npx http-server storybook-static --port 6006 --silent \
+                  npx wait-on tcp:6006 && yarn ./node_modules/.bin/test-storybook
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v1
