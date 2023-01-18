@@ -47,21 +47,21 @@ export const COLORS = {
 	black: '#162137',
 };
 
-export const enum MASCOTS {
-	marvin = `https://via.placeholder.com/512/${COLORS.blue.replace(
+export const MASCOTS = {
+	marvin: `https://via.placeholder.com/512/${COLORS.blue.replace(
 		'#',
 		''
 	)}/FFFFFF?text=MARVIN`,
-	dylan = `https://via.placeholder.com/512/${COLORS.green.replace(
+	dylan: `https://via.placeholder.com/512/${COLORS.green.replace(
 		'#',
 		''
 	)}/FFFFFF?text=DYLAN`,
-	aaron = `https://via.placeholder.com/512/${COLORS.pink.replace(
+	aaron: `https://via.placeholder.com/512/${COLORS.pink.replace(
 		'#',
 		''
 	)}/FFFFFF?text=AARON`,
-	jack = `https://via.placeholder.com/512/${COLORS.yellow.replace(
+	jack: `https://via.placeholder.com/512/${COLORS.yellow.replace(
 		'#',
 		''
 	)}/FFFFFF?text=JACK`,
-}
+};

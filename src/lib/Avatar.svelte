@@ -2,12 +2,9 @@
 	import { createEventDispatcher } from 'svelte';
 	import { COLORS, SIZES, MASCOTS } from './_definitions';
 
-	const bgColorOptions = [
-		COLORS.blue,
-		COLORS.green,
-		COLORS.pink,
-		COLORS.yellow,
-	];
+	const dispatch = createEventDispatcher();
+
+	const bgColors = [COLORS.blue, COLORS.green, COLORS.pink, COLORS.yellow];
 
 	const mascots = [
 		MASCOTS.marvin,
@@ -16,28 +13,30 @@
 		MASCOTS.jack,
 	];
 
-	const setOptions = (email: string | undefined) => {
-		if (!email) {
-			return [bgColorOptions[0], mascots[0]];
-		}
-
-		const charCode = email.trim().toLowerCase().charCodeAt(0);
-
-		return [
-			bgColorOptions[charCode % bgColorOptions.length],
-			mascots[charCode % mascots.length],
-		];
-	};
-
 	export let imgSrc: string | undefined;
 
 	export let email: string | undefined;
 
 	export let size: SIZES = SIZES.SMALL;
 
-	export const options = setOptions(email);
+	const getPersistentIndex = (length: number = 0): number => {
+		if (!email || !email.length) {
+			return 0;
+		}
+		const charCode = email.trim().toLowerCase().charCodeAt(0);
+		return (charCode % length) as number;
+	};
 
-	const dispatch = createEventDispatcher();
+	const getBgColor = (): string => {
+		return bgColors[getPersistentIndex(bgColors.length)];
+	};
+
+	const getProfileImg = (): string => {
+		if (imgSrc && /^https:\/\//.test(imgSrc)) {
+			return imgSrc;
+		}
+		return mascots[getPersistentIndex(mascots.length)];
+	};
 
 	const clickHandler = (e: MouseEvent): void => {
 		dispatch('clickEvent', e);
@@ -47,10 +46,10 @@
 <button
 	class="sp-avatar sp-avatar--{size}"
 	on:click={clickHandler}
-	style:background-color={options[0]}>
+	style:background-color={getBgColor()}>
 	<span class="sp-avatar--image">
 		<img
-			src={imgSrc && imgSrc.length ? imgSrc : options[1]}
+			src={getProfileImg()}
 			alt="profile" />
 	</span>
 </button>
