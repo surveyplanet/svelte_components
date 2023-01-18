@@ -1,4 +1,4 @@
-import { BUTTON_SIZES, BUTTON_MODES } from '../../lib/_definitions';
+import { SIZES, BUTTON_MODES } from '../../lib/_definitions';
 
 export default {
 	clickHandler: { action: 'clickEvent' },
@@ -15,6 +15,6 @@ export default {
 	size: {
 		control: { type: 'select' },
 		options: ['small', 'medium', 'large'],
-		defaultValue: BUTTON_SIZES.MEDIUM,
+		defaultValue: SIZES.MEDIUM,
 	},
 };

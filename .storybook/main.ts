@@ -31,5 +31,5 @@ module.exports = {
 		defaultName: 'Documentation',
 		docsPage: true,
 	},
-	staticDirs: ['../src/assets'],
+	staticDirs: ['../src/stories/assets'],
 };

@@ -1,0 +1,39 @@
+import {
+	Meta,
+	Canvas,
+	ColorPalette,
+	ColorItem,
+	Description,
+	Story,
+} from '@storybook/addon-docs';
+
+import avatar from '../../lib/avatar.svelte';
+
+<Meta
+	title="Avatar/Documentation"
+	component={Avatar}
+/>
+
+# avatar component
+
+<div id="example">
+	<Story id="avatar-default--primary" />
+</div>
+
+## Usage
+
+```ts
+<script>
+	import {avatar} from '@surveyplanet/svelte-components';
+</script>
+<Avatar />
+```
+
+```
+
+## Parameters
+
+| Name  | Type   | Description                |
+| ----- | ------ | -------------------------- |
+| color | string | An alternate avatar color. |
+```
