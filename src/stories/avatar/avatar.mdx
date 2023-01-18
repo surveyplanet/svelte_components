@@ -7,14 +7,14 @@ import {
 	Story,
 } from '@storybook/addon-docs';
 
-import avatar from '../../lib/Avatar.svelte';
+import Avatar from '../../lib/Avatar.svelte';
 
 <Meta
 	title="Avatar/Documentation"
 	component={Avatar}
 />
 
-# avatar component
+# Avatar component
 
 <div id="example">
 	<Story id="avatar-default--primary" />
@@ -26,12 +26,14 @@ import avatar from '../../lib/Avatar.svelte';
 <script>
 	import {avatar} from '@surveyplanet/svelte-components';
 </script>
-<avatar color="rgba(225,0,0,.5)">Pro</avatar>
+<Avatar email='ogi@sp.com' size=SIZES.SMALL imgSrc='https://surveyplanet.com'></Avatar>
 
 ```
 
 ## Parameters
 
-| Name  | Type   | Description                |
-| ----- | ------ | -------------------------- |
-| color | string | An alternate avatar color. |
+| Name   | Type   | Description                                              |
+| ------ | ------ | -------------------------------------------------------- |
+| imgSrc | string | image source                                             |
+| email  | string | email address                                            |
+| size   | enum   | size of the avatar, SIZES.SMALL, SIZE.MEDIUM, SIZE.LARGE |
