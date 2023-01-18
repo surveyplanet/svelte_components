@@ -3,7 +3,7 @@ import './main.scss';
 import { COLORS } from '../src/lib/_definitions';
 
 export const parameters = {
-	actions: { argTypesRegex: '.*Handler$' },
+	// actions: { argTypesRegex: '.*Handler$' },
 	controls: {
 		matchers: {
 			color: /(background|color)$/i,

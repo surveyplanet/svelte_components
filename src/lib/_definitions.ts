@@ -10,12 +10,14 @@ export const enum BUTTON_MODES {
 	TERTIARY = 'tertiary',
 	QUATERNARY = 'quaternary',
 	DARK = 'dark',
+	LIGHT = 'light',
 }
 
 export const COLORS = {
-	slate_light: '#dcdee1',
+	slate_lighter: '#dcdee1',
+	slate_light: '#a2a6af',
 	slate: '#737a87',
-	slate_dark: '#262b35',
+	slate_dark: '#162137',
 
 	light_purple_light: '#f4f0ff',
 	light_purple: '#ece5ff',
@@ -42,5 +44,5 @@ export const COLORS = {
 	yellow_dark: '#fac766',
 
 	white: '#ffffff',
-	black: '#262b35',
+	black: '#162137',
 };

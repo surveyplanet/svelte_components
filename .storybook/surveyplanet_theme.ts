@@ -1,10 +1,8 @@
 import { create } from '@storybook/theming/create';
 import { themes } from '@storybook/theming';
+import { COLORS } from '../src/lib/_definitions';
 
-const light = 'rgb(245, 240, 255)';
-const dark = 'rgb(38,43,53)';
-const darkLight = 'rgb(70, 76, 87)';
-const accent = '#5BC84D';
+const lightTransparent = 'rgba(255,255,255,0.1)';
 
 export default create({
 	base: 'dark',
@@ -13,26 +11,28 @@ export default create({
 	brandImage:
 		'https://public.surveyplanet.com/logos/surveyplanet-logo-light.svg',
 	brandTarget: '_self',
-	textColor: light,
+	textColor: COLORS.slate_lighter,
+	colorPrimary: COLORS.purple,
+	colorSecondary: COLORS.purple,
 
 	// UI
-	appBg: dark,
-	appContentBg: dark,
-	appBorderColor: darkLight,
+	appBg: COLORS.slate_dark,
+	appContentBg: COLORS.slate_dark,
+	appBorderColor: lightTransparent,
 	appBorderRadius: 0,
 
 	// Typography
-	fontBase: '"Suisse Int", sans-serif',
+	fontBase: '"Suisse Screen Medium", sans-serif',
 	fontCode: '"Suisse Mono", monospace',
 
 	// Toolbar default and active colors
-	barTextColor: darkLight,
-	barSelectedColor: light,
-	barBg: dark,
+	barTextColor: 'white',
+	barSelectedColor: COLORS.slate_lighter,
+	barBg: COLORS.slate_dark,
 
-	// // Form colors
-	inputBg: darkLight,
-	inputBorder: 'black',
-	inputTextColor: light,
+	// Form colors
+	inputBg: lightTransparent,
+	inputBorder: lightTransparent,
+	inputTextColor: COLORS.slate_lighter,
 	inputBorderRadius: 2,
 });

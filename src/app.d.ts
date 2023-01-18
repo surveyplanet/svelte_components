@@ -9,3 +9,10 @@ declare namespace App {
 	// interface PageData {}
 	// interface Platform {}
 }
+
+type StoryBookPlayArgs = {
+	canvasElement: HTMLElement;
+	args: {
+		clickHandler?(e: MouseEvent): void;
+	};
+};

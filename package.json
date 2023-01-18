@@ -2,7 +2,7 @@
 	"name": "svelte-components",
 	"version": "0.0.1",
 	"scripts": {
-		"clean": "rm -rf package coverage node_modules dist static package-lock.json && npm i",
+		"clean": "rm -rf package coverage node_modules dist static && npm i",
 		"build": "svelte-kit sync && svelte-package",
 		"package": "npm run build",
 		"prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
@@ -18,13 +18,15 @@
 	},
 	"devDependencies": {
 		"@storybook/addon-a11y": "^7.0.0-beta.19",
+		"@storybook/addon-actions": "^7.0.0-beta.25",
 		"@storybook/addon-docs": "^7.0.0-beta.12",
 		"@storybook/addon-essentials": "^7.0.0-beta.12",
 		"@storybook/addon-interactions": "^7.0.0-beta.12",
 		"@storybook/addon-links": "^7.0.0-beta.12",
+		"@storybook/addon-svelte-csf": "^3.0.0-next.3",
 		"@storybook/blocks": "^7.0.0-beta.12",
 		"@storybook/jest": "^0.0.10",
-		"@storybook/svelte": "^7.0.0-beta.12",
+		"@storybook/svelte": "^7.0.0-beta.21",
 		"@storybook/sveltekit": "^7.0.0-beta.12",
 		"@storybook/test-runner": "^0.10.0-next.3",
 		"@storybook/testing-library": "^0.0.13",
@@ -52,6 +54,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@surveyplanet/styles": "^0.1.7-16"
+		"@surveyplanet/styles": "^0.1.7-21"
 	}
 }
