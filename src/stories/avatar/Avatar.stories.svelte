@@ -17,6 +17,7 @@
 			defaultValue: SIZES.SMALL,
 		},
 		bgColor: { control: 'color' },
+		imgSrc: { control: 'text' },
 	}} />
 
 <Template
@@ -43,7 +44,6 @@
 	play={test.medium}>
 	<Avatar
 		size={SIZES.MEDIUM}
-		email="slenum@gmail.com"
 		imgSrc="https://via.placeholder.com/512/FFB1E3/FFFFFF?text=CUSTOM" />
 </Story>
 
