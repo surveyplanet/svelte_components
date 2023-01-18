@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { BUTTON_MODES, BUTTON_SIZES } from '../../lib/_definitions';
+	import { BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	import argTypes from './button_args';
 	import Button from '../../lib/Button.svelte';
 	import Icon from '../../lib/Icon.svelte';
@@ -24,30 +24,30 @@
 </Template>
 
 <Story
-	name="Disabled Primary"
+	name="Disabled primary"
 	play={tests.defaultDisabled} />
 
 <Story
-	name="Disabled Secondary"
+	name="Disabled secondary"
 	args={{ mode: BUTTON_MODES.SECONDARY }}
 	play={tests.secondaryDisabled} />
 
 <Story
-	name="Disabled Tertiary"
+	name="Disabled tertiary"
 	args={{ mode: BUTTON_MODES.TERTIARY }}
 	play={tests.tertiaryDisabled} />
 
 <Story
-	name="Disabled Quaternary"
+	name="Disabled quaternary"
 	args={{ mode: BUTTON_MODES.QUATERNARY }}
 	play={tests.quaternaryDisabled} />
 
 <Story
-	name="Disabled Dark"
+	name="Disabled dark"
 	args={{ mode: BUTTON_MODES.DARK }}
 	play={tests.darkDisabled} />
 
 <Story
-	name="Disabled Light"
+	name="Disabled light"
 	args={{ mode: BUTTON_MODES.LIGHT }}
 	play={tests.lightDisabled} />
