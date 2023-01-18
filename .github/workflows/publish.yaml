@@ -76,10 +76,9 @@ jobs:
               run: echo ${{ github.event.deployment_status }}
 
             - name: Run Storybook tests
-              run: ./node_modules/.bin/test-storybook
-              #   run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
-              env:
-                  TARGET_URL: '${{ github.event.deployment_status.target_url }}'
+              run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
+              # env:
+              #     TARGET_URL: '${{ github.event.deployment_status.target_url }}'
 
             - name: Publish !!! - DRY RUN - !!!
               run: npm publish --access public --dry-run
