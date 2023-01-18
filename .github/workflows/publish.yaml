@@ -50,13 +50,15 @@ jobs:
             - name: Build
               run: npm run storybook:build
 
-            # this doesn't seem to work
-            # - name: Install Playwright
-            #   run: npx playwright install --with-deps
+            - name: Install Playwright (for tests)
+              run: npx playwright install --with-deps
+
             # - name: Run Storybook tests
             #   run: ./node_modules/.bin/test-storybook
             #   env:
             #       TARGET_URL: '${{ github.event.deployment_status.target_url }}'
+
+            # this doesn't seem to work: https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
             # - name: Serve Storybook and run tests
             #   run: |
             #       npx concurrently -k -s first -n "Storybook,tests" -c "green,blue" \
@@ -71,9 +73,6 @@ jobs:
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v1
-
-            - name: DEBUG!
-              run: echo ${{ github.event.deployment_status }}
 
             - name: Run Storybook tests
               run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
