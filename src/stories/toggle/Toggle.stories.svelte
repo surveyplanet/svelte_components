@@ -6,10 +6,18 @@
 
 <Meta
 	title="Toggle/Default"
-	component={Toggle} />
+	component={Toggle}
+	argTypes={{
+		changeHandler: { action: 'change' },
+		on: { control: 'boolean', defaultValue: false },
+		disabled: { control: 'boolean', defaultValue: false },
+		tall: { control: 'boolean', defaultValue: false },
+	}} />
 
 <Template let:args>
-	<Toggle {...args} />
+	<Toggle
+		{...args}
+		on:change={args.changeHandler} />
 </Template>
 
 <Story

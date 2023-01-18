@@ -19,11 +19,11 @@
 </Template>
 
 <Story
-	name="Badge primary"
+	name="Primary"
 	play={primary} />
 
 <Story
-	name="Badge inverted"
+	name="Alternate color"
 	source
 	let:args
 	play={inverted}>
@@ -34,7 +34,7 @@
 </Story>
 
 <Story
-	name="Badge with icon"
+	name="Icon"
 	source
 	let:args
 	play={icon}>
@@ -42,9 +42,9 @@
 		{...args}
 		bgColor="black"
 		textColor="white">
+		Inverted with icon
 		<Icon
 			name="add"
 			color="white" />
-		Inverted with icon
 	</Badge>
 </Story>

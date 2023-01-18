@@ -50,7 +50,7 @@ export const primary = async (res: StoryBookPlayArgs) => {
 	expect(ripple).not.toBeVisible();
 
 	await userEvent.click(btn);
-	await expect(res.args.clickHandler).toHaveBeenCalled();
+	expect(res.args.clickHandler).toHaveBeenCalled();
 	expect(btn).toHaveFocus();
 };
 

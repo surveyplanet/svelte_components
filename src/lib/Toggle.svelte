@@ -12,7 +12,8 @@
 			on = false;
 			return event.preventDefault();
 		}
-		dispatch('toggleEvent', on);
+
+		dispatch('change', on);
 	};
 </script>
 

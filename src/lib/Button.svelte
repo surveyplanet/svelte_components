@@ -53,10 +53,10 @@
 	let active: boolean = false;
 
 	const clickHandler = (e: MouseEvent): void => {
-		dispatch('clickEvent', e);
+		dispatch('click', e);
 	};
 
-	const mouseUpHandler = (e: MouseEvent): void => {
+	const mouseUpHandler = (): void => {
 		deactivate();
 	};
 	const mouseDownHandler = (e: MouseEvent): void => {
