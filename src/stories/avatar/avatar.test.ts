@@ -19,7 +19,7 @@ export const primary = async (res: StoryBookPlayArgs) => {
 	expect(style.borderRadius).toBe('100%');
 	expect(img).toHaveAttribute(
 		'src',
-		'https://via.placeholder.com/23/0040FF/888080?text=AARON'
+		'https://via.placeholder.com/512/ffb1e3/FFFFFF?text=AARON'
 	);
 };
 
@@ -33,12 +33,12 @@ export const medium = async (res: StoryBookPlayArgs) => {
 	const img = canvas.getByRole('img');
 
 	expect(avatar).toBeTruthy();
-	expect(color).toBe('rgb(255, 233, 120)');
+	expect(color).toBe('rgb(158, 228, 250)');
 	expect(style.width).toBe('48px');
 	expect(style.height).toBe('48px');
 	expect(img).toHaveAttribute(
 		'src',
-		'https://via.placeholder.com/32/0060FF/802080?text=JACK'
+		'https://via.placeholder.com/512/FFB1E3/FFFFFF?text=CUSTOM'
 	);
 };
 
@@ -58,6 +58,6 @@ export const large = async (res: StoryBookPlayArgs) => {
 	expect(style.height).toBe('64px');
 	expect(img).toHaveAttribute(
 		'src',
-		'https://via.placeholder.com/38/0020FF/898080?text=DYLAN'
+		'https://via.placeholder.com/512/a1fda5/FFFFFF?text=DYLAN'
 	);
 };

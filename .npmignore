@@ -1,0 +1,9 @@
+.github
+.storybook
+.svelte-kit
+.vscode
+src
+.eslint*
+.prettier*
+vite.config.js
+tsconfig.json

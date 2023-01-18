@@ -1,16 +1,39 @@
-name: Test and publish module
+name: Deploy Playbook to Github Pages and Svelte components to NPM.
 
 on:
     push:
+        # branches:
+        #     - main
         tags:
             - v*.*.*
 
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+    contents: read
+    pages: write
+    id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+    group: 'pages'
+    cancel-in-progress: true
+
 jobs:
-    build:
+    # Single deploy job since we're just deploying
+    deploy:
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v3
+
+            - name: Setup Pages
+              uses: actions/configure-pages@v2
 
             - name: Setup Node.js
               uses: actions/setup-node@v3
@@ -24,8 +47,41 @@ jobs:
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-            - name: Run unit test
-              run: 'npm test'
+            - name: Install Playwright (for tests)
+              run: npx playwright install --with-deps
 
-            - name: Publish to NPM
-              run: npm publish --access public
+            - name: Build Storybook
+              run: npm run storybook:build
+
+            # Testing locally doesn't work with svelte csf:
+            # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
+            # - name: Run Storybook tests
+            #   run: ./node_modules/.bin/test-storybook
+            #   env:
+            #       TARGET_URL: '${{ github.event.deployment_status.target_url }}'
+            #  OR
+            # - name: Serve Storybook and run tests
+            #   run: |
+            #       npx concurrently -k -s first -n "Storybook,tests" -c "green,blue" \
+            #       "npx http-server static --port 6006 --silent" \
+            #       "npx wait-on tcp:6006 && ./node_modules/.bin/test-storybook"
+
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v1
+              with:
+                  path: './static'
+
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v1
+
+            - name: Run Storybook tests
+              run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
+              # env:
+              #     TARGET_URL: '${{ github.event.deployment_status.target_url }}'
+
+            - name: Package components
+              run: npm run package
+
+            - name: Publish
+              run: cd package && npm publish --access public

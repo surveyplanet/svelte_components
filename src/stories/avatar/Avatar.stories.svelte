@@ -2,7 +2,7 @@
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 	import * as test from './avatar.test';
 	import Avatar from '../../lib/Avatar.svelte';
-	import { SIZES } from '../../lib/_definitions';
+	import { SIZES, COLORS } from '../../lib/_definitions';
 </script>
 
 <Meta
@@ -17,6 +17,7 @@
 			defaultValue: SIZES.SMALL,
 		},
 		bgColor: { control: 'color' },
+		imgSrc: { control: 'text' },
 	}} />
 
 <Template
@@ -40,24 +41,14 @@
 
 <Story
 	name="Medium"
-	parameters={{
-		backgrounds: {
-			default: 'darkest',
-		},
-	}}
 	play={test.medium}>
 	<Avatar
 		size={SIZES.MEDIUM}
-		email="slenum@gmail.com" />
+		imgSrc="https://via.placeholder.com/512/FFB1E3/FFFFFF?text=CUSTOM" />
 </Story>
 
 <Story
 	name="Large"
-	parameters={{
-		backgrounds: {
-			default: 'darkest',
-		},
-	}}
 	play={test.large}>
 	<Avatar
 		size={SIZES.LARGE}

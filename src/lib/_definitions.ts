@@ -13,13 +13,6 @@ export const enum BUTTON_MODES {
 	LIGHT = 'light',
 }
 
-export const enum MASCOTS {
-	marvin = 'https://via.placeholder.com/32/0000FF/108080?text=MARVIN',
-	dylan = 'https://via.placeholder.com/38/0020FF/898080?text=DYLAN',
-	aaron = 'https://via.placeholder.com/23/0040FF/888080?text=AARON',
-	jack = 'https://via.placeholder.com/32/0060FF/802080?text=JACK',
-}
-
 export const COLORS = {
 	slate_lighter: '#dcdee1',
 	slate_light: '#a2a6af',
@@ -52,4 +45,23 @@ export const COLORS = {
 
 	white: '#ffffff',
 	black: '#162137',
+};
+
+export const MASCOTS = {
+	marvin: `https://via.placeholder.com/512/${COLORS.blue.replace(
+		'#',
+		''
+	)}/FFFFFF?text=MARVIN`,
+	dylan: `https://via.placeholder.com/512/${COLORS.green.replace(
+		'#',
+		''
+	)}/FFFFFF?text=DYLAN`,
+	aaron: `https://via.placeholder.com/512/${COLORS.pink.replace(
+		'#',
+		''
+	)}/FFFFFF?text=AARON`,
+	jack: `https://via.placeholder.com/512/${COLORS.yellow.replace(
+		'#',
+		''
+	)}/FFFFFF?text=JACK`,
 };
