@@ -15,29 +15,23 @@
 		MASCOTS.aaron,
 		MASCOTS.jack,
 	];
-	const setBgColor = (email: string | undefined) => {
+	const setOptions = (email: string | undefined) => {
 		if (!email) {
-			return COLORS.blue;
+			return [COLORS.blue, MASCOTS.aaron];
 		}
 
 		const charCode = email.trim().toLowerCase().charCodeAt(0);
-		return bgColorOptions[charCode % bgColorOptions.length];
-	};
-	const setPlaceholderImage = (email: string | undefined) => {
-		if (!email) {
-			return MASCOTS.aaron;
-		}
-
-		const charCode = email.trim().toLowerCase().charCodeAt(0);
-		return mascots[charCode % mascots.length];
+		return [
+			bgColorOptions[charCode % bgColorOptions.length],
+			mascots[charCode % mascots.length],
+		];
 	};
 
-	export let imgSrc: string | undefined | null;
+	export let imgSrc: string | undefined;
 
 	export let email: string | undefined;
 	export let size: SIZES = SIZES.SMALL;
-	export const bgColor = setBgColor(email);
-	export const placeholderImage = setPlaceholderImage(email);
+	export const options = setOptions(email);
 	const dispatch = createEventDispatcher();
 	const clickHandler = (e: MouseEvent): void => {
 		dispatch('clickEvent', e);
@@ -46,12 +40,12 @@
 
 <button
 	class="sp-avatar sp-avatar--{size}"
-	style:background-color={bgColor}
-	on:click={clickHandler}>
+	on:click={clickHandler}
+	style:background-color={options[0]}>
 	<span class="sp-avatar--image">
 		{#if imgSrc === undefined || imgSrc === null || imgSrc.length === 0}
 			<img
-				src={placeholderImage}
+				src={options[1]}
 				alt="placeholder" />
 		{:else}
 			<img
