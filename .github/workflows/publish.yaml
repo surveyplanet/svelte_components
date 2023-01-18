@@ -2,10 +2,10 @@ name: Deploy Playbook to Github Pages and Svelte components to NPM.
 
 on:
     push:
-        branches:
-            - deploy
-        # tags:
-        #     - v*.*.*
+        # branches:
+        #     - main
+        tags:
+            - v*.*.*
 
     # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
@@ -83,5 +83,5 @@ jobs:
             - name: Package components
               run: npm run package
 
-            - name: Publish !!! - DRY RUN - !!!
-              run: cd package && npm publish --access public --dry-run
+            - name: Publish
+              run: cd package && npm publish --access public
