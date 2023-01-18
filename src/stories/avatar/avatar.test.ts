@@ -12,6 +12,7 @@ export const primary = async (res: StoryBookPlayArgs) => {
 
 	expect(avatar).toBeTruthy();
 	expect(avatar).toHaveClass('sp-avatar');
+	expect(avatar).toHaveClass('sp-avatar--small');
 	expect(color).toBe('rgb(255, 177, 227)');
 	expect(style.width).toBe('36px');
 	expect(style.height).toBe('36px');
@@ -51,6 +52,7 @@ export const large = async (res: StoryBookPlayArgs) => {
 	const img = canvas.getByRole('img');
 
 	expect(avatar).toBeTruthy();
+	expect(avatar).toHaveClass('sp-avatar--large');
 	expect(color).toBe('rgb(161, 253, 165)');
 	expect(style.width).toBe('64px');
 	expect(style.height).toBe('64px');
