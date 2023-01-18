@@ -47,18 +47,19 @@ jobs:
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-            - name: Build
-              run: npm run storybook:build
-
             - name: Install Playwright (for tests)
               run: npx playwright install --with-deps
 
+            - name: Build Storybook
+              run: npm run storybook:build
+
+            # Testing locally doesn't work with svelte csf:
+            # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
             # - name: Run Storybook tests
             #   run: ./node_modules/.bin/test-storybook
             #   env:
             #       TARGET_URL: '${{ github.event.deployment_status.target_url }}'
-
-            # this doesn't seem to work: https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
+            #  OR
             # - name: Serve Storybook and run tests
             #   run: |
             #       npx concurrently -k -s first -n "Storybook,tests" -c "green,blue" \
@@ -83,4 +84,4 @@ jobs:
               run: npm run package
 
             - name: Publish !!! - DRY RUN - !!!
-              run: npm publish --access public --dry-run
+              run: cd package && npm publish --access public --dry-run
