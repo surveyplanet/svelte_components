@@ -15,6 +15,7 @@
 		MASCOTS.aaron,
 		MASCOTS.jack,
 	];
+
 	const setBgColor = (email: string | undefined) => {
 		if (!email) {
 			return COLORS.blue;
@@ -23,6 +24,7 @@
 		const charCode = email.trim().toLowerCase().charCodeAt(0);
 		return bgColorOptions[charCode % bgColorOptions.length];
 	};
+
 	const setPlaceholderImage = (email: string | undefined) => {
 		if (!email) {
 			return MASCOTS.aaron;
@@ -32,13 +34,18 @@
 		return mascots[charCode % mascots.length];
 	};
 
-	export let imgSrc: string | undefined | null;
+	export let imgSrc: string | undefined;
 
 	export let email: string | undefined;
+
 	export let size: SIZES = SIZES.SMALL;
+
 	export const bgColor = setBgColor(email);
+
 	export const placeholderImage = setPlaceholderImage(email);
+
 	const dispatch = createEventDispatcher();
+
 	const clickHandler = (e: MouseEvent): void => {
 		dispatch('clickEvent', e);
 	};
@@ -74,6 +81,7 @@
 		vertical-align: baseline;
 		border-radius: 100%;
 		border: 0;
+		overflow: hidden;
 	}
 	.sp-avatar:hover {
 		cursor: pointer;
@@ -92,5 +100,9 @@
 		justify-content: center;
 		width: 100%;
 		height: 100%;
+		img {
+			max-width: 130%;
+			height: auto;
+		}
 	}
 </style>
