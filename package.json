@@ -1,6 +1,6 @@
 {
 	"name": "svelte-components",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"scripts": {
 		"clean": "rm -rf package coverage node_modules dist static && npm i",
 		"build": "svelte-kit sync && svelte-package",
