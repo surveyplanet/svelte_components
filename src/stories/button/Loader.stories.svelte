@@ -41,7 +41,7 @@
 	play={tests.loaderTertiarySmall} />
 
 <Story
-	name="Icon"
+	name="Loader with icon"
 	play={tests.loaderWithIcon}>
 	<Button
 		disabled={true}

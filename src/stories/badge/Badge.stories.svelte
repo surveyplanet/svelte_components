@@ -34,7 +34,7 @@
 </Story>
 
 <Story
-	name="Icon"
+	name="Badge with icon"
 	source
 	let:args
 	play={icon}>
