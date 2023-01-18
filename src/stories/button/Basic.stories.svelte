@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 	import { action } from '@storybook/addon-actions';
-	import { BUTTON_MODES, BUTTON_SIZES } from '../../lib/_definitions';
+	import { BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	import Button from '../../lib/Button.svelte';
 	import * as tests from './button.test';
 	import argTypes from './button_args';
@@ -65,7 +65,7 @@
 	play={tests.block}>
 	<Button
 		block={true}
-		size={BUTTON_SIZES.LARGE}>
+		size={SIZES.LARGE}>
 		Button should take up all available horizontal space.
 	</Button>
 </Story>

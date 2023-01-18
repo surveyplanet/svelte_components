@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 	import { action } from '@storybook/addon-actions';
-	import { BUTTON_MODES, BUTTON_SIZES } from '../../lib/_definitions';
+	import { BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	import Button from '../../lib/Button.svelte';
 	import Icon from '../../lib/Icon.svelte';
 	import * as tests from './button.test';
@@ -31,14 +31,14 @@
 <Story
 	name="Small"
 	args={{
-		size: BUTTON_SIZES.SMALL,
+		size: SIZES.SMALL,
 	}}
 	play={tests.iconSmall} />
 
 <Story
 	name="Large"
 	args={{
-		size: BUTTON_SIZES.LARGE,
+		size: SIZES.LARGE,
 	}}
 	play={tests.iconLarge} />
 
@@ -53,7 +53,7 @@
 	play={tests.actionSmall}>
 	<Button
 		action={true}
-		size={BUTTON_SIZES.SMALL}><Icon name="add" /></Button>
+		size={SIZES.SMALL}><Icon name="add" /></Button>
 </Story>
 
 <Story
@@ -61,7 +61,7 @@
 	play={tests.actionLarge}>
 	<Button
 		action={true}
-		size={BUTTON_SIZES.LARGE}><Icon name="add" /></Button>
+		size={SIZES.LARGE}><Icon name="add" /></Button>
 </Story>
 
 <Story
@@ -71,5 +71,5 @@
 		action={true}
 		round={true}
 		mode={BUTTON_MODES.TERTIARY}
-		size={BUTTON_SIZES.LARGE}><Icon name="add" /></Button>
+		size={SIZES.LARGE}><Icon name="add" /></Button>
 </Story>

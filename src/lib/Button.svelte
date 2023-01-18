@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { BUTTON_MODES, BUTTON_SIZES } from './_definitions';
+	import { BUTTON_MODES, SIZES } from './_definitions';
 
 	const dispatch = createEventDispatcher();
 
@@ -43,7 +43,7 @@
 	 * The button size, either: 'small', 'medium' or 'large'
 	 * @required
 	 */
-	export let size: BUTTON_SIZES = BUTTON_SIZES.MEDIUM;
+	export let size: SIZES = SIZES.MEDIUM;
 
 	let clickAnimationEl: HTMLElement;
 

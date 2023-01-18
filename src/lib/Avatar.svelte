@@ -1,24 +1,43 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import { COLORS, SIZES, MASCOTS } from './_definitions';
+
 	const dispatch = createEventDispatcher();
-	import { COLORS } from './_definitions';
 
-	const color = (email: string) => {
-		const colors = [
-			COLORS.blue_light,
-			COLORS.green,
-			COLORS.pink_light,
-			COLORS.yellow_light,
-		];
-		const sum = email
-			.split('')
-			.reduce((acc, char) => acc + char.charCodeAt(0), 0);
-		return colors[sum % colors.length];
+	const bgColors = [COLORS.blue, COLORS.green, COLORS.pink, COLORS.yellow];
+
+	const mascots = [
+		MASCOTS.marvin,
+		MASCOTS.dylan,
+		MASCOTS.aaron,
+		MASCOTS.jack,
+	];
+
+	export let imgSrc: string | undefined;
+
+	export let email: string | undefined;
+
+	export let size: SIZES = SIZES.SMALL;
+
+	const getPersistentIndex = (length: number = 0): number => {
+		if (!email || !email.length) {
+			return 0;
+		}
+		const charCode = email.trim().toLowerCase().charCodeAt(0);
+		return (charCode % length) as number;
 	};
-	export let email: string = 'ogi@surveyplanet.com';
-	export let size: 'small' | 'medium' | 'large' = 'small';
 
-	export const bgColor = color(email);
+	const getBgColor = (): string => {
+		return bgColors[getPersistentIndex(bgColors.length)];
+	};
+
+	const getProfileImg = (): string => {
+		if (imgSrc && /^https:\/\//.test(imgSrc)) {
+			return imgSrc;
+		}
+		return mascots[getPersistentIndex(mascots.length)];
+	};
+
 	const clickHandler = (e: MouseEvent): void => {
 		dispatch('clickEvent', e);
 	};
@@ -26,9 +45,13 @@
 
 <button
 	class="sp-avatar sp-avatar--{size}"
-	style:background-color={bgColor}
-	on:click={clickHandler}>
-	<slot class="img" />
+	on:click={clickHandler}
+	style:background-color={getBgColor()}>
+	<span class="sp-avatar--image">
+		<img
+			src={getProfileImg()}
+			alt="profile" />
+	</span>
 </button>
 
 <style lang="scss">
@@ -44,6 +67,7 @@
 		vertical-align: baseline;
 		border-radius: 100%;
 		border: 0;
+		overflow: hidden;
 	}
 	.sp-avatar:hover {
 		cursor: pointer;
@@ -56,9 +80,15 @@
 		height: $size--64;
 		width: $size--64;
 	}
-	.img {
+	.sp-avatar--image {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		width: 100%;
+		height: 100%;
+		img {
+			max-width: 130%;
+			height: auto;
+		}
 	}
 </style>

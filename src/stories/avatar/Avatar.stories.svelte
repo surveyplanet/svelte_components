@@ -1,52 +1,56 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { primary } from './avatar.test';
+	import * as test from './avatar.test';
 	import Avatar from '../../lib/Avatar.svelte';
-	import Icon from '../../lib/Icon.svelte';
-	import { COLORS } from '../../lib/_definitions';
+	import { SIZES, COLORS } from '../../lib/_definitions';
 </script>
 
 <Meta
 	title="Avatar/Default"
 	component={Avatar}
 	argTypes={{
+		clickHandler: { action: 'clickEvent' },
 		email: { control: 'text' },
+		size: {
+			control: 'select',
+			options: [SIZES.SMALL, SIZES.MEDIUM, SIZES.LARGE],
+			defaultValue: SIZES.SMALL,
+		},
+		bgColor: { control: 'color' },
 	}} />
 
-<Template let:args>
+<Template
+	let:args
+	parameters={{
+		backgrounds: {
+			default: 'darkest',
+		},
+	}}>
 	<Avatar
 		{...args}
 		on:clickEvent={args.clickHandler} />
 </Template>
 
 <Story
-	name="Small"
-	play={primary}>
+	name="Primary"
+	args={{
+		email: 'jonah@surveyplanet.com',
+	}}
+	play={test.primary} />
+
+<Story
+	name="Medium"
+	play={test.medium}>
 	<Avatar
-		size="small"
-		email=" hello1@killbill.com
-		">
-		<img
-			src="https://via.placeholder.com/32"
-			alt="placeholder" />
-	</Avatar>
+		size={SIZES.MEDIUM}
+		email="slenum@gmail.com"
+		imgSrc="https://via.placeholder.com/512/FFB1E3/FFFFFF?text=CUSTOM" />
 </Story>
 
-<Story name="Medium">
+<Story
+	name="Large"
+	play={test.large}>
 	<Avatar
-		size="medium"
-		email="plenum@gmail.com">
-		<img
-			src="https://via.placeholder.com/32"
-			alt="placeholder" />
-	</Avatar>
-</Story>
-
-<Story name="Large">
-	<Avatar
-		size="large"
-		email="helloworld@surveyplanet.com"
-		><img
-			src="https://via.placeholder.com/40"
-			alt="placeholder" /></Avatar>
+		size={SIZES.LARGE}
+		email="uelloworld@surveyplanet.com" />
 </Story>
