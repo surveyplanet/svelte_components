@@ -1,5 +1,6 @@
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
+import { delay } from '../../lib/_utils';
 
 export const basic = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
@@ -14,6 +15,11 @@ export const basic = async (res: StoryBookPlayArgs) => {
 	expect(toggle).toHaveAttribute('aria-checked', 'false');
 	expect(checkbox).not.toHaveFocus();
 	await userEvent.click(checkbox);
+	await delay(500);
+	expect(window.getComputedStyle(track).boxShadow).toBe(
+		'rgb(255, 255, 255) 0px 0px 0px 1px, rgb(115, 122, 135) 0px 0px 0px 2px'
+	);
+
 	expect(toggle).toHaveClass('sp-toggle--on');
 	expect(toggle).toHaveAttribute('aria-checked', 'true');
 	expect(checkbox).toHaveFocus();
