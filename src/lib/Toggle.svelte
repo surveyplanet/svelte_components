@@ -83,7 +83,7 @@
 			height: 100%;
 			border-radius: $size--20;
 			background-color: $color--light-purple;
-			transition: 0.4s;
+			transition: 400ms;
 
 			&:after {
 				position: absolute;
