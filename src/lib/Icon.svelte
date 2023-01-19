@@ -30,7 +30,7 @@
 	export let color = '#262b35';
 
 	/**
-	 * The icon width and height in pixes. default: 24
+	 * The icon width and height in pixes. default: 48
 	 */
 	export let size: 8 | 16 | 20 | 24 | 32 | 48 | 64 | 128 | 256 | 512 =
 		DEFAULT_SIZE;

@@ -9,14 +9,13 @@
 	title="Avatar/Default"
 	component={Avatar}
 	argTypes={{
-		clickHandler: { action: 'clickEvent' },
-		email: { control: 'text' },
+		clickHandler: { action: 'click' },
+		id: { control: 'text' },
 		size: {
 			control: 'select',
 			options: [SIZES.SMALL, SIZES.MEDIUM, SIZES.LARGE],
 			defaultValue: SIZES.SMALL,
 		},
-		bgColor: { control: 'color' },
 		imgSrc: { control: 'text' },
 	}} />
 
@@ -24,18 +23,18 @@
 	let:args
 	parameters={{
 		backgrounds: {
-			default: 'darkest',
+			default: COLORS.slate_dark,
 		},
 	}}>
 	<Avatar
 		{...args}
-		on:clickEvent={args.clickHandler} />
+		on:click={args.clickHandler} />
 </Template>
 
 <Story
 	name="Primary"
 	args={{
-		email: 'jonah@surveyplanet.com',
+		id: 'jonah@surveyplanet.com',
 	}}
 	play={test.primary} />
 
@@ -52,5 +51,5 @@
 	play={test.large}>
 	<Avatar
 		size={SIZES.LARGE}
-		email="uelloworld@surveyplanet.com" />
+		id="uelloworld@surveyplanet.com" />
 </Story>

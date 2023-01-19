@@ -25,7 +25,7 @@
 	play={tests.loaderDefault} />
 
 <Story
-	name="Loader secondary large"
+	name="Secondary large"
 	args={{
 		mode: BUTTON_MODES.SECONDARY,
 		size: SIZES.LARGE,
@@ -33,7 +33,7 @@
 	play={tests.loaderSecondaryLarge} />
 
 <Story
-	name="Loader tertiary small"
+	name="Tertiary small"
 	args={{
 		size: SIZES.SMALL,
 		mode: BUTTON_MODES.TERTIARY,
@@ -51,7 +51,7 @@
 </Story>
 
 <Story
-	name="Loader rounded"
+	name="Rounded"
 	args={{
 		round: true,
 	}}

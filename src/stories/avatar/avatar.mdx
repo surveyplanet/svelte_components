@@ -7,14 +7,14 @@ import {
 	Story,
 } from '@storybook/addon-docs';
 
-import avatar from '../../lib/avatar.svelte';
+import Avatar from '../../lib/Avatar.svelte';
 
 <Meta
 	title="Avatar/Documentation"
 	component={Avatar}
 />
 
-# avatar component
+# Avatar component
 
 <div id="example">
 	<Story id="avatar-default--primary" />
@@ -24,16 +24,17 @@ import avatar from '../../lib/avatar.svelte';
 
 ```ts
 <script>
-	import {avatar} from '@surveyplanet/svelte-components';
+	import {Avatar, SIZES} from '@surveyplanet/svelte-components';
 </script>
-<Avatar />
+<Avatar id="johnny@gmail.com" size=SIZES.SMALL imgSrc='https://example.com/profile_img.png' />
 ```
 
-```
+If no parameters are passed for imgSrc, the avatar will be generated from the email address.
 
 ## Parameters
 
-| Name  | Type   | Description                |
-| ----- | ------ | -------------------------- |
-| color | string | An alternate avatar color. |
-```
+| Name   | Type   | Description                                                                                                       |
+| ------ | ------ | ----------------------------------------------------------------------------------------------------------------- |
+| id     | String | A unique identifier for the avavar (user ID or email). This ensures the backround color and mascot stay the same. |
+| size   | Number | The size of the avatar. Either small, medium or large.                                                            |
+| imgSrc | String | The url of the profile image to use.                                                                              |

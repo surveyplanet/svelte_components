@@ -13,17 +13,17 @@
 		MASCOTS.jack,
 	];
 
-	export let imgSrc: string | undefined;
+	export let imgSrc: string | null = null;
 
-	export let email: string | undefined;
+	export let id: string | null = null;
 
 	export let size: SIZES = SIZES.SMALL;
 
 	const getPersistentIndex = (length: number = 0): number => {
-		if (!email || !email.length) {
+		if (!id || !id.length) {
 			return 0;
 		}
-		const charCode = email.trim().toLowerCase().charCodeAt(0);
+		const charCode = id.trim().toLowerCase().charCodeAt(0);
 		return (charCode % length) as number;
 	};
 
@@ -39,7 +39,7 @@
 	};
 
 	const clickHandler = (e: MouseEvent): void => {
-		dispatch('clickEvent', e);
+		dispatch('click', e);
 	};
 </script>
 
