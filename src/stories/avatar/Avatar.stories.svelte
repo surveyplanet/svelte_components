@@ -53,3 +53,9 @@
 		size={SIZES.LARGE}
 		id="uelloworld@surveyplanet.com" />
 </Story>
+
+<Story
+	name="Disabled"
+	play={test.disabled}>
+	<Avatar disabled />
+</Story>

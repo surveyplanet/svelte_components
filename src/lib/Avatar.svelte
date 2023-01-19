@@ -19,6 +19,12 @@
 
 	export let size: SIZES = SIZES.SMALL;
 
+	export let disabled: boolean = false;
+	let role = 'button';
+
+	if (disabled) {
+		role = 'profile-image';
+	}
 	const getPersistentIndex = (length: number = 0): number => {
 		if (!id || !id.length) {
 			return 0;
@@ -37,8 +43,10 @@
 		}
 		return mascots[getPersistentIndex(mascots.length)];
 	};
-
 	const clickHandler = (e: MouseEvent): void => {
+		if (disabled) {
+			return;
+		}
 		dispatch('click', e);
 	};
 </script>
@@ -46,7 +54,9 @@
 <button
 	class="sp-avatar sp-avatar--{size}"
 	on:click={clickHandler}
-	style:background-color={getBgColor()}>
+	style:background-color={getBgColor()}
+	aria-label="profile avatar"
+	{role}>
 	<span class="sp-avatar--image">
 		<img
 			src={getProfileImg()}
