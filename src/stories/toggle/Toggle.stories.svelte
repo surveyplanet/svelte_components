@@ -31,5 +31,5 @@
 
 <Story
 	name="Tall"
-	args={{ tall: true }}
+	args={{ tall: true, on: false }}
 	play={test.tall} />

@@ -18,12 +18,12 @@
 </script>
 
 <div
-	data-testid="toggle"
 	class="sp-toggle sp-toggle--{on ? 'on' : 'off'}"
-	class:sp-toggle--tall={tall}>
+	class:sp-toggle--tall={tall}
+	role="switch"
+	aria-checked={on}>
 	<input
 		type="checkbox"
-		class="sp-toggle--input"
 		bind:checked={on}
 		{disabled}
 		on:change={changeHandler} />
@@ -39,69 +39,81 @@
 		position: relative;
 		width: $size--40;
 		height: $size--20;
-	}
-
-	.sp-toggle--input {
-		position: absolute;
-		top: 0;
-		left: 0;
-		margin: 0;
-		padding: 0;
-		width: 100%;
-		height: 100%;
-		opacity: 0;
-		cursor: pointer;
-		z-index: 1;
-
-		&:checked + .sp-toggle--track {
-			background-color: $color--slate-dark;
-			&:after {
-				transform: translateX(calc(100% + 4px));
+		&:focus {
+			.sp-toggle--track {
+				box-shadow: 0px 0px 0px 1px $color--white,
+					0px 0px 0px 2px $color--slate;
 			}
 		}
 
-		&:disabled + .sp-toggle--track {
-			background-color: $color--slate-lighter;
-		}
-	}
-	.sp-toggle--track {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		border-radius: $size--20;
-		background-color: $color--light-purple;
-		transition: 0.4s;
-
-		&:after {
+		input[type='checkbox'] {
 			position: absolute;
-			content: '';
-			height: calc($size--20 - 4px);
-			width: calc($size--20 - 4px);
-			left: 2px;
-			top: 2px;
-			background-color: $color--white;
-			transition: 0.4s;
-			border-radius: 50%;
-		}
-	}
+			top: 0;
+			left: 0;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			cursor: pointer;
+			z-index: 1;
 
-	.sp-toggle--tall {
-		width: $size--36;
-		height: $size--24;
+			&:checked + .sp-toggle--track {
+				background-color: $color--slate-dark;
+				&:after {
+					transform: translateX(calc(100% + 4px));
+				}
+			}
+
+			&:focus + .sp-toggle--track {
+				box-shadow: 0px 0px 0px 1px $color--white,
+					0px 0px 0px 2px $color--slate;
+			}
+
+			&:disabled + .sp-toggle--track {
+				background-color: $color--slate-lighter;
+			}
+		}
+
 		.sp-toggle--track {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border-radius: $size--20;
+			background-color: $color--light-purple;
+			transition: 0.4s;
+
 			&:after {
 				position: absolute;
 				content: '';
-				height: calc($size--24 - 4px);
-				width: calc($size--24 - 4px);
+				height: calc($size--20 - 4px);
+				width: calc($size--20 - 4px);
+				left: 2px;
+				top: 2px;
+				background-color: $color--white;
+				transition: 0.4s;
+				border-radius: 50%;
 			}
 		}
-		.sp-toggle--input {
-			&:checked + .sp-toggle--track {
+
+		&.sp-toggle--tall {
+			width: $size--36;
+			height: $size--24;
+			.sp-toggle--track {
 				&:after {
-					transform: translateX(calc(100% - 8px));
+					position: absolute;
+					content: '';
+					height: calc($size--24 - 4px);
+					width: calc($size--24 - 4px);
+				}
+			}
+			input[type='checkbox'] {
+				&:checked + .sp-toggle--track {
+					&:after {
+						transform: translateX(calc(100% - 8px));
+					}
 				}
 			}
 		}
