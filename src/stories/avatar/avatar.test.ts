@@ -60,4 +60,7 @@ export const disabled = async (res: StoryBookPlayArgs) => {
 
 	expect(avatar).toBeTruthy();
 	expect(avatar).toHaveAttribute('aria-label', 'profile avatar');
+
+	await userEvent.click(avatar);
+	expect(res.args.clickHandler).not.toHaveBeenCalled();
 };
