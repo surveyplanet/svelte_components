@@ -11,7 +11,7 @@
 </script>
 
 <Meta
-	title="Button/Basic"
+	title="Button/Default"
 	component={Button}
 	{argTypes} />
 

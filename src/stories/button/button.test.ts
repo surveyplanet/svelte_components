@@ -244,6 +244,24 @@ export const iconDefault = async (res: StoryBookPlayArgs) => {
 	expect(iconStyle.fill).toBe(btnStyle.color);
 };
 
+export const iconLeft = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+
+	const btn: HTMLButtonElement = canvas.getByRole('button');
+	expect(btn).toBeVisible();
+
+	const icon: SVGSVGElement | null = btn.querySelector('svg');
+
+	if (!icon) {
+		throw new Error('could not find icon svg');
+	}
+
+	const bBox = icon.getBoundingClientRect();
+	expect(icon).toBeVisible();
+	expect(bBox.width).toBe(20);
+	expect(bBox.height).toBe(20);
+};
+
 export const iconDark = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 

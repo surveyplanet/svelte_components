@@ -13,12 +13,18 @@
 	{argTypes} />
 
 <Template let:args>
-	<Button {...args}>Icon Button <Icon name="add" /></Button>
+	<Button {...args}>Icon Button<Icon name="add" /></Button>
 </Template>
 
 <Story
 	name="Default"
 	play={tests.iconDefault} />
+
+<Story
+	name="Icon left"
+	play={tests.iconLeft}>
+	<Button><Icon name="add" />Icon Button</Button>
+</Story>
 
 <Story
 	name="Dark"

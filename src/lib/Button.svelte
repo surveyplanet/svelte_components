@@ -115,7 +115,7 @@
 		cursor: pointer;
 		display: inline-block;
 		height: $size--40;
-		padding: 0 $size--20;
+		padding: 1px $size--20 0;
 		border: 0;
 		border-radius: 5px;
 		font: $font--default;
@@ -420,7 +420,7 @@
 		}
 
 		.sp-button--label {
-			display: inline-flex;
+			display: flex;
 			justify-content: center;
 			align-items: center;
 			column-gap: $size--6;
