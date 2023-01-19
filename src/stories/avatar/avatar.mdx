@@ -14,7 +14,7 @@ import Avatar from '../../lib/Avatar.svelte';
 	component={Avatar}
 />
 
-# avatar component
+# Avatar component
 
 <div id="example">
 	<Story id="avatar-default--primary" />
@@ -24,10 +24,12 @@ import Avatar from '../../lib/Avatar.svelte';
 
 ```ts
 <script>
-	import {Avatar} from '@surveyplanet/svelte-components';
+	import {Avatar, SIZES} from '@surveyplanet/svelte-components';
 </script>
-<Avatar id="johnny@gmail.com" />
+<Avatar id="johnny@gmail.com" size=SIZES.SMALL imgSrc='https://example.com/profile_img.png' />
 ```
+
+If no parameters are passed for imgSrc, the avatar will be generated from the email address.
 
 ## Parameters
 
