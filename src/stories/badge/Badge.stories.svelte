@@ -2,7 +2,6 @@
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 	import * as tests from './badge.test';
 	import Badge from '../../lib/Badge.svelte';
-	import Icon from '../../lib/Icon.svelte';
 	import { COLORS } from '../../lib/_definitions';
 </script>
 
