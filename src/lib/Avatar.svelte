@@ -23,7 +23,7 @@
 	let role = 'button';
 
 	if (disabled) {
-		role = 'profile-image';
+		role = 'presentation';
 	}
 	const getPersistentIndex = (length: number = 0): number => {
 		if (!id || !id.length) {
