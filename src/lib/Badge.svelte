@@ -19,7 +19,6 @@
 		height: $size--14;
 		max-width: 100%;
 		padding: 0.5px $size--6;
-		// padding: 0 $size--6;
 		text-align: center;
 		white-space: nowrap;
 		vertical-align: middle;

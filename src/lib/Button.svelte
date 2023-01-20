@@ -95,6 +95,7 @@
 	on:mousedown={mouseDownHandler}>
 	<span
 		class="sp-button--ripple"
+		aria-hidden="true"
 		bind:this={clickAnimationEl} />
 
 	<span class="sp-button--label"><slot /></span>
