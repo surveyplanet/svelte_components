@@ -7,4 +7,3 @@ src
 .prettier*
 vite.config.js
 tsconfig.json
-.svelte-kit
