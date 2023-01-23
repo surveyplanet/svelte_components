@@ -23,7 +23,6 @@
 
 <Story
 	name="Primary"
-	let:args
 	play={tests.primary} />
 
 <Story
