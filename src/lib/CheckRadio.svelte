@@ -18,7 +18,7 @@
 	if (disabled) {
 		role = 'presentation';
 	}
-	const changeEventHandler = (event: ChangeEvent<HTMLInputElement>) => {
+	const changeEventHandler = (event: Event) => {
 		if (disabled) {
 			return;
 		}
@@ -29,7 +29,8 @@
 <div
 	class="sp-checkbox"
 	id="checkRadio"
-	class:sp-checkbox--disabled={disabled}>
+	class:sp-checkbox--disabled={disabled}
+	class:sp-checkbox--prepended={prependLabel}>
 	<label
 		class="sp-checkbox--wrapper"
 		for={id}
@@ -45,8 +46,8 @@
 			role={type}
 			{disabled}
 			on:change={changeEventHandler} />
-		{#if prependLabel}
-			<span> {label}</span>
+		{#if label && label.length}
+			<span class="sp-checkbox--label">{label}</span>
 		{/if}
 	</label>
 </div>

@@ -1,7 +1,7 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { attr } from 'svelte/internal';
 	import CheckRadio from '../../lib/CheckRadio.svelte';
+	import * as test from './checkradio.test';
 </script>
 
 <Meta
@@ -52,15 +52,18 @@
 		{...args}
 		label="Primary"
 		id="checkPrimary"
-		on:change={args.changeEventHandler} />
+		on:change={args.changeHandler} />
 </Template>
 
-<Story name="Checkbox" />
+<Story
+	name="Checkbox"
+	play={test.primaryCheckbox} />
 
 <Story
 	name="Disabled Checkbox"
 	source
-	let:args>
+	let:args
+	play={test.disabledCheckbox}>
 	<CheckRadio
 		{...args}
 		id="disabledCheckbox"
@@ -70,45 +73,52 @@
 <Story
 	name="Multiple checkboxes"
 	source
-	let:args>
+	let:args
+	play={test.multipleCheckboxes}>
 	<CheckRadio
 		{...args}
 		type="checkbox"
-		id="checkbox"
+		id="checkbox1"
 		label="Check 1 "
 		prependLabel
-		value="1" />
+		value="1"
+		on:change={args.changeHandler} />
 	<CheckRadio
 		{...args}
 		type="checkbox"
-		id="checkbox"
+		id="checkbox2"
 		label="Check 2"
 		prependLabel
-		value="2" />
+		value="2"
+		on:change={args.changeHandler} />
 	<CheckRadio
 		{...args}
 		type="checkbox"
-		id="checkbox"
+		id="checkbox3"
 		label="Check 3"
 		prependLabel
-		value="3" />
+		value="3"
+		disabled />
 </Story>
 
 <Story
 	name="Radio"
 	source
-	let:args>
+	let:args
+	play={test.primaryRadio}>
 	<CheckRadio
 		{...args}
 		type="radio"
 		id="radioPrimary"
-		label="Radio Primary" />
+		label="Radio Primary"
+		on:change={args.changeHandler} />
 </Story>
 
 <Story
 	name="Disabled Radio"
 	source
-	let:args>
+	let:args
+	play={test.disabledRadio}>
 	<CheckRadio
 		{...args}
 		type="radio"
@@ -126,19 +136,22 @@
 		type="radio"
 		id="radio"
 		prependLabel
-		label="Radio 1" />
+		label="Radio 1"
+		on:change={args.changeHandler} />
 	<CheckRadio
 		{...args}
 		type="radio"
 		id="radio"
 		prependLabel
-		label="Radio 2" />
+		label="Radio 2"
+		on:change={args.changeHandler} />
 	<CheckRadio
 		{...args}
 		type="radio"
 		id="radio"
 		prependLabel
-		label="Radio 3" />
+		label="Radio 3"
+		on:change={args.changeHandler} />
 </Story>
 
 <Story
@@ -156,6 +169,7 @@
 		type="radio"
 		id="prependLabe"
 		label="Prepend Label Radio"
+		disabled
 		prependLabel />
 </Story>
 
