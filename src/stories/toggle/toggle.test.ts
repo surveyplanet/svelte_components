@@ -5,10 +5,15 @@ import { delay } from '../../lib/_utils';
 export const basic = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const toggle: HTMLDivElement = canvas.getByRole('switch');
-	const track: HTMLDivElement = toggle.querySelector('.sp-toggle--track');
+	const track: HTMLDivElement = toggle.querySelector(
+		'.sp-toggle--track'
+	) as HTMLDivElement;
 	const checkbox: HTMLInputElement = toggle.querySelector(
 		'input[type=checkbox]'
-	);
+	) as HTMLInputElement;
+	if (!checkbox) {
+		throw new Error('Unable to find toggle checkbox element');
+	}
 	expect(checkbox).not.toBeVisible();
 	expect(checkbox.disabled).toBe(false);
 	expect(toggle).toHaveClass('sp-toggle--off');

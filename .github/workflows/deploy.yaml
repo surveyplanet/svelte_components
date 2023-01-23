@@ -46,6 +46,12 @@ jobs:
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+            - name: Build Svelte Kit (and .svelte-kit)
+              run: npm run build
+
+            - name: Checking for Typescript errors
+              run: npm run check
+
             - name: Build Storybook
               run: npm run storybook:build
 
