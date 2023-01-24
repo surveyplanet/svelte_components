@@ -1,6 +1,7 @@
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { delay } from '../../lib/_utils';
+import type CheckRadio from '$lib/CheckRadio.svelte';
 
 export const primaryCheckbox = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
@@ -53,4 +54,18 @@ export const multipleRadios = async (res: StoryBookPlayArgs) => {
 	expect(radios[0].disabled).toBe(false);
 	expect(radios[1].disabled).toBe(false);
 	expect(radios[2].disabled).toBe(true);
+	await userEvent.click(radios[0]);
+	await delay(500); // wait for active state animation
+
+	expect(res.args.changeHandler).toHaveBeenCalled();
+	expect(radios[0].checked).toBe(true);
+	expect(radios[1].checked).toBe(false);
+	expect(radios[2].checked).toBe(false);
+};
+
+export const customAttributes = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+	const checkbox: HTMLInputElement = canvas.getByRole('checkbox');
+	expect(checkbox.getAttribute('data-test')).toBe('test');
+	expect(checkbox.getAttribute('data-test2')).toBe('test2');
 };

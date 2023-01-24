@@ -130,7 +130,8 @@
 <Story
 	name="Multiple radios"
 	source
-	let:args>
+	let:args
+	play={test.multipleRadios}>
 	<CheckRadio
 		{...args}
 		type="radio"
@@ -176,11 +177,12 @@
 <Story
 	name="Attributes "
 	source
-	let:args>
+	let:args
+	play={test.customAttributes}>
 	<CheckRadio
 		{...args}
 		type="checkbox"
 		id="prependLabelDisabled"
-		label="Prepend Label"
+		label="Custom attributes"
 		attr={{ 'data-test': 'test', 'data-test2': 'test2' }} />
 </Story>
