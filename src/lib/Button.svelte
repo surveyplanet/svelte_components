@@ -111,6 +111,7 @@
 	@include fade-in-out(); // click animation
 
 	.sp-button {
+		box-sizing: border-box;
 		position: relative;
 		overflow: hidden;
 		cursor: pointer;
@@ -158,9 +159,8 @@
 			}
 		}
 
-		&:focus {
-			outline: none;
-			// box-shadow: inset 0px 0px 3px 2px $color--blue;
+		@include set-focus {
+			border: 1px solid $color--slate-dark;
 		}
 
 		&.sp-button--block {
@@ -384,6 +384,11 @@
 					visibility: hidden;
 					opacity: 0;
 				}
+			}
+
+			&:before {
+				background: unset;
+				background-image: unset;
 			}
 
 			&:after {
