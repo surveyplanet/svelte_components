@@ -1,69 +1,40 @@
-<script>
+<script lang="ts">
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 	import CheckRadio from '../../lib/CheckRadio.svelte';
 	import * as test from './checkradio.test';
+
+	const argTypes = {
+		changeHandler: { action: 'change' },
+		type: {
+			control: { type: 'select', defaultValue: 'checkbox' },
+			options: ['checkbox', 'radio'],
+		},
+		id: { control: { type: 'text' }, defaultValue: 'my-checkbox' },
+		value: { control: { type: 'text' }, defaultValue: 'my checkbox' },
+		label: { control: { type: 'text' }, defaultValue: 'Checkbox' },
+		checked: { control: { type: 'boolean' }, defaultValue: false },
+		disabled: { control: { type: 'boolean' }, defaultValue: false },
+		prependLabel: { control: { type: 'boolean' }, defaultValue: false },
+		// attr ={control: {type: {}}}
+	};
 </script>
 
 <Meta
 	title="CheckRadio/Default"
 	component={CheckRadio}
-	argTypes={{
-		type: {
-			control: {
-				type: 'select',
-				options: ['checkbox', 'radio'],
-				defaultValue: 'checkbox',
-			},
-		},
-		id: {
-			control: {
-				type: 'text',
-				defaultValue: 'my-checkbox',
-			},
-		},
-		value: {
-			control: {
-				type: 'text',
-				defaultValue: 'my-checkbox',
-			},
-		},
-		label: {
-			control: {
-				type: 'text',
-				defaultValue: '',
-			},
-		},
-		checked: {
-			control: {
-				type: 'boolean',
-				defaultValue: false,
-			},
-		},
-		disabled: {
-			control: {
-				type: 'boolean',
-				defaultValue: false,
-			},
-		},
-		prependLabel: {
-			control: {
-				type: 'boolean',
-				defaultValue: false,
-			},
-		},
-		changeHandler: { action: 'change' },
-	}} />
+	{argTypes} />
 
 <Template let:args>
 	<CheckRadio
 		{...args}
-		label="Primary"
-		id="checkPrimary"
 		on:change={args.changeHandler} />
 </Template>
 
 <Story
 	name="Checkbox"
+	args={{
+		label: 'Apples',
+	}}
 	play={test.primaryCheckbox} />
 
 <Story
@@ -182,7 +153,7 @@
 </Story>
 
 <Story
-	name="Attributes "
+	name="Attributes"
 	source
 	let:args
 	play={test.customAttributes}>
