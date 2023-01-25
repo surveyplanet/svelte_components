@@ -20,11 +20,7 @@
 	export let size: SIZES = SIZES.SMALL;
 
 	export let disabled: boolean = false;
-	let role = 'button';
 
-	if (disabled) {
-		role = 'presentation';
-	}
 	const getPersistentIndex = (length: number = 0): number => {
 		if (!id || !id.length) {
 			return 0;
@@ -55,8 +51,9 @@
 	class="sp-avatar sp-avatar--{size}"
 	on:click={clickHandler}
 	style:background-color={getBgColor()}
-	aria-label="profile avatar"
-	{role}>
+	aria-label={!disabled ? 'profile image' : null}
+	role={disabled ? 'presentation' : null}
+	{disabled}>
 	<span class="sp-avatar--image">
 		<img
 			src={getProfileImg()}
