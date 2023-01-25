@@ -12,36 +12,43 @@
 			control: {
 				type: 'select',
 				options: ['checkbox', 'radio'],
+				defaultValue: 'checkbox',
 			},
 		},
 		id: {
 			control: {
 				type: 'text',
+				defaultValue: 'my-checkbox',
 			},
 		},
 		value: {
 			control: {
 				type: 'text',
+				defaultValue: 'my-checkbox',
 			},
 		},
 		label: {
 			control: {
 				type: 'text',
+				defaultValue: '',
 			},
 		},
 		checked: {
 			control: {
 				type: 'boolean',
+				defaultValue: false,
 			},
 		},
 		disabled: {
 			control: {
 				type: 'boolean',
+				defaultValue: false,
 			},
 		},
 		prependLabel: {
 			control: {
 				type: 'boolean',
+				defaultValue: false,
 			},
 		},
 		changeHandler: { action: 'change' },

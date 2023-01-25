@@ -1,6 +1,6 @@
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { delay } from '../../lib/_utils';
+import { delay } from '../../lib';
 
 export const basic = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);

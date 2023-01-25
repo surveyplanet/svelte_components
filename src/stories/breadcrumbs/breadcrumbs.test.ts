@@ -1,5 +1,5 @@
 import type { StoryObj } from '@storybook/svelte';
-import Breadcrumbs from '../../lib/Breadcrumbs.svelte';
+import { Breadcrumbs } from '../../lib';
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
@@ -13,7 +13,7 @@ export const breadcrumb = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
 	const home = canvas.getByText('Home');
-	const elipsees = canvas.getByText(
+	const ellipses = canvas.getByText(
 		'Our test survey will show you how its done as an example'
 	);
 	const contact = canvas.getByText('Contact');
@@ -21,12 +21,12 @@ export const breadcrumb = async (res: StoryBookPlayArgs) => {
 	const styleHome = window.getComputedStyle(home);
 
 	expect(home).toBeTruthy();
-	expect(elipsees).toBeTruthy();
+	expect(ellipses).toBeTruthy();
 	expect(contact).toBeTruthy();
 	expect(submit).toBeTruthy();
 
 	expect(home).toHaveAttribute('href', '/');
-	expect(elipsees).toHaveAttribute('href', '/about');
+	expect(ellipses).toHaveAttribute('href', '/about');
 	expect(contact).toHaveAttribute('href', '/contact');
 	expect(submit).toHaveAttribute('href', '/submit');
 

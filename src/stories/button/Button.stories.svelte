@@ -1,13 +1,8 @@
 <script lang="ts">
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { BUTTON_MODES, SIZES } from '../../lib/_definitions';
-	import Button from '../../lib/Button.svelte';
+	import { Button, BUTTON_MODES, SIZES } from '../../lib';
 	import * as tests from './button.test';
 	import argTypes from './button_args';
-
-	// const clickEventHandler = (e) => {
-	// 	return action('clickity clackity')(e);
-	// };
 </script>
 
 <Meta
