@@ -49,5 +49,5 @@ jobs:
             - name: Package components
               run: npm run package
 
-            - name: Publish !! - DRY RUN - !!
-              run: cd package && npm publish --access public --dry-run
+            - name: Publish
+              run: cd package && npm publish --access public
