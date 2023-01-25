@@ -1,8 +1,7 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 	import * as test from './avatar.test';
-	import Avatar from '../../lib/Avatar.svelte';
-	import { SIZES, COLORS } from '../../lib/_definitions';
+	import { SIZES, COLORS, Avatar } from '../../lib';
 </script>
 
 <Meta

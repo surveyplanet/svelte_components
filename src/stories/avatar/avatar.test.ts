@@ -1,6 +1,6 @@
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { MASCOTS } from '../../lib/_definitions';
+import { MASCOTS } from '../../lib';
 
 export const primary = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);

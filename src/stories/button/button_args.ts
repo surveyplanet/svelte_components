@@ -1,4 +1,4 @@
-import { SIZES, BUTTON_MODES } from '../../lib/_definitions';
+import { SIZES, BUTTON_MODES } from '../../lib';
 
 export default {
 	clickHandler: { action: 'click' },
