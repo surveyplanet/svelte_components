@@ -17,7 +17,10 @@
 	}} />
 
 <Template let:args>
-	<Button {...args}>Button</Button>
+	<Button
+		{...args}
+		disabled={true}
+		loader={true}>Button</Button>
 </Template>
 
 <Story
