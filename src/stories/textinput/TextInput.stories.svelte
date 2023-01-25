@@ -26,8 +26,7 @@
 <Template let:args>
 	<TextInput
 		{...args}
-		on:blur{
-		blurHandler}
+		on:blur{blurHandler}
 		on:change{changeHandler}
 		on:focus{focusHandler}
 		on:keydown{keydownHandler}
@@ -86,3 +85,19 @@
 		validate: '',
 	}}
 	play={test.placeholder} />
+
+<Story
+	name="Custom Attributes"
+	args={{
+		label: 'Label',
+		placeholder: 'Placeholder',
+		multiline: false,
+		readonly: false,
+		attr: {
+			'data-test': 'test',
+			'data-test2': 'test2',
+		},
+		disabled: false,
+		validate: '',
+	}}
+	play={test.customAttributes} />
