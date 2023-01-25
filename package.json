@@ -1,6 +1,6 @@
 {
     "name": "svelte-components",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "scripts": {
         "clean": "rm -rf package coverage node_modules dist static .svelte-kit && npm i",
         "clean:hard": "rm package-lock.json && npm run clean",
