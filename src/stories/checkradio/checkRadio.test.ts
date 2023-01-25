@@ -1,8 +1,6 @@
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { delay } from '../../lib/_utils';
-import type CheckRadio from '$lib/CheckRadio.svelte';
-
 export const primaryCheckbox = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const checkbox: HTMLInputElement = canvas.getByRole('checkbox');
