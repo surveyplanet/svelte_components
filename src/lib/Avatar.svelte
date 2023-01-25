@@ -68,6 +68,7 @@
 	@use '@surveyplanet/styles' as *;
 
 	.sp-avatar {
+		box-sizing: border-box;
 		display: inline-flex;
 		height: $size--36;
 		width: $size--36;
@@ -78,9 +79,14 @@
 		border-radius: 100%;
 		border: 0;
 		overflow: hidden;
-	}
-	.sp-avatar:hover {
-		cursor: pointer;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		@include set-focus {
+			border: 1px solid $color--slate-dark;
+		}
 	}
 	.sp-avatar--medium {
 		height: $size--48;
