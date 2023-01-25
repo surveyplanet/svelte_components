@@ -26,11 +26,11 @@
 <Template let:args>
 	<TextInput
 		{...args}
-		on:blur{blurHandler}
-		on:change{changeHandler}
-		on:focus{focusHandler}
-		on:keydown{keydownHandler}
-		on:keyup{keyupHandler} />
+		on:blur={args.blurHandler}
+		on:change={args.changeHandler}
+		on:focus={args.focusHandler}
+		on:keydown={args.keydownHandler}
+		on:keyup={args.keyupHandler} />
 </Template>
 
 <Story
@@ -38,11 +38,6 @@
 	args={{
 		label: 'Label',
 		placeholder: 'Placeholder',
-		multiline: false,
-		readonly: false,
-		attr: {},
-		disabled: false,
-		validate: '',
 	}}
 	play={test.basic} />
 
@@ -52,10 +47,6 @@
 		label: 'Label',
 		placeholder: 'Placeholder',
 		multiline: true,
-		readonly: false,
-		attr: {},
-		disabled: false,
-		validate: '',
 	}}
 	play={test.multiline} />
 
@@ -65,11 +56,8 @@
 		value: 'Hello World',
 		label: 'Label',
 		placeholder: 'Placeholder',
-		multiline: false,
-		readonly: false,
-		attr: {},
+
 		disabled: true,
-		validate: '',
 	}}
 	play={test.disabled} />
 
@@ -78,11 +66,10 @@
 	args={{
 		label: 'Label',
 		placeholder: 'Readonly',
-		multiline: false,
+
 		readonly: true,
-		attr: {},
+
 		disabled: false,
-		validate: '',
 	}}
 	play={test.placeholder} />
 
@@ -91,13 +78,10 @@
 	args={{
 		label: 'Label',
 		placeholder: 'Placeholder',
-		multiline: false,
-		readonly: false,
+
 		attr: {
 			'data-test': 'test',
 			'data-test2': 'test2',
 		},
-		disabled: false,
-		validate: '',
 	}}
 	play={test.customAttributes} />
