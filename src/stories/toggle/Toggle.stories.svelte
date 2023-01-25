@@ -1,6 +1,6 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import Toggle from '../../lib/Toggle.svelte';
+	import { Toggle } from '../../lib';
 	import * as test from './toggle.test';
 </script>
 

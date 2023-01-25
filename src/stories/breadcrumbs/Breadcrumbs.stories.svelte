@@ -1,7 +1,6 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-
-	import Breadcrumbs from '../../lib/Breadcrumbs.svelte';
+	import { Breadcrumbs } from '../../lib';
 	import { breadcrumb } from './breadcrumbs.test';
 </script>
 

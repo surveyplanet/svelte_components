@@ -108,7 +108,7 @@
 	$anim--active-size: px-to-rem(150);
 
 	@include spin(); // loader animation
-	@include fadeInOut(); // click animation
+	@include fade-in-out(); // click animation
 
 	.sp-button {
 		position: relative;
