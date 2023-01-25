@@ -14,7 +14,6 @@ export const basic = async (res: StoryBookPlayArgs) => {
 	expect(input.value).toBe(`Hello World`);
 	await userEvent.click(document.body);
 	expect(input).not.toHaveFocus();
-	delay(500);
 	expect(res.args.changeHandler).toHaveBeenCalled();
 };
 
