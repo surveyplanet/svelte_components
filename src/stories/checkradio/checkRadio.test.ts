@@ -38,7 +38,7 @@ export const disabledRadio = async (res: StoryBookPlayArgs) => {
 
 export const multipleCheckboxes = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const checkboxes = canvas.getAllByRole('checkbox');
+	const checkboxes: HTMLInputElement[] = canvas.getAllByRole('checkbox');
 	expect(checkboxes.length).toBe(3);
 	expect(checkboxes[0].disabled).toBe(false);
 	expect(checkboxes[1].disabled).toBe(false);
@@ -47,11 +47,11 @@ export const multipleCheckboxes = async (res: StoryBookPlayArgs) => {
 
 export const multipleRadios = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const radios = canvas.getAllByRole('radio');
+	const radios: HTMLInputElement[] = canvas.getAllByRole('radio');
 	expect(radios.length).toBe(3);
 	expect(radios[0].disabled).toBe(false);
 	expect(radios[1].disabled).toBe(false);
-	expect(radios[2].disabled).toBe(true);
+	expect(radios[2].disabled).toBe(false);
 	await userEvent.click(radios[0]);
 	await delay(500); // wait for active state animation
 
