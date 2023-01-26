@@ -5,7 +5,7 @@
 </script>
 
 <Meta
-	title="Toggle/Default"
+	title="Form Inputs/Toggle"
 	component={Toggle}
 	argTypes={{
 		changeHandler: { action: 'change' },

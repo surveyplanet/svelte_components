@@ -39,7 +39,7 @@
 		position: relative;
 		width: $size--40;
 		height: $size--20;
-		&:focus {
+		@include set-focus {
 			.sp-toggle--track {
 				box-shadow: 0px 0px 0px 1px $color--white,
 					0px 0px 0px 2px $color--slate;
@@ -65,9 +65,11 @@
 				}
 			}
 
-			&:focus + .sp-toggle--track {
-				box-shadow: 0px 0px 0px 1px $color--white,
-					0px 0px 0px 2px $color--slate;
+			@include set-focus {
+				& + .sp-toggle--track {
+					box-shadow: 0px 0px 0px 1px $color--white,
+						0px 0px 0px 2px $color--slate;
+				}
 			}
 
 			&:disabled + .sp-toggle--track {
