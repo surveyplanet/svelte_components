@@ -19,6 +19,8 @@
 
 	export let size: SIZES = SIZES.SMALL;
 
+	export let disabled: boolean = false;
+
 	const getPersistentIndex = (length: number = 0): number => {
 		if (!id || !id.length) {
 			return 0;
@@ -37,8 +39,10 @@
 		}
 		return mascots[getPersistentIndex(mascots.length)];
 	};
-
 	const clickHandler = (e: MouseEvent): void => {
+		if (disabled) {
+			return;
+		}
 		dispatch('click', e);
 	};
 </script>
@@ -46,7 +50,10 @@
 <button
 	class="sp-avatar sp-avatar--{size}"
 	on:click={clickHandler}
-	style:background-color={getBgColor()}>
+	style:background-color={getBgColor()}
+	aria-label={!disabled ? 'profile image' : null}
+	role={disabled ? 'presentation' : null}
+	{disabled}>
 	<span class="sp-avatar--image">
 		<img
 			src={getProfileImg()}
@@ -58,6 +65,7 @@
 	@use '@surveyplanet/styles' as *;
 
 	.sp-avatar {
+		box-sizing: border-box;
 		display: inline-flex;
 		height: $size--36;
 		width: $size--36;
@@ -68,9 +76,14 @@
 		border-radius: 100%;
 		border: 0;
 		overflow: hidden;
-	}
-	.sp-avatar:hover {
-		cursor: pointer;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		@include set-focus {
+			border: 1px solid $color--slate-dark;
+		}
 	}
 	.sp-avatar--medium {
 		height: $size--48;

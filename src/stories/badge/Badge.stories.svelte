@@ -1,9 +1,7 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 	import * as tests from './badge.test';
-	import Badge from '../../lib/Badge.svelte';
-	import Icon from '../../lib/Icon.svelte';
-	import { COLORS } from '../../lib/_definitions';
+	import { COLORS, Badge } from '../../lib';
 </script>
 
 <Meta
@@ -24,7 +22,6 @@
 
 <Story
 	name="Alternate color"
-	source
 	let:args
 	play={tests.inverted}>
 	<Badge
@@ -35,7 +32,6 @@
 
 <Story
 	name="Overflow"
-	source
 	let:args
 	play={tests.overflow}>
 	<div

@@ -1,8 +1,7 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 	import * as test from './avatar.test';
-	import Avatar from '../../lib/Avatar.svelte';
-	import { SIZES, COLORS } from '../../lib/_definitions';
+	import { SIZES, COLORS, Avatar } from '../../lib';
 </script>
 
 <Meta
@@ -19,13 +18,7 @@
 		imgSrc: { control: 'text' },
 	}} />
 
-<Template
-	let:args
-	parameters={{
-		backgrounds: {
-			default: COLORS.slate_dark,
-		},
-	}}>
+<Template let:args>
 	<Avatar
 		{...args}
 		on:click={args.clickHandler} />
@@ -34,7 +27,7 @@
 <Story
 	name="Primary"
 	args={{
-		id: 'jonah@surveyplanet.com',
+		id: 'example@example.com',
 	}}
 	play={test.primary} />
 
@@ -52,4 +45,10 @@
 	<Avatar
 		size={SIZES.LARGE}
 		id="uelloworld@surveyplanet.com" />
+</Story>
+
+<Story
+	name="Disabled"
+	play={test.disabled}>
+	<Avatar disabled />
 </Story>
