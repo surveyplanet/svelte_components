@@ -15,5 +15,9 @@ type StoryBookPlayArgs = {
 	args: {
 		clickHandler?(e: MouseEvent): void;
 		changeHandler?(e: MouseEvent): void;
+		keyupHandler?(e: Event): void;
+		keydownHandler?(e: Event): void;
+		blurHandler?(e: Event): void;
+		focusHandler?(e: Event): void;
 	};
 };

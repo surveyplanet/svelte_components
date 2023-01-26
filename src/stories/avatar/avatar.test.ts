@@ -17,6 +17,9 @@ export const primary = async (res: StoryBookPlayArgs) => {
 	expect(style.height).toBe('36px');
 	expect(style.borderRadius).toBe('100%');
 	expect(img).toHaveAttribute('src', MASCOTS.aaron);
+	expect(avatar).not.toHaveAttribute('role', 'presentation');
+	expect(avatar).toHaveAttribute('aria-label', 'profile image');
+	expect(avatar.disabled).toBe(false);
 	await userEvent.click(avatar);
 	expect(res.args.clickHandler).toHaveBeenCalled();
 };
@@ -55,10 +58,11 @@ export const large = async (res: StoryBookPlayArgs) => {
 
 export const disabled = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const avatar = canvas.getByRole('presentation');
-
+	const avatar = canvas.getByRole('presentation') as HTMLButtonElement;
 	expect(avatar).toBeTruthy();
-
 	await userEvent.click(avatar);
+	expect(avatar.disabled).toBe(true);
+	expect(avatar).toHaveAttribute('role', 'presentation');
+	expect(avatar).not.toHaveAttribute('aria-label');
 	expect(res.args.clickHandler).not.toHaveBeenCalled();
 };

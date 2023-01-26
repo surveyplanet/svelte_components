@@ -17,7 +17,7 @@
 		if (disabled) {
 			return;
 		}
-		console.log('change');
+
 		dispatch('change', event);
 	};
 
@@ -25,7 +25,6 @@
 		if (disabled) {
 			return;
 		}
-		console.log('focus');
 		dispatch('focus', event);
 	};
 
@@ -33,29 +32,33 @@
 		if (disabled) {
 			return;
 		}
-		console.log('blur');
+
 		dispatch('blur', event);
 	};
 
-	const keydownHandler = (event: Event) => {
+	const keydownHandler = (event: Object) => {
 		if (disabled) {
 			return;
 		}
-		console.log('keydown');
+		console.log(typeof event);
 		dispatch('keydown', event);
 	};
 
-	const keyupHandler = (event: Event) => {
+	const keyupHandler = (event: Object) => {
 		if (disabled) {
 			return;
 		}
-		console.log('keyup');
+
 		dispatch('keyup', event);
 	};
 
 	if (!value || value.length === 0) {
 		value = '';
 	}
+	Object.prototype.toString.call(keyupHandler);
+	Object.prototype.toString.call(keydownHandler);
+	Object.prototype.toString.call(blurHandler);
+	Object.prototype.toString.call(focusHandler);
 </script>
 
 <div
