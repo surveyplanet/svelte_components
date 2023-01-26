@@ -22,10 +22,10 @@ import { Toggle } from '../../lib';
 
 ## Usage
 
-```ts
+```html
 <script>
-	import {Toggle} from '@surveyplanet/svelte-components';
-	function changeEventHandler (on) {
+	import { Toggle } from '@surveyplanet/svelte-components';
+	function changeEventHandler(on) {
 		if (on) {
 			console.log('Toggle ON 🎉');
 		} else {
@@ -34,7 +34,11 @@ import { Toggle } from '../../lib';
 	}
 </script>
 
-<Toggle on disabled tall on:change={changeEventHandler}></Toggle>
+<Toggle
+	on
+	disabled
+	tall
+	on:change="{changeEventHandler}"></Toggle>
 ```
 
 ## Properties
