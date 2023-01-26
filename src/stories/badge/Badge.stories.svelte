@@ -22,7 +22,6 @@
 
 <Story
 	name="Alternate color"
-	source
 	let:args
 	play={tests.inverted}>
 	<Badge
@@ -33,7 +32,6 @@
 
 <Story
 	name="Overflow"
-	source
 	let:args
 	play={tests.overflow}>
 	<div

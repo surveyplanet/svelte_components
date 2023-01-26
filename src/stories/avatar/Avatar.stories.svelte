@@ -18,13 +18,7 @@
 		imgSrc: { control: 'text' },
 	}} />
 
-<Template
-	let:args
-	parameters={{
-		backgrounds: {
-			default: COLORS.slate_dark,
-		},
-	}}>
+<Template let:args>
 	<Avatar
 		{...args}
 		on:click={args.clickHandler} />
@@ -33,7 +27,7 @@
 <Story
 	name="Primary"
 	args={{
-		id: 'jonah@surveyplanet.com',
+		id: 'example@example.com',
 	}}
 	play={test.primary} />
 

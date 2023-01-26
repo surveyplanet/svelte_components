@@ -17,18 +17,20 @@ export const primary = async (res: StoryBookPlayArgs) => {
 	expect(btn).toHaveClass('sp-button--medium');
 	// expect(btn).toHaveClass('sp-button--active');
 	expect(btn.innerText).toBe('Button');
-	expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
-	expect(style.borderRadius).toBe('5px');
-	expect(style.color).toBe('rgb(22, 33, 55)');
+	expect(style.getPropertyValue('background-color')).toBe(
+		'rgb(181, 152, 255)'
+	);
+	expect(style.getPropertyValue('border-radius')).toBe('5px');
+	expect(style.getPropertyValue('color')).toBe('rgb(22, 33, 55)');
 
 	// test hover effect
 	const hoverPseudoStyle = window.getComputedStyle(btn, ':before');
 	const hoverPseudoWidth = Number(hoverPseudoStyle.width.replace('px', ''));
 	const hoverPseudoHeight = Number(hoverPseudoStyle.height.replace('px', ''));
-	expect(hoverPseudoStyle.opacity).toBe('0');
+	expect(hoverPseudoStyle.getPropertyValue('opacity')).toBe('0');
 	expect(hoverPseudoWidth).toBeGreaterThan(btnRect.width);
 	expect(hoverPseudoHeight).toBe(btnRect.height);
-	expect(hoverPseudoStyle.transform).toMatch(
+	expect(hoverPseudoStyle.getPropertyValue('transform')).toMatch(
 		// /^matrix\(1, 0, 0, 1, -?[0-9]{1-3}(.[0-9]{1-2})?, 0\)/
 		/^matrix\(1, 0, 0, 1, -.*/
 	);
@@ -60,7 +62,9 @@ export const secondary = async (res: StoryBookPlayArgs) => {
 	expect(btn).toHaveClass('sp-button--secondary');
 	const style = window.getComputedStyle(btn);
 	expect(btn).toBeVisible();
-	expect(style.backgroundColor).toBe('rgb(255, 233, 120)');
+	expect(style.getPropertyValue('background-color')).toBe(
+		'rgb(255, 233, 120)'
+	);
 };
 
 export const tertiary = async (res: StoryBookPlayArgs) => {
@@ -69,7 +73,9 @@ export const tertiary = async (res: StoryBookPlayArgs) => {
 	expect(btn).toHaveClass('sp-button--tertiary');
 	const style = window.getComputedStyle(btn);
 	expect(btn).toBeVisible();
-	expect(style.backgroundColor).toBe('rgb(161, 253, 165)');
+	expect(style.getPropertyValue('background-color')).toBe(
+		'rgb(161, 253, 165)'
+	);
 };
 
 export const quaternary = async (res: StoryBookPlayArgs) => {
@@ -78,7 +84,9 @@ export const quaternary = async (res: StoryBookPlayArgs) => {
 	expect(btn).toHaveClass('sp-button--quaternary');
 	const style = window.getComputedStyle(btn);
 	expect(btn).toBeVisible();
-	expect(style.backgroundColor).toBe('rgb(158, 228, 250)');
+	expect(style.getPropertyValue('background-color')).toBe(
+		'rgb(158, 228, 250)'
+	);
 };
 
 export const dark = async (res: StoryBookPlayArgs) => {
@@ -87,8 +95,8 @@ export const dark = async (res: StoryBookPlayArgs) => {
 	expect(btn).toHaveClass('sp-button--dark');
 	const style = window.getComputedStyle(btn);
 	expect(btn).toBeVisible();
-	expect(style.backgroundColor).toBe('rgb(22, 33, 55)');
-	expect(style.color).toBe('rgb(220, 222, 225)');
+	expect(style.getPropertyValue('background-color')).toBe('rgb(22, 33, 55)');
+	expect(style.getPropertyValue('color')).toBe('rgb(220, 222, 225)');
 };
 
 export const light = async (res: StoryBookPlayArgs) => {
@@ -98,13 +106,15 @@ export const light = async (res: StoryBookPlayArgs) => {
 	expect(btn).toHaveClass('sp-button--light');
 	const style = window.getComputedStyle(btn);
 	expect(btn).toBeVisible();
-	expect(style.backgroundColor).toBe('rgb(255, 255, 255)');
+	expect(style.getPropertyValue('background-color')).toBe(
+		'rgb(255, 255, 255)'
+	);
 	expect(style.boxShadow).toBe('rgb(220, 222, 225) 0px 0px 0px 1px inset');
 	// can't get inner shadow change...
 	// await userEvent.hover(btn);
 	// style = window.getComputedStyle(btn);
 	// await delay(250);
-	// expect(style.boxShadow).toBe('rgb(196, 199, 205) 0px 0px 0px 1px inset');
+	// expect(style.getPropertyValue('box-shadow')).toBe('rgb(196, 199, 205) 0px 0px 0px 1px inset');
 };
 
 export const rounded = async (res: StoryBookPlayArgs) => {
@@ -113,7 +123,7 @@ export const rounded = async (res: StoryBookPlayArgs) => {
 	expect(btn).toHaveClass('sp-button--round');
 	expect(btn).toBeVisible();
 	const style = window.getComputedStyle(btn);
-	expect(style.borderRadius).toBe('32px');
+	expect(style.getPropertyValue('border-radius')).toBe('32px');
 };
 
 export const block = async (res: StoryBookPlayArgs) => {
@@ -142,9 +152,13 @@ export const defaultDisabled = async (res: StoryBookPlayArgs) => {
 	const iconStyle = window.getComputedStyle(icon as Element);
 	expect(btn).toBeVisible();
 	expect(btn.disabled).toBe(true);
-	expect(style.backgroundColor).toBe('rgb(236, 229, 255)');
-	expect(style.color).toBe('rgb(219, 204, 255)');
-	expect(iconStyle.fill).toBe(style.color);
+	expect(style.getPropertyValue('background-color')).toBe(
+		'rgb(236, 229, 255)'
+	);
+	expect(style.getPropertyValue('color')).toBe('rgb(219, 204, 255)');
+	expect(iconStyle.getPropertyValue('fill')).toBe(
+		style.getPropertyValue('color')
+	);
 	await userEvent.click(btn);
 	expect(btn).not.toHaveFocus();
 };
@@ -156,9 +170,13 @@ export const secondaryDisabled = async (res: StoryBookPlayArgs) => {
 	const icon: SVGSVGElement | null = btn.querySelector('svg path');
 	const iconStyle = window.getComputedStyle(icon as Element);
 	expect(btn.disabled).toBe(true);
-	expect(style.backgroundColor).toBe('rgb(255, 245, 188)');
-	expect(style.color).toBe('rgb(250, 199, 102)');
-	expect(iconStyle.fill).toBe(style.color);
+	expect(style.getPropertyValue('background-color')).toBe(
+		'rgb(255, 245, 188)'
+	);
+	expect(style.getPropertyValue('color')).toBe('rgb(250, 199, 102)');
+	expect(iconStyle.getPropertyValue('fill')).toBe(
+		style.getPropertyValue('color')
+	);
 };
 
 export const tertiaryDisabled = async (res: StoryBookPlayArgs) => {
@@ -168,9 +186,13 @@ export const tertiaryDisabled = async (res: StoryBookPlayArgs) => {
 	const icon: SVGSVGElement | null = btn.querySelector('svg path');
 	const iconStyle = window.getComputedStyle(icon as Element);
 	expect(btn.disabled).toBe(true);
-	expect(style.backgroundColor).toBe('rgb(217, 254, 219)');
-	expect(style.color).toBe('rgb(123, 228, 146)');
-	expect(iconStyle.fill).toBe(style.color);
+	expect(style.getPropertyValue('background-color')).toBe(
+		'rgb(217, 254, 219)'
+	);
+	expect(style.getPropertyValue('color')).toBe('rgb(123, 228, 146)');
+	expect(iconStyle.getPropertyValue('fill')).toBe(
+		style.getPropertyValue('color')
+	);
 };
 
 export const quaternaryDisabled = async (res: StoryBookPlayArgs) => {
@@ -180,9 +202,13 @@ export const quaternaryDisabled = async (res: StoryBookPlayArgs) => {
 	const icon: SVGSVGElement | null = btn.querySelector('svg path');
 	const iconStyle = window.getComputedStyle(icon as Element);
 	expect(btn.disabled).toBe(true);
-	expect(style.backgroundColor).toBe('rgb(216, 244, 253)');
-	expect(style.color).toBe('rgb(120, 196, 238)');
-	expect(iconStyle.fill).toBe(style.color);
+	expect(style.getPropertyValue('background-color')).toBe(
+		'rgb(216, 244, 253)'
+	);
+	expect(style.getPropertyValue('color')).toBe('rgb(120, 196, 238)');
+	expect(iconStyle.getPropertyValue('fill')).toBe(
+		style.getPropertyValue('color')
+	);
 };
 
 export const darkDisabled = async (res: StoryBookPlayArgs) => {
@@ -193,9 +219,13 @@ export const darkDisabled = async (res: StoryBookPlayArgs) => {
 	const iconStyle = window.getComputedStyle(icon as Element);
 
 	expect(btn.disabled).toBe(true);
-	expect(style.backgroundColor).toBe('rgb(220, 222, 225)');
-	expect(style.color).toBe('rgb(115, 122, 135)');
-	expect(iconStyle.fill).toBe(style.color);
+	expect(style.getPropertyValue('background-color')).toBe(
+		'rgb(220, 222, 225)'
+	);
+	expect(style.getPropertyValue('color')).toBe('rgb(115, 122, 135)');
+	expect(iconStyle.getPropertyValue('fill')).toBe(
+		style.getPropertyValue('color')
+	);
 };
 
 export const lightDisabled = async (res: StoryBookPlayArgs) => {
@@ -207,9 +237,13 @@ export const lightDisabled = async (res: StoryBookPlayArgs) => {
 	const iconStyle = window.getComputedStyle(icon as Element);
 
 	expect(btn.disabled).toBe(true);
-	expect(style.backgroundColor).toBe('rgb(255, 255, 255)');
-	expect(style.color).toBe('rgb(220, 222, 225)');
-	expect(iconStyle.fill).toBe(style.color);
+	expect(style.getPropertyValue('background-color')).toBe(
+		'rgb(255, 255, 255)'
+	);
+	expect(style.getPropertyValue('color')).toBe('rgb(220, 222, 225)');
+	expect(iconStyle.getPropertyValue('fill')).toBe(
+		style.getPropertyValue('color')
+	);
 };
 
 // icon buttons
@@ -241,7 +275,9 @@ export const iconDefault = async (res: StoryBookPlayArgs) => {
 	expect(icon).toBeVisible();
 	expect(bBox.width).toBe(20);
 	expect(bBox.height).toBe(20);
-	expect(iconStyle.fill).toBe(btnStyle.color);
+	expect(iconStyle.getPropertyValue('fill')).toBe(
+		btnStyle.getPropertyValue('color')
+	);
 };
 
 export const iconLeft = async (res: StoryBookPlayArgs) => {
@@ -289,7 +325,9 @@ export const iconDark = async (res: StoryBookPlayArgs) => {
 	expect(icon).toBeVisible();
 	expect(bBox.width).toBe(20);
 	expect(bBox.height).toBe(20);
-	expect(iconStyle.fill).toBe(btnStyle.color);
+	expect(iconStyle.getPropertyValue('fill')).toBe(
+		btnStyle.getPropertyValue('color')
+	);
 };
 
 export const iconSmall = async (res: StoryBookPlayArgs) => {
@@ -411,7 +449,7 @@ export const actionTertiaryRoundLarge = async (res: StoryBookPlayArgs) => {
 	expect(iconRect.width).toBe(24);
 	expect(iconRect.height).toBe(24);
 	const style = window.getComputedStyle(btn);
-	expect(style.borderRadius).toBe('32px');
+	expect(style.getPropertyValue('border-radius')).toBe('32px');
 };
 
 //loader button
@@ -426,18 +464,28 @@ export const loaderDefault = async (res: StoryBookPlayArgs) => {
 	expect(btn).toBeVisible();
 	expect(btnLabel).not.toBeVisible();
 	expect(btn).not.toHaveFocus();
-	expect(style.backgroundColor).toBe('rgb(181, 152, 255)');
+	expect(style.getPropertyValue('background-color')).toBe(
+		'rgb(181, 152, 255)'
+	);
 	expect(btn.innerText).toBe('');
 	expect(btn).toHaveClass('sp-button--loader');
-	expect(afterEl.display).toBe('block');
-	expect(afterEl.width).toBe('16px');
-	expect(afterEl.height).toBe(afterEl.width);
-	expect(afterEl.borderRadius).toBe('100%');
-	expect(afterEl.animationDuration).toBe('1s');
-	expect(afterEl.animationTimingFunction).toBe('linear');
-	expect(afterEl.animationIterationCount).toBe('infinite');
-	expect(afterEl.borderBottom).toBe('2px solid rgb(22, 33, 55)');
-	expect(afterEl.borderTop).toBe('2px solid rgba(0, 0, 0, 0)');
+	expect(afterEl.getPropertyValue('display')).toBe('block');
+	expect(afterEl.getPropertyValue('width')).toBe('16px');
+	expect(afterEl.getPropertyValue('height')).toBe(afterEl.width);
+	expect(afterEl.getPropertyValue('border-radius')).toBe('100%');
+	expect(afterEl.getPropertyValue('animation-duration')).toBe('1s');
+	expect(afterEl.getPropertyValue('animation-timing-function')).toBe(
+		'linear'
+	);
+	expect(afterEl.getPropertyValue('animation-iteration-count')).toBe(
+		'infinite'
+	);
+	expect(afterEl.getPropertyValue('border-bottom')).toBe(
+		'2px solid rgb(22, 33, 55)'
+	);
+	expect(afterEl.getPropertyValue('border-top')).toBe(
+		'2px solid rgba(0, 0, 0, 0)'
+	);
 };
 
 export const loaderSecondaryLarge = async (res: StoryBookPlayArgs) => {
@@ -447,9 +495,9 @@ export const loaderSecondaryLarge = async (res: StoryBookPlayArgs) => {
 	expect(btn.innerText).toBe('');
 	expect(btn).toHaveClass('sp-button--loader');
 	expect(btn).toHaveClass('sp-button--large');
-	expect(afterEl.display).toBe('block');
-	expect(afterEl.width).toBe('18px');
-	expect(afterEl.height).toBe(afterEl.width);
+	expect(afterEl.getPropertyValue('display')).toBe('block');
+	expect(afterEl.getPropertyValue('width')).toBe('18px');
+	expect(afterEl.getPropertyValue('height')).toBe(afterEl.width);
 };
 
 export const loaderTertiarySmall = async (res: StoryBookPlayArgs) => {
@@ -459,9 +507,9 @@ export const loaderTertiarySmall = async (res: StoryBookPlayArgs) => {
 	expect(btn.innerText).toBe('');
 	expect(btn).toHaveClass('sp-button--loader');
 	expect(btn).toHaveClass('sp-button--small');
-	expect(afterEl.display).toBe('block');
-	expect(afterEl.width).toBe('12px');
-	expect(afterEl.height).toBe(afterEl.width);
+	expect(afterEl.getPropertyValue('display')).toBe('block');
+	expect(afterEl.getPropertyValue('width')).toBe('12px');
+	expect(afterEl.getPropertyValue('height')).toBe(afterEl.width);
 };
 
 export const loaderWithIcon = async (res: StoryBookPlayArgs) => {
@@ -483,9 +531,9 @@ export const loaderRounded = async (res: StoryBookPlayArgs) => {
 	expect(btn.innerText).toBe('');
 	expect(btn).toHaveClass('sp-button--loader');
 	expect(btn).toHaveClass('sp-button--round');
-	expect(afterEl.display).toBe('block');
-	expect(afterEl.width).toBe('16px');
-	expect(afterEl.height).toBe(afterEl.width);
+	expect(afterEl.getPropertyValue('display')).toBe('block');
+	expect(afterEl.getPropertyValue('width')).toBe('16px');
+	expect(afterEl.getPropertyValue('height')).toBe(afterEl.width);
 };
 
 //size button
