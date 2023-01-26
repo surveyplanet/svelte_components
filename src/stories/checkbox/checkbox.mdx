@@ -1,30 +1,29 @@
 import { Meta, Story } from '@storybook/addon-docs';
 
-import CheckRadio from '../../lib/CheckRadio.svelte';
+import { Checkbox } from '../../lib';
 
 <Meta
-	title="CheckRadio/Documentation"
-	component={CheckRadio}
+	title="Form Inputs/Checkbox"
+	component={Checkbox}
 />
 
-# CheckRadio component
+# Checkbox component
 
 <div id="example">
-	<Story id="checkradio-default--checkbox" />
-	<Story id="checkradio-default--radio" />
+	<Story id="form-inputs-checkbox--multiple" />
 </div>
 
 ### Example
 
 ```html
 <script>
-	import CheckRadio from '@surveyplanet/svelte_components';
+	import Checkbox from '@surveyplanet/svelte_components';
 	const changeEventHandler = (event) => {
 		console.log(`Option ${event.value} was selected`);
 	};
 </script>
 
-<CheckRadio
+<Checkbox
 	type="radio"
 	id="option-1"
 	label="Option 1"
@@ -32,7 +31,7 @@ import CheckRadio from '../../lib/CheckRadio.svelte';
 	attr="{{data-random:math.random()}}"
 	on:change="{changeEventHandler}" />
 
-<CheckRadio
+<Checkbox
 	type="radio"
 	id="option-2"
 	label="Option 2"

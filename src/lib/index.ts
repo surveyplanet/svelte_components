@@ -7,5 +7,10 @@ export { default as Breadcrumbs } from './Breadcrumbs.svelte';
 export { default as Button } from './Button.svelte';
 export { default as Icon } from './Icon.svelte';
 export { default as Toggle } from './Toggle.svelte';
+<<<<<<< HEAD
 export { default as CheckRadio } from './CheckRadio.svelte';
 export { default as TextInput } from './TextInput.svelte';
+=======
+export { default as Checkbox } from './Checkbox.svelte';
+export { default as Radio } from './Radio.svelte';
+>>>>>>> main

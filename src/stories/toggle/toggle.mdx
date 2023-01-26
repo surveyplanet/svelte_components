@@ -10,22 +10,22 @@ import {
 import { Toggle } from '../../lib';
 
 <Meta
-	title="Toggle/Documentation"
+	title="Form Inputs/Toggle"
 	component={Toggle}
 />
 
 # Toggle component
 
 <div id="example">
-	<Story id="toggle-default--default" />
+	<Story id="form-inputs-toggle--default" />
 </div>
 
 ## Usage
 
-```ts
+```html
 <script>
-	import {Toggle} from '@surveyplanet/svelte-components';
-	function changeEventHandler (on) {
+	import { Toggle } from '@surveyplanet/svelte-components';
+	function changeEventHandler(on) {
 		if (on) {
 			console.log('Toggle ON 🎉');
 		} else {
@@ -34,7 +34,11 @@ import { Toggle } from '../../lib';
 	}
 </script>
 
-<Toggle on={false} disabled={false} tall={true} on:change={changeEventHandler}></Toggle>
+<Toggle
+	on
+	disabled
+	tall
+	on:change="{changeEventHandler}"></Toggle>
 ```
 
 ## Properties

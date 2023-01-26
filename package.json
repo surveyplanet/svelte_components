@@ -1,6 +1,6 @@
 {
     "name": "@surveyplanet/svelte-components",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "scripts": {
         "clean": "rm -rf package coverage node_modules dist static .svelte-kit && npm i",
         "clean:hard": "rm package-lock.json && npm run clean",
