@@ -10,7 +10,8 @@ export const basic = async (res: StoryBookPlayArgs) => {
 	expect(input).toBeDefined();
 
 	expect(input).not.toBeDisabled();
-	expect(input).toHaveClass(' sp-text-input--input');
+	expect(input).toHaveClass(' sp-text-input');
+	// TODO: check for id
 	expect(input.placeholder).toBe('Placeholder');
 
 	expect(input.getAttribute('data-test')).toBe('test');
@@ -31,29 +32,29 @@ export const basic = async (res: StoryBookPlayArgs) => {
 	expect(res.args.focusHandler).toHaveBeenCalled();
 };
 
+export const multiline = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+	const input: HTMLInputElement = canvas.getByRole('textbox');
+	const value = ['Line one', 'Line two', 'Line three'].join('\n');
+
+	expect(input).toBeVisible();
+	expect(input).not.toHaveFocus();
+	userEvent.type(input, value);
+	expect(input).toHaveFocus();
+	expect(input.value).toBe(value);
+	//TODO: add all the same test from text input
+};
+
 export const disabled = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const input: HTMLInputElement = canvas.getByRole('textbox');
 	expect(input.disabled).toBe(true);
 };
 
-export const multiline = async (res: StoryBookPlayArgs) => {
+export const readonly = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const input: HTMLInputElement = canvas.getByRole('textbox');
-	expect(input).toBeVisible();
-	expect(input).not.toHaveFocus();
-	userEvent.type(
-		input,
-		`Hello World
-    Hello World`
-	);
-	expect(input).toHaveFocus();
-	expect(input.value).toBe(`Hello World
-    Hello World`);
+	expect(input.readOnly).toBe(true);
 };
 
-export const placeholder = async (res: StoryBookPlayArgs) => {
-	const canvas = within(res.canvasElement);
-	const input: HTMLInputElement = canvas.getByRole('textbox');
-	expect(input.placeholder).toBe('Readonly');
-};
+// TODO: make test for no label value

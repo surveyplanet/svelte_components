@@ -2,13 +2,14 @@
 	import { createEventDispatcher } from 'svelte';
 	//group by ID
 
+	export let id: string = (Date.now() + Math.random()).toString(36);
 	export let value: string | null = '';
 	export let label: string | null = null;
 	export let placeholder: string | null = null;
 	export let multiline: boolean = false;
 	export let readonly: boolean = false;
-	export let attr = {};
 	export let disabled: boolean = false;
+	export let attr = {};
 	// export let validate: string = '';
 
 	const dispatch = createEventDispatcher();
@@ -32,52 +33,44 @@
 	const keyupHandler = (event: Object) => {
 		dispatch('keyup', event);
 	};
-<<<<<<< HEAD
-=======
-
-	if (!value || value.length === 0) {
-		value = '';
-	}
->>>>>>> origin/textinput
 </script>
 
-<div
-	class="sp-text-input"
-	id="textInput">
+{#if label && label.length}
 	<label
 		class="sp-text-input--label"
-		for="textInput">
-		{#if label && label.length}
-			<span class="sp-text-input--label--text">{label}</span>
-		{/if}
-		{#if multiline}
-			<textarea
-				class="sp-text-input--input"
-				{placeholder}
-				{disabled}
-				{readonly}
-				{...attr}
-				on:blur={blurHandler}
-				on:change={changeHandler}
-				on:focus={focusHandler}
-				on:keydown={keydownHandler}
-				on:keyup={keyupHandler}>{value}</textarea>
-		{:else}
-			<input
-				class="sp-text-input--input"
-				{placeholder}
-				{disabled}
-				{readonly}
-				{value}
-				{...attr}
-				on:blur={blurHandler}
-				on:change={changeHandler}
-				on:focus={focusHandler}
-				on:keydown={keydownHandler}
-				on:keyup={keyupHandler} />
-		{/if}
+		for={id}>
+		<span class="sp-text-input--label--text">{label}</span>
 	</label>
-</div>
+{/if}
+
+{#if multiline}
+	<textarea
+		class="sp-text-input"
+		{id}
+		{placeholder}
+		{disabled}
+		{readonly}
+		{...attr}
+		on:blur={blurHandler}
+		on:change={changeHandler}
+		on:focus={focusHandler}
+		on:keydown={keydownHandler}
+		on:keyup={keyupHandler}>{value}</textarea>
+{:else}
+	<input
+		class="sp-text-input"
+		{id}
+		{placeholder}
+		{disabled}
+		{readonly}
+		{value}
+		{...attr}
+		on:blur={blurHandler}
+		on:change={changeHandler}
+		on:focus={focusHandler}
+		on:keydown={keydownHandler}
+		on:keyup={keyupHandler} />
+{/if}
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
