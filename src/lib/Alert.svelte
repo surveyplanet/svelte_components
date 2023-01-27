@@ -44,9 +44,7 @@
 	class:sp-alert--success={type === 'success'}
 	class:sp-alert--warning={type === 'warning'}
 	class:sp-alert--danger={type === 'danger'}
-	class:sp-alert--confirm={confirm}
-	{hideDelay}
-	{challenge}>
+	class:sp-alert--confirm={confirm}>
 	{#if title}
 		<h4 class="sp-alert__title">{title}</h4>
 	{/if}
