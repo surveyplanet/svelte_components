@@ -32,6 +32,13 @@
 	const keyupHandler = (event: Object) => {
 		dispatch('keyup', event);
 	};
+<<<<<<< HEAD
+=======
+
+	if (!value || value.length === 0) {
+		value = '';
+	}
+>>>>>>> origin/textinput
 </script>
 
 <div
@@ -41,7 +48,7 @@
 		class="sp-text-input--label"
 		for="textInput">
 		{#if label && label.length}
-			<span class="sp-text-input--label-text">{label}</span>
+			<span class="sp-text-input--label--text">{label}</span>
 		{/if}
 		{#if multiline}
 			<textarea

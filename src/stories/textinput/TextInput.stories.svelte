@@ -5,17 +5,17 @@
 </script>
 
 <Meta
-	title="TextInput/Default"
+	title="Form inputs/ Text Input"
 	component={TextInput}
 	argTypes={{
-		value: { control: 'text' },
-		label: { control: 'text' },
-		placeholder: { control: 'text' },
-		multiline: { control: 'boolean' },
-		readonly: { control: 'boolean' },
-		attr: { control: 'object' },
-		disabled: { control: 'boolean' },
-		validate: { control: 'text' },
+		value: { control: { type: 'text' }, defaultValue: 'Hello' },
+		label: { control: { type: 'text' }, defaultValue: 'Label' },
+		placeholder: { control: { type: 'text' }, defaultValue: 'Placeholder' },
+		multiline: { control: { type: 'boolean' }, defaultValue: false },
+		readonly: { control: { type: 'boolean' }, defaultValue: false },
+		attr: { control: { type: 'object' }, defaultValue: {} },
+		disabled: { control: { type: 'boolean' }, defaultValue: false },
+		validate: { control: { type: 'text' }, defaultValue: {} },
 		changeHandler: { action: 'change' },
 		focusHandler: { action: 'focus' },
 		blurHandler: { action: 'blur' },
@@ -38,6 +38,7 @@
 	args={{
 		label: 'Label',
 		placeholder: 'Placeholder',
+		attr: { 'data-test': 'test', 'data-test2': 'test2' },
 	}}
 	play={test.basic} />
 
@@ -72,16 +73,3 @@
 		disabled: false,
 	}}
 	play={test.placeholder} />
-
-<Story
-	name="Custom Attributes"
-	args={{
-		label: 'Label',
-		placeholder: 'Placeholder',
-
-		attr: {
-			'data-test': 'test',
-			'data-test2': 'test2',
-		},
-	}}
-	play={test.customAttributes} />
