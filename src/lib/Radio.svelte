@@ -150,8 +150,8 @@
 		@include set-focus {
 			& + .sp-radio {
 				.sp-radio--dot {
-					outline: 1px solid $color--slate;
-					outline-offset: 1px;
+					box-shadow: 0px 0px 0px 1px $color--white,
+						0px 0px 0px 2px $color--slate;
 				}
 			}
 		}
