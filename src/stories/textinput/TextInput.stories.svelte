@@ -5,9 +5,10 @@
 </script>
 
 <Meta
-	title="Form inputs/ Text Input"
+	title="Form inputs/Text Input"
 	component={TextInput}
 	argTypes={{
+		id: { control: { type: 'text' }, defaultValue: 'text-input-id' },
 		value: { control: { type: 'text' }, defaultValue: 'Hello' },
 		label: { control: { type: 'text' }, defaultValue: 'Label' },
 		placeholder: { control: { type: 'text' }, defaultValue: 'Placeholder' },
@@ -37,6 +38,7 @@
 	name="Basic"
 	args={{
 		label: 'Label',
+		id: 'text-input-id',
 		placeholder: 'Placeholder',
 		attr: { 'data-test': 'test', 'data-test2': 'test2' },
 	}}
@@ -46,8 +48,10 @@
 	name="Multiline"
 	args={{
 		label: 'Label',
+		id: 'text-input-id',
 		placeholder: 'Placeholder',
 		multiline: true,
+		attr: { 'data-test': 'test', 'data-test2': 'test2' },
 	}}
 	play={test.multiline} />
 
@@ -57,7 +61,6 @@
 		value: 'Hello World',
 		label: 'Label',
 		placeholder: 'Placeholder',
-
 		disabled: true,
 	}}
 	play={test.disabled} />
@@ -67,9 +70,7 @@
 	args={{
 		label: 'Label',
 		placeholder: 'Readonly',
-
 		readonly: true,
-
 		disabled: false,
 	}}
-	play={test.placeholder} />
+	play={test.readonly} />
