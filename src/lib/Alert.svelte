@@ -81,4 +81,16 @@
 		transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
 		pointer-events: none;
 	}
+
+	.sp-alert--info {
+		background-color: #d9edf7;
+		border-color: #bce8f1;
+		color: #31708f;
+	}
+
+	.sp-alert--success {
+		background-color: #dff0d8;
+		border-color: #d6e9c6;
+		color: #3c763d;
+	}
 </style>
