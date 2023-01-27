@@ -55,10 +55,6 @@
 	if (!value || value.length === 0) {
 		value = '';
 	}
-	Object.prototype.toString.call(keyupHandler);
-	Object.prototype.toString.call(keydownHandler);
-	Object.prototype.toString.call(blurHandler);
-	Object.prototype.toString.call(focusHandler);
 </script>
 
 <div
@@ -68,7 +64,7 @@
 		class="sp-text-input--label"
 		for="textInput">
 		{#if label && label.length}
-			<span class="sp-text-input--label-text">{label}</span>
+			<span class="sp-text-input--label--text">{label}</span>
 		{/if}
 		{#if multiline}
 			<textarea

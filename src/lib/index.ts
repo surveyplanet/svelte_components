@@ -9,3 +9,4 @@ export { default as Icon } from './Icon.svelte';
 export { default as Toggle } from './Toggle.svelte';
 export { default as Checkbox } from './Checkbox.svelte';
 export { default as Radio } from './Radio.svelte';
+export { default as TextInput } from './TextInput.svelte';
