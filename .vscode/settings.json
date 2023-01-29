@@ -1,5 +1,7 @@
 {
 	"editor.formatOnSave": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"cSpell.words": ["checkradio", "gimy", "sveltekit"]
+	// "cSpell.words": ["surveyplanet", "gimy", "sveltekit"],
+	"svelte.plugin.typescript.enable": false,
+	"eslint.validate": ["typescript", "svelte"]
 }
