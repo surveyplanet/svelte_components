@@ -23,23 +23,23 @@
  *   data-validate-hide-errors />
  */
 
-type ValidatorRule = {
+interface ValidatorRule {
 	name: string;
 	message: string;
 	description: string;
 	example?: string;
 	parameterRequired: boolean;
 	hook: (input: HTMLInputElement, param: string) => boolean;
-};
+}
 
-type ValidatorError = {
+interface ValidatorError {
 	id: string;
 	name: string;
 	class: string;
 	error: string;
 	rule: string;
 	parameter?: string;
-};
+}
 
 /**
  * A collection of regular expressions used for validation.
@@ -82,9 +82,9 @@ export const RULES: ValidatorRule[] = [
 		hook: (field: HTMLInputElement) => {
 			const { value } = field;
 			if (field.type === 'checkbox' || field.type === 'radio') {
-				return field.checked === true;
+				return field.checked;
 			}
-			return value !== null && value !== '';
+			return value.length > 0;
 		},
 	},
 	{
@@ -93,9 +93,9 @@ export const RULES: ValidatorRule[] = [
 		description: 'Must match another field value.',
 		parameterRequired: true,
 		hook: (field: HTMLInputElement, matchName: string) => {
-			const inputs = <NodeList>document.getElementsByName(matchName);
-			const input = <HTMLInputElement>inputs.item(0);
-			return input && input.value === field.value;
+			const inputs = document.getElementsByName(matchName);
+			const input = inputs.item(0) as HTMLInputElement;
+			return input.value === field.value;
 		},
 	},
 	{
@@ -340,7 +340,7 @@ export const RULES: ValidatorRule[] = [
 		hook: (field: HTMLInputElement, param: string) => {
 			const extTypes = param.split(',').map((e) => e.trim());
 			const ext = field.value.split('.').pop();
-			if (!ext || !ext.length) {
+			if (!ext?.length) {
 				return false;
 			}
 			return extTypes.includes(ext.trim());
@@ -383,7 +383,7 @@ export const RULES: ValidatorRule[] = [
 			// like: \d, \D, \s, \S, \w, |W
 			// const match = param.match(/^\/(.*?)\/([gimy]*)$/);
 			const match = /^\/(.*?)\/([gimy]*)$/.exec(param); // <-- try this out... see if it works better.
-			if (!match || !match.length) {
+			if (!match?.length) {
 				return false;
 			}
 			const regexp = new RegExp(match[1], match[2]);
@@ -400,10 +400,6 @@ export const RULES: ValidatorRule[] = [
  */
 export default function validate(input: HTMLInputElement): ValidatorError[] {
 	const errors: ValidatorError[] = [];
-
-	if (!input) {
-		return errors;
-	}
 
 	const hideErrors =
 		Object.prototype.hasOwnProperty.call(
@@ -424,7 +420,7 @@ export default function validate(input: HTMLInputElement): ValidatorError[] {
 		? label.innerText
 		: input.placeholder || input.name || '';
 
-	if (!ruleData || !ruleData.length) {
+	if (!ruleData?.length) {
 		return errors;
 	}
 
@@ -434,7 +430,7 @@ export default function validate(input: HTMLInputElement): ValidatorError[] {
 		const rule = getRule(ruleName);
 		const parts = parseRuleParams(ruleName) as string[];
 
-		if (!rule || !parts || !parts.length) {
+		if (!rule || !parts.length) {
 			continue;
 		}
 
@@ -443,7 +439,7 @@ export default function validate(input: HTMLInputElement): ValidatorError[] {
 		const valid = rule.hook.apply({}, [input, param]);
 
 		if (!valid) {
-			const msg = input.dataset['validate-message'] || rule.message;
+			const msg = input.dataset['validate-message'] ?? rule.message;
 
 			const errMsg = parseValidationMessage(msg, labelText, param);
 			const err: ValidatorError = {
@@ -482,10 +478,6 @@ export function renderValidationError(
 	error: ValidatorError,
 	position: 'before' | 'after' = 'after'
 ): void {
-	if (!input || !error) {
-		return;
-	}
-
 	input.classList.add('validation-error');
 
 	const label = document.createElement('label');
@@ -493,14 +485,13 @@ export function renderValidationError(
 	label.setAttribute('for', error.name);
 	label.innerHTML = error.error;
 
-	const parent = <HTMLElement>input.parentNode;
-	if (parent) {
-		// parent.appendChild(error.label, element.nextSibling);
-		parent.insertAdjacentElement(
-			position === 'before' ? 'beforebegin' : 'afterend',
-			label
-		);
-	}
+	const parent = input.parentNode as HTMLElement;
+
+	// parent.appendChild(error.label, element.nextSibling);
+	parent.insertAdjacentElement(
+		position === 'before' ? 'beforebegin' : 'afterend',
+		label
+	);
 }
 
 /**
@@ -520,7 +511,7 @@ export function removeAllValidationErrors(): void {
 	);
 
 	for (const message of messages) {
-		message?.parentNode?.removeChild(message);
+		message.parentNode?.removeChild(message);
 	}
 }
 
