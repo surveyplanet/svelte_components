@@ -17,7 +17,7 @@
 	const dispatch = createEventDispatcher();
 
 	const changeHandler = (event: Event) => {
-		validate(event.target);
+		validate(event.target as HTMLInputElement);
 		dispatch('change', event);
 	};
 
