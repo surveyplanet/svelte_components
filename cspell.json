@@ -1,0 +1,9 @@
+{
+	"language": "en",
+	"words": ["surveyplanet", "sveltekit"],
+	"ignoreWords": ["gimy", "xsmall"],
+	"flagWords": ["hte", "Survey Planet", "survey planet"],
+	"files": ["./**/*.{txt,md,mdx,js,ts,svelte,yaml,json}"],
+	"useGitignore": true,
+	"ignorePaths": ["./cspell.json", "node_modules/**"]
+}

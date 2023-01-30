@@ -3,6 +3,8 @@
 
 	const dispatch = createEventDispatcher();
 
+	let notUsed: boolean = true;
+
 	export let id: string = (Date.now() + Math.random()).toString(36);
 	export let name: string | null = null;
 	export let value: string | null = null;

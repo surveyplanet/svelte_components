@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { COLORS, SIZES, MASCOTS } from './_definitions';
+	import { COLORS, SIZES, MASCOTS } from './index';
 
 	const dispatch = createEventDispatcher();
 
@@ -19,14 +19,14 @@
 
 	export let size: SIZES = SIZES.SMALL;
 
-	export let disabled: boolean = false;
+	export let disabled = false;
 
-	const getPersistentIndex = (length: number = 0): number => {
-		if (!id || !id.length) {
+	const getPersistentIndex = (length = 0): number => {
+		if (!id?.length) {
 			return 0;
 		}
-		const charCode = id.trim().toLowerCase().charCodeAt(0);
-		return (charCode % length) as number;
+		const charCode: number = id.trim().toLowerCase().charCodeAt(0);
+		return charCode % length;
 	};
 
 	const getBgColor = (): string => {
@@ -34,7 +34,7 @@
 	};
 
 	const getProfileImg = (): string => {
-		if (imgSrc && /^https:\/\//.test(imgSrc)) {
+		if (imgSrc && /^https?:\/\//.test(imgSrc)) {
 			return imgSrc;
 		}
 		return mascots[getPersistentIndex(mascots.length)];
@@ -51,7 +51,7 @@
 	class="sp-avatar sp-avatar--{size}"
 	on:click={clickHandler}
 	style:background-color={getBgColor()}
-	aria-label={!disabled ? 'profile image' : null}
+	aria-label={disabled ? null : 'profile image'}
 	role={disabled ? 'presentation' : null}
 	{disabled}>
 	<span class="sp-avatar--image">

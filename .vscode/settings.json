@@ -1,5 +1,7 @@
 {
 	"editor.formatOnSave": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"cSpell.words": ["checkradio", "sveltekit", "textbox"]
+	"svelte.plugin.typescript.enable": false,
+	"eslint.validate": ["typescript", "svelte"],
+	"cSpell.words": ["tortor"]
 }
