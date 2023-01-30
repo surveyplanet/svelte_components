@@ -152,8 +152,8 @@
 		@include set-focus {
 			& + .sp-checkbox {
 				.sp-checkbox--check {
-					outline: 1px solid $color--slate;
-					outline-offset: 1px;
+					box-shadow: 0px 0px 0px 1px $color--white,
+						0px 0px 0px 2px $color--slate;
 				}
 			}
 		}
