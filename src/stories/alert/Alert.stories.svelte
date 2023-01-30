@@ -35,6 +35,7 @@
 <Template let:args>
 	<Alert
 		{...args}
+		title="Alert Title"
 		on:alertClose={args.alertCloseHandler}
 		on:alertConfirm={args.alertConfirmHandler}
 		on:alertIn={args.alertInHandler}
@@ -43,4 +44,6 @@
 		on:alertOut={args.alertOutHandler} />
 </Template>
 
-<Story name="Alert" />
+<Story
+	name="Default"
+	subtitle="What is this alert for?" />

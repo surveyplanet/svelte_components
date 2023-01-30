@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+
 	export let title: string;
 	export let subtitle: string;
 	export let body: string;
-	export let html: string;
+	//htmlString will pass in a string of html to be rendered inside of the body ins
+	export let htmlString: string;
 	export let type: string = 'info';
+	//hide delay is the time in milliseconds that the alert will be visible before it is hidden
 	export let hideDelay: number;
 	export let confirm: boolean = false;
 	export let confirmButtonLabel: string = 'Confirm';
@@ -38,59 +41,59 @@
 	};
 </script>
 
-<div
-	class="sp-alert"
-	class:sp-alert--info={type === 'info'}
-	class:sp-alert--success={type === 'success'}
-	class:sp-alert--warning={type === 'warning'}
-	class:sp-alert--danger={type === 'danger'}
-	class:sp-alert--confirm={confirm}>
+<div class="sp-alert">
 	{#if title}
-		<h4 class="sp-alert__title">{title}</h4>
+		<h1 class="sp-alert--title">{title}</h1>
 	{/if}
+
 	{#if subtitle}
-		<h5 class="sp-alert__subtitle">{subtitle}</h5>
+		<h2 class="sp-alert--subtitle">{subtitle}</h2>
 	{/if}
+
 	{#if body}
-		<p class="sp-alert__body">{body}</p>
+		<p class="sp-alert--body">{body}</p>
 	{/if}
+
+	{#if htmlString}
+		<div
+			class="sp-alert--body"
+			innerHTML={htmlString} />
+	{/if}
+
 	{#if confirm}
-		<div class="sp-alert__confirm">
+		<div class="sp-alert--confirm">
 			<button
-				class="sp-alert__confirm-button"
-				type="button">{confirmButtonLabel}</button>
+				class="sp-alert--confirm--button"
+				on:click={alertConfirmHandler}>
+				{confirmButtonLabel}
+			</button>
 			<button
-				class="sp-alert__cancel-button"
-				type="button">{cancelButtonLabel}</button>
+				class="sp-alert--confirm--button"
+				on:click={alertNotConfirmedHandler}>
+				{cancelButtonLabel}
+			</button>
+		</div>
+	{/if}
+
+	{#if challenge}
+		<div class="sp-alert--challenge">
+			<input
+				class="sp-alert--challenge--input"
+				type="text"
+				bind:value={challenge} />
+			<button
+				class="sp-alert--challenge--button"
+				on:click={alertConfirmHandler}>
+				{confirmButtonLabel}
+			</button>
+			<button
+				class="sp-alert--challenge--button"
+				on:click={alertNotConfirmedHandler}>
+				{cancelButtonLabel}
+			</button>
 		</div>
 	{/if}
 </div>
 
 <style lang="scss">
-	.sp-alert {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		z-index: 1000;
-		padding: 1rem;
-		box-sizing: border-box;
-		text-align: center;
-		opacity: 0;
-		transform: translateY(-100%);
-		transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
-		pointer-events: none;
-	}
-
-	.sp-alert--info {
-		background-color: #d9edf7;
-		border-color: #bce8f1;
-		color: #31708f;
-	}
-
-	.sp-alert--success {
-		background-color: #dff0d8;
-		border-color: #d6e9c6;
-		color: #3c763d;
-	}
 </style>
