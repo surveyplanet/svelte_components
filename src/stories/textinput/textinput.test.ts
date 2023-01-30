@@ -63,8 +63,6 @@ export const multiline = async (res: StoryBookPlayArgs) => {
 	expect(res.args.keydownHandler).toHaveBeenCalled();
 	expect(res.args.blurHandler).toHaveBeenCalled();
 	expect(res.args.focusHandler).toHaveBeenCalled();
-
-	//TODO: add all the same test from text input
 };
 
 export const disabled = async (res: StoryBookPlayArgs) => {
@@ -79,4 +77,8 @@ export const readonly = async (res: StoryBookPlayArgs) => {
 	expect(input.readOnly).toBe(true);
 };
 
-// TODO: make test for no label value
+export const noLabel = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+	const input: HTMLInputElement = canvas.getByRole('textbox');
+	expect(input).not.toHaveClass(' sp-text-input--label--text');
+};
