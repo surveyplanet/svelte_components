@@ -16,7 +16,12 @@
 		readonly: { control: { type: 'boolean' }, defaultValue: false },
 		attr: { control: { type: 'object' }, defaultValue: {} },
 		disabled: { control: { type: 'boolean' }, defaultValue: false },
-		validate: { control: { type: 'text' }, defaultValue: {} },
+		validationRules: { control: { type: 'text' } },
+		validationMessage: { control: { type: 'text' } },
+		validationHidMessage: {
+			control: { type: 'boolean' },
+			defaultValue: false,
+		},
 		changeHandler: { action: 'change' },
 		focusHandler: { action: 'focus' },
 		blurHandler: { action: 'blur' },

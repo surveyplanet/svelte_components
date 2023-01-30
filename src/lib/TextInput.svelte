@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import validate from './utilities/validate';
-	//make sure that ID is defined whenever you actualy need to use the validator
+	import { validate } from './';
+	//make sure that ID is defined whenever you actually need to use the validator
 	export let id: string = (Date.now() + Math.random()).toString(36);
 	export let value: string | null = '';
 	export let label: string | null = null;
@@ -10,19 +10,15 @@
 	export let readonly = false;
 	export let disabled = false;
 	export let attr = {};
-	export let validateString = '';
-
-	const inputEl = document.getElementById(id);
-	// validate(inputEl);
-	// console.log('id', inputEl);
+	export let validationRules: string | null = null;
+	export let validationMessage: string | null = null;
+	export let validationHideMessage = false;
 
 	const dispatch = createEventDispatcher();
 
 	const changeHandler = (event: Event) => {
+		validate(event.target);
 		dispatch('change', event);
-		let idElement = event.target as HTMLInputElement;
-		console.log('change :', id, idElement);
-		validate(id);
 	};
 
 	const focusHandler = (event: Event) => {
@@ -58,11 +54,13 @@
 		{disabled}
 		{readonly}
 		{...attr}
-		data-validate-rules="require,email"
+		data-validate-rules={validationRules?.length ? validationRules : ''}
+		data-validate-message={validationMessage?.length
+			? validationMessage
+			: ''}
+		data-validate-hide-errors={validationHideMessage}
 		on:blur={blurHandler}
-		on:change={(changeHandler,
-		validate(inputEl),
-		console.log('id', inputEl))}
+		on:change={changeHandler}
 		on:focus={focusHandler}
 		on:keydown={keydownHandler}
 		on:keyup={keyupHandler}>{value}</textarea>
@@ -75,6 +73,11 @@
 		{readonly}
 		{value}
 		{...attr}
+		data-validate-rules={validationRules?.length ? validationRules : ''}
+		data-validate-message={validationMessage?.length
+			? validationMessage
+			: ''}
+		data-validate-hide-errors={validationHideMessage}
 		on:blur={blurHandler}
 		on:change={changeHandler}
 		on:focus={focusHandler}
