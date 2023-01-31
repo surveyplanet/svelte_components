@@ -1,5 +1,10 @@
 export * from './_definitions';
-export * from './_utils';
+export { default as delay } from './utilities/delay';
+export {
+	default as validate,
+	renderValidationError,
+	removeAllValidationErrors,
+} from './utilities/validate';
 
 export { default as Avatar } from './Avatar.svelte';
 export { default as Badge } from './Badge.svelte';

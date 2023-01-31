@@ -1,8 +1,7 @@
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { delay } from '../../lib/_utils';
 
-export const primary = async (res: StoryBookPlayArgs) => {
+export const primary = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const checkbox: HTMLInputElement = canvas.getByRole('checkbox');
 	const label = checkbox.nextSibling?.nextSibling as HTMLLabelElement;
@@ -13,7 +12,7 @@ export const primary = async (res: StoryBookPlayArgs) => {
 
 	expect(checkbox).not.toBeDisabled();
 	expect(checkbox).not.toHaveFocus();
-	await userEvent.click(checkbox);
+	userEvent.click(checkbox);
 	expect(checkbox).toBeChecked();
 	expect(checkbox).toHaveFocus();
 	expect(res.args.changeHandler).toHaveBeenCalled();

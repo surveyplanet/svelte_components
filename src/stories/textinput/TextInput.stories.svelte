@@ -38,7 +38,8 @@
 	name="Basic"
 	args={{
 		label: 'Label',
-		id: 'text-input-id',
+		id: 'email',
+		name: 'email',
 		placeholder: 'Placeholder',
 		attr: { 'data-test': 'test', 'data-test2': 'test2' },
 	}}
@@ -74,3 +75,11 @@
 		disabled: false,
 	}}
 	play={test.readonly} />
+
+<Story
+	name="No label"
+	args={{
+		id: 'text-input-id',
+		placeholder: 'Placeholder',
+	}}
+	play={test.noLabel} />

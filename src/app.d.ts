@@ -10,7 +10,7 @@ declare namespace App {
 	// interface Platform {}
 }
 
-type StoryBookPlayArgs = {
+interface StoryBookPlayArgs {
 	canvasElement: HTMLElement;
 	args: {
 		clickHandler?(e: MouseEvent): void;
@@ -20,4 +20,4 @@ type StoryBookPlayArgs = {
 		blurHandler?(e: Event): void;
 		focusHandler?(e: Event): void;
 	};
-};
+}
