@@ -13,16 +13,12 @@
 	export let validateString = '';
 
 	const inputEl = document.getElementById(id);
-	// validate(inputEl);
-	// console.log('id', inputEl);
 
 	const dispatch = createEventDispatcher();
 
 	const changeHandler = (event: Event) => {
 		dispatch('change', event);
 		let idElement = event.target as HTMLInputElement;
-		console.log('change :', id, idElement);
-		validate(id);
 	};
 
 	const focusHandler = (event: Event) => {
@@ -33,11 +29,11 @@
 		dispatch('blur', event);
 	};
 
-	const keydownHandler = (event: object) => {
+	const keydownHandler = (event: KeyboardEvent) => {
 		dispatch('keydown', event);
 	};
 
-	const keyupHandler = (event: object) => {
+	const keyupHandler = (event: KeyboardEvent) => {
 		dispatch('keyup', event);
 	};
 </script>
@@ -58,11 +54,8 @@
 		{disabled}
 		{readonly}
 		{...attr}
-		data-validate-rules="require,email"
 		on:blur={blurHandler}
-		on:change={(changeHandler,
-		validate(inputEl),
-		console.log('id', inputEl))}
+		on:change={changeHandler}
 		on:focus={focusHandler}
 		on:keydown={keydownHandler}
 		on:keyup={keyupHandler}>{value}</textarea>

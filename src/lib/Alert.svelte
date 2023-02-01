@@ -1,19 +1,37 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import Button from './Button.svelte';
+	import TextInput from './TextInput.svelte';
+	import { BUTTON_MODES } from './_definitions';
 
 	export let title: string;
 	export let subtitle: string;
-	export let body: string;
-	//htmlString will pass in a string of html to be rendered inside of the body ins
-	export let htmlString: string;
-	export let type: string = 'info';
+	export let confirm: true;
+	// export let type: string = 'info';
 	//hide delay is the time in milliseconds that the alert will be visible before it is hidden
 	export let hideDelay: number;
-	export let confirm: boolean = false;
-	export let confirmButtonLabel: string = 'Confirm';
-	export let cancelButtonLabel: string = 'Cancel';
 	export let challenge: string;
+	export let challengeLabel: string;
 
+	let visible = true;
+
+	if (hideDelay > 0) {
+		setTimeout(() => {
+			visible = false;
+		}, hideDelay);
+	}
+
+	let disabledButton = true;
+
+	const challengeHandler = (event: CustomEvent) => {
+		let input = event.detail.target;
+
+		if (input.value === challenge) {
+			disabledButton = false;
+		} else {
+			disabledButton = true;
+		}
+	};
 	const dispatch = createEventDispatcher();
 
 	const alertOpenHandler = (event: Event) => {
@@ -25,11 +43,12 @@
 	};
 
 	const alertOutHandler = (event: Event) => {
+		addClass('sp-alert--hidden');
+		const animated = document.querySelector('.sp-alert--hidden');
+		animated.addEventListener('animationend', () => {
+			dispatchEvent('alertClosed');
+		});
 		dispatch('alertOut', event);
-	};
-
-	const alertCloseHandler = (event: Event) => {
-		dispatch('alertClose', event);
 	};
 
 	const alertConfirmHandler = (event: Event) => {
@@ -41,59 +60,104 @@
 	};
 </script>
 
-<div class="sp-alert">
-	{#if title}
-		<h1 class="sp-alert--title">{title}</h1>
-	{/if}
-
-	{#if subtitle}
-		<h2 class="sp-alert--subtitle">{subtitle}</h2>
-	{/if}
-
-	{#if body}
-		<p class="sp-alert--body">{body}</p>
-	{/if}
-
-	{#if htmlString}
-		<div
-			class="sp-alert--body"
-			innerHTML={htmlString} />
-	{/if}
-
+<div
+	class="sp-alert"
+	class:sp-alert--hidden={!visible}>
+	<div class="sp-alert--header">
+		{#if title?.length > 0}
+			<div class="sp-alert--header--title">{title}</div>
+		{/if}
+		{#if subtitle?.length > 0}
+			<div class="sp-alert--header--subtitle">{subtitle}</div>
+		{/if}
+	</div>
+	<div class="sp-alert--body">
+		<slot />
+	</div>
 	{#if confirm}
 		<div class="sp-alert--confirm">
-			<button
-				class="sp-alert--confirm--button"
-				on:click={alertConfirmHandler}>
-				{confirmButtonLabel}
-			</button>
-			<button
-				class="sp-alert--confirm--button"
-				on:click={alertNotConfirmedHandler}>
-				{cancelButtonLabel}
-			</button>
+			<Button
+				on:click={alertConfirmHandler}
+				mode={BUTTON_MODES.PRIMARY}>Confirm</Button>
 		</div>
 	{/if}
-
 	{#if challenge}
 		<div class="sp-alert--challenge">
-			<input
-				class="sp-alert--challenge--input"
-				type="text"
-				bind:value={challenge} />
-			<button
-				class="sp-alert--challenge--button"
-				on:click={alertConfirmHandler}>
-				{confirmButtonLabel}
-			</button>
-			<button
-				class="sp-alert--challenge--button"
-				on:click={alertNotConfirmedHandler}>
-				{cancelButtonLabel}
-			</button>
+			<TextInput
+				label={challengeLabel}
+				placeholder={challenge}
+				on:keyup={challengeHandler} />
 		</div>
+		<div class="sp-alert--challange--submit" />
+
+		{#if disabledButton == true}
+			<div class="sp-alert--confirm">
+				<Button
+					<Button
+					on:click={alertCloseHandler}
+					disabled={true}
+					mode={BUTTON_MODES.PRIMARY}>Submit</Button>
+			</div>
+		{:else}
+			<div class="sp-alert--confirm">
+				<Button
+					on:click={alertCloseHandler}
+					mode={BUTTON_MODES.PRIMARY}>Submit</Button>
+			</div>
+		{/if}
 	{/if}
+	<button
+		class="sp-alert--cancel"
+		on:click{alertCloseHandler}>x</button>
 </div>
 
 <style lang="scss">
+	@use '@surveyplanet/styles' as *;
+
+	.sp-alert {
+		border: 1px solid $color--slate-dark;
+		border-radius: $size-radius--default;
+		box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 1);
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		min-width: $size--256;
+		max-width: $size--256;
+		padding: $size--16;
+		position: relative;
+		transition: all 0.3s ease-in-out;
+		z-index: 1000;
+		font: $font--default;
+	}
+
+	.sp-alert--header {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.sp-alert--header--title {
+		font-size: $size--24;
+		margin-bottom: $size--16;
+	}
+
+	.sp-alert--header--subtitle {
+		font-size: $size--16;
+		margin-bottom: $size--8;
+	}
+
+	.sp-alert--body {
+		font-size: $size--16;
+
+		margin-top: $size--16;
+	}
+
+	.sp-alert--challenge {
+		margin-top: $size--16;
+		margin-bottom: $size--16;
+	}
+
+	.sp-alert--hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
 </style>
