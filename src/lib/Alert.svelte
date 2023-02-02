@@ -7,8 +7,7 @@
 	export let title: string;
 	export let subtitle: string;
 	export let confirm: true;
-	// export let type: string = 'info';
-	//hide delay is the time in milliseconds that the alert will be visible before it is hidden
+	export let type = 'info' | 'warning' | 'error' | 'success' | 'challenge';
 	export let hideDelay: number;
 	export let challenge: string;
 	export let challengeLabel: string;
@@ -22,10 +21,13 @@
 	}
 
 	let disabledButton = true;
-
-	const challengeHandler = (event: CustomEvent) => {
-		let input = event.detail.target;
-
+	let alert: HTMLDivElement;
+	const challengeHandler = <
+		T extends { detail: { target: HTMLInputElement } }
+	>(
+		event: T
+	): void => {
+		const input = event.detail.target;
 		if (input.value === challenge) {
 			disabledButton = false;
 		} else {
@@ -43,15 +45,17 @@
 	};
 
 	const alertOutHandler = (event: Event) => {
-		addClass('sp-alert--hidden');
-		const animated = document.querySelector('.sp-alert--hidden');
-		animated.addEventListener('animationend', () => {
+		console.log('alertOutHandler');
+		alert.classList.add('sp-alert--hidden');
+		alert.addEventListener('animationend', () => {
+			console.log('animationend');
 			dispatchEvent('alertClosed');
 		});
 		dispatch('alertOut', event);
 	};
 
 	const alertConfirmHandler = (event: Event) => {
+		console.log('alertConfirmHandler');
 		dispatch('alertConfirm', event);
 	};
 
@@ -61,7 +65,8 @@
 </script>
 
 <div
-	class="sp-alert"
+	bind:this={alert}
+	class="sp-alert sp-alert--{type}"
 	class:sp-alert--hidden={!visible}>
 	<div class="sp-alert--header">
 		{#if title?.length > 0}
@@ -77,6 +82,7 @@
 	{#if confirm}
 		<div class="sp-alert--confirm">
 			<Button
+				on:click={alertOutHandler}
 				on:click={alertConfirmHandler}
 				mode={BUTTON_MODES.PRIMARY}>Confirm</Button>
 		</div>
@@ -88,27 +94,17 @@
 				placeholder={challenge}
 				on:keyup={challengeHandler} />
 		</div>
-		<div class="sp-alert--challange--submit" />
 
-		{#if disabledButton == true}
-			<div class="sp-alert--confirm">
-				<Button
-					<Button
-					on:click={alertCloseHandler}
-					disabled={true}
-					mode={BUTTON_MODES.PRIMARY}>Submit</Button>
-			</div>
-		{:else}
-			<div class="sp-alert--confirm">
-				<Button
-					on:click={alertCloseHandler}
-					mode={BUTTON_MODES.PRIMARY}>Submit</Button>
-			</div>
-		{/if}
+		<div class="sp-alert--confirm">
+			<Button
+				on:click={alertOutHandler}
+				disabled={disabledButton}
+				mode={BUTTON_MODES.TERTIARY}>Submit</Button>
+		</div>
 	{/if}
 	<button
 		class="sp-alert--cancel"
-		on:click{alertCloseHandler}>x</button>
+		on:click={alertOutHandler}>X</button>
 </div>
 
 <style lang="scss">
@@ -117,7 +113,7 @@
 	.sp-alert {
 		border: 1px solid $color--slate-dark;
 		border-radius: $size-radius--default;
-		box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 1);
+		box-shadow: 1px 1px 3px 0px $color--slate-dark;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -128,6 +124,36 @@
 		transition: all 0.3s ease-in-out;
 		z-index: 1000;
 		font: $font--default;
+
+		&.sp-alert--hidden {
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		&.sp-alert--info {
+			background: $color--green-light;
+			color: $color--slate-dark;
+		}
+
+		&.sp-alert--warning {
+			background: $color--yellow-light;
+			color: $color--slate-dark;
+		}
+
+		&.sp-alert--error {
+			background: $color--pink-dark;
+			color: $color--slate-dark;
+		}
+
+		&.sp-alert--success {
+			background: $color--green-light;
+			color: $color--slate-dark;
+		}
+
+		&.sp-alert--challenge {
+			background: $color--purple;
+			color: $color--slate-dark;
+		}
 	}
 
 	.sp-alert--header {
@@ -155,9 +181,26 @@
 		margin-top: $size--16;
 		margin-bottom: $size--16;
 	}
+	.sp-alert--cancel {
+		background: none;
+		border: 1px solid $color--slate-dark;
+		border-radius: $size-radius--default;
+		color: $color--slate-dark;
+		cursor: pointer;
+		font-size: $size--24;
+		font-weight: bold;
+		position: absolute;
+		right: $size--8;
+		top: $size--8;
+		box-shadow: 1px 1px 3px 0px $color--slate-dark;
+	}
+	.sp-alert--cancel:active {
+		transform: translate(1px, 1px);
+		box-shadow: 1px 1px 1px 0px $color--slate-dark;
+	}
 
-	.sp-alert--hidden {
-		opacity: 0;
-		pointer-events: none;
+	.sp-alert--confirm {
+		display: flex;
+		justify-content: flex-end;
 	}
 </style>

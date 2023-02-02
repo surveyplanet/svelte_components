@@ -1,8 +1,7 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 	import Alert from '../../lib/Alert.svelte';
-	// import * as test from './alert.test';
-	const test = console.log('hello');
+	import * as test from './alert.test';
 </script>
 
 <Meta
@@ -44,13 +43,16 @@
 	args={{
 		title: 'Alert Title',
 		subtitle: 'Alert Subtitle',
-	}} />
+		type: 'info',
+	}}
+	play={test.defaultAlert} />
 
 <Story
 	name="Confirm"
 	args={{
 		confirm: true,
 		title: 'Confirm only',
+		type: 'info',
 	}} />
 
 <Story
@@ -61,8 +63,10 @@
 		title="Challenge"
 		subtitle="Subtitle of the alert"
 		challenge="test"
+		type="challenge"
 		challengeLabel="Challenge Label"
-		on:challenge={(args.challengeHandler, test)}>This is the body</Alert>
+		on:challenge={args.challengeHandler}
+		on:alertOut={args.alertOutHandler}>This is the body</Alert>
 </Story>
 
 <Story
@@ -70,6 +74,7 @@
 	args={{
 		hideDelay: 3000,
 		title: 'Hidden Delay',
+		type: 'warning',
 	}} />
 
 <Story
@@ -78,5 +83,6 @@
 	<Alert
 		{...args}
 		title="HTML"
+		type="error"
 		subtitle="Subtitle of the alert"><p>Test the HTML</p></Alert>
 </Story>
