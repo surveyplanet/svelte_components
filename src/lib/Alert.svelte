@@ -14,14 +14,25 @@
 
 	let visible = true;
 
+	// delay hiding the alert
 	if (hideDelay > 0) {
 		setTimeout(() => {
 			visible = false;
+			alertOutHandler();
 		}, hideDelay);
 	}
 
+	// aria stuff
+	let ariaLive = 'polite';
+	if (type === !'info') {
+		ariaLive = 'assertive';
+	}
+
 	let disabledButton = true;
+
 	let alert: HTMLDivElement;
+
+	// handlers
 	const challengeHandler = <
 		T extends { detail: { target: HTMLInputElement } }
 	>(
@@ -36,19 +47,18 @@
 	};
 	const dispatch = createEventDispatcher();
 
-	const alertOpenHandler = (event: Event) => {
-		dispatch('alertOpen', event);
-	};
+	const alertOpenHandler = (event: Event) => dispatch('alertOpen', event);
+	alertOpenHandler;
 
 	const alertInHandler = (event: Event) => {
-		dispatch('alertIn', event);
+		alert.addEventListener('animationend', () => {
+			dispatch('alertIn', event);
+		});
 	};
 
 	const alertOutHandler = (event: Event) => {
-		console.log('alertOutHandler');
 		alert.classList.add('sp-alert--hidden');
 		alert.addEventListener('animationend', () => {
-			console.log('animationend');
 			dispatchEvent('alertClosed');
 		});
 		dispatch('alertOut', event);
@@ -66,7 +76,12 @@
 
 <div
 	bind:this={alert}
+	{alertInHandler}
 	class="sp-alert sp-alert--{type}"
+	role="alert"
+	aria-atomic="true"
+	data-testid="alert"
+	aria-live={ariaLive}
 	class:sp-alert--hidden={!visible}>
 	<div class="sp-alert--header">
 		{#if title?.length > 0}
@@ -104,7 +119,9 @@
 	{/if}
 	<button
 		class="sp-alert--cancel"
-		on:click={alertOutHandler}>X</button>
+		aria-label="Close"
+		on:click={alertOutHandler}
+		on:click={alertNotConfirmedHandler}>X</button>
 </div>
 
 <style lang="scss">

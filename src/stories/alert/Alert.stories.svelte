@@ -35,7 +35,8 @@
 		on:alertIn={args.alertInHandler}
 		on:alertNotConfirmed={args.alertNotConfirmedHandler}
 		on:alertOpen={args.alertOpenHandler}
-		on:alertOut={args.alertOutHandler}>This is the body</Alert>
+		on:alertOut={args.alertOutHandler}
+		on:challenge={args.challengeHandler}>This is the body</Alert>
 </Template>
 
 <Story
@@ -53,11 +54,13 @@
 		confirm: true,
 		title: 'Confirm only',
 		type: 'info',
-	}} />
+	}}
+	play={test.confirmAlert} />
 
 <Story
 	name="Challenge"
-	let:args>
+	let:args
+	play={test.challenge}>
 	<Alert
 		{...args}
 		title="Challenge"
@@ -72,17 +75,20 @@
 <Story
 	name="Hidden Delay"
 	args={{
-		hideDelay: 3000,
+		hideDelay: 1000,
 		title: 'Hidden Delay',
 		type: 'warning',
-	}} />
+	}}
+	play={test.delayHide} />
 
 <Story
 	name="HTML"
-	let:args>
+	let:args
+	play={test.html}>
 	<Alert
 		{...args}
 		title="HTML"
 		type="error"
-		subtitle="Subtitle of the alert"><p>Test the HTML</p></Alert>
+		subtitle="Subtitle of the alert"
+		><p class="test-class">Test the HTML</p></Alert>
 </Story>
