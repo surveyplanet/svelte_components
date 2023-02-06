@@ -10,6 +10,10 @@ declare namespace App {
 	// interface Platform {}
 }
 
+interface SvelteCustomEvent extends CustomEvent {
+	details: Event | KeyboardEvent;
+}
+
 interface StoryBookPlayArgs {
 	canvasElement: HTMLElement;
 	args: {
@@ -19,5 +23,10 @@ interface StoryBookPlayArgs {
 		keydownHandler?(e: Event): void;
 		blurHandler?(e: Event): void;
 		focusHandler?(e: Event): void;
+		challengeHandler?(e: Event): void;
+		alertConfirmHandler?(e: SvelteCustomEvent): void;
+		alertNotConfirmedHandler?(e: SvelteCustomEvent): void;
+		alertOutHandler?(e: SvelteCustomEvent): void;
+		alertInHandler?(e: SvelteCustomEvent): void;
 	};
 }

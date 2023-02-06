@@ -5,7 +5,7 @@ import { delay } from '../../lib';
 export const defaultAlert = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
-	const alert = canvas.getByTestId('alert');
+	const alert = canvas.getByRole('alert');
 	const close = canvas.getByRole('button');
 	const title = canvas.getByText('Alert Title');
 	const subtitle = canvas.getByText('Alert Subtitle');
@@ -28,7 +28,7 @@ export const defaultAlert = async (res: StoryBookPlayArgs) => {
 	expect(alert).toHaveAttribute('aria-live', 'polite');
 	expect(alert).toHaveAttribute('aria-atomic', 'true');
 
-	expect(close).toHaveAttribute('aria-label', 'Close');
+	expect(close).toHaveAttribute('aria-label', 'Close info alert');
 
 	expect(title).toHaveClass('sp-alert--header--title');
 	expect(subtitle).toHaveClass('sp-alert--header--subtitle');
@@ -47,7 +47,7 @@ export const defaultAlert = async (res: StoryBookPlayArgs) => {
 export const confirmAlert = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
-	const alert = canvas.getByTestId('alert');
+	const alert = canvas.getByRole('alert');
 	const confirmButton = canvas.getByRole('button', { name: 'Confirm' });
 
 	expect(confirmButton).toBeInTheDocument();
@@ -64,7 +64,7 @@ export const confirmAlert = async (res: StoryBookPlayArgs) => {
 export const challenge = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
-	const alert = canvas.getByTestId('alert');
+	const alert = canvas.getByRole('alert');
 	const submitButton = canvas.getByRole('button', { name: 'Submit' });
 	const textInput = canvas.getByRole('textbox');
 
@@ -91,7 +91,7 @@ export const challenge = async (res: StoryBookPlayArgs) => {
 export const delayHide = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
-	const alert = canvas.getByTestId('alert');
+	const alert = canvas.getByRole('alert');
 
 	await delay(1000);
 

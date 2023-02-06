@@ -20,22 +20,18 @@
 		challengeLabel: { control: 'text', defaultValue: '' },
 		alertCloseHandler: { action: 'alertClose' },
 		alertConfirmHandler: { action: 'alertConfirm' },
-		alertInHandler: { action: 'alertIn' },
 		alertNotConfirmedHandler: { action: 'alertNotConfirmed' },
 		alertOpenHandler: { action: 'alertOpen' },
-		alertOutHandler: { action: 'alertOut' },
 		challengeHandler: { action: 'challenge' },
 	}} />
 
 <Template let:args>
 	<Alert
 		{...args}
+		on:alertOpen={args.alertOpenHandler}
 		on:alertClose={args.alertCloseHandler}
 		on:alertConfirm={args.alertConfirmHandler}
-		on:alertIn={args.alertInHandler}
 		on:alertNotConfirmed={args.alertNotConfirmedHandler}
-		on:alertOpen={args.alertOpenHandler}
-		on:alertOut={args.alertOutHandler}
 		on:challenge={args.challengeHandler}>This is the body</Alert>
 </Template>
 

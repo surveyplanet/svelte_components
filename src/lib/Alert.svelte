@@ -2,17 +2,24 @@
 	import { createEventDispatcher } from 'svelte';
 	import Button from './Button.svelte';
 	import TextInput from './TextInput.svelte';
-	import { BUTTON_MODES } from './_definitions';
+	import { BUTTON_MODES } from './';
+
+	const dispatch = createEventDispatcher();
 
 	export let title: string;
 	export let subtitle: string;
-	export let confirm: true;
-	export let type = 'info' | 'warning' | 'error' | 'success' | 'challenge';
+	export let type = 'info' | 'warning' | 'error' | 'success';
 	export let hideDelay: number;
-	export let challenge: string;
-	export let challengeLabel: string;
 
-	let visible = true;
+	export let confirm: true;
+	export let confirmLabel: string | null = null;
+	export let confirmCancelLabel: string = 'Cancel';
+
+	export let challenge: string | null = null;
+	export let challengeLabel: string | null = null;
+	export let challengeCancelLabel: string = 'Cancel';
+
+	let visible = false;
 
 	// delay hiding the alert
 	if (hideDelay > 0) {
@@ -23,10 +30,7 @@
 	}
 
 	// aria stuff
-	let ariaLive = 'polite';
-	if (type === !'info') {
-		ariaLive = 'assertive';
-	}
+	let ariaLive = type === 'info' ? 'polite' : 'assertive';
 
 	let disabledButton = true;
 
@@ -39,61 +43,61 @@
 		event: T
 	): void => {
 		const input = event.detail.target;
+
 		if (input.value === challenge) {
 			disabledButton = false;
 		} else {
 			disabledButton = true;
 		}
 	};
-	const dispatch = createEventDispatcher();
 
-	const alertOpenHandler = (event: Event) => dispatch('alertOpen', event);
-	alertOpenHandler;
-
-	const alertInHandler = (event: Event) => {
-		alert.addEventListener('animationend', () => {
-			dispatch('alertIn', event);
-		});
-	};
+	//  watch out for ghost events!
+	// Where dom elements are invisible and still firing events.
+	function destroy() {
+		dispatch('alertClose');
+		visible = false;
+	}
 
 	const alertOutHandler = (event: Event) => {
-		alert.classList.add('sp-alert--hidden');
-		alert.addEventListener('animationend', () => {
-			dispatchEvent('alertClosed');
-		});
-		dispatch('alertOut', event);
+		destroy();
 	};
 
 	const alertConfirmHandler = (event: Event) => {
-		console.log('alertConfirmHandler');
-		dispatch('alertConfirm', event);
+		dispatch('alertConfirm');
+		destroy();
 	};
 
-	const alertNotConfirmedHandler = (event: Event) => {
-		dispatch('alertNotConfirmed', event);
+	const closeButtonClickHandler = (event: Event) => {
+		dispatch('alertNotConfirmed');
+		destroy();
 	};
 </script>
 
 <div
-	bind:this={alert}
-	{alertInHandler}
 	class="sp-alert sp-alert--{type}"
 	role="alert"
-	aria-atomic="true"
-	data-testid="alert"
-	aria-live={ariaLive}
-	class:sp-alert--hidden={!visible}>
+	class:sp-alert--hidden={!visible}
+	class:sp-alert--confirm={confirm}
+	class:sp-alert--challenge={challenge?.length}>
 	<div class="sp-alert--header">
+		<button
+			class="sp-alert--cancel"
+			aria-label={`Close ${type} alert`}
+			on:click={closeButtonClickHandler}>X</button>
+
 		{#if title?.length > 0}
-			<div class="sp-alert--header--title">{title}</div>
+			<h3 class="sp-alert--header--title">{title}</h3>
 		{/if}
+
 		{#if subtitle?.length > 0}
-			<div class="sp-alert--header--subtitle">{subtitle}</div>
+			<h4 class="sp-alert--header--subtitle">{subtitle}</h4>
 		{/if}
 	</div>
+
 	<div class="sp-alert--body">
 		<slot />
 	</div>
+
 	{#if confirm}
 		<div class="sp-alert--confirm">
 			<Button
@@ -102,7 +106,8 @@
 				mode={BUTTON_MODES.PRIMARY}>Confirm</Button>
 		</div>
 	{/if}
-	{#if challenge}
+
+	{#if challenge?.length}
 		<div class="sp-alert--challenge">
 			<TextInput
 				label={challengeLabel}
@@ -117,11 +122,6 @@
 				mode={BUTTON_MODES.TERTIARY}>Submit</Button>
 		</div>
 	{/if}
-	<button
-		class="sp-alert--cancel"
-		aria-label="Close"
-		on:click={alertOutHandler}
-		on:click={alertNotConfirmedHandler}>X</button>
 </div>
 
 <style lang="scss">
@@ -138,13 +138,14 @@
 		max-width: $size--256;
 		padding: $size--16;
 		position: relative;
-		transition: all 0.3s ease-in-out;
 		z-index: 1000;
 		font: $font--default;
+		transition: opacity 0.3s ease-in-out;
 
 		&.sp-alert--hidden {
 			opacity: 0;
-			pointer-events: none;
+			visibility: hidden;
+			// pointer-events: none;
 		}
 
 		&.sp-alert--info {
@@ -178,21 +179,9 @@
 		flex-direction: column;
 	}
 
-	.sp-alert--header--title {
-		font-size: $size--24;
-		margin-bottom: $size--16;
-	}
-
-	.sp-alert--header--subtitle {
-		font-size: $size--16;
-		margin-bottom: $size--8;
-	}
-
-	.sp-alert--body {
-		font-size: $size--16;
-
-		margin-top: $size--16;
-	}
+	// .sp-alert--header--title { }
+	// .sp-alert--header--subtitle { }
+	// .sp-alert--body { }
 
 	.sp-alert--challenge {
 		margin-top: $size--16;
