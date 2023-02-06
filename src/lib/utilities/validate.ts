@@ -1,45 +1,51 @@
 /**
- * Utility for validating form inputs and displaying error messages.
+ * The interface used to describe the validation rules
  *
- * @function validate
- * @param {HTMLInputElement} input The input element to validate
- * @param {String} fields.id input id
- * @constructor
- * @example
- * <script>
- * const inputEl = getElementById('email');
- * function submit () {
- *   const errors = validate( inputEl );
- *   if (!errors) { fetch(...) }
- * }
- * </script>
- *
- * <label for="email">Email</label>
- * <input type="email"
- *   id="email"
- *   name="email"
- *   data-validate-rules='require,email'
- *   data-validate-message="My custom validation message (or just use the default)"
- *   data-validate-hide-errors />
+ * @interface ValidatorRule
+ * @member name {string} The name of the rule.
+ * @member message {string} The message that appears when a rule is violated.
+ * @member description {string} The rule description.
+ * @member example? {string} An example of a valid value
+ * @member parameterRequired {boolean} Whether or not the rule requires any additional parameters
+ * @member hook {(input: FormInput, param: string | undefined) => boolean} The function used to validate the input
  */
-
-interface ValidatorRule {
+export interface ValidatorRule {
 	name: string;
 	message: string;
 	description: string;
 	example?: string;
 	parameterRequired: boolean;
-	hook: (input: HTMLInputElement, param: string) => boolean;
+	hook: (input: FormInput, param: string | undefined) => boolean;
 }
 
-interface ValidatorError {
+/**
+ * The interface used to describe validation errors
+ *
+ * @interface ValidatorError
+ * @member id {string} The id of the input element with the validation error.
+ * @member name {string} The name of the input element with the validation error.
+ * @member class {string} The class name of the input element with the validation error.
+ * @member value {string} The value of the input element with the validation error.
+ * @member error {string} The validation error message.
+ * @member rule {string} The validation rule tha was violated.
+ * @member parameter? {string} The parameter used for the rule, if any.
+ */
+export interface ValidatorError {
 	id: string;
 	name: string;
 	class: string;
+	value: string;
 	error: string;
 	rule: string;
 	parameter?: string;
 }
+
+/**
+ * Union type fo HTMLInputElement and HTMLSelectElement
+ *
+ * @type FormInput
+ */
+export type FormInput = HTMLInputElement | HTMLSelectElement;
 
 /**
  * A collection of regular expressions used for validation.
@@ -57,6 +63,7 @@ const REGEXP = {
 	hasNumber: /[0-9]/,
 	hasUpper: /[A-Z]/,
 	hasLower: /[a-z]/,
+	hasSpecialChar: /[$&+,:;=?@#|'"<>.^*()%!_-]/,
 	creditCard: /^[\d\-\s]+$/,
 	phone: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
 	base64: /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/i,
@@ -79,9 +86,12 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field is required.',
 		description: 'Must not be empty.',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			const { value } = field;
-			if (field.type === 'checkbox' || field.type === 'radio') {
+			if (
+				field instanceof HTMLInputElement &&
+				(field.type === 'checkbox' || field.type === 'radio')
+			) {
 				return field.checked;
 			}
 			return value.length > 0;
@@ -92,9 +102,11 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field does not match the %s field.',
 		description: 'Must match another field value.',
 		parameterRequired: true,
-		hook: (field: HTMLInputElement, matchName: string) => {
-			const inputs = document.getElementsByName(matchName);
-			const input = inputs.item(0) as HTMLInputElement;
+		hook: (field: FormInput, param) => {
+			if (!param?.length) return false;
+			const inputs = document.getElementsByName(param);
+			if (!inputs.length) return false;
+			const input = inputs.item(0) as FormInput;
 			return input.value === field.value;
 		},
 	},
@@ -104,7 +116,7 @@ export const RULES: ValidatorRule[] = [
 		description: 'Must be a valid url.',
 		example: 'http://www.example.com',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return REGEXP.url.test(field.value.trim());
 		},
 	},
@@ -114,7 +126,7 @@ export const RULES: ValidatorRule[] = [
 		description: 'Must be a valid email address.',
 		example: 'email@example.com',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return REGEXP.email.test(field.value.trim());
 		},
 	},
@@ -124,7 +136,7 @@ export const RULES: ValidatorRule[] = [
 		description: 'Must be a comma separated list of valid email addresses.',
 		example: 'email1@example.com, email2@example.com',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			const result = field.value.split(',');
 			return result.every((item) => REGEXP.email.test(item.trim()));
 		},
@@ -134,8 +146,8 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must be at least %s characters in length.',
 		description: 'Must be at least X characters long.',
 		parameterRequired: true,
-		hook: (field: HTMLInputElement, param: string) => {
-			if (!REGEXP.numeric.test(field.value)) {
+		hook: (field: FormInput, param) => {
+			if (!param || !REGEXP.numeric.test(param)) {
 				return false;
 			}
 			return field.value.length >= parseInt(param, 10);
@@ -146,8 +158,8 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must not exceed %s characters in length.',
 		description: 'Must be no longer than X characters.',
 		parameterRequired: true,
-		hook: (field: HTMLInputElement, param: string) => {
-			if (!REGEXP.numeric.test(field.value)) {
+		hook: (field: FormInput, param) => {
+			if (!param || !REGEXP.numeric.test(param)) {
 				return false;
 			}
 			return field.value.length <= parseInt(param, 10);
@@ -158,8 +170,8 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must be exactly %s characters in length.',
 		description: 'Must be exactly X characters long.',
 		parameterRequired: true,
-		hook: (field: HTMLInputElement, param: string) => {
-			if (!REGEXP.numeric.test(field.value)) {
+		hook: (field: FormInput, param) => {
+			if (!param || !REGEXP.numeric.test(param)) {
 				return false;
 			}
 			return field.value.length === parseInt(param, 10);
@@ -170,23 +182,11 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must contain a number greater than %s.',
 		description: 'Must be greater than X.',
 		parameterRequired: true,
-		hook: (field: HTMLInputElement, param: string) => {
-			if (!REGEXP.decimal.test(field.value)) {
+		hook: (field: FormInput, param) => {
+			if (!param || !REGEXP.numeric.test(param)) {
 				return false;
 			}
 			return parseFloat(field.value) > parseFloat(param);
-		},
-	},
-	{
-		name: 'equals',
-		message: 'The %s field must equal %s.',
-		description: 'Must be equal to X.',
-		parameterRequired: true,
-		hook: (field: HTMLInputElement, param: string) => {
-			if (!param) {
-				return false;
-			}
-			return field.value.trim() === String(param).trim();
 		},
 	},
 	{
@@ -194,11 +194,20 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must contain a number less than %s.',
 		description: 'Must be less than X.',
 		parameterRequired: true,
-		hook: (field: HTMLInputElement, param: string) => {
-			if (!REGEXP.decimal.test(field.value)) {
+		hook: (field: FormInput, param) => {
+			if (!param || !REGEXP.numeric.test(param)) {
 				return false;
 			}
 			return parseFloat(field.value) < parseFloat(param);
+		},
+	},
+	{
+		name: 'equals',
+		message: 'The %s field must equal %s.',
+		description: 'Must be equal to X.',
+		parameterRequired: true,
+		hook: (field: FormInput, param) => {
+			return field.value.trim() === String(param).trim();
 		},
 	},
 	{
@@ -206,7 +215,7 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must only contain alphabetical characters.',
 		description: 'Can only contain alphabetical characters (A-z).',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return REGEXP.alpha.test(field.value);
 		},
 	},
@@ -215,7 +224,7 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must only contain alpha-numeric characters.',
 		description: 'Can only contain alpha-numeric characters (A-z, 0-9).',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return REGEXP.alphaNumeric.test(field.value);
 		},
 	},
@@ -226,7 +235,7 @@ export const RULES: ValidatorRule[] = [
 		description:
 			'Can only contain alpha-numeric characters, underscores, or dashes.',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return REGEXP.alphaDash.test(field.value);
 		},
 	},
@@ -235,7 +244,7 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must only contain a whole number.',
 		description: 'Must be a whole (non-negative) number.',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return REGEXP.numeric.test(field.value);
 		},
 	},
@@ -244,7 +253,7 @@ export const RULES: ValidatorRule[] = [
 		message: '%s must be an number.',
 		description: 'Must be an integer; either positive or negative.',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return REGEXP.integer.test(field.value);
 		},
 	},
@@ -254,7 +263,7 @@ export const RULES: ValidatorRule[] = [
 		description:
 			'Must be a valid integer or decimal consist of two parts: an integer and a fraction separated by a decimal point.',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return REGEXP.decimal.test(field.value);
 		},
 	},
@@ -263,7 +272,7 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must contain a valid IP address.',
 		description: 'Must be a valid IP address.',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return REGEXP.ip.test(field.value);
 		},
 	},
@@ -272,7 +281,7 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must contain a base64 string.',
 		description: 'Must be a base64 string.',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return REGEXP.base64.test(field.value);
 		},
 	},
@@ -282,7 +291,7 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must contain a valid phone number.',
 		description: 'Must be a valid phone number.',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return REGEXP.phone.test(field.value);
 		},
 	},
@@ -292,7 +301,7 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must contain a valid CVC.',
 		description: 'Must be a valid credit card cvc.',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return (
 				/^\d+$/.test(field.value) &&
 				field.value.length >= 3 &&
@@ -305,8 +314,8 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must contain a valid credit card number.',
 		description: 'Must be a valid credit card number.',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
-			if (REGEXP.creditCard.test(field.value)) {
+		hook: (field: FormInput) => {
+			if (!REGEXP.creditCard.test(field.value)) {
 				return false;
 			}
 
@@ -337,7 +346,8 @@ export const RULES: ValidatorRule[] = [
 		description:
 			'Must be a comma separated list of file types e.g.: gif,png,jpg.',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement, param: string) => {
+		hook: (field: FormInput, param) => {
+			if (!param?.length) return false;
 			const extTypes = param.split(',').map((e) => e.trim());
 			const ext = field.value.split('.').pop();
 			if (!ext?.length) {
@@ -347,11 +357,22 @@ export const RULES: ValidatorRule[] = [
 		},
 	},
 	{
+		name: 'hasSpecialChar',
+		message:
+			'The %s field must contain at least one special character e.g.: $&+,:;=?@#|\'"<>.^*()%!_-',
+		description:
+			'Must contain a special character e.g.: $&+,:;=?@#|\'"<>.^*()%!-.',
+		parameterRequired: false,
+		hook: (field: FormInput) => {
+			return REGEXP.hasSpecialChar.test(field.value);
+		},
+	},
+	{
 		name: 'hasNumber',
 		message: 'The %s field must contain at least one number.',
 		description: 'Must contain a number.',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return REGEXP.hasNumber.test(field.value);
 		},
 	},
@@ -360,7 +381,7 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must contain at least one upper case letter.',
 		description: 'Must contain an upper case letter.',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return REGEXP.hasUpper.test(field.value);
 		},
 	},
@@ -369,56 +390,86 @@ export const RULES: ValidatorRule[] = [
 		message: 'The %s field must contain at least one lower case letter.',
 		description: 'Must contain a lower case letter.',
 		parameterRequired: false,
-		hook: (field: HTMLInputElement) => {
+		hook: (field: FormInput) => {
 			return REGEXP.hasLower.test(field.value);
-		},
-	},
-	{
-		name: 'custom',
-		message: 'The %s field is invalid.',
-		description: 'Must match a regular expression.',
-		parameterRequired: true,
-		hook: (field: HTMLInputElement, param: string) => {
-			// This has difficulty parsing character classes
-			// like: \d, \D, \s, \S, \w, |W
-			// const match = param.match(/^\/(.*?)\/([gimy]*)$/);
-			const match = /^\/(.*?)\/([gimy]*)$/.exec(param); // <-- try this out... see if it works better.
-			if (!match?.length) {
-				return false;
-			}
-			const regexp = new RegExp(match[1], match[2]);
-			// console.log regex, field.value, regex.test(field.value)
-			return regexp.test(field.value);
 		},
 	},
 ];
 
 /**
- * Validate a form input.
- * @function validate
+ * Validate all inputs.
+ * @function validateAll
  * @return {ValidatorError[]}
  */
-export default function validate(input: HTMLInputElement): ValidatorError[] {
+export function validateAll(inputs: FormInput[]): ValidatorError[] {
+	let errors: ValidatorError[] = [];
+
+	for (const input of inputs) {
+		const err = validate(input);
+		if (err.length) {
+			errors = errors.concat(err);
+		}
+	}
+
+	return errors;
+}
+/**
+ * Utility for validating form inputs and displaying error messages.
+ *
+ * @function validate
+ * @param {FormInput} input The input element to validate
+ * @param {String} fields.id input id
+ * @return {ValidatorError[]} A collection of validation errors.
+ * @example
+ * <script>
+ * const inputEl = getElementById('email');
+ * function submit () {
+ *   const errors = validate( inputEl );
+ *   if (!errors) { fetch(...) }
+ * }
+ * </script>
+ *
+ * <label for="email">Email</label>
+ * <input type="email"
+ *   id="email"
+ *   name="email"
+ *   data-validate-rules='require,email'
+ *   data-validate-message="My custom validation message (or just use the default)"
+ *   data-validate-hide-errors />
+ */
+export default function validate(input: FormInput): ValidatorError[] {
 	const errors: ValidatorError[] = [];
+
+	// could make this a recursive function
+	// if (!input) {
+	// 	return validateAll(document.querySelectorAll('[data-validate-rule]'));
+	// }
 
 	const hideErrors =
 		Object.prototype.hasOwnProperty.call(
 			input.dataset,
-			'validate-hide-errors'
-		) && input.dataset['validate-hide-errors'] !== 'false';
+			'validateHideErrors'
+		) && input.dataset.validateHideErrors !== 'false';
 
 	if (!hideErrors) {
 		removeAllValidationErrors();
 	}
 
-	const ruleData = input.dataset['validate-rules'];
+	const ruleData = input.dataset.validateRules;
+
 	const label = document.querySelector<HTMLLabelElement>(
 		`label[for="${input.id}"]`
 	);
 
-	const labelText: string = label
-		? label.innerText
-		: input.placeholder || input.name || '';
+	let labelText = '';
+
+	if (label) {
+		labelText = label.innerText;
+	} else if (!labelText.length && input.name && input.name.length) {
+		labelText = input.name;
+	} else {
+		labelText = input.getAttribute('placeholder') ?? '';
+	}
 
 	if (!ruleData?.length) {
 		return errors;
@@ -427,31 +478,34 @@ export default function validate(input: HTMLInputElement): ValidatorError[] {
 	const rules = ruleData.split(',').map((rule) => rule.trim());
 
 	for (const ruleName of rules) {
-		const rule = getRule(ruleName);
-		const parts = parseRuleParams(ruleName) as string[];
+		const params = parseRuleParams(ruleName);
 
-		if (!rule || !parts.length) {
+		const rule = getRule(params.rule);
+		// console.log(params);
+
+		if (!rule) {
 			continue;
 		}
 
-		const method = parts[1];
-		const param = parts[2];
-		const valid = rule.hook.apply({}, [input, param]);
+		const valid = rule.hook(input, params.param);
 
 		if (!valid) {
-			const msg = input.dataset['validate-message'] ?? rule.message;
+			const msg = input.dataset.validateMessage?.length
+				? input.dataset.validateMessage
+				: rule.message;
 
-			const errMsg = parseValidationMessage(msg, labelText, param);
+			const errMsg = parseValidationMessage(msg, labelText, params.param);
 			const err: ValidatorError = {
 				id: input.id,
 				name: input.name,
 				class: input.className,
+				value: input.value,
 				error: errMsg,
-				rule: method,
+				rule: params.rule,
 			};
 
-			if (param) {
-				err.parameter = param;
+			if (params.param) {
+				err.parameter = params.param;
 			}
 
 			errors.push(err);
@@ -468,13 +522,13 @@ export default function validate(input: HTMLInputElement): ValidatorError[] {
 /**
  * Add a validation error messages before or after an input.
  * @function renderValidationError
- * @param {HTMLInputElement} input The input that errored.
+ * @param {FormInput} input The input that errored.
  * @param {ValidatorError} error The validation error data.
  * @param {'before' | 'after'} position='after' Whether to place the error message before or after the input.
  * @return {void}
  */
 export function renderValidationError(
-	input: HTMLInputElement,
+	input: FormInput,
 	error: ValidatorError,
 	position: 'before' | 'after' = 'after'
 ): void {
@@ -483,12 +537,12 @@ export function renderValidationError(
 	const label = document.createElement('label');
 	label.className = 'validation-error-message';
 	label.setAttribute('for', error.name);
-	label.innerHTML = error.error;
+	label.textContent = error.error;
 
 	const parent = input.parentNode as HTMLElement;
 
 	// parent.appendChild(error.label, element.nextSibling);
-	parent.insertAdjacentElement(
+	input.insertAdjacentElement(
 		position === 'before' ? 'beforebegin' : 'afterend',
 		label
 	);
@@ -516,14 +570,28 @@ export function removeAllValidationErrors(): void {
 }
 
 /**
- * Separates the parameter from the rule name. e.g.: maxLength[1] => ['maxLength', 8].
+ * Separates the parameter from the rule name. e.g.: minLength[8] => {rule:'maxLength', param:'8'}.
  * @function parseRuleParams
- * @param {String} rule name of rule to find
- * @return {ValidatorRule | undefined}
+ * @param {String} rule The rule to parse. e.g.: maxLength[20]
+ * @return {string[]}
  */
-function parseRuleParams(rule: string): RegExpExecArray | null {
-	return /^(.+?)\[(.+)\]$/.exec(rule);
-}
+export const parseRuleParams = (
+	str: string
+): { rule: string; param?: string } => {
+	const execArr = /^(.+?)\[(.+)\]$/.exec(str);
+	const result: { rule: string; param?: string } = {
+		rule: str,
+	};
+
+	if (!execArr?.length) {
+		return result;
+	}
+
+	if (execArr.length > 1) result.rule = execArr[1];
+	if (execArr.length > 2) result.param = execArr[2];
+
+	return result;
+};
 
 /**
  * Find a validation rule by name.
@@ -531,31 +599,27 @@ function parseRuleParams(rule: string): RegExpExecArray | null {
  * @param {String} rule name of rule to find
  * @return {ValidatorRule | undefined}
  */
-function getRule(name: string): ValidatorRule | undefined {
-	return RULES.find((rule) => (rule.name = name));
+export function getRule(name: string): ValidatorRule | undefined {
+	return RULES.find((rule) => rule.name === name);
 }
 
 /**
  * Parse validation message with label and param.
  * @function parseValidationMessage
- * @param {String} message the message to parse
- * @param {String} label to field label
- * @param {String} param to field parameter
- * @return {String}
+ * @param {string} message the message to parse
+ * @param {string} label to field label
+ * @param {string | null} param to field parameter
+ * @return {string}
  */
-function parseValidationMessage(
+export function parseValidationMessage(
 	message: string,
 	label: string,
-	param: string
+	param?: string
 ): string {
-	if (message) {
-		message = message.replace('%s', label);
+	message = message.replace('%s', label);
 
-		if (param) {
-			message = message.replace('%s', param);
-		}
-	} else {
-		message = `An error has occurred with the ${label} field.`;
+	if (param) {
+		message = message.replace('%s', param.toString());
 	}
 
 	return message;

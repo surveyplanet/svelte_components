@@ -1,6 +1,11 @@
 {
 	"name": "@surveyplanet/svelte-components",
 	"version": "0.0.8",
+	"homepage": "https://github.com/surveyplanet/svelte_components",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:surveyplanet/svelte_components.git"
+	},
 	"scripts": {
 		"clean": "rm -rf package coverage node_modules dist static .svelte-kit && npm i",
 		"clean:hard": "rm package-lock.json && npm run clean",

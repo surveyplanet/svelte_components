@@ -17,7 +17,14 @@
 	const dispatch = createEventDispatcher();
 
 	const changeHandler = (event: Event) => {
-		validate(event.target as HTMLInputElement);
+		const errors: ValidatorError[] = validate(
+			event.target as HTMLInputElement
+		);
+		console.log('validation errors', errors);
+
+		if (errors.length) {
+			return;
+		}
 		dispatch('change', event);
 	};
 
@@ -57,7 +64,7 @@
 		data-validate-rules={validationRules?.length ? validationRules : ''}
 		data-validate-message={validationMessage?.length
 			? validationMessage
-			: ''}
+			: null}
 		data-validate-hide-errors={validationHideMessage}
 		on:blur={blurHandler}
 		on:change={changeHandler}

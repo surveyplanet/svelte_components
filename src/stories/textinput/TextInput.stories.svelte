@@ -88,3 +88,13 @@
 		placeholder: 'Placeholder',
 	}}
 	play={test.noLabel} />
+
+<Story
+	name="Validate"
+	args={{
+		id: 'text-input-id',
+		label: 'Email require',
+		placeholder: 'Email require',
+		validationRules: 'require,email',
+	}}
+	play={test.noLabel} />
