@@ -32,10 +32,14 @@ module.exports = {
 			files: ['**/*.svelte'],
 			processor: 'svelte3/svelte3',
 		},
+		{
+			files: ['stories/**/*.ts', 'stories/**/*.svelte'],
+			rules: {
+				'@typescript-eslint/unbound-method': 'warn',
+			},
+		},
 	],
-	rules: {
-		'@typescript-eslint/unbound-method': 'warn',
-	},
+	rules: {},
 	ignorePatterns: [
 		'*.cjs',
 		'.DS_Store',
