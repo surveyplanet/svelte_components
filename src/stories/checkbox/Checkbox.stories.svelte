@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { subscribe } from 'svelte/internal';
 	import { Checkbox } from '../../lib';
 	import * as test from './checkbox.test';
 
