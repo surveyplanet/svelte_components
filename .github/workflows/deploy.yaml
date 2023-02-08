@@ -63,3 +63,28 @@ jobs:
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v1
+
+            - name: Install Playwright (for tests)
+              run: npx playwright install --with-deps
+
+            # Testing locally doesn't work with svelte csf:
+            # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
+            # - name: Run Storybook tests
+            #   run: ./node_modules/.bin/test-storybook
+            #   env:
+            #       TARGET_URL: '${{ github.event.deployment_status.target_url }}'
+            #  OR
+            # - name: Serve Storybook and run tests
+            #   run: |
+            #       npx concurrently -k -s first -n "Storybook,tests" -c "green,blue" \
+            #       "npx http-server static --port 6006 --silent" \
+            #       "npx wait-on tcp:6006 && ./node_modules/.bin/test-storybook"
+
+            - name: Run Storybook tests
+              run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
+
+            - name: Package components
+              run: npm run package
+
+            - name: Publish
+              run: cd package && npm publish --access public
