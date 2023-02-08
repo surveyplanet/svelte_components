@@ -17,7 +17,7 @@
 	export let challenge: string | null = null;
 
 	let visible = true;
-	$: disabledButton = challenge?.length as boolean;
+	$: disabledButton = challenge?.length as unknown as boolean;
 
 	// handlers
 	const challengeHandler = <
@@ -30,16 +30,19 @@
 		dispatch('alertChallenge', input.value);
 	};
 
-	(async function (): void {
+	(async function () {
 		await tick();
 		dispatch('alertOpen');
-		// TODO: test this
-		if (!confirm && hideDelay > 0) {
-			setTimeout(() => {
-				visible = false;
-			}, hideDelay);
+		try {
+			if (!confirm && hideDelay > 0) {
+				setTimeout(() => {
+					visible = false;
+				}, hideDelay);
+			}
+		} catch (e) {
+			console.error(e);
 		}
-	})();
+	})() as unknown;
 
 	function destroy() {
 		dispatch('alertClose');

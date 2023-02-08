@@ -1,8 +1,10 @@
+/*eslint eslint-comments/disable-enable-pair: ["error", { "allowWholeFile": true }]*/
+/* eslint-disable @typescript-eslint/unbound-method */
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { delay } from '@surveyplanet/utilities';
 
-export const defaultAlert = async (res: StoryBookPlayArgs) => {
+export const defaultAlert = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
 	const alert = canvas.getByRole('alert');
@@ -43,7 +45,6 @@ export const closeAlert = async (res: StoryBookPlayArgs) => {
 	await delay(301);
 
 	expect(alert).not.toHaveClass('sp-alert--visible');
-	// expect(res.args.transitionendHandler).toHaveBeenCalled();
 };
 
 export const confirmAlert = async (res: StoryBookPlayArgs) => {
@@ -78,7 +79,6 @@ export const challenge = async (res: StoryBookPlayArgs) => {
 
 	expect(submitButton.parentElement).toHaveClass('sp-alert--confirm');
 	expect(closeButton.parentElement).toHaveClass('sp-alert--close');
-	// expect(res.args.transitionendHandler).toHaveBeenCalled();
 	userEvent.click(submitButton);
 
 	userEvent.type(textInput, 'test');
