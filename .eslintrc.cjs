@@ -7,7 +7,7 @@ module.exports = {
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		// sourceType: 'module',
-		// ecmaVersion: 2020,
+		ecmaVersion: 2020,
 		tsconfigRootDir: __dirname,
 		project: './tsconfig.json',
 		extraFileExtensions: ['.svelte'],
@@ -33,7 +33,9 @@ module.exports = {
 			processor: 'svelte3/svelte3',
 		},
 	],
-	rules: {},
+	rules: {
+		'@typescript-eslint/unbound-method': 'warn',
+	},
 	ignorePatterns: [
 		'*.cjs',
 		'.DS_Store',

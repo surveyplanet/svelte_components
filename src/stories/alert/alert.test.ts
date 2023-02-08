@@ -1,5 +1,3 @@
-/*eslint eslint-comments/disable-enable-pair: ["error", { "allowWholeFile": true }]*/
-/* eslint-disable @typescript-eslint/unbound-method */
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { delay } from '@surveyplanet/utilities';
