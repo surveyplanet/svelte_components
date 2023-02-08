@@ -1,6 +1,6 @@
-import { within, userEvent, fireEvent } from '@storybook/testing-library';
+import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { delay } from '../../lib';
+import { delay } from '@surveyplanet/utilities';
 
 export const defaultAlert = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
@@ -14,34 +14,36 @@ export const defaultAlert = async (res: StoryBookPlayArgs) => {
 
 	expect(alert).toBeInTheDocument();
 	expect(title).toBeInTheDocument();
+	expect(close).toBeInTheDocument();
 	expect(subtitle).toBeInTheDocument();
 	expect(body).toBeInTheDocument();
 	expect(style.getPropertyValue('background-color')).toBe(
 		'rgb(217, 254, 219)'
 	);
 
-	// expect(res.args.alertInHandler).toHaveBeenCalled();
-	// expect(res.args.alertOpenHandler).toHaveBeenCalled();
 	expect(alert).toHaveClass('sp-alert');
 	expect(alert).toHaveClass('sp-alert--info');
 	expect(alert).toHaveAttribute('role', 'alert');
-	expect(alert).toHaveAttribute('aria-live', 'polite');
-	expect(alert).toHaveAttribute('aria-atomic', 'true');
+	expect(alert).toHaveClass('sp-alert--visible');
 
-	expect(close).toHaveAttribute('aria-label', 'Close info alert');
+	expect(close).toHaveClass('sp-alert--header--close-btn');
 
 	expect(title).toHaveClass('sp-alert--header--title');
 	expect(subtitle).toHaveClass('sp-alert--header--subtitle');
 	expect(body).toHaveClass('sp-alert--body');
+};
+
+export const closeAlert = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+	const alert = canvas.getByRole('alert');
+	const close = canvas.getByRole('button');
+	expect(alert).toHaveClass('sp-alert--visible');
 
 	userEvent.click(close);
-	await delay(1000);
+	await delay(301);
 
-	expect(alert).toHaveClass('sp-alert--hidden');
-	expect(res.args.alertOutHandler).toHaveBeenCalled();
-
-	// await delay(1000);
-	// expect(res.args.alertCloseHandler).toHaveBeenCalled();
+	expect(alert).not.toHaveClass('sp-alert--visible');
+	// expect(res.args.transitionendHandler).toHaveBeenCalled();
 };
 
 export const confirmAlert = async (res: StoryBookPlayArgs) => {
@@ -51,14 +53,14 @@ export const confirmAlert = async (res: StoryBookPlayArgs) => {
 	const confirmButton = canvas.getByRole('button', { name: 'Confirm' });
 
 	expect(confirmButton).toBeInTheDocument();
+	expect(confirmButton.parentElement).toHaveClass('sp-alert--confirm');
 
 	userEvent.click(confirmButton);
-	await delay(1000);
+	await delay(301);
 
 	expect(res.args.alertConfirmHandler).toHaveBeenCalled();
-	expect(res.args.alertOutHandler).toHaveBeenCalled();
 
-	expect(alert).toHaveClass('sp-alert--hidden');
+	expect(alert).not.toHaveClass('sp-alert--visible');
 };
 
 export const challenge = async (res: StoryBookPlayArgs) => {
@@ -66,26 +68,27 @@ export const challenge = async (res: StoryBookPlayArgs) => {
 
 	const alert = canvas.getByRole('alert');
 	const submitButton = canvas.getByRole('button', { name: 'Submit' });
+	const closeButton = canvas.getByRole('button', { name: 'Close' });
 	const textInput = canvas.getByRole('textbox');
 
 	expect(alert).toBeInTheDocument();
 	expect(submitButton).toBeInTheDocument();
+	expect(closeButton).toBeInTheDocument();
+	expect(textInput).toBeInTheDocument();
 
+	expect(submitButton.parentElement).toHaveClass('sp-alert--confirm');
+	expect(closeButton.parentElement).toHaveClass('sp-alert--close');
+	// expect(res.args.transitionendHandler).toHaveBeenCalled();
 	userEvent.click(submitButton);
-
-	expect(res.args.challengeHandler).not.toHaveBeenCalled();
-	expect(res.args.alertOutHandler).not.toHaveBeenCalled();
 
 	userEvent.type(textInput, 'test');
 	expect(textInput).toHaveValue('test');
 
-	await delay(1000);
+	await delay(301);
 
-	// expect(res.args.challengeHandler).toBeCalledTimes(4);
+	expect(res.args.challengeHandler).toBeCalledTimes(4);
 
 	userEvent.click(submitButton);
-
-	expect(res.args.alertOutHandler).toHaveBeenCalled();
 };
 
 export const delayHide = async (res: StoryBookPlayArgs) => {
@@ -95,19 +98,28 @@ export const delayHide = async (res: StoryBookPlayArgs) => {
 
 	await delay(1000);
 
-	expect(alert).toHaveClass('sp-alert--hidden');
+	expect(alert).not.toHaveClass('sp-alert--visible');
+};
+
+export const delayHideConfirm = async (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+	const alert = canvas.getByRole('alert');
+	const confirmButton = canvas.getByRole('button', { name: 'Confirm' });
+
+	expect(confirmButton).toBeInTheDocument();
+	expect(alert).toHaveClass('sp-alert--visible');
 
 	await delay(1000);
 
-	expect(res.args.alertOutHandler).toHaveBeenCalled();
+	expect(alert).toHaveClass('sp-alert--visible');
 };
 
-export const html = async (res: StoryBookPlayArgs) => {
+export const html = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 
 	const html = canvas.getByText('Test the HTML');
 
 	expect(html).toBeInTheDocument();
 
-	expect(html).not.toHaveClass('test-class');
+	expect(html).toHaveClass('test-class');
 };

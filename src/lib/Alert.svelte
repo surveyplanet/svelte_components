@@ -1,40 +1,23 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import Button from './Button.svelte';
-	import TextInput from './TextInput.svelte';
-	import { BUTTON_MODES } from './';
+	import { tick } from 'svelte';
+	import { BUTTON_MODES, Button, Icon, TextInput } from './';
 
 	const dispatch = createEventDispatcher();
 
-	export let title: string;
-	export let subtitle: string;
-	export let type = 'info' | 'warning' | 'error' | 'success';
-	export let hideDelay: number;
+	export let title: string | null;
+	export let subtitle: string | null;
+	export let type: 'info' | 'warning' | 'error' | 'success' = 'success';
+	export let hideDelay = 0;
 
-	export let confirm: true;
-	export let confirmLabel: string | null = null;
-	export let confirmCancelLabel: string = 'Cancel';
-
-	export let challenge: string | null = null;
+	export let confirm = false;
+	export let confirmButtonLabel = 'Confirm';
+	export let cancelButtonLabel = 'Close';
 	export let challengeLabel: string | null = null;
-	export let challengeCancelLabel: string = 'Cancel';
+	export let challenge: string | null = null;
 
-	let visible = false;
-
-	// delay hiding the alert
-	if (hideDelay > 0) {
-		setTimeout(() => {
-			visible = false;
-			alertOutHandler();
-		}, hideDelay);
-	}
-
-	// aria stuff
-	let ariaLive = type === 'info' ? 'polite' : 'assertive';
-
-	let disabledButton = true;
-
-	let alert: HTMLDivElement;
+	let visible = true;
+	$: disabledButton = challenge?.length as boolean;
 
 	// handlers
 	const challengeHandler = <
@@ -43,53 +26,68 @@
 		event: T
 	): void => {
 		const input = event.detail.target;
-
-		if (input.value === challenge) {
-			disabledButton = false;
-		} else {
-			disabledButton = true;
-		}
+		disabledButton = input.value !== challenge;
+		dispatch('alertChallenge', input.value);
 	};
 
-	//  watch out for ghost events!
-	// Where dom elements are invisible and still firing events.
+	(async function (): void {
+		await tick();
+		dispatch('alertOpen');
+		// TODO: test this
+		if (!confirm && hideDelay > 0) {
+			setTimeout(() => {
+				visible = false;
+			}, hideDelay);
+		}
+	})();
+
 	function destroy() {
 		dispatch('alertClose');
 		visible = false;
 	}
 
-	const alertOutHandler = (event: Event) => {
-		destroy();
-	};
-
-	const alertConfirmHandler = (event: Event) => {
+	const alertConfirmHandler = () => {
 		dispatch('alertConfirm');
 		destroy();
 	};
 
-	const closeButtonClickHandler = (event: Event) => {
-		dispatch('alertNotConfirmed');
+	const closeButtonClickHandler = () => {
+		dispatch('alertNotConfirm');
 		destroy();
+	};
+
+	const transitionendHandler = () => {
+		if (!visible) {
+			console.log('alertOut');
+			dispatch('alertOut');
+		} else {
+			console.log('alertIn');
+			dispatch('alertIn');
+		}
 	};
 </script>
 
 <div
+	on:transitionend={transitionendHandler}
 	class="sp-alert sp-alert--{type}"
 	role="alert"
-	class:sp-alert--hidden={!visible}
+	class:sp-alert--visible={visible}
 	class:sp-alert--confirm={confirm}
 	class:sp-alert--challenge={challenge?.length}>
 	<div class="sp-alert--header">
-		<button
-			class="sp-alert--cancel"
-			aria-label={`Close ${type} alert`}
-			on:click={closeButtonClickHandler}>X</button>
+		{#if !confirm}
+			<button
+				on:click={closeButtonClickHandler}
+				class="sp-alert--header--close-btn">
+				<Icon name="close" />
+			</button>
+		{/if}
 
-		{#if title?.length > 0}
+		{#if title?.length}
 			<h3 class="sp-alert--header--title">{title}</h3>
 		{/if}
 
-		{#if subtitle?.length > 0}
+		{#if subtitle?.length}
 			<h4 class="sp-alert--header--subtitle">{subtitle}</h4>
 		{/if}
 	</div>
@@ -99,33 +97,42 @@
 	</div>
 
 	{#if confirm}
-		<div class="sp-alert--confirm">
-			<Button
-				on:click={alertOutHandler}
-				on:click={alertConfirmHandler}
-				mode={BUTTON_MODES.PRIMARY}>Confirm</Button>
-		</div>
-	{/if}
-
-	{#if challenge?.length}
-		<div class="sp-alert--challenge">
-			<TextInput
-				label={challengeLabel}
-				placeholder={challenge}
-				on:keyup={challengeHandler} />
-		</div>
-
-		<div class="sp-alert--confirm">
-			<Button
-				on:click={alertOutHandler}
-				disabled={disabledButton}
-				mode={BUTTON_MODES.TERTIARY}>Submit</Button>
-		</div>
+		<footer class="sp-alert--footer">
+			{#if challenge?.length}
+				<div class="sp-alert--challenge">
+					<TextInput
+						label={challengeLabel}
+						placeholder={challenge}
+						on:keyup={challengeHandler} />
+				</div>
+			{/if}
+			<nav>
+				<ul>
+					<li class="sp-alert--confirm">
+						<Button
+							disabled={disabledButton}
+							on:click={alertConfirmHandler}
+							mode={BUTTON_MODES.PRIMARY}>
+							{confirmButtonLabel}
+						</Button>
+					</li>
+					<li class="sp-alert--close">
+						<Button
+							on:click={closeButtonClickHandler}
+							mode={BUTTON_MODES.SECONDARY}>
+							{cancelButtonLabel}
+						</Button>
+					</li>
+				</ul>
+			</nav>
+		</footer>
 	{/if}
 </div>
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
+
+	$animation-speed: 300ms;
 
 	.sp-alert {
 		border: 1px solid $color--slate-dark;
@@ -140,12 +147,14 @@
 		position: relative;
 		z-index: 1000;
 		font: $font--default;
-		transition: opacity 0.3s ease-in-out;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity $animation-speed ease-in-out,
+			visibility $animation-speed ease-in-out;
 
-		&.sp-alert--hidden {
-			opacity: 0;
-			visibility: hidden;
-			// pointer-events: none;
+		&.sp-alert--visible {
+			opacity: 1;
+			visibility: visible;
 		}
 
 		&.sp-alert--info {
@@ -179,9 +188,13 @@
 		flex-direction: column;
 	}
 
-	// .sp-alert--header--title { }
-	// .sp-alert--header--subtitle { }
-	// .sp-alert--body { }
+	.sp-alert--footer {
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+	}
 
 	.sp-alert--challenge {
 		margin-top: $size--16;
@@ -203,10 +216,5 @@
 	.sp-alert--cancel:active {
 		transform: translate(1px, 1px);
 		box-shadow: 1px 1px 1px 0px $color--slate-dark;
-	}
-
-	.sp-alert--confirm {
-		display: flex;
-		justify-content: flex-end;
 	}
 </style>
