@@ -1,9 +1,7 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { BUTTON_MODES, SIZES } from '../../lib/_definitions';
+	import { BUTTON_MODES, SIZES, Button, Icon } from '../../lib';
 	import argTypes from './button_args';
-	import Button from '../../lib/Button.svelte';
-	import Icon from '../../lib/Icon.svelte';
 	import * as tests from './button.test';
 </script>
 
@@ -17,7 +15,10 @@
 	}} />
 
 <Template let:args>
-	<Button {...args}>Button</Button>
+	<Button
+		{...args}
+		disabled={true}
+		loader={true}>Button</Button>
 </Template>
 
 <Story
@@ -25,7 +26,7 @@
 	play={tests.loaderDefault} />
 
 <Story
-	name="Loader secondary large"
+	name="Secondary large"
 	args={{
 		mode: BUTTON_MODES.SECONDARY,
 		size: SIZES.LARGE,
@@ -33,7 +34,7 @@
 	play={tests.loaderSecondaryLarge} />
 
 <Story
-	name="Loader tertiary small"
+	name="Tertiary small"
 	args={{
 		size: SIZES.SMALL,
 		mode: BUTTON_MODES.TERTIARY,
@@ -51,7 +52,7 @@
 </Story>
 
 <Story
-	name="Loader rounded"
+	name="Rounded"
 	args={{
 		round: true,
 	}}

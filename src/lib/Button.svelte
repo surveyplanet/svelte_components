@@ -53,10 +53,10 @@
 	let active: boolean = false;
 
 	const clickHandler = (e: MouseEvent): void => {
-		dispatch('clickEvent', e);
+		dispatch('click', e);
 	};
 
-	const mouseUpHandler = (e: MouseEvent): void => {
+	const mouseUpHandler = (): void => {
 		deactivate();
 	};
 	const mouseDownHandler = (e: MouseEvent): void => {
@@ -95,6 +95,7 @@
 	on:mousedown={mouseDownHandler}>
 	<span
 		class="sp-button--ripple"
+		aria-hidden="true"
 		bind:this={clickAnimationEl} />
 
 	<span class="sp-button--label"><slot /></span>
@@ -107,15 +108,16 @@
 	$anim--active-size: px-to-rem(150);
 
 	@include spin(); // loader animation
-	@include fadeInOut(); // click animation
+	@include fade-in-out(); // click animation
 
 	.sp-button {
+		box-sizing: border-box;
 		position: relative;
 		overflow: hidden;
 		cursor: pointer;
 		display: inline-block;
 		height: $size--40;
-		padding: 0 $size--20;
+		padding: 1px $size--20 0;
 		border: 0;
 		border-radius: 5px;
 		font: $font--default;
@@ -157,9 +159,8 @@
 			}
 		}
 
-		&:focus {
-			outline: none;
-			// box-shadow: inset 0px 0px 3px 2px $color--blue;
+		@include set-focus {
+			border: 1px solid $color--slate-dark;
 		}
 
 		&.sp-button--block {
@@ -385,6 +386,11 @@
 				}
 			}
 
+			&:before {
+				background: unset;
+				background-image: unset;
+			}
+
 			&:after {
 				content: '';
 				box-sizing: border-box;
@@ -420,7 +426,7 @@
 		}
 
 		.sp-button--label {
-			display: inline-flex;
+			display: flex;
 			justify-content: center;
 			align-items: center;
 			column-gap: $size--6;

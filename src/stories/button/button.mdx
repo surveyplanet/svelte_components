@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/addon-docs';
 
-import Button from '../../lib/Button.svelte';
+import { Button } from '../../lib';
 
 <Meta
 	title="Button/Documentation"
@@ -10,12 +10,12 @@ import Button from '../../lib/Button.svelte';
 # Button component
 
 <div id="example">
-	<Story id="button-basic--primary" />
+	<Story id="button-default--primary" />
 </div>
 
 ## Usage
 
-```js
+```html
 <script>
 	import { Button } from '@surveyplanet/svelte-components';
 	const props = {

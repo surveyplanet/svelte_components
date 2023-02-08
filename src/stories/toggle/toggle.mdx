@@ -7,32 +7,50 @@ import {
 	Story,
 } from '@storybook/addon-docs';
 
-import Toggle from '../../lib/Toggle.svelte';
+import { Toggle } from '../../lib';
 
 <Meta
-	title="Toggle/Documentation"
+	title="Form Inputs/Toggle"
 	component={Toggle}
 />
 
 # Toggle component
 
 <div id="example">
-	<Story id="toggle-default--default" />
+	<Story id="form-inputs-toggle--default" />
 </div>
 
 ## Usage
 
-```ts
+```html
 <script>
-	import {Toggle} from '@surveyplanet/svelte-components';
-	const disabled = false;
+	import { Toggle } from '@surveyplanet/svelte-components';
+	function changeEventHandler(on) {
+		if (on) {
+			console.log('Toggle ON 🎉');
+		} else {
+			console.log('Toggle OFF 😤');
+		}
+	}
 </script>
 
-<Toggle {disabled}></Toggle>
+<Toggle
+	on
+	disabled
+	tall
+	on:change="{changeEventHandler}"></Toggle>
 ```
 
-## Parameters
+## Properties
 
-| Name      | Type    | Description     |
-| --------- | ------- | --------------- |
-| disabeled | boolean | disables toggle |
+| Name      | Type    | Description                                                  |
+| --------- | ------- | ------------------------------------------------------------ |
+| on        | boolean | Whether the toggle is on or not                              |
+| disabeled | boolean | Whether the toggle is disabled or not                        |
+| tall      | boolean | Whether the toggle should appear slightly taller than normal |
+
+## Events
+
+| Name   | Return type | Description                                                                            |
+| ------ | ----------- | -------------------------------------------------------------------------------------- |
+| change | Boolean     | When the toggle is clicked the 'change' event is dispatched along with the on property |

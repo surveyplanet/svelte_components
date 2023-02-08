@@ -1,41 +1,33 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 	import * as test from './avatar.test';
-	import Avatar from '../../lib/Avatar.svelte';
-	import { SIZES, COLORS } from '../../lib/_definitions';
+	import { SIZES, COLORS, Avatar } from '../../lib';
 </script>
 
 <Meta
 	title="Avatar/Default"
 	component={Avatar}
 	argTypes={{
-		clickHandler: { action: 'clickEvent' },
-		email: { control: 'text' },
+		clickHandler: { action: 'click' },
+		id: { control: 'text' },
 		size: {
 			control: 'select',
 			options: [SIZES.SMALL, SIZES.MEDIUM, SIZES.LARGE],
 			defaultValue: SIZES.SMALL,
 		},
-		bgColor: { control: 'color' },
 		imgSrc: { control: 'text' },
 	}} />
 
-<Template
-	let:args
-	parameters={{
-		backgrounds: {
-			default: 'darkest',
-		},
-	}}>
+<Template let:args>
 	<Avatar
 		{...args}
-		on:clickEvent={args.clickHandler} />
+		on:click={args.clickHandler} />
 </Template>
 
 <Story
 	name="Primary"
 	args={{
-		email: 'jonah@surveyplanet.com',
+		id: 'example@example.com',
 	}}
 	play={test.primary} />
 
@@ -52,5 +44,11 @@
 	play={test.large}>
 	<Avatar
 		size={SIZES.LARGE}
-		email="uelloworld@surveyplanet.com" />
+		id="uelloworld@surveyplanet.com" />
+</Story>
+
+<Story
+	name="Disabled"
+	play={test.disabled}>
+	<Avatar disabled />
 </Story>

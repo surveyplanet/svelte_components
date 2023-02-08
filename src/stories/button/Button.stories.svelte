@@ -1,33 +1,23 @@
 <script lang="ts">
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { action } from '@storybook/addon-actions';
-	import { BUTTON_MODES, SIZES } from '../../lib/_definitions';
-	import Button from '../../lib/Button.svelte';
+	import { Button, BUTTON_MODES, SIZES } from '../../lib';
 	import * as tests from './button.test';
 	import argTypes from './button_args';
-	import { getNodeText } from '@storybook/testing-library';
-	import { expect } from '@storybook/jest';
-	import { delay } from '../../lib/_utils';
-
-	// const clickEventHandler = (e) => {
-	// 	return action('clickEvent')(e);
-	// };
 </script>
 
 <Meta
-	title="Button/Basic"
+	title="Button/Default"
 	component={Button}
 	{argTypes} />
 
 <Template let:args>
 	<Button
 		{...args}
-		on:clickEvent={args.clickHandler}>Button</Button>
+		on:click={args.clickHandler}>Button</Button>
 </Template>
 
 <Story
 	name="Primary"
-	let:args
 	play={tests.primary} />
 
 <Story

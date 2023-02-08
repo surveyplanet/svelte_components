@@ -1,13 +1,22 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-
-	import Icon from '../../lib/Icon.svelte';
+	import { COLORS, Icon } from '../../lib';
 	import { basic, light } from './icon.test';
 </script>
 
 <Meta
 	title="Icon/Default"
-	component={Icon} />
+	component={Icon}
+	argTypes={{
+		name: { control: 'text' },
+		size: {
+			control: 'select',
+			options: [8, 16, 20, 24, 32, 48, 64, 128, 256, 512],
+			defaultValue: 48,
+		},
+		color: { control: 'color', defaultValue: '#FFFFFF' },
+		debug: { control: 'boolean', defaultValue: false },
+	}} />
 
 <Template let:args>
 	<Icon {...args} />
@@ -30,7 +39,7 @@
 	}}
 	parameters={{
 		backgrounds: {
-			default: 'darkest',
+			default: COLORS.slate_dark,
 		},
 	}}
 	play={light} />

@@ -1,7 +1,7 @@
-import { SIZES, BUTTON_MODES } from '../../lib/_definitions';
+import { SIZES, BUTTON_MODES } from '../../lib';
 
 export default {
-	clickHandler: { action: 'clickEvent' },
+	clickHandler: { action: 'click' },
 	disabled: { control: 'boolean', defaultValue: false },
 	loader: { control: 'boolean', defaultValue: false },
 	round: { control: 'boolean', defaultValue: false },

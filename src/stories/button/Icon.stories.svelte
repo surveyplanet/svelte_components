@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { action } from '@storybook/addon-actions';
-	import { BUTTON_MODES, SIZES } from '../../lib/_definitions';
-	import Button from '../../lib/Button.svelte';
-	import Icon from '../../lib/Icon.svelte';
+	import { BUTTON_MODES, SIZES, Button, Icon } from '../../lib';
 	import * as tests from './button.test';
 	import argTypes from './button_args';
 </script>
@@ -14,12 +11,18 @@
 	{argTypes} />
 
 <Template let:args>
-	<Button {...args}>Icon Button <Icon name="add" /></Button>
+	<Button {...args}>Icon Button<Icon name="add" /></Button>
 </Template>
 
 <Story
 	name="Default"
 	play={tests.iconDefault} />
+
+<Story
+	name="Icon left"
+	play={tests.iconLeft}>
+	<Button><Icon name="add" />Icon Button</Button>
+</Story>
 
 <Story
 	name="Dark"

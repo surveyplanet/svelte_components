@@ -14,12 +14,14 @@
 	@use '@surveyplanet/styles' as *;
 
 	.sp-badge {
-		display: inline-flex;
+		box-sizing: border-box;
+		display: inline-block;
 		height: $size--14;
-		padding: 0 $size--4;
+		max-width: 100%;
+		padding: 0.5px $size--6;
 		text-align: center;
 		white-space: nowrap;
-		vertical-align: baseline;
+		vertical-align: middle;
 		border-radius: $size-radius--large;
 		color: $color--slate-dark;
 		font: $font--xsmall-bold;
@@ -27,6 +29,8 @@
 		font-size: $size--8;
 		text-transform: uppercase;
 		background-color: $color--yellow;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	:global(.sp-icon) {
