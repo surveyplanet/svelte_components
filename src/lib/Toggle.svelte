@@ -3,9 +3,9 @@
 
 	const dispatch = createEventDispatcher();
 
-	export let on: boolean = false;
-	export let disabled: boolean = false;
-	export let tall: boolean = false;
+	export let on = false;
+	export let disabled = false;
+	export let tall = false;
 
 	const changeHandler = (event: Event): void => {
 		if (disabled) {

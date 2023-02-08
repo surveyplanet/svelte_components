@@ -19,9 +19,9 @@
 
 	export let size: SIZES = SIZES.SMALL;
 
-	export let disabled: boolean = false;
+	export let disabled = false;
 
-	const getPersistentIndex = (length: number = 0): number => {
+	const getPersistentIndex = (length = 0): number => {
 		if (!id || !id.length) {
 			return 0;
 		}
