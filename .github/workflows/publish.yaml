@@ -1,39 +1,18 @@
-name: Deploy Playbook to Github Pages and puplish to NPM.
+name: Run unit tests, package components and publish to NPM.
 
 on:
     push:
-        branches:
+        branches-ignore:
             - main
-
-    # Allow this workflow to run manually from the Actions tab
-    workflow_dispatch:
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-    contents: read
-    pages: write
-    id-token: write
-
-# Allow one concurrent deployment
-concurrency:
-    group: 'pages'
-    cancel-in-progress: true
-
 env:
     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
     deploy:
-        environment:
-            name: github-pages
-            url: ${{ steps.deployment.outputs.page_url }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v3
-
-            - name: Setup Pages
-              uses: actions/configure-pages@v2
 
             - name: Setup Node.js
               uses: actions/setup-node@v3
@@ -54,9 +33,6 @@ jobs:
             - name: Checking for spelling errors
               run: npm run spell
 
-            - name: Build Storybook
-              run: npm run storybook:build
-
             - name: Install Playwright (for tests)
               run: npx playwright install --with-deps
 
@@ -65,19 +41,6 @@ jobs:
                   npx concurrently -k -s first -n "Storybook,tests" -c "green,blue" \
                   "npx http-server static --port 6006 --silent" \
                   "npx wait-on tcp:6006 && npm test"
-
-            - name: Upload artifact
-              uses: actions/upload-pages-artifact@v1
-              with:
-                  path: './static'
-
-            - name: Deploy to GitHub Pages
-              id: deployment
-              uses: actions/deploy-pages@v1
-
-            # Tests can be run once they are deployed through the --url flag
-            - name: Run Storybook tests
-              run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
 
             - name: Package components
               run: npm run package
