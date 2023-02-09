@@ -73,7 +73,7 @@ jobs:
               id: deployment
               uses: actions/deploy-pages@v1
 
-            - name: Run Storybook tests
+            - name: Run Storybook tests on live site
               run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
 
             - name: Package components
@@ -81,3 +81,6 @@ jobs:
 
             - name: Publish to NPM
               run: npm run release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
