@@ -74,7 +74,7 @@ jobs:
               uses: actions/deploy-pages@v1
 
             - name: Run Storybook tests
-              run: ./node_modules/.bin/test-storybook --url $url
+              run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
 
             - name: Package components
               run: npm run package
