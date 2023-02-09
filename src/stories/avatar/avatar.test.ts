@@ -2,7 +2,7 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { MASCOTS } from '../../lib';
 
-export const primary = async (res: StoryBookPlayArgs) => {
+export const primary = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const avatar: HTMLButtonElement = canvas.getByRole('button');
 	const style = window.getComputedStyle(avatar);
@@ -20,7 +20,7 @@ export const primary = async (res: StoryBookPlayArgs) => {
 	expect(avatar).not.toHaveAttribute('role', 'presentation');
 	expect(avatar).toHaveAttribute('aria-label', 'profile image');
 	expect(avatar.disabled).toBe(false);
-	await userEvent.click(avatar);
+	userEvent.click(avatar);
 	expect(res.args.clickHandler).toHaveBeenCalled();
 };
 
@@ -56,11 +56,11 @@ export const large = (res: StoryBookPlayArgs) => {
 	expect(img).toHaveAttribute('src', MASCOTS.dylan);
 };
 
-export const disabled = async (res: StoryBookPlayArgs) => {
+export const disabled = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const avatar = canvas.getByRole('presentation') as HTMLButtonElement;
 	expect(avatar).toBeTruthy();
-	await userEvent.click(avatar);
+	userEvent.click(avatar);
 	expect(avatar.disabled).toBe(true);
 	expect(avatar).toHaveAttribute('role', 'presentation');
 	expect(avatar).not.toHaveAttribute('aria-label');
