@@ -4,7 +4,6 @@ on:
     push:
         branches:
             - main
-
     # Allow this workflow to run manually from the Actions tab
     workflow_dispatch:
 
@@ -54,17 +53,14 @@ jobs:
             - name: Checking for spelling errors
               run: npm run spell
 
-            - name: Build Storybook
-              run: npm run storybook:build
-
             - name: Install Playwright (for tests)
               run: npx playwright install --with-deps
 
+            - name: Build Storybooook
+              run: npm run storybook:build
+
             - name: Serve Storybook and run tests
-              run: |
-                  npx concurrently -k -s first -n "Storybook,tests" -c "green,blue" \
-                  "npx http-server static --port 6006 --silent" \
-                  "npx wait-on tcp:6006 && npm test"
+              run: npm run test:ci
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v1
