@@ -1,6 +1,10 @@
 {
 	"name": "@surveyplanet/svelte-components",
 	"version": "0.0.8",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:surveyplanet/svelte_components.git"
+	},
 	"scripts": {
 		"build": "svelte-kit sync && svelte-package",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
