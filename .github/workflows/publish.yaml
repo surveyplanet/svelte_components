@@ -1,6 +1,6 @@
 name: Run unit tests, package components and publish to NPM.
 
-# run everywhere except 'main'
+# run everywhere *except* 'main'
 on:
     push:
         branches-ignore:
@@ -26,9 +26,6 @@ jobs:
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-            - name: Build components
-              run: npm run build
-
             - name: Check Typescript errors
               run: npm run check
 
@@ -46,7 +43,7 @@ jobs:
               run: npm run test:ci
 
             - name: Package components
-              run: npm run package
+              run: npm run build
 
             - name: Publish to NPM
               run: npm run release
