@@ -1,5 +1,6 @@
 name: Run unit tests, package components and publish to NPM.
 
+# run everywhere except 'main'
 on:
     push:
         branches-ignore:
@@ -36,11 +37,11 @@ jobs:
             - name: Install Playwright (for tests)
               run: npx playwright install --with-deps
 
+            - name: Build Storybooook
+              run: npm run storybook:build
+
             - name: Serve Storybook and run tests
-              run: |
-                  npx concurrently -k -s first -n "Storybook,tests" -c "green,blue" \
-                  "npx http-server static --port 6006 --silent" \
-                  "npx wait-on tcp:6006 && npm test"
+              run: npm run test:ci
 
             - name: Package components
               run: npm run package

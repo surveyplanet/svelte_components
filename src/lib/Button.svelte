@@ -73,11 +73,11 @@
 	};
 
 	const activate = (mouseX: number, mouseY: number) => {
+		active = true;
 		let w = clickAnimationEl.offsetWidth * 0.5;
 		let h = clickAnimationEl.offsetHeight * 0.5;
 		clickAnimationEl.style.left = `${mouseX - w}px`;
 		clickAnimationEl.style.top = `${mouseY - h}px`;
-		active = true;
 	};
 </script>
 
