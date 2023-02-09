@@ -1,4 +1,4 @@
-name: Deploy Playbook to Github Pages and puplish to NPM.
+name: Run unit tests, package components, deploy Playbook to Github Pages and puplish to NPM.
 
 on:
     push:
@@ -25,7 +25,7 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
 
-        environment:
+        env:
             name: github-pages
             url: ${{ steps.deployment.outputs.page_url }}
 
