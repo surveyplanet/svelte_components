@@ -46,9 +46,6 @@ jobs:
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-            - name: Build components
-              run: npm run build
-
             - name: Check Typescript errors
               run: npm run check
 

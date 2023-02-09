@@ -1,6 +1,25 @@
 {
 	"name": "@surveyplanet/svelte-components",
+	"description": "A collection of Svelte UI components",
+	"keywords": [
+		"svelte",
+		"component",
+		"avatar",
+		"badge",
+		"breadcrumbs",
+		"button",
+		"checkbox",
+		"icon",
+		"radio",
+		"toggle"
+	],
 	"version": "0.0.8",
+	"homepage": "https://ui.surveyplanet.com",
+	"license": "SEE LICENSE IN LICENSE",
+	"author": "Jonah Werre <jonahwerre@gmail.com> (https://github.com/jwerre)",
+	"contributors": [
+		"Ognjen Ugljenovic <ognjen@surveyplanet.com>"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:surveyplanet/svelte_components.git"
