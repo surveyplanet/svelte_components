@@ -1,4 +1,4 @@
-name: Run unit tests, package components, deploy Playbook to Github Pages and puplish to NPM.
+name: build
 
 on:
     push:
@@ -32,6 +32,9 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+                  persist-credentials: false # https://github.com/semantic-release/semantic-release/blob/master/docs/recipes/ci-configurations/github-actions.md#pushing-packagejson-changes-to-a-master-branch
 
             - name: Setup Pages
               uses: actions/configure-pages@v2
