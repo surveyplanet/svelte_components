@@ -13,7 +13,7 @@ jobs:
         runs-on: ubuntu-latest
 
         env:
-            test: TESTING
+            test: TESTING!!!
 
         steps:
             - name: Checkout
@@ -24,7 +24,7 @@ jobs:
               with:
                   node-version: 18
 
-            - name: 'DEBUG: ${test}'
+            - name: DEBUG - $test
               run: echo $test && exit 1
 
             - name: Install dependencies
