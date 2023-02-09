@@ -49,16 +49,16 @@ jobs:
             - name: Build components
               run: npm run build
 
-            - name: Checking for Typescript errors
+            - name: Check Typescript errors
               run: npm run check
 
-            - name: Checking for spelling errors
+            - name: Check spelling errors
               run: npm run spell
 
             - name: Install Playwright (for tests)
               run: npx playwright install --with-deps
 
-            - name: Build Storybooook
+            - name: Build Storybook
               run: npm run storybook:build
 
             - name: Serve Storybook and run tests
@@ -73,8 +73,7 @@ jobs:
               id: deployment
               uses: actions/deploy-pages@v1
 
-            # Tests can be run once they are deployed through the --url flag
-            - name: Run Storybook tests at $url
+            - name: Run Storybook tests
               run: ./node_modules/.bin/test-storybook --url $url
 
             - name: Package components
