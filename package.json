@@ -18,8 +18,8 @@
 		"storybook:build": "rm -rf static && storybook build --output-dir static",
 		"storybook": "storybook dev -p 6006",
 		"test": "test-storybook --index-json",
-		"test:ci": "npx concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"npx http-server storybook-static --port 6006 --silent\" \"npx wait-on tcp:6006 && npm test\"",
-		"test:ci-sleep": "concurrently --kill-others-on-fail --success first --names \"SERVER,TEST\" \"npx http-server ./static --silent --port 6006\" \"sleep 3 && test-storybook --index-json --url http://127.0.0.1:6006\"",
+		"test:ci-wait": "npx concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"npx http-server storybook-static --port 6006 --silent\" \"npx wait-on tcp:6006 && npm test\"",
+		"test:ci": "concurrently --kill-others-on-fail --success first --names \"SERVER,TEST\" \"npx http-server ./static --silent --port 6006\" \"sleep 3 && test-storybook --index-json --url http://127.0.0.1:6006\"",
 		"proof": "npm run check && npm run lint && npm run spell && npm run test"
 	},
 	"devDependencies": {
