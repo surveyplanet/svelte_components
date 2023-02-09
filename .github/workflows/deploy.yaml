@@ -23,10 +23,12 @@ env:
 
 jobs:
     deploy:
+        runs-on: ubuntu-latest
+
         environment:
             name: github-pages
             url: ${{ steps.deployment.outputs.page_url }}
-        runs-on: ubuntu-latest
+
         steps:
             - name: Checkout
               uses: actions/checkout@v3
@@ -72,8 +74,8 @@ jobs:
               uses: actions/deploy-pages@v1
 
             # Tests can be run once they are deployed through the --url flag
-            - name: Run Storybook tests
-              run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
+            - name: Run Storybook tests at $url
+              run: ./node_modules/.bin/test-storybook --url $url
 
             - name: Package components
               run: npm run package
