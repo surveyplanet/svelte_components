@@ -1,10 +1,9 @@
-name: Deploy Playbook to Github Pages and puplish to NPM.
+name: Run unit tests, package components, deploy Playbook to Github Pages and puplish to NPM.
 
 on:
     push:
         branches:
             - main
-
     # Allow this workflow to run manually from the Actions tab
     workflow_dispatch:
 
@@ -24,10 +23,12 @@ env:
 
 jobs:
     deploy:
+        runs-on: ubuntu-latest
+
         environment:
             name: github-pages
             url: ${{ steps.deployment.outputs.page_url }}
-        runs-on: ubuntu-latest
+
         steps:
             - name: Checkout
               uses: actions/checkout@v3
@@ -48,23 +49,20 @@ jobs:
             - name: Build components
               run: npm run build
 
-            - name: Checking for Typescript errors
+            - name: Check Typescript errors
               run: npm run check
 
-            - name: Checking for spelling errors
+            - name: Check spelling errors
               run: npm run spell
-
-            - name: Build Storybook
-              run: npm run storybook:build
 
             - name: Install Playwright (for tests)
               run: npx playwright install --with-deps
 
+            - name: Build Storybook
+              run: npm run storybook:build
+
             - name: Serve Storybook and run tests
-              run: |
-                  npx concurrently -k -s first -n "Storybook,tests" -c "green,blue" \
-                  "npx http-server static --port 6006 --silent" \
-                  "npx wait-on tcp:6006 && npm test"
+              run: npm run test:ci
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v1
@@ -75,8 +73,7 @@ jobs:
               id: deployment
               uses: actions/deploy-pages@v1
 
-            # Tests can be run once they are deployed through the --url flag
-            - name: Run Storybook tests
+            - name: Run Storybook tests on live site
               run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
 
             - name: Package components
@@ -84,3 +81,6 @@ jobs:
 
             - name: Publish to NPM
               run: npm run release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

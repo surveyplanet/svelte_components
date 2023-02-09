@@ -43,12 +43,12 @@ export const primary = async (res: StoryBookPlayArgs) => {
 	expect(ripple).toBeInTheDocument();
 	expect(ripple).not.toBeVisible();
 	fireEvent.mouseDown(btn);
-	expect(btn).toHaveClass('sp-button--active');
 	await delay(250);
+	expect(btn).toHaveClass('sp-button--active');
 	expect(ripple).toBeVisible();
 	fireEvent.mouseUp(btn);
-	expect(btn).not.toHaveClass('sp-button--active');
 	await delay(250);
+	expect(btn).not.toHaveClass('sp-button--active');
 	expect(ripple).not.toBeVisible();
 
 	userEvent.click(btn);

@@ -1,5 +1,6 @@
 name: Run unit tests, package components and publish to NPM.
 
+# run everywhere except 'main'
 on:
     push:
         branches-ignore:
@@ -10,6 +11,7 @@ env:
 jobs:
     deploy:
         runs-on: ubuntu-latest
+
         steps:
             - name: Checkout
               uses: actions/checkout@v3
@@ -27,23 +29,27 @@ jobs:
             - name: Build components
               run: npm run build
 
-            - name: Checking for Typescript errors
+            - name: Check Typescript errors
               run: npm run check
 
-            - name: Checking for spelling errors
+            - name: Check spelling errors
               run: npm run spell
 
             - name: Install Playwright (for tests)
               run: npx playwright install --with-deps
 
+            - name: Build Storybooook
+              run: npm run storybook:build
+
+            # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
             - name: Serve Storybook and run tests
-              run: |
-                  npx concurrently -k -s first -n "Storybook,tests" -c "green,blue" \
-                  "npx http-server static --port 6006 --silent" \
-                  "npx wait-on tcp:6006 && npm test"
+              run: npm run test:ci
 
             - name: Package components
               run: npm run package
 
             - name: Publish to NPM
               run: npm run release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
