@@ -1,0 +1,58 @@
+import {
+	Meta,
+	Canvas,
+	ColorPalette,
+	ColorItem,
+	Description,
+	Story,
+} from '@storybook/addon-docs';
+
+import { Alert } from '../../lib';
+
+<Meta
+	title="Alert/Documentation"
+	component={Alert}
+/>
+
+# Alert component
+
+<div id="example">
+	<Story id="alert-default--default" />
+	<Story id="alert-default--challenge" />
+</div>
+
+## Usage
+
+```ts
+<script>
+	import {Alert} from '@surveyplanet/svelte-components';
+</script>
+<Alert title="You're survey has been saved." />
+```
+
+### Properties
+
+| Property                       | type    | description                                                                                       |
+| ------------------------------ | ------- | ------------------------------------------------------------------------------------------------- |
+| `title`                        | String  | Main alert message.                                                                               |
+| `subtitle`                     | String  | Optional alert subtitle.                                                                          |
+| `body`                         | String  | Optional alert body.                                                                              |
+| `html`                         | String  | Optional alert html body.                                                                         |
+| `type='info'`                  | String  | One of `info`, `warning` `error`.                                                                 |
+| `hideDelay`                    | Number  | auto hide alert after X milliseconds. A value of 0 means don't hide.                              |
+| `confirm=false`                | Boolean | wether the alert needs to be confirmed before it is closed.                                       |
+| `confirmButtonLabel='Confirm'` | String  | Text label for the confirm button.                                                                |
+| `cancelButtonLabel='Cancel'`   | String  | Text label for the cancel confirm button.                                                         |
+| `challenge`                    | String  | If provided alert displays a text input which must be valid before confirm button can be clicked. |
+| `challengeLable`               | String  | Challange label                                                                                   |
+
+### Events
+
+| Name                | description                                                    |
+| ------------------- | -------------------------------------------------------------- |
+| `alertOpened`       | Alert has been instantiated.                                   |
+| `alertIn`           | Alert is full rendered on stage and int animation is complete. |
+| `alertClosed`       | Alert has been closed.                                         |
+| `alertOut`          | Alert has been fully removed and out animation is complete.    |
+| `alertConfirmed`    | Confirmation alert has been confirmed.                         |
+| `alertNotConfirmed` | Confirmation alert has been denied.                            |
