@@ -1,6 +1,6 @@
 import { within, userEvent, fireEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { delay } from '../../lib';
+import { delay } from '@surveyplanet/utilities';
 
 export const primary = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
@@ -42,16 +42,16 @@ export const primary = async (res: StoryBookPlayArgs) => {
 	// test ripple effect
 	expect(ripple).toBeInTheDocument();
 	expect(ripple).not.toBeVisible();
-	await fireEvent.mouseDown(btn);
+	fireEvent.mouseDown(btn);
+	await delay(250);
 	expect(btn).toHaveClass('sp-button--active');
-	await delay(250);
 	expect(ripple).toBeVisible();
-	await fireEvent.mouseUp(btn);
-	expect(btn).not.toHaveClass('sp-button--active');
+	fireEvent.mouseUp(btn);
 	await delay(250);
+	expect(btn).not.toHaveClass('sp-button--active');
 	expect(ripple).not.toBeVisible();
 
-	await userEvent.click(btn);
+	userEvent.click(btn);
 	expect(res.args.clickHandler).toHaveBeenCalled();
 	expect(btn).toHaveFocus();
 };
@@ -159,7 +159,7 @@ export const defaultDisabled = async (res: StoryBookPlayArgs) => {
 	expect(iconStyle.getPropertyValue('fill')).toBe(
 		style.getPropertyValue('color')
 	);
-	await userEvent.click(btn);
+	userEvent.click(btn);
 	expect(btn).not.toHaveFocus();
 };
 
@@ -460,7 +460,7 @@ export const loaderDefault = async (res: StoryBookPlayArgs) => {
 	const btnLabel = btn.querySelector('.sp-button--label');
 	const style = window.getComputedStyle(btn);
 	const afterEl = window.getComputedStyle(btn, ':after');
-	await userEvent.click(btn);
+	userEvent.click(btn);
 	expect(btn).toBeVisible();
 	expect(btnLabel).not.toBeVisible();
 	expect(btn).not.toHaveFocus();

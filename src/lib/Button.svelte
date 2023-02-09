@@ -17,27 +17,27 @@
 	/**
 	 * Whether the button is disabled or not
 	 */
-	export let disabled: boolean = false;
+	export let disabled = false;
 
 	/**
-	 * Whether the button should show a loader when disabled
+	 * Whether the button should show a loader animation when disabled
 	 */
-	export let loader: boolean = false;
+	export let loader = false;
 
 	/**
 	 * Whether the left and right edges should be rounded off
 	 */
-	export let round: boolean = false;
+	export let round = false;
 
 	/**
 	 * Whether the button should consume all available horizontal space.
 	 */
-	export let block: boolean = false;
+	export let block = false;
 
 	/**
 	 * Whether the button should render as a square action button.
 	 */
-	export let action: boolean = false;
+	export let action = false;
 
 	/**
 	 * The button size, either: 'small', 'medium' or 'large'
@@ -50,7 +50,7 @@
 	/**
 	 * Whether or not the button is in a depressed (mousedown) state.
 	 */
-	let active: boolean = false;
+	let active = false;
 
 	const clickHandler = (e: MouseEvent): void => {
 		dispatch('click', e);
@@ -73,11 +73,11 @@
 	};
 
 	const activate = (mouseX: number, mouseY: number) => {
+		active = true;
 		let w = clickAnimationEl.offsetWidth * 0.5;
 		let h = clickAnimationEl.offsetHeight * 0.5;
 		clickAnimationEl.style.left = `${mouseX - w}px`;
 		clickAnimationEl.style.top = `${mouseY - h}px`;
-		active = true;
 	};
 </script>
 

@@ -1,5 +1,4 @@
 export * from './_definitions';
-export * from './_utils';
 
 export { default as Avatar } from './Avatar.svelte';
 export { default as Badge } from './Badge.svelte';
