@@ -20,7 +20,7 @@
 	export let disabled = false;
 
 	/**
-	 * Whether the button should show a loader when disabled
+	 * Whether the button should show a loader animation when disabled
 	 */
 	export let loader = false;
 
