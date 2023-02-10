@@ -32,7 +32,7 @@
 	const getBgColor = (): string => {
 		return bgColors[getPersistentIndex(bgColors.length)];
 	};
-git diff --check
+
 	const getProfileImg = (): string => {
 		if (imgSrc && /^https?:\/\//.test(imgSrc)) {
 			return imgSrc;
