@@ -4,12 +4,12 @@
 	const dispatch = createEventDispatcher();
 
 	export let id: string = (Date.now() + Math.random()).toString(36);
-	export let name: string = '';
+	export let name = '';
 	export let value: string | null = null;
-	export let label: string = '';
-	export let checked: boolean = false;
-	export let disabled: boolean = false;
-	export let prependLabel: boolean = false;
+	export let label = '';
+	export let checked = false;
+	export let disabled = false;
+	export let prependLabel = false;
 	export let attr = {};
 
 	const changeEventHandler = (event: Event) => {

@@ -1,7 +1,7 @@
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
-export const primary = async (res: StoryBookPlayArgs) => {
+export const primary = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const radio: HTMLInputElement = canvas.getByRole('radio');
 	const label: HTMLLabelElement = radio.nextSibling
@@ -18,7 +18,7 @@ export const primary = async (res: StoryBookPlayArgs) => {
 	expect(radio).toBeVisible();
 	expect(radio).not.toBeDisabled();
 	expect(radio).not.toHaveFocus();
-	await userEvent.click(radio);
+	userEvent.click(radio);
 	expect(radio).toBeChecked();
 	expect(radio).toHaveFocus();
 	expect(radio).toHaveAttribute('id', 'default');
@@ -42,16 +42,16 @@ export const primary = async (res: StoryBookPlayArgs) => {
 	expect(radioDot.querySelector('svg')).toBeInstanceOf(SVGSVGElement);
 };
 
-export const disabled = async (res: StoryBookPlayArgs) => {
+export const disabled = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const radio: HTMLInputElement = canvas.getByRole('radio');
 	expect(radio).toBeDisabled();
-	await userEvent.click(radio);
+	userEvent.click(radio);
 	expect(radio).not.toBeChecked();
 	expect(radio).not.toHaveFocus();
 	expect(res.args.changeHandler).not.toHaveBeenCalled();
 };
-export const prepended = async (res: StoryBookPlayArgs) => {
+export const prepended = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const radio: HTMLInputElement = canvas.getByRole('radio');
 	const label: HTMLLabelElement = radio.nextSibling
@@ -63,7 +63,7 @@ export const prepended = async (res: StoryBookPlayArgs) => {
 	expect(labelStyles.getPropertyValue('flex-direction')).toBe('row-reverse');
 };
 
-export const multiple = async (res: StoryBookPlayArgs) => {
+export const multiple = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const radios: HTMLInputElement[] = canvas.getAllByRole('radio');
 
@@ -73,7 +73,7 @@ export const multiple = async (res: StoryBookPlayArgs) => {
 		expect(radio).toBeVisible();
 		expect(radio).not.toBeDisabled();
 		expect(radio).not.toHaveFocus();
-		await userEvent.click(radio);
+		userEvent.click(radio);
 		expect(radio).toBeChecked();
 		expect(radio).toHaveFocus();
 		expect(res.args.changeHandler).toHaveBeenCalled();

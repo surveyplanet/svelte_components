@@ -19,7 +19,7 @@ export const basic = async (res: StoryBookPlayArgs) => {
 	expect(toggle).toHaveClass('sp-toggle--off');
 	expect(toggle).toHaveAttribute('aria-checked', 'false');
 	expect(checkbox).not.toHaveFocus();
-	await userEvent.click(checkbox);
+	userEvent.click(checkbox);
 	await delay(505); // wait for active state animation
 	expect(trackStyle.getPropertyValue('box-shadow')).toBe(
 		'rgb(255, 255, 255) 0px 0px 0px 1px, rgb(115, 122, 135) 0px 0px 0px 2px'
@@ -31,13 +31,13 @@ export const basic = async (res: StoryBookPlayArgs) => {
 	expect(res.args.changeHandler).toHaveBeenCalled();
 };
 
-export const disabled = async (res: StoryBookPlayArgs) => {
+export const disabled = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const toggle: HTMLInputElement = canvas.getByRole('checkbox');
 	expect(toggle.disabled).toBe(true);
 };
 
-export const tall = async (res: StoryBookPlayArgs) => {
+export const tall = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const toggle: HTMLInputElement = canvas.getByRole('switch');
 	expect(toggle).toHaveClass('sp-toggle--tall');
