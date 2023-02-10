@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { validate } from './';
+	import { validate, type ValidatorError } from '@surveyplanet/utilities';
 	//make sure that ID is defined whenever you actually need to use the validator
 	export let id: string = (Date.now() + Math.random()).toString(36);
 	export let value: string | null = '';

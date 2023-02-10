@@ -1,7 +1,7 @@
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
-export const basic = async (res: StoryBookPlayArgs) => {
+export const basic = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const input: HTMLInputElement = canvas.getByRole('textbox');
 	const label: HTMLLabelElement = canvas.getByText('Label');
@@ -65,19 +65,19 @@ export const multiline = async (res: StoryBookPlayArgs) => {
 	expect(res.args.focusHandler).toHaveBeenCalled();
 };
 
-export const disabled = async (res: StoryBookPlayArgs) => {
+export const disabled = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const input: HTMLInputElement = canvas.getByRole('textbox');
 	expect(input.disabled).toBe(true);
 };
 
-export const readonly = async (res: StoryBookPlayArgs) => {
+export const readonly = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const input: HTMLInputElement = canvas.getByRole('textbox');
 	expect(input.readOnly).toBe(true);
 };
 
-export const noLabel = async (res: StoryBookPlayArgs) => {
+export const noLabel = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const input: HTMLInputElement = canvas.getByRole('textbox');
 	expect(input).not.toHaveClass(' sp-text-input--label--text');
