@@ -1,44 +1,23 @@
 # SurveyPlanet Svelte components
 
-A collection of Svelte components created by SurveyPlanet.
+![Ore License](https://img.shields.io/ore/l/totaleconomy?color=yellow&style=flat-square)
+![npm](https://img.shields.io/npm/v/@surveyplanet/svelte-components?color=red&style=flat-square)
+![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/surveyplanet/svelte_components/pages.yaml?branch=main&style=flat-square)
 
-![Github Actions](https://github.com/surveyplanet/svelte_components/actions/workflows/pages.yaml/badge.svg?branch=main)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![NPM version](https://badge.fury.io/js/@surveyplanet%2Fsvelte-components.svg)
-
-## Stories
-
-These components are created with [Storybook](https://storybook.js.org/). Run the command bellow to get Storybook up and running.
-
-```bash
-npm install
-npm run storybook
-```
-
-Once the storybook server is running open http://localhost:6006 in your browser.
-
-## Development
-
-Once your Storybook is server up and running you're ready to start development. All the components are located in the `src/libs` directory
+A collection of Svelte components created by SurveyPlanet. For a full list of all the components as well as documentation visit our [UI library](https://ui.surveyplanet.com).
 
 ## Testing
 
 Tests are run automatically in Storybook but you can run the test suite with:
 
+### 1. Start up the server
+
+```bash
+npm run dev
+```
+
+### 2. Run tests
+
 ```bash
 npm test
 ```
-
-[Read more about writing tests with Storybook](https://storybook.js.org/docs/7.0/svelte/writing-tests/introduction).
-
-### Accessibility tests with `a11y`
-
-## Building
-
-To create a production version of the storybook:
-
-```bash
-npm run storybook:build
-```
-
-You can preview the production build with `npm run preview`.
