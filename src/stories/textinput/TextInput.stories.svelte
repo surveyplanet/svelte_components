@@ -18,7 +18,7 @@
 		disabled: { control: { type: 'boolean' }, defaultValue: false },
 		validationRules: { control: { type: 'text' } },
 		validationMessage: { control: { type: 'text' } },
-		validationHidMessage: {
+		validationHideMessage: {
 			control: { type: 'boolean' },
 			defaultValue: false,
 		},
@@ -93,8 +93,8 @@
 	name="Validate"
 	args={{
 		id: 'text-input-id',
-		label: 'Email require',
-		placeholder: 'Email require',
-		validationRules: 'require,email',
+		label: 'Email',
+		placeholder: 'Email',
+		validationRules: ['require', 'email'],
 	}}
-	play={test.noLabel} />
+	play={test.validate} />

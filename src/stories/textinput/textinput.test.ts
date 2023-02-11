@@ -11,7 +11,7 @@ export const basic = (res: StoryBookPlayArgs) => {
 
 	expect(input).not.toBeDisabled();
 	expect(input).toHaveClass(' sp-text-input');
-	expect(input.id).toBe('text-input-id');
+	expect(input.id).toBe('email');
 	expect(input.placeholder).toBe('Placeholder');
 	expect(input.readOnly).toBe(false);
 	expect(label).toHaveClass(' sp-text-input--label--text');
@@ -33,7 +33,7 @@ export const basic = (res: StoryBookPlayArgs) => {
 	expect(res.args.focusHandler).toHaveBeenCalled();
 };
 
-export const multiline = async (res: StoryBookPlayArgs) => {
+export const multiline = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const input: HTMLInputElement = canvas.getByRole('textbox');
 	const value = ['Line one', 'Line two', 'Line three'].join('\n');
@@ -81,4 +81,18 @@ export const noLabel = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const input: HTMLInputElement = canvas.getByRole('textbox');
 	expect(input).not.toHaveClass(' sp-text-input--label--text');
+};
+
+export const validate = (res: StoryBookPlayArgs) => {
+	const canvas = within(res.canvasElement);
+	const input: HTMLInputElement = canvas.getByRole('textbox');
+	expect(input).toHaveAttribute('data-validate-rules', 'require,email');
+	userEvent.type(input, 'invalid email');
+	userEvent.click(document.body);
+	// await userEvent.tab();
+	expect(input).toHaveClass('validation-error');
+	const errLabel = canvas.getByLabelText(
+		'Email * must contain a valid email address.'
+	);
+	expect(errLabel).toBeDefined();
 };

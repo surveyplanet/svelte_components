@@ -20,7 +20,8 @@ module.exports = {
 	extends: [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/eslint-recommended',
-		'plugin:@typescript-eslint/recommended-requiring-type-checking',
+		// This is borken right now: https://github.com/typescript-eslint/typescript-eslint/issues/6314
+		// 'plugin:@typescript-eslint/recommended-requiring-type-checking',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:@typescript-eslint/strict',
 		'plugin:eslint-comments/recommended',
@@ -33,7 +34,7 @@ module.exports = {
 			processor: 'svelte3/svelte3',
 		},
 		{
-			files: ['stories/**/*.ts', 'stories/**/*.svelte'],
+			files: ['./src/stories/**/*.ts', './src/stories/**/*.svelte'],
 			rules: {
 				'@typescript-eslint/unbound-method': 'warn',
 			},

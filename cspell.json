@@ -1,6 +1,6 @@
 {
 	"language": "en",
-	"words": ["surveyplanet"],
+	"words": ["surveyplanet", "textbox"],
 	"ignoreWords": ["xsmall"],
 	"flagWords": ["hte", "survey planet"],
 	"files": ["./**/*.{txt,md,js,ts,yaml,json,svelte}"],
