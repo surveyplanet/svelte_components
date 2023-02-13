@@ -36,7 +36,7 @@ module.exports = {
 		{
 			files: ['./src/stories/**/*.ts', './src/stories/**/*.svelte'],
 			rules: {
-				'@typescript-eslint/unbound-method': 'warn',
+				'@typescript-eslint/unbound-method': 'off',
 				'@typescript-eslint/no-non-null-assertion': 'off', // allow ! in tests
 			},
 		},
