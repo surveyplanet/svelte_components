@@ -10,8 +10,10 @@ declare namespace App {
 	// interface Platform {}
 }
 
-interface SvelteCustomEvent extends CustomEvent {
-	details: Event | KeyboardEvent;
+interface SvelteCustomEvent {
+	detail: {
+		target: HTMLElement;
+	};
 }
 
 interface StoryBookPlayArgs {

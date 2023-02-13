@@ -17,37 +17,21 @@
 	export let challenge: string | null = null;
 
 	let visible = true;
-	$: disabledConfirmButton = challenge?.length;
+	let enableConfirmButton = false;
 
 	// handlers
-	const challengeHandler = <
-		T extends { detail: { target: HTMLInputElement } }
-	>(
-		event: T
-	): void => {
-		const input = event.detail.target;
-		disabledConfirmButton = input.value !== challenge;
-		dispatch('alertChallenge', input.value);
+	const challengeKeyupHandler = (event: SvelteCustomEvent): void => {
+		const input = event.detail.target as HTMLInputElement;
+		enableConfirmButton = input.value !== challenge;
+		if (enableConfirmButton) {
+			dispatch('alertChallenge', input.value);
+		}
 	};
 
-	(async function () {
-		await tick();
-		dispatch('alertOpen');
-		try {
-			if (!confirm && hideDelay > 0) {
-				setTimeout(() => {
-					visible = false;
-				}, hideDelay);
-			}
-		} catch (e) {
-			console.error(e);
-		}
-	})() as unknown;
-
-	function destroy() {
+	const destroy = () => {
 		dispatch('alertClose');
 		visible = false;
-	}
+	};
 
 	const alertConfirmHandler = () => {
 		dispatch('alertConfirm');
@@ -68,6 +52,20 @@
 			dispatch('alertIn');
 		}
 	};
+
+	(async function () {
+		await tick();
+		dispatch('alertOpen');
+		try {
+			if (!confirm && hideDelay > 0) {
+				setTimeout(() => {
+					visible = false;
+				}, hideDelay);
+			}
+		} catch (e) {
+			console.error(e);
+		}
+	})();
 </script>
 
 <div
@@ -106,14 +104,14 @@
 					<TextInput
 						label={challengeLabel}
 						placeholder={challenge}
-						on:keyup={challengeHandler} />
+						on:keyup={challengeKeyupHandler} />
 				</div>
 			{/if}
 			<nav>
 				<ul>
 					<li class="sp-alert--confirm">
 						<Button
-							disabled={disabledConfirmButton}
+							disabled={enableConfirmButton}
 							on:click={alertConfirmHandler}
 							mode={BUTTON_MODES.PRIMARY}>
 							{confirmButtonLabel}
