@@ -43,6 +43,7 @@ module.exports = {
 	],
 	rules: {
 		'@typescript-eslint/no-unnecessary-condition': 'off',
+		'no-undef': 'off', // typescript already checks this
 	},
 	ignorePatterns: [
 		'*.cjs',

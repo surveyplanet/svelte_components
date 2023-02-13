@@ -10,6 +10,12 @@ declare namespace App {
 	// interface Platform {}
 }
 
+interface SvelteCustomEvent {
+	detail: {
+		target: HTMLElement;
+	};
+}
+
 interface StoryBookPlayArgs {
 	canvasElement: HTMLElement;
 	args: {
