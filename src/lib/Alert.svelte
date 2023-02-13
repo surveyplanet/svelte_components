@@ -17,7 +17,7 @@
 	export let challenge: string | null = null;
 
 	let visible = true;
-	$: disabledButton = challenge?.length as unknown as boolean;
+	$: disabledConfirmButton = challenge?.length;
 
 	// handlers
 	const challengeHandler = <
@@ -26,7 +26,7 @@
 		event: T
 	): void => {
 		const input = event.detail.target;
-		disabledButton = input.value !== challenge;
+		disabledConfirmButton = input.value !== challenge;
 		dispatch('alertChallenge', input.value);
 	};
 
@@ -113,7 +113,7 @@
 				<ul>
 					<li class="sp-alert--confirm">
 						<Button
-							disabled={disabledButton}
+							disabled={disabledConfirmButton}
 							on:click={alertConfirmHandler}
 							mode={BUTTON_MODES.PRIMARY}>
 							{confirmButtonLabel}
