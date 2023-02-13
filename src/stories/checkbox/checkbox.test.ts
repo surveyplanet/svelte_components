@@ -7,8 +7,8 @@ export const primary = (res: StoryBookPlayArgs) => {
 	const label = checkbox.nextSibling?.nextSibling as HTMLLabelElement;
 	const labelText = label.querySelector(
 		'.sp-checkbox--label'
-	) as HTMLSpanElement;
-	const check = label.querySelector('.sp-checkbox--check') as HTMLSpanElement;
+	)! as HTMLSpanElement;
+	const check = label.querySelector('.sp-checkbox--check')!;
 
 	expect(checkbox).not.toBeDisabled();
 	expect(checkbox).not.toHaveFocus();
