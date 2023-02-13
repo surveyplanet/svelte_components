@@ -1,0 +1,87 @@
+name: build
+
+on:
+    push:
+        branches:
+            - main
+    # Allow this workflow to run manually from the Actions tab
+    workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions: write-all
+# permissions:
+# contents: read
+# pages: write
+# id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+    group: 'pages'
+    cancel-in-progress: true
+
+env:
+    NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+                  persist-credentials: false # https://github.com/semantic-release/semantic-release/blob/master/docs/recipes/ci-configurations/github-actions.md#pushing-packagejson-changes-to-a-master-branch
+
+            - name: Setup Pages
+              uses: actions/configure-pages@v2
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+
+            - name: Install dependencies
+              run: npm ci --ignore-scripts
+              env:
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+            - name: Check Typescript errors
+              run: npm run check
+
+            - name: Check spelling errors
+              run: npm run spell
+
+            - name: Install Playwright (for tests)
+              run: npx playwright install --with-deps
+
+            - name: Build Storybook
+              run: npm run storybook:build
+
+            - name: Serve Storybook and run tests
+              run: npm run test:ci
+
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v1
+              with:
+                  path: './static'
+
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v1
+
+            - name: Run Storybook tests on live site
+              run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
+
+            - name: Package components
+              run: npm run package
+
+            - name: Publish to NPM
+              run: npm run release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

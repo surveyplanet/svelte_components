@@ -3,16 +3,20 @@ import { Meta, Story } from '@storybook/addon-docs';
 import TextInput from '../../lib/TextInput.svelte';
 
 <Meta
-	title="Form inputs/Text input"
+	title="Form controls/Text input"
 	component={TextInput}
 />
 
-# TextInput component
+# Text Input component
 
 <div id="example">
-	<Story id="form-inputs-text-input--basic" />
-
-    <Story id="form-inputs-text-input--multiline" />
+	<Story id="form-controls-text-input--basic" />
+	<br/>
+    <Story id="form-controls-text-input--multiline" />
+	<br/>
+    <Story id="form-controls-text-input--validate" />
+	<br/>
+    <Story id="form-controls-text-input--masked" />
 
 </div>
 
@@ -26,25 +30,27 @@ import TextInput from '../../lib/TextInput.svelte';
 	};
 </script>
 
-<Input
+<input
 	label="My Input"
-	on:keyup="{keyupHandler}"
-	/>
-/></Input>
+	on:keyup="{keyupHandler}" />
 ```
 
 ### Properties
 
-| Property           | Type    | Description                                                                    |
-| ------------------ | ------- | ------------------------------------------------------------------------------ |
-| `value=null`       | String  | The initial value of the input.                                                |
-| `label=null`       | String  | The input label text. If no label text is give not label tag will be rendered. |
-| `placeholder=null` | String  | The input placeholder text.                                                    |
-| `multiline=false`  | Boolean | Whether the input should accept multiple lines.                                |
-| `disabled=false`   | Boolean | Whether the input is disabled or not.                                          |
-| `readonly=false`   | Boolean | Whether the input is read only or not.                                         |
-| `attr=null`        | Object  | Arbitrary attributes to be attached to the input.                              |
-| `validate`         | String  | See validator utilities.                                                       |
+| Property                | Type     | Description                                                                              |
+| ----------------------- | -------- | ---------------------------------------------------------------------------------------- |
+| `value=null`            | String   | The initial value of the input.                                                          |
+| `label=null`            | String   | The input label text. If no label text is give not label tag will be rendered.           |
+| `placeholder=null`      | String   | The input placeholder text.                                                              |
+| `multiline=false`       | Boolean  | Whether the input should accept multiple lines.                                          |
+| `disabled=false`        | Boolean  | Whether the input is disabled or not.                                                    |
+| `readonly=false`        | Boolean  | Whether the input is read only or not.                                                   |
+| `attr=null`             | Object   | Arbitrary attributes to be attached to the input.                                        |
+| `validate`              | String   | See validator utilities.                                                                 |
+| `validationRules=[]`    | String[] | A list of validation rules for the input. See: https://github.com/surveyplanet/utilities |
+| `validationMessage`     | String   | A custom validation message to be used instead of the default                            |
+| `validationHideMessage` | Boolean  | Whether to automatically show the validation error message or not.                       |
+| `cleaveOptions`         | Object   | Cleave.js options for masked input. See: https://github.com/nosir/cleave.js              |
 
 ### Events
 

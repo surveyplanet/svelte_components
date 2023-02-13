@@ -1,25 +1,18 @@
 {
 	"language": "en",
-	"words": [
-		"surveyplanet",
-		"sveltekit",
-		"textbox"
-	],
-	"ignoreWords": [
-		"gimy",
-		"xsmall"
-	],
-	"flagWords": [
-		"hte",
-		"Survey Planet",
-		"survey planet"
-	],
-	"files": [
-		"./**/*.{txt,md,mdx,js,ts,svelte,yaml,json}"
-	],
+	"words": ["surveyplanet", "textbox"],
+	"ignoreWords": ["xsmall"],
+	"flagWords": ["hte", "survey planet"],
+	"files": ["./**/*.{txt,md,js,ts,yaml,json,svelte}"],
 	"useGitignore": true,
 	"ignorePaths": [
-		"./cspell.json",
-		"node_modules/**"
+		"cspell.json",
+		"node_modules/**",
+		"static/**",
+		"src/pug/_removed/**",
+		"etc/*.json",
+		"functions/test/fixtures.json",
+		"package.json",
+		"package-lock.json"
 	]
 }
