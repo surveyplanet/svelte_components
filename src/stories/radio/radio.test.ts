@@ -9,11 +9,11 @@ export const primary = (res: StoryBookPlayArgs) => {
 
 	const labelText: HTMLSpanElement = label.querySelector(
 		'.sp-radio--label'
-	) as HTMLSpanElement;
+	)! as HTMLSpanElement;
 
 	const radioDot: HTMLSpanElement = label.querySelector(
 		'.sp-radio--dot'
-	) as HTMLSpanElement;
+	)! as HTMLSpanElement;
 
 	expect(radio).toBeVisible();
 	expect(radio).not.toBeDisabled();
