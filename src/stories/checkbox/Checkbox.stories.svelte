@@ -17,7 +17,7 @@
 </script>
 
 <Meta
-	title="Form Inputs/Checkbox"
+	title="Form controls/Checkbox"
 	component={Checkbox}
 	{argTypes} />
 

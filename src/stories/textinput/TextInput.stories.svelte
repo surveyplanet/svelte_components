@@ -5,7 +5,7 @@
 </script>
 
 <Meta
-	title="Form inputs/Text Input"
+	title="Form controls/Text Input"
 	component={TextInput}
 	argTypes={{
 		id: { control: { type: 'text' }, defaultValue: 'text-input-id' },
@@ -16,7 +16,8 @@
 		readonly: { control: { type: 'boolean' }, defaultValue: false },
 		attr: { control: { type: 'object' }, defaultValue: {} },
 		disabled: { control: { type: 'boolean' }, defaultValue: false },
-		validationRules: { control: { type: 'text' } },
+		cleaveOptions: { control: { type: 'object' } },
+		validationRules: { control: { type: 'array' } },
 		validationMessage: { control: { type: 'text' } },
 		validationHideMessage: {
 			control: { type: 'boolean' },
@@ -42,7 +43,7 @@
 <Story
 	name="Basic"
 	args={{
-		label: 'Label',
+		label: 'Text input',
 		id: 'email',
 		name: 'email',
 		placeholder: 'Placeholder',
@@ -53,7 +54,7 @@
 <Story
 	name="Multiline"
 	args={{
-		label: 'Label',
+		label: 'Multiline input',
 		id: 'text-input-id',
 		placeholder: 'Placeholder',
 		multiline: true,
@@ -65,7 +66,7 @@
 	name="Disabled"
 	args={{
 		value: 'Hello World',
-		label: 'Label',
+		label: 'Disabled input',
 		placeholder: 'Placeholder',
 		disabled: true,
 	}}
@@ -74,8 +75,8 @@
 <Story
 	name="Readonly"
 	args={{
-		label: 'Label',
-		placeholder: 'Readonly',
+		label: 'Read only input',
+		value: 'Readonly',
 		readonly: true,
 		disabled: false,
 	}}
@@ -85,16 +86,32 @@
 	name="No label"
 	args={{
 		id: 'text-input-id',
-		placeholder: 'Placeholder',
+		placeholder: 'No label',
 	}}
 	play={test.noLabel} />
 
 <Story
 	name="Validate"
 	args={{
-		id: 'text-input-id',
-		label: 'Email',
+		id: 'email',
+		label: 'Validate',
 		placeholder: 'Email',
 		validationRules: ['require', 'email'],
+		validationMessage:
+			"What's the matter with you, you don't know your email address?",
 	}}
 	play={test.validate} />
+
+<Story
+	name="Masked"
+	args={{
+		id: 'masked',
+		label: 'Masked',
+		placeholder: 'YYYY-MM-DD',
+		cleaveOptions: {
+			date: true,
+			delimiter: '-',
+			datePattern: ['Y', 'm', 'd'],
+		},
+	}}
+	play={test.masked} />

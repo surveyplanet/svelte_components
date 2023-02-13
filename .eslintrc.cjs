@@ -37,10 +37,13 @@ module.exports = {
 			files: ['./src/stories/**/*.ts', './src/stories/**/*.svelte'],
 			rules: {
 				'@typescript-eslint/unbound-method': 'warn',
+				'@typescript-eslint/no-non-null-assertion': 'off', // allow ! in tests
 			},
 		},
 	],
-	rules: {},
+	rules: {
+		'@typescript-eslint/no-unnecessary-condition': 'off',
+	},
 	ignorePatterns: [
 		'*.cjs',
 		'.DS_Store',
