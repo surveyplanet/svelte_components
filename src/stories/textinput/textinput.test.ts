@@ -59,8 +59,8 @@ export const multiline = (res: StoryBookPlayArgs) => {
 	userEvent.click(input);
 	expect(input).toHaveFocus();
 
-	userEvent.type(input, 'Hello World');
-	expect(input.value).toBe(`Hello World`);
+	userEvent.type(input, value);
+	expect(input.value).toBe(value);
 	expect(res.args.keyupHandler).toHaveBeenCalled();
 	expect(res.args.keydownHandler).toHaveBeenCalled();
 
