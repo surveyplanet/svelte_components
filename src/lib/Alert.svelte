@@ -45,10 +45,8 @@
 
 	const transitionendHandler = () => {
 		if (!visible) {
-			console.log('alertOut');
 			dispatch('alertOut');
 		} else {
-			console.log('alertIn');
 			dispatch('alertIn');
 		}
 	};
@@ -56,14 +54,10 @@
 	(async function () {
 		await tick();
 		dispatch('alertOpen');
-		try {
-			if (!confirm && hideDelay > 0) {
-				setTimeout(() => {
-					visible = false;
-				}, hideDelay);
-			}
-		} catch (e) {
-			console.error(e);
+		if (!confirm && hideDelay > 0) {
+			setTimeout(() => {
+				visible = false;
+			}, hideDelay);
 		}
 	})();
 </script>
@@ -75,7 +69,7 @@
 	class:sp-alert--visible={visible}
 	class:sp-alert--confirm={confirm}
 	class:sp-alert--challenge={challenge?.length}>
-	<div class="sp-alert--header">
+	<header class="sp-alert--header">
 		{#if !confirm}
 			<button
 				on:click={closeButtonClickHandler}
@@ -91,7 +85,7 @@
 		{#if subtitle?.length}
 			<h4 class="sp-alert--header--subtitle">{subtitle}</h4>
 		{/if}
-	</div>
+	</header>
 
 	<div class="sp-alert--body">
 		<slot />
@@ -136,17 +130,14 @@
 	$animation-speed: 300ms;
 
 	.sp-alert {
-		border: 1px solid $color--slate-dark;
-		border-radius: $size-radius--default;
-		box-shadow: 1px 1px 3px 0px $color--slate-dark;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
+		z-index: 1000;
 		min-width: $size--256;
 		max-width: $size--256;
-		padding: $size--16;
+		padding: $size-gutter;
 		position: relative;
-		z-index: 1000;
+		border: 1px solid $color--slate-dark;
+		border-radius: $size-radius--default;
+		box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.25);
 		font: $font--default;
 		opacity: 0;
 		visibility: hidden;
@@ -159,38 +150,61 @@
 		}
 
 		&.sp-alert--info {
-			background: $color--green-light;
-			color: $color--slate-dark;
+			// border-color: $color--green-light;
 		}
 
 		&.sp-alert--warning {
-			background: $color--yellow-light;
-			color: $color--slate-dark;
+			// border-color: $color--yellow-light;
 		}
 
 		&.sp-alert--error {
-			background: $color--pink-dark;
-			color: $color--slate-dark;
+			// border-color: $color--pink-dark;
 		}
 
 		&.sp-alert--success {
-			background: $color--green-light;
-			color: $color--slate-dark;
+			// border-color: $color--green-light;
 		}
 
 		&.sp-alert--challenge {
-			background: $color--purple;
-			color: $color--slate-dark;
+			// border-color: $color--purple;
 		}
 	}
 
 	.sp-alert--header {
-		display: flex;
-		flex-direction: column;
+		position: relative;
+		padding-bottom: $size-gutter--half;
+		.sp-alert--header--title {
+			margin: 0;
+			padding: 0;
+		}
+		.sp-alert--header--subtitle {
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	.sp-alert--header--close-btn {
+		position: absolute;
+		right: 0;
+		top: 0;
+		cursor: pointer;
+		width: $size--20;
+		height: $size--20;
+		line-height: $size--20;
+		padding: 0;
+		margin: 0;
+		border: 0;
+		background-color: transparent;
 	}
 
 	.sp-alert--footer {
+		padding-top: $size-gutter--half;
 		ul {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: flex-start;
+			gap: $size-gutter--half;
 			list-style: none;
 			margin: 0;
 			padding: 0;
