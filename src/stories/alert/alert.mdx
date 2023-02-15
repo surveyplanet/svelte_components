@@ -44,15 +44,14 @@ import { Alert } from '../../lib';
 | `confirmButtonLabel='Confirm'` | String  | Text label for the confirm button.                                                                |
 | `cancelButtonLabel='Cancel'`   | String  | Text label for the cancel confirm button.                                                         |
 | `challenge`                    | String  | If provided alert displays a text input which must be valid before confirm button can be clicked. |
-| `challengeLable`               | String  | Challange label                                                                                   |
+| `challengeLabel`               | String  | Challange label                                                                                   |
 
 ### Events
 
-| Name                | description                                                    |
-| ------------------- | -------------------------------------------------------------- |
-| `alertOpened`       | Alert has been instantiated.                                   |
-| `alertIn`           | Alert is full rendered on stage and int animation is complete. |
-| `alertClosed`       | Alert has been closed.                                         |
-| `alertOut`          | Alert has been fully removed and out animation is complete.    |
-| `alertConfirmed`    | Confirmation alert has been confirmed.                         |
-| `alertNotConfirmed` | Confirmation alert has been denied.                            |
+| Name        | description                                                   |
+| ----------- | ------------------------------------------------------------- |
+| `open`      | Alert has been instantiated.                                  |
+| `in`        | Alert is full rendered on stage and in animation is complete. |
+| `close`     | Alert has been closed.                                        |
+| `out`       | Alert has been fully removed and out animation is complete.   |
+| `confirmed` | Confirmation alert has been confirmed.                        |

@@ -26,10 +26,10 @@ interface StoryBookPlayArgs {
 		blurHandler?(e: Event): void;
 		focusHandler?(e: Event): void;
 		challengeHandler?(e: Event): void;
-		alertConfirmHandler?(e: Event): void;
-		alertNotConfirmedHandler?(e: Event): void;
-		alertOutHandler?(e: Event): void;
-		alertInHandler?(e: Event): void;
-		transitionendHandler?(e: Event): void;
+		openHandler?(e: Event): void;
+		inHandler?(e: Event): void;
+		closeHandler?(e: Event): void;
+		outHandler?(e: Event): void;
+		confirmHandler?(e: Event): void;
 	};
 }

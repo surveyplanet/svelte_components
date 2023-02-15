@@ -8,11 +8,11 @@
 	title="Alert/Default"
 	component={Alert}
 	argTypes={{
-		title: { control: 'text', defaultValue: 'Alert Title' },
-		subtitle: { control: 'text', defaultValue: 'Alert Subtitle' },
-		type: { control: 'text', defaultValue: 'info' },
+		title: { control: 'text', defaultValue: '500' },
+		subtitle: { control: 'text', defaultValue: 'Internal server error' },
+		type: { control: 'text', defaultValue: 'error' },
 		hideDelay: { control: 'number', defaultValue: 0 },
-		confirm: { control: 'boolean', defaultValue: true },
+		confirm: { control: 'boolean', defaultValue: false },
 		confirmButtonLabel: {
 			control: 'text',
 			defaultValue: 'Confirm',
@@ -23,21 +23,21 @@
 		},
 		challenge: { control: 'text', defaultValue: '' },
 		challengeLabel: { control: 'text', defaultValue: '' },
-		alertCloseHandler: { action: 'alertClose' },
-		alertConfirmHandler: { action: 'alertConfirm' },
-		closeButtonClickHandler: { action: 'alertNotConfirm' },
-		challengeHandler: { action: 'alertChallenge' },
-		transitionendHandler: { action: ['alertIn', 'alertOut'] },
+		openHandler: { action: 'open' },
+		inHandler: { action: 'in' },
+		closeHandler: { action: 'close' },
+		outHandler: { action: 'out' },
+		confirmHandler: { action: 'confirm' },
 	}} />
 
 <Template let:args>
 	<Alert
 		{...args}
-		on:alertOut={args.transitionendHandler}
-		on:alertClose={args.alertCloseHandler}
-		on:alertConfirm={args.alertConfirmHandler}
-		on:alertNotConfirmed={args.alertNotConfirmedHandler}
-		on:alertChallenge={args.challengeHandler}>This is the body</Alert>
+		on:in={args.inHandler}
+		on:out={args.outHandler}
+		on:close={args.closeHandler}
+		on:open={args.openHandler}
+		on:confirm={args.confirmHandler} />
 </Template>
 
 <Story
@@ -47,7 +47,7 @@
 		subtitle: 'Alert Subtitle',
 		type: 'info',
 	}}
-	play={test.defaultAlert} />
+	play={test.primary} />
 
 <Story
 	name="Close"
@@ -57,35 +57,35 @@
 		subtitle: 'Alert Subtitle',
 		type: 'info',
 	}}
-	play={test.closeAlert} />
+	play={test.close} />
 
 <Story
 	name="Confirm"
 	let:args
 	args={{
 		confirm: true,
+		hideDelay: 1000, // make sure this doesn't automatically hide
 		title: 'Confirm only',
 		type: 'info',
 		confirmButtonLabel: 'Confirm',
 	}}
-	play={test.confirmAlert} />
+	play={test.confirm} />
 
 <Story
 	name="Challenge"
 	let:args
-	play={test.challenge}>
-	<Alert
-		{...args}
-		confirm={true}
-		title="Challenge"
-		subtitle="Subtitle of the alert"
-		challenge="test"
-		type="challenge"
-		confirmButtonLabel="Submit"
-		challengeLabel="Challenge Label"
-		on:alertChallenge={args.challengeHandler}
-		on:alertOut={args.alertOutHandler}>This is the body</Alert>
-</Story>
+	args={{
+		confirm: true,
+		title: 'Delete account',
+		subtitle:
+			'If you want to delete your account enter your email address below',
+		body: '',
+		challenge: 'test',
+		type: 'challenge',
+		confirmButtonLabel: 'Submit',
+		challengeLabel: 'Challenge Label',
+	}}
+	play={test.challenge} />
 
 <Story
 	name="Hidden Delay"
@@ -97,23 +97,20 @@
 	play={test.delayHide} />
 
 <Story
-	name="Confirm with hide delay"
-	args={{
-		hideDelay: 1000,
-		confirm: true,
-		title: 'Hidden delay',
-		type: 'warning',
-	}}
-	play={test.delayHideConfirm} />
-
-<Story
-	name="HTML"
+	name="HTML content"
 	let:args
 	play={test.html}>
 	<Alert
 		{...args}
 		title="HTML"
 		type="error"
-		subtitle="Subtitle of the alert"
-		><p class="test-class">Test the HTML</p></Alert>
+		subtitle="Subtitle of the alert">
+		<h5>Some HTML content</h5>
+		<p>
+			Had upon could his clay <a href="/">misery</a> run friends but caught.
+		</p>
+		<img
+			src="https://via.placeholder.com/256/00FF00/FFFFFF?text=Test%20Image"
+			alt="test" />
+	</Alert>
 </Story>

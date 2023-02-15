@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-	import { tick } from 'svelte';
+	import { createEventDispatcher, onMount, tick } from 'svelte';
+	import { fly, slide, scale } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 	import { BUTTON_MODES, Button, Icon, TextInput } from './';
 
 	const dispatch = createEventDispatcher();
@@ -12,117 +13,126 @@
 
 	export let confirm = false;
 	export let confirmButtonLabel = 'Confirm';
-	export let cancelButtonLabel = 'Close';
-	export let challengeLabel: string | null = null;
+	export let cancelButtonLabel = 'Cancel';
 	export let challenge: string | null = null;
+	export let challengeLabel: string | null = null;
 
-	let visible = true;
-	let enableConfirmButton = false;
+	let visible = false;
+	let disableConfirmButton = false;
+	let isChallenge = confirm && challenge?.length > 0;
 
 	// handlers
-	const challengeKeyupHandler = (event: SvelteCustomEvent): void => {
-		const input = event.detail.target as HTMLInputElement;
-		enableConfirmButton = input.value !== challenge;
-		if (enableConfirmButton) {
-			dispatch('alertChallenge', input.value);
-		}
-	};
-
-	const destroy = () => {
-		dispatch('alertClose');
-		visible = false;
-	};
-
-	const alertConfirmHandler = () => {
-		dispatch('alertConfirm');
-		destroy();
-	};
-
-	const closeButtonClickHandler = () => {
-		dispatch('alertNotConfirm');
-		destroy();
-	};
-
-	const transitionendHandler = () => {
-		if (!visible) {
-			dispatch('alertOut');
-		} else {
-			dispatch('alertIn');
-		}
-	};
-
-	(async function () {
-		await tick();
-		dispatch('alertOpen');
+	onMount(() => {
+		visible = true;
+		disableConfirmButton = isChallenge;
 		if (!confirm && hideDelay > 0) {
 			setTimeout(() => {
 				visible = false;
 			}, hideDelay);
 		}
-	})();
+	});
+
+	const challengeKeyupHandler = (event: SvelteCustomEvent): void => {
+		const input = event.detail.target as HTMLInputElement;
+		disableConfirmButton = input.value !== challenge;
+	};
+
+	const alertConfirmButtonClickHandler = () => {
+		const value = isChallenge ? disableConfirmButton : true;
+		dispatch('confirm', value);
+		visible = false;
+	};
+
+	const closeButtonClickHandler = () => {
+		dispatch('confirm', false);
+		visible = false;
+	};
+
+	const introStartHandler = () => {
+		dispatch('open');
+	};
+
+	const introEndHandler = () => {
+		dispatch('in');
+	};
+
+	const outroStartHandler = () => {
+		dispatch('close');
+	};
+
+	const outroEndHandler = () => {
+		dispatch('out');
+	};
 </script>
 
-<div
-	on:transitionend={transitionendHandler}
-	class="sp-alert sp-alert--{type}"
-	role="alert"
-	class:sp-alert--visible={visible}
-	class:sp-alert--confirm={confirm}
-	class:sp-alert--challenge={challenge?.length}>
-	<header class="sp-alert--header">
-		{#if !confirm}
-			<button
-				on:click={closeButtonClickHandler}
-				class="sp-alert--header--close-btn">
-				<Icon name="close" />
-			</button>
-		{/if}
-
-		{#if title?.length}
-			<h3 class="sp-alert--header--title">{title}</h3>
-		{/if}
-
-		{#if subtitle?.length}
-			<h4 class="sp-alert--header--subtitle">{subtitle}</h4>
-		{/if}
-	</header>
-
-	<div class="sp-alert--body">
-		<slot />
-	</div>
-
-	{#if confirm}
-		<footer class="sp-alert--footer">
-			{#if challenge?.length}
-				<div class="sp-alert--challenge">
-					<TextInput
-						label={challengeLabel}
-						placeholder={challenge}
-						on:keyup={challengeKeyupHandler} />
-				</div>
+{#if visible}
+	<div
+		role="alert"
+		class="sp-alert sp-alert--{type}"
+		class:sp-alert--confirm={confirm}
+		class:sp-alert--challenge={isChallenge}
+		transition:fly={{ y: -250, duration: 500, easing: cubicOut }}
+		on:introstart={introStartHandler}
+		on:introend={introEndHandler}
+		on:outrostart={outroStartHandler}
+		on:outroend={outroEndHandler}>
+		<header class="sp-alert--header">
+			{#if !confirm}
+				<button
+					on:click={closeButtonClickHandler}
+					class="sp-alert--header--close-btn">
+					<Icon
+						name="close"
+						size="32" />
+				</button>
 			{/if}
-			<nav>
-				<ul>
-					<li class="sp-alert--confirm">
-						<Button
-							disabled={enableConfirmButton}
-							on:click={alertConfirmHandler}
-							mode={BUTTON_MODES.PRIMARY}>
-							{confirmButtonLabel}
-						</Button>
-					</li>
-					<li class="sp-alert--close">
-						<Button
-							on:click={closeButtonClickHandler}
-							mode={BUTTON_MODES.SECONDARY}>
-							{cancelButtonLabel}
-						</Button>
-					</li>
-				</ul>
-			</nav>
-		</footer>
-	{/if}
-</div>
+
+			{#if title?.length}
+				<h3 class="sp-alert--header--title">{title}</h3>
+			{/if}
+
+			{#if subtitle?.length}
+				<h4 class="sp-alert--header--subtitle">{subtitle}</h4>
+			{/if}
+		</header>
+
+		<div class="sp-alert--body">
+			<slot />
+		</div>
+
+		{#if confirm}
+			<footer class="sp-alert--footer">
+				{#if isChallenge}
+					<div class="sp-alert--challenge">
+						<TextInput
+							label={challengeLabel}
+							placeholder={challenge}
+							on:keyup={challengeKeyupHandler} />
+					</div>
+				{/if}
+				<nav>
+					<ul>
+						<li class="sp-alert--confirm">
+							<Button
+								disabled={disableConfirmButton}
+								on:click={alertConfirmButtonClickHandler}
+								mode={BUTTON_MODES.DARK}>
+								{confirmButtonLabel}
+							</Button>
+						</li>
+						<li class="sp-alert--close">
+							<Button
+								on:click={closeButtonClickHandler}
+								mode={BUTTON_MODES.LIGHT}>
+								{cancelButtonLabel}
+							</Button>
+						</li>
+					</ul>
+				</nav>
+			</footer>
+		{/if}
+	</div>
+{/if}
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
@@ -139,40 +149,35 @@
 		border-radius: $size-radius--default;
 		box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.25);
 		font: $font--default;
-		opacity: 0;
-		visibility: hidden;
-		transition: opacity $animation-speed ease-in-out,
-			visibility $animation-speed ease-in-out;
-
-		&.sp-alert--visible {
-			opacity: 1;
-			visibility: visible;
-		}
+		background-color: $color--white;
 
 		&.sp-alert--info {
-			// border-color: $color--green-light;
+			// background-color: $color--blue;
+			border-color: $color--blue-dark;
+			color: $color--blue-dark;
 		}
 
 		&.sp-alert--warning {
-			// border-color: $color--yellow-light;
+			// background-color: $color--yellow;
+			border-color: $color--yellow-dark;
+			color: $color--yellow-dark;
 		}
 
 		&.sp-alert--error {
-			// border-color: $color--pink-dark;
+			// background-color: $color--pink;
+			border-color: $color--pink-dark;
+			color: $color--pink-dark;
 		}
 
 		&.sp-alert--success {
-			// border-color: $color--green-light;
-		}
-
-		&.sp-alert--challenge {
-			// border-color: $color--purple;
+			// background-color: $color--green;
+			border-color: $color--green-dark;
+			color: $color--green-dark;
 		}
 	}
 
 	.sp-alert--header {
 		position: relative;
-		padding-bottom: $size-gutter--half;
 		.sp-alert--header--title {
 			margin: 0;
 			padding: 0;
@@ -185,8 +190,8 @@
 
 	.sp-alert--header--close-btn {
 		position: absolute;
-		right: 0;
-		top: 0;
+		right: -($size-gutter--half);
+		top: -($size-gutter--half);
 		cursor: pointer;
 		width: $size--20;
 		height: $size--20;
@@ -195,6 +200,13 @@
 		margin: 0;
 		border: 0;
 		background-color: transparent;
+	}
+
+	.sp-alert--body {
+		padding-top: $size-gutter--half;
+		&:empty {
+			display: none;
+		}
 	}
 
 	.sp-alert--footer {
@@ -214,22 +226,5 @@
 	.sp-alert--challenge {
 		margin-top: $size--16;
 		margin-bottom: $size--16;
-	}
-	.sp-alert--cancel {
-		background: none;
-		border: 1px solid $color--slate-dark;
-		border-radius: $size-radius--default;
-		color: $color--slate-dark;
-		cursor: pointer;
-		font-size: $size--24;
-		font-weight: bold;
-		position: absolute;
-		right: $size--8;
-		top: $size--8;
-		box-shadow: 1px 1px 3px 0px $color--slate-dark;
-	}
-	.sp-alert--cancel:active {
-		transform: translate(1px, 1px);
-		box-shadow: 1px 1px 1px 0px $color--slate-dark;
 	}
 </style>
