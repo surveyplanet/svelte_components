@@ -17,7 +17,7 @@
 </script>
 
 <Meta
-	title="Form Inputs/Radio"
+	title="Form controls/Radio"
 	component={Radio}
 	{argTypes} />
 

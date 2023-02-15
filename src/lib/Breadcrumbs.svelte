@@ -1,10 +1,10 @@
 <script lang="ts">
-	type Breadcrumb = {
+	interface BreadcrumbOptions {
 		name: string;
 		url: string;
-	};
+	}
 
-	export let breadcrumbs: Breadcrumb[] = [];
+	export let breadcrumbs: BreadcrumbOptions[] = [];
 </script>
 
 <nav class="sp-breadcrumbs">

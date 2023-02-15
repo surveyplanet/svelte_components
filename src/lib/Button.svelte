@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { BUTTON_MODES, SIZES } from './_definitions';
+	import { BUTTON_MODES, SIZES } from './index';
 
 	const dispatch = createEventDispatcher();
 

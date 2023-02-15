@@ -7,10 +7,10 @@ export const basic = async (res: StoryBookPlayArgs) => {
 	const toggle: HTMLDivElement = canvas.getByRole('switch');
 	const track: HTMLDivElement = toggle.querySelector(
 		'.sp-toggle--track'
-	) as HTMLDivElement;
+	)! as HTMLDivElement;
 	const checkbox: HTMLInputElement = toggle.querySelector(
 		'input[type=checkbox]'
-	) as HTMLInputElement;
+	)! as HTMLInputElement;
 	const trackStyle: CSSStyleDeclaration = window.getComputedStyle(track);
 
 	expect(checkbox).toBeDefined();

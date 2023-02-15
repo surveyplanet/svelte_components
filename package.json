@@ -15,7 +15,7 @@
 	],
 	"version": "0.0.8",
 	"homepage": "https://ui.surveyplanet.com",
-	"license": "SEE LICENSE IN LICENSE",
+	"license": "MIT",
 	"author": "Jonah Werre <jonahwerre@gmail.com> (https://github.com/jwerre)",
 	"contributors": [
 		"Ognjen Ugljenovic <ognjen@surveyplanet.com>"
@@ -33,6 +33,7 @@
 		"dev": "npm run storybook",
 		"format": "prettier --plugin-search-dir . --write .",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"lint:check": "eslint .",
 		"package": "npm run build",
 		"prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
 		"release": "semantic-release",
@@ -65,17 +66,19 @@
 		"@storybook/sveltekit": "^7.0.0-beta.30",
 		"@storybook/test-runner": "^0.10.0-next.4",
 		"@storybook/testing-library": "^0.0.13",
-		"@surveyplanet/publish": "^2.0.0-beta.1",
+		"@surveyplanet/publish": "^1.0.1",
 		"@surveyplanet/styles": "^0.1.7-25",
 		"@sveltejs/adapter-auto": "^1.0.0-next.90",
 		"@sveltejs/kit": "^1.0.0-next.587",
 		"@sveltejs/package": "^1.0.0-next.6",
-		"@typescript-eslint/eslint-plugin": "^5.45.0",
-		"@typescript-eslint/parser": "^5.45.0",
+		"@types/cleave.js": "^1.4.7",
+		"@typescript-eslint/eslint-plugin": "^5.51.0",
+		"@typescript-eslint/parser": "^5.51.0",
 		"concurrently": "^7.6.0",
 		"cspell": "^6.22.0",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-eslint-comments": "^3.2.0",
 		"eslint-plugin-storybook": "^0.6.8",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"http-server": "^14.1.1",
@@ -95,6 +98,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@surveyplanet/utilities": "^1.0.1"
+		"@surveyplanet/utilities": "^1.0.0-beta.5",
+		"cleave.js": "^1.6.0"
 	}
 }

@@ -41,7 +41,7 @@ export const medium = async (res: StoryBookPlayArgs) => {
 	);
 };
 
-export const large = async (res: StoryBookPlayArgs) => {
+export const large = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const avatar = canvas.getByRole('button');
 	const style = window.getComputedStyle(avatar);

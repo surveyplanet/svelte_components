@@ -53,7 +53,7 @@
 
 	function nameChangeHandler<T extends string>(val: T): void {
 		const data = ICONS.find((itm) => itm.name === val);
-		if (data && data.path && data.path.length) {
+		if (data?.path.length) {
 			path = data.path;
 		}
 	}
