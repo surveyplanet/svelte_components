@@ -44,7 +44,7 @@
 		"test": "test-storybook --index-json",
 		"test:ci-wait": "echo 'wait-on does not work in Node 18, see: https://github.com/jeffbski/wait-on/issues/133#issuecomment-1424067197' # && concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"http-server storybook-static --port 6006 --silent\" \"wait-on --timeout 5000 tcp:6006 && npm test\"",
 		"test:ci": "concurrently --kill-others --success first --names \"SERVER,TEST\" \"http-server ./static --silent -c-1 --port 6006\" \"sleep 5 && test-storybook --index-json --url http://127.0.0.1:6006\"",
-		"proof": "npm run check && npm run lint && npm run spell && npm run test"
+		"proof": "npm audit && npm run check && npm run lint && npm run spell && npm run test"
 	},
 	"devDependencies": {
 		"@semantic-release/changelog": "^6.0.2",

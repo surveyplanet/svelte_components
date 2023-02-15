@@ -8,8 +8,8 @@
 	title="Alert/Default"
 	component={Alert}
 	argTypes={{
-		title: { control: 'text', defaultValue: '500' },
-		subtitle: { control: 'text', defaultValue: 'Internal server error' },
+		title: { control: 'text', defaultValue: 'Alert title' },
+		subtitle: { control: 'text', defaultValue: 'Alert subtitle' },
 		type: { control: 'text', defaultValue: 'error' },
 		hideDelay: { control: 'number', defaultValue: 0 },
 		confirm: { control: 'boolean', defaultValue: false },
@@ -37,14 +37,15 @@
 		on:out={args.outHandler}
 		on:close={args.closeHandler}
 		on:open={args.openHandler}
-		on:confirm={args.confirmHandler} />
+		on:confirm={args.confirmHandler}
+		>There are things you need to know.</Alert>
 </Template>
 
 <Story
 	name="Default"
 	args={{
-		title: 'Alert Title',
-		subtitle: 'Alert Subtitle',
+		title: 'Did you know?',
+		subtitle: 'Informational alert',
 		type: 'info',
 	}}
 	play={test.primary} />
@@ -54,7 +55,6 @@
 	let:args
 	args={{
 		title: 'Close Test',
-		subtitle: 'Alert Subtitle',
 		type: 'info',
 	}}
 	play={test.close} />
@@ -65,8 +65,9 @@
 	args={{
 		confirm: true,
 		hideDelay: 1000, // make sure this doesn't automatically hide
-		title: 'Confirm only',
-		type: 'info',
+		title: 'Permanently delete',
+		subtitle: 'This cannot be undone.',
+		type: 'warning',
 		confirmButtonLabel: 'Confirm',
 	}}
 	play={test.confirm} />
@@ -79,13 +80,35 @@
 		title: 'Delete account',
 		subtitle:
 			'If you want to delete your account enter your email address below',
-		body: '',
-		challenge: 'test',
-		type: 'challenge',
-		confirmButtonLabel: 'Submit',
-		challengeLabel: 'Challenge Label',
+		type: 'success',
+		confirmButtonLabel: 'Yes, delete',
+		cancelButtonLabel: 'No, cancel',
+		challengeLabel: 'Enter your email address',
+		challenge: 'testing@example.com',
 	}}
 	play={test.challenge} />
+
+<Story
+	name="Challenge"
+	let:args
+	play={test.challenge}>
+	<Alert
+		{...args}
+		title="Are you absolutely sure?"
+		subtitle="Due to privacy laws like GDPR and CCPA this cannot be undone."
+		type="warning"
+		confirm={true}
+		confirmButtonLabel="Delete account"
+		cancelButtonLabel="Cancel"
+		challengeLabel="Email address"
+		challenge="testing@example.com">
+		<p>
+			This will permanently delete your account and all associated data.
+		</p>
+		<p>If you have a subscription it will be canceled immediately.</p>
+		<p>Please type your email address to confirm.</p>
+	</Alert>
+</Story>
 
 <Story
 	name="Hidden Delay"
@@ -105,11 +128,14 @@
 		title="HTML"
 		type="error"
 		subtitle="Subtitle of the alert">
-		<h5>Some HTML content</h5>
+		<h4>Some HTML content</h4>
 		<p>
-			Had upon could his clay <a href="/">misery</a> run friends but caught.
+			Had upon could his clay <a
+				href="/"
+				data-testid="test-link">misery</a> run friends but caught.
 		</p>
 		<img
+			data-testid="test-img"
 			src="https://via.placeholder.com/256/00FF00/FFFFFF?text=Test%20Image"
 			alt="test" />
 	</Alert>

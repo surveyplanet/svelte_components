@@ -1,28 +1,68 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount, tick } from 'svelte';
-	import { fly, slide, scale } from 'svelte/transition';
-	import { cubicOut } from 'svelte/easing';
+	import { createEventDispatcher, onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
+	import { elasticOut } from 'svelte/easing';
 	import { BUTTON_MODES, Button, Icon, TextInput } from './';
 
 	const dispatch = createEventDispatcher();
 
+	/**
+	 * Main alert title.
+	 */
 	export let title: string | null;
+
+	/**
+	 * Optional alert subtitle.
+	 */
 	export let subtitle: string | null;
+
+	/**
+	 * The type of alert.
+	 */
 	export let type: 'info' | 'warning' | 'error' | 'success' = 'success';
+
+	/**
+	 * Automatically hide alert after X milliseconds. A value of 0 means don't hide.
+	 */
 	export let hideDelay = 0;
 
+	/**
+	 * Whether the alert needs to be confirmed before it is closed.
+	 */
 	export let confirm = false;
+
+	/**
+	 * Text label for the confirm button.
+	 */
 	export let confirmButtonLabel = 'Confirm';
+
+	/**
+	 * Text label for the cancel confirm button.
+	 */
 	export let cancelButtonLabel = 'Cancel';
-	export let challenge: string | null = null;
-	export let challengeLabel: string | null = null;
+
+	/**
+	 * If provided alert displays a text input which must be valid before confirm button can be clicked.
+	 */
+	export let challenge = '';
+
+	/**
+	 * The label for the challenge input
+	 */
+	export let challengeLabel = '';
+
+	/**
+	 * The total time in milliseconds for the alert to animate in or out.
+	 */
+	export let animationMilliseconds = 1000;
 
 	let visible = false;
 	let disableConfirmButton = false;
-	let isChallenge = confirm && challenge?.length > 0;
+	let isChallenge = false;
 
 	// handlers
 	onMount(() => {
+		isChallenge = confirm && challenge.length > 0;
 		visible = true;
 		disableConfirmButton = isChallenge;
 		if (!confirm && hideDelay > 0) {
@@ -71,7 +111,11 @@
 		class="sp-alert sp-alert--{type}"
 		class:sp-alert--confirm={confirm}
 		class:sp-alert--challenge={isChallenge}
-		transition:fly={{ y: -250, duration: 500, easing: cubicOut }}
+		transition:fly={{
+			y: -250,
+			duration: animationMilliseconds,
+			easing: elasticOut,
+		}}
 		on:introstart={introStartHandler}
 		on:introend={introEndHandler}
 		on:outrostart={outroStartHandler}
@@ -83,7 +127,7 @@
 					class="sp-alert--header--close-btn">
 					<Icon
 						name="close"
-						size="32" />
+						size={32} />
 				</button>
 			{/if}
 
@@ -140,6 +184,7 @@
 	$animation-speed: 300ms;
 
 	.sp-alert {
+		position: absolute;
 		z-index: 1000;
 		min-width: $size--256;
 		max-width: $size--256;
@@ -203,6 +248,7 @@
 	}
 
 	.sp-alert--body {
+		color: $color--slate;
 		padding-top: $size-gutter--half;
 		&:empty {
 			display: none;
@@ -224,7 +270,6 @@
 	}
 
 	.sp-alert--challenge {
-		margin-top: $size--16;
-		margin-bottom: $size--16;
+		margin-bottom: $size-gutter--half;
 	}
 </style>
