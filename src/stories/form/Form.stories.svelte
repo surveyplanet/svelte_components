@@ -1,19 +1,40 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { TextInput } from '../../lib';
-	import * as test from './form.test';
+	import { Form, Button, TextInput, Radio, Checkbox } from '../../lib';
+	// import * as test from './form.test';
 </script>
 
 <Meta
-	title="Form controls/Text Input"
-	component={TextInput}
+	title="Form controls/Form"
+	component={Form}
 	argTypes={{
 		id: { control: 'text' },
-		trigger: { control: 'text' },
+		submitEventHandler: { action: 'submit' },
 	}} />
 
 <Template let:args>
-	<TextInput {...args} />
+	<Form
+		on:submit={args.submitEventHandler}
+		{...args}>
+		<TextInput
+			name="first_name"
+			label="First name" />
+		<TextInput
+			id="last_name"
+			label="Last name" />
+		<TextInput
+			id="email"
+			label="Email" />
+		<Radio
+			id="radio"
+			value="truthiest" />
+		<Checkbox
+			id="checkbox"
+			value="truthiest" />
+		<Button>Submit</Button>
+	</Form>
 </Template>
 
-<Story name="Basic" />
+<Story
+	name="Basic"
+	let:args />
