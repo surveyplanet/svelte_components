@@ -2,7 +2,7 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { delay } from '@surveyplanet/utilities';
 
-const animationTime = 1000 + 1;
+const animationTime = 1000 + 5;
 
 export const primary = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);

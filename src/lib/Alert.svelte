@@ -6,16 +6,54 @@
 
 	const dispatch = createEventDispatcher();
 
+	/**
+	 * Main alert title.
+	 */
 	export let title: string | null;
+
+	/**
+	 * Optional alert subtitle.
+	 */
 	export let subtitle: string | null;
+
+	/**
+	 * The type of alert.
+	 */
 	export let type: 'info' | 'warning' | 'error' | 'success' = 'success';
+
+	/**
+	 * Automatically hide alert after X milliseconds. A value of 0 means don't hide.
+	 */
 	export let hideDelay = 0;
 
+	/**
+	 * Whether the alert needs to be confirmed before it is closed.
+	 */
 	export let confirm = false;
+
+	/**
+	 * Text label for the confirm button.
+	 */
 	export let confirmButtonLabel = 'Confirm';
+
+	/**
+	 * Text label for the cancel confirm button.
+	 */
 	export let cancelButtonLabel = 'Cancel';
+
+	/**
+	 * If provided alert displays a text input which must be valid before confirm button can be clicked.
+	 */
 	export let challenge = '';
+
+	/**
+	 * The label for the challenge input
+	 */
 	export let challengeLabel = '';
+
+	/**
+	 * The total time in milliseconds for the alert to animate in or out.
+	 */
 	export let animationMilliseconds = 1000;
 
 	let visible = false;
@@ -67,18 +105,6 @@
 	};
 </script>
 
-<!--
-@component
-Here's some documentation for this component.
-It will show up on hover.
-
-- You can use markdown here.
-- You can also use code blocks here.
-- Usage:
-  ```tsx
-  <main name="Arethra">
-  ```
--->
 {#if visible}
 	<div
 		role="alert"
@@ -158,6 +184,7 @@ It will show up on hover.
 	$animation-speed: 300ms;
 
 	.sp-alert {
+		position: absolute;
 		z-index: 1000;
 		min-width: $size--256;
 		max-width: $size--256;
