@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount, tick } from 'svelte';
-	import { fly, slide, scale } from 'svelte/transition';
-	import { cubicOut } from 'svelte/easing';
+	import { createEventDispatcher, onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
+	import { elasticOut } from 'svelte/easing';
 	import { BUTTON_MODES, Button, Icon, TextInput } from './';
 
 	const dispatch = createEventDispatcher();
@@ -14,15 +14,17 @@
 	export let confirm = false;
 	export let confirmButtonLabel = 'Confirm';
 	export let cancelButtonLabel = 'Cancel';
-	export let challenge: string | null = null;
-	export let challengeLabel: string | null = null;
+	export let challenge = '';
+	export let challengeLabel = '';
+	export let animationMilliseconds = 1000;
 
 	let visible = false;
 	let disableConfirmButton = false;
-	let isChallenge = confirm && challenge?.length > 0;
+	let isChallenge = false;
 
 	// handlers
 	onMount(() => {
+		isChallenge = confirm && challenge.length > 0;
 		visible = true;
 		disableConfirmButton = isChallenge;
 		if (!confirm && hideDelay > 0) {
@@ -65,13 +67,29 @@
 	};
 </script>
 
+<!--
+@component
+Here's some documentation for this component.
+It will show up on hover.
+
+- You can use markdown here.
+- You can also use code blocks here.
+- Usage:
+  ```tsx
+  <main name="Arethra">
+  ```
+-->
 {#if visible}
 	<div
 		role="alert"
 		class="sp-alert sp-alert--{type}"
 		class:sp-alert--confirm={confirm}
 		class:sp-alert--challenge={isChallenge}
-		transition:fly={{ y: -250, duration: 500, easing: cubicOut }}
+		transition:fly={{
+			y: -250,
+			duration: animationMilliseconds,
+			easing: elasticOut,
+		}}
 		on:introstart={introStartHandler}
 		on:introend={introEndHandler}
 		on:outrostart={outroStartHandler}
@@ -83,7 +101,7 @@
 					class="sp-alert--header--close-btn">
 					<Icon
 						name="close"
-						size="32" />
+						size={32} />
 				</button>
 			{/if}
 
@@ -203,6 +221,7 @@
 	}
 
 	.sp-alert--body {
+		color: $color--slate;
 		padding-top: $size-gutter--half;
 		&:empty {
 			display: none;
@@ -224,7 +243,6 @@
 	}
 
 	.sp-alert--challenge {
-		margin-top: $size--16;
-		margin-bottom: $size--16;
+		margin-bottom: $size-gutter--half;
 	}
 </style>

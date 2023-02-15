@@ -18,6 +18,7 @@ import { Alert } from '../../lib';
 
 <div id="example">
 	<Story id="alert-default--default" />
+	<br />
 	<Story id="alert-default--challenge" />
 </div>
 
@@ -27,7 +28,7 @@ import { Alert } from '../../lib';
 <script>
 	import {Alert} from '@surveyplanet/svelte-components';
 </script>
-<Alert title="You're survey has been saved." />
+<Alert title="You're settings has been saved."/>
 ```
 
 ### Properties
@@ -36,15 +37,13 @@ import { Alert } from '../../lib';
 | ------------------------------ | ------- | ------------------------------------------------------------------------------------------------- |
 | `title`                        | String  | Main alert message.                                                                               |
 | `subtitle`                     | String  | Optional alert subtitle.                                                                          |
-| `body`                         | String  | Optional alert body.                                                                              |
-| `html`                         | String  | Optional alert html body.                                                                         |
-| `type='info'`                  | String  | One of `info`, `warning` `error`.                                                                 |
+| `type='success'`               | String  | One of `info`, `warning`, `error`, or `success`.                                                  |
 | `hideDelay`                    | Number  | auto hide alert after X milliseconds. A value of 0 means don't hide.                              |
 | `confirm=false`                | Boolean | wether the alert needs to be confirmed before it is closed.                                       |
 | `confirmButtonLabel='Confirm'` | String  | Text label for the confirm button.                                                                |
 | `cancelButtonLabel='Cancel'`   | String  | Text label for the cancel confirm button.                                                         |
 | `challenge`                    | String  | If provided alert displays a text input which must be valid before confirm button can be clicked. |
-| `challengeLabel`               | String  | Challange label                                                                                   |
+| `challengeLabel`               | String  | The label for the challange input                                                                 |
 
 ### Events
 

@@ -1,12 +1,14 @@
 {
 	"language": "en",
 	"words": [
+		"CCPA",
 		"introend",
 		"introstart",
 		"outro",
 		"outroend",
 		"outrostart",
 		"surveyplanet",
+		"testid",
 		"textbox"
 	],
 	"ignoreWords": [
