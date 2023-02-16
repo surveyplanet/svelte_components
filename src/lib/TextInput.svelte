@@ -80,6 +80,10 @@
 
 	let validationDisplayMessage = '';
 
+	if (name === null) {
+		name = id;
+	}
+
 	onMount(() => {
 		if (
 			Object.keys(cleaveOptions).length &&

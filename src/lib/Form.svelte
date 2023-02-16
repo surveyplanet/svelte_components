@@ -9,17 +9,16 @@
 	let submitButton: HTMLButtonElement;
 
 	const submitEventHandler = () => {
-		let formObject = {};
-		let formControls = document.querySelectorAll(
-			'input',
-			'select',
-			'textarea'
-		) as NodeListOf<HTMLInputElement>;
-		formControls.forEach((control) => {
-			formObject[control.name || control.id] = control.value;
-		});
-		console.log(formObject);
-		dispatch('submit', formObject);
+		const formData = new FormData(form);
+
+		let formOutput = {};
+		for (const [key, value] of formData) {
+			formOutput = {
+				...formOutput,
+				[key]: value,
+			};
+		}
+		dispatch('submit', formOutput);
 	};
 	onMount(() => {
 		submitButton = form.getElementsByTagName('button')[0];
@@ -36,9 +35,14 @@
 	});
 </script>
 
-<form
-	bind:this={form}
-	class="sp-form"
-	{id}>
-	<slot />
-</form>
+<div>
+	<!-- svelte-ignore a11y-no-redundant-roles -->
+	<form
+		bind:this={form}
+		class="sp-form"
+		test-id="form"
+		aria-label="form"
+		{id}>
+		<slot />
+	</form>
+</div>

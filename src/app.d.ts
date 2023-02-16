@@ -25,5 +25,6 @@ interface StoryBookPlayArgs {
 		keydownHandler?(e: Event): void;
 		blurHandler?(e: Event): void;
 		focusHandler?(e: Event): void;
+		submitEventHandler?(e: Event): void;
 	};
 }

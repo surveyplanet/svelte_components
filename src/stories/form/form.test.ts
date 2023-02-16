@@ -1,127 +1,53 @@
-import { within, userEvent, fireEvent } from '@storybook/testing-library';
+import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { delay } from '@surveyplanet/utilities';
 
-export const basic = async (res: StoryBookPlayArgs) => {
+export const basic = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const input: HTMLInputElement = canvas.getByRole('textbox');
-	const label = canvas.getByText('Text input')
-		?.parentElement as HTMLLabelElement;
-	const inputWrapper = input.parentElement;
+	const form = canvas.getByTestId('form');
+	const name = canvas.getByLabelText('First name');
+	const lastName = canvas.getByLabelText('Last name');
+	const email = canvas.getByLabelText('Email');
+	const radios: HTMLInputElement[] = canvas.getAllByRole('radio');
+	const checkbox = canvas.getByRole('checkbox');
+	const submit = canvas.getByRole('button');
 
-	expect(inputWrapper).toHaveClass(' sp-text-input');
-	expect(input).toBeVisible();
-	expect(input).toBeDefined();
-	expect(input).not.toBeDisabled();
-	expect(input.id).toBe('email');
-	expect(input.placeholder).toBe('Placeholder');
-	expect(input.readOnly).toBe(false);
-	expect(label).toHaveClass(' sp-text-input--label');
-	expect(input).toHaveAttribute('type', 'text');
-	expect(input).toHaveAttribute('data-test', 'test');
-	expect(input).toHaveAttribute('data-test2', 'test2');
+	expect(form).toBeVisible();
+	expect(lastName).toBeVisible();
+	expect(email).toBeVisible();
+	expect(radios[0]).toBeVisible();
+	expect(checkbox).toBeVisible();
+	expect(submit).toBeVisible();
 
-	expect(input).not.toHaveFocus();
-	userEvent.click(input);
-	// expect(res.args.focusHandler).toHaveBeenCalled();
-	expect(input).toHaveFocus();
+	expect(form).toHaveClass('sp-form');
 
-	userEvent.type(input, 'Hello World');
-	expect(input.value).toBe(`Hello World`);
-	expect(res.args.keyupHandler).toHaveBeenCalled();
-	expect(res.args.keydownHandler).toHaveBeenCalled();
+	expect(name).not.toBeDisabled();
+	expect(name).not.toHaveFocus();
+	expect(name).toHaveAttribute('name');
 
-	fireEvent.change(input, { target: { value: '' } });
-	expect(res.args.changeHandler).toHaveBeenCalled();
+	userEvent.type(name, 'John');
+	expect(name).toHaveValue('John');
 
-	fireEvent.blur(input);
-	expect(res.args.blurHandler).toHaveBeenCalled();
-};
+	expect(lastName).not.toBeDisabled();
+	expect(lastName).not.toHaveFocus();
+	expect(lastName).toHaveAttribute('id', 'last_name');
+	expect(lastName).toHaveAttribute('name', 'last_name');
+	expect(lastName).toHaveAttribute('type', 'text');
 
-export const multiline = (res: StoryBookPlayArgs) => {
-	const canvas = within(res.canvasElement);
-	const input: HTMLInputElement = canvas.getByRole('textbox');
-	const label = canvas.getByText('Multiline input')
-		?.parentElement as HTMLLabelElement;
-	const value = ['Line one', 'Line two', 'Line three'].join('\n');
+	userEvent.type(lastName, 'Doe');
 
-	expect(input).toBeVisible();
-	expect(input).not.toHaveFocus();
-	expect(input).not.toBeDisabled();
-	expect(input.id).toBe('text-input-id');
-	expect(input.placeholder).toBe('Placeholder');
-	expect(input.readOnly).toBe(false);
-	expect(label).toHaveClass(' sp-text-input--label');
-	expect(input).toHaveAttribute('data-test', 'test');
-	expect(input).toHaveAttribute('data-test2', 'test2');
+	userEvent.type(email, 'john.doe@example.com');
+	expect(email).toHaveValue('john.doe@example.com');
 
-	expect(input).not.toHaveFocus();
-	userEvent.click(input);
-	expect(input).toHaveFocus();
+	expect(radios).toHaveLength(3);
 
-	userEvent.type(input, value);
-	expect(input.value).toBe(value);
-	expect(res.args.keyupHandler).toHaveBeenCalled();
-	expect(res.args.keydownHandler).toHaveBeenCalled();
+	userEvent.click(radios[0]);
+	expect(radios[0]).toBeChecked();
+	expect(radios[1]).not.toBeChecked();
+	expect(radios[2]).not.toBeChecked();
 
-	fireEvent.change(input, { target: { value: '' } });
-	expect(res.args.changeHandler).toHaveBeenCalled();
+	userEvent.click(checkbox);
 
-	fireEvent.blur(input);
-	expect(res.args.blurHandler).toHaveBeenCalled();
-};
+	userEvent.click(submit);
 
-export const disabled = (res: StoryBookPlayArgs) => {
-	const canvas = within(res.canvasElement);
-	const input: HTMLInputElement = canvas.getByRole('textbox');
-	expect(input.disabled).toBeTruthy();
-	expect(input.readOnly).toBeFalsy();
-};
-
-export const readonly = (res: StoryBookPlayArgs) => {
-	const canvas = within(res.canvasElement);
-	const input: HTMLInputElement = canvas.getByRole('textbox');
-	expect(input.readOnly).toBeTruthy();
-	expect(input.disabled).toBeFalsy();
-};
-
-export const noLabel = (res: StoryBookPlayArgs) => {
-	const canvas = within(res.canvasElement);
-	const input: HTMLInputElement = canvas.getByRole('textbox');
-	const children = input.parentElement!.children as HTMLCollection;
-
-	for (const node of children) {
-		expect(node.nodeName.toLowerCase()).not.toBe('label');
-	}
-};
-
-export const validate = async (res: StoryBookPlayArgs) => {
-	const canvas = within(res.canvasElement);
-	const input: HTMLInputElement = canvas.getByRole('textbox');
-	const inputWrapper = input.parentElement;
-
-	expect(input).toHaveAttribute('data-validate-rules', 'require,email');
-	fireEvent.change(input, { target: { value: 'invalid' } });
-	await delay();
-	expect(inputWrapper).toHaveClass('validation-error');
-	const errLabel = canvas.getByLabelText(
-		"What's the matter with you, you don't know your email address?"
-	);
-	expect(errLabel).toBeDefined();
-};
-
-export const masked = async (res: StoryBookPlayArgs) => {
-	const today = new Date();
-	const year = today.getFullYear().toString();
-	const month = (today.getMonth() + 1).toString().padStart(2, '0');
-	const day = today.getDate();
-	const value = `${year}-${month}-${day}`;
-
-	const canvas = within(res.canvasElement);
-	const input: HTMLInputElement = canvas.getByRole('textbox');
-	// fireEvent.change(input, { target: { value: 'invalid' } });
-	userEvent.type(input, 'noop');
-	expect(input.value).toBe('');
-	userEvent.type(input, value);
-	expect(input.value).toBe(value);
+	expect(res.args.submitEventHandler).toHaveBeenCalled();
 };

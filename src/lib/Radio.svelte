@@ -12,6 +12,9 @@
 	export let prependLabel = false;
 	export let attr = {};
 
+	if (name === null) {
+		name = id;
+	}
 	const changeEventHandler = (event: Event): void => {
 		if (disabled) {
 			return;

@@ -4,7 +4,7 @@
 	const dispatch = createEventDispatcher();
 
 	export let id: string = (Date.now() + Math.random()).toString(36);
-	export let name = '';
+	export let name: string | null = null;
 	export let value: string | null = null;
 	export let label = '';
 	export let checked = false;
@@ -18,6 +18,10 @@
 		}
 		dispatch('change', event);
 	};
+
+	if (name === null) {
+		name = id;
+	}
 </script>
 
 <input
