@@ -40,7 +40,7 @@
 	<form
 		bind:this={form}
 		class="sp-form"
-		test-id="form"
+		data-testid="form"
 		aria-label="form"
 		{id}>
 		<slot />
