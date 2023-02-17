@@ -31,10 +31,10 @@
 		background-color: $color--yellow;
 		overflow: hidden;
 		text-overflow: ellipsis;
-	}
 
-	:global(.sp-icon) {
-		width: 12px;
-		height: 12px;
+		:global(.sp-icon) {
+			width: 12px;
+			height: 12px;
+		}
 	}
 </style>
