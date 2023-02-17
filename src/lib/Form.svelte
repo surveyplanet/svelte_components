@@ -36,7 +36,6 @@
 </script>
 
 <div>
-	<!-- svelte-ignore a11y-no-redundant-roles -->
 	<form
 		bind:this={form}
 		class="sp-form"

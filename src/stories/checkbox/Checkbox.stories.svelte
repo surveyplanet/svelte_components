@@ -6,7 +6,7 @@
 	const argTypes = {
 		changeHandler: { action: 'change' },
 		id: { control: { type: 'text' }, defaultValue: 'my-checkbox' },
-		name: { control: { type: 'text' }, defaultValue: 'checkboxes' },
+		name: { control: { type: 'text' } },
 		value: { control: { type: 'text' }, defaultValue: 'my checkbox' },
 		label: { control: { type: 'text' }, defaultValue: 'Checkbox' },
 		checked: { control: { type: 'boolean' }, defaultValue: false },
@@ -31,8 +31,8 @@
 	name="Default"
 	args={{
 		label: 'Subscribe',
+		name: 'SubscribeCheckbox',
 		value: 'subscribe',
-		name: 'subscribe',
 		id: 'subscribe-checkbox',
 		attr: {
 			'data-id': '123abc',
@@ -45,6 +45,9 @@
 	args={{
 		label: 'Disabled',
 		disabled: true,
+		value: 'disabled',
+		name: 'disabledName',
+		id: 'disabled-checkbox',
 	}}
 	play={test.disabled} />
 
@@ -66,15 +69,15 @@
 	<Checkbox
 		{...args}
 		id="book1"
-		name="books"
 		label="War and Peace"
+		name="books1"
 		value="War and Peace"
 		on:change={args.changeHandler} />
 
 	<Checkbox
 		{...args}
 		id="book2"
-		name="books"
+		name="books2"
 		label="East of Eden"
 		value="East of Eden"
 		on:change={args.changeHandler} />
@@ -82,7 +85,7 @@
 	<Checkbox
 		{...args}
 		id="book3"
-		name="books"
+		name="books3"
 		label="Of Mice and Men"
 		value="Of Mice and Men"
 		on:change={args.changeHandler} />

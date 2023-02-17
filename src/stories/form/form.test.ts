@@ -8,14 +8,14 @@ export const basic = (res: StoryBookPlayArgs) => {
 	const lastName = canvas.getByLabelText('Last name');
 	const email = canvas.getByLabelText('Email');
 	const radios: HTMLInputElement[] = canvas.getAllByRole('radio');
-	const checkbox = canvas.getByRole('checkbox');
+	const checkboxes = canvas.getAllByRole('checkbox');
 	const submit = canvas.getByRole('button');
 
 	expect(form).toBeVisible();
 	expect(lastName).toBeVisible();
 	expect(email).toBeVisible();
 	expect(radios[0]).toBeVisible();
-	expect(checkbox).toBeVisible();
+	expect(checkboxes).toHaveLength(2);
 	expect(submit).toBeVisible();
 
 	expect(form).toHaveClass('sp-form');
@@ -45,7 +45,10 @@ export const basic = (res: StoryBookPlayArgs) => {
 	expect(radios[1]).not.toBeChecked();
 	expect(radios[2]).not.toBeChecked();
 
-	userEvent.click(checkbox);
+	userEvent.click(checkboxes[0]);
+	userEvent.click(checkboxes[1]);
+	expect(checkboxes[0]).toBeChecked();
+	expect(checkboxes[1]).toBeChecked();
 
 	userEvent.click(submit);
 

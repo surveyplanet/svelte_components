@@ -1,11 +1,13 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
 	export let on = false;
 	export let disabled = false;
+	export let id: string = (Date.now() + Math.random()).toString(36);
 	export let tall = false;
+	export let name: string;
 
 	const changeHandler = (event: Event): void => {
 		if (disabled) {
@@ -15,12 +17,20 @@
 
 		dispatch('change', on);
 	};
+	onMount(() => {
+		if (!name) {
+			throw new Error(
+				`The 'name' attribute is required for the Radio '${id}'`
+			);
+		}
+	});
 </script>
 
 <div
 	class="sp-toggle sp-toggle--{on ? 'on' : 'off'}"
 	class:sp-toggle--tall={tall}
 	role="switch"
+	{name}
 	aria-checked={on}>
 	<input
 		type="checkbox"

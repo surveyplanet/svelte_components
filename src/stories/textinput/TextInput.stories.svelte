@@ -58,6 +58,7 @@
 		id: 'text-input-id',
 		placeholder: 'Placeholder',
 		multiline: true,
+		name: 'multilineInput',
 		attr: { 'data-test': 'test', 'data-test2': 'test2' },
 	}}
 	play={test.multiline} />
@@ -68,6 +69,7 @@
 		value: 'Hello World',
 		label: 'Disabled input',
 		placeholder: 'Placeholder',
+		name: 'disabledInput',
 		disabled: true,
 	}}
 	play={test.disabled} />
@@ -77,6 +79,7 @@
 	args={{
 		label: 'Read only input',
 		value: 'Readonly',
+		name: 'readonlyInput',
 		readonly: true,
 		disabled: false,
 	}}
@@ -87,6 +90,7 @@
 	args={{
 		id: 'text-input-id',
 		placeholder: 'No label',
+		name: 'noLabel',
 	}}
 	play={test.noLabel} />
 
@@ -97,6 +101,7 @@
 		label: 'Validate',
 		placeholder: 'Email',
 		validationRules: ['require', 'email'],
+		name: 'validateThis',
 		validationMessage:
 			"What's the matter with you, you don't know your email address?",
 	}}
@@ -108,6 +113,7 @@
 		id: 'masked',
 		label: 'Masked',
 		placeholder: 'YYYY-MM-DD',
+		name: 'masked',
 		cleaveOptions: {
 			date: true,
 			delimiter: '-',

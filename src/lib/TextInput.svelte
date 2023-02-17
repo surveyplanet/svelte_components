@@ -80,11 +80,12 @@
 
 	let validationDisplayMessage = '';
 
-	if (name === null) {
-		name = id;
-	}
-
 	onMount(() => {
+		if (!name) {
+			throw new Error(
+				`The 'name' attribute is required for the TextInput '${id}'`
+			);
+		}
 		if (
 			Object.keys(cleaveOptions).length &&
 			Object.prototype.toString.call(cleaveOptions) === '[object Object]'

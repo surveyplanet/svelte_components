@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
 	export let id: string = (Date.now() + Math.random()).toString(36);
-	export let name: string | null = null;
+	export let name: string;
 	export let value: string | null = null;
 	export let label = '';
 	export let checked = false;
@@ -12,16 +12,20 @@
 	export let prependLabel = false;
 	export let attr = {};
 
+	onMount(() => {
+		if (!name) {
+			throw new Error(
+				`The 'name' attribute is required for the Checkbox '${id}'`
+			);
+		}
+	});
+
 	const changeEventHandler = (event: Event) => {
 		if (disabled) {
 			return;
 		}
 		dispatch('change', event);
 	};
-
-	if (name === null) {
-		name = id;
-	}
 </script>
 
 <input

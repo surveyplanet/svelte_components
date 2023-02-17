@@ -1,20 +1,9 @@
 {
 	"language": "en",
-	"words": [
-		"surveyplanet",
-		"testid",
-		"textbox"
-	],
-	"ignoreWords": [
-		"xsmall"
-	],
-	"flagWords": [
-		"hte",
-		"survey planet"
-	],
-	"files": [
-		"./**/*.{txt,md,js,ts,yaml,json,svelte}"
-	],
+	"words": ["surveyplanet", "testid", "textbox"],
+	"ignoreWords": ["xsmall"],
+	"flagWords": ["hte", "survey planet"],
+	"files": ["./**/*.{txt,md,js,ts,yaml,json,svelte}"],
 	"useGitignore": true,
 	"ignorePaths": [
 		"cspell.json",

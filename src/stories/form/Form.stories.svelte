@@ -1,6 +1,13 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { Form, Button, TextInput, Radio, Checkbox } from '../../lib';
+	import {
+		Form,
+		Button,
+		TextInput,
+		Radio,
+		Checkbox,
+		Toggle,
+	} from '../../lib';
 	import * as test from './form.test';
 </script>
 
@@ -16,12 +23,16 @@
 	<Form
 		on:submit={args.submitEventHandler}
 		{...args}>
-		<TextInput label="First name" />
+		<TextInput
+			label="First name"
+			name="name" />
 		<TextInput
 			id="last_name"
+			name="last_name"
 			label="Last name" />
 		<TextInput
 			id="email"
+			name="email"
 			label="Email" />
 		<div>
 			<Radio
@@ -43,7 +54,11 @@
 
 		<Checkbox
 			id="checkbox"
+			name="checkbox"
 			value="checkbox pass" />
+		<Toggle
+			id="toggle"
+			name="toggle" />
 		<Button>Submit</Button>
 	</Form>
 </Template>

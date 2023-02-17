@@ -17,6 +17,7 @@
 <Template let:args>
 	<Toggle
 		{...args}
+		name="toggle"
 		on:change={args.changeHandler} />
 </Template>
 

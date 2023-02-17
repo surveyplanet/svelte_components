@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
@@ -12,9 +12,14 @@
 	export let prependLabel = false;
 	export let attr = {};
 
-	if (name === null) {
-		name = id;
-	}
+	onMount(() => {
+		if (!name) {
+			throw new Error(
+				`The 'name' attribute is required for the Radio '${id}'`
+			);
+		}
+	});
+
 	const changeEventHandler = (event: Event): void => {
 		if (disabled) {
 			return;
