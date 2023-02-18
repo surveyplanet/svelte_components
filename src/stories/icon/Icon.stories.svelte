@@ -70,20 +70,3 @@
 		color: COLORS.pink_dark,
 	}}
 	play={test.small} />
-
-<Story
-	name="Filled"
-	args={{
-		name: 'ellipses',
-		color: COLORS.blue_dark,
-	}}
-	play={test.filled} />
-
-<Story
-	name="Not found"
-	args={{
-		name: 'noop',
-		size: 12,
-		color: 'blue',
-	}}
-	play={test.notFound} />

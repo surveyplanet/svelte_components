@@ -17,7 +17,7 @@
 	<Button
 		{...args}
 		disabled={true}>
-		Disabled Button <Icon name="add" />
+		Disabled Button <Icon name="plus" />
 	</Button>
 </Template>
 

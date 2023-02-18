@@ -2,7 +2,7 @@
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { elasticOut } from 'svelte/easing';
-	import { BUTTON_MODES, Button, Icon, TextInput } from './';
+	import { COLORS, BUTTON_MODES, Button, Icon, TextInput } from './';
 
 	const dispatch = createEventDispatcher();
 
@@ -126,8 +126,9 @@
 					on:click={closeButtonClickHandler}
 					class="sp-alert--header--close-btn">
 					<Icon
-						name="close"
-						size={32} />
+						color={COLORS.slate}
+						name="x"
+						size={20} />
 				</button>
 			{/if}
 
@@ -230,6 +231,16 @@
 		.sp-alert--header--subtitle {
 			margin: 0;
 			padding: 0;
+		}
+
+		.sp-alert--header--close-btn {
+			border-radius: $size-radius--small;
+			&:hover {
+				background-color: $color--slate-lighter;
+				:global(.sp-icon path) {
+					stroke: white;
+				}
+			}
 		}
 	}
 

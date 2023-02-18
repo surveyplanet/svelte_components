@@ -47,7 +47,7 @@
 	<Button
 		disabled={true}
 		loader={true}
-		>Icon loader<Icon name="add" />
+		>Icon loader<Icon name="plus" />
 	</Button>
 </Story>
 
