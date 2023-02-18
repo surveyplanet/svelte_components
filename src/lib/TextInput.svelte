@@ -207,6 +207,7 @@
 	}
 
 	label {
+		color: $color--slate-dark;
 		display: block;
 		font: $font--default;
 		font-size: $font-size--12;

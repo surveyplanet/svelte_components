@@ -1,6 +1,16 @@
 {
 	"language": "en",
-	"words": ["surveyplanet", "testid", "textbox"],
+	"words": [
+		"CCPA",
+		"introend",
+		"introstart",
+		"outro",
+		"outroend",
+		"outrostart",
+		"surveyplanet",
+		"testid",
+		"textbox"
+	],
 	"ignoreWords": ["xsmall"],
 	"flagWords": ["hte", "survey planet"],
 	"files": ["./**/*.{txt,md,js,ts,yaml,json,svelte}"],

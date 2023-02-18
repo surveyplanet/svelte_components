@@ -9,4 +9,8 @@ export { default as Toggle } from './Toggle.svelte';
 export { default as Checkbox } from './Checkbox.svelte';
 export { default as Radio } from './Radio.svelte';
 export { default as TextInput } from './TextInput.svelte';
+<<<<<<< HEAD
 export { default as Form } from './Form.svelte';
+=======
+export { default as Alert } from './Alert.svelte';
+>>>>>>> main
