@@ -30,5 +30,6 @@ interface StoryBookPlayArgs {
 		closeHandler?(e: Event): void;
 		outHandler?(e: Event): void;
 		confirmHandler?(e: Event): void;
+		submitHandler?(e: Event): void;
 	};
 }

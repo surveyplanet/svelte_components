@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 	import {
 		Form,
@@ -14,15 +14,19 @@
 <Meta
 	title="Form controls/Form"
 	component={Form}
+	args={{
+		attr: { 'data-testid': 'form-test' },
+	}}
 	argTypes={{
 		id: { control: 'text' },
-		submitEventHandler: { action: 'submit' },
+		attr: { control: 'object' },
+		submitHandler: { action: 'submit' },
 	}} />
 
 <Template let:args>
 	<Form
-		on:submit={args.submitEventHandler}
-		{...args}>
+		{...args}
+		on:submit={test.formSubmitHandler}>
 		<TextInput
 			label="First name"
 			name="name" />
@@ -34,7 +38,7 @@
 			id="email"
 			name="email"
 			label="Email" />
-		<div>
+		<div style="display: flex;">
 			<Radio
 				id="larry"
 				name="stooge"
@@ -51,20 +55,19 @@
 				value="moe"
 				label="Moe" />
 		</div>
-
 		<Checkbox
 			id="checkbox"
 			name="checkbox"
+			label="Accept"
 			value="checkbox pass" />
 		<Toggle
 			id="toggle"
 			name="toggle" />
-		<Button>Submit</Button>
+		<Button type="submit">Submit</Button>
 	</Form>
 </Template>
 
 <Story
 	name="Basic"
 	id="basic"
-	let:args
 	play={test.basic} />

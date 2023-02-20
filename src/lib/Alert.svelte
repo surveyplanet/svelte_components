@@ -150,6 +150,7 @@
 				{#if isChallenge}
 					<div class="sp-alert--challenge">
 						<TextInput
+							name="challenge"
 							label={challengeLabel}
 							placeholder={challenge}
 							on:keyup={challengeKeyupHandler} />

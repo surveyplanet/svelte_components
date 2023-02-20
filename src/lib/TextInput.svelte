@@ -14,7 +14,7 @@
 	/**
 	 * The name of the input
 	 */
-	export let name: string | null = null;
+	export let name: string;
 
 	/**
 	 * The input type, default: 'text'
@@ -81,11 +81,6 @@
 	let validationDisplayMessage = '';
 
 	onMount(() => {
-		if (!name) {
-			throw new Error(
-				`The 'name' attribute is required for the TextInput '${id}'`
-			);
-		}
 		if (
 			Object.keys(cleaveOptions).length &&
 			Object.prototype.toString.call(cleaveOptions) === '[object Object]'
@@ -223,7 +218,8 @@
 		box-sizing: border-box;
 		font: $font--default;
 		font-size: $font-size--12;
-		min-height: $size--40;
+		width: 100%;
+		height: $size--40;
 		min-width: $size--256;
 		background-color: $color--white;
 		border: 1px solid $color--slate-lighter;
