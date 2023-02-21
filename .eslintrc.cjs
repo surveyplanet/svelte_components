@@ -34,7 +34,11 @@ module.exports = {
 			processor: 'svelte3/svelte3',
 		},
 		{
-			files: ['./src/stories/**/*.ts', './src/stories/**/*.svelte'],
+			files: [
+				'./src/stories/**/*.ts',
+				'./src/stories/**/*.svelte',
+				'./tests',
+			],
 			rules: {
 				'@typescript-eslint/unbound-method': 'off',
 				'@typescript-eslint/no-non-null-assertion': 'off', // allow ! in tests
