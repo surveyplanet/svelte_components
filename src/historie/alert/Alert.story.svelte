@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { logEvent } from 'histoire/client';
 	import { Alert } from '../../lib';
+
 	export let Hst;
 
 	let title = 'Did you know?';

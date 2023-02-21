@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge } from '../../lib';
+	import { TextInput } from '../../lib';
 	import { COLORS } from '../../lib/_definitions';
 	export let Hst;
 
@@ -7,10 +7,10 @@
 	let textColor: string | null;
 	let content = 'Pro';
 
-	const source = `<Badge {bgColor} {textColor}>{content}</Badge>`;
+	const source = `<TextInput {bgColor} {textColor}>{content}</TextInput>`;
 </script>
 
-<Hst.Story title="Badge/Badge">
+<Hst.Story title="TextInput/TextInput">
 	<svelte:fragment slot="controls">
 		<Hst.Text
 			bind:value={content}
@@ -33,24 +33,8 @@
 	<Hst.Variant
 		title="Primary"
 		{source}>
-		<Badge
+		<TextInput
 			{bgColor}
-			{textColor}>{content}</Badge>
-	</Hst.Variant>
-
-	<Hst.Variant title="Overflow">
-		<div
-			style="max-width: 50px;height:50px; background-color: {COLORS.blue}; padding: 10px">
-			<Badge
-				{bgColor}
-				{textColor}>Cared for memory and knew climes long finds.</Badge>
-		</div>
+			{textColor}>{content}</TextInput>
 	</Hst.Variant>
 </Hst.Story>
-
-<style lang="scss">
-	.badge-container {
-		background-color: blue;
-		max-width: 50px;
-	}
-</style>
