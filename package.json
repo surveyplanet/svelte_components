@@ -30,7 +30,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"clean:hard": "rm package-lock.json && npm run clean",
 		"clean": "rm -rf package coverage node_modules dist static .svelte-kit && npm i",
-		"dev": "npm run histoire",
+		"dev": "npm run story:dev",
 		"format": "prettier --plugin-search-dir . --write .",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"lint:check": "eslint .",

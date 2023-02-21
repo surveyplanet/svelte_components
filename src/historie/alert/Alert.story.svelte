@@ -1,46 +1,73 @@
-<script>
-	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import Alert from '../../lib/Alert.svelte';
-	import * as test from './alert.test';
+<script lang="ts">
+	import { Alert } from '../../lib';
+	export let Hst;
+
+	let title = 'Did you know?';
+	let subtitle = 'Informational alert';
+	let type = 'info';
+	let hideDelay = 0;
+	let confirm = false;
+	let confirmButtonLabel = 'Confirm';
+	let cancelButtonLabel = 'Cancel';
+	let challenge: string;
+	let content = '';
+
+	const source = `<Badge {bgColor} {textColor}>{content}</Badge>`;
 </script>
 
-<Meta
-	title="Alert/Default"
-	component={Alert}
-	argTypes={{
-		title: { control: 'text', defaultValue: 'Alert title' },
-		subtitle: { control: 'text', defaultValue: 'Alert subtitle' },
-		type: { control: 'text', defaultValue: 'error' },
-		hideDelay: { control: 'number', defaultValue: 0 },
-		confirm: { control: 'boolean', defaultValue: false },
-		confirmButtonLabel: {
-			control: 'text',
-			defaultValue: 'Confirm',
-		},
-		cancelButtonLabel: {
-			control: 'text',
-			defaultValue: 'Cancel',
-		},
-		challenge: { control: 'text', defaultValue: '' },
-		challengeLabel: { control: 'text', defaultValue: '' },
-		openHandler: { action: 'open' },
-		inHandler: { action: 'in' },
-		closeHandler: { action: 'close' },
-		outHandler: { action: 'out' },
-		confirmHandler: { action: 'confirm' },
-	}} />
+<Hst.Story>
+	<svelte:fragment slot="controls">
+		<Hst.Select
+			bind:value={type}
+			title="Type"
+			options={[
+				{ label: 'Info', value: 'info' },
+				{ label: 'Warning', value: 'warning' },
+				{ label: 'Error', value: 'error' },
+				{ label: 'Success', value: 'success' },
+			]} />
+		<Hst.Text
+			bind:value={title}
+			title="Title" />
+		<Hst.Text
+			bind:value={subtitle}
+			title="Subtitle" />
+		<Hst.Number
+			bind:value={hideDelay}
+			title="Hide delay" />
+		<Hst.Checkbox
+			bind:value={confirm}
+			title="Confirm" />
+		<Hst.Text
+			bind:value={confirmButtonLabel}
+			title="Confirm button label" />
+		<Hst.Text
+			bind:value={cancelButtonLabel}
+			title="Cancel button label" />
+		<Hst.Text
+			bind:value={challenge}
+			title="Challenge" />
+		<Hst.Text
+			bind:value={content}
+			title="Content" />
+	</svelte:fragment>
 
-<Template let:args>
-	<Alert
-		{...args}
-		on:in={args.inHandler}
-		on:out={args.outHandler}
-		on:close={args.closeHandler}
-		on:open={args.openHandler}
-		on:confirm={args.confirmHandler}
-		>There are things you need to know.</Alert>
-</Template>
+	<Hst.Variant
+		title="Badge component"
+		{source}>
+		<Alert
+			{title}
+			{subtitle}
+			{type}
+			{hideDelay}
+			{confirm}
+			{confirmButtonLabel}
+			{cancelButtonLabel}
+			{challenge}>{content}</Alert>
+	</Hst.Variant>
+</Hst.Story>
 
+<!--
 <Story
 	name="Default"
 	args={{
@@ -139,4 +166,4 @@
 			src="https://via.placeholder.com/256/00FF00/FFFFFF?text=Test%20Image"
 			alt="test" />
 	</Alert>
-</Story>
+</Story> -->

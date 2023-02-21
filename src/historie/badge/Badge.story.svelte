@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge } from '../lib';
+	import { Badge } from '../../lib';
 	export let Hst;
 
 	let bgColor: string | null;
@@ -38,10 +38,17 @@
 	</Hst.Variant>
 
 	<Hst.Variant title="Badge component - max width">
-		<div style="max-width: 50px;">
+		<div class="badge-container">
 			<Badge
 				{bgColor}
 				{textColor}>{content}</Badge>
 		</div>
 	</Hst.Variant>
 </Hst.Story>
+
+<style lang="scss">
+	.badge-container {
+		background-color: blue;
+		max-width: 50px;
+	}
+</style>
