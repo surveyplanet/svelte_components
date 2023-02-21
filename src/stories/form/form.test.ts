@@ -2,13 +2,13 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { action } from '@storybook/addon-actions';
 
-export const formSubmitHandler = (event: SvelteCustomEvent) => {
-	console.log('formSubmitHandler');
-	console.log(event.detail);
-	action('submit')();
-	expect(event.detail).toBeDefined(); // pass
-	// TODO: make sure correct properties
-};
+// export const formSubmitHandler = (event: SvelteCustomEvent) => {
+// 	console.log('formSubmitHandler');
+// 	console.log(event.detail);
+// 	action('submit')();
+// 	expect(event.detail).toBeDefined(); // pass
+// 	// TODO: make sure correct properties
+// };
 
 export const basic = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);

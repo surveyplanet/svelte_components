@@ -26,7 +26,7 @@
 <Template let:args>
 	<Form
 		{...args}
-		on:submit={test.formSubmitHandler}>
+		on:submit={args.submitHandler}>
 		<TextInput
 			label="First name"
 			name="name" />
