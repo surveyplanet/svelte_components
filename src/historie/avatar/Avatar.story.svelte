@@ -1,15 +1,16 @@
 <script lang="ts">
-	import { Badge } from '../lib';
+	import { Avatar } from '../../lib';
+	import { COLORS } from '../../lib/_definitions';
 	export let Hst;
 
 	let bgColor: string | null;
 	let textColor: string | null;
 	let content = 'Pro';
 
-	const source = `<Badge {bgColor} {textColor}>{content}</Badge>`;
+	const source = `<Avatar {bgColor} {textColor}>{content}</Avatar>`;
 </script>
 
-<Hst.Story>
+<Hst.Story title="Avatar/Avatar">
 	<svelte:fragment slot="controls">
 		<Hst.Text
 			bind:value={content}
@@ -30,18 +31,10 @@
 	</svelte:fragment>
 
 	<Hst.Variant
-		title="Badge component"
+		title="Primary"
 		{source}>
-		<Badge
+		<Avatar
 			{bgColor}
-			{textColor}>{content}</Badge>
-	</Hst.Variant>
-
-	<Hst.Variant title="Badge component - max width">
-		<div style="max-width: 50px;">
-			<Badge
-				{bgColor}
-				{textColor}>{content}</Badge>
-		</div>
+			{textColor}>{content}</Avatar>
 	</Hst.Variant>
 </Hst.Story>
