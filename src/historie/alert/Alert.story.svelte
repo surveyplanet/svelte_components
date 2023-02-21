@@ -14,6 +14,22 @@
 	let challenge: string;
 	let content = '';
 
+	const openHandler = (e: Event) => {
+		logEvent('open', e);
+	};
+	const inHandler = (e: Event) => {
+		logEvent('in', e);
+	};
+	const closeHandler = (e: Event) => {
+		logEvent('close', e);
+	};
+	const outHandler = (e: Event) => {
+		logEvent('out', e);
+	};
+	const confirmHandler = (e: Event) => {
+		logEvent('confirm', e);
+	};
+
 	const source = `<Badge {bgColor} {textColor}>{content}</Badge>`;
 </script>
 
@@ -36,6 +52,7 @@
 			title="Subtitle" />
 		<Hst.Number
 			bind:value={hideDelay}
+			step="1"
 			title="Hide delay" />
 		<Hst.Checkbox
 			bind:value={confirm}
@@ -58,6 +75,11 @@
 		title="Badge component"
 		{source}>
 		<Alert
+			on:open={openHandler}
+			on:in={inHandler}
+			on:close={closeHandler}
+			on:out={outHandler}
+			on:confirm={confirmHandler}
 			{title}
 			{subtitle}
 			{type}
@@ -121,22 +143,6 @@
 	name="Challenge"
 	let:args
 	play={test.challenge}>
-	<Alert
-		{...args}
-		title="Are you absolutely sure?"
-		subtitle="Due to privacy laws like GDPR and CCPA this cannot be undone."
-		type="warning"
-		confirm={true}
-		confirmButtonLabel="Delete account"
-		cancelButtonLabel="Cancel"
-		challengeLabel="Email address"
-		challenge="testing@example.com">
-		<p>
-			This will permanently delete your account and all associated data.
-		</p>
-		<p>If you have a subscription it will be canceled immediately.</p>
-		<p>Please type your email address to confirm.</p>
-	</Alert>
 </Story>
 
 <Story

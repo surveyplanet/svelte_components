@@ -10,7 +10,7 @@
 	const source = `<TextInput {bgColor} {textColor}>{content}</TextInput>`;
 </script>
 
-<Hst.Story title="TextInput/TextInput">
+<Hst.Story title="Text input">
 	<svelte:fragment slot="controls">
 		<Hst.Text
 			bind:value={content}

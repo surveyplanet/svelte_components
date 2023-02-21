@@ -58,11 +58,10 @@
 
 	let visible = false;
 	let disableConfirmButton = false;
-	let isChallenge = false;
+	$: isChallenge = confirm && challenge.length > 0;
 
 	// handlers
 	onMount(() => {
-		isChallenge = confirm && challenge.length > 0;
 		visible = true;
 		disableConfirmButton = isChallenge;
 		if (!confirm && hideDelay > 0) {

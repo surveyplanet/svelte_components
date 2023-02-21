@@ -10,7 +10,7 @@
 	const source = `<Icon {bgColor} {textColor}>{content}</Icon>`;
 </script>
 
-<Hst.Story title="Icon/Icon">
+<Hst.Story title="Icon">
 	<svelte:fragment slot="controls">
 		<Hst.Text
 			bind:value={content}

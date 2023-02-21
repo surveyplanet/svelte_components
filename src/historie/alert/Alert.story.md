@@ -1,32 +1,10 @@
-import {
-	Meta,
-	Canvas,
-	ColorPalette,
-	ColorItem,
-	Description,
-	Story,
-} from '@storybook/addon-docs';
-
-import { Alert } from '../../lib';
-
-<Meta
-	title="Alert/Documentation"
-	component={Alert}
-/>
-
 # Alert component
-
-<div id="example">
-	<Story id="alert-default--default" />
-	<br />
-	<Story id="alert-default--challenge" />
-</div>
 
 ## Usage
 
 ```ts
-<script>
-	import {Alert} from '@surveyplanet/svelte-components';
+<script lang="ts">
+  import {Alert} from '@surveyplanet/svelte-components';
 </script>
 <Alert title="You're settings has been saved."/>
 ```

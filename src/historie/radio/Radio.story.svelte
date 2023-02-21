@@ -10,7 +10,7 @@
 	const source = `<Radio {bgColor} {textColor}>{content}</Radio>`;
 </script>
 
-<Hst.Story title="Radio/Radio">
+<Hst.Story title="Radio">
 	<svelte:fragment slot="controls">
 		<Hst.Text
 			bind:value={content}

@@ -10,7 +10,7 @@
 	const source = `<Toggle {bgColor} {textColor}>{content}</Toggle>`;
 </script>
 
-<Hst.Story title="Toggle/Toggle">
+<Hst.Story title="Toggle">
 	<svelte:fragment slot="controls">
 		<Hst.Text
 			bind:value={content}

@@ -26,10 +26,10 @@
 	},
 	"scripts": {
 		"build": "svelte-kit sync && svelte-package",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"clean:hard": "rm package-lock.json && npm run clean",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"clean": "rm -rf package coverage node_modules dist static .svelte-kit && npm i",
+		"clean:hard": "rm package-lock.json && npm run clean",
 		"dev": "npm run story:dev",
 		"format": "prettier --plugin-search-dir . --write .",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
