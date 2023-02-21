@@ -1,16 +1,17 @@
-name: Run unit tests, package components and deploy to NPM.
+name: Run unit tests, package components and publish to NPM.
 
+# run everywhere *except* 'main'
 on:
     push:
-        branches:
-            - publish
-        tags:
-            - v*.*.*
+        branches-ignore:
+            - main
+env:
+    NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
-    # Single deploy job since we're just deploying
     deploy:
         runs-on: ubuntu-latest
+
         steps:
             - name: Checkout
               uses: actions/checkout@v3
@@ -18,36 +19,39 @@ jobs:
             - name: Setup Node.js
               uses: actions/setup-node@v3
               with:
-                  node-version: 16
+                  node-version: 18
 
             - name: Install dependencies
               run: |
-                  npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+                  npm install -D esbuild
                   npm ci --ignore-scripts
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+            - name: Security audit
+              run: npm audit --audit-level=moderate --omit=dev
+
+            - name: Check Typescript errors
+              run: npm run check
+
+            - name: Check spelling errors
+              run: npm run spell
+
             - name: Install Playwright (for tests)
               run: npx playwright install --with-deps
 
-            # Testing locally doesn't work with svelte csf:
-            # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
-            # - name: Run Storybook tests
-            #   run: ./node_modules/.bin/test-storybook
-            #   env:
-            #       TARGET_URL: '${{ github.event.deployment_status.target_url }}'
-            #  OR
-            # - name: Serve Storybook and run tests
-            #   run: |
-            #       npx concurrently -k -s first -n "Storybook,tests" -c "green,blue" \
-            #       "npx http-server static --port 6006 --silent" \
-            #       "npx wait-on tcp:6006 && ./node_modules/.bin/test-storybook"
+            - name: Build Storybooook
+              run: npm run storybook:build
 
-            - name: Run Storybook tests
-              run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
+            # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
+            - name: Serve Storybook and run tests
+              run: npm run test:ci
 
             - name: Package components
-              run: npm run package
+              run: npm run build
 
-            - name: Publish
-              run: cd package && npm publish --access public
+            - name: Publish to NPM
+              run: npm run release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -11,7 +11,7 @@
 	{argTypes} />
 
 <Template let:args>
-	<Button {...args}>Icon Button<Icon name="add" /></Button>
+	<Button {...args}>Icon Button<Icon name="plus" /></Button>
 </Template>
 
 <Story
@@ -21,7 +21,7 @@
 <Story
 	name="Icon left"
 	play={tests.iconLeft}>
-	<Button><Icon name="add" />Icon Button</Button>
+	<Button><Icon name="plus" />Icon Button</Button>
 </Story>
 
 <Story
@@ -48,7 +48,7 @@
 <Story
 	name="Action button"
 	play={tests.action}>
-	<Button action={true}><Icon name="add" /></Button>
+	<Button action={true}><Icon name="plus" /></Button>
 </Story>
 
 <Story
@@ -56,7 +56,7 @@
 	play={tests.actionSmall}>
 	<Button
 		action={true}
-		size={SIZES.SMALL}><Icon name="add" /></Button>
+		size={SIZES.SMALL}><Icon name="plus" /></Button>
 </Story>
 
 <Story
@@ -64,7 +64,7 @@
 	play={tests.actionLarge}>
 	<Button
 		action={true}
-		size={SIZES.LARGE}><Icon name="add" /></Button>
+		size={SIZES.LARGE}><Icon name="plus" /></Button>
 </Story>
 
 <Story
@@ -74,5 +74,5 @@
 		action={true}
 		round={true}
 		mode={BUTTON_MODES.TERTIARY}
-		size={SIZES.LARGE}><Icon name="add" /></Button>
+		size={SIZES.LARGE}><Icon name="plus" /></Button>
 </Story>

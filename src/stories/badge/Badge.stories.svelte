@@ -36,7 +36,6 @@
 	play={tests.overflow}>
 	<div
 		style="width:150px; height:50px; background-color: {COLORS.blue}; padding: 10px">
-		<Badge {...args}
-			>Maecenas vitae tortor dolor quis tristique massa.</Badge>
+		<Badge {...args}>Cared for memory and knew climes long finds.</Badge>
 	</div>
 </Story>

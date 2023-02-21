@@ -1,5 +1,4 @@
 export * from './_definitions';
-export * from './_utils';
 
 export { default as Avatar } from './Avatar.svelte';
 export { default as Badge } from './Badge.svelte';
@@ -9,3 +8,5 @@ export { default as Icon } from './Icon.svelte';
 export { default as Toggle } from './Toggle.svelte';
 export { default as Checkbox } from './Checkbox.svelte';
 export { default as Radio } from './Radio.svelte';
+export { default as TextInput } from './TextInput.svelte';
+export { default as Alert } from './Alert.svelte';

@@ -1,21 +1,30 @@
 <script>
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
 	import { COLORS, Icon } from '../../lib';
-	import { basic, light } from './icon.test';
+	import ICON_DATA from '../../lib/_icon_data';
+	import * as test from './icon.test';
 </script>
 
 <Meta
 	title="Icon/Default"
 	component={Icon}
+	args={{
+		color: COLORS.slate_dark,
+		size: 24,
+		name: 'search',
+		debug: false,
+	}}
 	argTypes={{
-		name: { control: 'text' },
+		name: {
+			control: { type: 'select' },
+			options: Object.keys(ICON_DATA),
+		},
 		size: {
 			control: 'select',
 			options: [8, 16, 20, 24, 32, 48, 64, 128, 256, 512],
-			defaultValue: 48,
 		},
-		color: { control: 'color', defaultValue: '#FFFFFF' },
-		debug: { control: 'boolean', defaultValue: false },
+		color: { control: 'color' },
+		debug: { control: 'boolean' },
 	}} />
 
 <Template let:args>
@@ -26,20 +35,38 @@
 	name="Basic"
 	args={{
 		name: 'search',
-		color: 'black',
+		color: COLORS.purple_dark,
 	}}
-	play={basic} />
+	play={test.basic} />
 
 <Story
 	name="Light"
 	source
 	args={{
 		name: 'search',
-		color: 'white',
+		color: COLORS.light_purple_light,
 	}}
 	parameters={{
 		backgrounds: {
 			default: COLORS.slate_dark,
 		},
 	}}
-	play={light} />
+	play={test.light} />
+
+<Story
+	name="Large"
+	args={{
+		name: 'trash',
+		color: COLORS.green_dark,
+		size: 512,
+	}}
+	play={test.large} />
+
+<Story
+	name="Small"
+	args={{
+		name: 'x',
+		size: 12,
+		color: COLORS.pink_dark,
+	}}
+	play={test.small} />

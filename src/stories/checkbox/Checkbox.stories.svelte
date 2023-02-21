@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-	import { subscribe } from 'svelte/internal';
 	import { Checkbox } from '../../lib';
 	import * as test from './checkbox.test';
 
@@ -18,7 +17,7 @@
 </script>
 
 <Meta
-	title="Form Inputs/Checkbox"
+	title="Form controls/Checkbox"
 	component={Checkbox}
 	{argTypes} />
 

@@ -13,3 +13,10 @@
 	border: 1px solid $color--purple-light;
 	box-shadow: 0 0 10 rgba(255, 255, 255);
 }
+
+p {
+	margin: 0 0 $size-gutter--half 0;
+	&:last-of-type {
+		margin-bottom: 0;
+	}
+}

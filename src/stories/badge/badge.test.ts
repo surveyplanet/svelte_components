@@ -30,7 +30,7 @@ export const inverted = async (res: StoryBookPlayArgs) => {
 export const overflow = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
 	const badge = canvas.getByText(
-		'Maecenas vitae tortor dolor quis tristique massa.'
+		'Cared for memory and knew climes long finds.'
 	);
 	expect(badge).toHaveClass('sp-badge');
 };
