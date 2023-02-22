@@ -40,6 +40,16 @@
 	export let action = false;
 
 	/**
+	 * The type of button
+	 */
+	export let type: 'button' | 'submit' | 'reset' = 'button';
+
+	/**
+	 * The id of a Form element to associate the button.
+	 */
+	export let form: string | null = null;
+
+	/**
 	 * The button size, either: 'small', 'medium' or 'large'
 	 * @required
 	 */
@@ -82,14 +92,15 @@
 </script>
 
 <button
-	type="button"
+	{type}
+	{disabled}
+	{form}
 	class="sp-button sp-button--{mode} sp-button--{size}"
 	class:sp-button--round={round}
 	class:sp-button--loader={loader}
 	class:sp-button--active={active}
 	class:sp-button--block={block}
 	class:sp-button--action={action}
-	{disabled}
 	on:click={clickHandler}
 	on:mouseup={mouseUpHandler}
 	on:mousedown={mouseDownHandler}>

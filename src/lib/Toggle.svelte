@@ -5,7 +5,9 @@
 
 	export let on = false;
 	export let disabled = false;
+	export let id: string = (Date.now() + Math.random()).toString(36);
 	export let tall = false;
+	export let name: string;
 
 	const changeHandler = (event: Event): void => {
 		if (disabled) {
@@ -21,10 +23,12 @@
 	class="sp-toggle sp-toggle--{on ? 'on' : 'off'}"
 	class:sp-toggle--tall={tall}
 	role="switch"
+	{id}
 	aria-checked={on}>
 	<input
 		type="checkbox"
 		bind:checked={on}
+		{name}
 		{disabled}
 		on:change={changeHandler} />
 

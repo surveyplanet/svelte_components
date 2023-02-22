@@ -1,0 +1,38 @@
+import { Meta, Story } from '@storybook/addon-docs';
+
+import Form from '../../lib/Form.svelte';
+
+<Meta
+	title="Form controls/Form"
+	component={Form}
+/>
+
+# Form component
+
+<div id="example">
+	<Story id="form-controls-form--basic" />
+	<br/>
+
+</div>
+
+### Example
+
+```html
+<script>
+	import { Form } from '@surveyplanet/svelte_components';
+	const keyupHandler = (event) => {
+		console.log(event.key);
+	};
+</script>
+
+<input
+	label="My Input"
+	on:keyup="{keyupHandler}" />
+```
+
+### Parameters
+
+| Name | Type             | Default | Description                     |
+| ---- | ---------------- | ------- | ------------------------------- |
+| id   | string           | random  | the id of the form element      |
+| slot | svelte:component | none    | the content of the form element |

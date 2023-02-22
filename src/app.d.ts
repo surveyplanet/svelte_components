@@ -25,11 +25,11 @@ interface StoryBookPlayArgs {
 		keydownHandler?(e: Event): void;
 		blurHandler?(e: Event): void;
 		focusHandler?(e: Event): void;
-		challengeHandler?(e: Event): void;
 		openHandler?(e: Event): void;
 		inHandler?(e: Event): void;
 		closeHandler?(e: Event): void;
 		outHandler?(e: Event): void;
 		confirmHandler?(e: Event): void;
+		submitHandler?(e: Event): void;
 	};
 }

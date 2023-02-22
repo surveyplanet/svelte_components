@@ -12,6 +12,11 @@
 	export let id: string = (Date.now() + Math.random()).toString(36);
 
 	/**
+	 * The name of the input
+	 */
+	export let name: string;
+
+	/**
 	 * The input type, default: 'text'
 	 */
 	export let type = 'text';
@@ -142,6 +147,7 @@
 
 	{#if multiline}
 		<textarea
+			{name}
 			{id}
 			{placeholder}
 			{disabled}
@@ -158,6 +164,7 @@
 			on:keyup={keyupHandler}>{value}</textarea>
 	{:else}
 		<input
+			{name}
 			{type}
 			{id}
 			{placeholder}
@@ -211,7 +218,8 @@
 		box-sizing: border-box;
 		font: $font--default;
 		font-size: $font-size--12;
-		min-height: $size--40;
+		width: 100%;
+		height: $size--40;
 		min-width: $size--256;
 		background-color: $color--white;
 		border: 1px solid $color--slate-lighter;

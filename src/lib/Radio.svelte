@@ -4,7 +4,7 @@
 	const dispatch = createEventDispatcher();
 
 	export let id: string = (Date.now() + Math.random()).toString(36);
-	export let name: string | null = null;
+	export let name: string;
 	export let value: string | null = null;
 	export let label = '';
 	export let checked = false;
