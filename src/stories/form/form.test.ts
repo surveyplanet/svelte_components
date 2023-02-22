@@ -1,6 +1,6 @@
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { action } from '@storybook/addon-actions';
+// import { action } from '@storybook/addon-actions';
 
 // export const formSubmitHandler = (event: SvelteCustomEvent) => {
 // 	console.log('formSubmitHandler');
@@ -59,5 +59,5 @@ export const basic = (res: StoryBookPlayArgs) => {
 	expect(checkboxes[0]).toBeChecked();
 	expect(checkboxes[1]).toBeChecked();
 	userEvent.click(submit);
-	expect(res.args.submitHandler).toHaveBeenCalled(); // fail
+	expect(res.args.submitHandler).toHaveBeenCalled();
 };
