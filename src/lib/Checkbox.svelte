@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
@@ -11,14 +11,6 @@
 	export let disabled = false;
 	export let prependLabel = false;
 	export let attr = {};
-
-	onMount(() => {
-		if (!name) {
-			throw new Error(
-				`The 'name' attribute is required for the Checkbox '${id}'`
-			);
-		}
-	});
 
 	const changeEventHandler = (event: Event) => {
 		if (disabled) {
