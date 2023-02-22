@@ -5,7 +5,10 @@ export default defineConfig({
 	plugins: [HstSvelte()],
 	storyMatch: ['**/*.story.svelte'],
 	storyIgnored: ['**/node_modules/**', '**/dist/**', './src/stories'],
-	// setupFile: '/src/histoire/setup.ts',
+	// tree: {
+	// 	file: 'title',
+	// 	order: 'asc',
+	// },
 	theme: {
 		title: 'SurveyPlanet design system',
 		favicon: './static/assets/favicon.ico',
@@ -23,4 +26,9 @@ export default defineConfig({
 		hideColorSchemeSwitch: false,
 		storeColorScheme: false,
 	},
+	// setupFile: '/src/histoire/setup.ts', // <-- doesn't work
+	// viteIgnorePlugins: [
+	// 	'vite-plugin-sveltekit-setup',
+	// 	'vite-plugin-sveltekit-compile',
+	// ],
 });

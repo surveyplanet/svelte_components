@@ -1,5 +1,5 @@
-/* @use '@surveyplanet/styles' as *; */
+@use '@surveyplanet/styles' as *;
 
 body {
-	background-color: red;
+	background-color: $color--red;
 }
