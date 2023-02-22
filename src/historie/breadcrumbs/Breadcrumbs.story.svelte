@@ -3,38 +3,39 @@
 	import { COLORS } from '../../lib/_definitions';
 	export let Hst;
 
-	let bgColor: string | null;
-	let textColor: string | null;
-	let content = 'Pro';
+	let breadcrumbs = [
+		{
+			name: 'Home',
+			url: '/',
+		},
+		{
+			name: 'Our test survey will show you how its done as an example ',
+			url: '/about',
+		},
+		{
+			name: 'Contact',
+			url: '/contact',
+		},
+		{
+			name: 'Submit',
+			url: '/submit',
+		},
+	];
 
-	const source = `<Breadcrumbs {bgColor} {textColor}>{content}</Breadcrumbs>`;
+	const source = ` 
+	<Breadcrumbs {breadcrumbs} />`;
 </script>
 
 <Hst.Story title="Breadcrumbs">
 	<svelte:fragment slot="controls">
-		<Hst.Text
-			bind:value={content}
+		<Hst.Json
+			bind:value={breadcrumbs}
 			title="Content" />
-
-		<p>
-			<label>Background color</label>
-			<input
-				type="color"
-				bind:value={bgColor} />
-		</p>
-		<p>
-			<label>Text color</label>
-			<input
-				type="color"
-				bind:value={textColor} />
-		</p>
 	</svelte:fragment>
 
 	<Hst.Variant
 		title="Primary"
 		{source}>
-		<Breadcrumbs
-			{bgColor}
-			{textColor}>{content}</Breadcrumbs>
+		<Breadcrumbs {breadcrumbs} />
 	</Hst.Variant>
 </Hst.Story>

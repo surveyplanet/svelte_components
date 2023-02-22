@@ -37,4 +37,27 @@
 			{bgColor}
 			{textColor}>{content}</Button>
 	</Hst.Variant>
+
+	<Hst.Variant title="Secondary">
+		<Button
+			bgColor="deeppink"
+			textColor="white">Inverted</Button>
+	</Hst.Variant>
+
+	<Hst.Variant title="Tertiary">
+		<div
+			style="max-width: 50px;height:50px; background-color: {COLORS.blue}; padding: 10px">
+			<Button
+				{bgColor}
+				{textColor}
+				>Cared for memory and knew climes long finds.</Button>
+		</div>
+	</Hst.Variant>
 </Hst.Story>
+
+<style lang="scss">
+	.badge-container {
+		background-color: blue;
+		max-width: 50px;
+	}
+</style>

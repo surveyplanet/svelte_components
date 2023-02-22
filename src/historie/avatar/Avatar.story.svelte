@@ -1,40 +1,85 @@
 <script lang="ts">
+	import { logEvent } from 'histoire/client';
 	import { Avatar } from '../../lib';
-	import { COLORS } from '../../lib/_definitions';
+	import { COLORS, SIZES, MASCOTS } from '../../lib/_definitions.ts';
+	import { default as source } from './source';
+
 	export let Hst;
 
-	let bgColor: string | null;
-	let textColor: string | null;
-	let content = 'Pro';
+	let imgSrc = MASCOTS.marvin;
+	let id = 'avatarId';
+	let size = SIZES.SMALL;
+	let disabled = false;
 
-	const source = `<Avatar {bgColor} {textColor}>{content}</Avatar>`;
+	const clickHandler = (e: MouseEvent): void => {
+		if (disabled) {
+			return;
+		}
+		logEvent('click', e);
+	};
 </script>
 
-<Hst.Story title="Avatar">
+<Hst.Story>
 	<svelte:fragment slot="controls">
+		<Hst.Select
+			bind:value={size}
+			id=""
+			title="Size"
+			size="SIZE.SMALL"
+			options={[
+				{ label: 'Small', value: SIZES.SMALL },
+				{ label: 'Medium', value: SIZES.MEDIUM },
+				{ label: 'Large', value: SIZES.LARGE },
+			]} />
+		<Hst.Checkbox
+			bind:value={disabled}
+			title="Disabled" />
+		<Hst.Select
+			bind:value={imgSrc}
+			title="Mascot"
+			options={[
+				{ label: 'Marvin', value: MASCOTS.marvin },
+				{ label: 'Morty', value: MASCOTS.morty },
+				{ label: 'Rick', value: MASCOTS.rick },
+				{ label: 'Squanchy', value: MASCOTS.squanchy },
+				{ label: 'Summer', value: MASCOTS.summer },
+				{ label: 'Tina', value: MASCOTS.tina },
+			]} />
 		<Hst.Text
-			bind:value={content}
-			title="Content" />
-
-		<p>
-			<label>Background color</label>
-			<input
-				type="color"
-				bind:value={bgColor} />
-		</p>
-		<p>
-			<label>Text color</label>
-			<input
-				type="color"
-				bind:value={textColor} />
-		</p>
+			bind:value={id}
+			title="Id" />
 	</svelte:fragment>
 
 	<Hst.Variant
 		title="Primary"
 		{source}>
 		<Avatar
-			{bgColor}
-			{textColor}>{content}</Avatar>
+			on:click{clickHandler}{imgSrc}
+			{size}
+			{disabled}
+			{id} />
+	</Hst.Variant>
+
+	<Hst.Variant title="Medium">
+		<Avatar
+			on:click{clickHandler}
+			size={SIZES.MEDIUM}
+			imgSrc="https://via.placeholder.com/512/FFB1E3/FFFFFF?text=CUSTOM"
+			{id} />
+	</Hst.Variant>
+
+	<Hst.Variant title="Large">
+		<Avatar
+			on:click{clickHandler}{imgSrc}
+			size={SIZES.LARGE}
+			imgSrc="https://via.placeholder.com/512/FFB1E3/FFFFFF?text=CUSTOM"
+			id="uelloworld@surveyplanet.com" />
+	</Hst.Variant>
+
+	<Hst.Variant title="Disabled">
+		<Avatar
+			on:click{clickHandler}{imgSrc}
+			disabled
+			{id} />
 	</Hst.Variant>
 </Hst.Story>
