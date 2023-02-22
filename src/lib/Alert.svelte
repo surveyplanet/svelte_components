@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
-	import { elasticOut } from 'svelte/easing';
+	import { cubicOut } from 'svelte/easing';
 	import { COLORS, BUTTON_MODES, Button, Icon, TextInput } from './';
 
 	const dispatch = createEventDispatcher();
@@ -54,7 +54,7 @@
 	/**
 	 * The total time in milliseconds for the alert to animate in or out.
 	 */
-	export let animationMilliseconds = 1000;
+	export let animationMilliseconds = 350;
 
 	let visible = false;
 	let disableConfirmButton = false;
@@ -77,13 +77,13 @@
 	};
 
 	const alertConfirmButtonClickHandler = () => {
-		const value = isChallenge ? disableConfirmButton : true;
+		const value = isChallenge ? !disableConfirmButton : true;
 		dispatch('confirm', value);
 		visible = false;
 	};
 
 	const closeButtonClickHandler = () => {
-		dispatch('confirm', false);
+		// dispatch('close');
 		visible = false;
 	};
 
@@ -113,7 +113,7 @@
 		transition:fly={{
 			y: -250,
 			duration: animationMilliseconds,
-			easing: elasticOut,
+			easing: cubicOut,
 		}}
 		on:introstart={introStartHandler}
 		on:introend={introEndHandler}
