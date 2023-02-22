@@ -5,7 +5,7 @@ export default defineConfig({
 	plugins: [HstSvelte()],
 	storyMatch: ['**/*.story.svelte'],
 	storyIgnored: ['**/node_modules/**', '**/dist/**', './src/stories'],
-
+	setupFile: '/src/histoire/setup.ts',
 	theme: {
 		title: 'SurveyPlanet design system',
 		favicon: './static/assets/favicon.ico',
