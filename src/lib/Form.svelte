@@ -4,7 +4,6 @@
 	const dispatch = createEventDispatcher();
 
 	export let id: string | null = null;
-	export let attr: object | null = null;
 
 	const submitHandler = (event: SubmitEvent) => {
 		const formData = new FormData(event.target as HTMLFormElement);
@@ -22,8 +21,7 @@
 <form
 	on:submit|preventDefault={submitHandler}
 	class="sp-form"
-	{id}
-	{...attr}>
+	{id}>
 	<slot />
 </form>
 

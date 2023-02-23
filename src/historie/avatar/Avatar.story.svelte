@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
 	import { Avatar } from '../../lib';
-	import { COLORS, SIZES, MASCOTS } from '../../lib/_definitions.ts';
+	import { SIZES, MASCOTS } from '../../lib/_definitions.ts';
 	import { default as source } from './source';
 
 	export let Hst;
@@ -11,7 +11,7 @@
 	let size = SIZES.SMALL;
 	let disabled = false;
 
-	const clickHandler = (e: MouseEvent): void => {
+	const clickHandler = (e: Event): void => {
 		if (disabled) {
 			return;
 		}
@@ -54,32 +54,10 @@
 		title="Primary"
 		{source}>
 		<Avatar
-			on:click{clickHandler}{imgSrc}
+			on:click={clickHandler}
+			{imgSrc}
 			{size}
 			{disabled}
-			{id} />
-	</Hst.Variant>
-
-	<Hst.Variant title="Medium">
-		<Avatar
-			on:click{clickHandler}
-			size={SIZES.MEDIUM}
-			imgSrc="https://via.placeholder.com/512/FFB1E3/FFFFFF?text=CUSTOM"
-			{id} />
-	</Hst.Variant>
-
-	<Hst.Variant title="Large">
-		<Avatar
-			on:click{clickHandler}{imgSrc}
-			size={SIZES.LARGE}
-			imgSrc="https://via.placeholder.com/512/FFB1E3/FFFFFF?text=CUSTOM"
-			id="uelloworld@surveyplanet.com" />
-	</Hst.Variant>
-
-	<Hst.Variant title="Disabled">
-		<Avatar
-			on:click{clickHandler}{imgSrc}
-			disabled
 			{id} />
 	</Hst.Variant>
 </Hst.Story>

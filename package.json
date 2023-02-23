@@ -38,7 +38,7 @@
 		"prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
 		"release": "semantic-release",
 		"spell": "cspell",
-		"test": "PWTEST_SKIP_TEST_OUTPUT=0 npx playwright test",
+		"test": "playwright test",
 		"test:ci": "echo 'TODO'",
 		"proof": "npm run check && npm run lint && npm run spell && npm run test",
 		"story:dev": "histoire dev",

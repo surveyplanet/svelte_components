@@ -43,6 +43,7 @@
 				{ label: 'Error', value: 'error' },
 				{ label: 'Success', value: 'success' },
 			]} />
+
 		<Hst.Text
 			bind:value={title}
 			title="Title" />
@@ -91,7 +92,7 @@
 		</div>
 	</Hst.Variant>
 
-	<Hst.Variant
+	<!-- <Hst.Variant
 		title="Confirmation"
 		{source}>
 		<div class="alert-wrapper">
@@ -142,7 +143,7 @@
 					alt="test" />
 			</Alert>
 		</div>
-	</Hst.Variant>
+	</Hst.Variant> -->
 </Hst.Story>
 
 <style>
