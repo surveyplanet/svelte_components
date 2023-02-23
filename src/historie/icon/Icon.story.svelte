@@ -1,40 +1,37 @@
 <script lang="ts">
-	import { Icon } from '../../lib';
-	import { COLORS } from '../../lib/_definitions';
+	import { Icon, Badge } from '../../lib';
+	import { COLORS, SIZES } from '../../lib/_definitions';
+	// import ICON_DATA from '../../lib/_icon_data';
 	export let Hst;
 
-	let bgColor: string | null;
-	let textColor: string | null;
-	let content = 'Pro';
+	// let color: string = COLORS.light_purple_light;
+	// let size: string = SIZES.MEDIUM;
+	let name = 'add';
+	let debug = false;
 
-	const source = `<Icon {bgColor} {textColor}>{content}</Icon>`;
+	// const source = `<Icon {bgColor} {textColor}>{content}</Icon>`;
 </script>
 
 <Hst.Story title="Icon">
-	<svelte:fragment slot="controls">
-		<Hst.Text
-			bind:value={content}
-			title="Content" />
+	<!-- <svelte:fragment slot="controls">
+		<Hst.Select
+			bind:value={name}
+			title="Name"
+			options={[]} />
+		<Hst.Select
+			bind:value={color}
+			title="Color"
+			options={COLORS} />
+		<Hst.Select
+			bind:value={size}
+			title="Size"
+			options={Object.values(SIZES)} />
+		<Hst.Checkbox
+			bind:checked={debug}
+			title="Debug" />
+	</svelte:fragment> -->
 
-		<p>
-			<label>Background color</label>
-			<input
-				type="color"
-				bind:value={bgColor} />
-		</p>
-		<p>
-			<label>Text color</label>
-			<input
-				type="color"
-				bind:value={textColor} />
-		</p>
-	</svelte:fragment>
-
-	<Hst.Variant
-		title="Primary"
-		{source}>
-		<Icon
-			{bgColor}
-			{textColor}>{content}</Icon>
+	<Hst.Variant title="Primary">
+		<Icon {name} />
 	</Hst.Variant>
 </Hst.Story>

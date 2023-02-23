@@ -37,26 +37,4 @@
 			{bgColor}
 			{textColor}>{content}</Badge>
 	</Hst.Variant>
-
-	<Hst.Variant title="Alternate color">
-		<Badge
-			bgColor="deeppink"
-			textColor="white">Inverted</Badge>
-	</Hst.Variant>
-
-	<Hst.Variant title="Overflow">
-		<div
-			style="max-width: 50px;height:50px; background-color: {COLORS.blue}; padding: 10px">
-			<Badge
-				{bgColor}
-				{textColor}>Cared for memory and knew climes long finds.</Badge>
-		</div>
-	</Hst.Variant>
 </Hst.Story>
-
-<style lang="scss">
-	.badge-container {
-		background-color: blue;
-		max-width: 50px;
-	}
-</style>

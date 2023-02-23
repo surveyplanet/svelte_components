@@ -1,40 +1,65 @@
 <script lang="ts">
+	import { logEvent } from 'histoire/client';
 	import { Checkbox } from '../../lib';
-	import { COLORS } from '../../lib/_definitions';
+	import { COLORS, BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	export let Hst;
 
-	let bgColor: string | null;
-	let textColor: string | null;
-	let content = 'Pro';
+	let id: string = (Date.now() + Math.random()).toString(36);
+	let name: 'checkbox';
+	let value: string | null = null;
+	let label = '';
+	let checked = false;
+	let disabled = false;
+	let prependLabel = false;
+	let attr = {};
+
+	const changeEventHandler = (e: Event): void => {
+		logEvent('change', e);
+	};
 
 	const source = `<Checkbox {bgColor} {textColor}>{content}</Checkbox>`;
 </script>
 
 <Hst.Story title="Checkbox">
 	<svelte:fragment slot="controls">
+		<Hst.Checkbox
+			bind:value={checked}
+			title="Checked" />
+		<Hst.Checkbox
+			bind:value={disabled}
+			title="Disabled" />
+		<Hst.Checkbox
+			bind:value={prependLabel}
+			title="Prepend label" />
 		<Hst.Text
-			bind:value={content}
-			title="Content" />
-
-		<p>
-			<label>Background color</label>
-			<input
-				type="color"
-				bind:value={bgColor} />
-		</p>
-		<p>
-			<label>Text color</label>
-			<input
-				type="color"
-				bind:value={textColor} />
-		</p>
+			bind:value={label}
+			title="Label" />
+		<Hst.Text
+			bind:value={name}
+			title="Name" />
+		<Hst.Text
+			bind:value
+			title="Value" />
+		<Hst.Text
+			bind:value={id}
+			title="Id" />
+		<Hst.Json
+			bind:value={attr}
+			title="Attributes" />
 	</svelte:fragment>
 
 	<Hst.Variant
 		title="Primary"
 		{source}>
 		<Checkbox
-			{bgColor}
-			{textColor}>{content}</Checkbox>
+			on:change={changeEventHandler}
+			{checked}
+			{disabled}
+			{prependLabel}
+			{label}
+			{attr}
+			{value}
+			{name}
+			{id} />
 	</Hst.Variant>
 </Hst.Story>

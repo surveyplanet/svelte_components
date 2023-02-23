@@ -50,36 +50,11 @@
 			title="Id" />
 	</svelte:fragment>
 
-	<Hst.Variant
-		title="Primary"
-		{source}>
-		<Avatar
-			on:click{clickHandler}{imgSrc}
-			{size}
-			{disabled}
-			{id} />
-	</Hst.Variant>
-
 	<Hst.Variant title="Medium">
 		<Avatar
 			on:click{clickHandler}
 			size={SIZES.MEDIUM}
 			imgSrc="https://via.placeholder.com/512/FFB1E3/FFFFFF?text=CUSTOM"
-			{id} />
-	</Hst.Variant>
-
-	<Hst.Variant title="Large">
-		<Avatar
-			on:click{clickHandler}{imgSrc}
-			size={SIZES.LARGE}
-			imgSrc="https://via.placeholder.com/512/FFB1E3/FFFFFF?text=CUSTOM"
-			id="uelloworld@surveyplanet.com" />
-	</Hst.Variant>
-
-	<Hst.Variant title="Disabled">
-		<Avatar
-			on:click{clickHandler}{imgSrc}
-			disabled
 			{id} />
 	</Hst.Variant>
 </Hst.Story>
