@@ -1,63 +1,73 @@
 <script lang="ts">
+	import { logEvent } from 'histoire/client';
 	import { Button } from '../../lib';
-	import { COLORS } from '../../lib/_definitions';
+	import { COLORS, BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	export let Hst;
 
-	let bgColor: string | null;
-	let textColor: string | null;
-	let content = 'Pro';
+	let mode = BUTTON_MODES.PRIMARY;
+	let disabled = false;
+	let loader = false;
+	let round = false;
+	let block = false;
+	let action = false;
+	let type: 'button' | 'submit' | 'reset' = 'button';
+	let form: string | null = null;
+	let size = SIZES.MEDIUM;
+
+	const clickHandler = (e: MouseEvent): void => {
+		if (disabled) {
+			return;
+		}
+		logEvent('click', e);
+	};
 
 	const source = `<Button {bgColor} {textColor}>{content}</Button>`;
 </script>
 
 <Hst.Story title="Button">
 	<svelte:fragment slot="controls">
-		<Hst.Text
-			bind:value={content}
-			title="Content" />
-
-		<p>
-			<label>Background color</label>
-			<input
-				type="color"
-				bind:value={bgColor} />
-		</p>
-		<p>
-			<label>Text color</label>
-			<input
-				type="color"
-				bind:value={textColor} />
-		</p>
+		<Hst.Select
+			bind:value={mode}
+			title="Mode"
+			options={Object.values(BUTTON_MODES)} />
+		<Hst.Checkbox
+			bind:value={disabled}
+			title="Disabled" />
+		<Hst.Checkbox
+			bind:value={loader}
+			title="Loader" />
+		<Hst.Checkbox
+			bind:value={round}
+			title="Round" />
+		<Hst.Checkbox
+			bind:value={block}
+			title="Block" />
+		<Hst.Checkbox
+			bind:value={action}
+			title="Action" />
+		<Hst.Select
+			bind:value={type}
+			title="Type"
+			options={['button', 'submit', 'reset']} />
+		<Hst.Select
+			bind:value={size}
+			title="Size"
+			options={Object.values(SIZES)} />
 	</svelte:fragment>
 
 	<Hst.Variant
 		title="Primary"
 		{source}>
 		<Button
-			{bgColor}
-			{textColor}>{content}</Button>
-	</Hst.Variant>
-
-	<Hst.Variant title="Secondary">
-		<Button
-			bgColor="deeppink"
-			textColor="white">Inverted</Button>
-	</Hst.Variant>
-
-	<Hst.Variant title="Tertiary">
-		<div
-			style="max-width: 50px;height:50px; background-color: {COLORS.blue}; padding: 10px">
-			<Button
-				{bgColor}
-				{textColor}
-				>Cared for memory and knew climes long finds.</Button>
-		</div>
+			on:click={clickHandler}
+			{mode}
+			{disabled}
+			{loader}
+			{round}
+			{block}
+			{action}
+			{type}
+			{form}
+			{size}>Primary</Button>
 	</Hst.Variant>
 </Hst.Story>
-
-<style lang="scss">
-	.badge-container {
-		background-color: blue;
-		max-width: 50px;
-	}
-</style>

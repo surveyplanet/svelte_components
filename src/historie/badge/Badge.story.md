@@ -1,7 +1,3 @@
----
-group: 'badge'
----
-
 # Welcome
 
 This is a demo book using Svelte 3.

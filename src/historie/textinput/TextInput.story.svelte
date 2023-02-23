@@ -1,48 +1,61 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
-	import { Radio } from '../../lib';
+	import { TextInput } from '../../lib';
 	import { COLORS, BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	export let Hst;
 
 	let id: string = (Date.now() + Math.random()).toString(36);
-	export let name: 'string';
-	export let value: string | null = null;
-	export let label = '';
-	export let checked = false;
-	export let disabled = false;
-	export let prependLabel = false;
-	export let attr = {};
+	let name: string;
+	let type = 'text';
+	let value: string | null = '';
+	let label: string | null = null;
+	let placeholder: string | null = null;
+	let multiline = false;
+	let readonly = false;
+	let disabled = false;
+	let attr = {};
 
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
 	};
 
-	const source = `<Radio {bgColor} {textColor}>{content}</Radio>`;
+	const source = `<TextInput {bgColor} {textColor}>{content}</TextInput>`;
 </script>
 
-<Hst.Story title="Radio">
+<Hst.Story title="Text Input">
 	<svelte:fragment slot="controls">
-		<Hst.Checkbox
-			bind:value={checked}
-			title="Checked" />
 		<Hst.Checkbox
 			bind:value={disabled}
 			title="Disabled" />
+
 		<Hst.Checkbox
-			bind:value={prependLabel}
-			title="Prepend label" />
+			bind:value={readonly}
+			title="Readonly" />
+
+		<Hst.Checkbox
+			bind:value={multiline}
+			title="Multiline" />
+
 		<Hst.Text
 			bind:value={label}
 			title="Label" />
+
+		<Hst.Text
+			bind:value={placeholder}
+			title="Placeholder" />
+
 		<Hst.Text
 			bind:value={name}
 			title="Name" />
+
 		<Hst.Text
 			bind:value
 			title="Value" />
+
 		<Hst.Text
 			bind:value={id}
 			title="Id" />
+
 		<Hst.Json
 			bind:value={attr}
 			title="Attributes" />
@@ -51,23 +64,16 @@
 	<Hst.Variant
 		title="Primary"
 		{source}>
-		<Radio
+		<TextInput
 			on:change={changeEventHandler}
-			id="larry"
-			name="stooge"
-			value="larry"
-			label="Larry" />
-		<Radio
-			on:change={changeEventHandler}
-			id="curly"
-			name="stooge"
-			value="curly"
-			label="Curly" />
-		<Radio
-			on:change={changeEventHandler}
-			id="moe"
-			name="stooge"
-			value="moe"
-			label="Moe" />
+			{disabled}
+			{readonly}
+			{multiline}
+			{label}
+			{placeholder}
+			{attr}
+			{value}
+			{name}
+			{id} />
 	</Hst.Variant>
 </Hst.Story>

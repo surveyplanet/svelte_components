@@ -2,9 +2,11 @@
 	import { COLORS } from './';
 	import ICON_DATA from './_icon_data';
 
-	const DEFAULT_SIZE = 24;
-
 	type IconName = keyof typeof ICON_DATA;
+
+	type IconSize = 8 | 16 | 20 | 24 | 32 | 48 | 64 | 128 | 256 | 512;
+
+	const DEFAULT_SIZE: IconSize = 24;
 
 	/**
 	 * The icon color. default: '#262b35'
@@ -14,8 +16,7 @@
 	/**
 	 * The icon width and height in pixes. default: 48
 	 */
-	export let size: 8 | 16 | 20 | 24 | 32 | 48 | 64 | 128 | 256 | 512 =
-		DEFAULT_SIZE;
+	export let size: IconSize = DEFAULT_SIZE;
 
 	/**
 	 * The name of the icon used to display the vector path
@@ -26,17 +27,10 @@
 	 * Display a red background behind the icon for debugging
 	 */
 	export let debug = false;
+
+	$: pathData = ICON_DATA[name];
 </script>
 
-<!--
-@component
-This is an icon component.
-
-**Usage:**
-```tsx
-<Icon name="close" color="white" size={32}>
-```
--->
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	class="sp-icon sp-icon--{name}"
@@ -44,16 +38,16 @@ This is an icon component.
 	height={size}
 	viewBox="0 0 {DEFAULT_SIZE} {DEFAULT_SIZE}"
 	fill="none"
+	data-color={color}
 	style={debug ? 'background-color: red;' : ''}>
 	<title>{'icon ' + name}</title>
-	{#each ICON_DATA[name] as data}
+	{#each pathData as data}
 		<path
 			{...data}
 			stroke-width="2"
 			stroke-linecap="round"
 			stroke-linejoin="round"
 			stroke={color} />
-
 		<!-- 
 		Could potentially build out more complex svg shapes with svelte:element
 		<svelte:element this={data.type} {...data} />

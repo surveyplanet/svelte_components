@@ -51,17 +51,17 @@ export const MASCOTS = {
 	marvin: `https://via.placeholder.com/512/${COLORS.blue.replace(
 		'#',
 		''
-	)}/FFFFFF?text=MARVIN`,
+	)}/${COLORS.black.replace('#', '')}?text=MARVIN`,
 	dylan: `https://via.placeholder.com/512/${COLORS.green.replace(
 		'#',
 		''
-	)}/FFFFFF?text=DYLAN`,
+	)}/${COLORS.black.replace('#', '')}?text=DYLAN`,
 	aaron: `https://via.placeholder.com/512/${COLORS.pink.replace(
 		'#',
 		''
-	)}/FFFFFF?text=AARON`,
+	)}/${COLORS.black.replace('#', '')}?text=AARON`,
 	jack: `https://via.placeholder.com/512/${COLORS.yellow.replace(
 		'#',
 		''
-	)}/FFFFFF?text=JACK`,
+	)}/${COLORS.black.replace('#', '')}?text=JACK`,
 };

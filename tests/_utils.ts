@@ -50,8 +50,10 @@ export const setControl = async (
 	// await labelEl.click(); // <-- click the label to give it some focus
 
 	if (type === 'button') {
+		// TODO:
 		throw new Error('setControls is not available for button yet.');
 	} else if (type === 'buttonGroup') {
+		// TODO:
 		throw new Error('setControls is not available for buttonGroup yet.');
 	} else if (type === 'checkbox') {
 		const input = labelEl.locator('.histoire-simple-checkbox');
@@ -67,14 +69,17 @@ export const setControl = async (
 			await labelEl.click();
 		}
 	} else if (type === 'checkboxList') {
+		// TODO:
 		throw new Error('setControls is not available for checkboxList yet.');
 	} else if (type === 'json') {
+		// TODO:
 		throw new Error('setControls is not available for json yet.');
 	} else if (type === 'number') {
 		const input = labelEl.locator('input');
 		await expect(input).toBeVisible();
 		await input.fill(value);
 	} else if (type === 'radio') {
+		// TODO:
 		throw new Error('setControls is not available for radio yet.');
 	} else if (type === 'select') {
 		const trigger = labelEl.locator('.v-popper');
@@ -86,12 +91,14 @@ export const setControl = async (
 		await expect(optionEl).toBeVisible();
 		await optionEl.click();
 	} else if (type === 'slider') {
+		// TODO:
 		throw new Error('setControls is not available for slider yet.');
 	} else if (type === 'text') {
 		const input = labelEl.locator('input');
 		await expect(input).toBeVisible();
 		await input.fill(value);
 	} else if (type === 'textarea') {
+		// TODO:
 		throw new Error('setControls is not available for textarea yet.');
 	}
 };

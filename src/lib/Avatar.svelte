@@ -6,12 +6,9 @@
 
 	const bgColors = [COLORS.blue, COLORS.green, COLORS.pink, COLORS.yellow];
 
-	const mascots = [
-		MASCOTS.marvin,
-		MASCOTS.dylan,
-		MASCOTS.aaron,
-		MASCOTS.jack,
-	];
+	const mascots = Object.keys(MASCOTS).map((key) => {
+		return MASCOTS[key];
+	});
 
 	export let imgSrc: string | null = null;
 
@@ -20,6 +17,12 @@
 	export let size: SIZES = SIZES.SMALL;
 
 	export let disabled = false;
+
+	$: {
+		if (!/^https?:\/\//.test(imgSrc)) {
+			mascots[getPersistentIndex(mascots.length)];
+		}
+	}
 
 	const getPersistentIndex = (length = 0): number => {
 		if (!id?.length) {
@@ -33,12 +36,6 @@
 		return bgColors[getPersistentIndex(bgColors.length)];
 	};
 
-	const getProfileImg = (): string => {
-		if (imgSrc && /^https?:\/\//.test(imgSrc)) {
-			return imgSrc;
-		}
-		return mascots[getPersistentIndex(mascots.length)];
-	};
 	const clickHandler = (e: MouseEvent): void => {
 		if (disabled) {
 			return;
@@ -56,7 +53,7 @@
 	{disabled}>
 	<span class="sp-avatar--image">
 		<img
-			src={getProfileImg()}
+			src={imgSrc}
 			alt="profile" />
 	</span>
 </button>

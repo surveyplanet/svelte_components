@@ -7,7 +7,7 @@
 	export let Hst;
 
 	let imgSrc = MASCOTS.marvin;
-	let id = 'avatarId';
+	let id = '';
 	let size = SIZES.SMALL;
 	let disabled = false;
 
@@ -23,35 +23,34 @@
 	<svelte:fragment slot="controls">
 		<Hst.Select
 			bind:value={size}
-			id=""
 			title="Size"
-			size="SIZE.SMALL"
 			options={[
 				{ label: 'Small', value: SIZES.SMALL },
 				{ label: 'Medium', value: SIZES.MEDIUM },
 				{ label: 'Large', value: SIZES.LARGE },
 			]} />
+
 		<Hst.Checkbox
 			bind:value={disabled}
 			title="Disabled" />
+
 		<Hst.Select
 			bind:value={imgSrc}
 			title="Mascot"
-			options={[
-				{ label: 'Marvin', value: MASCOTS.marvin },
-				{ label: 'Morty', value: MASCOTS.morty },
-				{ label: 'Rick', value: MASCOTS.rick },
-				{ label: 'Squanchy', value: MASCOTS.squanchy },
-				{ label: 'Summer', value: MASCOTS.summer },
-				{ label: 'Tina', value: MASCOTS.tina },
-			]} />
+			options={Object.keys(MASCOTS).map((key) => {
+				return {
+					label: key.charAt(0).toUpperCase() + key.slice(1),
+					value: MASCOTS[key],
+				};
+			})} />
+
 		<Hst.Text
 			bind:value={id}
 			title="Id" />
 	</svelte:fragment>
 
 	<Hst.Variant
-		title="Primary"
+		title="Avatar"
 		{source}>
 		<Avatar
 			on:click={clickHandler}

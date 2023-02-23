@@ -72,7 +72,7 @@
 	</svelte:fragment>
 
 	<Hst.Variant
-		title="Basic"
+		title="Alert"
 		{source}>
 		<div class="alert-wrapper">
 			<Alert
