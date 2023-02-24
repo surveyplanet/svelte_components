@@ -1,17 +1,16 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
 	import { Radio } from '../../lib';
-	import { COLORS, BUTTON_MODES, SIZES } from '../../lib/_definitions';
+
 	export let Hst;
 
-	let id: string = (Date.now() + Math.random()).toString(36);
-	export let name: 'string';
-	export let value: string | null = null;
-	export let label = '';
-	export let checked = false;
-	export let disabled = false;
-	export let prependLabel = false;
-	export let attr = {};
+	let id: string;
+	let name: string;
+	let value: string;
+	let label = 'Radio button';
+	let checked = false;
+	let disabled = false;
+	let prependLabel = false;
 
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
@@ -20,7 +19,7 @@
 	const source = `<Radio {bgColor} {textColor}>{content}</Radio>`;
 </script>
 
-<Hst.Story title="Radio">
+<Hst.Story title="Form controls / Radio">
 	<svelte:fragment slot="controls">
 		<Hst.Checkbox
 			bind:value={checked}
@@ -43,9 +42,6 @@
 		<Hst.Text
 			bind:value={id}
 			title="Id" />
-		<Hst.Json
-			bind:value={attr}
-			title="Attributes" />
 	</svelte:fragment>
 
 	<Hst.Variant
@@ -53,21 +49,12 @@
 		{source}>
 		<Radio
 			on:change={changeEventHandler}
-			id="larry"
-			name="stooge"
-			value="larry"
-			label="Larry" />
-		<Radio
-			on:change={changeEventHandler}
-			id="curly"
-			name="stooge"
-			value="curly"
-			label="Curly" />
-		<Radio
-			on:change={changeEventHandler}
-			id="moe"
-			name="stooge"
-			value="moe"
-			label="Moe" />
+			{checked}
+			{disabled}
+			{prependLabel}
+			{label}
+			{name}
+			{value}
+			{id} />
 	</Hst.Variant>
 </Hst.Story>

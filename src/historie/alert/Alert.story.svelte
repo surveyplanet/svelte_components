@@ -72,6 +72,7 @@
 	</svelte:fragment>
 
 	<Hst.Variant
+		iframe={false}
 		title="Alert"
 		{source}>
 		<div class="alert-wrapper">
@@ -91,59 +92,6 @@
 				{challenge}>{content}</Alert>
 		</div>
 	</Hst.Variant>
-
-	<!-- <Hst.Variant
-		title="Confirmation"
-		{source}>
-		<div class="alert-wrapper">
-			<Alert
-				on:open={openHandler}
-				on:in={inHandler}
-				on:close={closeHandler}
-				on:out={outHandler}
-				on:confirm={confirmHandler}
-				confirm={true}
-				title="Delete account"
-				subtitle="If you want to delete your account enter your email address below."
-				type="warning"
-				confirmButtonLabel="Yes, delete"
-				cancelButtonLabel="No, cancel"
-				challengeLabel="Enter your email address"
-				challenge="testing@example.com" />
-		</div>
-	</Hst.Variant>
-
-	<Hst.Variant
-		title="HTML content"
-		{source}>
-		<div class="alert-wrapper">
-			<Alert
-				on:open={openHandler}
-				on:in={inHandler}
-				on:close={closeHandler}
-				on:out={outHandler}
-				on:confirm={confirmHandler}
-				{title}
-				{subtitle}
-				{type}
-				{hideDelay}
-				{confirm}
-				{confirmButtonLabel}
-				{cancelButtonLabel}
-				{challenge}>
-				<h4>Some HTML content</h4>
-				<p>
-					Had upon could his clay <a
-						href="/"
-						data-testid="test-link">misery</a> run friends but caught.
-				</p>
-				<img
-					data-testid="test-img"
-					src="https://via.placeholder.com/256/00FF00/FFFFFF?text=Test%20Image"
-					alt="test" />
-			</Alert>
-		</div>
-	</Hst.Variant> -->
 </Hst.Story>
 
 <style>

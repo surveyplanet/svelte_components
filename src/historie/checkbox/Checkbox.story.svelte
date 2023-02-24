@@ -20,7 +20,7 @@
 	const source = `<Checkbox {bgColor} {textColor}>{content}</Checkbox>`;
 </script>
 
-<Hst.Story title="Checkbox">
+<Hst.Story title="Form controls / checkbox">
 	<svelte:fragment slot="controls">
 		<Hst.Checkbox
 			bind:value={checked}

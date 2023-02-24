@@ -4,16 +4,18 @@
 	import { COLORS, BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	export let Hst;
 
-	let id: string = (Date.now() + Math.random()).toString(36);
+	let id: string;
 	let name: string;
 	let type = 'text';
-	let value: string | null = '';
-	let label: string | null = null;
-	let placeholder: string | null = null;
+	let value = '';
+	let label: string;
+	let placeholder: string;
 	let multiline = false;
 	let readonly = false;
 	let disabled = false;
-	let attr = {};
+	let cleaveOptions = {};
+	let validationRules: string[] = [];
+	let validationMessage: string;
 
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
@@ -22,8 +24,29 @@
 	const source = `<TextInput {bgColor} {textColor}>{content}</TextInput>`;
 </script>
 
-<Hst.Story title="Text Input">
+<Hst.Story
+	layout={{ type: 'grid', width: 500 }}
+	title="Form controls / Text input">
 	<svelte:fragment slot="controls">
+		<Hst.Select
+			bind:value={type}
+			title="Type"
+			options={[
+				'color',
+				'date',
+				'datetime-local',
+				'email',
+				'file',
+				'hidden',
+				'image',
+				'month',
+				'number',
+				'password',
+				'search',
+				'text',
+				'time',
+				'url',
+			]} />
 		<Hst.Checkbox
 			bind:value={disabled}
 			title="Disabled" />
@@ -55,14 +78,10 @@
 		<Hst.Text
 			bind:value={id}
 			title="Id" />
-
-		<Hst.Json
-			bind:value={attr}
-			title="Attributes" />
 	</svelte:fragment>
 
 	<Hst.Variant
-		title="Primary"
+		title="Basic"
 		{source}>
 		<TextInput
 			on:change={changeEventHandler}
@@ -71,9 +90,48 @@
 			{multiline}
 			{label}
 			{placeholder}
-			{attr}
+			{type}
 			{value}
 			{name}
 			{id} />
+	</Hst.Variant>
+
+	<Hst.Variant
+		title="Validation"
+		{source}>
+		<TextInput
+			on:change={changeEventHandler}
+			{disabled}
+			{readonly}
+			{multiline}
+			{label}
+			{placeholder}
+			{type}
+			{value}
+			{name}
+			{id}
+			validationRules={['require', 'email']}
+			validationMessage="What's the matter with you, you don't know your email address?" />
+	</Hst.Variant>
+
+	<Hst.Variant
+		title="Masked"
+		{source}>
+		<TextInput
+			on:change={changeEventHandler}
+			{disabled}
+			{readonly}
+			{multiline}
+			{label}
+			{type}
+			{value}
+			{name}
+			{id}
+			placeholder="YYYY-MM-DD"
+			cleaveOptions={{
+				date: true,
+				delimiter: '-',
+				datePattern: ['Y', 'm', 'd'],
+			}} />
 	</Hst.Variant>
 </Hst.Story>

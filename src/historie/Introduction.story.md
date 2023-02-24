@@ -1,5 +1,5 @@
 ---
-# group: 'top'
+group: 'docs'
 icon: 'carbon:bookmark'
 ---
 

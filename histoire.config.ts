@@ -5,10 +5,22 @@ export default defineConfig({
 	plugins: [HstSvelte()],
 	storyMatch: ['**/*.story.svelte'],
 	storyIgnored: ['**/node_modules/**', '**/dist/**', './src/stories'],
-	// tree: {
-	// 	file: 'title',
-	// 	order: 'asc',
-	// },
+	tree: {
+		groups: [
+			{
+				id: 'docs',
+				title: '', // No toggle
+			},
+			{
+				title: 'Components',
+				include: (file) => true,
+			},
+			// {
+			// 	title: 'Utilities',
+			// 	include: (file) => true,
+			// },
+		],
+	},
 	theme: {
 		title: 'SurveyPlanet design system',
 		favicon: './static/assets/favicon.ico',

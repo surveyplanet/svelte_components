@@ -1,4 +1,4 @@
-export default `<Alert 
+export default `<Button 
   title='Did you know?'
   subtitle="Informational alert"
   type="info"
@@ -7,6 +7,6 @@ export default `<Alert
   confirmButtonLabel="Confirm"
   cancelButtonLabel="Cancel"
   challenge="johnny@appleseed.com">
-  	Alert body
-</Alert>
+  	Button body
+</Button>
 `;

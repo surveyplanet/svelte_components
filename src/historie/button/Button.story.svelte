@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
 	import { Button, Icon } from '../../lib';
-	import { COLORS, BUTTON_MODES, SIZES } from '../../lib/_definitions';
+	import { BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	export let Hst;
 
 	let content = 'Submit';
@@ -25,7 +25,9 @@
 	const source = `<Button {bgColor} {textColor}>{content}</Button>`;
 </script>
 
-<Hst.Story title="Button">
+<Hst.Story
+	title="Button"
+	layout={{ type: 'grid', width: 200 }}>
 	<svelte:fragment slot="controls">
 		<Hst.Text
 			bind:value={content}
@@ -61,13 +63,29 @@
 	</svelte:fragment>
 
 	<Hst.Variant
-		title="Button"
+		title="Basic"
 		{source}>
 		<Button
 			on:click={clickHandler}
 			{mode}
 			{disabled}
 			{loader}
+			{round}
+			{block}
+			{action}
+			{type}
+			{form}
+			{size}>{content}</Button>
+	</Hst.Variant>
+
+	<Hst.Variant
+		title="Loader"
+		{source}>
+		<Button
+			on:click={clickHandler}
+			{mode}
+			disabled={true}
+			loader={true}
 			{round}
 			{block}
 			{action}

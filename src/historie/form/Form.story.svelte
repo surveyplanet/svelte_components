@@ -21,7 +21,7 @@
 	const source = `<Form {bgColor} {textColor}>{content}</Form>`;
 </script>
 
-<Hst.Story title="Form">
+<Hst.Story title="Form controls / Form">
 	<svelte:fragment slot="controls">
 		<Hst.Text
 			bind:value={id}
