@@ -1,12 +1,14 @@
-export default `<Button 
-  title='Did you know?'
-  subtitle="Informational alert"
-  type="info"
-  hideDelay={0}
-  confirm={false}
-  confirmButtonLabel="Confirm"
-  cancelButtonLabel="Cancel"
-  challenge="johnny@appleseed.com">
-  	Button body
+export default `<script>
+	import { Button } from '@surveyplanet/svelte-components';
+
+</script>
+
+
+<Button
+	on:click={clickHandler}
+	mode="primary"
+	size="small"
+	round="true"
+	> Submit
 </Button>
 `;

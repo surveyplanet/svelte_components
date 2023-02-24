@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
 	import { Radio } from '../../lib';
+	import source from './source';
 
 	export let Hst;
 
@@ -15,8 +16,6 @@
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
 	};
-
-	const source = `<Radio {bgColor} {textColor}>{content}</Radio>`;
 </script>
 
 <Hst.Story title="Form controls / Radio">
