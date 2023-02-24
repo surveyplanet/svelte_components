@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
+	import source from './source';
 	import { Toggle } from '../../lib';
 	import { COLORS, BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	export let Hst;
@@ -13,11 +14,9 @@
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
 	};
-
-	const source = `<Toggle {bgColor} {textColor}>{content}</Toggle>`;
 </script>
 
-<Hst.Story title="Form controls / toggle">
+<Hst.Story title="Form controls / Toggle">
 	<svelte:fragment slot="controls">
 		<Hst.Text
 			bind:value={id}

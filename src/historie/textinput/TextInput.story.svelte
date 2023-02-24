@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
+	import source from './source';
 	import { TextInput } from '../../lib';
 	import { COLORS, BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	export let Hst;
@@ -20,8 +21,6 @@
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
 	};
-
-	const source = `<TextInput {bgColor} {textColor}>{content}</TextInput>`;
 </script>
 
 <Hst.Story

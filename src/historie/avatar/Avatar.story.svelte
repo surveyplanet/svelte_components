@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
+	import source from './source';
 	import { Avatar } from '../../lib';
 	import { SIZES, MASCOTS } from '../../lib/_definitions.ts';
-	import { default as source } from './source';
 
 	export let Hst;
 

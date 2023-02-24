@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
+	import source from './source.ts';
 	import { Button, Icon } from '../../lib';
 	import { BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	export let Hst;
@@ -21,8 +22,6 @@
 		}
 		logEvent('click', e);
 	};
-
-	const source = `<Button {bgColor} {textColor}>{content}</Button>`;
 </script>
 
 <Hst.Story

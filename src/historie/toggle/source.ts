@@ -1,12 +1,18 @@
-export default `<Alert 
-  title='Did you know?'
-  subtitle="Informational alert"
-  type="info"
-  hideDelay={0}
-  confirm={false}
-  confirmButtonLabel="Confirm"
-  cancelButtonLabel="Cancel"
-  challenge="johnny@appleseed.com">
-  	Alert body
-</Alert>
+export default `<script>
+	import { Toggle } from '@surveyplanet/svelte-components';
+	function changeEventHandler(on) {
+		if (on) {
+			console.log('Toggle ON 🎉');
+		} else {
+			console.log('Toggle OFF 😤');
+		}
+	}
+</script>
+
+<Toggle
+	{on}
+	{tall}
+	name="toggle"
+	on:change="{changeEventHandler}">
+</Toggle>
 `;

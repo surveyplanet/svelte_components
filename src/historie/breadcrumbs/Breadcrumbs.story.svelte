@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Breadcrumbs } from '../../lib';
 	import { COLORS } from '../../lib/_definitions';
+	import source from './source';
 	export let Hst;
 
 	let breadcrumbs = [
@@ -21,9 +22,6 @@
 			url: '/submit',
 		},
 	];
-
-	const source = ` 
-	<Breadcrumbs {breadcrumbs} />`;
 </script>
 
 <Hst.Story title="Breadcrumbs">

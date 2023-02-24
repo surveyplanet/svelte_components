@@ -1,12 +1,10 @@
-export default `<Alert 
-  title='Did you know?'
-  subtitle="Informational alert"
-  type="info"
-  hideDelay={0}
-  confirm={false}
-  confirmButtonLabel="Confirm"
-  cancelButtonLabel="Cancel"
-  challenge="johnny@appleseed.com">
-  	Alert body
-</Alert>
+export default `<
+<script>
+	import {Avatar, SIZES} from '@surveyplanet/svelte-components';
+</script>
+<Avatar
+    on:click={() => console.log('clicked')}
+    id="johnny@gmail.com"
+    size=SIZES.SMALL 
+    imgSrc='https://example.com/profile_img.png' />
 `;

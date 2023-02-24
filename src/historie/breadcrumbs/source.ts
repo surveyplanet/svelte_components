@@ -1,12 +1,24 @@
-export default `<Alert 
-  title='Did you know?'
-  subtitle="Informational alert"
-  type="info"
-  hideDelay={0}
-  confirm={false}
-  confirmButtonLabel="Confirm"
-  cancelButtonLabel="Cancel"
-  challenge="johnny@appleseed.com">
-  	Alert body
-</Alert>
+export default `
+<script>
+import { Breadcrumbs } from '@surveyplanet/svelte_components';
+
+const breadcrumbs = [
+  {
+    label: 'Home',
+    href: '/',
+  },
+  {
+    label: 'About',
+    href: '/about',
+  },
+  {
+    label: 'Contact',
+    href: '/contact',
+  },
+];
+
+</script>
+
+
+<Breadcrumbs {breadcrumbs} />
 `;

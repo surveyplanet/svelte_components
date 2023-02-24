@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
+	import source from './source';
 	import { Checkbox } from '../../lib';
 	import { COLORS, BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	export let Hst;
@@ -15,11 +16,9 @@
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
 	};
-
-	const source = `<Checkbox {bgColor} {textColor}>{content}</Checkbox>`;
 </script>
 
-<Hst.Story title="Form controls / checkbox">
+<Hst.Story title="Form controls / Checkbox">
 	<svelte:fragment slot="controls">
 		<Hst.Checkbox
 			bind:value={checked}
