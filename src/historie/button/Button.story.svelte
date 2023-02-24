@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
-	import { Button } from '../../lib';
+	import { Button, Icon } from '../../lib';
 	import { COLORS, BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	export let Hst;
 
+	let content = 'Submit';
 	let mode = BUTTON_MODES.PRIMARY;
 	let disabled = false;
 	let loader = false;
@@ -26,6 +27,10 @@
 
 <Hst.Story title="Button">
 	<svelte:fragment slot="controls">
+		<Hst.Text
+			bind:value={content}
+			title="Title" />
+
 		<Hst.Select
 			bind:value={mode}
 			title="Mode"
@@ -56,7 +61,7 @@
 	</svelte:fragment>
 
 	<Hst.Variant
-		title="Primary"
+		title="Button"
 		{source}>
 		<Button
 			on:click={clickHandler}
@@ -68,6 +73,24 @@
 			{action}
 			{type}
 			{form}
-			{size}>Primary</Button>
+			{size}>{content}</Button>
+	</Hst.Variant>
+
+	<Hst.Variant
+		title="FAB - Floating action button"
+		{source}>
+		<Button
+			on:click={clickHandler}
+			{mode}
+			{disabled}
+			{loader}
+			{round}
+			{block}
+			action={true}
+			{type}
+			{form}
+			{size}>
+			<Icon name="plus" />
+		</Button>
 	</Hst.Variant>
 </Hst.Story>

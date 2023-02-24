@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { Icon, Badge } from '../../lib';
-	import { COLORS, SIZES } from '../../lib/_definitions';
+	import { Icon } from '../../lib';
+	import { COLORS } from '../../lib/_definitions';
 	import { default as source } from './source';
 	import ICON_DATA from '../../lib/_icon_data';
 	export let Hst;
 
-	let color: string = COLORS.slate_dark;
-	let size: string = SIZES.MEDIUM;
-	let name = 'plus';
+	let color = COLORS.slate_dark;
+	let size = 24;
+	let name = 'bell';
 	let debug = false;
 </script>
 
@@ -37,7 +37,8 @@
 		<Hst.Select
 			bind:value={size}
 			title="Size"
-			options={Object.values(SIZES)} />
+			options={[8, 16, 20, 24, 32, 48, 64, 128, 256, 512]} />
+
 		<Hst.Checkbox
 			bind:value={debug}
 			title="Debug" />
@@ -48,6 +49,7 @@
 		{source}>
 		<Icon
 			{name}
+			{size}
 			{color}
 			{debug} />
 	</Hst.Variant>
