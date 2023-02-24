@@ -52,11 +52,6 @@
 	export let disabled = false;
 
 	/**
-	 * Any additional attributes that that should be applied to the input
-	 */
-	export let attr = {};
-
-	/**
 	 * Cleave.js options for masked input. See: https://github.com/nosir/cleave.js
 	 */
 	export let cleaveOptions: CleaveOptions = {};
@@ -152,7 +147,6 @@
 			{placeholder}
 			{disabled}
 			{readonly}
-			{...attr}
 			data-validate-rules={validationRules.length
 				? validationRules.join(',')
 				: null}
@@ -171,7 +165,6 @@
 			{disabled}
 			{readonly}
 			{value}
-			{...attr}
 			data-validate-rules={validationRules.length
 				? validationRules.join(',')
 				: null}

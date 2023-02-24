@@ -1,23 +1,9 @@
 import {
 	expect,
 	type FrameLocator,
-	type Page,
 	type Locator,
+	type Page,
 } from '@playwright/test';
-
-export const loadStory = async (
-	page: Page,
-	name: string,
-	variant: number | null = 0
-): FrameLocator => {
-	let url = `/story/src-historie-${name}-${name}-story-svelte`;
-	if (!Number.isNaN(variant)) {
-		url += `?variantId=src-historie-${name}-${name}-story-svelte-${variant}`;
-	}
-	await page.goto(url);
-	return page.
-	('[data-test-id="preview-iframe"]');
-};
 
 type ControlType =
 	| 'button'
@@ -30,9 +16,75 @@ type ControlType =
 	| 'select'
 	| 'slider'
 	| 'text'
-	| 'textarea'
 	| 'textarea';
 
+/**
+ * Navigate to a component's story.
+ *
+ * @function loadStory
+ * @async
+ * @param page {Page} Playwright Page object
+ * @param name {String} The name of the component
+ * @param variant {Number} The story variant index
+ * @returns Promise<FrameLocator>
+ */
+export const loadStory = async (
+	page: Page,
+	name: string,
+	variant: number | null = 0
+): Promise<FrameLocator> => {
+	name = name.toLocaleLowerCase();
+	let url = `/story/src-historie-${name}-${name}-story-svelte`;
+	if (variant && !isNaN(variant)) {
+		url += `?variantId=src-historie-${name}-${name}-story-svelte-${variant}`;
+	}
+	await page.goto(url);
+	return page.frameLocator('[data-test-id="preview-iframe"]');
+};
+
+/**
+ * Retrieve the computes style of a locator element.
+ * THIS DOES NOT WORK, SEE: https://github.com/microsoft/playwright/issues/4282#issuecomment-1444548056
+ * Also see [Evaluation Arguments](https://playwright.dev/docs/evaluating#evaluation-argument)
+ *
+ * @function geStyle
+ * @async
+ * @param locator {Locator} The Playwright locator to evaluate (see: https://playwright.dev/docs/locators)
+ * @param property {String} The css property name e.g.: 'background-color' | 'text-transform'
+ * @returns Promise<String> The style value
+ */
+// export const getStyle = async (
+// 	locator: Locator,
+// 	property: string
+// ): Promise<string> => {
+// 	return await locator.evaluate((el) => {
+// 		return window.getComputedStyle(el).getPropertyValue(property);
+// 	});
+// };
+//
+// export const getStyle = async (
+// 	locator: Locator,
+// 	property: string
+// ): Promise<string> => {
+// 	return await locator.evaluate(
+// 		(args) => {
+// 			return window.getComputedStyle(args.el).getPropertyValue(args.prop);
+// 		},
+// 		{ el: locator, prop: property }
+// 	);
+// };
+
+/**
+ * Set Histoire control values. NOTE: some controls don't work and need to be flushed out still
+ *
+ * @function setControl
+ * @async
+ * @param page {Page} Playwright Page object
+ * @param label {String} The control label (case sensitive)
+ * @param type {ControlType} The type of control
+ * @param value {String} The new value to set.
+ * @returns Promise<void>
+ */
 export const setControl = async (
 	page: Page,
 	label: string,
@@ -46,8 +98,6 @@ export const setControl = async (
 	const labelEl = controls.locator('label', {
 		has: page.locator(`text="${label}"`),
 	});
-
-	// await labelEl.click(); // <-- click the label to give it some focus
 
 	if (type === 'button') {
 		// TODO:
@@ -98,7 +148,8 @@ export const setControl = async (
 		await expect(input).toBeVisible();
 		await input.fill(value);
 	} else if (type === 'textarea') {
-		// TODO:
-		throw new Error('setControls is not available for textarea yet.');
+		const input = labelEl.locator('textarea');
+		await expect(input).toBeVisible();
+		await input.fill(value);
 	}
 };

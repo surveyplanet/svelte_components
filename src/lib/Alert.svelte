@@ -57,18 +57,20 @@
 	export let animationMilliseconds = 350;
 
 	let visible = false;
-	let disableConfirmButton = false;
 	$: isChallenge = confirm && challenge.length > 0;
+	$: disableConfirmButton = isChallenge;
 
-	// handlers
-	onMount(() => {
-		visible = true;
-		disableConfirmButton = isChallenge;
+	$: {
 		if (!confirm && hideDelay > 0) {
 			setTimeout(() => {
 				visible = false;
 			}, hideDelay);
 		}
+	}
+
+	// handlers
+	onMount(() => {
+		visible = true;
 	});
 
 	const challengeKeyupHandler = (event: SvelteCustomEvent): void => {
@@ -83,7 +85,6 @@
 	};
 
 	const closeButtonClickHandler = () => {
-		// dispatch('close');
 		visible = false;
 	};
 
@@ -104,6 +105,7 @@
 	};
 </script>
 
+<!-- TODO: 'sp-alert--confirm' class is used in the nav and in the base component -->
 {#if visible}
 	<div
 		role="alert"
@@ -157,7 +159,7 @@
 				{/if}
 				<nav>
 					<ul>
-						<li class="sp-alert--confirm">
+						<li class="sp-alert--confirm-btn">
 							<Button
 								disabled={disableConfirmButton}
 								on:click={alertConfirmButtonClickHandler}
@@ -165,7 +167,7 @@
 								{confirmButtonLabel}
 							</Button>
 						</li>
-						<li class="sp-alert--close">
+						<li class="sp-alert--close-btn">
 							<Button
 								on:click={closeButtonClickHandler}
 								mode={BUTTON_MODES.LIGHT}>

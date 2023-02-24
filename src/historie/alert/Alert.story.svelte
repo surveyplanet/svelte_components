@@ -66,7 +66,7 @@
 		<Hst.Text
 			bind:value={challenge}
 			title="Challenge" />
-		<Hst.Text
+		<Hst.Textarea
 			bind:value={content}
 			title="Content" />
 	</svelte:fragment>
@@ -89,7 +89,7 @@
 				{confirm}
 				{confirmButtonLabel}
 				{cancelButtonLabel}
-				{challenge}>{content}</Alert>
+				{challenge}>{@html content}</Alert>
 		</div>
 	</Hst.Variant>
 </Hst.Story>

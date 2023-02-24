@@ -21,7 +21,7 @@ export default defineConfig({
 	workers: process.env.CI ? 1 : undefined,
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
 	// reporter: [['html', { open: 'never' }]],
-	reporter: 'line',
+	reporter: 'list',
 	use: {
 		baseURL: 'http://localhost:6006',
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
@@ -36,35 +36,25 @@ export default defineConfig({
 			name: 'chromium',
 			use: { ...devices['Desktop Chrome'] },
 		},
-
+		{
+			name: 'firefox',
+			use: { ...devices['Desktop Firefox'] },
+		},
+		{
+			name: 'Microsoft Edge',
+			use: { channel: 'msedge' },
+		},
+		{
+			name: 'webkit',
+			use: { ...devices['Desktop Safari'] },
+		},
 		// {
-		// 	name: 'firefox',
-		// 	use: { ...devices['Desktop Firefox'] },
-		// },
-
-		// {
-		// 	name: 'webkit',
-		// 	use: { ...devices['Desktop Safari'] },
-		// },
-
-		/* Test against mobile viewports. */
-		// {
-		//   name: 'Mobile Chrome',
-		//   use: { ...devices['Pixel 5'] },
-		// },
-		// {
-		//   name: 'Mobile Safari',
-		//   use: { ...devices['iPhone 12'] },
-		// },
-
-		/* Test against branded browsers. */
-		// {
-		//   name: 'Microsoft Edge',
-		//   use: { channel: 'msedge' },
+		// 	name: 'Mobile Chrome',
+		// 	use: { ...devices['Pixel 5'] },
 		// },
 		// {
-		//   name: 'Google Chrome',
-		//   use: { channel: 'chrome' },
+		// 	name: 'Mobile Safari',
+		// 	use: { ...devices['iPhone 12'] },
 		// },
 	],
 

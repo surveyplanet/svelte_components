@@ -32,7 +32,6 @@
 		<Hst.Text
 			bind:value={content}
 			title="Title" />
-
 		<Hst.Select
 			bind:value={mode}
 			title="Mode"
@@ -52,14 +51,14 @@
 		<Hst.Checkbox
 			bind:value={action}
 			title="Action" />
-		<Hst.Select
-			bind:value={type}
-			title="Type"
-			options={['button', 'submit', 'reset']} />
-		<Hst.Select
+		<Hst.ButtonGroup
 			bind:value={size}
 			title="Size"
 			options={Object.values(SIZES)} />
+		<Hst.ButtonGroup
+			bind:value={type}
+			title="Type"
+			options={['button', 'submit', 'reset']} />
 	</svelte:fragment>
 
 	<Hst.Variant

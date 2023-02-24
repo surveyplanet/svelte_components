@@ -29,11 +29,6 @@
 				{ label: 'Medium', value: SIZES.MEDIUM },
 				{ label: 'Large', value: SIZES.LARGE },
 			]} />
-
-		<Hst.Checkbox
-			bind:value={disabled}
-			title="Disabled" />
-
 		<Hst.Select
 			bind:value={imgSrc}
 			title="Mascot"
@@ -43,10 +38,12 @@
 					value: MASCOTS[key],
 				};
 			})} />
-
 		<Hst.Text
 			bind:value={id}
 			title="Id" />
+		<Hst.Checkbox
+			bind:value={disabled}
+			title="Disabled" />
 	</svelte:fragment>
 
 	<Hst.Variant

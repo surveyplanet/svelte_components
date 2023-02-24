@@ -22,15 +22,15 @@
 		<Hst.Text
 			bind:value={id}
 			title="Id" />
+		<Hst.Text
+			bind:value={name}
+			title="Name" />
 		<Hst.Checkbox
 			bind:value={disabled}
 			title="Disabled" />
 		<Hst.Checkbox
 			bind:value={tall}
 			title="Tall" />
-		<Hst.Text
-			bind:value={name}
-			title="Name" />
 	</svelte:fragment>
 
 	<Hst.Variant

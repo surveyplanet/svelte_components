@@ -4,14 +4,13 @@
 	import { COLORS, BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	export let Hst;
 
-	let id: string = (Date.now() + Math.random()).toString(36);
+	let id: string;
 	let name: 'checkbox';
-	let value: string | null = null;
-	let label = '';
+	let value: string;
+	let label = 'Checkbox';
 	let checked = false;
 	let disabled = false;
 	let prependLabel = false;
-	let attr = {};
 
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
@@ -25,15 +24,6 @@
 		<Hst.Checkbox
 			bind:value={checked}
 			title="Checked" />
-		<Hst.Checkbox
-			bind:value={disabled}
-			title="Disabled" />
-		<Hst.Checkbox
-			bind:value={prependLabel}
-			title="Prepend label" />
-		<Hst.Text
-			bind:value={label}
-			title="Label" />
 		<Hst.Text
 			bind:value={name}
 			title="Name" />
@@ -43,9 +33,15 @@
 		<Hst.Text
 			bind:value={id}
 			title="Id" />
-		<Hst.Json
-			bind:value={attr}
-			title="Attributes" />
+		<Hst.Text
+			bind:value={label}
+			title="Label" />
+		<Hst.Checkbox
+			bind:value={prependLabel}
+			title="Prepend label" />
+		<Hst.Checkbox
+			bind:value={disabled}
+			title="Disabled" />
 	</svelte:fragment>
 
 	<Hst.Variant
@@ -57,7 +53,6 @@
 			{disabled}
 			{prependLabel}
 			{label}
-			{attr}
 			{value}
 			{name}
 			{id} />

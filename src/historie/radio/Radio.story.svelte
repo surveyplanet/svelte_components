@@ -5,7 +5,7 @@
 	export let Hst;
 
 	let id: string;
-	let name: string;
+	let name = 'radio';
 	let value: string;
 	let label = 'Radio button';
 	let checked = false;
@@ -24,15 +24,6 @@
 		<Hst.Checkbox
 			bind:value={checked}
 			title="Checked" />
-		<Hst.Checkbox
-			bind:value={disabled}
-			title="Disabled" />
-		<Hst.Checkbox
-			bind:value={prependLabel}
-			title="Prepend label" />
-		<Hst.Text
-			bind:value={label}
-			title="Label" />
 		<Hst.Text
 			bind:value={name}
 			title="Name" />
@@ -42,6 +33,15 @@
 		<Hst.Text
 			bind:value={id}
 			title="Id" />
+		<Hst.Text
+			bind:value={label}
+			title="Label" />
+		<Hst.Checkbox
+			bind:value={prependLabel}
+			title="Prepend label" />
+		<Hst.Checkbox
+			bind:value={disabled}
+			title="Disabled" />
 	</svelte:fragment>
 
 	<Hst.Variant
