@@ -10,9 +10,9 @@ export default `<script>
 </script>
 
 <Toggle
-	on
-	disabled
-	tall
+	{on}
+	{tall}
+	name="toggle"
 	on:change="{changeEventHandler}">
 </Toggle>
 `;

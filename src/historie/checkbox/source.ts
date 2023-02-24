@@ -6,17 +6,16 @@ export default `<script>
 </script>
 
 <Checkbox
-	type="radio"
 	id="option-1"
 	label="Option 1"
+	name="option"
 	value="one"
-	attr="{{data-random:math.random()}}"
 	on:change="{changeEventHandler}" />
 
 <Checkbox
-	type="radio"
 	id="option-2"
 	label="Option 2"
+	name="option2"
 	value="two"
 	on:change="{changeEventHandler}" />
 `;

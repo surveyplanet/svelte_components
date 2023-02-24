@@ -1,12 +1,5 @@
-export default `<Alert 
-  title='Did you know?'
-  subtitle="Informational alert"
-  type="info"
-  hideDelay={0}
-  confirm={false}
-  confirmButtonLabel="Confirm"
-  cancelButtonLabel="Cancel"
-  challenge="johnny@appleseed.com">
-  	Alert body
-</Alert>
+export default `<script>
+	import {Badge} from '@surveyplanet/svelte-components';
+</script>
+<Badge color="rgba(225,0,0,.5)">Pro</Badge>
 `;
