@@ -85,6 +85,8 @@
 	});
 
 	const changeHandler = (event: Event) => {
+		console.log(event.target);
+
 		const errors: ValidatorError[] = validate(
 			event.target as HTMLInputElement
 		);

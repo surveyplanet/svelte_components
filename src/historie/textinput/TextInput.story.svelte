@@ -5,8 +5,8 @@
 	import { COLORS, BUTTON_MODES, SIZES } from '../../lib/_definitions';
 	export let Hst;
 
-	let id: string;
-	let name: string;
+	let id: 'basic-text';
+	let name: 'basic-text';
 	let type = 'text';
 	let value = '';
 	let label: string;
@@ -14,9 +14,9 @@
 	let multiline = false;
 	let readonly = false;
 	let disabled = false;
-	let cleaveOptions = {};
-	let validationRules: string[] = [];
-	let validationMessage: string;
+	// let cleaveOptions = {};
+	// let validationRules: string[] = [];
+	// let validationMessage: string;
 
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
@@ -103,12 +103,12 @@
 			{disabled}
 			{readonly}
 			{multiline}
-			{label}
+			label="Email address"
 			{placeholder}
 			{type}
 			{value}
-			{name}
-			{id}
+			name="validate-text"
+			id="validate-text"
 			validationRules={['require', 'email']}
 			validationMessage="What's the matter with you, you don't know your email address?" />
 	</Hst.Variant>
@@ -124,8 +124,8 @@
 			{label}
 			{type}
 			{value}
-			{name}
-			{id}
+			name="maked-text"
+			id="maked-text"
 			placeholder="YYYY-MM-DD"
 			cleaveOptions={{
 				date: true,
