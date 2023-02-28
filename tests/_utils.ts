@@ -4,6 +4,7 @@ import {
 	type Locator,
 	type Page,
 } from '@playwright/test';
+import { loadConfigFromFile } from 'vite';
 
 type ControlType =
 	| 'button'
@@ -26,53 +27,49 @@ type ControlType =
  * @param page {Page} Playwright Page object
  * @param name {String} The name of the component
  * @param variant {Number} The story variant index
- * @returns Promise<FrameLocator>
+ * @returns Promise<FrameLocator|Page> the Histoire preview (iframe) or the page if there isn't one.
  */
 export const loadStory = async (
 	page: Page,
 	name: string,
 	variant: number | null = 0
-): Promise<FrameLocator> => {
+): Promise<FrameLocator | Page> => {
 	name = name.toLocaleLowerCase();
+
 	let url = `/story/src-historie-${name}-${name}-story-svelte`;
-	if (variant && !isNaN(variant)) {
+	if (variant !== null && !isNaN(variant)) {
 		url += `?variantId=src-historie-${name}-${name}-story-svelte-${variant}`;
 	}
+
 	await page.goto(url);
-	return page.frameLocator('[data-test-id="preview-iframe"]');
+
+	const query = '[data-test-id="preview-iframe"]';
+
+	// console.log('count --->', await page.locator(query).count());
+	// const frameExists = (await page.locator(query).count()) > 0;
+	// if (!frameExists) {
+	// 	return page;
+	// }
+
+	return page.frameLocator(query);
 };
 
 /**
- * Retrieve the computes style of a locator element.
- * THIS DOES NOT WORK, SEE: https://github.com/microsoft/playwright/issues/4282#issuecomment-1444548056
- * Also see [Evaluation Arguments](https://playwright.dev/docs/evaluating#evaluation-argument)
+ * Retrieve the computes style declarations for a locator element.
+ * see [Evaluation Arguments](https://playwright.dev/docs/evaluating#evaluation-argument)
  *
- * @function geStyle
+ * @function getStyles
  * @async
  * @param locator {Locator} The Playwright locator to evaluate (see: https://playwright.dev/docs/locators)
- * @param property {String} The css property name e.g.: 'background-color' | 'text-transform'
- * @returns Promise<String> The style value
+\ * @returns Promise<CSSStyleDeclaration> The style value
  */
-// export const getStyle = async (
-// 	locator: Locator,
-// 	property: string
-// ): Promise<string> => {
-// 	return await locator.evaluate((el) => {
-// 		return window.getComputedStyle(el).getPropertyValue(property);
-// 	});
-// };
-//
-// export const getStyle = async (
-// 	locator: Locator,
-// 	property: string
-// ): Promise<string> => {
-// 	return await locator.evaluate(
-// 		(args) => {
-// 			return window.getComputedStyle(args.el).getPropertyValue(args.prop);
-// 		},
-// 		{ el: locator, prop: property }
-// 	);
-// };
+export const getStyles = async (
+	locator: Locator
+): Promise<CSSStyleDeclaration> => {
+	return await locator.evaluate((el) => {
+		return window.getComputedStyle(el) as CSSStyleDeclaration;
+	});
+};
 
 /**
  * Set Histoire control values. NOTE: some controls don't work and need to be flushed out still

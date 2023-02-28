@@ -3,11 +3,11 @@
 
 	const dispatch = createEventDispatcher();
 
-	export let on = false;
-	export let disabled = false;
 	export let id: string = (Date.now() + Math.random()).toString(36);
-	export let tall = false;
 	export let name: string;
+	export let disabled = false;
+	export let on = false;
+	export let tall = false;
 
 	const changeHandler = (event: Event): void => {
 		if (disabled) {

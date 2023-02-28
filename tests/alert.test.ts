@@ -1,16 +1,28 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type FrameLocator } from '@playwright/test';
 import { loadStory, setControl } from './_utils.js';
 
 test.describe('Alert component', () => {
+	let canvas: FrameLocator;
+
+	test.beforeEach(async ({ page }, testInfo) => {
+		canvas = (await loadStory(page, 'alert')) as FrameLocator;
+		// console.log(
+		// 	`Finished ${testInfo.title} with status ${testInfo.status}`
+		// );
+
+		// if (testInfo.status !== testInfo.expectedStatus) {
+		// 	console.log(`Did not run as expected, ended up at ${page.url()}`);
+		// }
+	});
+
 	test('should render a basic info alert dialog', async ({ page }) => {
-		const preview = await loadStory(page, 'alert');
 		// await expect(page.locator('html')).toHaveClass('htw-dark');
 		// page.locator('.histoire-app-header a').nth(2).click();
 		// await page.screenshot({ path: 'tests/screenshots/alert.png' });
 
-		expect(preview).toBeDefined();
+		expect(canvas).toBeDefined();
 
-		const alert = preview.getByRole('alert');
+		const alert = canvas.getByRole('alert');
 		const closeBtn = alert.getByRole('button');
 		const title = alert.getByText('Did you know?');
 		const subtitle = alert.getByText('Informational alert');
@@ -29,33 +41,33 @@ test.describe('Alert component', () => {
 	});
 
 	test('should render a success type', async ({ page }) => {
-		const preview = await loadStory(page, 'alert');
+		// const canvas = await loadStory(page, 'alert');
 		await setControl(page, 'Type', 'select', 'Success');
-		const alert = preview.getByRole('alert');
+		const alert = canvas.getByRole('alert');
 		await expect(alert).toHaveClass(/sp-alert--success/);
 	});
 
 	test('should render a warning type', async ({ page }) => {
-		const preview = await loadStory(page, 'alert');
+		// const canvas = await loadStory(page, 'alert');
 		await setControl(page, 'Type', 'select', 'Warning');
-		const alert = preview.getByRole('alert');
+		const alert = canvas.getByRole('alert');
 		await expect(alert).toHaveClass(/sp-alert--warning/);
 	});
 
 	test('should render a error type', async ({ page }) => {
-		const preview = await loadStory(page, 'alert');
+		// const canvas = await loadStory(page, 'alert');
 		await setControl(page, 'Type', 'select', 'Error');
-		const alert = preview.getByRole('alert');
+		const alert = canvas.getByRole('alert');
 		await expect(alert).toHaveClass(/sp-alert--error/);
 	});
 
 	test('should render a confirmation alert', async ({ page }) => {
-		const preview = await loadStory(page, 'alert');
+		// const canvas = await loadStory(page, 'alert');
 		await setControl(page, 'Confirm', 'checkbox', 'true');
 
-		const alert = preview.getByRole('alert');
+		const alert = canvas.getByRole('alert');
 		await expect(alert).toBeVisible();
-		const confirmButton = preview.getByRole('button', { name: 'Confirm' });
+		const confirmButton = canvas.getByRole('button', { name: 'Confirm' });
 		await expect(confirmButton).toBeVisible();
 		await expect(alert).toHaveClass(/sp-alert--confirm/);
 		await confirmButton.click();
@@ -63,12 +75,12 @@ test.describe('Alert component', () => {
 	});
 
 	test('should hide the alert after 2 seconds', async ({ page }) => {
-		const preview = await loadStory(page, 'alert');
+		// const canvas = await loadStory(page, 'alert');
 		await setControl(page, 'Hide delay', 'number', '2000');
 
-		const alert = preview.getByRole('alert');
+		const alert = canvas.getByRole('alert');
 		await expect(alert).toBeVisible();
-		await expect(alert).not.toBeVisible();
+		await expect(alert).toBeHidden();
 	});
 
 	test('should hide the alert after a successfully challenge', async ({
@@ -77,7 +89,7 @@ test.describe('Alert component', () => {
 		const challengeTxt = 'testing';
 		const challengeBtnLabel = 'Yep!';
 		const challengeCancelBtnLabel = 'Nope!';
-		const preview = await loadStory(page, 'alert');
+		// const canvas = await loadStory(page, 'alert');
 		await setControl(page, 'Confirm', 'checkbox', 'true');
 		await setControl(page, 'Challenge', 'text', challengeTxt);
 		await setControl(
@@ -93,14 +105,14 @@ test.describe('Alert component', () => {
 			challengeCancelBtnLabel
 		);
 
-		const alert = preview.getByRole('alert');
-		const submitButton = preview.getByRole('button', {
+		const alert = canvas.getByRole('alert');
+		const submitButton = canvas.getByRole('button', {
 			name: challengeBtnLabel,
 		});
-		const closeButton = preview.getByRole('button', {
+		const closeButton = canvas.getByRole('button', {
 			name: challengeCancelBtnLabel,
 		});
-		const challengeInput = preview.getByRole('textbox');
+		const challengeInput = canvas.getByRole('textbox');
 
 		await expect(alert).toBeVisible();
 		await expect(submitButton).toBeVisible();
@@ -117,7 +129,7 @@ test.describe('Alert component', () => {
 	});
 
 	test('should add an html body to the alert', async ({ page }) => {
-		const preview = await loadStory(page, 'alert');
+		// const canvas = await loadStory(page, 'alert');
 		await setControl(
 			page,
 			'Content',
@@ -125,7 +137,7 @@ test.describe('Alert component', () => {
 			'<a href="#" data-testid="test" >Click Me!</a>'
 		);
 
-		const alert = preview.getByRole('alert');
+		const alert = canvas.getByRole('alert');
 		const link = alert.getByTestId('test');
 		await expect(link).toBeVisible();
 	});
