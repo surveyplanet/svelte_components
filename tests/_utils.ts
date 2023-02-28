@@ -27,7 +27,7 @@ type ControlType =
  * @param page {Page} Playwright Page object
  * @param name {String} The name of the component
  * @param variant {Number} The story variant index
- * @returns Promise<FrameLocator|Page> the Histoire preview (iframe) or the page if there isn't one.
+ * @returns Promise<FrameLocator> the Histoire preview (iframe) or the page if there isn't one.
  */
 export const loadStory = async (
 	page: Page,
@@ -43,15 +43,7 @@ export const loadStory = async (
 
 	await page.goto(url);
 
-	const query = '[data-test-id="preview-iframe"]';
-
-	// console.log('count --->', await page.locator(query).count());
-	// const frameExists = (await page.locator(query).count()) > 0;
-	// if (!frameExists) {
-	// 	return page;
-	// }
-
-	return page.frameLocator(query);
+	return page.frameLocator('[data-test-id="preview-iframe"]');
 };
 
 /**
