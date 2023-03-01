@@ -1,109 +1,63 @@
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { delay } from '@surveyplanet/utilities';
 
-const animationTime = 1000 + 5;
-
-export const primary = async (res: StoryBookPlayArgs) => {
+export const primary = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const close = canvas.getByRole('button');
+	const checkbox: HTMLInputElement = canvas.getByRole('checkbox');
+	const label = checkbox.nextSibling?.nextSibling as HTMLLabelElement;
+	const labelText = label.querySelector(
+		'.sp-checkbox--label'
+	)! as HTMLSpanElement;
+	const check = label.querySelector('.sp-checkbox--check')!;
 
-	const alert = canvas.getByRole('alert');
-	const title = canvas.getByText('Did you know?');
-	const subtitle = canvas.getByText('Informational alert');
-	const body = canvas.getByText('There are things you need to know.');
-	// const style = window.getComputedStyle(alert);
+	expect(checkbox).not.toBeDisabled();
+	expect(checkbox).not.toHaveFocus();
+	userEvent.click(checkbox);
+	expect(checkbox).toBeChecked();
+	expect(checkbox).toHaveFocus();
+	expect(res.args.changeHandler).toHaveBeenCalled();
 
-	expect(alert).toBeInTheDocument();
-	expect(title).toBeInTheDocument();
-	expect(close).toBeInTheDocument();
-	expect(subtitle).toBeInTheDocument();
-	expect(body).toBeInTheDocument();
-	// expect(style.getPropertyValue('background-color')).toBe(
-	// 	'rgb(217, 254, 219)'
-	// );
+	expect(label).toBeDefined();
+	expect(label).toHaveClass('sp-checkbox');
+	expect(label).not.toHaveClass('sp-checkbox--prepend');
+	expect(label).toHaveAttribute('for', checkbox.id);
 
-	expect(alert).toHaveClass('sp-alert');
-	expect(alert).toHaveClass('sp-alert--info');
-	expect(alert).toHaveAttribute('role', 'alert');
-	expect(close).toHaveClass('sp-alert--header--close-btn');
-	expect(title).toHaveClass('sp-alert--header--title');
-	expect(subtitle).toHaveClass('sp-alert--header--subtitle');
-	expect(body).toHaveClass('sp-alert--body');
-	expect(res.args.openHandler).toHaveBeenCalled();
-	await delay(animationTime);
-	expect(res.args.inHandler).toHaveBeenCalled();
+	expect(labelText).toBeDefined();
+	expect(labelText).toHaveTextContent('Subscribe');
+
+	expect(check).toBeDefined();
+	expect(check.querySelector('svg')).toBeDefined();
 };
 
-export const close = async (res: StoryBookPlayArgs) => {
+export const disabled = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const alert = canvas.getByRole('alert');
-	const close = canvas.getByRole('button');
-	expect(alert).toBeInTheDocument();
-	userEvent.click(close);
-	await delay(animationTime);
-	expect(alert).not.toBeInTheDocument();
-	expect(res.args.closeHandler).toHaveBeenCalled();
-	expect(res.args.outHandler).toHaveBeenCalled();
+	const checkbox: HTMLInputElement = canvas.getByRole('checkbox');
+	expect(checkbox).toBeDisabled();
+	userEvent.click(checkbox);
+	expect(checkbox).not.toBeChecked();
+	expect(checkbox).not.toHaveFocus();
+	expect(res.args.changeHandler).not.toHaveBeenCalled();
 };
 
-export const confirm = async (res: StoryBookPlayArgs) => {
+export const prepended = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const confirmButton = canvas.getByRole('button', { name: 'Confirm' });
-	expect(confirmButton).toBeInTheDocument();
-	expect(confirmButton.parentElement).toHaveClass('sp-alert--confirm');
-	userEvent.click(confirmButton);
-	await delay(animationTime);
-	expect(res.args.confirmHandler).toHaveBeenCalled();
+	const checkbox: HTMLInputElement = canvas.getByRole('checkbox');
+	const label = checkbox.nextSibling?.nextSibling as HTMLLabelElement;
+	const labelStyles: CSSStyleDeclaration = window.getComputedStyle(label);
+
+	expect(label).toBeDefined();
+	expect(label).toHaveClass('sp-checkbox--prepend');
+	expect(labelStyles.getPropertyValue('flex-direction')).toBe('row-reverse');
 };
 
-export const challenge = async (res: StoryBookPlayArgs) => {
+export const multiple = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-
-	const alert = canvas.getByRole('alert');
-	const submitButton = canvas.getByRole('button', {
-		name: 'Delete account',
-	}) as HTMLButtonElement;
-
-	const closeButton = canvas.getByRole('button', {
-		name: 'Cancel',
-	}) as HTMLButtonElement;
-	const challengeInput = canvas.getByRole('textbox') as HTMLInputElement;
-
-	expect(alert).toBeInTheDocument();
-	expect(submitButton).toBeInTheDocument();
-	expect(closeButton).toBeInTheDocument();
-	expect(challengeInput).toBeInTheDocument();
-
-	expect(submitButton.parentElement).toHaveClass('sp-alert--confirm');
-	expect(closeButton.parentElement).toHaveClass('sp-alert--close');
-
-	expect(submitButton.disabled).toBeTruthy();
-	userEvent.type(challengeInput, 'testing@example.com');
-	expect(challengeInput).toHaveValue('testing@example.com');
-	await delay(); // next tick
-	expect(submitButton.disabled).toBeFalsy();
-	userEvent.click(submitButton);
-	await delay(animationTime);
-	expect(alert).not.toBeInTheDocument();
-};
-
-export const delayHide = async (res: StoryBookPlayArgs) => {
-	const canvas = within(res.canvasElement);
-	const alert = canvas.getByRole('alert');
-	expect(alert).toBeInTheDocument();
-	expect(alert).not.toHaveClass('sp-alert--confirm');
-	await delay(animationTime * 2 + 50);
-	expect(alert).not.toBeInTheDocument();
-};
-
-export const html = (res: StoryBookPlayArgs) => {
-	const canvas = within(res.canvasElement);
-
-	const h4 = canvas.getByText('Some HTML content');
-	expect(h4).toBeInTheDocument();
-	const link = canvas.getByTestId('test-link');
-	expect(link).toBeInTheDocument();
-	const image = canvas.getByTestId('test-img');
-	expect(image).toBeInTheDocument();
+	const checkboxes = canvas.getAllByRole('checkbox');
+	expect(checkboxes.length).toBe(3);
+	for (const checkbox of checkboxes) {
+		expect(checkbox).toBeDefined();
+		userEvent.click(checkbox);
+		expect(checkbox).toBeChecked();
+		expect(checkbox).toHaveFocus();
+	}
 };

@@ -41,6 +41,9 @@
 		<Hst.Text
 			bind:value={id}
 			title="Id" />
+		<Hst.Text
+			bind:value={imgSrc}
+			title="Image source" />
 		<Hst.Checkbox
 			bind:value={disabled}
 			title="Disabled" />

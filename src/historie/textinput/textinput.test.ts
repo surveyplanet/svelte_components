@@ -1,109 +1,127 @@
-import { within, userEvent } from '@storybook/testing-library';
+import { within, userEvent, fireEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { delay } from '@surveyplanet/utilities';
 
-const animationTime = 1000 + 5;
-
-export const primary = async (res: StoryBookPlayArgs) => {
+export const basic = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const close = canvas.getByRole('button');
+	const input: HTMLInputElement = canvas.getByRole('textbox');
+	const label = canvas.getByText('Text input')
+		?.parentElement as HTMLLabelElement;
+	const inputWrapper = input.parentElement;
 
-	const alert = canvas.getByRole('alert');
-	const title = canvas.getByText('Did you know?');
-	const subtitle = canvas.getByText('Informational alert');
-	const body = canvas.getByText('There are things you need to know.');
-	// const style = window.getComputedStyle(alert);
+	expect(inputWrapper).toHaveClass(' sp-text-input');
+	expect(input).toBeVisible();
+	expect(input).toBeDefined();
+	expect(input).not.toBeDisabled();
+	expect(input.id).toBe('email');
+	expect(input.placeholder).toBe('Placeholder');
+	expect(input.readOnly).toBe(false);
+	expect(label).toHaveClass(' sp-text-input--label');
+	expect(input).toHaveAttribute('type', 'text');
+	expect(input).toHaveAttribute('data-test', 'test');
+	expect(input).toHaveAttribute('data-test2', 'test2');
 
-	expect(alert).toBeInTheDocument();
-	expect(title).toBeInTheDocument();
-	expect(close).toBeInTheDocument();
-	expect(subtitle).toBeInTheDocument();
-	expect(body).toBeInTheDocument();
-	// expect(style.getPropertyValue('background-color')).toBe(
-	// 	'rgb(217, 254, 219)'
-	// );
+	expect(input).not.toHaveFocus();
+	userEvent.click(input);
+	// expect(res.args.focusHandler).toHaveBeenCalled();
+	expect(input).toHaveFocus();
 
-	expect(alert).toHaveClass('sp-alert');
-	expect(alert).toHaveClass('sp-alert--info');
-	expect(alert).toHaveAttribute('role', 'alert');
-	expect(close).toHaveClass('sp-alert--header--close-btn');
-	expect(title).toHaveClass('sp-alert--header--title');
-	expect(subtitle).toHaveClass('sp-alert--header--subtitle');
-	expect(body).toHaveClass('sp-alert--body');
-	expect(res.args.openHandler).toHaveBeenCalled();
-	await delay(animationTime);
-	expect(res.args.inHandler).toHaveBeenCalled();
+	userEvent.type(input, 'Hello World');
+	expect(input.value).toBe(`Hello World`);
+	expect(res.args.keyupHandler).toHaveBeenCalled();
+	expect(res.args.keydownHandler).toHaveBeenCalled();
+
+	fireEvent.change(input, { target: { value: '' } });
+	expect(res.args.changeHandler).toHaveBeenCalled();
+
+	fireEvent.blur(input);
+	expect(res.args.blurHandler).toHaveBeenCalled();
 };
 
-export const close = async (res: StoryBookPlayArgs) => {
+export const multiline = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const alert = canvas.getByRole('alert');
-	const close = canvas.getByRole('button');
-	expect(alert).toBeInTheDocument();
-	userEvent.click(close);
-	await delay(animationTime);
-	expect(alert).not.toBeInTheDocument();
-	expect(res.args.closeHandler).toHaveBeenCalled();
-	expect(res.args.outHandler).toHaveBeenCalled();
+	const input: HTMLInputElement = canvas.getByRole('textbox');
+	const label = canvas.getByText('Multiline input')
+		?.parentElement as HTMLLabelElement;
+	const value = ['Line one', 'Line two', 'Line three'].join('\n');
+
+	expect(input).toBeVisible();
+	expect(input).not.toHaveFocus();
+	expect(input).not.toBeDisabled();
+	expect(input.id).toBe('text-input-id');
+	expect(input.placeholder).toBe('Placeholder');
+	expect(input.readOnly).toBe(false);
+	expect(label).toHaveClass(' sp-text-input--label');
+	expect(input).toHaveAttribute('data-test', 'test');
+	expect(input).toHaveAttribute('data-test2', 'test2');
+
+	expect(input).not.toHaveFocus();
+	userEvent.click(input);
+	expect(input).toHaveFocus();
+
+	userEvent.type(input, value);
+	expect(input.value).toBe(value);
+	expect(res.args.keyupHandler).toHaveBeenCalled();
+	expect(res.args.keydownHandler).toHaveBeenCalled();
+
+	fireEvent.change(input, { target: { value: '' } });
+	expect(res.args.changeHandler).toHaveBeenCalled();
+
+	fireEvent.blur(input);
+	expect(res.args.blurHandler).toHaveBeenCalled();
 };
 
-export const confirm = async (res: StoryBookPlayArgs) => {
+export const disabled = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const confirmButton = canvas.getByRole('button', { name: 'Confirm' });
-	expect(confirmButton).toBeInTheDocument();
-	expect(confirmButton.parentElement).toHaveClass('sp-alert--confirm');
-	userEvent.click(confirmButton);
-	await delay(animationTime);
-	expect(res.args.confirmHandler).toHaveBeenCalled();
+	const input: HTMLInputElement = canvas.getByRole('textbox');
+	expect(input.disabled).toBeTruthy();
+	expect(input.readOnly).toBeFalsy();
 };
 
-export const challenge = async (res: StoryBookPlayArgs) => {
+export const readonly = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-
-	const alert = canvas.getByRole('alert');
-	const submitButton = canvas.getByRole('button', {
-		name: 'Delete account',
-	}) as HTMLButtonElement;
-
-	const closeButton = canvas.getByRole('button', {
-		name: 'Cancel',
-	}) as HTMLButtonElement;
-	const challengeInput = canvas.getByRole('textbox') as HTMLInputElement;
-
-	expect(alert).toBeInTheDocument();
-	expect(submitButton).toBeInTheDocument();
-	expect(closeButton).toBeInTheDocument();
-	expect(challengeInput).toBeInTheDocument();
-
-	expect(submitButton.parentElement).toHaveClass('sp-alert--confirm');
-	expect(closeButton.parentElement).toHaveClass('sp-alert--close');
-
-	expect(submitButton.disabled).toBeTruthy();
-	userEvent.type(challengeInput, 'testing@example.com');
-	expect(challengeInput).toHaveValue('testing@example.com');
-	await delay(); // next tick
-	expect(submitButton.disabled).toBeFalsy();
-	userEvent.click(submitButton);
-	await delay(animationTime);
-	expect(alert).not.toBeInTheDocument();
+	const input: HTMLInputElement = canvas.getByRole('textbox');
+	expect(input.readOnly).toBeTruthy();
+	expect(input.disabled).toBeFalsy();
 };
 
-export const delayHide = async (res: StoryBookPlayArgs) => {
+export const noLabel = (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const alert = canvas.getByRole('alert');
-	expect(alert).toBeInTheDocument();
-	expect(alert).not.toHaveClass('sp-alert--confirm');
-	await delay(animationTime * 2 + 50);
-	expect(alert).not.toBeInTheDocument();
+	const input: HTMLInputElement = canvas.getByRole('textbox');
+	const children = input.parentElement!.children as HTMLCollection;
+
+	for (const node of children) {
+		expect(node.nodeName.toLowerCase()).not.toBe('label');
+	}
 };
 
-export const html = (res: StoryBookPlayArgs) => {
+export const validate = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
+	const input: HTMLInputElement = canvas.getByRole('textbox');
+	const inputWrapper = input.parentElement;
 
-	const h4 = canvas.getByText('Some HTML content');
-	expect(h4).toBeInTheDocument();
-	const link = canvas.getByTestId('test-link');
-	expect(link).toBeInTheDocument();
-	const image = canvas.getByTestId('test-img');
-	expect(image).toBeInTheDocument();
+	expect(input).toHaveAttribute('data-validate-rules', 'require,email');
+	fireEvent.change(input, { target: { value: 'invalid' } });
+	await delay();
+	expect(inputWrapper).toHaveClass('validation-error');
+	const errLabel = canvas.getByLabelText(
+		"What's the matter with you, you don't know your email address?"
+	);
+	expect(errLabel).toBeDefined();
+};
+
+export const masked = async (res: StoryBookPlayArgs) => {
+	const today = new Date();
+	const year = today.getFullYear().toString();
+	const month = (today.getMonth() + 1).toString().padStart(2, '0');
+	const day = today.getDate();
+	const value = `${year}-${month}-${day}`;
+
+	const canvas = within(res.canvasElement);
+	const input: HTMLInputElement = canvas.getByRole('textbox');
+	// fireEvent.change(input, { target: { value: 'invalid' } });
+	userEvent.type(input, 'noop');
+	expect(input.value).toBe('');
+	userEvent.type(input, value);
+	expect(input.value).toBe(value);
 };

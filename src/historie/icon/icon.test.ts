@@ -1,109 +1,66 @@
-import { within, userEvent } from '@storybook/testing-library';
+import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { delay } from '@surveyplanet/utilities';
+import { COLORS } from '../../lib';
 
-const animationTime = 1000 + 5;
+type IconElement = HTMLElement & SVGSVGElement;
 
-export const primary = async (res: StoryBookPlayArgs) => {
+export const basic = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const close = canvas.getByRole('button');
+	const svgTitle = canvas.getByTitle('icon search');
+	const icon = svgTitle.parentElement as IconElement;
+	const path = document.getElementsByTagName('path')[0];
+	expect(path).toBeDefined();
 
-	const alert = canvas.getByRole('alert');
-	const title = canvas.getByText('Did you know?');
-	const subtitle = canvas.getByText('Informational alert');
-	const body = canvas.getByText('There are things you need to know.');
-	// const style = window.getComputedStyle(alert);
-
-	expect(alert).toBeInTheDocument();
-	expect(title).toBeInTheDocument();
-	expect(close).toBeInTheDocument();
-	expect(subtitle).toBeInTheDocument();
-	expect(body).toBeInTheDocument();
-	// expect(style.getPropertyValue('background-color')).toBe(
-	// 	'rgb(217, 254, 219)'
-	// );
-
-	expect(alert).toHaveClass('sp-alert');
-	expect(alert).toHaveClass('sp-alert--info');
-	expect(alert).toHaveAttribute('role', 'alert');
-	expect(close).toHaveClass('sp-alert--header--close-btn');
-	expect(title).toHaveClass('sp-alert--header--title');
-	expect(subtitle).toHaveClass('sp-alert--header--subtitle');
-	expect(body).toHaveClass('sp-alert--body');
-	expect(res.args.openHandler).toHaveBeenCalled();
-	await delay(animationTime);
-	expect(res.args.inHandler).toHaveBeenCalled();
+	expect(icon).toBeVisible();
+	expect(icon).toHaveAttribute('viewBox', '0 0 24 24');
+	expect(icon).toHaveAttribute('width', '24');
+	expect(icon).toHaveAttribute('height', '24');
+	expect(icon).toHaveAttribute('fill', 'none');
+	expect(path).toHaveAttribute('stroke', COLORS.purple_dark);
 };
 
-export const close = async (res: StoryBookPlayArgs) => {
+export const light = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const alert = canvas.getByRole('alert');
-	const close = canvas.getByRole('button');
-	expect(alert).toBeInTheDocument();
-	userEvent.click(close);
-	await delay(animationTime);
-	expect(alert).not.toBeInTheDocument();
-	expect(res.args.closeHandler).toHaveBeenCalled();
-	expect(res.args.outHandler).toHaveBeenCalled();
+	const svgTitle = canvas.getByTitle('icon search');
+	const icon = svgTitle.parentElement as IconElement;
+	const path = document.getElementsByTagName('path')[0];
+	expect(path).toBeDefined();
+	expect(icon).toBeVisible();
+	expect(path).toHaveAttribute('stroke', COLORS.light_purple_light);
 };
 
-export const confirm = async (res: StoryBookPlayArgs) => {
+export const large = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const confirmButton = canvas.getByRole('button', { name: 'Confirm' });
-	expect(confirmButton).toBeInTheDocument();
-	expect(confirmButton.parentElement).toHaveClass('sp-alert--confirm');
-	userEvent.click(confirmButton);
-	await delay(animationTime);
-	expect(res.args.confirmHandler).toHaveBeenCalled();
+	const svgTitle = canvas.getByTitle('icon trash');
+	const icon = svgTitle.parentElement as IconElement;
+	const path = document.getElementsByTagName('path')[0];
+	expect(path).toBeDefined();
+	expect(icon).toBeVisible();
+	expect(icon).toHaveAttribute('width', '512');
+	expect(icon).toHaveAttribute('height', '512');
+	expect(path).toHaveAttribute('stroke', COLORS.green_dark);
 };
 
-export const challenge = async (res: StoryBookPlayArgs) => {
+export const small = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-
-	const alert = canvas.getByRole('alert');
-	const submitButton = canvas.getByRole('button', {
-		name: 'Delete account',
-	}) as HTMLButtonElement;
-
-	const closeButton = canvas.getByRole('button', {
-		name: 'Cancel',
-	}) as HTMLButtonElement;
-	const challengeInput = canvas.getByRole('textbox') as HTMLInputElement;
-
-	expect(alert).toBeInTheDocument();
-	expect(submitButton).toBeInTheDocument();
-	expect(closeButton).toBeInTheDocument();
-	expect(challengeInput).toBeInTheDocument();
-
-	expect(submitButton.parentElement).toHaveClass('sp-alert--confirm');
-	expect(closeButton.parentElement).toHaveClass('sp-alert--close');
-
-	expect(submitButton.disabled).toBeTruthy();
-	userEvent.type(challengeInput, 'testing@example.com');
-	expect(challengeInput).toHaveValue('testing@example.com');
-	await delay(); // next tick
-	expect(submitButton.disabled).toBeFalsy();
-	userEvent.click(submitButton);
-	await delay(animationTime);
-	expect(alert).not.toBeInTheDocument();
+	const svgTitle = canvas.getByTitle('icon x');
+	const icon = svgTitle.parentElement as IconElement;
+	const path = document.getElementsByTagName('path')[0];
+	expect(path).toBeDefined();
+	expect(icon).toBeVisible();
+	expect(icon).toHaveAttribute('width', '12');
+	expect(icon).toHaveAttribute('height', '12');
+	expect(path).toHaveAttribute('stroke', COLORS.pink_dark);
 };
 
-export const delayHide = async (res: StoryBookPlayArgs) => {
+export const notFound = async (res: StoryBookPlayArgs) => {
 	const canvas = within(res.canvasElement);
-	const alert = canvas.getByRole('alert');
-	expect(alert).toBeInTheDocument();
-	expect(alert).not.toHaveClass('sp-alert--confirm');
-	await delay(animationTime * 2 + 50);
-	expect(alert).not.toBeInTheDocument();
-};
-
-export const html = (res: StoryBookPlayArgs) => {
-	const canvas = within(res.canvasElement);
-
-	const h4 = canvas.getByText('Some HTML content');
-	expect(h4).toBeInTheDocument();
-	const link = canvas.getByTestId('test-link');
-	expect(link).toBeInTheDocument();
-	const image = canvas.getByTestId('test-img');
-	expect(image).toBeInTheDocument();
+	const svgTitle = canvas.getByTitle('icon notFound');
+	const icon = svgTitle.parentElement as IconElement;
+	const path = document.getElementsByTagName('path')[0];
+	expect(path).toBeDefined();
+	expect(icon).toBeVisible();
+	expect(icon).toHaveAttribute('width', '24');
+	expect(icon).toHaveAttribute('height', '24');
+	expect(path).toHaveAttribute('stroke', 'red');
 };
