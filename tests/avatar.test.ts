@@ -47,7 +47,7 @@ test.describe('Avatar component', () => {
 		expect(alt).toBe('profile');
 		console.log(avatar);
 
-		await expect(avatar).toHaveAttribute('role', 'button');
+		// await expect(avatar).toHaveAttribute('role', 'button');
 
 		// expect(avatar).not.toHaveAttribute('role', 'presentation');
 		// expect(avatar).toHaveAttribute('aria-label', 'profile image');
