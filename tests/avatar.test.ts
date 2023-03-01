@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { loadStory, setControl } from './_utils.js';
 
 test.describe('Avatar component', () => {
-	test.only('should render basic avatar component in Small size', async ({
+	test('should render basic avatar component in Small size', async ({
 		page,
 	}) => {
 		const preview = await loadStory(page, 'avatar');
@@ -47,13 +47,9 @@ test.describe('Avatar component', () => {
 		expect(alt).toBe('profile');
 		console.log(avatar);
 
-		// await expect(avatar).toHaveAttribute('role', 'button');
+		await expect(avatar).toHaveAttribute('aria-label', 'profile image');
 
-		// expect(avatar).not.toHaveAttribute('role', 'presentation');
-		// expect(avatar).toHaveAttribute('aria-label', 'profile image');
-		// expect(avatar.isDisabled).toBe(false);
-		// userEvent.click(avatar);
-		// expect(res.args.clickHandler).toHaveBeenCalled();
+		// expect(avatar).toBeEnabled();
 	});
 
 	test('should render avatar with custom image and Medium size', async ({
