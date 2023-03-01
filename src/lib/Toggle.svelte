@@ -8,6 +8,8 @@
 	export let disabled = false;
 	export let on = false;
 	export let tall = false;
+	export let label: string | null = null;
+	export let prependLabel = false;
 
 	const changeHandler = (event: Event): void => {
 		if (disabled) {
@@ -19,15 +21,21 @@
 	};
 </script>
 
+{#if label?.length && prependLabel}
+	<label
+		class="sp-toggle--label sp-toggle--label-prepend"
+		for={id}>{label}</label>
+{/if}
+
 <div
 	class="sp-toggle sp-toggle--{on ? 'on' : 'off'}"
 	class:sp-toggle--tall={tall}
 	role="switch"
-	{id}
 	aria-checked={on}>
 	<input
 		type="checkbox"
 		bind:checked={on}
+		{id}
 		{name}
 		{disabled}
 		on:change={changeHandler} />
@@ -35,11 +43,17 @@
 	<div class="sp-toggle--track" />
 </div>
 
+{#if label?.length && !prependLabel}
+	<label
+		class="sp-toggle--label"
+		for={id}>{label}</label>
+{/if}
+
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 
 	.sp-toggle {
-		display: block;
+		display: inline-block;
 		position: relative;
 		width: $size--40;
 		height: $size--20;
@@ -89,7 +103,7 @@
 			height: 100%;
 			border-radius: $size--20;
 			background-color: $color--light-purple;
-			transition: 400ms;
+			transition: transform 400ms, background-color 400ms;
 
 			&:after {
 				position: absolute;
@@ -99,7 +113,7 @@
 				left: 2px;
 				top: 2px;
 				background-color: $color--white;
-				transition: 0.4s;
+				transition: transform 400ms, background-color 400ms;
 				border-radius: 50%;
 			}
 		}
@@ -123,5 +137,16 @@
 				}
 			}
 		}
+	}
+
+	.sp-toggle--label {
+		cursor: pointer;
+		display: inline-block;
+		vertical-align: top;
+		font: $font--default;
+		height: $size--20;
+		line-height: $size--20;
+		font-size: $font-size--12;
+		padding-left: $size-gutter--quarter;
 	}
 </style>

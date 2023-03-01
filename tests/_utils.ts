@@ -94,7 +94,7 @@ export const setControl = async (
 	} else if (type === 'buttonGroup') {
 		// TODO:
 		throw new Error(
-			'setControls is not available for buttonGroup control.'
+			'setControls is not available for buttonGroup control. Use `HST.Select` control instead'
 		);
 	} else if (type === 'checkbox') {
 		const input = labelEl.locator('.histoire-simple-checkbox');
