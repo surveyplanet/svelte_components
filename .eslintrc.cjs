@@ -25,7 +25,6 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended',
 		'plugin:@typescript-eslint/strict',
 		'plugin:eslint-comments/recommended',
-		'plugin:storybook/recommended',
 		'prettier',
 	],
 	overrides: [
@@ -62,5 +61,6 @@ module.exports = {
 		'package-lock.json',
 		'vite.config.js',
 		'svelte.config.js',
+		'src/stories',
 	],
 };
