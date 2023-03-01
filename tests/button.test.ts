@@ -6,17 +6,13 @@ const getButtonUrl = (variant = 0) =>
 	`/story/src-historie-button-button-story-svelte?variantId=src-historie-button-button-story-svelte-${variant}`;
 
 test.describe('Button component', () => {
-	test('should render a basic button component', async ({ page }) => {
+	test('basic', async ({ page }) => {
 		await page.goto(getButtonUrl());
-		// const preview = canvas.locator('.histoire-story-variant-grid-item');
-
-		const btn = page.locator('button').first();
+		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 		const styles = await getStyles(btn);
 		const btnRect = await btn.boundingBox();
-		const ripple = btn.locator('.sp-button--ripple');
-
-		console.log(await ripple.innerHTML());
+		// const ripple = btn.locator('.sp-button--ripple');
 
 		await expect(btn).toHaveClass(/sp-button/);
 		await expect(btn).toHaveClass(/sp-button--primary/);
@@ -63,7 +59,7 @@ test.describe('Button component', () => {
 
 	test('secondary', async ({ page }) => {
 		await page.goto(getButtonUrl());
-		const btn = page.locator('button').first();
+		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
 		await setControl(page, 'Mode', 'select', 'secondary');
@@ -75,7 +71,7 @@ test.describe('Button component', () => {
 
 	test('tertiary', async ({ page }) => {
 		await page.goto(getButtonUrl());
-		const btn = page.locator('button').first();
+		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
 		await setControl(page, 'Mode', 'select', 'tertiary');
@@ -87,7 +83,7 @@ test.describe('Button component', () => {
 
 	test('quaternary', async ({ page }) => {
 		await page.goto(getButtonUrl());
-		const btn = page.locator('button').first();
+		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
 		await setControl(page, 'Mode', 'select', 'quaternary');
@@ -99,7 +95,7 @@ test.describe('Button component', () => {
 
 	test('dark', async ({ page }) => {
 		await page.goto(getButtonUrl());
-		const btn = page.locator('button').first();
+		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
 		await setControl(page, 'Mode', 'select', 'dark');
@@ -112,7 +108,7 @@ test.describe('Button component', () => {
 
 	test('light', async ({ page }) => {
 		await page.goto(getButtonUrl());
-		const btn = page.locator('button').first();
+		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
 		await setControl(page, 'Mode', 'select', 'light');
@@ -133,7 +129,7 @@ test.describe('Button component', () => {
 
 	test('rounded', async ({ page }) => {
 		await page.goto(getButtonUrl());
-		const btn = page.locator('button').first();
+		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
 		await setControl(page, 'Round', 'checkbox', 'true');
@@ -145,7 +141,7 @@ test.describe('Button component', () => {
 
 	test('block', async ({ page }) => {
 		await page.goto(getButtonUrl());
-		const btn = page.locator('button').first();
+		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
 		await setControl(page, 'Block', 'checkbox', 'true');
@@ -159,7 +155,7 @@ test.describe('Button component', () => {
 
 	test('disabled', async ({ page }) => {
 		await page.goto(getButtonUrl(2));
-		const btn = page.locator('button.sp-button').last();
+		const btn = page.getByTestId('icon');
 		await expect(btn).toBeVisible();
 		const icon = btn.locator('svg path');
 		await expect(icon).toBeVisible();
@@ -167,397 +163,375 @@ test.describe('Button component', () => {
 		await setControl(page, 'Disabled', 'checkbox', 'true');
 
 		const styles = await getStyles(btn);
-		const iconStyle = await getStyles(icon);
+		const iconStyles = await getStyles(icon);
 
 		await expect(btn).toBeDisabled();
 		expect(styles.backgroundColor).toBe('rgb(236, 229, 255)');
 		expect(styles.color).toBe('rgb(219, 204, 255)');
-		expect(iconStyle.fill).toBe(styles.color);
+		expect(iconStyles.stroke).toBe(styles.color);
 	});
 
-	// test('secondaryDisabled', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	const styles = await getStyles(btn);
-	// 	const icon = btn.locator('svg path');
-	// 	const iconStyle = window.getComputedStyle(icon as Element);
-	// 	expect(btn.disabled).toBe(true);
-	// 	expect(styles.backgroundColor).toBe('rgb(255, 245, 188)');
-	// 	expect(styles.color).toBe('rgb(250, 199, 102)');
-	// 	expect(iconStyle.getPropertyValue('fill')).toBe(styles.color);
-	// });
-
-	// test('tertiaryDisabled', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	const styles = await getStyles(btn);
-	// 	const icon = btn.locator('svg path');
-	// 	const iconStyle = window.getComputedStyle(icon as Element);
-	// 	expect(btn.disabled).toBe(true);
-	// 	expect(styles.backgroundColor).toBe('rgb(217, 254, 219)');
-	// 	expect(styles.color).toBe('rgb(123, 228, 146)');
-	// 	expect(iconStyle.getPropertyValue('fill')).toBe(styles.color);
-	// });
-
-	// test('quaternaryDisabled', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	const styles = await getStyles(btn);
-	// 	const icon = btn.locator('svg path');
-	// 	const iconStyle = window.getComputedStyle(icon as Element);
-	// 	expect(btn.disabled).toBe(true);
-	// 	expect(styles.backgroundColor).toBe('rgb(216, 244, 253)');
-	// 	expect(styles.color).toBe('rgb(120, 196, 238)');
-	// 	expect(iconStyle.getPropertyValue('fill')).toBe(styles.color);
-	// });
-
-	// test('darkDisabled', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	const styles = await getStyles(btn);
-	// 	const icon = btn.locator('svg path');
-	// 	const iconStyle = window.getComputedStyle(icon as Element);
-
-	// 	expect(btn.disabled).toBe(true);
-	// 	expect(styles.backgroundColor).toBe('rgb(220, 222, 225)');
-	// 	expect(styles.color).toBe('rgb(115, 122, 135)');
-	// 	expect(iconStyle.fill).toBe(styles.color);
-	// });
-
-	// test('lightDisabled', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	const styles = await getStyles(btn);
-	// 	const icon = btn.locator('svg path');
-	// 	const iconStyle = window.getComputedStyle(icon as Element);
-
-	// 	expect(btn.disabled).toBe(true);
-	// 	expect(styles.backgroundColor).toBe('rgb(255, 255, 255)');
-	// 	expect(styles.color).toBe('rgb(220, 222, 225)');
-	// 	expect(iconStyle.getPropertyValue('fill')).toBe(styles.color);
-	// });
-
-	// // icon buttons
-
-	// test('iconDefault', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	const btnStyle = window.getComputedStyle(btn);
-	// 	expect(btnStyle.backgroundColor).toBe('rgb(181, 152, 255)');
-	// 	expect(btnStyle.color).toBe('rgb(22, 33, 55)');
-	// 	expect(btn).toBeVisible();
-
-	// 	const icon = btn.locator('svg');
-
-	// 	if (!icon) {
-	// 		throw new Error('could not find icon svg');
-	// 	}
-
-	// 	const bBox = await icon.boundingBox();
-	// 	const iconPath: SVGSVGElement | null = btn.querySelector('svg path');
-
-	// 	if (!iconPath) {
-	// 		throw new Error('could not find icon path');
-	// 	}
-
-	// 	const iconStyle = window.getComputedStyle(iconPath as Element);
-
-	// 	expect(icon).toBeVisible();
-	// 	expect(bBox.width).toBe(20);
-	// 	expect(bBox.height).toBe(20);
-	// 	expect(iconStyle.getPropertyValue('fill')).toBe(
-	// 		btnStyle.getPropertyValue('color')
-	// 	);
-	// });
-
-	// test('iconLeft', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
+	test('disabled secondary', async ({ page }) => {
+		await page.goto(getButtonUrl(2));
+		const btn = page.getByTestId('icon');
+		await expect(btn).toBeVisible();
+		const icon = btn.locator('svg path');
+		await expect(icon).toBeVisible();
+
+		await setControl(page, 'Disabled', 'checkbox', 'true');
+		await setControl(page, 'Mode', 'select', 'secondary');
+		const styles = await getStyles(btn);
+		const iconStyles = await getStyles(icon);
+
+		await expect(btn).toBeDisabled();
+		await expect(btn).toHaveClass(/sp-button--secondary/);
+		expect(styles.backgroundColor).toBe('rgb(255, 245, 188)');
+		expect(styles.color).toBe('rgb(250, 199, 102)');
+		expect(iconStyles.stroke).toBe(styles.color);
+	});
+
+	test('disabled tertiary', async ({ page }) => {
+		await page.goto(getButtonUrl(2));
+		const btn = page.getByTestId('icon');
+		await expect(btn).toBeVisible();
+		const icon = btn.locator('svg path');
+		await expect(icon).toBeVisible();
+
+		await setControl(page, 'Disabled', 'checkbox', 'true');
+		await setControl(page, 'Mode', 'select', 'tertiary');
+		const styles = await getStyles(btn);
+		const iconStyles = await getStyles(icon);
+
+		await expect(btn).toBeDisabled();
+		await expect(btn).toHaveClass(/sp-button--tertiary/);
+		expect(styles.backgroundColor).toBe('rgb(217, 254, 219)');
+		expect(styles.color).toBe('rgb(123, 228, 146)');
+		expect(iconStyles.stroke).toBe(styles.color);
+	});
+
+	test('disabled quaternary', async ({ page }) => {
+		await page.goto(getButtonUrl(2));
+		const btn = page.getByTestId('icon');
+		await expect(btn).toBeVisible();
+		const icon = btn.locator('svg path');
+		await expect(icon).toBeVisible();
+
+		await setControl(page, 'Disabled', 'checkbox', 'true');
+		await setControl(page, 'Mode', 'select', 'quaternary');
+		const styles = await getStyles(btn);
+		const iconStyles = await getStyles(icon);
+
+		await expect(btn).toBeDisabled();
+		await expect(btn).toHaveClass(/sp-button--quaternary/);
+		expect(styles.backgroundColor).toBe('rgb(216, 244, 253)');
+		expect(styles.color).toBe('rgb(120, 196, 238)');
+		expect(iconStyles.stroke).toBe(styles.color);
+	});
+
+	test('disabled dark', async ({ page }) => {
+		await page.goto(getButtonUrl(2));
+		const btn = page.getByTestId('icon');
+		await expect(btn).toBeVisible();
+		const icon = btn.locator('svg path');
+		await expect(icon).toBeVisible();
+
+		await setControl(page, 'Disabled', 'checkbox', 'true');
+		await setControl(page, 'Mode', 'select', 'dark');
+		const styles = await getStyles(btn);
+		const iconStyles = await getStyles(icon);
+
+		await expect(btn).toBeDisabled();
+		await expect(btn).toHaveClass(/sp-button--dark/);
+		expect(styles.backgroundColor).toBe('rgb(220, 222, 225)');
+		expect(styles.color).toBe('rgb(115, 122, 135)');
+		expect(iconStyles.stroke).toBe(styles.color);
+	});
+
+	test('disabled light', async ({ page }) => {
+		await page.goto(getButtonUrl(2));
+		const btn = page.getByTestId('icon');
+		await expect(btn).toBeVisible();
+		const icon = btn.locator('svg path');
+		await expect(icon).toBeVisible();
+
+		await setControl(page, 'Disabled', 'checkbox', 'true');
+		await setControl(page, 'Mode', 'select', 'light');
+		const styles = await getStyles(btn);
+		const iconStyles = await getStyles(icon);
+
+		await expect(btn).toBeDisabled();
+		await expect(btn).toHaveClass(/sp-button--light/);
+		expect(styles.backgroundColor).toBe('rgb(255, 255, 255)');
+		expect(styles.color).toBe('rgb(220, 222, 225)');
+		expect(iconStyles.stroke).toBe(styles.color);
+	});
+
+	test('icon button', async ({ page }) => {
+		await page.goto(getButtonUrl(2));
+		const btn = page.getByTestId('icon');
+		const icon = btn.locator('svg');
+		const iconPath = btn.locator('svg path');
+		await expect(icon).toBeVisible();
+
+		const btnStyles = await getStyles(btn);
+		const iconStyles = await getStyles(iconPath);
 
-	// 	const btn = page.getByRole('button');
-	// 	expect(btn).toBeVisible();
+		expect(btnStyles.backgroundColor).toBe('rgb(181, 152, 255)');
+		expect(btnStyles.color).toBe('rgb(22, 33, 55)');
 
-	// 	const icon = btn.locator('svg');
+		await expect(icon).toHaveAttribute('width', '20');
+		await expect(icon).toHaveAttribute('height', '20');
+		expect(iconStyles.stroke).toBe(btnStyles.color);
+	});
 
-	// 	if (!icon) {
-	// 		throw new Error('could not find icon svg');
-	// 	}
+	test('icon button dark', async ({ page }) => {
+		await page.goto(getButtonUrl(2));
+		const btn = page.getByTestId('icon');
+		const icon = btn.locator('svg');
+		const iconPath = btn.locator('svg path');
+		await expect(icon).toBeVisible();
 
-	// 	const bBox = await icon.boundingBox();
-	// 	expect(icon).toBeVisible();
-	// 	expect(bBox.width).toBe(20);
-	// 	expect(bBox.height).toBe(20);
-	// });
+		await setControl(page, 'Mode', 'select', 'dark');
 
-	// test('iconDark', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
+		const bBox = await icon.boundingBox();
+		const btnStyles = await getStyles(btn);
+		const iconStyles = await getStyles(iconPath);
+
+		expect(btnStyles.backgroundColor).toBe('rgb(22, 33, 55)');
+		expect(btnStyles.color).toBe('rgb(220, 222, 225)');
+		expect(bBox!.width).toBe(20);
+		expect(bBox!.height).toBe(20);
+		expect(iconStyles.stroke).toBe(btnStyles.color);
+	});
 
-	// 	const btn = page.getByRole('button');
-	// 	const btnStyle = window.getComputedStyle(btn);
-	// 	expect(btnStyle.backgroundColor).toBe('rgb(22, 33, 55)');
-	// 	expect(btnStyle.color).toBe('rgb(220, 222, 225)');
-	// 	expect(btn).toBeVisible();
+	test('icon small', async ({ page }) => {
+		await page.goto(getButtonUrl(2));
+		const btn = page.getByTestId('icon');
+		const icon = btn.locator('svg');
+		const iconPath = btn.locator('svg path');
+		await expect(icon).toBeVisible();
+
+		await setControl(page, 'Size', 'select', 'small');
+
+		const bBox = await icon.boundingBox();
 
-	// 	const icon = btn.locator('svg');
+		expect(bBox!.width).toBe(16);
+		expect(bBox!.height).toBe(16);
+	});
 
-	// 	if (!icon) {
-	// 		throw new Error('could not find icon svg');
-	// 	}
+	test('icon large', async ({ page }) => {
+		await page.goto(getButtonUrl(2));
+		const btn = page.getByTestId('icon');
+		const icon = btn.locator('svg');
+		const iconPath = btn.locator('svg path');
+		await expect(icon).toBeVisible();
 
-	// 	const bBox = await icon.boundingBox();
-	// 	const iconPath: SVGSVGElement | null = btn.querySelector('svg path');
+		await setControl(page, 'Size', 'select', 'large');
 
-	// 	if (!iconPath) {
-	// 		throw new Error('could not find icon path');
-	// 	}
-
-	// 	const iconStyle = window.getComputedStyle(iconPath as Element);
-
-	// 	expect(icon).toBeVisible();
-	// 	expect(bBox.width).toBe(20);
-	// 	expect(bBox.height).toBe(20);
-	// 	expect(iconStyle.getPropertyValue('fill')).toBe(
-	// 		btnStyle.getPropertyValue('color')
-	// 	);
-	// });
-
-	// test('iconSmall', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	expect(btn).toBeVisible();
-
-	// 	const icon = btn.locator('svg');
-
-	// 	if (!icon) {
-	// 		throw new Error('could not find icon svg');
-	// 	}
-
-	// 	const bBox = await icon.boundingBox();
-	// 	expect(icon).toBeVisible();
-	// 	expect(bBox.width).toBe(16);
-	// 	expect(bBox.height).toBe(16);
-	// });
-
-	// test('iconLarge', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	expect(btn).toBeVisible();
-
-	// 	const icon = btn.locator('svg');
-
-	// 	if (!icon) {
-	// 		throw new Error('could not find icon svg');
-	// 	}
-
-	// 	const bBox = await icon.boundingBox();
-	// 	expect(icon).toBeVisible();
-	// 	expect(bBox.width).toBe(24);
-	// 	expect(bBox.height).toBe(24);
-	// });
-
-	// test('action', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	expect(btn).toBeVisible();
-	// 	const btnRect = await btn.boundingBox();
-	// 	expect(btnRect!.width).toBe(32);
-	// 	expect(btnRect!.height).toBe(32);
-
-	// 	const icon = btn.locator('svg');
-
-	// 	if (!icon) {
-	// 		throw new Error('could not find icon svg');
-	// 	}
-
-	// 	const iconRect = await icon.boundingBox();
-	// 	expect(icon).toBeVisible();
-	// 	expect(iconRect.width).toBe(20);
-	// 	expect(iconRect.height).toBe(20);
-	// });
-
-	// test('actionSmall', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	expect(btn).toBeVisible();
-	// 	const btnRect = await btn.boundingBox();
-	// 	expect(btnRect!.width).toBe(24);
-	// 	expect(btnRect!.height).toBe(24);
-
-	// 	const icon = btn.locator('svg');
-
-	// 	if (!icon) {
-	// 		throw new Error('could not find icon svg');
-	// 	}
-
-	// 	const iconRect = await icon.boundingBox();
-	// 	expect(icon).toBeVisible();
-	// 	expect(iconRect.width).toBe(16);
-	// 	expect(iconRect.height).toBe(16);
-	// });
-
-	// test('actionLarge', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	expect(btn).toBeVisible();
-	// 	const btnRect = await btn.boundingBox();
-	// 	expect(btnRect!.width).toBe(48);
-	// 	expect(btnRect!.height).toBe(48);
-
-	// 	const icon = btn.locator('svg');
-
-	// 	if (!icon) {
-	// 		throw new Error('could not find icon svg');
-	// 	}
-
-	// 	const iconRect = await icon.boundingBox();
-	// 	expect(icon).toBeVisible();
-	// 	expect(iconRect.width).toBe(24);
-	// 	expect(iconRect.height).toBe(24);
-	// });
-
-	// test('actionTertiaryRoundLarge', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	expect(btn).toBeVisible();
-	// 	const btnRect = await btn.boundingBox();
-	// 	expect(btnRect!.width).toBe(48);
-	// 	expect(btnRect!.height).toBe(48);
-
-	// 	const icon = btn.locator('svg');
-
-	// 	if (!icon) {
-	// 		throw new Error('could not find icon svg');
-	// 	}
-
-	// 	const iconRect = await icon.boundingBox();
-	// 	expect(icon).toBeVisible();
-	// 	expect(iconRect.width).toBe(24);
-	// 	expect(iconRect.height).toBe(24);
-	// 	const styles = await getStyles(btn);
-	// 	expect(styles.borderRadius).toBe('32px');
-	// });
-
-	// //loader button
-
-	// test('loaderDefault', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	const btnLabel = btn.querySelector('.sp-button--label');
-	// 	const styles = await getStyles(btn);
-	// 	const afterEl = window.getComputedStyle(btn, ':after');
-	// 	userEvent.click(btn);
-	// 	expect(btn).toBeVisible();
-	// 	expect(btnLabel).not.toBeVisible();
-	// 	expect(btn).not.toHaveFocus();
-	// 	expect(styles.backgroundColor).toBe('rgb(181, 152, 255)');
-	// 	expect(btn.innerText).toBe('');
-	// 	expect(btn).toHaveClass(/sp-button--loader/);
-	// 	expect(afterEl.getPropertyValue('display')).toBe('block');
-	// 	expect(afterEl.getPropertyValue('width')).toBe('16px');
-	// 	expect(afterEl.getPropertyValue('height')).toBe(afterEl.width);
-	// 	expect(afterEl.getPropertyValue('border-radius')).toBe('100%');
-	// 	expect(afterEl.getPropertyValue('animation-duration')).toBe('1s');
-	// 	expect(afterEl.getPropertyValue('animation-timing-function')).toBe(
-	// 		'linear'
-	// 	);
-	// 	expect(afterEl.getPropertyValue('animation-iteration-count')).toBe(
-	// 		'infinite'
-	// 	);
-	// 	expect(afterEl.getPropertyValue('border-bottom')).toBe(
-	// 		'2px solid rgb(22, 33, 55)'
-	// 	);
-	// 	expect(afterEl.getPropertyValue('border-top')).toBe(
-	// 		'2px solid rgba(0, 0, 0, 0)'
-	// 	);
-	// });
-
-	// test('loaderSecondaryLarge', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	const afterEl = window.getComputedStyle(btn, ':after');
-	// 	expect(btn.innerText).toBe('');
-	// 	expect(btn).toHaveClass(/sp-button--loader/);
-	// 	expect(btn).toHaveClass(/sp-button--large/);
-	// 	expect(afterEl.getPropertyValue('display')).toBe('block');
-	// 	expect(afterEl.getPropertyValue('width')).toBe('18px');
-	// 	expect(afterEl.getPropertyValue('height')).toBe(afterEl.width);
-	// });
-
-	// test('loaderTertiarySmall', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	const afterEl = window.getComputedStyle(btn, ':after');
-	// 	expect(btn.innerText).toBe('');
-	// 	expect(btn).toHaveClass(/sp-button--loader/);
-	// 	expect(btn).toHaveClass(/sp-button--small/);
-	// 	expect(afterEl.getPropertyValue('display')).toBe('block');
-	// 	expect(afterEl.getPropertyValue('width')).toBe('12px');
-	// 	expect(afterEl.getPropertyValue('height')).toBe(afterEl.width);
-	// });
-
-	// test('loaderWithIcon', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	const btnLabel = btn.locator('.sp-button--label');
-	// 	if (!btnLabel) {
-	// 		throw new Error('Button label should be present but hidden ');
-	// 	}
-	// 	expect(btn).toHaveClass(/sp-button--loader/);
-	// 	expect(btnLabel.innerHTML).toContain('svg');
-	// 	expect(btnLabel).not.toBeVisible();
-	// });
-
-	// test('loaderRounded', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	const afterEl = window.getComputedStyle(btn, ':after');
-	// 	expect(btn.innerText).toBe('');
-	// 	expect(btn).toHaveClass(/sp-button--loader/);
-	// 	expect(btn).toHaveClass(/sp-button--round/);
-	// 	expect(afterEl.getPropertyValue('display')).toBe('block');
-	// 	expect(afterEl.getPropertyValue('width')).toBe('16px');
-	// 	expect(afterEl.getPropertyValue('height')).toBe(afterEl.width);
-	// });
-
-	// //size button
-
-	// test('large', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	const btnRect = await btn.boundingBox();
-	// 	expect(btnRect!.height).toBe(48);
-	// });
-
-	// test('medium', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	const btnRect = await btn.boundingBox();
-	// 	expect(btnRect!.height).toBe(40);
-	// });
-
-	// test('small', async ({ page }) => {
-	// 	await page.goto(getButtonUrl());
-
-	// 	const btn = page.getByRole('button');
-	// 	const btnRect = await btn.boundingBox();
-	// 	expect(btnRect!.height).toBe(24);
-	// });
+		const bBox = await icon.boundingBox();
+
+		expect(bBox!.width).toBe(24);
+		expect(bBox!.height).toBe(24);
+	});
+
+	test('floating action button', async ({ page }) => {
+		await page.goto(getButtonUrl(3));
+
+		const btn = page.getByTestId('fab');
+		expect(btn).toBeVisible();
+		const icon = btn.locator('svg');
+		await expect(icon).toBeVisible();
+
+		const btnRect = await btn.boundingBox();
+		expect(btnRect!.width).toBe(32);
+		expect(btnRect!.height).toBe(32);
+
+		const iconRect = await icon.boundingBox();
+		expect(iconRect!.width).toBe(20);
+		expect(iconRect!.height).toBe(20);
+	});
+
+	test('floating action button - small ', async ({ page }) => {
+		await page.goto(getButtonUrl(3));
+
+		const btn = page.getByTestId('fab');
+		expect(btn).toBeVisible();
+		const icon = btn.locator('svg');
+		await expect(icon).toBeVisible();
+
+		await setControl(page, 'Size', 'select', 'small');
+
+		const btnRect = await btn.boundingBox();
+		expect(btnRect!.width).toBe(24);
+		expect(btnRect!.height).toBe(24);
+
+		const iconRect = await icon.boundingBox();
+		expect(iconRect!.width).toBe(16);
+		expect(iconRect!.height).toBe(16);
+	});
+
+	test('floating action button - large ', async ({ page }) => {
+		await page.goto(getButtonUrl(3));
+
+		const btn = page.getByTestId('fab');
+		expect(btn).toBeVisible();
+		const icon = btn.locator('svg');
+		await expect(icon).toBeVisible();
+
+		await setControl(page, 'Size', 'select', 'large');
+
+		const btnRect = await btn.boundingBox();
+		expect(btnRect!.width).toBe(48);
+		expect(btnRect!.height).toBe(48);
+
+		const iconRect = await icon.boundingBox();
+		expect(iconRect!.width).toBe(24);
+		expect(iconRect!.height).toBe(24);
+	});
+
+	test('floating action button - large and round', async ({ page }) => {
+		await page.goto(getButtonUrl(3));
+
+		const btn = page.getByTestId('fab');
+		expect(btn).toBeVisible();
+		const icon = btn.locator('svg');
+		await expect(icon).toBeVisible();
+
+		await setControl(page, 'Size', 'select', 'large');
+		await setControl(page, 'Round', 'checkbox', 'true');
+
+		const styles = await getStyles(btn);
+		const btnRect = await btn.boundingBox();
+		expect(btnRect!.width).toBe(48);
+		expect(btnRect!.height).toBe(48);
+
+		const iconRect = await icon.boundingBox();
+		expect(iconRect!.width).toBe(24);
+		expect(iconRect!.height).toBe(24);
+		expect(styles.borderRadius).toBe('32px');
+	});
+
+	test('loader', async ({ page }) => {
+		await page.goto(getButtonUrl(1));
+
+		const btn = page.getByTestId('loader');
+		await expect(btn).toBeVisible();
+		await expect(btn).toHaveClass(/sp-button--loader/);
+
+		const btnLabel = btn.locator('.sp-button--label');
+		const styles = await getStyles(btn);
+
+		const afterEl = await btn.evaluate((el) => {
+			return window.getComputedStyle(el, ':after');
+		});
+
+		await expect(btnLabel).not.toBeVisible();
+		await expect(styles.backgroundColor).toBe('rgb(181, 152, 255)');
+		// await expect(btn.innerText).toBe('');
+		expect(afterEl.display).toBe('block');
+		expect(afterEl.width).toBe('16px');
+		expect(afterEl.height).toBe(afterEl.width);
+		expect(afterEl.borderRadius).toBe('100%');
+		expect(afterEl.animationDuration).toBe('1s');
+		expect(afterEl.animationTimingFunction).toBe('linear');
+		expect(afterEl.animationIterationCount).toBe('infinite');
+		expect(afterEl.borderBottom).toBe('2px solid rgb(22, 33, 55)');
+		expect(afterEl.borderTop).toBe('2px solid rgba(0, 0, 0, 0)');
+	});
+
+	test('loader large', async ({ page }) => {
+		await page.goto(getButtonUrl(1));
+
+		const btn = page.getByTestId('loader');
+		await expect(btn).toBeVisible();
+
+		await setControl(page, 'Size', 'select', 'large');
+
+		const afterEl = await btn.evaluate((el) => {
+			return window.getComputedStyle(el, ':after');
+		});
+
+		await expect(btn).toHaveClass(/sp-button--loader/);
+		await expect(btn).toHaveClass(/sp-button--large/);
+		expect(afterEl.display).toBe('block');
+		expect(afterEl.width).toBe('18px');
+		expect(afterEl.height).toBe(afterEl.width);
+	});
+
+	test('loader small', async ({ page }) => {
+		await page.goto(getButtonUrl(1));
+
+		const btn = page.getByTestId('loader');
+		await expect(btn).toBeVisible();
+
+		await setControl(page, 'Size', 'select', 'small');
+
+		const afterEl = await btn.evaluate((el) => {
+			return window.getComputedStyle(el, ':after');
+		});
+
+		await expect(btn).toHaveClass(/sp-button--loader/);
+		await expect(btn).toHaveClass(/sp-button--small/);
+		expect(afterEl.display).toBe('block');
+		expect(afterEl.width).toBe('12px');
+		expect(afterEl.height).toBe(afterEl.width);
+	});
+
+	test('loader icon', async ({ page }) => {
+		await page.goto(getButtonUrl(2));
+		const btn = page.getByTestId('icon');
+		const icon = btn.locator('svg');
+		await expect(icon).toBeVisible();
+
+		await setControl(page, 'Disabled', 'checkbox', 'true');
+		await setControl(page, 'Loader', 'checkbox', 'true');
+
+		await expect(btn).toHaveClass(/sp-button--loader/);
+		await expect(icon).not.toBeVisible();
+	});
+
+	test('loader rounded', async ({ page }) => {
+		await page.goto(getButtonUrl(1));
+
+		const btn = page.getByTestId('loader');
+		await expect(btn).toBeVisible();
+
+		await setControl(page, 'Round', 'checkbox', 'true');
+
+		const afterEl = await btn.evaluate((el) => {
+			return window.getComputedStyle(el, ':after');
+		});
+
+		await expect(btn).toHaveClass(/sp-button--loader/);
+		await expect(btn).toHaveClass(/sp-button--round/);
+		expect(afterEl.display).toBe('block');
+		expect(afterEl.width).toBe('16px');
+		expect(afterEl.height).toBe(afterEl.width);
+	});
+
+	test('button medium', async ({ page }) => {
+		await page.goto(getButtonUrl());
+		const btn = page.getByTestId('basic');
+		await expect(btn).toBeVisible();
+		const btnRect = await btn.boundingBox();
+		expect(btnRect!.height).toBe(40);
+	});
+
+	test('button large', async ({ page }) => {
+		await page.goto(getButtonUrl());
+		const btn = page.getByTestId('basic');
+		await expect(btn).toBeVisible();
+		await setControl(page, 'Size', 'select', 'large');
+		const btnRect = await btn.boundingBox();
+		expect(btnRect!.height).toBe(48);
+	});
+
+	test('button small', async ({ page }) => {
+		await page.goto(getButtonUrl());
+		const btn = page.getByTestId('basic');
+		await expect(btn).toBeVisible();
+		await setControl(page, 'Size', 'select', 'small');
+		const btnRect = await btn.boundingBox();
+		expect(btnRect!.height).toBe(24);
+	});
 });
