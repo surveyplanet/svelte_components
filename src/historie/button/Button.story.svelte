@@ -50,11 +50,11 @@
 		<Hst.Checkbox
 			bind:value={action}
 			title="Action" />
-		<Hst.ButtonGroup
+		<Hst.Select
 			bind:value={size}
 			title="Size"
 			options={Object.values(SIZES)} />
-		<Hst.ButtonGroup
+		<Hst.Select
 			bind:value={type}
 			title="Type"
 			options={['button', 'submit', 'reset']} />
@@ -65,6 +65,7 @@
 		{source}>
 		<Button
 			on:click={clickHandler}
+			data-testid="basic"
 			{mode}
 			{disabled}
 			{loader}
@@ -81,6 +82,7 @@
 		{source}>
 		<Button
 			on:click={clickHandler}
+			data-testid="loader"
 			{mode}
 			disabled={true}
 			loader={true}
@@ -93,10 +95,32 @@
 	</Hst.Variant>
 
 	<Hst.Variant
+		title="Icon button"
+		{source}>
+		<Button
+			on:click={clickHandler}
+			data-testid="icon"
+			{mode}
+			{disabled}
+			{loader}
+			{round}
+			{block}
+			{action}
+			{type}
+			{form}
+			{size}>
+			<Icon
+				name="search"
+				size={20} /> Search
+		</Button>
+	</Hst.Variant>
+
+	<Hst.Variant
 		title="FAB - Floating action button"
 		{source}>
 		<Button
 			on:click={clickHandler}
+			data-testid="fab"
 			{mode}
 			{disabled}
 			{loader}
@@ -106,7 +130,10 @@
 			{type}
 			{form}
 			{size}>
-			<Icon name="plus" />
+			<Icon
+				name="plus"
+				size={20}
+				color="white" />
 		</Button>
 	</Hst.Variant>
 </Hst.Story>

@@ -90,10 +90,12 @@ export const setControl = async (
 
 	if (type === 'button') {
 		// TODO:
-		throw new Error('setControls is not available for button yet.');
+		throw new Error('setControls is not available for button control.');
 	} else if (type === 'buttonGroup') {
 		// TODO:
-		throw new Error('setControls is not available for buttonGroup yet.');
+		throw new Error(
+			'setControls is not available for buttonGroup control.'
+		);
 	} else if (type === 'checkbox') {
 		const input = labelEl.locator('.histoire-simple-checkbox');
 		const svg = input.locator('svg path');
@@ -109,17 +111,19 @@ export const setControl = async (
 		}
 	} else if (type === 'checkboxList') {
 		// TODO:
-		throw new Error('setControls is not available for checkboxList yet.');
+		throw new Error(
+			'setControls is not available for checkboxList control.'
+		);
 	} else if (type === 'json') {
 		// TODO:
-		throw new Error('setControls is not available for json yet.');
+		throw new Error('setControls is not available for json control.');
 	} else if (type === 'number') {
 		const input = labelEl.locator('input');
 		await expect(input).toBeVisible();
 		await input.fill(value);
 	} else if (type === 'radio') {
 		// TODO:
-		throw new Error('setControls is not available for radio yet.');
+		throw new Error('setControls is not available for radio control.');
 	} else if (type === 'select') {
 		const trigger = labelEl.locator('.v-popper');
 		await expect(trigger).toBeVisible();
@@ -131,7 +135,7 @@ export const setControl = async (
 		await optionEl.click();
 	} else if (type === 'slider') {
 		// TODO:
-		throw new Error('setControls is not available for slider yet.');
+		throw new Error('setControls is not available for slider control.');
 	} else if (type === 'text') {
 		const input = labelEl.locator('input');
 		await expect(input).toBeVisible();

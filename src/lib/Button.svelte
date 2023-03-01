@@ -95,6 +95,7 @@
 	{type}
 	{disabled}
 	{form}
+	{...$$restProps}
 	class="sp-button sp-button--{mode} sp-button--{size}"
 	class:sp-button--round={round}
 	class:sp-button--loader={loader}
@@ -135,14 +136,9 @@
 		background-color: $color--purple;
 		color: $color--slate-dark;
 
-		:global(svg) {
-			width: 20px;
-			height: 20px;
-		}
-
-		:global(svg path) {
-			fill: $color--slate-dark;
-		}
+		// Change icon color and size at component level
+		// :global(svg) {width: 20px; height: 20px; }
+		// :global(svg path) {stroke: $color--slate-dark;}
 
 		// hover state
 		&:before {
@@ -260,7 +256,7 @@
 			background-color: $color--slate-dark;
 			color: $color--slate-lighter;
 			:global(svg path) {
-				fill: $color--slate-lighter;
+				stroke: $color--slate-lighter;
 			}
 
 			&:before {
@@ -340,7 +336,7 @@
 			color: $color--purple-light;
 			background: $color--light-purple;
 			:global(svg path) {
-				fill: $color--purple-light;
+				stroke: $color--purple-light;
 			}
 
 			&:before {
@@ -352,28 +348,28 @@
 				color: $color--yellow-dark;
 				background-color: $color--yellow-light;
 				:global(svg path) {
-					fill: $color--yellow-dark;
+					stroke: $color--yellow-dark;
 				}
 			}
 			&.sp-button--tertiary {
 				color: $color--green-dark;
 				background-color: $color--green-light;
 				:global(svg path) {
-					fill: $color--green-dark;
+					stroke: $color--green-dark;
 				}
 			}
 			&.sp-button--quaternary {
 				color: $color--blue-dark;
 				background-color: $color--blue-light;
 				:global(svg path) {
-					fill: $color--blue-dark;
+					stroke: $color--blue-dark;
 				}
 			}
 			&.sp-button--dark {
 				color: $color--slate;
 				background-color: $color--slate-lighter;
 				:global(svg path) {
-					fill: $color--slate;
+					stroke: $color--slate;
 				}
 			}
 			&.sp-button--light {
@@ -381,7 +377,7 @@
 				background-color: $color--white;
 				box-shadow: inset 0px 0px 0px 1px $color--slate-lighter;
 				:global(svg path) {
-					fill: $color--slate-lighter;
+					stroke: $color--slate-lighter;
 				}
 			}
 		}
@@ -421,6 +417,9 @@
 				&:after {
 					display: block; // show loader when disabled
 				}
+			}
+			&.sp-button--dark:after {
+				border-color: transparent $color--white $color--white;
 			}
 			&.sp-button--small:after {
 				width: $size--12;
