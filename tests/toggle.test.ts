@@ -1,6 +1,6 @@
 import { test, expect, type FrameLocator } from '@playwright/test';
 import { delay } from '@surveyplanet/utilities';
-import { loadStory, setControl, getStyles } from './_utils.js';
+import { loadStory, setControl, getStyles, getLastEvent } from './_utils.js';
 
 test.describe('Toggle component', () => {
 	let canvas: FrameLocator;
@@ -33,8 +33,8 @@ test.describe('Toggle component', () => {
 		toggle.click();
 		await expect(toggle).toHaveClass(/sp-toggle--on/);
 		await expect(toggle).toHaveAttribute('aria-checked', 'true');
-		// await expect(checkbox).toBeFocused();
-		// expect(res.args.changeHandler).toHaveBeenCalled();
+		const event = await getLastEvent(page);
+		expect(event.name).toBe('change');
 	});
 
 	test('disabled', async ({ page }) => {

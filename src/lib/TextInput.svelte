@@ -19,7 +19,7 @@
 	/**
 	 * The input type, default: 'text'
 	 */
-	export let type = 'text';
+	export let type: 'password' | 'search' | 'text' = 'text';
 
 	/**
 	 * The value of the input
