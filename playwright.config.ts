@@ -28,6 +28,10 @@ export default defineConfig({
 		trace: 'on-first-retry',
 		/* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
 		actionTimeout: 0,
+		viewport: {
+			width: 1200,
+			height: 1800,
+		},
 	},
 
 	/* Configure projects for major browsers */

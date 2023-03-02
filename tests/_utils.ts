@@ -64,6 +64,59 @@ export const getStyles = async (
 };
 
 /**
+ * Retrieve event the last event from the Histoire event pane.
+ *
+ * @function getLastEvent
+ * @async
+ * @param page {Page} The Playwright page
+ * @returns Promise<{ name: string; data?: object } Then event name and data (Does not work with nested objects)
+ */
+export const getLastEvent = async (
+	page: Page
+): Promise<{ name: string; data?: object }> => {
+	const baseMenu = page.locator('.histoire-base-overflow-menu');
+	const eventTab = baseMenu.locator('a').nth(2);
+
+	if (await eventTab.isVisible()) {
+		await eventTab.click();
+	} else {
+		// open dropdown if menu is too small
+		await baseMenu.getByRole('button').click();
+
+		const optionsEl = page.locator('.v-popper__popper').last();
+		await expect(optionsEl, 'Could not find select values').toBeVisible();
+		const optionEl = optionsEl.locator(`text="Events"`);
+		await expect(optionEl).toBeVisible();
+		await optionEl.click();
+	}
+	const eventItem = page.locator('[data-test-id="event-item"]').last();
+	const hasEventItems = (await eventItem.count()) > 0;
+
+	if (!hasEventItems) {
+		return { name: '' };
+	}
+
+	const eventName = eventItem.locator('span').first();
+	const eventData = eventItem.locator('span').last();
+	const name = await eventName.innerText();
+	const dataTxt = await eventData.innerText();
+	let data = {};
+	if (dataTxt?.length) {
+		data = Object.fromEntries(
+			dataTxt
+				.replace(/^{ /, '')
+				.replace(/ }$/, '')
+				.split(', ')
+				.map((itm) => {
+					return itm.split(': ');
+				})
+		);
+	}
+
+	return { name, data };
+};
+
+/**
  * Set Histoire control values. NOTE: some controls don't work and need to be flushed out still
  *
  * @function setControl
@@ -94,7 +147,7 @@ export const setControl = async (
 	} else if (type === 'buttonGroup') {
 		// TODO:
 		throw new Error(
-			'setControls is not available for buttonGroup control.'
+			'setControls is not available for buttonGroup control. Use `HST.Select` control instead'
 		);
 	} else if (type === 'checkbox') {
 		const input = labelEl.locator('.histoire-simple-checkbox');

@@ -8,8 +8,8 @@
 	let id: 'basic-text';
 	let name: 'basic-text';
 	let type = 'text';
-	let value = '';
-	let label: string;
+	let value: string;
+	let label = 'Text input';
 	let placeholder: string;
 	let multiline = false;
 	let readonly = false;
@@ -30,22 +30,7 @@
 		<Hst.Select
 			bind:value={type}
 			title="Type"
-			options={[
-				'color',
-				'date',
-				'datetime-local',
-				'email',
-				'file',
-				'hidden',
-				'image',
-				'month',
-				'number',
-				'password',
-				'search',
-				'text',
-				'time',
-				'url',
-			]} />
+			options={['password', 'search', 'text']} />
 		<Hst.Checkbox
 			bind:value={disabled}
 			title="Disabled" />
@@ -124,8 +109,8 @@
 			{label}
 			{type}
 			{value}
-			name="maked-text"
-			id="maked-text"
+			name="masked-text"
+			id="masked-text"
 			placeholder="YYYY-MM-DD"
 			cleaveOptions={{
 				date: true,

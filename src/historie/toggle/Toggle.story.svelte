@@ -10,6 +10,8 @@
 	let disabled = false;
 	let tall = false;
 	let name: string;
+	let label = 'Toggle switch';
+	let prependLabel = false;
 
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
@@ -24,6 +26,15 @@
 		<Hst.Text
 			bind:value={name}
 			title="Name" />
+		<Hst.Text
+			bind:value={label}
+			title="Label" />
+		<Hst.Checkbox
+			bind:value={on}
+			title="On" />
+		<Hst.Checkbox
+			bind:value={prependLabel}
+			title="Prepend label" />
 		<Hst.Checkbox
 			bind:value={disabled}
 			title="Disabled" />
@@ -37,8 +48,12 @@
 		{source}>
 		<Toggle
 			on:change={changeEventHandler}
-			{disabled}
+			{id}
 			{name}
-			{id} />
+			{label}
+			{on}
+			{prependLabel}
+			{tall}
+			{disabled} />
 	</Hst.Variant>
 </Hst.Story>
