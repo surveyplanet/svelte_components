@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { loadStory, setControl, getLastEvent } from './_utils.js';
 
 test.describe('Checkbox component', () => {
-	test.only('should render basic checkbox component', async ({ page }) => {
+	test('should render basic checkbox component', async ({ page }) => {
 		const preview = await loadStory(page, 'checkbox');
 		const label = preview.locator('.sp-checkbox');
 		const labelText = label.locator('.sp-checkbox--label');
