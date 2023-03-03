@@ -47,6 +47,7 @@
 		title="Primary"
 		{source}>
 		<Checkbox
+			test-id="primary"
 			on:change={changeEventHandler}
 			{checked}
 			{disabled}

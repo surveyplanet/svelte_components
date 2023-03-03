@@ -10,7 +10,6 @@
 	export let checked = false;
 	export let disabled = false;
 	export let prependLabel = false;
-	export let attr = {};
 
 	const changeEventHandler = (event: Event) => {
 		if (disabled) {
@@ -27,7 +26,7 @@
 	{value}
 	{checked}
 	{disabled}
-	{...attr}
+	{...$$restProps}
 	on:change={changeEventHandler} />
 <label
 	class="sp-checkbox"

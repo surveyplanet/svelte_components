@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { getStyle, loadStory, setControl } from './_utils.js';
+import { loadStory, setControl } from './_utils.js';
 
 test.describe('Badge component', () => {
 	test('should render basic badge component', async ({ page }) => {
