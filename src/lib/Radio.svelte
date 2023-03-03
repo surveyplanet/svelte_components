@@ -115,7 +115,8 @@
 
 	input[type='radio'] {
 		appearance: none;
-
+		margin: 0;
+		padding: 0;
 		&:disabled {
 			& + .sp-radio {
 				.sp-radio--dot {

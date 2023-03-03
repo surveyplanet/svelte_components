@@ -5,11 +5,10 @@
 
 	export let Hst;
 
-	let id: string;
-	let name = 'radio';
-	let value: string;
-	let label = 'Radio button';
-	let checked = false;
+	let name = 'stooge';
+	let labelOne = 'Harry';
+	let labelTwo = 'Larry';
+	let labelThree = 'Moe';
 	let disabled = false;
 	let prependLabel = false;
 
@@ -20,21 +19,18 @@
 
 <Hst.Story title="Form controls / Radio">
 	<svelte:fragment slot="controls">
-		<Hst.Checkbox
-			bind:value={checked}
-			title="Checked" />
 		<Hst.Text
 			bind:value={name}
 			title="Name" />
 		<Hst.Text
-			bind:value
-			title="Value" />
+			bind:value={labelOne}
+			title="Label 1" />
 		<Hst.Text
-			bind:value={id}
-			title="Id" />
+			bind:value={labelTwo}
+			title="Label 2" />
 		<Hst.Text
-			bind:value={label}
-			title="Label" />
+			bind:value={labelThree}
+			title="Label 3" />
 		<Hst.Checkbox
 			bind:value={prependLabel}
 			title="Prepend label" />
@@ -46,14 +42,39 @@
 	<Hst.Variant
 		title="Primary"
 		{source}>
-		<Radio
-			on:change={changeEventHandler}
-			{checked}
-			{disabled}
-			{prependLabel}
-			{label}
-			{name}
-			{value}
-			{id} />
+		<div id="wrapper">
+			<Radio
+				id={labelOne.toLowerCase().replace(' ', '-')}
+				{disabled}
+				{name}
+				value={labelOne}
+				label={labelOne}
+				{prependLabel}
+				on:change={changeEventHandler} />
+			<Radio
+				id={labelTwo.toLowerCase().replace(' ', '-')}
+				{disabled}
+				{name}
+				value={labelTwo}
+				label={labelTwo}
+				{prependLabel}
+				on:change={changeEventHandler} />
+			<Radio
+				id={labelThree.toLowerCase().replace(' ', '-')}
+				{disabled}
+				{name}
+				value={labelThree}
+				label={labelThree}
+				{prependLabel}
+				on:change={changeEventHandler} />
+		</div>
 	</Hst.Variant>
 </Hst.Story>
+
+<style>
+	#wrapper {
+		display: flex;
+		gap: 24px;
+		padding: 24px;
+	}
+</style>
