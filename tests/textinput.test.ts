@@ -1,132 +1,129 @@
 import { test, expect, type FrameLocator } from '@playwright/test';
 import { delay } from '@surveyplanet/utilities';
-import { setControl, getStyles } from './_utils.js';
-
-const getButtonUrl = (variant = 0) =>
-	`/story/src-historie-textinput-textinput-story-svelte?variantId=src-historie-textinput-textinput-story-svelte-${variant}`; // cspell:disable-line
+import { setControl, loadStory, getStyles, getAllEvents } from './_utils.js';
 
 test.describe('Toggle component', () => {
+	let canvas: FrameLocator;
+
+	test.beforeEach(async ({ page }) => {
+		canvas = (await loadStory(page, 'textinput')) as FrameLocator;
+	});
+
 	test('basic', async ({ page }) => {
-		await page.goto(getButtonUrl());
-		const input = page.getByRole('textbox');
-		const label = page.getByText('Text input')
-			?.parentElement as HTMLLabelElement;
-		const inputWrapper = input.parentElement;
+		const value = '11! This is something new I wish I had 11 too!';
+		const wrapper = canvas.locator('.sp-text-input').first();
+		const input = wrapper.getByRole('textbox');
+		const label = wrapper.getByText('Text input');
 
-		expect(inputWrapper).toHaveClass(' sp-text-input');
-		expect(input).toBeVisible();
-		expect(input).toBeDefined();
-		expect(input).not.toBeDisabled();
-		expect(input.id).toBe('email');
-		expect(input.placeholder).toBe('Placeholder');
-		expect(input.readOnly).toBe(false);
-		expect(label).toHaveClass(' sp-text-input--label');
-		expect(input).toHaveAttribute('type', 'text');
-		expect(input).toHaveAttribute('data-test', 'test');
-		expect(input).toHaveAttribute('data-test2', 'test2');
+		await expect(wrapper).toBeVisible();
+		await expect(input).toBeVisible();
+		await expect(input).not.toBeDisabled();
+		await expect(input).not.toHaveAttribute('readonly', 'true');
+		await expect(input).toHaveAttribute('id', 'basic-text');
+		await expect(input).toHaveAttribute('name', 'basic-text');
+		await expect(input).toHaveAttribute('placeholder', 'Placeholder');
+		await expect(label).toHaveClass(/sp-text-input--label/);
+		await expect(input).toHaveAttribute('type', 'text');
+		await expect(input).not.toBeFocused();
 
-		expect(input).not.toHaveFocus();
-		userEvent.click(input);
-		// expect(res.args.focusHandler).toHaveBeenCalled();
-		expect(input).toHaveFocus();
-
-		userEvent.type(input, 'Hello World');
-		expect(input.value).toBe(`Hello World`);
-		expect(res.args.keyupHandler).toHaveBeenCalled();
-		expect(res.args.keydownHandler).toHaveBeenCalled();
-
-		fireEvent.change(input, { target: { value: '' } });
-		expect(res.args.changeHandler).toHaveBeenCalled();
-
-		fireEvent.blur(input);
-		expect(res.args.blurHandler).toHaveBeenCalled();
+		await input.click();
+		await expect(input).toBeFocused();
+		input.type(value);
+		await expect(input).toHaveValue(value);
+		const events = await getAllEvents(page);
+		expect(events.length > 0).toBeTruthy();
+		const totalKeyUps = events.filter((i) => i.name == 'keyup').length;
+		const totalKeyDowns = events.filter((i) => i.name == 'keydown').length;
+		expect(events[0].name).toBe('focus');
+		expect(totalKeyUps).toEqual(value.length);
+		expect(totalKeyDowns).toEqual(value.length);
+		expect(events[events.length - 1].name).toBe('change');
 	});
 
 	test('multiline', async ({ page }) => {
-		await page.goto(getButtonUrl());
-		const input: HTMLInputElement = page.getByRole('textbox');
-		const label = page.getByText('Multiline input')
-			?.parentElement as HTMLLabelElement;
-		const value = ['Line one', 'Line two', 'Line three'].join('\n');
+		await setControl(page, 'Multiline', 'checkbox', 'true');
+		const value = '11!\nThis is something new I wish I had 11 too!';
+		const wrapper = canvas.locator('.sp-text-input').first();
+		const input = wrapper.getByRole('textbox');
 
-		expect(input).toBeVisible();
-		expect(input).not.toHaveFocus();
-		expect(input).not.toBeDisabled();
-		expect(input.id).toBe('text-input-id');
-		expect(input.placeholder).toBe('Placeholder');
-		expect(input.readOnly).toBe(false);
-		expect(label).toHaveClass(' sp-text-input--label');
-		expect(input).toHaveAttribute('data-test', 'test');
-		expect(input).toHaveAttribute('data-test2', 'test2');
-
-		expect(input).not.toHaveFocus();
-		userEvent.click(input);
-		expect(input).toHaveFocus();
-
-		userEvent.type(input, value);
-		expect(input.value).toBe(value);
-		expect(res.args.keyupHandler).toHaveBeenCalled();
-		expect(res.args.keydownHandler).toHaveBeenCalled();
-
-		fireEvent.change(input, { target: { value: '' } });
-		expect(res.args.changeHandler).toHaveBeenCalled();
-
-		fireEvent.blur(input);
-		expect(res.args.blurHandler).toHaveBeenCalled();
+		await input.click();
+		await expect(input).toBeFocused();
+		input.type(value);
+		await expect(input).toHaveValue(value);
+		const events = await getAllEvents(page);
+		expect(events.length > 0).toBeTruthy();
+		const totalKeyUps = events.filter((i) => i.name == 'keyup').length;
+		const totalKeyDowns = events.filter((i) => i.name == 'keydown').length;
+		expect(events[0].name).toBe('focus');
+		expect(totalKeyUps).toEqual(value.length);
+		expect(totalKeyDowns).toEqual(value.length);
+		expect(events[events.length - 1].name).toBe('change');
 	});
 
 	test('disabled', async ({ page }) => {
-		await page.goto(getButtonUrl());
-		const input: HTMLInputElement = page.getByRole('textbox');
-		expect(input.disabled).toBeTruthy();
-		expect(input.readOnly).toBeFalsy();
+		const input = canvas.getByLabel('Text input');
+		await expect(input).not.toBeDisabled();
+		await setControl(page, 'Disabled', 'checkbox', 'true');
+		await expect(input).toBeDisabled();
 	});
 
 	test('readonly', async ({ page }) => {
-		await page.goto(getButtonUrl());
-		const input: HTMLInputElement = page.getByRole('textbox');
-		expect(input.readOnly).toBeTruthy();
-		expect(input.disabled).toBeFalsy();
-	});
-
-	test('noLabel', async ({ page }) => {
-		await page.goto(getButtonUrl());
-		const input: HTMLInputElement = page.getByRole('textbox');
-		const children = input.parentElement!.children as HTMLCollection;
-
-		for (const node of children) {
-			expect(node.nodeName.toLowerCase()).not.toBe('label');
-		}
+		const input = canvas.getByLabel('Text input');
+		await setControl(page, 'Readonly', 'checkbox', 'true');
+		const readOnlyAttr = await input.getAttribute('readonly');
+		expect(readOnlyAttr).not.toBeNull(); // readonly doesn't have a value
 	});
 
 	test('validate', async ({ page }) => {
-		await page.goto(getButtonUrl());
-		const input: HTMLInputElement = page.getByRole('textbox');
-		const inputWrapper = input.parentElement;
-
-		expect(input).toHaveAttribute('data-validate-rules', 'require,email');
-		fireEvent.change(input, { target: { value: 'invalid' } });
-		await delay();
-		expect(inputWrapper).toHaveClass('validation-error');
-		const errLabel = page.getByLabelText(
-			"What's the matter with you, you don't know your email address?"
+		const validationRules = ['required', 'email'];
+		const validationMsg =
+			"What's the matter with you, you don't know your email address?";
+		const input = canvas.getByLabel('Text input');
+		const wrapper = canvas.locator('.sp-text-input').first();
+		await setControl(
+			page,
+			'Validation rules',
+			'json',
+			JSON.stringify(validationRules)
 		);
-		expect(errLabel).toBeDefined();
+		await setControl(page, 'Validation message', 'text', validationMsg);
+		await expect(input).toHaveAttribute('id', 'basic-text');
+		await expect(input).toHaveAttribute(
+			'data-validate-rules',
+			validationRules.join(',')
+		);
+		await input.type('invalid email address');
+		await input.press('Tab');
+
+		await expect(wrapper).toHaveClass(/validation-error/);
+		const errLabel = canvas.getByText(validationMsg);
+		await expect(errLabel).toBeVisible();
+		await expect(errLabel).toHaveAttribute('for', 'basic-text');
 	});
 
 	test('masked', async ({ page }) => {
-		await page.goto(getButtonUrl());
 		const today = new Date();
 		const year = today.getFullYear().toString();
 		const month = (today.getMonth() + 1).toString().padStart(2, '0');
 		const day = today.getDate();
 		const value = `${year}-${month}-${day}`;
+		const cleaveOptions = {
+			date: true,
+			delimiter: '-',
+			datePattern: ['Y', 'm', 'd'],
+		};
+		await setControl(
+			page,
+			'Mask options',
+			'json',
+			JSON.stringify(cleaveOptions)
+		);
+		await setControl(page, 'Placeholder', 'text', 'YYYY-MM-DD');
 
-		const input: HTMLInputElement = page.getByRole('textbox');
-		// fireEvent.change(input, { target: { value: 'invalid' } });
-		userEvent.type(input, 'noop');
-		expect(input.value).toBe('');
-		userEvent.type(input, value);
-		expect(input.value).toBe(value);
+		const input = canvas.getByRole('textbox');
+		input.type('noop');
+		await expect(input).toHaveValue('');
+		input.type(value.replace('-', ''));
+		await expect(input).toHaveValue(value);
 	});
 });
