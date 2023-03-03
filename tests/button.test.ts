@@ -2,12 +2,14 @@ import { test, expect } from '@playwright/test';
 import { secondary } from '../src/stories/button/button.test.js';
 import { loadStory, setControl, getStyles } from './_utils.js';
 
-const getButtonUrl = (variant = 0) =>
-	`/story/src-historie-button-button-story-svelte?variantId=src-historie-button-button-story-svelte-${variant}`;
+const loadButtonPage = async (page, variant = 0) => {
+	const url = `/story/src-historie-button-button-story-svelte?variantId=src-historie-button-button-story-svelte-${variant}`;
+	return page.goto(url, { timeout: 5000 });
+};
 
 test.describe('Button component', () => {
 	test('basic', async ({ page }) => {
-		await page.goto(getButtonUrl());
+		await loadButtonPage(page);
 		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 		const styles = await getStyles(btn);
@@ -58,7 +60,7 @@ test.describe('Button component', () => {
 	});
 
 	test('secondary', async ({ page }) => {
-		await page.goto(getButtonUrl());
+		await loadButtonPage(page);
 		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
@@ -70,7 +72,7 @@ test.describe('Button component', () => {
 	});
 
 	test('tertiary', async ({ page }) => {
-		await page.goto(getButtonUrl());
+		await loadButtonPage(page);
 		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
@@ -82,7 +84,7 @@ test.describe('Button component', () => {
 	});
 
 	test('quaternary', async ({ page }) => {
-		await page.goto(getButtonUrl());
+		await loadButtonPage(page);
 		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
@@ -94,7 +96,7 @@ test.describe('Button component', () => {
 	});
 
 	test('dark', async ({ page }) => {
-		await page.goto(getButtonUrl());
+		await loadButtonPage(page);
 		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
@@ -107,7 +109,7 @@ test.describe('Button component', () => {
 	});
 
 	test('light', async ({ page }) => {
-		await page.goto(getButtonUrl());
+		await loadButtonPage(page);
 		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
@@ -128,7 +130,7 @@ test.describe('Button component', () => {
 	});
 
 	test('rounded', async ({ page }) => {
-		await page.goto(getButtonUrl());
+		await loadButtonPage(page);
 		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
@@ -140,7 +142,7 @@ test.describe('Button component', () => {
 	});
 
 	test('block', async ({ page }) => {
-		await page.goto(getButtonUrl());
+		await loadButtonPage(page);
 		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
@@ -154,7 +156,7 @@ test.describe('Button component', () => {
 	});
 
 	test('disabled', async ({ page }) => {
-		await page.goto(getButtonUrl(2));
+		await loadButtonPage(page, 2);
 		const btn = page.getByTestId('icon');
 		await expect(btn).toBeVisible();
 		const icon = btn.locator('svg path');
@@ -172,7 +174,7 @@ test.describe('Button component', () => {
 	});
 
 	test('disabled secondary', async ({ page }) => {
-		await page.goto(getButtonUrl(2));
+		await loadButtonPage(page, 2);
 		const btn = page.getByTestId('icon');
 		await expect(btn).toBeVisible();
 		const icon = btn.locator('svg path');
@@ -191,7 +193,7 @@ test.describe('Button component', () => {
 	});
 
 	test('disabled tertiary', async ({ page }) => {
-		await page.goto(getButtonUrl(2));
+		await loadButtonPage(page, 2);
 		const btn = page.getByTestId('icon');
 		await expect(btn).toBeVisible();
 		const icon = btn.locator('svg path');
@@ -210,7 +212,7 @@ test.describe('Button component', () => {
 	});
 
 	test('disabled quaternary', async ({ page }) => {
-		await page.goto(getButtonUrl(2));
+		await loadButtonPage(page, 2);
 		const btn = page.getByTestId('icon');
 		await expect(btn).toBeVisible();
 		const icon = btn.locator('svg path');
@@ -229,7 +231,7 @@ test.describe('Button component', () => {
 	});
 
 	test('disabled dark', async ({ page }) => {
-		await page.goto(getButtonUrl(2));
+		await loadButtonPage(page, 2);
 		const btn = page.getByTestId('icon');
 		await expect(btn).toBeVisible();
 		const icon = btn.locator('svg path');
@@ -248,7 +250,7 @@ test.describe('Button component', () => {
 	});
 
 	test('disabled light', async ({ page }) => {
-		await page.goto(getButtonUrl(2));
+		await loadButtonPage(page, 2);
 		const btn = page.getByTestId('icon');
 		await expect(btn).toBeVisible();
 		const icon = btn.locator('svg path');
@@ -267,7 +269,7 @@ test.describe('Button component', () => {
 	});
 
 	test('icon button', async ({ page }) => {
-		await page.goto(getButtonUrl(2));
+		await loadButtonPage(page, 2);
 		const btn = page.getByTestId('icon');
 		const icon = btn.locator('svg');
 		const iconPath = btn.locator('svg path');
@@ -285,7 +287,7 @@ test.describe('Button component', () => {
 	});
 
 	test('icon button dark', async ({ page }) => {
-		await page.goto(getButtonUrl(2));
+		await loadButtonPage(page, 2);
 		const btn = page.getByTestId('icon');
 		const icon = btn.locator('svg');
 		const iconPath = btn.locator('svg path');
@@ -305,7 +307,7 @@ test.describe('Button component', () => {
 	});
 
 	test('icon small', async ({ page }) => {
-		await page.goto(getButtonUrl(2));
+		await loadButtonPage(page, 2);
 		const btn = page.getByTestId('icon');
 		const icon = btn.locator('svg');
 		const iconPath = btn.locator('svg path');
@@ -320,7 +322,7 @@ test.describe('Button component', () => {
 	});
 
 	test('icon large', async ({ page }) => {
-		await page.goto(getButtonUrl(2));
+		await loadButtonPage(page, 2);
 		const btn = page.getByTestId('icon');
 		const icon = btn.locator('svg');
 		const iconPath = btn.locator('svg path');
@@ -335,7 +337,7 @@ test.describe('Button component', () => {
 	});
 
 	test('floating action button', async ({ page }) => {
-		await page.goto(getButtonUrl(3));
+		await loadButtonPage(page, 3);
 
 		const btn = page.getByTestId('fab');
 		expect(btn).toBeVisible();
@@ -352,7 +354,7 @@ test.describe('Button component', () => {
 	});
 
 	test('floating action button - small ', async ({ page }) => {
-		await page.goto(getButtonUrl(3));
+		await loadButtonPage(page, 3);
 
 		const btn = page.getByTestId('fab');
 		expect(btn).toBeVisible();
@@ -371,7 +373,7 @@ test.describe('Button component', () => {
 	});
 
 	test('floating action button - large ', async ({ page }) => {
-		await page.goto(getButtonUrl(3));
+		await loadButtonPage(page, 3);
 
 		const btn = page.getByTestId('fab');
 		expect(btn).toBeVisible();
@@ -390,7 +392,7 @@ test.describe('Button component', () => {
 	});
 
 	test('floating action button - large and round', async ({ page }) => {
-		await page.goto(getButtonUrl(3));
+		await loadButtonPage(page, 3);
 
 		const btn = page.getByTestId('fab');
 		expect(btn).toBeVisible();
@@ -412,7 +414,7 @@ test.describe('Button component', () => {
 	});
 
 	test('loader', async ({ page }) => {
-		await page.goto(getButtonUrl(1));
+		await loadButtonPage(page, 1);
 
 		const btn = page.getByTestId('loader');
 		await expect(btn).toBeVisible();
@@ -440,7 +442,7 @@ test.describe('Button component', () => {
 	});
 
 	test('loader large', async ({ page }) => {
-		await page.goto(getButtonUrl(1));
+		await loadButtonPage(page, 1);
 
 		const btn = page.getByTestId('loader');
 		await expect(btn).toBeVisible();
@@ -459,7 +461,7 @@ test.describe('Button component', () => {
 	});
 
 	test('loader small', async ({ page }) => {
-		await page.goto(getButtonUrl(1));
+		await loadButtonPage(page, 1);
 
 		const btn = page.getByTestId('loader');
 		await expect(btn).toBeVisible();
@@ -478,7 +480,7 @@ test.describe('Button component', () => {
 	});
 
 	test('loader icon', async ({ page }) => {
-		await page.goto(getButtonUrl(2));
+		await loadButtonPage(page, 2);
 		const btn = page.getByTestId('icon');
 		const icon = btn.locator('svg');
 		await expect(icon).toBeVisible();
@@ -491,7 +493,7 @@ test.describe('Button component', () => {
 	});
 
 	test('loader rounded', async ({ page }) => {
-		await page.goto(getButtonUrl(1));
+		await loadButtonPage(page, 1);
 
 		const btn = page.getByTestId('loader');
 		await expect(btn).toBeVisible();
@@ -510,7 +512,7 @@ test.describe('Button component', () => {
 	});
 
 	test('button medium', async ({ page }) => {
-		await page.goto(getButtonUrl());
+		await loadButtonPage(page);
 		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 		const btnRect = await btn.boundingBox();
@@ -518,7 +520,7 @@ test.describe('Button component', () => {
 	});
 
 	test('button large', async ({ page }) => {
-		await page.goto(getButtonUrl());
+		await loadButtonPage(page);
 		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 		await setControl(page, 'Size', 'select', 'large');
@@ -527,7 +529,7 @@ test.describe('Button component', () => {
 	});
 
 	test('button small', async ({ page }) => {
-		await page.goto(getButtonUrl());
+		await loadButtonPage(page);
 		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 		await setControl(page, 'Size', 'select', 'small');

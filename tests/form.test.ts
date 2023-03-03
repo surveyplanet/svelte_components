@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { loadStory, setControl, getLastEvent } from './_utils.js';
 
 test.describe('Form component', () => {
-	test('should render basic form component', async ({ page }) => {
+	test('basic', async ({ page }) => {
 		const preview = await loadStory(page, 'form');
 		const submit = preview.getByRole('button');
 		const form = preview.locator('.sp-form');

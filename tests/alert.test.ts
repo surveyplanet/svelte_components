@@ -4,24 +4,11 @@ import { loadStory, setControl } from './_utils.js';
 test.describe('Alert component', () => {
 	let canvas: FrameLocator;
 
-	test.beforeEach(async ({ page }, testInfo) => {
+	test.beforeEach(async ({ page }) => {
 		canvas = (await loadStory(page, 'alert')) as FrameLocator;
-		// console.log(
-		// 	`Finished ${testInfo.title} with status ${testInfo.status}`
-		// );
-
-		// if (testInfo.status !== testInfo.expectedStatus) {
-		// 	console.log(`Did not run as expected, ended up at ${page.url()}`);
-		// }
 	});
 
-	test('should render a basic info alert dialog', async ({ page }) => {
-		// await expect(page.locator('html')).toHaveClass('htw-dark');
-		// page.locator('.histoire-app-header a').nth(2).click();
-		// await page.screenshot({ path: 'tests/screenshots/alert.png' });
-
-		expect(canvas).toBeDefined();
-
+	test('basic', async ({ page }) => {
 		const alert = canvas.getByRole('alert');
 		const closeBtn = alert.getByRole('button');
 		const title = alert.getByText('Did you know?');
@@ -40,31 +27,26 @@ test.describe('Alert component', () => {
 		await expect(alert).not.toBeVisible();
 	});
 
-	test('should render a success type', async ({ page }) => {
-		// const canvas = await loadStory(page, 'alert');
+	test('success', async ({ page }) => {
 		await setControl(page, 'Type', 'select', 'Success');
 		const alert = canvas.getByRole('alert');
 		await expect(alert).toHaveClass(/sp-alert--success/);
 	});
 
-	test('should render a warning type', async ({ page }) => {
-		// const canvas = await loadStory(page, 'alert');
+	test('warning', async ({ page }) => {
 		await setControl(page, 'Type', 'select', 'Warning');
 		const alert = canvas.getByRole('alert');
 		await expect(alert).toHaveClass(/sp-alert--warning/);
 	});
 
-	test('should render a error type', async ({ page }) => {
-		// const canvas = await loadStory(page, 'alert');
+	test('error', async ({ page }) => {
 		await setControl(page, 'Type', 'select', 'Error');
 		const alert = canvas.getByRole('alert');
 		await expect(alert).toHaveClass(/sp-alert--error/);
 	});
 
-	test('should render a confirmation alert', async ({ page }) => {
-		// const canvas = await loadStory(page, 'alert');
+	test('confirmation', async ({ page }) => {
 		await setControl(page, 'Confirm', 'checkbox', 'true');
-
 		const alert = canvas.getByRole('alert');
 		await expect(alert).toBeVisible();
 		const confirmButton = canvas.getByRole('button', { name: 'Confirm' });
@@ -74,22 +56,17 @@ test.describe('Alert component', () => {
 		await expect(alert).not.toBeVisible();
 	});
 
-	test('should hide the alert after 2 seconds', async ({ page }) => {
-		// const canvas = await loadStory(page, 'alert');
+	test('auto-hide', async ({ page }) => {
 		await setControl(page, 'Hide delay', 'number', '2000');
-
 		const alert = canvas.getByRole('alert');
 		await expect(alert).toBeVisible();
-		await expect(alert).toBeHidden();
+		await expect(alert).toBeHidden({ timeout: 3000 });
 	});
 
-	test('should hide the alert after a successfully challenge', async ({
-		page,
-	}) => {
+	test('challenge', async ({ page }) => {
 		const challengeTxt = 'testing';
 		const challengeBtnLabel = 'Yep!';
 		const challengeCancelBtnLabel = 'Nope!';
-		// const canvas = await loadStory(page, 'alert');
 		await setControl(page, 'Confirm', 'checkbox', 'true');
 		await setControl(page, 'Challenge', 'text', challengeTxt);
 		await setControl(
@@ -128,8 +105,7 @@ test.describe('Alert component', () => {
 		await expect(alert).not.toBeVisible();
 	});
 
-	test('should add an html body to the alert', async ({ page }) => {
-		// const canvas = await loadStory(page, 'alert');
+	test('html', async ({ page }) => {
 		await setControl(
 			page,
 			'Content',

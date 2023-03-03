@@ -11,9 +11,9 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
 	testDir: './tests',
-	timeout: 10 * 1000,
+	timeout: 5 * 1000,
 	expect: {
-		timeout: 5000,
+		timeout: 2000,
 	},
 	fullyParallel: true,
 	forbidOnly: !!process.env.CI,
@@ -24,10 +24,9 @@ export default defineConfig({
 	reporter: 'list',
 	use: {
 		baseURL: 'http://localhost:6006',
-		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+		screenshot: process.env.CI ? 'off' : 'only-on-failure',
 		trace: 'on-first-retry',
-		/* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-		actionTimeout: 0,
+		actionTimeout: 1000,
 		viewport: {
 			width: 1200,
 			height: 1800,
