@@ -38,8 +38,9 @@
 				{id}
 				{attr}>
 				<TextInput
+					id="first_name"
 					label="First name"
-					name="name" />
+					name="First name" />
 				<TextInput
 					id="last_name"
 					name="last_name"
