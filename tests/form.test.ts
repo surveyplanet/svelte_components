@@ -6,56 +6,51 @@ test.describe('Form component', () => {
 		const preview = await loadStory(page, 'form');
 		const submit = preview.getByRole('button');
 		const form = preview.locator('.sp-form');
-		const name = preview.getByLabel('First name');
+		const firstName = preview.getByLabel('First name');
 		const lastName = preview.getByLabel('Last name');
 		const email = preview.getByLabel('Email');
 		const radios = preview.getByRole('radio');
-		const checkboxes = preview.getByRole('checkbox');
 
-		// await setControl(page, 'Id', 'textarea', 'form');
+		await setControl(page, 'Id', 'text', 'form');
+		await expect(form).toHaveAttribute('id', 'form');
 
 		expect(form).toBeDefined();
 		expect(lastName).toBeDefined();
 		expect(email).toBeDefined();
-		expect(radios.nth(0)).toBeDefined();
-		// // expect(checkboxes).toHaveLength(2);
-		// expect(submit).toBeDefined();
+		expect(radios).toBeDefined();
+		expect(submit).toBeDefined();
 
-		// // expect(form).toHaveClass(/sp-form/);
+		await expect(form).toHaveClass(/sp-form */);
 
-		// expect(name).toBeEnabled();
-		// expect(name).not.toBeFocused();
-		// expect(name).toHaveAttribute('name', 'name');
-		// // await expect(form).toHaveAttribute('id', 'form');
+		await expect(firstName).toBeEnabled();
+		expect(firstName).toHaveAttribute('name', 'First name');
 
-		// await name.type('John');
-		// expect(name).toHaveValue('John');
+		await firstName.type('John');
+		expect(firstName).toHaveValue('John');
 
-		// expect(lastName).toBeEnabled();
-		// expect(lastName).not.toBeFocused();
-		// expect(lastName).toHaveAttribute('id', 'last_name');
-		// expect(lastName).toHaveAttribute('name', 'last_name');
-		// expect(lastName).toHaveAttribute('type', 'text');
+		expect(lastName).toBeEnabled();
+		expect(lastName).not.toBeFocused();
+		expect(lastName).toHaveAttribute('id', 'last_name');
+		expect(lastName).toHaveAttribute('name', 'last_name');
+		expect(lastName).toHaveAttribute('type', 'text');
 
-		// await lastName.type('Doe');
+		await lastName.type('Doe');
 
-		// await email.type('john.doe@example.com');
-		// expect(email).toHaveValue('john.doe@example.com');
+		await email.type('john.doe@example.com');
+		expect(email).toHaveValue('john.doe@example.com');
 
-		// expect(radios).toHaveLength(3);
-
-		// await radios.nth(0).click();
-		// await preview.locator(`label[for="larry"]`).click();
 		await preview.getByText('Larry').click();
 		await expect(preview.getByText('Larry')).toBeChecked();
-		// expect(radios.nth(1)).not.toBeChecked();
-		// expect(radios.nth(3)).not.toBeChecked();
+		await expect(preview.getByText('Curly')).not.toBeChecked();
+		await expect(preview.getByText('Moe')).not.toBeChecked();
 
-		await checkboxes.nth(0).click();
-		await checkboxes.nth(1).click();
-		expect(checkboxes.nth(0)).toBeChecked();
-		expect(checkboxes.nth(0)).toBeChecked();
+		await preview.getByText('Accept').click();
+		await preview.getByRole('switch').click();
+		await expect(preview.getByText('Accept')).toBeChecked();
+		await expect(preview.getByRole('switch')).toBeChecked();
 		await submit.click();
-		// expect(res.args.submitHandler).toHaveBeenCalled();
+
+		const event = await getLastEvent(page);
+		expect(event.name).toBe('submit');
 	});
 });
