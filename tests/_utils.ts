@@ -6,6 +6,11 @@ import {
 } from '@playwright/test';
 import { loadConfigFromFile } from 'vite';
 
+interface HistoireEvent {
+	name: string;
+	data?: object;
+}
+
 type ControlType =
 	| 'button'
 	| 'buttonGroup'
@@ -63,17 +68,74 @@ export const getStyles = async (
 	});
 };
 
+const _parseEventData = (dataTxt: string): object => {
+	if (!dataTxt?.length) {
+		return {};
+	}
+
+	return Object.fromEntries(
+		dataTxt
+			.replace(/^{ /, '')
+			.replace(/ }$/, '')
+			.split(', ')
+			.map((itm) => {
+				return itm.split(': ');
+			})
+	);
+};
+
+const _openEventsMenu = async (page: Page): Promise<void> => {
+	const baseMenu = page.locator('.histoire-base-overflow-menu');
+	const eventTab = baseMenu.locator('a').nth(2);
+
+	if (await eventTab.isVisible()) {
+		await eventTab.click();
+	} else {
+		// open dropdown if menu is truncated
+		await baseMenu.getByRole('button').click();
+		const optionsEl = page.locator('.v-popper__popper').last();
+		await expect(optionsEl, 'Could not find select values').toBeVisible();
+		const optionEl = optionsEl.locator(`text="Events"`);
+		await expect(optionEl).toBeVisible();
+		await optionEl.click();
+	}
+};
+
 /**
- * Retrieve event the last event from the Histoire event pane.
+ * Retrieve the last event from the Histoire event pane.
  *
  * @function getLastEvent
  * @async
  * @param page {Page} The Playwright page
- * @returns Promise<{ name: string; data?: object } Then event name and data (Does not work with nested objects)
+ * @returns Promise<HistoireEvent> Then event name and data (Does not work with nested objects)
  */
-export const getLastEvent = async (
-	page: Page
-): Promise<{ name: string; data?: object }> => {
+export const getLastEvent = async (page: Page): Promise<HistoireEvent> => {
+	await _openEventsMenu(page);
+	const eventItem = page.locator('[data-test-id="event-item"]').last();
+	const hasEventItems = (await eventItem.count()) > 0;
+
+	if (!hasEventItems) {
+		return { name: '' };
+	}
+
+	const eventName = eventItem.locator('span').first();
+	const eventData = eventItem.locator('span').last();
+	const name = await eventName.innerText();
+	const dataTxt = await eventData.innerText();
+	const data = _parseEventData(dataTxt);
+
+	return { name, data };
+};
+
+/**
+ * Retrieve all the events from the Histoire event pane.
+ *
+ * @function getAllEvents
+ * @async
+ * @param page {Page} The Playwright page
+ * @returns Promise<HistoireEvent[]>
+ */
+export const getAllEvents = async (page: Page): Promise<HistoireEvent[]> => {
 	const baseMenu = page.locator('.histoire-base-overflow-menu');
 	const eventTab = baseMenu.locator('a').nth(2);
 
@@ -89,31 +151,27 @@ export const getLastEvent = async (
 		await expect(optionEl).toBeVisible();
 		await optionEl.click();
 	}
-	const eventItem = page.locator('[data-test-id="event-item"]').last();
-	const hasEventItems = (await eventItem.count()) > 0;
+	const eventItems = page.locator('[data-test-id="event-item"]');
+	const totalEvents = await eventItems.count();
+	const data: HistoireEvent[] = [];
 
-	if (!hasEventItems) {
-		return { name: '' };
+	if (totalEvents <= 0) {
+		return data;
 	}
 
-	const eventName = eventItem.locator('span').first();
-	const eventData = eventItem.locator('span').last();
-	const name = await eventName.innerText();
-	const dataTxt = await eventData.innerText();
-	let data = {};
-	if (dataTxt?.length) {
-		data = Object.fromEntries(
-			dataTxt
-				.replace(/^{ /, '')
-				.replace(/ }$/, '')
-				.split(', ')
-				.map((itm) => {
-					return itm.split(': ');
-				})
-		);
+	for (let i = 0; i < totalEvents; i++) {
+		const eventItem = eventItems.nth(i);
+
+		const eventName = eventItem.locator('span').first();
+		const eventData = eventItem.locator('span').last();
+		const dataTxt = await eventData.innerText();
+		data.push({
+			name: await eventName.innerText(),
+			data: _parseEventData(dataTxt),
+		});
 	}
 
-	return { name, data };
+	return data;
 };
 
 /**
@@ -140,6 +198,7 @@ export const setControl = async (
 	const labelEl = controls.locator('label', {
 		has: page.locator(`text="${label}"`),
 	});
+	await expect(labelEl).toBeVisible();
 
 	if (type === 'button') {
 		// TODO:
@@ -168,8 +227,9 @@ export const setControl = async (
 			'setControls is not available for checkboxList control.'
 		);
 	} else if (type === 'json') {
-		// TODO:
-		throw new Error('setControls is not available for json control.');
+		const input = labelEl.locator('.cm-content');
+		await expect(input).toBeVisible();
+		await input.fill(value);
 	} else if (type === 'number') {
 		const input = labelEl.locator('input');
 		await expect(input).toBeVisible();

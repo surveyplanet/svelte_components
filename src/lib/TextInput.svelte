@@ -9,7 +9,7 @@
 	/**
 	 * The unique id of the input
 	 */
-	export let id: string = (Date.now() + Math.random()).toString(36);
+	export let id: string;
 
 	/**
 	 * The name of the input
@@ -75,18 +75,16 @@
 
 	let validationDisplayMessage = '';
 
-	onMount(() => {
+	$: {
 		if (
 			Object.keys(cleaveOptions).length &&
 			Object.prototype.toString.call(cleaveOptions) === '[object Object]'
 		) {
 			new Cleave(`#${id}`, cleaveOptions);
 		}
-	});
+	}
 
 	const changeHandler = (event: Event) => {
-		console.log(event.target);
-
 		const errors: ValidatorError[] = validate(
 			event.target as HTMLInputElement
 		);
