@@ -9,10 +9,5 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true
-	},
-	"include": [
-		"./histoire.config.ts",
-		"./playwright.config.ts",
-		"./src/**/*.ts"
-	]
+	}
 }

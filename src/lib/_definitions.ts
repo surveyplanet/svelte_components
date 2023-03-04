@@ -14,34 +14,34 @@ export const enum BUTTON_MODES {
 }
 
 export const COLORS = {
-	slate_lighter: '#dcdee1',
-	slate_light: '#a2a6af',
+	slateLighter: '#dcdee1',
+	slateLight: '#a2a6af',
 	slate: '#737a87',
-	slate_dark: '#162137',
+	slateDark: '#162137',
 
-	light_purple_light: '#f4f0ff',
-	light_purple: '#ece5ff',
-	light_purple_dark: '#baa5db',
+	lightPurpleLight: '#f4f0ff',
+	lightPurple: '#ece5ff',
+	lightPurpleDark: '#baa5db',
 
-	purple_light: '#dbccff',
+	purpleLight: '#dbccff',
 	purple: '#b598ff',
-	purple_dark: '#9a79ed',
+	purpleDark: '#9a79ed',
 
-	blue_light: '#d8f4fd',
+	blueLight: '#d8f4fd',
 	blue: '#9ee4fa',
-	blue_dark: '#78c4ee',
+	blueDark: '#78c4ee',
 
-	green_light: '#d9fedb',
+	greenLight: '#d9fedb',
 	green: '#a1fda5',
-	green_dark: '#7be492',
+	greenDark: '#7be492',
 
-	pink_light: '#ffd8f1',
+	pinkLight: '#ffd8f1',
 	pink: '#ffb1e3',
-	pink_dark: '#ea83c5',
+	pinkDark: '#ea83c5',
 
-	yellow_light: '#fff5bc',
+	yellowLight: '#fff5bc',
 	yellow: '#ffe978',
-	yellow_dark: '#fac766',
+	yellowDark: '#fac766',
 
 	white: '#ffffff',
 	black: '#162137',

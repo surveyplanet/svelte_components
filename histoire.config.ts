@@ -13,7 +13,7 @@ export default defineConfig({
 			},
 			{
 				title: 'Components',
-				include: (file) => true,
+				include: () => true,
 			},
 			// {
 			// 	title: 'Utilities',

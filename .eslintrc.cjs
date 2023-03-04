@@ -33,11 +33,7 @@ module.exports = {
 			processor: 'svelte3/svelte3',
 		},
 		{
-			files: [
-				'./src/stories/**/*.ts',
-				'./src/stories/**/*.svelte',
-				'./tests',
-			],
+			files: ['**/*.test.ts'],
 			rules: {
 				'@typescript-eslint/unbound-method': 'off',
 				'@typescript-eslint/no-non-null-assertion': 'off', // allow ! in tests
@@ -61,6 +57,8 @@ module.exports = {
 		'package-lock.json',
 		'vite.config.js',
 		'svelte.config.js',
+		'histoire.config.ts',
+		'playwright.config.ts',
 		'src/stories',
 	],
 };

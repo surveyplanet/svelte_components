@@ -6,7 +6,7 @@
 	import ICON_DATA from '../../lib/_icon_data';
 	export let Hst: Histoire;
 
-	let color = COLORS.slate_dark;
+	let color = COLORS.slateDark;
 	let size: IconSize = 24;
 	let name: IconName = 'bell';
 	let debug = false;
