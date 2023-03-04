@@ -40,9 +40,9 @@ export const loadStory = async (
 ): Promise<FrameLocator | Page> => {
 	name = name.toLocaleLowerCase();
 
-	let url = `/story/src-historie-${name}-${name}-story-svelte`;
+	let url = `/story/src-stories-${name}-${name}-story-svelte`;
 	if (variant !== null && !isNaN(variant)) {
-		url += `?variantId=src-historie-${name}-${name}-story-svelte-${variant}`;
+		url += `?variantId=src-stories-${name}-${name}-story-svelte-${variant}`;
 	}
 
 	await page.goto(url, { timeout: 5000 });

@@ -7,7 +7,7 @@ This is a demo book using Svelte 3.
 Learn more about Histoire [here](https://histoire.dev/).
 
 <iframe
-src="/__sandbox.html?storyId=src-historie-badge-badge-story-svelte&variantId=src-historie-badge-badge-story-svelte-0"
+src="/__sandbox.html?storyId=src-stories-badge-badge-story-svelte&variantId=src-stories-badge-badge-story-svelte-0"
 >
 
 </iframe>

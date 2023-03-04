@@ -2,7 +2,7 @@ import { test, expect, type Page } from '@playwright/test';
 import { setControl, getStyles } from './_utils.js';
 
 const loadButtonPage = async (page: Page, variant = 0) => {
-	const url = `/story/src-historie-button-button-story-svelte?variantId=src-historie-button-button-story-svelte-${variant}`;
+	const url = `/story/src-stories-button-button-story-svelte?variantId=src-stories-button-button-story-svelte-${variant}`;
 	return page.goto(url, { timeout: 5000 });
 };
 
