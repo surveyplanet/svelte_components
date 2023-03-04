@@ -1,10 +1,13 @@
+<script
+	context="module"
+	lang="ts">
+	import ICON_DATA from './_icon_data';
+	export type IconName = keyof typeof ICON_DATA;
+	export type IconSize = 8 | 16 | 20 | 24 | 32 | 48 | 64 | 128 | 256 | 512;
+</script>
+
 <script lang="ts">
 	import { COLORS } from './';
-	import ICON_DATA from './_icon_data';
-
-	type IconName = keyof typeof ICON_DATA;
-
-	type IconSize = 8 | 16 | 20 | 24 | 32 | 48 | 64 | 128 | 256 | 512;
 
 	const DEFAULT_SIZE: IconSize = 24;
 

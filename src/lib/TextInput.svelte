@@ -1,5 +1,11 @@
+<script
+	context="module"
+	lang="ts">
+	export type TextInputType = 'password' | 'search' | 'text';
+</script>
+
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 	import { validate, type ValidatorError } from '@surveyplanet/utilities';
 	import Cleave from 'cleave.js';
 	import type { CleaveOptions } from 'cleave.js/options';
@@ -19,7 +25,7 @@
 	/**
 	 * The input type, default: 'text'
 	 */
-	export let type: 'password' | 'search' | 'text' = 'text';
+	export let type: TextInputType = 'text';
 
 	/**
 	 * The value of the input

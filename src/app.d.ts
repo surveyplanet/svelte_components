@@ -9,27 +9,3 @@ declare namespace App {
 	// interface PageData {}
 	// interface Platform {}
 }
-
-interface SvelteCustomEvent {
-	detail: {
-		target: HTMLElement;
-	};
-}
-
-interface StoryBookPlayArgs {
-	canvasElement: HTMLElement;
-	args: {
-		clickHandler?(e: MouseEvent): void;
-		changeHandler?(e: MouseEvent): void;
-		keyupHandler?(e: Event): void;
-		keydownHandler?(e: Event): void;
-		blurHandler?(e: Event): void;
-		focusHandler?(e: Event): void;
-		openHandler?(e: Event): void;
-		inHandler?(e: Event): void;
-		closeHandler?(e: Event): void;
-		outHandler?(e: Event): void;
-		confirmHandler?(e: Event): void;
-		submitHandler?(e: Event): void;
-	};
-}

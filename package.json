@@ -26,7 +26,7 @@
 	},
 	"scripts": {
 		"build": "svelte-kit sync && svelte-package",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check": "svelte-kit sync && svelte-check --use-new-transformation --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"clean": "rm -rf package coverage node_modules dist .svelte-kit && npm i",
 		"clean:hard": "rm package-lock.json && npm run clean",

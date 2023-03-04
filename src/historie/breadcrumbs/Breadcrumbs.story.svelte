@@ -1,8 +1,8 @@
 <script lang="ts">
+	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { Breadcrumbs } from '../../lib';
-	import { COLORS } from '../../lib/_definitions';
 	import source from './source';
-	export let Hst;
+	export let Hst: Histoire;
 
 	let breadcrumbs = [
 		{

@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
+	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { Alert } from '../../lib';
 	import { default as source } from './source';
 
-	export let Hst;
+	export let Hst: Histoire;
 
 	let title = 'Did you know?';
 	let subtitle = 'Informational alert';

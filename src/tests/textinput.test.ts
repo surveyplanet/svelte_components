@@ -1,8 +1,7 @@
 import { test, expect, type FrameLocator } from '@playwright/test';
-import { delay } from '@surveyplanet/utilities';
-import { setControl, loadStory, getStyles, getAllEvents } from './_utils.js';
+import { setControl, loadStory, getAllEvents } from './_utils.js';
 
-test.describe('Toggle component', () => {
+test.describe('Text Input component', () => {
 	let canvas: FrameLocator;
 
 	test.beforeEach(async ({ page }) => {
@@ -105,7 +104,7 @@ test.describe('Toggle component', () => {
 		const today = new Date();
 		const year = today.getFullYear().toString();
 		const month = (today.getMonth() + 1).toString().padStart(2, '0');
-		const day = today.getDate();
+		const day = today.getDate().toString().padStart(2, '0');
 		const value = `${year}-${month}-${day}`;
 		const cleaveOptions = {
 			date: true,

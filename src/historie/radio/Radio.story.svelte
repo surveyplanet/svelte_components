@@ -1,9 +1,10 @@
 <script lang="ts">
+	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { logEvent } from 'histoire/client';
 	import { Radio } from '../../lib';
 	import source from './source';
 
-	export let Hst;
+	export let Hst: Histoire;
 
 	let name = 'stooge';
 	let labelOne = 'Harry';

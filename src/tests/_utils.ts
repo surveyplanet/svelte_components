@@ -4,7 +4,6 @@ import {
 	type Locator,
 	type Page,
 } from '@playwright/test';
-import { loadConfigFromFile } from 'vite';
 
 interface HistoireEvent {
 	name: string;

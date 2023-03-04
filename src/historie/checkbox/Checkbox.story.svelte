@@ -1,9 +1,9 @@
 <script lang="ts">
+	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { logEvent } from 'histoire/client';
 	import source from './source';
 	import { Checkbox } from '../../lib';
-	import { COLORS, BUTTON_MODES, SIZES } from '../../lib/_definitions';
-	export let Hst;
+	export let Hst: Histoire;
 
 	let id: string;
 	let name: 'checkbox';

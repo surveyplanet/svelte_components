@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { logEvent } from 'histoire/client';
 	import source from './source';
 	import {
@@ -9,11 +10,9 @@
 		Checkbox,
 		Toggle,
 	} from '../../lib';
-	import { COLORS, BUTTON_MODES, SIZES } from '../../lib/_definitions';
-	export let Hst;
+	export let Hst: Histoire;
 
 	export let id: string | null = null;
-	export let attr: object | null = null;
 
 	const submitHandler = (e: Event): void => {
 		logEvent('submit', e);
@@ -25,9 +24,6 @@
 		<Hst.Text
 			bind:value={id}
 			title="Id" />
-		<Hst.Json
-			bind:value={attr}
-			title="Attributes" />
 	</svelte:fragment>
 	<Hst.Variant
 		title="Primary"
@@ -35,8 +31,7 @@
 		<div class="formWrapper">
 			<Form
 				on:submit={submitHandler}
-				{id}
-				{attr}>
+				{id}>
 				<TextInput
 					id="first_name"
 					label="First name"

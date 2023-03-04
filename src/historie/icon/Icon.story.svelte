@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { Icon } from '../../lib';
+	import type { Hst as Histoire } from '@histoire/plugin-svelte';
+	import { Icon, type IconName, type IconSize } from '../../lib';
 	import { COLORS } from '../../lib/_definitions';
 	import { default as source } from './source';
 	import ICON_DATA from '../../lib/_icon_data';
-	export let Hst;
+	export let Hst: Histoire;
 
 	let color = COLORS.slate_dark;
-	let size = 24;
-	let name = 'bell';
+	let size: IconSize = 24;
+	let name: IconName = 'bell';
 	let debug = false;
 </script>
 

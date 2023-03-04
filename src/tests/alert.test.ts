@@ -8,7 +8,7 @@ test.describe('Alert component', () => {
 		canvas = (await loadStory(page, 'alert')) as FrameLocator;
 	});
 
-	test('basic', async ({ page }) => {
+	test('basic', async () => {
 		const alert = canvas.getByRole('alert');
 		const closeBtn = alert.getByRole('button');
 		const title = alert.getByText('Did you know?');

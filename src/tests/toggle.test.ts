@@ -5,7 +5,7 @@ import { loadStory, setControl, getStyles, getLastEvent } from './_utils.js';
 test.describe('Toggle component', () => {
 	let canvas: FrameLocator;
 
-	test.beforeEach(async ({ page }, testInfo) => {
+	test.beforeEach(async ({ page }) => {
 		canvas = (await loadStory(page, 'toggle')) as FrameLocator;
 	});
 

@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
-	import source from './source.ts';
+	import type { Hst as Histoire } from '@histoire/plugin-svelte';
+	import source from './source';
 	import { Button, Icon } from '../../lib';
 	import { BUTTON_MODES, SIZES } from '../../lib/_definitions';
-	export let Hst;
+
+	export let Hst: Histoire;
 
 	let content = 'Submit';
 	let mode = BUTTON_MODES.PRIMARY;
@@ -16,7 +18,7 @@
 	let form: string | null = null;
 	let size = SIZES.MEDIUM;
 
-	const clickHandler = (e: MouseEvent): void => {
+	const clickHandler = (e: CustomEvent): void => {
 		if (disabled) {
 			return;
 		}

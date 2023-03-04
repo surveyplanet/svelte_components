@@ -1,5 +1,4 @@
 import { test, expect, type FrameLocator } from '@playwright/test';
-import { delay } from '@surveyplanet/utilities';
 import { setControl, loadStory, getLastEvent, getStyles } from './_utils.js';
 
 test.describe('Toggle component', () => {
@@ -41,7 +40,6 @@ test.describe('Toggle component', () => {
 
 	test('disabled', async ({ page }) => {
 		const radio = canvas.getByLabel('Harry');
-		const label = canvas.locator('label', { hasText: 'Harry' });
 		await expect(radio).not.toBeDisabled();
 		await setControl(page, 'Disabled', 'checkbox', 'true');
 		await expect(radio).toBeDisabled();

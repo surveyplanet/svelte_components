@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { loadStory } from './_utils.js';
 
-test.describe('Alert component', () => {
-	test('should render a basic info alert dialog', async ({ page }) => {
+test.describe('Breadcrumbs component', () => {
+	test('basic', async ({ page }) => {
 		const preview = await loadStory(page, 'breadcrumbs');
 
 		const home = preview.getByText('Home');

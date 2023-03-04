@@ -1,5 +1,3 @@
-import { COLORS } from '../../lib/_definitions';
-
 export default `<script>
 	import { Form, TextInput, Button } from '@surveyplanet/svelte_components';
 	const keyupHandler = (event) => {

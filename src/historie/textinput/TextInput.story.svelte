@@ -1,13 +1,14 @@
 <script lang="ts">
+	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { logEvent } from 'histoire/client';
 	import source from './source';
-	import { TextInput } from '../../lib';
+	import { TextInput, type TextInputType } from '../../lib';
 
-	export let Hst;
+	export let Hst: Histoire;
 
 	let id = 'basic-text';
 	let name = 'basic-text';
-	let type = 'text';
+	let type: TextInputType = 'text';
 	let value: string;
 	let label = 'Text input';
 	let placeholder = 'Placeholder';

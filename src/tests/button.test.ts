@@ -1,8 +1,7 @@
-import { test, expect } from '@playwright/test';
-import { secondary } from '../src/stories/button/button.test.js';
-import { loadStory, setControl, getStyles } from './_utils.js';
+import { test, expect, type Page } from '@playwright/test';
+import { setControl, getStyles } from './_utils.js';
 
-const loadButtonPage = async (page, variant = 0) => {
+const loadButtonPage = async (page: Page, variant = 0) => {
 	const url = `/story/src-historie-button-button-story-svelte?variantId=src-historie-button-button-story-svelte-${variant}`;
 	return page.goto(url, { timeout: 5000 });
 };
@@ -124,7 +123,7 @@ test.describe('Button component', () => {
 
 		await btn.hover();
 		styles = await getStyles(btn);
-		await expect(styles.boxShadow).toBe(
+		expect(styles.boxShadow).toBe(
 			'rgb(196, 199, 205) 0px 0px 0px 1px inset'
 		);
 	});
@@ -310,7 +309,6 @@ test.describe('Button component', () => {
 		await loadButtonPage(page, 2);
 		const btn = page.getByTestId('icon');
 		const icon = btn.locator('svg');
-		const iconPath = btn.locator('svg path');
 		await expect(icon).toBeVisible();
 
 		await setControl(page, 'Size', 'select', 'small');
@@ -325,7 +323,6 @@ test.describe('Button component', () => {
 		await loadButtonPage(page, 2);
 		const btn = page.getByTestId('icon');
 		const icon = btn.locator('svg');
-		const iconPath = btn.locator('svg path');
 		await expect(icon).toBeVisible();
 
 		await setControl(page, 'Size', 'select', 'large');
@@ -428,7 +425,7 @@ test.describe('Button component', () => {
 		});
 
 		await expect(btnLabel).not.toBeVisible();
-		await expect(styles.backgroundColor).toBe('rgb(181, 152, 255)');
+		expect(styles.backgroundColor).toBe('rgb(181, 152, 255)');
 		// await expect(btn.innerText).toBe('');
 		expect(afterEl.display).toBe('block');
 		expect(afterEl.width).toBe('16px');

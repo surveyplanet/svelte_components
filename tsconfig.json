@@ -10,5 +10,9 @@
 		"sourceMap": true,
 		"strict": true
 	},
-	"exclude": ["./src/stories"]
+	"include": [
+		"./histoire.config.ts",
+		"./playwright.config.ts",
+		"./src/**/*.ts"
+	]
 }
