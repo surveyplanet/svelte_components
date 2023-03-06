@@ -12,7 +12,7 @@
 	/**
 	 * The button mode. See BUTTON_MODES.
 	 */
-	export let mode: BUTTON_MODES = BUTTON_MODES.PRIMARY;
+	export let mode = BUTTON_MODES.PRIMARY;
 
 	/**
 	 * Whether the button is disabled or not
@@ -53,7 +53,7 @@
 	 * The button size, either: 'small', 'medium' or 'large'
 	 * @required
 	 */
-	export let size: SIZES = SIZES.MEDIUM;
+	export let size = SIZES.MEDIUM;
 
 	let clickAnimationEl: HTMLElement;
 

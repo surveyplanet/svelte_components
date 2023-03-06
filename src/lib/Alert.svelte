@@ -19,7 +19,7 @@
 	/**
 	 * The type of alert.
 	 */
-	export let type: 'info' | 'warning' | 'error' | 'success' = 'success';
+	export let alertType: 'info' | 'warning' | 'error' | 'success' = 'success';
 
 	/**
 	 * Automatically hide alert after X milliseconds. A value of 0 means don't hide.
@@ -73,8 +73,8 @@
 		visible = true;
 	});
 
-	const challengeKeyupHandler = (event: SvelteCustomEvent): void => {
-		const input = event.detail.target as HTMLInputElement;
+	const challengeKeyupHandler = (event: Event): void => {
+		const input = (event as CustomEvent).detail.target as HTMLInputElement;
 		disableConfirmButton = input.value !== challenge;
 	};
 
@@ -109,7 +109,7 @@
 {#if visible}
 	<div
 		role="alert"
-		class="sp-alert sp-alert--{type}"
+		class="sp-alert sp-alert--{alertType}"
 		class:sp-alert--confirm={confirm}
 		class:sp-alert--challenge={isChallenge}
 		transition:fly={{
@@ -151,6 +151,7 @@
 				{#if isChallenge}
 					<div class="sp-alert--challenge">
 						<TextInput
+							id="defaultId"
 							name="challenge"
 							label={challengeLabel}
 							placeholder={challenge}

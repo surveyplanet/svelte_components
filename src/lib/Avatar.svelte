@@ -6,15 +6,16 @@
 
 	const bgColors = [COLORS.blue, COLORS.green, COLORS.pink, COLORS.yellow];
 
+	// mascot should return a type that is a key of MASCOTS
 	const mascots = Object.keys(MASCOTS).map((key) => {
 		return MASCOTS[key];
 	});
 
-	export let imgSrc: string | null = null;
+	export let imgSrc: string;
 
-	export let id: string | null = null;
+	export let id: string;
 
-	export let size: SIZES = SIZES.SMALL;
+	export let size = SIZES.SMALL;
 
 	export let disabled = false;
 

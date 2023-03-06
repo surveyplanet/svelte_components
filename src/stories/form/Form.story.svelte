@@ -10,10 +10,10 @@
 		Checkbox,
 		Toggle,
 	} from '../../lib';
+
 	export let Hst: Histoire;
 
-	export let id: string | null = null;
-
+	let id: string;
 	const submitHandler = (e: Event): void => {
 		logEvent('submit', e);
 	};

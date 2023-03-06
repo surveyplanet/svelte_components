@@ -1,17 +1,17 @@
-export const enum SIZES {
-	SMALL = 'small',
-	MEDIUM = 'medium',
-	LARGE = 'large',
-}
+export const SIZES = {
+	SMALL: 'small',
+	MEDIUM: 'medium',
+	LARGE: 'large',
+} as Record<string, string>;
 
-export const enum BUTTON_MODES {
-	PRIMARY = 'primary',
-	SECONDARY = 'secondary',
-	TERTIARY = 'tertiary',
-	QUATERNARY = 'quaternary',
-	DARK = 'dark',
-	LIGHT = 'light',
-}
+export const BUTTON_MODES = {
+	PRIMARY: 'primary',
+	SECONDARY: 'secondary',
+	TERTIARY: 'tertiary',
+	QUATERNARY: 'quaternary',
+	DARK: 'dark',
+	LIGHT: 'light',
+} as Record<string, string>;
 
 export const COLORS = {
 	slateLighter: '#dcdee1',
@@ -45,7 +45,7 @@ export const COLORS = {
 
 	white: '#ffffff',
 	black: '#162137',
-};
+} as Record<string, string>;
 
 export const MASCOTS = {
 	marvin: `https://via.placeholder.com/512/${COLORS.blue.replace(
@@ -64,4 +64,4 @@ export const MASCOTS = {
 		'#',
 		''
 	)}/${COLORS.black.replace('#', '')}?text=JACK`,
-};
+} as Record<string, string>;
