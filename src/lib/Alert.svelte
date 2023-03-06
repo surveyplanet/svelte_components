@@ -5,6 +5,7 @@
 	import { COLORS, BUTTON_MODES, Button, Icon, TextInput } from './';
 
 	const dispatch = createEventDispatcher();
+	const dispatchConfirm = createEventDispatcher<{ detail: boolean }>();
 
 	/**
 	 * Main alert title.
@@ -80,7 +81,7 @@
 
 	const alertConfirmButtonClickHandler = () => {
 		const value = isChallenge ? !disableConfirmButton : true;
-		dispatch('confirm', value);
+		dispatchConfirm('confirm', value);
 		visible = false;
 	};
 

@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { BUTTON_MODES, SIZES } from './index';
 
-	const dispatch = createEventDispatcher();
+	const dispatchClick = createEventDispatcher<{ detail: MouseEvent }>();
 
 	/**
 	 * A Button Component
@@ -63,7 +63,7 @@
 	let active = false;
 
 	const clickHandler = (e: MouseEvent): void => {
-		dispatch('click', e);
+		dispatchClick('click', e);
 	};
 
 	const mouseUpHandler = (): void => {

@@ -28,55 +28,75 @@
 	<Hst.Variant
 		title="Primary"
 		{source}>
-		<div class="formWrapper">
+		<ul class="form-wrapper">
 			<Form
 				on:submit={submitHandler}
 				{id}>
-				<TextInput
-					id="first_name"
-					label="First name"
-					name="First name" />
-				<TextInput
-					id="last_name"
-					name="last_name"
-					label="Last name" />
-				<TextInput
-					id="email"
-					name="email"
-					label="Email" />
-				<div style="display: flex;">
-					<Radio
-						id="larry"
-						name="stooge"
-						value="larry"
-						label="Larry" />
-					<Radio
-						id="curly"
-						name="stooge"
-						value="curly"
-						label="Curly" />
-					<Radio
-						id="moe"
-						name="stooge"
-						value="moe"
-						label="Moe" />
-				</div>
-				<Checkbox
-					id="checkbox"
-					name="checkbox"
-					label="Accept"
-					value="checkbox pass" />
-				<Toggle
-					id="toggle"
-					name="toggle" />
-				<Button type="submit">Submit</Button>
+				<li>
+					<TextInput
+						id="first_name"
+						label="First name"
+						name="First name" />
+				</li>
+				<li>
+					<TextInput
+						id="last_name"
+						name="last_name"
+						label="Last name" />
+				</li>
+				<li>
+					<TextInput
+						id="email"
+						name="email"
+						label="Email"
+						validationRules={['required', 'email']} />
+				</li>
+				<li>
+					<div style="display: flex; gap: 10px">
+						<Radio
+							id="larry"
+							name="stooge"
+							value="larry"
+							label="Larry" />
+						<Radio
+							id="curly"
+							name="stooge"
+							value="curly"
+							label="Curly" />
+						<Radio
+							id="moe"
+							name="stooge"
+							value="moe"
+							label="Moe" />
+					</div>
+				</li>
+				<li>
+					<Checkbox
+						id="checkbox"
+						name="checkbox"
+						label="Accept"
+						value="checkbox pass" />
+				</li>
+				<li>
+					<Toggle
+						id="toggle"
+						name="toggle" />
+				</li>
+				<li>
+					<Button type="submit">Submit</Button>
+				</li>
 			</Form>
-		</div>
+		</ul>
 	</Hst.Variant>
 </Hst.Story>
 
-<style>
-	.formWrapper {
-		width: 400px;
+<style lang="scss">
+	ul.form-wrapper {
+		list-style: none;
+		margin: 0;
+		padding: 25px;
+		li {
+			padding: 10px 0;
+		}
 	}
 </style>
