@@ -14,6 +14,8 @@
 	export let Hst: Histoire;
 
 	let id: string;
+	let validationRules: string[] = [];
+	let validationMessage: string;
 	const submitHandler = (e: Event): void => {
 		logEvent('submit', e);
 	};
