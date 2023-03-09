@@ -2,8 +2,8 @@
 	import { logEvent } from 'histoire/client';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import source from './source';
-	import { Button, Icon } from '../../lib';
-	import { BUTTON_MODES, SIZES } from '../../lib/_definitions';
+	import { Button, Icon, BUTTON_MODES } from '../../lib';
+	import { SIZES } from '../../lib/_definitions';
 
 	export let Hst: Histoire;
 

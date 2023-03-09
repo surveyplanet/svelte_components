@@ -1,6 +1,19 @@
+<script
+	lang="ts"
+	context="module">
+	export const BUTTON_MODES = {
+		PRIMARY: 'primary',
+		SECONDARY: 'secondary',
+		TERTIARY: 'tertiary',
+		QUATERNARY: 'quaternary',
+		DARK: 'dark',
+		LIGHT: 'light',
+	} as Record<string, string>;
+</script>
+
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { BUTTON_MODES, SIZES } from './index';
+	import { SIZES } from './index';
 
 	const dispatch = createEventDispatcher();
 

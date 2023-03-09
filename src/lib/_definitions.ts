@@ -4,15 +4,6 @@ export const SIZES = {
 	LARGE: 'large',
 } as Record<string, string>;
 
-export const BUTTON_MODES = {
-	PRIMARY: 'primary',
-	SECONDARY: 'secondary',
-	TERTIARY: 'tertiary',
-	QUATERNARY: 'quaternary',
-	DARK: 'dark',
-	LIGHT: 'light',
-} as Record<string, string>;
-
 export const COLORS = {
 	slateLighter: '#dcdee1',
 	slateLight: '#a2a6af',
