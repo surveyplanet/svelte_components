@@ -45,7 +45,6 @@ test.describe('Avatar component', () => {
 			'https://via.placeholder.com/512/9ee4fa/162137?text=MARVIN'
 		);
 		expect(alt).toBe('profile');
-		console.log(avatar);
 
 		await expect(avatar).toHaveAttribute('aria-label', 'profile image');
 

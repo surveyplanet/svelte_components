@@ -58,7 +58,14 @@
 </script>
 
 <svelte:window on:keydown={clickableOverlayHandler} />
-
+{#if overlay && visible}
+	<div
+		class="sp-modal--overlay--background"
+		data-testid="overlay"
+		transition:fade
+		on:click={closeHandler}
+		on:keydown={clickableOverlayHandler} />
+{/if}
 {#if visible}
 	<div
 		transition:fly={{
@@ -67,11 +74,11 @@
 			easing: cubicOut,
 		}}
 		class="sp-modal sp-modal--{size}"
+		data-testid="modal"
 		on:introstart={modalOpened}
 		on:introend={modalIn}
 		on:outrostart={modalOut}
 		on:outroend={modalClosed}
-		class:sp-modal--shown={visible}
 		class:sp-modal--fullscreen={fullscreen}
 		class:sp-modal--overlay={overlay}>
 		<header class="sp-modal--header">
@@ -84,29 +91,23 @@
 					size={20} />
 			</button>
 			{#if title?.length}
-				<h2 class="sp-modal-header--title">{title}</h2>
+				<h2 class="sp-modal--header--title">{title}</h2>
 			{/if}
 			{#if subtitle?.length}
-				<h3 class="sp-modal-header--subtitle">{subtitle}</h3>
+				<h3 class="sp-modal--header--subtitle">{subtitle}</h3>
 			{/if}
 			<slot name="header" />
 		</header>
 
 		<div class="sp-modal--body">
-			<slot name="body" />
+			<slot
+				name="body"
+				class="hugo" />
 		</div>
 		<footer class="sp-modal--footer">
 			<slot name="footer" />
 		</footer>
 	</div>
-{/if}
-
-{#if overlay && visible}
-	<div
-		class="sp-modal--overlay-background"
-		transition:fade
-		on:click={closeHandler}
-		on:keydown={clickableOverlayHandler} />
 {/if}
 
 <style lang="scss">
@@ -123,71 +124,68 @@
 		box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.25);
 		font: $font--default;
 		background-color: $color--white;
+	}
+	.sp-modal--header {
+		position: relative;
+	}
 
-		.sp-modal--header {
-			position: relative;
-		}
+	.sp-modal--body {
+		position: relative;
+	}
 
-		.sp-modal--body {
-			position: relative;
-		}
+	.sp-modal--footer {
+		position: relative;
+	}
 
-		.sp-modal--footer {
-			position: relative;
-		}
+	.sp-modal--overlay {
+		z-index: 999;
+		opacity: 0.8;
+	}
 
-		.sp-modal--overlay {
-			z-index: 999;
-			opacity: 0.8;
-		}
+	.sp-modal--fullscreen {
+		width: 100%;
+		height: 100%;
+		max-width: 100%;
+		max-height: 100%;
+		border-radius: 0;
+		box-shadow: none;
+	}
 
-		.sp-modal--fullscreen {
-			width: 100%;
-			height: 100%;
-			max-width: 100%;
-			max-height: 100%;
-			border-radius: 0;
-			box-shadow: none;
-		}
+	.sp-modal--header--close-btn {
+		position: absolute;
+		right: -($size-gutter--half);
+		top: -($size-gutter--half);
+		cursor: pointer;
+		width: $size--20;
+		height: $size--20;
+		line-height: $size--20;
+		padding: 0;
+		margin: 0;
+		border: 0;
+		background-color: transparent;
+	}
 
-		.sp-modal--header--close-btn {
-			position: absolute;
-			right: -($size-gutter--half);
-			top: -($size-gutter--half);
-			cursor: pointer;
-			width: $size--20;
-			height: $size--20;
-			line-height: $size--20;
-			padding: 0;
-			margin: 0;
-			border: 0;
-			background-color: transparent;
-		}
+	.sp-modal--small {
+		min-width: 300px;
+		min-height: 300px;
+	}
+	.sp-modal--medium {
+		min-width: 500px;
+		min-height: 500px;
+	}
+	.sp-modal--large {
+		min-width: 700px;
+		min-height: 700px;
+	}
 
-		.sp-modal--overlay-background {
-			z-index: 998;
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: $color--slate-dark;
-			opacity: 0.6;
-			&:focus-visible {
-				background-color: bisque;
-			}
-		}
-		&.sp-modal--small {
-			min-width: 300px;
-			min-height: 300px;
-		}
-		&.sp-modal--medium {
-			min-width: 500px;
-			min-height: 500px;
-		}
-		&.sp-modal--large {
-			min-width: 700px;
-			min-height: 700px;
-		}
+	.sp-modal--overlay--background {
+		z-index: 998;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: $color--slate-dark;
+		opacity: 0.6;
 	}
 </style>

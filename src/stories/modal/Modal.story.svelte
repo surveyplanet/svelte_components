@@ -63,7 +63,9 @@
 	</svelte:fragment>
 
 	<Hst.Variant title="Modal">
-		<div class="modal-wrapper">
+		<div
+			class="modal-wrapper"
+			test-id="wrapper">
 			<Modal
 				bind:this={modal}
 				bind:size
@@ -77,65 +79,17 @@
 				{fullscreen}
 				{overlay}>
 				<p slot="header">Some header content</p>
-				<div slot="body">
-					<p>An example paragraph text</p>
 
-					<Button>Confirm</Button>
-				</div>
+				<svelte:fragment slot="body">
+					An example paragraph text
+				</svelte:fragment>
 
-				<nav slot="footer">
-					<ul>
+				<svelte:fragment slot="footer">
+					<ul class="sp-modal--footer">
 						<li><a href="/">Home</a></li>
 						<li><a href="/docs">Docs</a></li>
 					</ul>
-				</nav>
-			</Modal>
-			There are many variations of passages of Lorem Ipsum available, but the
-			majority have suffered alteration in some form, by injected humour, or
-			randomized words which don't look even slightly believable. If you are
-			going to use a passage of Lorem Ipsum, you need to be sure there isn't
-			anything embarrassing hidden in the middle of text. All the Lorem Ipsum
-			generators on the Internet tend to repeat predefined chunks as necessary,
-			making this the first true generator on the Internet. It uses a dictionary
-			of over 200 Latin words, combined with a handful of model sentence structures,
-			to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum
-			is therefore always free from repetition, injected humour, or non-characteristic
-			words etc.
-			<div class="button-for-tests">
-				<Button on:click={launchModal}>Launch modal</Button>
-			</div>
-		</div>
-	</Hst.Variant>
-
-	<Hst.Variant title="With text input">
-		<div class="modal-wrapper">
-			<Modal
-				bind:visible
-				bind:this={modal}
-				on:open={modalOpened}
-				on:in={modalIn}
-				on:out={modalOut}
-				on:close={close}
-				{title}
-				{subtitle}
-				{fullscreen}
-				{overlay}>
-				<div slot="body">
-					<p>New category</p>
-					<TextInput
-						id="category-name"
-						label="Category name"
-						name="categoryName"
-						on:input={(e) => console.log(e.detail)} />
-					<Button>Create Category</Button>
-				</div>
-
-				<nav slot="footer">
-					<ul>
-						<li><a href="/">Home</a></li>
-						<li><a href="/docs">Docs</a></li>
-					</ul>
-				</nav>
+				</svelte:fragment>
 			</Modal>
 			There are many variations of passages of Lorem Ipsum available, but the
 			majority have suffered alteration in some form, by injected humour, or
