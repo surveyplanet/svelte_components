@@ -6,13 +6,16 @@
 		"historie",
 		"introend",
 		"introstart",
+		"keydown",
+		"keyup",
 		"msedge",
 		"outro",
 		"outroend",
 		"outrostart",
 		"surveyplanet",
 		"testid",
-		"textbox"
+		"textbox",
+		"textinput"
 	],
 	"ignoreWords": ["xsmall"],
 	"flagWords": ["hte", "survey planet"],

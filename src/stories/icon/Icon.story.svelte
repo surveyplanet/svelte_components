@@ -10,6 +10,7 @@
 	let size: IconSize = 24;
 	let name: IconName = 'bell';
 	let debug = false;
+	$: sizeStr = size.toString();
 </script>
 
 <Hst.Story title="Icon">
@@ -36,7 +37,7 @@
 				};
 			})} />
 		<Hst.Select
-			bind:value={size}
+			bind:value={sizeStr}
 			title="Size"
 			options={[8, 16, 20, 24, 32, 48, 64, 128, 256, 512]} />
 

@@ -16,8 +16,6 @@
 		<Hst.Text
 			bind:value={content}
 			title="Content" />
-
-		<!-- TODO: add some tailwind classes here so they look nicer -->
 		<label
 			for="badge-background-color"
 			class="histoire-wrapper htw-p-2 hover:htw-bg-primary-100 dark:hover:htw-bg-primary-800 htw-flex htw-gap-2 htw-flex-wrap histoire-text htw-cursor-text htw-items-center"

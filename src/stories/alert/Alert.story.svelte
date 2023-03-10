@@ -8,7 +8,7 @@
 
 	let title = 'Did you know?';
 	let subtitle = 'Informational alert';
-	let type = 'info';
+	let alertType: 'info' | 'warning' | 'error' | 'success' = 'info';
 	let hideDelay = 0;
 	let confirm = false;
 	let confirmButtonLabel = 'Confirm';
@@ -36,7 +36,7 @@
 <Hst.Story>
 	<svelte:fragment slot="controls">
 		<Hst.Select
-			bind:value={type}
+			bind:value={alertType}
 			title="Type"
 			options={[
 				{ label: 'Info', value: 'info' },
@@ -53,7 +53,6 @@
 			title="Subtitle" />
 		<Hst.Number
 			bind:value={hideDelay}
-			step="1"
 			title="Hide delay" />
 		<Hst.Checkbox
 			bind:value={confirm}
@@ -73,7 +72,6 @@
 	</svelte:fragment>
 
 	<Hst.Variant
-		iframe={false}
 		title="Alert"
 		{source}>
 		<div class="alert-wrapper">
@@ -85,7 +83,7 @@
 				on:confirm={confirmHandler}
 				{title}
 				{subtitle}
-				{type}
+				{alertType}
 				{hideDelay}
 				{confirm}
 				{confirmButtonLabel}
