@@ -3,5 +3,8 @@
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"svelte.plugin.typescript.enable": false,
 	"eslint.validate": ["typescript", "svelte"],
-	"cSpell.words": ["tortor"]
+	"cSpell.words": ["tortor"],
+	"material-icon-theme.folders.associations": {
+		"stories": "buildkite"
+	}
 }
