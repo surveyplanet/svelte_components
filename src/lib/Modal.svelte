@@ -27,6 +27,7 @@
 	export let visible = false;
 
 	export let animationMilliseconds = 350;
+
 	// TODO: add support for different sizes
 	export let size: 'small' | 'medium' | 'large' = 'medium';
 
@@ -46,7 +47,7 @@
 		dispatch('close');
 	};
 
-	const clickableOverlayHandler = (e: KeyboardEvent) => {
+	const overlayClickHandler = (e: KeyboardEvent) => {
 		if (e.key === 'Escape') {
 			visible = false;
 		}
@@ -57,14 +58,14 @@
 	};
 </script>
 
-<svelte:window on:keydown={clickableOverlayHandler} />
+<svelte:window on:keydown={overlayClickHandler} />
+
 {#if overlay && visible}
 	<div
-		class="sp-modal--overlay--background"
-		data-testid="overlay"
+		class="sp-modal--overlay"
 		transition:fade
 		on:click={closeHandler}
-		on:keydown={clickableOverlayHandler} />
+		on:keydown={overlayClickHandler} />
 {/if}
 {#if visible}
 	<div
@@ -74,31 +75,28 @@
 			easing: cubicOut,
 		}}
 		class="sp-modal sp-modal--{size}"
-		data-testid="modal"
 		on:introstart={modalOpened}
 		on:introend={modalIn}
 		on:outrostart={modalOut}
 		on:outroend={modalClosed}
-		class:sp-modal--fullscreen={fullscreen}
-		class:sp-modal--overlay={overlay}>
+		class:sp-modal--fullscreen={fullscreen}>
+		<button
+			on:click={closeHandler}
+			class="sp-modal--header--close-btn">
+			<Icon
+				name="x"
+				strokeWidth={3}
+				size={16} />
+		</button>
 		<header class="sp-modal--header">
-			<button
-				on:click={closeHandler}
-				class="sp-modal--header--close-btn">
-				<Icon
-					color={COLORS.slate}
-					name="x"
-					size={20} />
-			</button>
 			{#if title?.length}
-				<h2 class="sp-modal--header--title">{title}</h2>
+				<h3 class="sp-modal--header--title">{title}</h3>
 			{/if}
 			{#if subtitle?.length}
-				<h3 class="sp-modal--header--subtitle">{subtitle}</h3>
+				<h4 class="sp-modal--header--subtitle">{subtitle}</h4>
 			{/if}
 			<slot name="header" />
 		</header>
-
 		<div class="sp-modal--body">
 			<slot
 				name="body"
@@ -114,19 +112,55 @@
 	@use '@surveyplanet/styles' as *;
 
 	$animation-speed: 300ms;
+	$small-width: $size--256;
+	$medium-width: $size--256 * 2;
+	$large-width: $size--256 * 3;
+
+	.sp-modal--overlay {
+		z-index: 999;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: $color--slate-dark;
+		opacity: 0.6;
+	}
 
 	.sp-modal {
 		z-index: 1000;
-		padding: $size-gutter;
+		box-sizing: border-box;
 		position: absolute;
-		border: 1px solid $color--slate-dark;
-		border-radius: $size-radius--default;
-		box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.25);
+		padding: $size-gutter;
+		width: $medium-width;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 		font: $font--default;
+		border-radius: $size-radius--large;
+		box-shadow: 0px 1px 6px rgba(22, 33, 55, 0.15);
 		background-color: $color--white;
+
+		&.sp-modal--small {
+			width: $small-width;
+		}
+		&.sp-modal--large {
+			width: $large-width;
+		}
 	}
-	.sp-modal--header {
-		position: relative;
+
+	h3.sp-modal--header--title {
+		font-size: $font-size--16;
+		font-weight: $font-weight--bold;
+		margin: 0;
+		padding: 0;
+	}
+
+	h4.sp-modal--header--subtitle {
+		font-size: $font-size--14;
+		font-weight: $font-weight--normal;
+		color: $color--slate;
+		margin: $size-gutter--half 0;
 	}
 
 	.sp-modal--body {
@@ -135,11 +169,6 @@
 
 	.sp-modal--footer {
 		position: relative;
-	}
-
-	.sp-modal--overlay {
-		z-index: 999;
-		opacity: 0.8;
 	}
 
 	.sp-modal--fullscreen {
@@ -152,40 +181,23 @@
 	}
 
 	.sp-modal--header--close-btn {
-		position: absolute;
-		right: -($size-gutter--half);
-		top: -($size-gutter--half);
 		cursor: pointer;
-		width: $size--20;
-		height: $size--20;
-		line-height: $size--20;
+		position: absolute;
+		right: $size-gutter--half;
+		top: $size-gutter--half;
+		width: $size--16;
+		height: $size--16;
+		// line-height: $size--20;
 		padding: 0;
 		margin: 0;
 		border: 0;
 		background-color: transparent;
-	}
-
-	.sp-modal--small {
-		min-width: 300px;
-		min-height: 300px;
-	}
-	.sp-modal--medium {
-		min-width: 500px;
-		min-height: 500px;
-	}
-	.sp-modal--large {
-		min-width: 700px;
-		min-height: 700px;
-	}
-
-	.sp-modal--overlay--background {
-		z-index: 998;
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: $color--slate-dark;
-		opacity: 0.6;
+		border-radius: $size-radius--small;
+		&:hover {
+			background-color: $color--slate-lighter;
+			:global(.sp-icon path) {
+				stroke: white;
+			}
+		}
 	}
 </style>

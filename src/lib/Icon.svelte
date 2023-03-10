@@ -3,7 +3,18 @@
 	lang="ts">
 	import ICON_DATA from './_icon_data';
 	export type IconName = keyof typeof ICON_DATA;
-	export type IconSize = 8 | 16 | 20 | 24 | 32 | 48 | 64 | 128 | 256 | 512;
+	export type IconSize =
+		| 8
+		| 12
+		| 16
+		| 20
+		| 24
+		| 32
+		| 48
+		| 64
+		| 128
+		| 256
+		| 512;
 </script>
 
 <script lang="ts">
@@ -20,6 +31,11 @@
 	 * The icon width and height in pixes. default: 48
 	 */
 	export let size: IconSize = DEFAULT_SIZE;
+
+	/**
+	 * The icons stoke width, default 2
+	 */
+	export let strokeWidth = 2;
 
 	/**
 	 * The name of the icon used to display the vector path
@@ -46,11 +62,11 @@
 	<title>{'icon ' + name}</title>
 	{#each pathData as data}
 		<path
-			{...data}
-			stroke-width="2"
+			stroke-width={strokeWidth}
 			stroke-linecap="round"
 			stroke-linejoin="round"
-			stroke={color} />
+			stroke={color}
+			{...data} />
 		<!-- 
 		Could potentially build out more complex svg shapes with svelte:element
 		<svelte:element this={data.type} {...data} />

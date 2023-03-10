@@ -8,13 +8,9 @@
 	let title = 'Modal';
 	let subtitle = 'Subtitle';
 	let fullscreen = false;
-	let overlay = false;
+	let overlay = true;
 	let visible = false;
 	let size: 'small' | 'medium' | 'large' = 'medium';
-
-	const launchModal = () => {
-		visible = true;
-	};
 
 	let modal: HTMLElement;
 
@@ -63,60 +59,41 @@
 	</svelte:fragment>
 
 	<Hst.Variant title="Modal">
-		<div
-			class="modal-wrapper"
-			test-id="wrapper">
-			<Modal
-				bind:this={modal}
-				bind:size
-				bind:visible
-				on:open={modalOpened}
-				on:in={modalIn}
-				on:out={modalOut}
-				on:close={close}
-				{title}
-				{subtitle}
-				{fullscreen}
-				{overlay}>
-				<p slot="header">Some header content</p>
+		<Modal
+			bind:this={modal}
+			bind:size
+			bind:visible
+			on:open={modalOpened}
+			on:in={modalIn}
+			on:out={modalOut}
+			on:close={close}
+			{title}
+			{subtitle}
+			{fullscreen}
+			{overlay}>
+			<p slot="header">
+				Hall low lands den womans control the or. Might he which forgot
+				she he him, if below isle where brow.
+			</p>
 
-				<svelte:fragment slot="body">
-					An example paragraph text
-				</svelte:fragment>
+			<svelte:fragment slot="body">
+				And visit not than sacred cell wins in not childe. Fabled most
+				heart charms een feeble. Had his flatterers yes nor, from from
+				cell soon once upon beyond so then, sore from dome condole was
+				favour departed friend from moths.
+			</svelte:fragment>
 
-				<svelte:fragment slot="footer">
-					<ul class="sp-modal--footer">
-						<li><a href="/">Home</a></li>
-						<li><a href="/docs">Docs</a></li>
-					</ul>
-				</svelte:fragment>
-			</Modal>
-			There are many variations of passages of Lorem Ipsum available, but the
-			majority have suffered alteration in some form, by injected humour, or
-			randomized words which don't look even slightly believable. If you are
-			going to use a passage of Lorem Ipsum, you need to be sure there isn't
-			anything embarrassing hidden in the middle of text. All the Lorem Ipsum
-			generators on the Internet tend to repeat predefined chunks as necessary,
-			making this the first true generator on the Internet. It uses a dictionary
-			of over 200 Latin words, combined with a handful of model sentence structures,
-			to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum
-			is therefore always free from repetition, injected humour, or non-characteristic
-			words etc.
-			<div class="button-for-tests">
-				<Button on:click={launchModal}>Launch modal</Button>
-			</div>
+			<svelte:fragment slot="footer">
+				<p>&copy; Surveyplanet</p>
+			</svelte:fragment>
+		</Modal>
+		<div class="button-for-tests">
+			<Button on:click={() => (visible = true)}>Launch modal</Button>
 		</div>
 	</Hst.Variant>
 </Hst.Story>
 
 <style>
-	.modal-wrapper {
-		position: static;
-		width: 700px;
-		height: 700px;
-		background-color: blueviolet;
-		z-index: 1;
-	}
 	.button-for-tests {
 		position: absolute;
 		top: 50%;
