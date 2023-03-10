@@ -45,7 +45,7 @@
 		"test:edge": "npm test -- --headed --project=msedge",
 		"test:all": "npm test -- --headed",
 		"test:debug": "npm test -- --debug --headed --project=chromium",
-		"test:ci": "npm test -- --reporter=github",
+		"test:ci": "npm test -- --project=chromium --reporter=github",
 		"proof": "npm run check && npm run lint && npm run spell && npm run test",
 		"story:dev": "histoire dev",
 		"story:build": "histoire build",

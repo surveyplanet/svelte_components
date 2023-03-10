@@ -1,6 +1,18 @@
+<script
+	lang="ts"
+	context="module">
+	export const BUTTON_MODES = {
+		PRIMARY: 'primary',
+		SECONDARY: 'secondary',
+		TERTIARY: 'tertiary',
+		QUATERNARY: 'quaternary',
+		DARK: 'dark',
+		LIGHT: 'light',
+	} as Record<string, string>;
+</script>
+
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { BUTTON_MODES, SIZES } from './index';
 
 	const dispatch = createEventDispatcher();
 
@@ -53,7 +65,7 @@
 	 * The button size, either: 'small', 'medium' or 'large'
 	 * @required
 	 */
-	export let size = SIZES.MEDIUM;
+	export let size: 'small' | 'medium' | 'large' = 'medium';
 
 	let clickAnimationEl: HTMLElement;
 
