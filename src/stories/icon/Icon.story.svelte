@@ -37,7 +37,7 @@
 				};
 			})} />
 		<Hst.Select
-			bind:value={sizeStr}
+			bind:value={size}
 			title="Size"
 			options={[8, 16, 20, 24, 32, 48, 64, 128, 256, 512]} />
 
