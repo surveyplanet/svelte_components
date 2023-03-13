@@ -10,7 +10,7 @@
 	let size: IconSize = 24;
 	let name: IconName = 'bell';
 	let debug = false;
-	$: sizeStr = size.toString();
+	// $: sizeStr = size.toString();
 </script>
 
 <Hst.Story title="Icon">
