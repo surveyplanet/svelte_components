@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	import { COLORS, Icon } from './';
+	import { Icon } from './';
 
 	const dispatch = createEventDispatcher();
 	/**
