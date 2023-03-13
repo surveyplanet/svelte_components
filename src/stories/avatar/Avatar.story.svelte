@@ -3,13 +3,13 @@
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import source from './source';
 	import { Avatar } from '../../lib';
-	import { SIZES, MASCOTS } from '../../lib/_definitions';
+	import { MASCOTS } from '../../lib/_definitions';
 
 	export let Hst: Histoire;
 
 	let imgSrc = MASCOTS.marvin;
 	let id = '';
-	let size = SIZES.LARGE;
+	let size = 'large';
 	let disabled = false;
 
 	const clickHandler = (e: Event): void => {
@@ -26,9 +26,9 @@
 			bind:value={size}
 			title="Size"
 			options={[
-				{ label: 'Small', value: SIZES.SMALL },
-				{ label: 'Medium', value: SIZES.MEDIUM },
-				{ label: 'Large', value: SIZES.LARGE },
+				{ label: 'Small', value: 'small' },
+				{ label: 'Medium', value: 'medium' },
+				{ label: 'Large', value: 'large' },
 			]} />
 		<Hst.Select
 			bind:value={imgSrc}

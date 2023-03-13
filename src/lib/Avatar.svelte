@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { COLORS, SIZES, MASCOTS } from './index';
+	import { COLORS, MASCOTS } from './index';
 
 	const dispatch = createEventDispatcher();
 
@@ -15,7 +15,7 @@
 
 	export let id: string;
 
-	export let size = SIZES.SMALL;
+	export let size: 'small' | 'medium' | 'large' = 'medium';
 
 	export let disabled = false;
 
