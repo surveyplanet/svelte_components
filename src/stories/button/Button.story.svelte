@@ -15,7 +15,7 @@
 	let action = false;
 	let type: 'button' | 'submit' | 'reset' = 'button';
 	let form: string | null = null;
-	let size = 'medium';
+	let size: 'small' | 'medium' | 'large' = 'medium';
 
 	const clickHandler = (e: CustomEvent): void => {
 		if (disabled) {
@@ -54,7 +54,7 @@
 		<Hst.Select
 			bind:value={size}
 			title="Size"
-			options={Object.values(SIZES)} />
+			options={['small', 'medium', 'large']} />
 		<Hst.Select
 			bind:value={type}
 			title="Type"
