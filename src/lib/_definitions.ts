@@ -1,9 +1,3 @@
-export const SIZES = {
-	SMALL: 'small',
-	MEDIUM: 'medium',
-	LARGE: 'large',
-} as Record<string, string>;
-
 export const COLORS = {
 	slateLighter: '#dcdee1',
 	slateLight: '#a2a6af',

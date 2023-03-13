@@ -40,11 +40,11 @@ jobs:
             - name: Install Playwright (for tests)
               run: npx playwright install --with-deps
 
-            - name: Build Storybooook
-              run: npm run storybook:build
+            - name: Build Histoire
+              run: npm run story:build
 
             # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
-            - name: Serve Storybook and run tests
+            - name: Serve Histoire and run tests
               run: npm run test:ci
 
             - name: Package components
