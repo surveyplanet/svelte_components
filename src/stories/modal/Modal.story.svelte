@@ -2,7 +2,7 @@
 	import { logEvent } from 'histoire/client';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { Modal, Button, TextInput } from '../../lib';
-	// import source from './source';
+	import source from './source';
 	export let Hst: Histoire;
 
 	let title = 'Modal';
@@ -58,7 +58,9 @@
 			]} />
 	</svelte:fragment>
 
-	<Hst.Variant title="Modal">
+	<Hst.Variant
+		title="Modal"
+		{source}>
 		<Modal
 			bind:this={modal}
 			bind:size
