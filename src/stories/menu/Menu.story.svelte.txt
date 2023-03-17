@@ -1,0 +1,112 @@
+<script lang="ts">
+	import type { Hst as Histoire } from '@histoire/plugin-svelte';
+	import { Menu, Button } from '../../lib';
+	import { logEvent } from 'histoire/client';
+
+	// import { default as source } from './source';
+	export let Hst: Histoire;
+
+	let menuItems = [
+		{
+			text: 'Orange',
+			icon: 'bell',
+			id: 'orange',
+			submenu: [
+				{
+					text: 'Orange Juice',
+					icon: 'calendar',
+					id: 'orangeJuice',
+					submenu: [
+						{
+							text: 'orange juice with pulp',
+							icon: 'calendar',
+						},
+						{
+							text: 'orange juice with pulp',
+							icon: 'calendar',
+						},
+					],
+				},
+				{
+					text: 'Orange Soda',
+					icon: 'calendar',
+				},
+				{
+					text: 'Orange Sherbet',
+					icon: 'calendar',
+				},
+			],
+		},
+
+		{
+			text: 'Pear',
+			icon: 'bell',
+			id: 'pear',
+			submenu: [
+				{
+					text: 'Pear Cobbler',
+					icon: 'calendar',
+				},
+				{
+					text: 'Pear Tart',
+					icon: 'calendar',
+				},
+				{
+					text: 'Pear Pie',
+					icon: 'calendar',
+				},
+			],
+		},
+
+		{
+			text: 'Peach',
+			icon: 'bell',
+			id: 'peach',
+			submenu: [
+				{
+					text: 'Peach Cobbler',
+					icon: 'calendar',
+				},
+				{
+					text: 'Peach Tart',
+					icon: 'calendar',
+				},
+				{
+					text: 'Peach Pie',
+					icon: 'calendar',
+				},
+			],
+		},
+	];
+
+	let hidden = true;
+	let submenu = false;
+	let id = 'fruitMenu';
+
+	const toggleMenu = () => {
+		hidden = !hidden;
+	};
+</script>
+
+<Hst.Story title="Menu">
+	<svelte:fragment slot="controls">
+		<Hst.Json
+			bind:value={menuItems}
+			title="Menu Items" />
+		<Hst.Checkbox
+			bind:value={hidden}
+			title="Hidden" />
+		<Hst.Checkbox
+			bind:value={submenu}
+			title="Submenu" />
+	</svelte:fragment>
+
+	<Hst.Variant title="Primary">
+		<Button on:click={toggleMenu}>Menu</Button>
+		<Menu
+			{menuItems}
+			{hidden}
+			{submenu}
+			{id} />
+	</Hst.Variant>
+</Hst.Story>

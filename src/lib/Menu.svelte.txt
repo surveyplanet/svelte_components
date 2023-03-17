@@ -1,0 +1,113 @@
+<script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+	import { MenuItem } from '../lib';
+
+	ex.et menuItems = [
+		{
+			text: 'Menu Option 1',
+			icon: 'bell',
+			id: 'menu-option-1',
+			submenu: [
+				{
+					text: 'Submenu Option 1',
+					icon: 'calendar',
+					id: 'submenu-option-1',
+					submenu: [],
+				},
+				{
+					text: 'Submenu Option 2',
+					icon: 'calendar',
+					id: 'submenu-option-2',
+					submenu: [],
+				},
+			],
+		},
+		{
+			text: 'Menu Option 2',
+			icon: 'bell',
+			id: 'menu-option-2',
+			submenu: [],
+		},
+	];
+
+	export let id = '';
+	export let submenu = false;
+	export let hidden = false;
+
+	const dispatch = createEventDispatcher();
+
+	const select = (e: CustomEvent): void => {
+		dispatch('menuItemClick', e.detail);
+
+		let menuItemId = e.detail.target.id;
+
+		const allMenus = document.querySelectorAll('.sp-menu');
+
+		allMenus.forEach((menu) => {
+			if (
+				menu.id === menuItemId &&
+				menu.classList.contains('sp-menu--hidden')
+			) {
+				menu.classList.remove('sp-menu--hidden');
+				menu.classList.add('sp-menu--submenu');
+			}
+		});
+	};
+
+	const keyArrowHandler = (e: KeyboardEvent): void => {
+		if (e.key === 'ArrowDown') {
+			console.log('ArrowDown');
+		}
+		if (e.key === 'ArrowUp') {
+			console.log('ArrowUp');
+		}
+		if (e.key === 'ArrowLeft') {
+			console.log('ArrowLeft');
+		}
+		if (e.key === 'ArrowRight') {
+			console.log('ArrowRight');
+		}
+	};
+</script>
+
+<svelte:window on:keydown={keyArrowHandler} />
+
+<div
+	class="sp-menu"
+	class:sp-menu--submenu={submenu}
+	class:sp-menu--hidden={hidden}
+	{id}>
+	{#each menuItems as item}
+		{#if item.submenu}
+			<svelte:self {...item} />
+		{:else}
+			<MenuItem
+				on:menuItemClick={select}
+				id={item.id}
+				text={item.text}
+				icon={item.icon} />
+		{/if}
+	{/each}
+</div>
+
+<style lang="scss">
+	.sp-menu {
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1000;
+		transition: all 0.2s ease-in-out;
+
+		&.sp-menu--hidden {
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		&.sp-menu--submenu {
+			top: 0%;
+			left: 30%;
+		}
+	}
+</style>

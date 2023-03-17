@@ -1,0 +1,34 @@
+<script lang="ts">
+	import type { Hst as Histoire } from '@histoire/plugin-svelte';
+	import { MenuItem } from '../../lib';
+	import { COLORS } from '../../lib/_definitions';
+	import { logEvent } from 'histoire/client';
+	// import { default as source } from './source';
+	export let Hst: Histoire;
+
+	let text = 'New Menu Item';
+	let icon = 'bell';
+
+	const clickHandler = (e: Event): void => {
+		logEvent('click', e);
+	};
+</script>
+
+<Hst.Story title="MenuItem">
+	<svelte:fragment slot="controls">
+		<Hst.Text
+			bind:value={text}
+			title="Icon name" />
+	</svelte:fragment>
+
+	<Hst.Variant title="Primary">
+		<MenuItem
+			on:menuItemClick={clickHandler}
+			text="Option 1"
+			{icon} />
+		<MenuItem
+			on:menuItemClick={clickHandler}
+			text="Option 2"
+			{icon} />
+	</Hst.Variant>
+</Hst.Story>

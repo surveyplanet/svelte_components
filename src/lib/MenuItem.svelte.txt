@@ -1,0 +1,68 @@
+<script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+	import { Icon } from '../lib';
+
+	ex.et iconRight = false;
+	export let text: 'New Menu Item';
+	export let icon: 'bell';
+	export let id = 'default';
+
+	const dispatch = createEventDispatcher();
+
+	const menuItemHandler = (e: Event): void => {
+		if (e.type === 'click') {
+			dispatch('menuItemClick', e);
+		}
+		if (e.type === 'keydown') {
+			if (e.key === 'Enter' || e.key === ' ') {
+				dispatch('menuItemClick', e);
+			}
+		}
+	};
+
+	$: selected = false;
+</script>
+
+<!-- <svelte:body on:keydown={menuItemHandler} /> -->
+<div
+	class="sp-menu-item"
+	class:sp-menu-item--selected={selected}
+	{id}
+	on:click|preventDefault={menuItemHandler}
+	on:keydown|preventDefault={menuItemHandler}>
+	{#if icon}
+		<Icon name={icon} />
+	{/if}
+	{text}
+	{#if iconRight}
+		<Icon name={icon} />
+	{/if}
+</div>
+
+<style lang="scss">
+	@use '@surveyplanet/styles' as *;
+	.sp-menu-item {
+		display: flex;
+
+		align-items: center;
+		border: 1px solid;
+
+		padding: 0.5rem 1rem;
+
+		cursor: pointer;
+
+		&:hover {
+			background-color: $color--blue-dark;
+		}
+
+		&:focus {
+			outline: none;
+
+			background-color: $color--green-dark;
+		}
+
+		&--selected {
+			background-color: $color--blue;
+		}
+	}
+</style>

@@ -10,3 +10,5 @@ export { default as Checkbox } from './Checkbox.svelte';
 export { default as Radio } from './Radio.svelte';
 export { default as TextInput, type TextInputType } from './TextInput.svelte';
 export { default as Alert } from './Alert.svelte';
+export { default as MenuItem } from './MenuItem.svelte';
+export { default as Menu } from './Menu.svelte';
