@@ -12,15 +12,15 @@ test.describe('Breadcrumbs component', () => {
 		const contact = preview.getByText('Contact');
 		const submit = preview.getByText('Submit');
 
-		expect(home).toBeVisible();
-		expect(ellipses).toBeVisible();
-		expect(contact).toBeVisible();
-		expect(submit).toBeVisible();
+		await expect(home).toBeVisible();
+		await expect(ellipses).toBeVisible();
+		await expect(contact).toBeVisible();
+		await expect(submit).toBeVisible();
 
-		expect(home).toHaveAttribute('href', '/');
-		expect(ellipses).toHaveAttribute('href', '/about');
-		expect(contact).toHaveAttribute('href', '/contact');
-		expect(submit).toHaveAttribute('href', '/submit');
+		await expect(home).toHaveAttribute('href', '/');
+		await expect(ellipses).toHaveAttribute('href', '/about');
+		await expect(contact).toHaveAttribute('href', '/contact');
+		await expect(submit).toHaveAttribute('href', '/submit');
 
 		const cursor = await home.evaluate((el) => {
 			return window.getComputedStyle(el).getPropertyValue('cursor');
