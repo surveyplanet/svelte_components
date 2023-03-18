@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Menu, Button, COLORS } from '../../lib';
+	import { Menu, Button, Icon, COLORS } from '../../lib';
 	import { logEvent } from 'histoire/client';
 
 	// import { default as source } from './source';
@@ -9,7 +9,7 @@
 	let visible = true;
 	let data = [
 		{ label: 'Edit', id: 'edit' },
-		{ label: 'Preview', id: 'preview', selected: true },
+		{ label: 'Preview', id: 'preview' },
 		{ label: 'Duplicate', id: 'duplicate' },
 		{
 			label: 'Categories',
@@ -64,6 +64,7 @@
 								{
 									label: 'Golden Delicious',
 									id: 'golden-delicious',
+									selected: true,
 								},
 								{ label: 'Granny Smith', id: 'granny-smith' },
 								{ label: 'Honeycrisp', id: 'honeycrisp' },
@@ -147,10 +148,15 @@
 		{ label: 'Delete', id: 'delete', divide: true },
 	];
 
-	const menuClickHandler = (e) => {
-		logEvent('click', e);
-		visible = false;
+	const buttonClickHandler = (e) => {
+		visible = !visible;
 	};
+
+	const menuClickHandler = (e) => {
+		visible = false;
+		logEvent('click', e);
+	};
+
 	const menuUpdateHandler = (e) => {
 		logEvent('update', e);
 	};
@@ -164,14 +170,21 @@
 	</svelte:fragment>
 
 	<Hst.Variant title="Primary">
-		{#if visible}
-			<div class="wrapper">
+		<div class="wrapper">
+			<Button
+				action={true}
+				on:click={buttonClickHandler}>
+				<Icon name="plus" />
+			</Button>
+			<br />
+			<br />
+			{#if visible}
 				<Menu
 					{data}
 					on:update={menuUpdateHandler}
 					on:click={menuClickHandler} />
-			</div>
-		{/if}
+			{/if}
+		</div>
 	</Hst.Variant>
 </Hst.Story>
 
