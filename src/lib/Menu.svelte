@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { tick, createEventDispatcher } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	import { Icon } from './index';
@@ -13,7 +13,7 @@
 
 	const transitionProps = {
 		axis: 'x',
-		duration: 250,
+		duration: 150,
 		easing: cubicOut,
 	};
 
@@ -115,6 +115,10 @@
 						name={item.icon}
 						size={16} />
 				{/if}
+
+				{#if item.meta}
+					<span class="sp-menu-item--meta">{item.meta}</span>
+				{/if}
 			</button>
 		</li>
 	{/each}
@@ -126,7 +130,7 @@
 		list-style: none;
 		overflow: hidden;
 		margin: 0;
-		padding: 0;
+		padding: $size-gutter--quarter 0;
 		background-color: white;
 		box-shadow: 0px 5px 5px rgba(142, 117, 205, 0.1);
 		border-radius: $size-radius--large;
@@ -198,6 +202,7 @@
 			}
 		}
 	}
+
 	button {
 		width: 100%;
 		display: flex;
@@ -224,6 +229,11 @@
 			:global(svg) {
 				margin-left: 0;
 			}
+		}
+
+		:global(.sp-menu-item--meta) {
+			margin-left: auto;
+			color: $color--slate;
 		}
 	}
 </style>
