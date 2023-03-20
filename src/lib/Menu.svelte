@@ -97,17 +97,17 @@
 
 	{#each currentState as item}
 		<li
-			class="sp-menu-item"
-			class:sp-menu-item--divide={item.divide}
-			class:sp-menu-item--inline={item.inline}
-			class:sp-menu-item--selected={item.selected}
-			class:sp-menu-item--submenu={item.submenu?.length > 0}
+			class="sp-menu--item"
+			class:sp-menu--item--divide={item.divide}
+			class:sp-menu--item--inline={item.inline}
+			class:sp-menu--item--selected={item.selected}
+			class:sp-menu--item--submenu={item.submenu?.length > 0}
 			transition:slide={transitionProps}>
 			<button
 				id={item.id}
 				on:click|preventDefault={itemClickHandler}>
 				{#if item.label}
-					<span class="sp-menu-item--label">
+					<span class="sp-menu--item--label">
 						{item.label}
 					</span>
 				{/if}
@@ -123,7 +123,7 @@
 				{/if}
 
 				{#if item.meta}
-					<span class="sp-menu-item--meta">{item.meta}</span>
+					<span class="sp-menu--item--meta">{item.meta}</span>
 				{/if}
 			</button>
 		</li>
@@ -142,9 +142,9 @@
 		border-radius: $size-radius--large;
 		max-width: 260px;
 	}
-	.sp-menu-item {
+	.sp-menu--item {
 		position: relative;
-		&.sp-menu-item--submenu {
+		&.sp-menu--item--submenu {
 			button:before {
 				content: '';
 				position: absolute;
@@ -158,24 +158,24 @@
 				background-position: 50% 50%;
 			}
 		}
-		&.sp-menu-item--divide {
+		&.sp-menu--item--divide {
 			border-top: 1px solid #dcdee1;
 		}
 
-		&.sp-menu-item--inline {
+		&.sp-menu--item--inline {
 			display: inline;
 			button {
 				width: auto;
 				display: inline;
 			}
-			&.sp-menu-item--selected {
+			&.sp-menu--item--selected {
 				// no background-color if selected button is displayed inline
 				button {
 					background-color: transparent;
 				}
 			}
 		}
-		&.sp-menu-item--selected {
+		&.sp-menu--item--selected {
 			button {
 				background-color: $color--light-purple-light;
 			}
@@ -191,7 +191,7 @@
 			vertical-align: middle;
 		}
 
-		&.sp-menu-item--selected {
+		&.sp-menu--item--selected {
 			:global(.color-chip) {
 				&:before {
 					content: '';
@@ -237,7 +237,7 @@
 			}
 		}
 
-		.sp-menu-item--meta {
+		.sp-menu--item--meta {
 			margin-left: auto;
 			color: $color--slate;
 		}
