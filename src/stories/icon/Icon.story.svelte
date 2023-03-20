@@ -10,7 +10,12 @@
 	let size: IconSize = 24;
 	let name: IconName = 'bell';
 	let debug = false;
-	$: sizeStr = size.toString();
+
+	let sizeAsString = size.toString();
+
+	$: {
+		size = Number(sizeAsString) as IconSize;
+	}
 </script>
 
 <Hst.Story title="Icon">
@@ -37,9 +42,11 @@
 				};
 			})} />
 		<Hst.Select
-			bind:value={size}
+			bind:value={sizeAsString}
 			title="Size"
-			options={[8, 16, 20, 24, 32, 48, 64, 128, 256, 512]} />
+			options={[8, 16, 20, 24, 32, 48, 64, 128, 256, 512].map((n) =>
+				n.toString()
+			)} />
 
 		<Hst.Checkbox
 			bind:value={debug}

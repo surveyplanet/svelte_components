@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Modal, Button, TextInput } from '../../lib';
+	import { Modal, Button } from '../../lib';
 	import source from './source';
 	export let Hst: Histoire;
 
@@ -11,8 +11,6 @@
 	let overlay = true;
 	let visible = false;
 	let size: 'small' | 'medium' | 'large' = 'medium';
-
-	let modal: HTMLElement;
 
 	const modalOpened = (e: Event): void => {
 		logEvent('open', e);
@@ -62,7 +60,6 @@
 		title="Modal"
 		{source}>
 		<Modal
-			bind:this={modal}
 			bind:size
 			bind:visible
 			on:open={modalOpened}

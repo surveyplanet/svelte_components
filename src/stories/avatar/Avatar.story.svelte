@@ -9,7 +9,7 @@
 
 	let imgSrc = MASCOTS.marvin;
 	let id = '';
-	let size = 'large';
+	let size: 'small' | 'medium' | 'large' = 'large';
 	let disabled = false;
 
 	const clickHandler = (e: Event): void => {
