@@ -11,6 +11,11 @@
 	 */
 	export let data = [];
 
+	// Should freeze data so current state an data are the same object
+	// onMount(() => {
+	// 	Object.freeze(data);
+	// });
+
 	const transitionProps = {
 		axis: 'x',
 		duration: 150,
@@ -49,6 +54,7 @@
 		} else {
 			currentState = [...data]; // go to root
 		}
+		dispatch('update', id);
 	};
 
 	const itemClickHandler = (event: MouseEvent) => {
@@ -231,7 +237,7 @@
 			}
 		}
 
-		:global(.sp-menu-item--meta) {
+		.sp-menu-item--meta {
 			margin-left: auto;
 			color: $color--slate;
 		}
