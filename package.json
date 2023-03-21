@@ -39,6 +39,7 @@
 		"spell": "cspell",
 		"test": "playwright test",
 		"test:dev": "npm test -- --project=chromium",
+		"test:timeout": "npm test -- --project=chromium --global-timeout 50000",
 		"test:ch": "npm test -- --headed --project=chromium",
 		"test:ff": "npm test -- --headed --project=firefox",
 		"test:wk": "npm test -- --headed --project=webkit",

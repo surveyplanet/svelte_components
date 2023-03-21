@@ -45,7 +45,7 @@ export const loadStory = async (
 		url += `?variantId=src-stories-${name}-${name}-story-svelte-${variant}`;
 	}
 
-	await page.goto(url, { timeout: 5000 });
+	await page.goto(url);
 
 	return page.frameLocator('[data-test-id="preview-iframe"]');
 };
@@ -86,7 +86,7 @@ const _parseEventData = (dataTxt: string): object => {
 const _openEventsMenu = async (page: Page, useMenu = false): Promise<void> => {
 	const baseMenu = page.locator('.histoire-base-overflow-menu');
 	const eventTab = baseMenu.getByText('Events');
-	const eventTabVisible = await eventTab.isVisible({ timeout: 10 });
+	const eventTabVisible = await eventTab.isVisible();
 	// console.log('---->', eventTabVisible, await eventTab.count());
 	if (eventTabVisible && !useMenu) {
 		try {
@@ -188,7 +188,7 @@ export const setControl = async (
 	const labelEl = controls.locator('label', {
 		has: page.locator(`text="${label}"`),
 	});
-	await expect(labelEl).toBeVisible({ timeout: 10 });
+	await expect(labelEl).toBeVisible();
 
 	if (type === 'button') {
 		// TODO:
@@ -218,34 +218,34 @@ export const setControl = async (
 		);
 	} else if (type === 'json') {
 		const input = labelEl.locator('.cm-content');
-		await expect(input).toBeVisible({ timeout: 10 });
+		await expect(input).toBeVisible();
 		await input.fill(value);
 	} else if (type === 'number') {
 		const input = labelEl.locator('input');
-		await expect(input).toBeVisible({ timeout: 10 });
+		await expect(input).toBeVisible();
 		await input.fill(value);
 	} else if (type === 'radio') {
 		// TODO:
 		throw new Error('setControls is not available for radio control.');
 	} else if (type === 'select') {
 		const trigger = labelEl.locator('.v-popper');
-		await expect(trigger).toBeVisible({ timeout: 10 });
+		await expect(trigger).toBeVisible();
 		await trigger.dblclick();
 		const optionsEl = page.locator('.v-popper__popper').last();
 		await expect(optionsEl, 'Could not find select values').toBeVisible();
 		const optionEl = optionsEl.locator(`text="${value}"`);
-		await expect(optionEl).toBeVisible({ timeout: 10 });
+		await expect(optionEl).toBeVisible();
 		await optionEl.click();
 	} else if (type === 'slider') {
 		// TODO:
 		throw new Error('setControls is not available for slider control.');
 	} else if (type === 'text') {
 		const input = labelEl.locator('input');
-		await expect(input).toBeVisible({ timeout: 10 });
+		await expect(input).toBeVisible();
 		await input.fill(value);
 	} else if (type === 'textarea') {
 		const input = labelEl.locator('textarea');
-		await expect(input).toBeVisible({ timeout: 10 });
+		await expect(input).toBeVisible();
 		await input.fill(value);
 	}
 };
