@@ -228,8 +228,6 @@
 				on:click={buttonClickHandler}>
 				<Icon name="plus" />
 			</Button>
-			<br />
-			<br />
 			{#if visible}
 				<Menu
 					{data}

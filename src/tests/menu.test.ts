@@ -11,17 +11,13 @@ test.describe('Menu component', () => {
 		await expect(menu).toBeVisible();
 		await expect(items).toHaveCount(6);
 
-		const backButton = menu.locator('.sp-menu--back-btn');
-
 		await items.nth(4).click();
+		const backButton = menu.locator('.sp-menu--back-btn');
+		await expect(backButton.locator('.sp-icon--arrowLeft')).toBeVisible();
+		await expect(backButton).toBeVisible();
+
 		await expect(items.nth(1)).toHaveClass(/sp-menu--item--selected/);
 		await expect(items.nth(1)).toHaveClass(/sp-menu--item--inline/);
-
-		await expect(backButton).toBeVisible();
-		// await expect(backButton).toHaveText('Back');
-		// test gives:  Expected string: "Back"
-		//              Received string: "icon arrowLeft Back"
-		await expect(backButton.locator('.sp-icon--arrowLeft')).toBeVisible();
 		await backButton.click();
 
 		await expect(categories).toBeVisible();
@@ -45,12 +41,22 @@ test.describe('Menu component', () => {
 		await expect(apple).toHaveClass(/sp-menu--item/);
 		await expect(apple).toHaveClass(/sp-menu--item--submenu/);
 		await expect(apple).toHaveText('Apple');
-		// const appleStyles = getStyles(apple);
-		// await expect(appleStyles).toHaveProperty('display', 'flex');
-		// // await expect(arrow).toHaveProperty(
-		// // 	'background-image',
-		// // 	'	data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDov…uMTQzIDIuNDE2LTIuNDE2LTIuNDk0LTIuNDk0Ii8+PC9zdmc+'
-		// // );
+		const appleStyles = await apple.locator('button').evaluate((el) => {
+			return window.getComputedStyle(
+				el,
+				':before'
+			) as CSSStyleDeclaration;
+		});
+
+		expect(appleStyles.position).toBe('absolute');
+		expect(appleStyles.right).toBe('16px');
+		expect(appleStyles.backgroundImage).toBe(
+			'url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjciIGZpbGw9Im5vbmUiPjxwYXRoIHN0cm9rZT0iIzE2MjEzNyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEuNSIgZD0ibTEuMDk1IDYuMTQzIDIuNDE2LTIuNDE2LTIuNDk0LTIuNDk0Ii8+PC9zdmc+")'
+		);
+		expect(appleStyles.backgroundPositionX).toBe('50%');
+		expect(appleStyles.backgroundPositionY).toBe('50%');
+		expect(appleStyles.backgroundRepeat).toBe('no-repeat');
+
 		await apple.click();
 
 		await expect(items).toHaveCount(8);
@@ -65,5 +71,7 @@ test.describe('Menu component', () => {
 		await expect(category.locator('#new-category')).toBeVisible();
 		await category.click();
 		await expect(menu).not.toBeVisible();
+
+		// test events
 	});
 });
