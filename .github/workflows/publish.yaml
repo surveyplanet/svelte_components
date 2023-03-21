@@ -50,8 +50,8 @@ jobs:
             - name: Package components
               run: npm run build
 
-            - name: Publish to NPM
-              run: npm run release
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+            # - name: Publish to NPM
+            #   run: npm run release
+            #   env:
+            #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            #       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

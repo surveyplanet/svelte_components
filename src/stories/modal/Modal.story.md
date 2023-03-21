@@ -32,7 +32,7 @@
 	title="My new modal"
 	subtitle="...">
 	<p slot="header">Some header content</p>
-	<p slot="body">Mauris laoreet eleifend massa vel pretium....</p>
+	<p slot="body">Body text should be here</p>
 	<nav slot="footer">
 		<ul>
 			<li><a href="/">Home</a></li>

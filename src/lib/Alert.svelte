@@ -5,7 +5,8 @@
 	import { COLORS, BUTTON_MODES, Button, Icon, TextInput } from './';
 
 	const dispatch = createEventDispatcher();
-	const dispatchConfirm = createEventDispatcher<{ detail: boolean }>();
+	const dispatchConfirm: (name: string, detail: boolean) => boolean =
+		createEventDispatcher();
 
 	/**
 	 * Main alert title.
