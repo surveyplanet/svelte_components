@@ -24,32 +24,39 @@
 							id: 'tiger',
 							submenu: [
 								{
-									html: 'Bengal tiger <span class="sp-menu--item--meta">endangered</span>',
+									label: 'Bengal tiger',
 									id: 'bengal-tiger',
+									meta: 'endangered',
 								},
 								{
-									html: 'Siberian tiger <span class="sp-menu--item--meta">endangered</span>',
+									label: 'Siberian tiger',
 									id: 'siberian-tiger',
+									meta: 'endangered',
 								},
 								{
-									html: 'Sumatran tiger <span class="sp-menu--item--meta">endangered</span>',
+									label: 'Sumatran tiger',
 									id: 'sumatran-tiger',
+									meta: 'endangered',
 								},
 								{
-									html: 'Caspian tiger <span class="sp-menu--item--meta">extinct</span>',
+									label: 'Caspian tiger',
 									id: 'sumatran-tiger',
+									meta: 'extinct',
 								},
 								{
-									html: 'Indochinese tiger <span class="sp-menu--item--meta">endangered</span>',
+									label: 'Indochinese tiger',
 									id: 'indochinese-tiger',
+									meta: 'endangered',
 								},
 								{
-									html: 'Malayan tiger <span class="sp-menu--item--meta">endangered</span>',
+									label: 'Malayan tiger',
 									id: 'malayan-tiger',
+									meta: 'endangered',
 								},
 								{
-									html: 'South China tiger <span class="sp-menu--item--meta">endangered</span>',
+									label: 'South China tiger',
 									id: 'south-china-tiger',
+									meta: 'endangered',
 								},
 							],
 						},
@@ -62,91 +69,110 @@
 					id: 'fruit',
 					submenu: [
 						{
-							html: 'Strawberry<span class="sp-menu--item--meta">(52)</span>',
+							label: 'Strawberry',
 							id: 'strawberry',
+							meta: '(52)',
 						},
 						{
-							html: 'Watermelon<span class="sp-menu--item--meta">(3)</span>',
+							label: 'Watermelon',
 							id: 'watermelon',
+							meta: '(3)',
 						},
 						{
 							label: 'Apple',
 							id: 'apple',
 							submenu: [
 								{
-									html: 'Pink Lady <span class="sp-menu--item--meta">(15)</span>',
+									label: 'Pink Lady ',
 									id: 'pink-lady',
+									meta: '(15)',
 								},
 								{
-									html: 'Empire <span class="sp-menu--item--meta">(23)</span>',
+									label: 'Empire ',
 									id: 'empire',
+									meta: '(23)',
 								},
 								{
-									html: 'Fuji <span class="sp-menu--item--meta">(65)</span>',
+									label: 'Fuji ',
 									id: 'fuji',
+									meta: '(65)',
 								},
 								{
-									html: 'Gala <span class="sp-menu--item--meta">(33)</span>',
+									label: 'Gala ',
 									id: 'gala',
+									meta: '(33)',
 								},
 								{
-									html: 'Golden Delicious <span class="sp-menu--item--meta">(8)</span>',
+									label: 'Golden Delicious ',
 									id: 'golden-delicious',
+									meta: '(8)',
 									selected: true,
 								},
 								{
-									html: 'Granny Smith <span class="sp-menu--item--meta">(80)</span>',
+									label: 'Granny Smith ',
 									id: 'granny-smith',
+									meta: '(80)',
 								},
 								{
-									html: 'Honeycrisp <span class="sp-menu--item--meta">(102)</span>',
+									label: 'Honeycrisp ',
 									id: 'honeycrisp',
+									meta: '(102)',
 								},
 								{
-									html: 'McIntosh <span class="sp-menu--item--meta">(64)</span>',
+									label: 'McIntosh ',
 									id: 'mcintosh',
+									meta: '(64)',
 								},
 							],
 						},
 						{
-							html: 'Peach<span class="sp-menu--item--meta">(18)</span>',
+							label: 'Peach',
 							id: 'peach',
+							meta: '(18)',
 						},
 						{
 							label: 'Banana',
 							id: 'banana',
 							submenu: [
 								{
-									html: 'Cavendish Banana<span class="sp-menu--item--meta">(23)</span>',
+									label: 'Cavendish Banana',
 									id: 'cavendish-banana',
+									meta: '(23)',
 								},
 								{
-									html: 'Pisang Raja<span class="sp-menu--item--meta">(8)</span>',
+									label: 'Pisang Raja',
 									id: 'pisang-raja',
+									meta: '(8)',
 								},
 								{
-									html: 'Red Banana<span class="sp-menu--item--meta">(12)</span>',
+									label: 'Red Banana',
 									id: 'red-banana',
+									meta: '(12)',
 								},
 								{
-									html: 'Lady Finger Banana<span class="sp-menu--item--meta">(16)</span>',
+									label: 'Lady Finger Banana',
 									id: 'Lady finger-banana',
+									meta: '(16)',
 								},
 								{
-									html: 'Blue Java Banana<span class="sp-menu--item--meta">(5)</span>',
+									label: 'Blue Java Banana',
 									id: 'Blue java-banana',
+									meta: '(5)',
 								},
 								{
-									html: 'Plantain<span class="sp-menu--item--meta">(23)</span>',
+									label: 'Plantain',
 									id: 'plantain',
+									meta: '(23)',
 								},
 								{
-									html: 'Manzano Banana<span class="sp-menu--item--meta">(9)</span>',
+									label: 'Manzano Banana',
 									id: 'manzano-banana',
+									meta: '(9)',
 								},
 								{
-									html: 'Burro Banana<span class="sp-menu--item--meta">(31)</span>',
+									label: 'Burro Banana',
 									id: 'burro-banana',
+									meta: '(31)',
 								},
 							],
 						},
@@ -228,6 +254,8 @@
 				on:click={buttonClickHandler}>
 				<Icon name="plus" />
 			</Button>
+			<br />
+			<br />
 			{#if visible}
 				<Menu
 					{data}

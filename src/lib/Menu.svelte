@@ -237,7 +237,7 @@
 			}
 		}
 
-		:global(.sp-menu--item--meta) {
+		.sp-menu--item--meta {
 			margin-left: auto;
 			color: $color--slate;
 		}
