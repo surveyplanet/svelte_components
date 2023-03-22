@@ -2,7 +2,8 @@
 	import { createEventDispatcher } from 'svelte';
 	import { COLORS, MASCOTS } from './index';
 
-	const dispatch = createEventDispatcher();
+	const dispatch: (name: string, detail: MouseEvent) => boolean =
+		createEventDispatcher();
 
 	const bgColors = [COLORS.blue, COLORS.green, COLORS.pink, COLORS.yellow];
 

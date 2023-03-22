@@ -10,7 +10,8 @@
 	import Cleave from 'cleave.js';
 	import type { CleaveOptions } from 'cleave.js/options';
 
-	const dispatch = createEventDispatcher();
+	const dispatch: (name: string, detail: Event) => boolean =
+		createEventDispatcher();
 
 	/**
 	 * The unique id of the input
