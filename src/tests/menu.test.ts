@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { loadStory, setControl, getStyles } from './_utils.js';
+import { loadStory } from './_utils.js';
 
 test.describe('Menu component', () => {
 	test('basic', async ({ page }) => {

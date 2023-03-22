@@ -1,13 +1,13 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Menu, Button, Icon, COLORS } from '../../lib';
+	import { Menu, Button, Icon, COLORS, type menuData } from '../../lib';
 	import { logEvent } from 'histoire/client';
 
 	// import { default as source } from './source';
 	export let Hst: Histoire;
 
 	let visible = true;
-	let data = [
+	let data: menuData[] = [
 		{ label: 'Edit', id: 'edit' },
 		{ label: 'Preview', id: 'preview' },
 		{ label: 'Duplicate', id: 'duplicate' },
@@ -226,17 +226,17 @@
 		{ label: 'Delete', id: 'delete', divide: true },
 	];
 
-	const buttonClickHandler = (e) => {
+	const buttonClickHandler = () => {
 		visible = !visible;
 	};
 
-	const menuClickHandler = (e) => {
+	const menuClickHandler = (event: CustomEvent) => {
 		visible = false;
-		logEvent('click', e);
+		logEvent('click', event);
 	};
 
-	const menuUpdateHandler = (e) => {
-		logEvent('update', e);
+	const menuUpdateHandler = (event: CustomEvent) => {
+		logEvent('update', event);
 	};
 </script>
 

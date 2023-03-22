@@ -1,15 +1,32 @@
+<script
+	lang="ts"
+	context="module">
+	import { Icon, type IconName } from './index';
+	export interface menuData {
+		id: string;
+		label?: string;
+		html?: string;
+		icon?: IconName;
+		meta?: string;
+		divide?: boolean;
+		inline?: boolean;
+		selected?: boolean;
+		submenu?: menuData[];
+	}
+</script>
+
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	import { Icon } from './index';
 
-	const dispatch = createEventDispatcher<{ detail: MouseEvent }>();
+	const dispatch: (name: string, detail: string) => boolean =
+		createEventDispatcher();
 
 	/**
 	 * Menu data
 	 */
-	export let data = [];
+	export let data: menuData[] = [{ id: 'edit' }];
 
 	// Should freeze data so current state an data are the same object
 	// onMount(() => {
@@ -22,11 +39,14 @@
 		easing: cubicOut,
 	};
 
-	let currentState = [...data];
+	let currentState: menuData[] = [...data];
 
 	let location: string[] = [];
 
-	const getState = (data, id) => {
+	const getState = (
+		data: menuData[],
+		id: string
+	): menuData['submenu'] | null => {
 		for (let item of data) {
 			if (item.id === id && item.submenu?.length) {
 				return item.submenu;
@@ -58,10 +78,13 @@
 	};
 
 	const itemClickHandler = (event: MouseEvent) => {
-		let id = event.target.id;
+		let id = (event.target as HTMLElement).id;
 
 		if (!id?.length) {
-			id = event.target.closest('button').id;
+			const btn = (event.target as HTMLElement).closest('button');
+			if (btn) {
+				id = btn.id;
+			}
 		}
 
 		const state = getState(data, id);
@@ -101,7 +124,7 @@
 			class:sp-menu--item--divide={item.divide}
 			class:sp-menu--item--inline={item.inline}
 			class:sp-menu--item--selected={item.selected}
-			class:sp-menu--item--submenu={item.submenu?.length > 0}
+			class:sp-menu--item--submenu={item?.submenu?.length}
 			transition:slide={transitionProps}>
 			<button
 				id={item.id}

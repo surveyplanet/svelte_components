@@ -11,4 +11,4 @@ export { default as Radio } from './Radio.svelte';
 export { default as TextInput, type TextInputType } from './TextInput.svelte';
 export { default as Alert } from './Alert.svelte';
 export { default as Modal } from './Modal.svelte';
-export { default as Menu } from './Menu.svelte';
+export { default as Menu, type menuData } from './Menu.svelte';
