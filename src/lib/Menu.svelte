@@ -1,6 +1,7 @@
 <script
 	lang="ts"
 	context="module">
+	import { Icon, type IconName } from './index';
 	export interface menuData {
 		id: string;
 		label?: string;
@@ -18,7 +19,6 @@
 	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	import { Icon, type IconName } from './index';
 
 	const dispatch: (name: string, detail: string) => boolean =
 		createEventDispatcher();
@@ -260,7 +260,7 @@
 			}
 		}
 
-		:global(.sp-menu--item--meta) {
+		.sp-menu--item--meta {
 			margin-left: auto;
 			color: $color--slate;
 		}
