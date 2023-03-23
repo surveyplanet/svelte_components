@@ -26,7 +26,7 @@
 	/**
 	 * Menu data
 	 */
-	export let data: menuData[] = [{ id: 'edit' }];
+	export let data: menuData[] = [];
 
 	// Should freeze data so current state an data are the same object
 	// onMount(() => {
@@ -39,7 +39,7 @@
 		easing: cubicOut,
 	};
 
-	let currentState: menuData[] = [...data];
+	$: currentState = [...data];
 
 	let location: string[] = [];
 
