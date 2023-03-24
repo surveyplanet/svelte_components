@@ -27,7 +27,7 @@
 		},
 		{
 			label: 'Caspian tiger',
-			id: 'sumatran-tiger',
+			id: 'caspian-tiger',
 			meta: 'extinct',
 			selected: false,
 		},
@@ -88,7 +88,20 @@
 				{disabled}
 				{required}
 				{value}
-				{label} />
+				{label}
+				on:update={(e) => {
+					value = e.detail;
+					logEvent('change', e.detail);
+				}}
+				on:toggle={(e) => {
+					logEvent('toggle', e.detail);
+				}}
+				on:search={(e) => {
+					logEvent('search', e.detail);
+				}}
+				on:close={(e) => {
+					logEvent('close', e.detail);
+				}} />
 		</div>
 	</Hst.Variant>
 </Hst.Story>

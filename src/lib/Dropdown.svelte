@@ -17,6 +17,8 @@
 	const dispatch: (name: string, detail: string) => boolean =
 		createEventDispatcher();
 
+	const dispatchString: (name: string) => boolean = createEventDispatcher();
+
 	export let data: dropdownData[];
 	export let value: string | null = null;
 	/// TODO: value should be a type id of the data
@@ -27,6 +29,9 @@
 
 	let visible = false;
 	let searchable = data.length >= searchableMinItems;
+	let dropdownButtonLabel = '';
+
+	$: closeButtonVisible = false;
 	$: newData = [...data];
 
 	onMount(() => {
@@ -36,6 +41,9 @@
 				item.selected = true;
 			}
 		}
+
+		dropdownButtonLabel =
+			data.find((item) => item.id === value)?.label || '';
 	});
 
 	const setFocus = (el: HTMLInputElement) => {
@@ -44,57 +52,21 @@
 
 	const toggleDropdown = () => {
 		visible = !visible;
-		dispatch('toggle');
+		dispatchString('toggle');
 	};
-
-	// const dropdownKeydownHandler = (event: KeyboardEvent) => {
-	// 	if (event.key === 'Escape') {
-	// 		visible = false;
-	// 		dispatch('close', event.key);
-	// 	}
-	// 	if (event.key === 'ArrowDown') {
-	// 		visible = true;
-
-	// 		for (let i = 0; i < data.length; i++) {
-	// 			let item = data[i];
-	// 			if (item.selected) {
-	// 				let nextItem = data[i + 1];
-	// 				if (nextItem) {
-	// 					item.selected = false;
-	// 					nextItem.selected = true;
-	// 					value = nextItem.label;
-	// 					dispatch('arrowDown', nextItem.id);
-	// 					console.log(value);
-	// 					break;
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// 	if (event.key === 'ArrowUp') {
-	// 		visible = true;
-	// 		for (let i = 0; i < data.length; i++) {
-	// 			let item = data[i];
-	// 			if (item.selected) {
-	// 				let prevItem = data[i - 1];
-	// 				if (prevItem) {
-	// 					item.selected = false;
-	// 					prevItem.selected = true;
-	// 					value = prevItem.label;
-	// 					console.log(value);
-	// 					dispatch('arrowUp', prevItem.id);
-	// 					break;
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// };
 
 	const setDropdownLabel = (id: string) => {
 		value = id;
+		let item = data.find((item) => item.id === id);
 		if (item?.label) {
 			for (let menuItem of data) {
-				menuItem.selected = menuItem.id !== id;
+				if (menuItem.id === id) {
+					menuItem.selected = true;
+				} else {
+					menuItem.selected = false;
+				}
 			}
+			dropdownButtonLabel = item?.label;
 		}
 	};
 
@@ -115,19 +87,33 @@
 		}
 	};
 
+	const closeSearch = () => {
+		newData = [...data];
+		visible = false;
+		closeButtonVisible = false;
+		console.log(closeButtonVisible);
+		//TODO: upon closing search remove search bar and show dropdown
+	};
+
 	const menuUpdateHandler = (event: CustomEvent) => {
 		setDropdownLabel(event.detail);
 		dispatch('update', event.detail);
 		toggleDropdown();
 	};
 
-	//TODO: Add search support
-	// loop trough data and filter out items that don't match search and this will be the new data
-	//do the same thing we did with menu with a new array but without location
-	// create x button to clear search and reset data
+	const searchKeyupHandler = (event: KeyboardEvent) => {
+		if ((event.target as HTMLInputElement).value.length) {
+			search((event.target as HTMLInputElement).value);
+		} else {
+			closeSearch();
+		}
+		closeButtonVisible = true;
+		dispatch('search', (event.target as HTMLInputElement).value);
+	};
 
-	const searchKeyupHandler = (event: KeyupEvent) => {
-		search(event.target.value);
+	const closeButtonHandler = () => {
+		closeSearch();
+		dispatchString('close');
 	};
 </script>
 
@@ -143,7 +129,12 @@
 	class:sp-dropdown--required={required}
 	class:sp-dropdown--open={visible}>
 	{#if searchable}
-		<button on:click={toggleDropdown}>X</button>
+		{#if closeButtonVisible}
+			<button
+				class="sp-dropdown--close-btn"
+				on:click={closeButtonHandler}>X</button>
+		{/if}
+
 		<input
 			on:keyup={searchKeyupHandler}
 			use:setFocus
@@ -153,7 +144,7 @@
 		<button
 			class="sp-dropdown--trigger"
 			on:click={toggleDropdown}>
-			{value}
+			{dropdownButtonLabel}
 			<Icon name="chevronDown" />
 		</button>
 	{/if}
@@ -193,9 +184,15 @@
 		&:hover {
 			background: $color--light-purple-light;
 		}
+	}
 
-		svg {
-			margin-left: auto;
-		}
+	.sp-dropdown--close-btn {
+		position: absolute;
+		right: 0;
+		top: 0;
+		padding: $size-gutter--quarter $size-gutter--half;
+		background: transparent;
+		border: none;
+		cursor: pointer;
 	}
 </style>
