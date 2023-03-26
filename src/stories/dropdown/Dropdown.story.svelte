@@ -11,61 +11,54 @@
 			label: 'Bengal tiger',
 			id: 'bengal-tiger',
 			meta: 'endangered',
-			selected: false,
 		},
 		{
 			label: 'Siberian tiger',
 			id: 'siberian-tiger',
 			meta: 'endangered',
-			selected: true,
 		},
 		{
 			label: 'Sumatran tiger',
 			id: 'sumatran-tiger',
 			meta: 'endangered',
-			selected: false,
 		},
 		{
 			label: 'Caspian tiger',
 			id: 'caspian-tiger',
 			meta: 'extinct',
-			selected: false,
 		},
 		{
 			label: 'Indochinese tiger',
 			id: 'indochinese-tiger',
 			meta: 'endangered',
-			selected: false,
 		},
 		{
 			label: 'Malayan tiger',
 			id: 'malayan-tiger',
 			meta: 'endangered',
-			selected: false,
 		},
 		{
 			label: 'South China tiger',
 			id: 'south-china-tiger',
 			meta: 'endangered',
-			selected: false,
 		},
 	];
 
-	let searchableMinItems = 2;
+	let minSearchableItems = 5;
 	let disabled = false;
 	let required = false;
 	let value = 'bengal-tiger';
 	let label = 'Dropdown component';
 </script>
 
-<Hst.Story title="Dropdown">
+<Hst.Story title="Form controls / Dropdown">
 	<svelte:fragment slot="controls">
 		<Hst.Json
 			bind:value={data}
 			title="Dropdown Items" />
 		<Hst.Number
-			bind:value={searchableMinItems}
-			title="searchableMinItems" />
+			bind:value={minSearchableItems}
+			title="minSearchableItems" />
 		<Hst.Checkbox
 			bind:value={disabled}
 			title="Disabled" />
@@ -84,7 +77,7 @@
 		<div class="wrapper">
 			<Dropdown
 				{data}
-				{searchableMinItems}
+				{minSearchableItems}
 				{disabled}
 				{required}
 				{value}

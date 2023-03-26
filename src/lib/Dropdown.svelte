@@ -23,32 +23,30 @@
 	export let value: string | null = null;
 	/// TODO: value should be a type id of the data
 	export let label: string | null = null;
-	export let searchableMinItems = 15;
+	export let minSearchableItems = 15;
 	export let disabled = false;
 	export let required = false;
 
 	let visible = false;
-	let searchable = data.length >= searchableMinItems;
-	let dropdownButtonLabel = '';
-
-	$: closeButtonVisible = false;
+	$: searchable = data.length >= minSearchableItems;
+	$: dropdownButtonLabel =
+		data.find((item) => item.id === value)?.label ?? '';
+	$: closeButtonVisible = value?.length;
 	$: newData = [...data];
 
 	onMount(() => {
 		// instead of searching for select, pass the value and set select to the one that is equivalent to the value
-		for (const item of data) {
+		for (const item of newData) {
 			if (item.id === value) {
 				item.selected = true;
 			}
 		}
-
-		dropdownButtonLabel =
-			data.find((item) => item.id === value)?.label || '';
 	});
 
-	const setFocus = (el: HTMLInputElement) => {
-		el.focus();
-	};
+	// Don't set focus because there may be other input on the page
+	// const setFocus = (el: HTMLInputElement) => {
+	// 	el.focus();
+	// };
 
 	const toggleDropdown = () => {
 		visible = !visible;
@@ -90,7 +88,6 @@
 	const closeSearch = () => {
 		newData = [...data];
 		visible = false;
-		closeButtonVisible = false;
 		console.log(closeButtonVisible);
 		//TODO: upon closing search remove search bar and show dropdown
 	};
@@ -107,12 +104,12 @@
 		} else {
 			closeSearch();
 		}
-		closeButtonVisible = true;
 		dispatch('search', (event.target as HTMLInputElement).value);
 	};
 
 	const closeButtonHandler = () => {
 		closeSearch();
+		value = '';
 		dispatchString('close');
 	};
 </script>
@@ -122,32 +119,52 @@
 		for="sp-dropdown"
 		class="sp-dropdown--label">{label}</label>
 {/if}
-<!-- on:keydown={dropdownKeydownHandler} -->
+
 <div
 	class="sp-dropdown"
-	class:sp-dropdown--disabled={disabled}
 	class:sp-dropdown--required={required}
 	class:sp-dropdown--open={visible}>
-	{#if searchable}
-		{#if closeButtonVisible}
-			<button
-				class="sp-dropdown--close-btn"
-				on:click={closeButtonHandler}>X</button>
-		{/if}
-
-		<input
-			on:keyup={searchKeyupHandler}
-			use:setFocus
-			type="text"
-			class="sp-dropdown--search" />
-	{:else}
+	{#if searchable && value?.length}
 		<button
-			class="sp-dropdown--trigger"
-			on:click={toggleDropdown}>
-			{dropdownButtonLabel}
-			<Icon name="chevronDown" />
+			class="sp-dropdown--close-btn"
+			on:click={closeButtonHandler}>
+			<Icon
+				name="x"
+				size={16} />
 		</button>
 	{/if}
+
+	<input
+		type="text"
+		class="sp-dropdown--search"
+		{disabled}
+		readonly={!searchable}
+		value={dropdownButtonLabel}
+		on:click={toggleDropdown}
+		on:keyup={searchKeyupHandler} />
+
+	<!-- I don't think we need a button and an input -->
+	<!-- <button
+		class="sp-dropdown--trigger"
+		on:click={toggleDropdown}
+		{disabled}>
+		{dropdownButtonLabel}
+	</button> -->
+
+	<svg
+		class="sp-dropdown--toggle-icon"
+		width="7"
+		height="4"
+		viewBox="0 0 7 4"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg">
+		<path
+			d="M1.08984 0.830868L3.50606 3.24707L6.0002 0.75293"
+			stroke="#162137"
+			stroke-width="1.5"
+			stroke-linecap="round"
+			stroke-linejoin="round" />
+	</svg>
 </div>
 {#if visible}
 	<Menu
@@ -159,40 +176,89 @@
 	@use '@surveyplanet/styles' as *;
 
 	.sp-dropdown {
-		list-style: none;
-		overflow: hidden;
-		margin: 0;
-		padding: $size-gutter--quarter 0;
-		background-color: white;
-		box-shadow: 0px 5px 5px rgba(142, 117, 205, 0.1);
-		// border-radius: $size-radius--large;
-		max-width: 260px;
-	}
-
-	button {
-		width: 100%;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: nowrap;
-		justify-content: start;
-		align-items: center;
-		cursor: pointer;
-		border: none;
-		background-color: transparent;
-		padding: $size-gutter--quarter $size-gutter--half;
-		margin: 0;
-		&:hover {
-			background: $color--light-purple-light;
+		position: relative;
+		&.sp-dropdown--open {
+			.sp-dropdown--toggle-icon {
+				rotate: (180deg);
+			}
 		}
 	}
 
-	.sp-dropdown--close-btn {
-		position: absolute;
-		right: 0;
-		top: 0;
-		padding: $size-gutter--quarter $size-gutter--half;
-		background: transparent;
-		border: none;
+	label {
+		color: $color--slate-dark;
+		display: block;
+		font: $font--default;
+		font-size: $font-size--12;
+		padding: 0 0 $size--12 $size--4;
+		.sp-text-input--label--require {
+			color: $color--pink;
+			font-size: $font-size--14;
+		}
+	}
+
+	input {
+		box-sizing: border-box;
+		width: 100%;
+		height: $size--40;
+		min-width: $size--256;
+		background-color: $color--white;
+		border: 1px solid $color--slate-lighter;
+		border-radius: $size-radius--default;
+		margin: 0;
+		padding: 0 0 0 $size--16;
+		text-align: left;
+		@include set-focus {
+			box-shadow: 0px 0px 0px 1px $color--white,
+				0px 0px 0px 2px $color--slate;
+		}
+		&:active {
+			border: 1px solid #e7e3ff;
+			box-shadow: 0px 0px 0px 2px $color--light-purple-light;
+		}
+
+		// disabled controls can not receive focus and are not submitted with the
+		// form and generally do not function as controls until they are enabled
+		&:disabled {
+			cursor: not-allowed;
+			color: $color--slate-light;
+			border-color: $color--slate-light;
+			background-color: rgba(0, 0, 0, 0.075);
+			box-shadow: none;
+			@include set-focus {
+				box-shadow: none;
+			}
+			&:active {
+				box-shadow: none;
+			}
+		}
+	}
+
+	.sp-dropdown--close-btn,
+	.sp-dropdown--toggle-icon {
 		cursor: pointer;
+		position: absolute;
+		right: $size-gutter--half;
+	}
+
+	.sp-dropdown--toggle-icon {
+		top: calc(50% - 2px);
+	}
+
+	.sp-dropdown--close-btn {
+		top: calc(50% - 8px);
+		border: none;
+		width: 16px;
+		height: 16px;
+		min-width: auto;
+		margin: 0;
+		padding: 0;
+		background-color: white;
+		z-index: 1;
+		&:hover {
+			background-color: $color--slate-lighter;
+			:global(.sp-icon path) {
+				stroke: white;
+			}
+		}
 	}
 </style>
