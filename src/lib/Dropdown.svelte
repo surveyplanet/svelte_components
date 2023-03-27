@@ -41,6 +41,9 @@
 
 	const reset = () => {
 		menuData = [...options];
+		for (let item of menuData) {
+			item.selected = false;
+		}
 	};
 
 	const setValue = (id: string, silent = false) => {
@@ -92,7 +95,7 @@
 
 		// let menu click handler hide itself after value has been set
 		if (newFocusEl?.classList) {
-			if (!newFocusEl.classList.contains('sp-menu--item--btn')) {
+			if (newFocusEl.classList.contains('sp-menu--item--btn')) {
 				return;
 			}
 		}

@@ -28,6 +28,7 @@ test.describe('Dropdown component', () => {
 		const changeEvent2 = await getLastEvent(page);
 		expect(changeEvent2.name).toBe('change');
 		await expect(input).toHaveValue('');
+		await input.click();
 		await expect(preview.locator('.sp-menu--item')).toHaveCount(7);
 
 		await input.type('ma');
@@ -36,10 +37,40 @@ test.describe('Dropdown component', () => {
 
 		const changeEvent1 = await getLastEvent(page);
 		expect(changeEvent1.name).toBe('change');
+		await expect(input).toHaveValue('Malayan tiger');
+		await input.type(' ');
+		await expect(preview.locator('.sp-menu--item').nth(0)).toHaveClass(
+			/sp-menu--item--selected/
+		);
 
 		// check for selected, there should only be one selected item
+		await closeBtn.click();
+		await input.click();
+		await expect(preview.locator('.sp-menu--item')).toHaveCount(7);
+		await expect(preview.locator('.sp-menu--item').nth(0)).not.toHaveClass(
+			/sp-menu--item--selected/
+		);
+		await expect(preview.locator('.sp-menu--item').nth(1)).not.toHaveClass(
+			/sp-menu--item--selected/
+		);
+		await expect(preview.locator('.sp-menu--item').nth(2)).not.toHaveClass(
+			/sp-menu--item--selected/
+		);
+		await expect(preview.locator('.sp-menu--item').nth(3)).not.toHaveClass(
+			/sp-menu--item--selected/
+		);
+		await expect(preview.locator('.sp-menu--item').nth(4)).not.toHaveClass(
+			/sp-menu--item--selected/
+		);
+		await expect(preview.locator('.sp-menu--item').nth(5)).not.toHaveClass(
+			/sp-menu--item--selected/
+		);
+		await expect(preview.locator('.sp-menu--item').nth(6)).not.toHaveClass(
+			/sp-menu--item--selected/
+		);
 
-		await expect(input).toHaveValue('Malayan tiger');
+		await preview.locator('body').click();
+		await expect(preview.locator('ul')).not.toBeVisible();
 	});
 	test('disabled', async ({ page }) => {
 		const preview = await loadStory(page, 'dropdown');
