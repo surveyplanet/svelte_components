@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Dropdown, type dropdownData } from '../../lib';
+	import { Dropdown, type dropdownOptions } from '../../lib';
 	import { logEvent } from 'histoire/client';
 
 	// import { default as source } from './source';
 	export let Hst: Histoire;
 
-	let data: dropdownData[] = [
+	let options: dropdownOptions[] = [
 		{
 			label: 'Bengal tiger',
 			id: 'bengal-tiger',
@@ -47,10 +47,12 @@
 	let searchThreshold = 5;
 	let disabled = false;
 	let required = false;
-	let value = 'bengal-tiger';
+	let value = options[3].id;
 	let label = 'Dropdown component';
 
 	const dropdownChangeHandler = (event: CustomEvent) => {
+		value = event.detail;
+
 		logEvent('change', event.detail);
 	};
 </script>
@@ -58,7 +60,7 @@
 <Hst.Story title="Form controls / Dropdown">
 	<svelte:fragment slot="controls">
 		<Hst.Json
-			bind:value={data}
+			bind:value={options}
 			title="Dropdown Items" />
 		<Hst.Number
 			bind:value={searchThreshold}
@@ -80,7 +82,7 @@
 	<Hst.Variant title="Primary">
 		<div class="wrapper">
 			<Dropdown
-				{data}
+				{options}
 				{searchThreshold}
 				{disabled}
 				{required}

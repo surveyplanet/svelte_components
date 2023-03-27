@@ -1,7 +1,7 @@
 <script
 	lang="ts"
 	context="module">
-	export interface dropdownData {
+	export interface dropdownOptions {
 		label: string;
 		id: string;
 		meta?: string;
@@ -17,19 +17,21 @@
 	const dispatch: (name: string, detail: string) => boolean =
 		createEventDispatcher();
 
-	export let data: dropdownData[];
-	export let value: string | null = null;
+	export let options: dropdownOptions[];
+	export let value: dropdownOptions['id'] | null = null;
 	export let label: string | null = null;
 	export let searchThreshold = 15;
 	export let disabled = false;
 	export let required = false;
 
+	$: console.log(value);
+
 	let input: HTMLInputElement;
 	let visible = false;
-	let displayValue = '';
+	let displayValue: dropdownOptions['label'] | '' = '';
 
-	$: searchable = data.length >= searchThreshold;
-	$: newData = [...data];
+	$: searchable = options.length >= searchThreshold;
+	$: menuData = [...options];
 
 	onMount(() => {
 		if (value?.length) {
@@ -37,14 +39,14 @@
 		}
 	});
 
-	const toggle = () => {
-		visible = !visible;
+	const reset = () => {
+		menuData = [...options];
 	};
 
 	const setValue = (id: string, silent = false) => {
 		value = id;
 		displayValue = '';
-		for (let item of newData) {
+		for (let item of menuData) {
 			item.selected = false;
 			if (item.id === id) {
 				item.selected = true;
@@ -61,23 +63,40 @@
 
 		if (query?.length) {
 			visible = true;
-			newData = data.filter((item) => {
+			menuData = options.filter((item) => {
+				// item.selected = false;
 				return item.label.toLowerCase().trim().includes(query);
 			});
 		} else {
-			newData = [...data];
+			reset();
 		}
 	};
 
 	const clear = () => {
-		newData = [...data];
+		reset();
 		setValue(''); // unset value
-		input.focus();
-		visible = true;
+		input.focus(); // setting focus will open menu
 	};
 
 	const menuClickHandler = (event: CustomEvent) => {
 		setValue(event.detail);
+		visible = false; // blur handler hides the menu
+	};
+
+	const searchFocusHandler = () => {
+		visible = true;
+	};
+
+	const searchBlurHandler = (event: FocusEvent) => {
+		const newFocusEl = (event.relatedTarget as HTMLElement) || null;
+
+		// let menu click handler hide itself after value has been set
+		if (newFocusEl?.classList) {
+			if (!newFocusEl.classList.contains('sp-menu--item--btn')) {
+				return;
+			}
+		}
+
 		visible = false;
 	};
 
@@ -122,7 +141,8 @@
 		{disabled}
 		value={displayValue}
 		readonly={!searchable}
-		on:click={toggle}
+		on:focus={searchFocusHandler}
+		on:blur={searchBlurHandler}
 		on:keyup={searchKeyupHandler} />
 
 	<svg
@@ -142,7 +162,7 @@
 </div>
 {#if visible}
 	<Menu
-		data={newData}
+		data={menuData}
 		on:click={menuClickHandler} />
 {/if}
 
@@ -171,6 +191,7 @@
 	}
 
 	input {
+		cursor: pointer;
 		box-sizing: border-box;
 		width: 100%;
 		height: $size--40;
@@ -227,6 +248,7 @@
 		margin: 0;
 		padding: 0;
 		background-color: white;
+		border-radius: $size-radius--small;
 		z-index: 1;
 		&:hover {
 			background-color: $color--slate-lighter;
@@ -235,4 +257,22 @@
 			}
 		}
 	}
+
+	// :global(html.dark) {
+	// 	label {
+	// 		color: $color--white;
+	// 	}
+	// 	.sp-dropdown--close-btn {
+	// 		:global(.sp-icon path) {
+	// 			stroke: white;
+	// 		}
+
+	// 		&:hover {
+	// 			background-color: $color--slate-dark;
+	// 			:global(.sp-icon path) {
+	// 				stroke: white;
+	// 			}
+	// 		}
+	// 	}
+	// }
 </style>
