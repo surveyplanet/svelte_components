@@ -19,7 +19,6 @@
 
 	export let data: dropdownData[];
 	export let value: string | null = null;
-	/// TODO: value should be a type id of the data
 	export let label: string | null = null;
 	export let searchThreshold = 15;
 	export let disabled = false;
@@ -37,11 +36,6 @@
 			setValue(value, true);
 		}
 	});
-
-	// Don't set focus because there may be other input on the page
-	// const setFocus = (el: HTMLInputElement) => {
-	// 	el.focus();
-	// };
 
 	const toggle = () => {
 		visible = !visible;
@@ -130,14 +124,6 @@
 		readonly={!searchable}
 		on:click={toggle}
 		on:keyup={searchKeyupHandler} />
-
-	<!-- I don't think we need a button and an input -->
-	<!-- <button
-		class="sp-dropdown--trigger"
-		on:click={toggle}
-		{disabled}>
-		{displayValue}
-	</button> -->
 
 	<svg
 		class="sp-dropdown--toggle-icon"
