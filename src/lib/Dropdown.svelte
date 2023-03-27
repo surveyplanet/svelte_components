@@ -39,6 +39,10 @@
 		}
 	});
 
+	const reset = () => {
+		menuData = [...options];
+	};
+
 	const setValue = (id: string, silent = false) => {
 		value = id;
 		displayValue = '';
@@ -60,15 +64,16 @@
 		if (query?.length) {
 			visible = true;
 			menuData = options.filter((item) => {
+				// item.selected = false;
 				return item.label.toLowerCase().trim().includes(query);
 			});
 		} else {
-			menuData = [...options];
+			reset();
 		}
 	};
 
 	const clear = () => {
-		menuData = [...options];
+		reset();
 		setValue(''); // unset value
 		input.focus(); // setting focus will open menu
 	};
@@ -81,16 +86,18 @@
 	const searchFocusHandler = () => {
 		visible = true;
 	};
+
 	const searchBlurHandler = (event: FocusEvent) => {
-		const newFocusEl = event.relatedTarget as HTMLElement;
+		const newFocusEl = (event.relatedTarget as HTMLElement) || null;
 
 		// let menu click handler hide itself after value has been set
-		if (
-			newFocusEl &&
-			!newFocusEl.classList.contains('sp-menu--item--button')
-		) {
-			visible = false;
+		if (newFocusEl?.classList) {
+			if (!newFocusEl.classList.contains('sp-menu--item--btn')) {
+				return;
+			}
 		}
+
+		visible = false;
 	};
 
 	const searchKeyupHandler = (event: KeyboardEvent) => {
@@ -241,6 +248,7 @@
 		margin: 0;
 		padding: 0;
 		background-color: white;
+		border-radius: $size-radius--small;
 		z-index: 1;
 		&:hover {
 			background-color: $color--slate-lighter;
