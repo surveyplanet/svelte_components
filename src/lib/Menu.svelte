@@ -79,6 +79,7 @@
 
 	const itemClickHandler = (event: MouseEvent) => {
 		let id = (event.target as HTMLElement).id;
+		// console.log('itemClickHandler', id);
 
 		if (!id?.length) {
 			const btn = (event.target as HTMLElement).closest('button');
@@ -126,6 +127,7 @@
 			class:sp-menu--item--submenu={item?.submenu?.length}
 			transition:slide={transitionProps}>
 			<button
+				class="sp-menu--item--button"
 				id={item.id}
 				on:click|preventDefault={itemClickHandler}>
 				{#if item.label}

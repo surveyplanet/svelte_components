@@ -1,7 +1,7 @@
 <script
 	lang="ts"
 	context="module">
-	export interface dropdownData {
+	export interface dropdownOptions {
 		label: string;
 		id: string;
 		meta?: string;
@@ -17,20 +17,21 @@
 	const dispatch: (name: string, detail: string) => boolean =
 		createEventDispatcher();
 
-	export let data: dropdownData[];
-	export let value: string | null = null;
-	/// TODO: value should be a type id of the data
+	export let options: dropdownOptions[];
+	export let value: dropdownOptions['id'] | null = null;
 	export let label: string | null = null;
 	export let searchThreshold = 15;
 	export let disabled = false;
 	export let required = false;
 
+	$: console.log(value);
+
 	let input: HTMLInputElement;
 	let visible = false;
-	let displayValue = '';
+	let displayValue: dropdownOptions['label'] | '' = '';
 
-	$: searchable = data.length >= searchThreshold;
-	$: newData = [...data];
+	$: searchable = options.length >= searchThreshold;
+	$: menuData = [...options];
 
 	onMount(() => {
 		if (value?.length) {
@@ -38,19 +39,10 @@
 		}
 	});
 
-	// Don't set focus because there may be other input on the page
-	// const setFocus = (el: HTMLInputElement) => {
-	// 	el.focus();
-	// };
-
-	const toggle = () => {
-		visible = !visible;
-	};
-
 	const setValue = (id: string, silent = false) => {
 		value = id;
 		displayValue = '';
-		for (let item of newData) {
+		for (let item of menuData) {
 			item.selected = false;
 			if (item.id === id) {
 				item.selected = true;
@@ -67,24 +59,38 @@
 
 		if (query?.length) {
 			visible = true;
-			newData = data.filter((item) => {
+			menuData = options.filter((item) => {
 				return item.label.toLowerCase().trim().includes(query);
 			});
 		} else {
-			newData = [...data];
+			menuData = [...options];
 		}
 	};
 
 	const clear = () => {
-		newData = [...data];
+		menuData = [...options];
 		setValue(''); // unset value
-		input.focus();
-		visible = true;
+		input.focus(); // setting focus will open menu
 	};
 
 	const menuClickHandler = (event: CustomEvent) => {
 		setValue(event.detail);
-		visible = false;
+		visible = false; // blur handler hides the menu
+	};
+
+	const searchFocusHandler = () => {
+		visible = true;
+	};
+	const searchBlurHandler = (event: FocusEvent) => {
+		const newFocusEl = event.relatedTarget as HTMLElement;
+
+		// let menu click handler hide itself after value has been set
+		if (
+			newFocusEl &&
+			!newFocusEl.classList.contains('sp-menu--item--button')
+		) {
+			visible = false;
+		}
 	};
 
 	const searchKeyupHandler = (event: KeyboardEvent) => {
@@ -128,16 +134,9 @@
 		{disabled}
 		value={displayValue}
 		readonly={!searchable}
-		on:click={toggle}
+		on:focus={searchFocusHandler}
+		on:blur={searchBlurHandler}
 		on:keyup={searchKeyupHandler} />
-
-	<!-- I don't think we need a button and an input -->
-	<!-- <button
-		class="sp-dropdown--trigger"
-		on:click={toggle}
-		{disabled}>
-		{displayValue}
-	</button> -->
 
 	<svg
 		class="sp-dropdown--toggle-icon"
@@ -156,7 +155,7 @@
 </div>
 {#if visible}
 	<Menu
-		data={newData}
+		data={menuData}
 		on:click={menuClickHandler} />
 {/if}
 
@@ -185,6 +184,7 @@
 	}
 
 	input {
+		cursor: pointer;
 		box-sizing: border-box;
 		width: 100%;
 		height: $size--40;
