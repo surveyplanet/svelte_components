@@ -257,4 +257,22 @@
 			}
 		}
 	}
+
+	// :global(html.dark) {
+	// 	label {
+	// 		color: $color--white;
+	// 	}
+	// 	.sp-dropdown--close-btn {
+	// 		:global(.sp-icon path) {
+	// 			stroke: white;
+	// 		}
+
+	// 		&:hover {
+	// 			background-color: $color--slate-dark;
+	// 			:global(.sp-icon path) {
+	// 				stroke: white;
+	// 			}
+	// 		}
+	// 	}
+	// }
 </style>

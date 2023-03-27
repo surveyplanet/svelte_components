@@ -127,7 +127,7 @@
 			class:sp-menu--item--submenu={item?.submenu?.length}
 			transition:slide={transitionProps}>
 			<button
-				class="sp-menu--item--button"
+				class="sp-menu--item--btn"
 				id={item.id}
 				on:click|preventDefault={itemClickHandler}>
 				{#if item.label}
