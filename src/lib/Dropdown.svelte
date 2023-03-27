@@ -17,29 +17,24 @@
 	const dispatch: (name: string, detail: string) => boolean =
 		createEventDispatcher();
 
-	const dispatchString: (name: string) => boolean = createEventDispatcher();
-
 	export let data: dropdownData[];
 	export let value: string | null = null;
 	/// TODO: value should be a type id of the data
 	export let label: string | null = null;
-	export let minSearchableItems = 15;
+	export let searchThreshold = 15;
 	export let disabled = false;
 	export let required = false;
 
+	let input: HTMLInputElement;
 	let visible = false;
-	$: searchable = data.length >= minSearchableItems;
-	$: dropdownButtonLabel =
-		data.find((item) => item.id === value)?.label ?? '';
-	$: closeButtonVisible = value?.length;
+	let displayValue = '';
+
+	$: searchable = data.length >= searchThreshold;
 	$: newData = [...data];
 
 	onMount(() => {
-		// instead of searching for select, pass the value and set select to the one that is equivalent to the value
-		for (const item of newData) {
-			if (item.id === value) {
-				item.selected = true;
-			}
+		if (value?.length) {
+			setValue(value, true);
 		}
 	});
 
@@ -48,83 +43,75 @@
 	// 	el.focus();
 	// };
 
-	const toggleDropdown = () => {
+	const toggle = () => {
 		visible = !visible;
-		dispatchString('toggle');
 	};
 
-	const setDropdownLabel = (id: string) => {
+	const setValue = (id: string, silent = false) => {
 		value = id;
-		let item = data.find((item) => item.id === id);
-		if (item?.label) {
-			for (let menuItem of data) {
-				if (menuItem.id === id) {
-					menuItem.selected = true;
-				} else {
-					menuItem.selected = false;
-				}
+		displayValue = '';
+		for (let item of newData) {
+			item.selected = false;
+			if (item.id === id) {
+				item.selected = true;
+				displayValue = item.label;
 			}
-			dropdownButtonLabel = item?.label;
+		}
+		if (!silent) {
+			dispatch('change', value);
 		}
 	};
 
-	const search = (value: string) => {
-		value = value.toLowerCase().trim();
+	const search = (query: string) => {
+		query = query.toLowerCase().trim();
 
-		if (value?.length) {
+		if (query?.length) {
 			visible = true;
-			newData = [];
-
-			for (let item of data) {
-				if (item.label.toLowerCase().trim().includes(value)) {
-					newData.push(item);
-				}
-			}
+			newData = data.filter((item) => {
+				return item.label.toLowerCase().trim().includes(query);
+			});
 		} else {
 			newData = [...data];
 		}
 	};
 
-	const closeSearch = () => {
+	const clear = () => {
 		newData = [...data];
-		visible = false;
-		console.log(closeButtonVisible);
-		//TODO: upon closing search remove search bar and show dropdown
+		setValue(''); // unset value
+		input.focus();
+		visible = true;
 	};
 
-	const menuUpdateHandler = (event: CustomEvent) => {
-		setDropdownLabel(event.detail);
-		dispatch('update', event.detail);
-		toggleDropdown();
+	const menuClickHandler = (event: CustomEvent) => {
+		setValue(event.detail);
+		visible = false;
 	};
 
 	const searchKeyupHandler = (event: KeyboardEvent) => {
-		if ((event.target as HTMLInputElement).value.length) {
-			search((event.target as HTMLInputElement).value);
-		} else {
-			closeSearch();
-		}
-		dispatch('search', (event.target as HTMLInputElement).value);
+		const target = event.target as HTMLInputElement;
+		search(target.value);
 	};
 
 	const closeButtonHandler = () => {
-		closeSearch();
-		value = '';
-		dispatchString('close');
+		clear();
 	};
 </script>
 
 {#if label}
 	<label
 		for="sp-dropdown"
-		class="sp-dropdown--label">{label}</label>
+		class="sp-dropdown--label">
+		{label}
+		{#if required}
+			<span class="sp-dropdown--label--required">*</span>
+		{/if}
+	</label>
 {/if}
 
 <div
 	class="sp-dropdown"
-	class:sp-dropdown--required={required}
 	class:sp-dropdown--open={visible}>
-	{#if searchable && value?.length}
+	{#if searchable && displayValue?.length}
 		<button
 			class="sp-dropdown--close-btn"
 			on:click={closeButtonHandler}>
@@ -137,18 +124,19 @@
 	<input
 		type="text"
 		class="sp-dropdown--search"
+		bind:this={input}
 		{disabled}
+		value={displayValue}
 		readonly={!searchable}
-		value={dropdownButtonLabel}
-		on:click={toggleDropdown}
+		on:click={toggle}
 		on:keyup={searchKeyupHandler} />
 
 	<!-- I don't think we need a button and an input -->
 	<!-- <button
 		class="sp-dropdown--trigger"
-		on:click={toggleDropdown}
+		on:click={toggle}
 		{disabled}>
-		{dropdownButtonLabel}
+		{displayValue}
 	</button> -->
 
 	<svg
@@ -169,7 +157,7 @@
 {#if visible}
 	<Menu
 		data={newData}
-		on:click={menuUpdateHandler} />
+		on:click={menuClickHandler} />
 {/if}
 
 <style lang="scss">
@@ -190,7 +178,7 @@
 		font: $font--default;
 		font-size: $font-size--12;
 		padding: 0 0 $size--12 $size--4;
-		.sp-text-input--label--require {
+		.sp-dropdown--label--required {
 			color: $color--pink;
 			font-size: $font-size--14;
 		}

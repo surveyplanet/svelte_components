@@ -142,7 +142,7 @@
 			for={id}>
 			<span class="sp-text-input--label--text">{label}</span>
 			{#if validationRules.includes('require')}
-				<span class="sp-text-input--label--require">*</span>
+				<span class="sp-text-input--label--required">*</span>
 			{/if}
 		</label>
 	{/if}
@@ -207,7 +207,7 @@
 		font: $font--default;
 		font-size: $font-size--12;
 		padding: 0 0 $size--12 $size--4;
-		.sp-text-input--label--require {
+		.sp-text-input--label--required {
 			color: $color--pink;
 			font-size: $font-size--14;
 		}

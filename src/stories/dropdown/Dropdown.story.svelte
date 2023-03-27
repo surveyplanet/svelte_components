@@ -44,11 +44,15 @@
 		},
 	];
 
-	let minSearchableItems = 5;
+	let searchThreshold = 5;
 	let disabled = false;
 	let required = false;
 	let value = 'bengal-tiger';
 	let label = 'Dropdown component';
+
+	const dropdownChangeHandler = (event: CustomEvent) => {
+		logEvent('change', event.detail);
+	};
 </script>
 
 <Hst.Story title="Form controls / Dropdown">
@@ -57,8 +61,8 @@
 			bind:value={data}
 			title="Dropdown Items" />
 		<Hst.Number
-			bind:value={minSearchableItems}
-			title="minSearchableItems" />
+			bind:value={searchThreshold}
+			title="Search threshold" />
 		<Hst.Checkbox
 			bind:value={disabled}
 			title="Disabled" />
@@ -77,24 +81,12 @@
 		<div class="wrapper">
 			<Dropdown
 				{data}
-				{minSearchableItems}
+				{searchThreshold}
 				{disabled}
 				{required}
 				{value}
 				{label}
-				on:update={(e) => {
-					value = e.detail;
-					logEvent('change', e.detail);
-				}}
-				on:toggle={(e) => {
-					logEvent('toggle', e.detail);
-				}}
-				on:search={(e) => {
-					logEvent('search', e.detail);
-				}}
-				on:close={(e) => {
-					logEvent('close', e.detail);
-				}} />
+				on:change={dropdownChangeHandler} />
 		</div>
 	</Hst.Variant>
 </Hst.Story>

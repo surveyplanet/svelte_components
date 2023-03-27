@@ -117,7 +117,6 @@
 			</button>
 		</li>
 	{/if}
-
 	{#each currentState as item}
 		<li
 			class="sp-menu--item"
@@ -164,6 +163,10 @@
 		box-shadow: 0px 5px 5px rgba(142, 117, 205, 0.1);
 		border-radius: $size-radius--large;
 		max-width: 260px;
+		// &:empty { empty doesn't work because of whitespace
+		&:not(:has(li)) {
+			display: none;
+		}
 	}
 	.sp-menu--item {
 		position: relative;
