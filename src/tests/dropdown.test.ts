@@ -43,7 +43,6 @@ test.describe('Dropdown component', () => {
 			/sp-menu--item--selected/
 		);
 
-		// check for selected, there should only be one selected item
 		await closeBtn.click();
 		await input.click();
 		await expect(preview.locator('.sp-menu--item')).toHaveCount(7);
