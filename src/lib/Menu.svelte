@@ -33,6 +33,49 @@
 	// 	Object.freeze(data);
 	// });
 
+	/*
+	
+		arrow up, down and right functions
+	*/
+
+	const scrollMenu = (event: KeyboardEvent) => {
+		if (event.key === 'ArrowDown') {
+			console.log('arrow down');
+
+			for (let i = 0; i < data.length; i++) {
+				let item = data[i];
+				if (item.selected) {
+					let nextItem = data[i + 1];
+					if (nextItem) {
+						item.selected = false;
+						nextItem.selected = true;
+						value = nextItem.label;
+						dispatch('arrowDown', nextItem.id);
+						console.log(value);
+						break;
+					}
+				}
+			}
+		}
+		if (event.key === 'ArrowUp') {
+			console.log('arrow up');
+			for (let i = 0; i < data.length; i++) {
+				let item = data[i];
+				if (item.selected) {
+					let prevItem = data[i - 1];
+					if (prevItem) {
+						item.selected = false;
+						prevItem.selected = true;
+						value = prevItem.label;
+						console.log(value);
+						dispatch('arrowUp', prevItem.id);
+						break;
+					}
+				}
+			}
+		}
+	};
+
 	const transitionProps = {
 		axis: 'x',
 		duration: 150,
@@ -59,6 +102,10 @@
 			}
 		}
 		return null; // item has no submenu
+	};
+
+	const arrowClickHandler = (event: KeyboardEvent) => {
+		scrollMenu(event);
 	};
 
 	const backClickHandler = () => {
@@ -104,9 +151,12 @@
 	};
 </script>
 
+<svelte:window on:keyup={arrowClickHandler} />
 <ul class="sp-menu">
 	{#if location.length}
-		<li transition:slide={transitionProps}>
+		<li
+			transition:slide={transitionProps}
+			on:keyup{arrowClickHandler}>
 			<button
 				class="sp-menu--back-btn"
 				on:click|preventDefault={backClickHandler}>
