@@ -54,7 +54,7 @@
 			if (item.id === id) {
 				item.selected = true;
 				displayValue = item.label;
-			}
+			} else item.selected = false;
 		}
 		if (!silent) {
 			dispatch('change', value);
