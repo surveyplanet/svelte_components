@@ -1,121 +1,251 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import Icon from './Icon.svelte';
+	import Cleave from 'cleave.js';
+	import type { CleaveOptions } from 'cleave.js/options';
 
+	/**
+	 * The label of the input
+	 */
 	export let label = '';
+	/**
+	 * The unique id of the input
+	 */
+	export let id = (Date.now() + Math.random()).toString(36);
+	/**
+	 * The step of the input
+	 */
 	export let step = 1;
+	/**
+	 * The minimum value of the input
+	 */
 	export let min = 0;
+	/**
+	 * The maximum value of the input
+	 */
 	export let max = 100;
-	export let value = 0;
-
+	/**
+	 * The value of the input
+	 */
+	export let value = '';
+	/**
+	 * Whether the input is disabled
+	 */
 	export let disabled = false;
+	/**
+	 * Whether the input is required
+	 */
 	export let required = false;
-	//overflow is used to handle overflow of the input value and goes from max to min and vice versa
+	/**
+	 * Whether the value will change to the min or max value when the user tries to increment or decrement the value over the min or max value
+	 */
 	export let overflow = false;
-	export let time = false;
-	export let currency = false;
-	export let id = '';
+	/**
+	 * The type of the input
+	 */
+	export let type: 'number' | 'time' | 'float' = 'float';
+	/**
+	 * The time format of the input
+	 */
+	export let timeFormat: '12' | '24' = '24';
+	/**
+	 * The placeholder of the input
+	 */
+	export let placeholder = '';
 
-	const dispatch: (name: string, detail: number) => boolean =
+	const dispatchChange: (name: string, detail: string) => boolean =
+		createEventDispatcher();
+	const dispatchBlurAndFocus: (name: string) => boolean =
 		createEventDispatcher();
 
-	const increment = () => {
-		// let currentVal;
-		if (value + step <= max) {
-			value += step;
-			if (overflow && value + step > max) value = min;
-		} else {
-			value = max;
+	let input: HTMLInputElement;
+
+	let spinnerInterval: ReturnType<typeof setInterval>;
+
+	$: {
+		let cleaveOptions = {
+			numeral: true,
+			numeralThousandsGroupStyle: 'thousand',
+		} as CleaveOptions;
+
+		if (type === 'time') {
+			cleaveOptions = {
+				time: true,
+				timePattern: ['h', 'm'],
+				timeFormat: timeFormat,
+			};
+		} else if (type === 'float') {
+			cleaveOptions.numeralDecimalMark = '.';
+			cleaveOptions.numeralDecimalScale = 2;
 		}
-		dispatch('change', value);
+
+		if (input) {
+			new Cleave(input, cleaveOptions);
+		}
+	}
+
+	const valueToNumber = (value: string) => {
+		if (!value?.length) {
+			return 0;
+		}
+
+		if (type === 'time') {
+			const [hours, minutes] = value.split(':');
+			return parseInt(hours) * 60 + parseInt(minutes);
+		} else {
+			return parseFloat(value);
+		}
+	};
+
+	const getValue = (increment: boolean): string => {
+		if (type === 'time') {
+			let [hours, minutes] = value.split(':');
+			if (!hours?.length) {
+				hours = '0';
+			}
+			if (!minutes?.length) {
+				minutes = '0';
+			}
+			const totalMinutes = parseInt(hours) * 60 + parseInt(minutes);
+			const newTotalMinutes = increment
+				? totalMinutes + step
+				: totalMinutes - step;
+			let newHours = Math.floor(newTotalMinutes / 60);
+			let newMinutes = newTotalMinutes % 60;
+			if (timeFormat === '12') {
+				if (newHours > 12) {
+					newHours = newHours - 12;
+				} else if (newHours === 0) {
+					newHours = 12;
+				}
+			}
+			if (timeFormat === '24') {
+				if (newHours < 0) {
+					newHours = 23;
+				} else if (newHours > 23) {
+					newHours = 0;
+				}
+			}
+			return `${newHours.toString().padStart(2, '0')}:${newMinutes
+				.toString()
+				.padStart(2, '0')}`;
+		} else {
+			const currentValue = valueToNumber(value);
+			let newValue = increment
+				? currentValue + step
+				: currentValue - step;
+			if (newValue === max) {
+				newValue = max;
+			} else if (newValue === min) {
+				newValue = min;
+			}
+
+			if (overflow && newValue > max) {
+				return min.toString();
+			} else if (overflow && newValue < min) {
+				return max.toString();
+			}
+			return newValue.toString();
+		}
+	};
+
+	const changeValue = (newValue: string) => {
+		if (newValue !== value) {
+			value = newValue;
+			dispatchChange('change', value);
+		}
+	};
+
+	const increment = () => {
+		changeValue(getValue(true));
 	};
 
 	const decrement = () => {
-		if (value - step >= min) {
-			value -= step;
-			if (overflow && value - step < min) value = max;
-		} else {
-			value = min;
-		}
-		dispatch('change', value);
+		changeValue(getValue(false));
 	};
 
-	// use parseFloat to handle decimal numbers
+	const inputChange = () => {
+		let val = '';
 
-	const inputChange = (e: Event) => {
-		const input = e.target as HTMLInputElement;
-		const val = parseInt(input.value);
-
-		if (val >= min && val <= max) {
+		if (parseFloat(val) >= min && parseFloat(val) <= max) {
 			value = val;
-			dispatch('change', value);
 		}
 	};
 
-	const setTwoNumberDecimal = (value) => {
-		if (time) {
-			const input = value.target as HTMLInputElement;
-			const val = input.value;
-			const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
-			if (timeRegex.test(val)) {
-				input.value = val;
-			} else {
-				input.value = '';
-			}
-		} else if (currency) {
-			const input = value.target as HTMLInputElement;
-			const val = input.value;
-			const currencyRegex = /^\d+(?:\.\d{0,2})$/;
-			if (currencyRegex.test(val)) {
-				input.value = val;
-			} else {
-				input.value = '';
-			}
-		} else {
-			const input = value.target as HTMLInputElement;
-			const val = input.value;
-			const numberRegex = /^\d+$/;
-			if (numberRegex.test(val)) {
-				input.value = val;
-			} else {
-				input.value = '';
-			}
-		}
+	const inputHandler = () => {
+		inputChange();
+		dispatchChange('change', value);
 	};
 
-	const inputHandler = (event: Event) => {
-		setTwoNumberDecimal(event);
-		inputChange(event);
-	};
-
-	const keydownHandler = (e: KeyboardEvent) => {
+	// on keydown check if the key is NaN or : or arrows/enter/tab and return false
+	const keyUpHandler = (e: KeyboardEvent) => {
 		if (e.key === 'ArrowUp') {
 			increment();
 		} else if (e.key === 'ArrowDown') {
 			decrement();
 		}
 	};
+
+	const blurHandler = () => {
+		dispatchBlurAndFocus('blur');
+	};
+
+	const focusHandler = () => {
+		dispatchBlurAndFocus('focus');
+	};
+
+	const upMouseDownHandler = (e: MouseEvent) => {
+		const input = e.target as HTMLInputElement;
+		input.focus();
+		spinnerInterval = setInterval(() => {
+			increment();
+		}, 100);
+	};
+
+	const downMouseDownHandler = (e: MouseEvent) => {
+		const input = e.target as HTMLInputElement;
+		input.focus();
+		spinnerInterval = setInterval(() => {
+			decrement();
+		}, 100);
+	};
+
+	const mouseUpHandler = () => {
+		clearInterval(spinnerInterval);
+	};
 </script>
 
 <label
 	for="sp-number-spinner"
-	class="sp-number-spinner--label">{label}</label>
-<div
-	class="sp-number-spinner"
-	on:keydown={keydownHandler}>
+	class="sp-number-spinner--label"
+	>{label}
+	{#if required}
+		<span class="sp-dropdown--label--required">*</span>
+	{/if}
+</label>
+<div class="sp-number-spinner sp-number-spinner--{type}">
 	<input
-		type="number"
+		class="sp-number-spinner--input"
 		bind:value
+		bind:this={input}
+		on:keyup={keyUpHandler}
+		on:blur={blurHandler}
+		on:focus={focusHandler}
+		{placeholder}
 		{step}
 		{id}
 		{disabled}
 		on:input={inputHandler} />
+
 	<div class="sp-number-spinner--buttons">
 		<button
-			class="sp-number-spinner--button"
-			on:click={increment}>
+			class="sp-number-spinner--button sp-number-spinner--button--up"
+			on:mousedown={upMouseDownHandler}
+			on:mouseup={mouseUpHandler}
+			on:click={() => {
+				increment();
+			}}>
 			<svg
-				class="sp-dropdown--toggle-icon"
+				class="sp-number-spinner--button-icon--flipped"
 				width="7"
 				height="4"
 				viewBox="0 0 7 4"
@@ -130,10 +260,14 @@
 			</svg>
 		</button>
 		<button
-			class="sp-number-spinner--button"
-			on:click={decrement}>
+			class="sp-number-spinner--button sp-number-spinner--button--down"
+			on:mousedown={downMouseDownHandler}
+			on:mouseup={mouseUpHandler}
+			on:click={() => {
+				decrement();
+			}}>
 			<svg
-				class="sp-dropdown--toggle-icon"
+				class="sp-number-spinner--button-icon"
 				width="7"
 				height="4"
 				viewBox="0 0 7 4"
@@ -156,26 +290,28 @@
 	.sp-number-spinner {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		width: 100%;
+		justify-content: center;
 		height: $size-gutter;
 		border: 1px solid $color--slate;
 		border-radius: 4px;
 		padding: 0 8px;
-		color: red;
+		font: $font--default;
 
 		&:focus-within {
 			border-color: $color--light-purple-dark;
 		}
 
 		&--label {
+			color: $color--slate-dark;
 			display: block;
-			margin-bottom: 4px;
-			font-size: 14px;
-			line-height: 20px;
-			color: $color--slate;
+			font: $font--default;
+			font-size: $font-size--12;
+			padding: 0 0 $size--12 $size--4;
+			.sp-dropdown--label--required {
+				color: $color--pink;
+				font-size: $font-size--14;
+			}
 		}
-
 		&--buttons {
 			display: flex;
 			flex-direction: column;
@@ -191,7 +327,7 @@
 			height: 24px;
 			border: none;
 			border-radius: 4px;
-			background-color: $color--slate-lighter;
+			background-color: transparent;
 			transition: background-color 0.2s ease-in-out;
 
 			&:hover {
@@ -204,12 +340,14 @@
 		}
 	}
 
-	input::-webkit-outer-spin-button,
-	input::-webkit-inner-spin-button {
-		-webkit-appearance: none;
-		margin: 0;
+	input {
+		border: hidden;
+		outline: none;
+		text-align: left;
+		width: 100%;
 	}
-	// input[type='number'] {
-	// 	-moz-appearance: textfield;
-	// }
+
+	.sp-number-spinner--button-icon--flipped {
+		transform: rotate(180deg);
+	}
 </style>

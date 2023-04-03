@@ -8,14 +8,15 @@
 	let label = 'Number Spinner';
 	let step = 1;
 	let min = 0;
-	let max = 100;
-	let value = 0;
+	let max = 10;
+	let value: string | undefined = undefined;
 	let disabled = false;
 	let required = false;
 	let overflow = false;
-	let time = false;
-	let currency = false;
-	let id = '';
+	let type: 'number' | 'time' | 'float' = 'number';
+	let timeFormat: '12' | '24' = '24';
+	let id = (Date.now() + Math.random()).toString(36);
+	let placeholder = '';
 </script>
 
 <Hst.Story title="Form controls / NumberSpinner">
@@ -35,7 +36,7 @@
 		<Hst.Number
 			bind:value={max}
 			title="Max" />
-		<Hst.Number
+		<Hst.Text
 			bind:value
 			title="Value" />
 		<Hst.Checkbox
@@ -47,16 +48,23 @@
 		<Hst.Checkbox
 			bind:value={overflow}
 			title="Overflow" />
-		<Hst.Checkbox
-			bind:value={time}
-			title="Time" />
-		<Hst.Checkbox
-			bind:value={currency}
-			title="Currency" />
+		<Hst.Select
+			bind:value={type}
+			title="Type"
+			options={['number', 'time', 'float']} />
+		<Hst.Select
+			bind:value={timeFormat}
+			title="Time Format"
+			options={['12', '24']} />
+		<Hst.Text
+			bind:value={placeholder}
+			title="Placeholder" />
 	</svelte:fragment>
 
 	<Hst.Variant title="Primary">
 		<NumberSpinner
+			{timeFormat}
+			{type}
 			{label}
 			{step}
 			{min}
@@ -65,7 +73,9 @@
 			{disabled}
 			{required}
 			{overflow}
-			{time}
-			{currency} />
+			{placeholder}
+			on:blur={() => logEvent('blur', { value })}
+			on:change={() => logEvent('change', { value })}
+			on:focus={() => logEvent('focus', value)} />
 	</Hst.Variant>
 </Hst.Story>
