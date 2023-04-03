@@ -39,39 +39,33 @@
 	*/
 
 	const scrollMenu = (event: KeyboardEvent) => {
-		if (event.key === 'ArrowDown') {
-			console.log('arrow down');
+		let menuList = document.querySelectorAll('.sp-menu--item');
+		let menuListArray = Array.from(menuList);
+		let activeElement = document.activeElement;
+		let activeElementIndex = menuListArray.indexOf(
+			activeElement as HTMLElement
+		);
 
-			for (let i = 0; i < data.length; i++) {
-				let item = data[i];
-				if (item.selected) {
-					let nextItem = data[i + 1];
-					if (nextItem) {
-						item.selected = false;
-						nextItem.selected = true;
-						value = nextItem.label;
-						dispatch('arrowDown', nextItem.id);
-						console.log(value);
-						break;
-					}
-				}
+		if (event.key === 'ArrowDown') {
+			event.preventDefault();
+			if (activeElementIndex < menuListArray.length - 1) {
+				menuListArray[activeElementIndex + 1].focus();
+			} else {
+				menuListArray[0].focus();
 			}
-		}
-		if (event.key === 'ArrowUp') {
-			console.log('arrow up');
-			for (let i = 0; i < data.length; i++) {
-				let item = data[i];
-				if (item.selected) {
-					let prevItem = data[i - 1];
-					if (prevItem) {
-						item.selected = false;
-						prevItem.selected = true;
-						value = prevItem.label;
-						console.log(value);
-						dispatch('arrowUp', prevItem.id);
-						break;
-					}
-				}
+		} else if (event.key === 'ArrowUp') {
+			event.preventDefault();
+			if (activeElementIndex > 0) {
+				menuListArray[activeElementIndex - 1].focus();
+			} else {
+				menuListArray[menuListArray.length - 1].focus();
+			}
+		} else if (event.key === 'ArrowRight') {
+			event.preventDefault();
+			if (activeElementIndex < menuListArray.length - 1) {
+				menuListArray[activeElementIndex + 1].focus();
+			} else {
+				menuListArray[0].focus();
 			}
 		}
 	};
