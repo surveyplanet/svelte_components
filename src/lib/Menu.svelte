@@ -33,39 +33,16 @@
 	// 	Object.freeze(data);
 	// });
 
-	/*
-	
-		arrow up, down and right functions
-	*/
-
 	const scrollMenu = (event: KeyboardEvent) => {
-		let menuList = document.querySelectorAll('.sp-menu--item');
-		let menuListArray = Array.from(menuList);
-		let activeElement = document.activeElement;
-		let activeElementIndex = menuListArray.indexOf(
-			activeElement as HTMLElement
-		);
-
-		if (event.key === 'ArrowDown') {
-			event.preventDefault();
-			if (activeElementIndex < menuListArray.length - 1) {
-				menuListArray[activeElementIndex + 1].focus();
-			} else {
-				menuListArray[0].focus();
+		if (event.key === 'ArrowUp') {
+			const list = document.querySelector('.sp-menu');
+			if (list) {
+				list.firstElementChild?.focus();
 			}
-		} else if (event.key === 'ArrowUp') {
-			event.preventDefault();
-			if (activeElementIndex > 0) {
-				menuListArray[activeElementIndex - 1].focus();
-			} else {
-				menuListArray[menuListArray.length - 1].focus();
-			}
-		} else if (event.key === 'ArrowRight') {
-			event.preventDefault();
-			if (activeElementIndex < menuListArray.length - 1) {
-				menuListArray[activeElementIndex + 1].focus();
-			} else {
-				menuListArray[0].focus();
+		} else if (event.key === 'ArrowDown') {
+			const list = document.querySelector('.sp-menu');
+			if (list) {
+				list.lastElementChild?.focus();
 			}
 		}
 	};
@@ -148,9 +125,7 @@
 <svelte:window on:keydown={arrowClickHandler} />
 <ul class="sp-menu">
 	{#if location.length}
-		<li
-			transition:slide={transitionProps}
-			on:keyup{arrowClickHandler}>
+		<li transition:slide={transitionProps}>
 			<button
 				class="sp-menu--back-btn"
 				on:click|preventDefault={backClickHandler}>
