@@ -151,7 +151,7 @@
 	};
 </script>
 
-<svelte:window on:keyup={arrowClickHandler} />
+<svelte:window on:keydown={arrowClickHandler} />
 <ul class="sp-menu">
 	{#if location.length}
 		<li
