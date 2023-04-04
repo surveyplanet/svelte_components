@@ -34,15 +34,28 @@
 	// });
 
 	const scrollMenu = (event: KeyboardEvent) => {
-		if (event.key === 'ArrowUp') {
-			const list = document.querySelector('.sp-menu');
-			if (list) {
-				list.firstElementChild?.focus();
+		const allButtons = document.querySelectorAll('.sp-menu--item button');
+		const activeButton = document.activeElement as HTMLElement;
+		const activeButtonIndex = Array.from(allButtons).indexOf(activeButton);
+
+		if (event.key === 'ArrowDown') {
+			event.preventDefault();
+			if (activeButtonIndex < allButtons.length - 1) {
+				(allButtons[activeButtonIndex + 1] as HTMLElement).focus();
 			}
-		} else if (event.key === 'ArrowDown') {
-			const list = document.querySelector('.sp-menu');
-			if (list) {
-				list.lastElementChild?.focus();
+		} else if (event.key === 'ArrowUp') {
+			event.preventDefault();
+			if (activeButtonIndex > 0) {
+				(allButtons[activeButtonIndex - 1] as HTMLElement).focus();
+			} else {
+				(allButtons[allButtons.length - 1] as HTMLElement).focus();
+			}
+		} else if (event.key === 'ArrowRight') {
+			activeButton.click();
+		} else if (event.key === 'ArrowLeft') {
+			event.preventDefault();
+			if (location.length) {
+				backClickHandler();
 			}
 		}
 	};
@@ -265,6 +278,10 @@
 		margin: 0;
 		&:hover {
 			background: $color--light-purple-light;
+		}
+		&:focus {
+			background: $color--light-purple-light;
+			outline: none;
 		}
 		:global(svg) {
 			margin-left: auto;

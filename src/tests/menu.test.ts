@@ -74,4 +74,23 @@ test.describe('Menu component', () => {
 
 		// test events
 	});
+	test.only('Arrow navigation', async ({ page }) => {
+		const preview = await loadStory(page, 'menu');
+		const menu = preview.locator('.sp-menu');
+		const items = menu.locator('.sp-menu--item');
+
+		await expect(menu).toBeVisible();
+		await expect(items).toHaveCount(6);
+
+		await page.click('body');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowUp');
+		await page.keyboard.press('ArrowRight');
+
+		await expect(items).toHaveCount(3);
+	});
 });
