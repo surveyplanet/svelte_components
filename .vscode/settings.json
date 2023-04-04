@@ -1,6 +1,7 @@
 {
 	"editor.formatOnSave": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"svelte.plugin.typescript.enable": false,
+	"typescript.validate.enable": true,
+	"svelte.plugin.typescript.enable": true,
 	"eslint.validate": ["typescript", "svelte"]
 }
