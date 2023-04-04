@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
-import { loadStory, setControl, getLastEvent } from './_utils.js';
+import { loadStory, setControl, getLastEvent, getAllEvents } from './_utils.js';
 
 test.describe('Number Spinner component', () => {
-	test.only('Number', async ({ page }) => {
+	test('Number', async ({ page }) => {
 		const preview = await loadStory(page, 'numberspinner');
 
 		const numberspinner = preview.locator('.sp-number-spinner');
@@ -31,8 +31,14 @@ test.describe('Number Spinner component', () => {
 		await downButton.click();
 		await expect(input).toHaveValue('1');
 
-		const changeEvent = await getLastEvent(page);
-		expect(changeEvent.name).toBe('change');
+		const events = await getAllEvents(page);
+		expect(events.length > 0).toBeTruthy();
+		const totalChange = events.filter((i) => i.name == 'change').length;
+		expect(totalChange).toBe(3);
+		const totalBlurEvents = events.filter((i) => i.name == 'blur').length;
+		expect(totalBlurEvents).toBe(1);
+		const totalFocusEvents = events.filter((i) => i.name == 'focus').length;
+		expect(totalFocusEvents).toBe(1);
 	});
 	test('Time', async ({ page }) => {
 		const preview = await loadStory(page, 'numberspinner');
