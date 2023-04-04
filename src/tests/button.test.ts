@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
-import { setControl, getStyles } from './_utils.js';
+import { setControl, getStyles, getLastEvent } from './_utils.js';
 
 const loadButtonPage = async (page: Page, variant = 0) => {
 	const url = `/story/src-stories-button-button-story-svelte?variantId=src-stories-button-button-story-svelte-${variant}`;
@@ -56,6 +56,10 @@ test.describe('Button component', () => {
 		await page.mouse.up();
 		await expect(btn).not.toHaveClass(/sp-button--active/);
 		// expect(ripple).not.toBeVisible();
+
+		const event = await getLastEvent(page);
+		expect(event.name).toBe('click');
+		// expect(event.data?.detail).toBe('[object Object]');
 	});
 
 	test('secondary', async ({ page }) => {

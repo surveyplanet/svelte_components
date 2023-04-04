@@ -1,5 +1,5 @@
 import { test, expect, type FrameLocator } from '@playwright/test';
-import { loadStory, setControl } from './_utils.js';
+import { loadStory, setControl, getAllEvents } from './_utils.js';
 
 test.describe('Alert component', () => {
 	let canvas: FrameLocator;
@@ -8,7 +8,7 @@ test.describe('Alert component', () => {
 		canvas = (await loadStory(page, 'alert')) as FrameLocator;
 	});
 
-	test('basic', async () => {
+	test('basic', async ({ page }) => {
 		const alert = canvas.getByRole('alert');
 		const closeBtn = alert.getByRole('button');
 		const title = alert.getByText('Did you know?');
@@ -25,6 +25,15 @@ test.describe('Alert component', () => {
 		await expect(subtitle).toHaveClass(/sp-alert--header--subtitle/);
 		await closeBtn.click();
 		await expect(alert).not.toBeVisible();
+		const events = await getAllEvents(page);
+		const closeEvent = events.find((i) => i.name == 'close');
+		expect(closeEvent).toBeTruthy();
+		const openEvent = events.find((i) => i.name == 'open');
+		expect(openEvent).toBeTruthy();
+		const inEvent = events.find((i) => i.name == 'in');
+		expect(inEvent).toBeTruthy();
+		const outEvent = events.find((i) => i.name == 'out');
+		expect(outEvent).toBeTruthy();
 	});
 
 	test('success', async ({ page }) => {

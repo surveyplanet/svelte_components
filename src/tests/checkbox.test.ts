@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { loadStory, setControl } from './_utils.js';
+import { loadStory, setControl, getLastEvent } from './_utils.js';
 
 test.describe('Checkbox component', () => {
 	test('should render basic checkbox component', async ({ page }) => {
@@ -17,8 +17,8 @@ test.describe('Checkbox component', () => {
 		await expect(label).toBeVisible();
 
 		await label.click();
-		// const event = await getLastEvent(page);
-		// expect(event.name).toBe('change');
+		const event = await getLastEvent(page);
+		expect(event.name).toBe('change');
 
 		await expect(label).toBeChecked();
 

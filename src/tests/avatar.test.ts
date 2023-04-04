@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { loadStory, setControl } from './_utils.js';
+import { loadStory, setControl, getLastEvent } from './_utils.js';
 
 test.describe('Avatar component', () => {
 	test('should render basic avatar component in Small size', async ({
@@ -48,7 +48,10 @@ test.describe('Avatar component', () => {
 
 		await expect(avatar).toHaveAttribute('aria-label', 'profile image');
 
-		// expect(avatar).toBeEnabled();
+		await avatar.click();
+		const lastEvent = await getLastEvent(page);
+		expect(lastEvent.name).toBe('click');
+		// expect(lastEvent.data?.detail).toBe('[object Object]');
 	});
 
 	test('should render avatar with custom image and Medium size', async ({

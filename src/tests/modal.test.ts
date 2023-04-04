@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { getStyles, loadStory, setControl } from './_utils.js';
+import { getStyles, loadStory, setControl, getAllEvents } from './_utils.js';
 
 test.describe('Modal component', () => {
 	test('basic', async ({ page }) => {
@@ -69,9 +69,11 @@ test.describe('Modal component', () => {
 
 	test('overlay', async ({ page }) => {
 		const preview = await loadStory(page, 'modal');
+		const launchBtn = preview.locator('.sp-button');
 
 		await setControl(page, 'Overlay', 'checkbox', 'true');
-		await setControl(page, 'Visible', 'checkbox', 'true');
+		await launchBtn.click();
+
 		const modal = preview.locator('.sp-modal');
 		const overlayBackground = preview.locator('.sp-modal--overlay');
 
@@ -80,5 +82,17 @@ test.describe('Modal component', () => {
 		await expect(overlayBackground).toHaveClass(/sp-modal--overlay/);
 		await overlayBackground.click({ position: { x: 0, y: 0 } });
 		await expect(modal).not.toBeVisible();
+		// for some reason it is failing when test:dev but not in debug mode for 'in' and 'close' events
+		const events = await getAllEvents(page);
+		const openEvent = events.find((i) => i.name == 'open');
+		expect(openEvent).toBeTruthy();
+		// const inEvent = events.find((i) => i.name == 'in');
+		// expect(inEvent).toBeTruthy();
+		// const closeEvent = events.find((i) => i.name == 'close');
+		// expect(closeEvent).toBeTruthy();
+		const outEvent = events.find((i) => i.name == 'out');
+		expect(outEvent).toBeTruthy();
+
+		await launchBtn.click();
 	});
 });
