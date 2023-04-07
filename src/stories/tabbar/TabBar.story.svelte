@@ -1,15 +1,35 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { json } from '@sveltejs/kit';
 	import { logEvent } from 'histoire/client';
-	import { TabBar, Button } from '../../lib';
+	import { TabBar, type tabBarData } from '../../lib';
+	import Checkbox from '$lib/Checkbox.svelte';
 	// import source from './source';
 
 	export let Hst: Histoire;
 
-	let id = 'tab-bar';
+	let data: tabBarData[] = [
+		{
+			id: 'tab1',
+			label: 'Tab 1',
+			selected: true,
+			icon: 'edit',
+		},
+		{
+			id: 'tab2',
+			label: 'Tab 2',
+			icon: 'tablet',
+		},
+		{
+			id: 'tab3',
+			label: 'Tab 3',
+			icon: 'monitor',
+			disabled: true,
+		},
+	];
+
 	let grow = false;
-	let disabledIndexes = [1];
+
+	let id = (Date.now() + Math.random()).toString(36);
 
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
@@ -18,23 +38,27 @@
 
 <Hst.Story title=" TabBar">
 	<svelte:fragment slot="controls">
-		<Hst.Text
-			bind:value={id}
-			title="Id" />
-		<Hst.Checkbox
-			bind:value={grow}
-			title="Grow" />
 		<Hst.Json
-			bind:value={disabledIndexes}
-			title="Disabled indexes" />
+			title="Data"
+			bind:value={data}
+			on:change={changeEventHandler} />
+		<Hst.Checkbox
+			title="Grow"
+			bind:value={grow}
+			on:change={changeEventHandler} />
+
+		<Hst.Text
+			title="Id"
+			bind:value={id}
+			on:change={changeEventHandler} />
 	</svelte:fragment>
 
 	<Hst.Variant title="Primary">
 		<div id="wrapper">
 			<TabBar
-				{id}
 				{grow}
-				{disabledIndexes} />
+				{id}
+				{data} />
 		</div>
 	</Hst.Variant>
 </Hst.Story>
