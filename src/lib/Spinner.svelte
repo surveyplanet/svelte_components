@@ -172,11 +172,6 @@
 		}
 	};
 
-	const inputInputHandler = () => {
-		inputChange();
-		dispatchChange('input', value);
-	};
-
 	// on keydown check if the key is NaN or : or arrows/enter/tab and return false
 	const inputKeyUpHandler = (e: KeyboardEvent) => {
 		if (e.key === 'ArrowUp') {
@@ -196,6 +191,11 @@
 
 	const inputChangeHandler = () => {
 		dispatchBlurAndFocus('change', value);
+	};
+
+	const inputInputHandler = () => {
+		inputChange();
+		dispatchChange('input', value);
 	};
 
 	const upButtonMouseDownHandler = (e: MouseEvent) => {
