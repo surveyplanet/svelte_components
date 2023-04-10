@@ -29,9 +29,7 @@
 	export let data: MenuData[] = [{ id: 'edit' }];
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
-		const allButtons = document.querySelectorAll(
-			'.sp-menu--item button'
-		) as HTMLButtonElement[];
+		const allButtons = document.querySelectorAll('.sp-menu--item button');
 		const activeButton = document.activeElement as HTMLButtonElement;
 		const activeButtonIndex = [...allButtons].indexOf(activeButton);
 		if (
@@ -41,15 +39,21 @@
 		) {
 			if (direction === 'down') {
 				if (activeButtonIndex < allButtons.length - 1) {
-					allButtons[activeButtonIndex + 1].focus();
+					(
+						allButtons[activeButtonIndex + 1] as HTMLButtonElement
+					).focus();
 				} else {
-					allButtons[0].focus();
+					(allButtons[0] as HTMLButtonElement).focus();
 				}
 			} else if (direction === 'up') {
 				if (activeButtonIndex > 0) {
-					allButtons[activeButtonIndex - 1].focus();
+					(
+						allButtons[activeButtonIndex - 1] as HTMLButtonElement
+					).focus();
 				} else {
-					allButtons[allButtons.length - 1].focus();
+					(
+						allButtons[allButtons.length - 1] as HTMLButtonElement
+					).focus();
 				}
 			} else if (
 				direction === 'right' &&
@@ -64,13 +68,19 @@
 		} else {
 			if (direction === 'right') {
 				if (activeButtonIndex < allButtons.length - 1) {
-					allButtons[activeButtonIndex + 1].focus();
+					(
+						allButtons[activeButtonIndex + 1] as HTMLButtonElement
+					).focus();
 				}
 			} else if (direction === 'left') {
 				if (activeButtonIndex > 0) {
-					allButtons[activeButtonIndex - 1].focus();
+					(
+						allButtons[activeButtonIndex - 1] as HTMLButtonElement
+					).focus();
 				} else {
-					allButtons[allButtons.length - 1].focus();
+					(
+						allButtons[allButtons.length - 1] as HTMLButtonElement
+					).focus();
 				}
 			} else if (direction === 'up' && location.length) {
 				backClickHandler();
