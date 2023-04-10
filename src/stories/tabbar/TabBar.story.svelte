@@ -1,13 +1,12 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { logEvent } from 'histoire/client';
-	import { TabBar, type tabBarData } from '../../lib';
-	import Checkbox from '$lib/Checkbox.svelte';
+	import { TabBar, type TabBarData } from '../../lib';
 	// import source from './source';
 
 	export let Hst: Histoire;
 
-	let data: tabBarData[] = [
+	let data: TabBarData[] = [
 		{
 			id: 'tab1',
 			label: 'Tab 1',
