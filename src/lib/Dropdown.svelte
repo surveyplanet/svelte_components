@@ -1,7 +1,7 @@
 <script
 	lang="ts"
 	context="module">
-	export interface dropdownOptions {
+	export interface DropdownOptions {
 		label: string;
 		id: string;
 		meta?: string;
@@ -17,8 +17,8 @@
 	const dispatch: (name: string, detail: string) => boolean =
 		createEventDispatcher();
 
-	export let options: dropdownOptions[];
-	export let value: dropdownOptions['id'] | null = null;
+	export let options: DropdownOptions[];
+	export let value: DropdownOptions['id'] | null = null;
 	export let label: string | null = null;
 	export let searchThreshold = 15;
 	export let disabled = false;
@@ -28,7 +28,7 @@
 
 	let input: HTMLInputElement;
 	let visible = false;
-	let displayValue: dropdownOptions['label'] | '' = '';
+	let displayValue: DropdownOptions['label'] | '' = '';
 
 	$: searchable = options.length >= searchThreshold;
 	$: menuData = [...options];
