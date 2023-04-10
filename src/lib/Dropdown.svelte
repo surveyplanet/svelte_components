@@ -31,7 +31,7 @@
 	let displayValue: dropdownOptions['label'] | '' = '';
 
 	$: searchable = options.length >= searchThreshold;
-	$: menuData = [...options];
+	$: MenuData = [...options];
 
 	onMount(() => {
 		if (value?.length) {
@@ -40,8 +40,8 @@
 	});
 
 	const reset = () => {
-		menuData = [...options];
-		for (let item of menuData) {
+		MenuData = [...options];
+		for (let item of MenuData) {
 			item.selected = false;
 		}
 	};
@@ -49,7 +49,7 @@
 	const setValue = (id: string, silent = false) => {
 		value = id;
 		displayValue = '';
-		for (let item of menuData) {
+		for (let item of MenuData) {
 			item.selected = false;
 			if (item.id === id) {
 				item.selected = true;
@@ -66,7 +66,7 @@
 
 		if (query?.length) {
 			visible = true;
-			menuData = options.filter((item) => {
+			MenuData = options.filter((item) => {
 				// item.selected = false;
 				return item.label.toLowerCase().trim().includes(query);
 			});
@@ -165,7 +165,7 @@
 </div>
 {#if visible}
 	<Menu
-		data={menuData}
+		data={MenuData}
 		on:click={menuClickHandler} />
 {/if}
 
