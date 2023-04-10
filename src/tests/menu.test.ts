@@ -74,7 +74,7 @@ test.describe('Menu component', () => {
 
 		// test events
 	});
-	test.only('Arrow navigation', async ({ page }) => {
+	test('Arrow navigation', async ({ page }) => {
 		const preview = await loadStory(page, 'menu');
 		const menu = preview.locator('.sp-menu');
 		const items = menu.locator('.sp-menu--item');
