@@ -10,7 +10,7 @@
 
 | Name     | Description                          |
 | -------- | ------------------------------------ |
-| menuData | Interface for menu item data         |
+| MenuData | Interface for menu item data         |
 | IconName | Type for icon names used in the menu |
 
 ### menuData
@@ -26,16 +26,3 @@
 | inline   | boolean    | If true, the item should be inline      |
 | selected | boolean    | If true, the item is currently selected |
 | submenu  | menuData[] | An array of submenu items               |
-
-### CSS classes
-
-| Class                       | Description                          |
-| --------------------------- | ------------------------------------ |
-| `.sp-menu`                  | The root menu element                |
-| `.sp-menu--item`            | A menu item element                  |
-| `.sp-menu--item--divide`    | A menu item with a divider element   |
-| `.sp-menu--item--inline`    | A menu item with an inline element   |
-| `.sp-menu--item--selected`  | A selected menu item                 |
-| `.sp-menu--item--submenu`   | A menu item with a submenu           |
-| `.sp-menu--back-btn`        | The back button element              |
-| `.sp-menu--back-btn--label` | The label of the back button element |

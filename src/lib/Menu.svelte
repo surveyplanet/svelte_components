@@ -2,7 +2,7 @@
 	lang="ts"
 	context="module">
 	import { Icon, type IconName } from './index';
-	export interface menuData {
+	export interface MenuData {
 		id: string;
 		label?: string;
 		html?: string;
@@ -11,7 +11,7 @@
 		divide?: boolean;
 		inline?: boolean;
 		selected?: boolean;
-		submenu?: menuData[];
+		submenu?: MenuData[];
 	}
 </script>
 
@@ -26,7 +26,7 @@
 	/**
 	 * Menu data
 	 */
-	export let data: menuData[] = [{ id: 'edit' }];
+	export let data: MenuData[] = [{ id: 'edit' }];
 
 	// Should freeze data so current state an data are the same object
 	// onMount(() => {
