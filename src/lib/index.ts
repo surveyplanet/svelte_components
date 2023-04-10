@@ -11,7 +11,7 @@ export { default as Radio } from './Radio.svelte';
 export { default as TextInput, type TextInputType } from './TextInput.svelte';
 export { default as Alert } from './Alert.svelte';
 export { default as Modal } from './Modal.svelte';
-export { default as Dropdown, type dropdownOptions } from './Dropdown.svelte';
 export { default as Menu, type MenuData } from './Menu.svelte';
+export { default as Dropdown, type DropdownOptions } from './Dropdown.svelte';
 export { default as Footer, type FooterData } from './Footer.svelte';
 export { default as Spinner } from './Spinner.svelte';
