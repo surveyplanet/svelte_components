@@ -2,7 +2,7 @@
 	lang="ts"
 	context="module">
 	import { Icon, type IconName } from './index';
-	export interface tabBarData {
+	export interface TabBarData {
 		id: string;
 		label?: string;
 		html?: string;
@@ -31,7 +31,7 @@
 	/**
 	 * Objects to pass to the tab buttons
 	 */
-	export let data: tabBarData[] = [];
+	export let data: TabBarData[] = [];
 
 	const selectTabButton = (event: Event) => {
 		const target = event.target as HTMLElement;
