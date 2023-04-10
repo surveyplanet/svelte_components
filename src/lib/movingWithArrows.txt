@@ -1,0 +1,41 @@
+// const dropdownKeydownHandler = (event: KeyboardEvent) => {
+// 	if (event.key === 'Escape') {
+// 		visible = false;
+// 		dispatch('close', event.key);
+// 	}
+// 	if (event.key === 'ArrowDown') {
+// 		visible = true;
+
+// 		for (let i = 0; i < data.length; i++) {
+// 			let item = data[i];
+// 			if (item.selected) {
+// 				let nextItem = data[i + 1];
+// 				if (nextItem) {
+// 					item.selected = false;
+// 					nextItem.selected = true;
+// 					value = nextItem.label;
+// 					dispatch('arrowDown', nextItem.id);
+// 					console.log(value);
+// 					break;
+// 				}
+// 			}
+// 		}
+// 	}
+// 	if (event.key === 'ArrowUp') {
+// 		visible = true;
+// 		for (let i = 0; i < data.length; i++) {
+// 			let item = data[i];
+// 			if (item.selected) {
+// 				let prevItem = data[i - 1];
+// 				if (prevItem) {
+// 					item.selected = false;
+// 					prevItem.selected = true;
+// 					value = prevItem.label;
+// 					console.log(value);
+// 					dispatch('arrowUp', prevItem.id);
+// 					break;
+// 				}
+// 			}
+// 		}
+// 	}
+// };

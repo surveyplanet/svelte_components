@@ -12,4 +12,5 @@ export { default as TextInput, type TextInputType } from './TextInput.svelte';
 export { default as Alert } from './Alert.svelte';
 export { default as Modal } from './Modal.svelte';
 export { default as Menu, type menuData } from './Menu.svelte';
-export { default as NumberSpinner } from './NumberSpinner.svelte';
+export { default as Spinner } from './Spinner.svelte';
+export { default as Dropdown, type dropdownOptions } from './Dropdown.svelte';

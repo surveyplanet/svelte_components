@@ -54,6 +54,7 @@
 
 	const dispatchChange: (name: string, detail: string) => boolean =
 		createEventDispatcher();
+
 	const dispatchBlurAndFocus: (name: string) => boolean =
 		createEventDispatcher();
 
@@ -171,13 +172,13 @@
 		}
 	};
 
-	const inputHandler = () => {
+	const inputInputHandler = () => {
 		inputChange();
-		dispatchChange('change', value);
+		dispatchChange('input', value);
 	};
 
 	// on keydown check if the key is NaN or : or arrows/enter/tab and return false
-	const keyUpHandler = (e: KeyboardEvent) => {
+	const inputKeyUpHandler = (e: KeyboardEvent) => {
 		if (e.key === 'ArrowUp') {
 			increment();
 		} else if (e.key === 'ArrowDown') {
@@ -185,15 +186,19 @@
 		}
 	};
 
-	const blurHandler = () => {
+	const inputBlurHandler = () => {
 		dispatchBlurAndFocus('blur');
 	};
 
-	const focusHandler = () => {
+	const inputFocusHandler = () => {
 		dispatchBlurAndFocus('focus');
 	};
 
-	const upMouseDownHandler = (e: MouseEvent) => {
+	const inputChangeHandler = () => {
+		dispatchBlurAndFocus('change', value);
+	};
+
+	const upButtonMouseDownHandler = (e: MouseEvent) => {
 		const input = e.target as HTMLInputElement;
 		input.focus();
 		spinnerInterval = setInterval(() => {
@@ -201,7 +206,7 @@
 		}, 100);
 	};
 
-	const downMouseDownHandler = (e: MouseEvent) => {
+	const downButtonMouseDownHandler = (e: MouseEvent) => {
 		const input = e.target as HTMLInputElement;
 		input.focus();
 		spinnerInterval = setInterval(() => {
@@ -209,43 +214,48 @@
 		}, 100);
 	};
 
-	const mouseUpHandler = () => {
+	const upButtonMouseUpHandler = () => {
+		clearInterval(spinnerInterval);
+	};
+
+	const downButtonMouseUpHandler = () => {
 		clearInterval(spinnerInterval);
 	};
 </script>
 
 <label
-	for="sp-number-spinner"
-	class="sp-number-spinner--label"
+	for="sp-spinner"
+	class="sp-spinner--label"
 	>{label}
 	{#if required}
 		<span class="sp-dropdown--label--required">*</span>
 	{/if}
 </label>
-<div class="sp-number-spinner sp-number-spinner--{type}">
+<div class="sp-spinner sp-spinner--{type}">
 	<input
-		class="sp-number-spinner--input"
+		class="sp-spinner--input"
 		bind:value
 		bind:this={input}
-		on:keyup={keyUpHandler}
-		on:blur={blurHandler}
-		on:focus={focusHandler}
+		on:keyup={inputKeyUpHandler}
+		on:blur={inputBlurHandler}
+		on:focus={inputFocusHandler}
+		on:input={inputInputHandler}
+		on:change={inputChangeHandler}
 		{placeholder}
 		{step}
 		{id}
-		{disabled}
-		on:input={inputHandler} />
+		{disabled} />
 
-	<div class="sp-number-spinner--buttons">
+	<div class="sp-spinner--buttons">
 		<button
-			class="sp-number-spinner--button sp-number-spinner--button--up"
-			on:mousedown={upMouseDownHandler}
-			on:mouseup={mouseUpHandler}
+			class="sp-spinner--button sp-spinner--button--up"
+			on:mousedown={upButtonMouseDownHandler}
+			on:mouseup={upButtonMouseUpHandler}
 			on:click={() => {
 				increment();
 			}}>
 			<svg
-				class="sp-number-spinner--button-icon--flipped"
+				class="sp-spinner--button-icon--flipped"
 				width="7"
 				height="4"
 				viewBox="0 0 7 4"
@@ -260,14 +270,14 @@
 			</svg>
 		</button>
 		<button
-			class="sp-number-spinner--button sp-number-spinner--button--down"
-			on:mousedown={downMouseDownHandler}
-			on:mouseup={mouseUpHandler}
+			class="sp-spinner--button sp-spinner--button--down"
+			on:mousedown={downButtonMouseDownHandler}
+			on:mouseup={downButtonMouseUpHandler}
 			on:click={() => {
 				decrement();
 			}}>
 			<svg
-				class="sp-number-spinner--button-icon"
+				class="sp-spinner--button-icon"
 				width="7"
 				height="4"
 				viewBox="0 0 7 4"
@@ -287,7 +297,7 @@
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 
-	.sp-number-spinner {
+	.sp-spinner {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -347,7 +357,7 @@
 		width: 100%;
 	}
 
-	.sp-number-spinner--button-icon--flipped {
+	.sp-spinner--button-icon--flipped {
 		transform: rotate(180deg);
 	}
 </style>
