@@ -28,37 +28,63 @@
 	 */
 	export let data: MenuData[] = [{ id: 'edit' }];
 
-	// Should freeze data so current state an data are the same object
-	// onMount(() => {
-	// 	Object.freeze(data);
-	// });
-
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
 		const allButtons = document.querySelectorAll('.sp-menu--item button');
-
 		const activeButton = document.activeElement as HTMLButtonElement;
 		const activeButtonIndex = [...allButtons].indexOf(activeButton);
-
-		if (direction === 'down') {
-			if (activeButtonIndex < allButtons.length - 1) {
-				(
-					allButtons[activeButtonIndex + 1] as HTMLButtonElement
-				).focus();
+		if (
+			!activeButton.parentElement?.classList.contains(
+				'sp-menu--item--inline'
+			)
+		) {
+			if (direction === 'down') {
+				if (activeButtonIndex < allButtons.length - 1) {
+					(
+						allButtons[activeButtonIndex + 1] as HTMLButtonElement
+					).focus();
+				} else {
+					(allButtons[0] as HTMLButtonElement).focus();
+				}
+			} else if (direction === 'up') {
+				if (activeButtonIndex > 0) {
+					(
+						allButtons[activeButtonIndex - 1] as HTMLButtonElement
+					).focus();
+				} else {
+					(
+						allButtons[allButtons.length - 1] as HTMLButtonElement
+					).focus();
+				}
+			} else if (
+				direction === 'right' &&
+				activeButton.parentElement?.classList.contains(
+					'sp-menu--item--submenu'
+				)
+			) {
+				activeButton.click();
+			} else if (direction === 'left' && location.length) {
+				backClickHandler();
 			}
-		} else if (direction === 'up') {
-			if (activeButtonIndex > 0) {
-				(
-					allButtons[activeButtonIndex - 1] as HTMLButtonElement
-				).focus();
-			} else {
-				(
-					allButtons[allButtons.length - 1] as HTMLButtonElement
-				).focus();
+		} else {
+			if (direction === 'right') {
+				if (activeButtonIndex < allButtons.length - 1) {
+					(
+						allButtons[activeButtonIndex + 1] as HTMLButtonElement
+					).focus();
+				}
+			} else if (direction === 'left') {
+				if (activeButtonIndex > 0) {
+					(
+						allButtons[activeButtonIndex - 1] as HTMLButtonElement
+					).focus();
+				} else {
+					(
+						allButtons[allButtons.length - 1] as HTMLButtonElement
+					).focus();
+				}
+			} else if (direction === 'up' && location.length) {
+				backClickHandler();
 			}
-		} else if (direction === 'right') {
-			activeButton.click();
-		} else if (direction === 'left' && location.length) {
-			backClickHandler();
 		}
 	};
 

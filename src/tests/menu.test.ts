@@ -34,7 +34,7 @@ test.describe('Menu component', () => {
 		await expect(strawberry.locator('.sp-menu--item--meta')).toHaveText(
 			'(52)'
 		);
-		await expect(strawberry).toHaveText('Strawberry(52)');
+		await expect(strawberry).toHaveText('Strawberry   (52) ');
 
 		const apple = items.nth(2);
 		await expect(apple).toBeVisible();
