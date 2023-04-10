@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Dropdown, type dropdownOptions } from '../../lib';
+	import { Dropdown, type DropdownOptions } from '../../lib';
 	import { logEvent } from 'histoire/client';
 
 	// import { default as source } from './source';
 	export let Hst: Histoire;
 
-	let options: dropdownOptions[] = [
+	let options: DropdownOptions[] = [
 		{
 			label: 'Bengal tiger',
 			id: 'bengal-tiger',
