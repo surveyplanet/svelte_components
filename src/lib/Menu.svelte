@@ -33,6 +33,30 @@
 	// 	Object.freeze(data);
 	// });
 
+	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
+		const allButtons = document.querySelectorAll(
+			'.sp-menu--item button'
+		) as HTMLButtonElement[];
+		const activeButton = document.activeElement as HTMLButtonElement;
+		const activeButtonIndex = [...allButtons].indexOf(activeButton);
+
+		if (direction === 'down') {
+			if (activeButtonIndex < allButtons.length - 1) {
+				allButtons[activeButtonIndex + 1].focus();
+			}
+		} else if (direction === 'up') {
+			if (activeButtonIndex > 0) {
+				allButtons[activeButtonIndex - 1].focus();
+			} else {
+				allButtons[allButtons.length - 1].focus();
+			}
+		} else if (direction === 'right') {
+			activeButton.click();
+		} else if (direction === 'left' && location.length) {
+			backClickHandler();
+		}
+	};
+
 	const transitionProps = {
 		axis: 'x',
 		duration: 150,
@@ -59,6 +83,21 @@
 			}
 		}
 		return null; // item has no submenu
+	};
+
+	const arrowClickHandler = (event: KeyboardEvent) => {
+		if (event.key === 'ArrowDown') {
+			event.preventDefault();
+			scrollMenu('down');
+		} else if (event.key === 'ArrowUp') {
+			event.preventDefault();
+			scrollMenu('up');
+		} else if (event.key === 'ArrowRight') {
+			scrollMenu('right');
+		} else if (event.key === 'ArrowLeft') {
+			event.preventDefault();
+			scrollMenu('left');
+		}
 	};
 
 	const backClickHandler = () => {
@@ -105,6 +144,7 @@
 	};
 </script>
 
+<svelte:window on:keydown={arrowClickHandler} />
 <ul class="sp-menu">
 	{#if location.length}
 		<li transition:slide={transitionProps}>
@@ -209,10 +249,26 @@
 			}
 		}
 
+		// not supported in FF
+		// disable the button hover and focus states for color chips
+		&:has(> button .color-chip) {
+			/* styles to apply to the li tag */
+			button {
+				background-color: transparent !important;
+				&:hover,
+				&:focus {
+					:global(.color-chip) {
+						border: 1px solid $color--black;
+					}
+				}
+			}
+		}
+
 		:global(.color-chip) {
 			position: relative;
 			box-sizing: border-box;
 			display: inline-block;
+			border: 1px solid transparent;
 			width: $size--16;
 			height: $size--16;
 			border-radius: 50%;
@@ -224,8 +280,8 @@
 				&:before {
 					content: '';
 					position: absolute;
-					top: 5px;
-					left: 4.5px;
+					top: 4px;
+					left: 4px;
 					display: block;
 					width: 7px;
 					height: 6px;
@@ -251,6 +307,10 @@
 		margin: 0;
 		&:hover {
 			background: $color--light-purple-light;
+		}
+		&:focus {
+			background: $color--light-purple-light;
+			outline: none;
 		}
 		:global(svg) {
 			margin-left: auto;
