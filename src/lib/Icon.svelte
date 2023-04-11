@@ -19,6 +19,7 @@
 
 <script lang="ts">
 	import { COLORS } from './';
+	import { dasherize } from '@surveyplanet/utilities';
 
 	const DEFAULT_SIZE: IconSize = 24;
 
@@ -52,7 +53,7 @@
 
 <svg
 	xmlns="http://www.w3.org/2000/svg"
-	class="sp-icon sp-icon--{name}"
+	class="sp-icon sp-icon--{dasherize(name)}"
 	width={size}
 	height={size}
 	viewBox="0 0 {DEFAULT_SIZE} {DEFAULT_SIZE}"

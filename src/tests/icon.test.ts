@@ -14,12 +14,15 @@ test.describe('Icon component', () => {
 		await expect(icon).toBeVisible();
 		const path = icon.locator('path').first();
 		await expect(path).toBeVisible();
+		await expect(icon).toHaveClass(/sp-icon/);
+		await expect(icon).toHaveClass(/sp-icon--bell/);
 		await expect(icon).toHaveAttribute('viewBox', '0 0 24 24');
 		await expect(icon).toHaveAttribute('width', '24');
 		await expect(icon).toHaveAttribute('height', '24');
 		await expect(icon).toHaveAttribute('fill', 'none');
 		await expect(path).toHaveAttribute('stroke', COLORS.black);
 	});
+
 	test('light', async ({ page }) => {
 		const icon = canvas.locator('svg');
 		await expect(icon).toBeVisible();

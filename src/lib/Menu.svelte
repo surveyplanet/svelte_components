@@ -2,7 +2,7 @@
 	lang="ts"
 	context="module">
 	import { Icon, type IconName } from './index';
-	export interface menuData {
+	export interface MenuData {
 		id: string;
 		label?: string;
 		html?: string;
@@ -11,7 +11,7 @@
 		divide?: boolean;
 		inline?: boolean;
 		selected?: boolean;
-		submenu?: menuData[];
+		submenu?: MenuData[];
 	}
 </script>
 
@@ -26,12 +26,67 @@
 	/**
 	 * Menu data
 	 */
-	export let data: menuData[] = [{ id: 'edit' }];
+	export let data: MenuData[] = [{ id: 'edit' }];
 
-	// Should freeze data so current state an data are the same object
-	// onMount(() => {
-	// 	Object.freeze(data);
-	// });
+	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
+		const allButtons = document.querySelectorAll('.sp-menu--item button');
+		const activeButton = document.activeElement as HTMLButtonElement;
+		const activeButtonIndex = [...allButtons].indexOf(activeButton);
+		if (
+			!activeButton.parentElement?.classList.contains(
+				'sp-menu--item--inline'
+			)
+		) {
+			if (direction === 'down') {
+				if (activeButtonIndex < allButtons.length - 1) {
+					(
+						allButtons[activeButtonIndex + 1] as HTMLButtonElement
+					).focus();
+				} else {
+					(allButtons[0] as HTMLButtonElement).focus();
+				}
+			} else if (direction === 'up') {
+				if (activeButtonIndex > 0) {
+					(
+						allButtons[activeButtonIndex - 1] as HTMLButtonElement
+					).focus();
+				} else {
+					(
+						allButtons[allButtons.length - 1] as HTMLButtonElement
+					).focus();
+				}
+			} else if (
+				direction === 'right' &&
+				activeButton.parentElement?.classList.contains(
+					'sp-menu--item--submenu'
+				)
+			) {
+				activeButton.click();
+			} else if (direction === 'left' && location.length) {
+				backClickHandler();
+			}
+		} else {
+			if (direction === 'right') {
+				if (activeButtonIndex < allButtons.length - 1) {
+					(
+						allButtons[activeButtonIndex + 1] as HTMLButtonElement
+					).focus();
+				}
+			} else if (direction === 'left') {
+				if (activeButtonIndex > 0) {
+					(
+						allButtons[activeButtonIndex - 1] as HTMLButtonElement
+					).focus();
+				} else {
+					(
+						allButtons[allButtons.length - 1] as HTMLButtonElement
+					).focus();
+				}
+			} else if (direction === 'up' && location.length) {
+				backClickHandler();
+			}
+		}
+	};
 
 	const transitionProps = {
 		axis: 'x',
@@ -39,14 +94,14 @@
 		easing: cubicOut,
 	};
 
-	let currentState: menuData[] = [...data];
+	$: currentState = [...data];
 
 	let location: string[] = [];
 
 	const getState = (
-		data: menuData[],
+		data: MenuData[],
 		id: string
-	): menuData['submenu'] | null => {
+	): MenuData['submenu'] | null => {
 		for (let item of data) {
 			if (item.id === id && item.submenu?.length) {
 				return item.submenu;
@@ -59,6 +114,22 @@
 			}
 		}
 		return null; // item has no submenu
+	};
+
+	const arrowClickHandler = (event: KeyboardEvent) => {
+		// user correct arrow keys when MenuData.inline is true;
+		if (event.key === 'ArrowDown') {
+			event.preventDefault();
+			scrollMenu('down');
+		} else if (event.key === 'ArrowUp') {
+			event.preventDefault();
+			scrollMenu('up');
+		} else if (event.key === 'ArrowRight') {
+			scrollMenu('right');
+		} else if (event.key === 'ArrowLeft') {
+			event.preventDefault();
+			scrollMenu('left');
+		}
 	};
 
 	const backClickHandler = () => {
@@ -79,6 +150,7 @@
 
 	const itemClickHandler = (event: MouseEvent) => {
 		let id = (event.target as HTMLElement).id;
+		// console.log('itemClickHandler', id);
 
 		if (!id?.length) {
 			const btn = (event.target as HTMLElement).closest('button');
@@ -104,6 +176,7 @@
 	};
 </script>
 
+<svelte:window on:keydown={arrowClickHandler} />
 <ul class="sp-menu">
 	{#if location.length}
 		<li transition:slide={transitionProps}>
@@ -117,7 +190,6 @@
 			</button>
 		</li>
 	{/if}
-
 	{#each currentState as item}
 		<li
 			class="sp-menu--item"
@@ -127,6 +199,7 @@
 			class:sp-menu--item--submenu={item?.submenu?.length}
 			transition:slide={transitionProps}>
 			<button
+				class="sp-menu--item--btn"
 				id={item.id}
 				on:click|preventDefault={itemClickHandler}>
 				{#if item.label}
@@ -164,6 +237,10 @@
 		box-shadow: 0px 5px 5px rgba(142, 117, 205, 0.1);
 		border-radius: $size-radius--large;
 		max-width: 260px;
+		// &:empty { empty doesn't work because of whitespace
+		&:not(:has(li)) {
+			display: none;
+		}
 	}
 	.sp-menu--item {
 		position: relative;
@@ -204,10 +281,26 @@
 			}
 		}
 
+		// not supported in FF
+		// disable the button hover and focus states for color chips
+		&:has(> button .color-chip) {
+			/* styles to apply to the li tag */
+			button {
+				background-color: transparent !important;
+				&:hover,
+				&:focus {
+					:global(.color-chip) {
+						border: 1px solid $color--black;
+					}
+				}
+			}
+		}
+
 		:global(.color-chip) {
 			position: relative;
 			box-sizing: border-box;
 			display: inline-block;
+			border: 1px solid transparent;
 			width: $size--16;
 			height: $size--16;
 			border-radius: 50%;
@@ -219,8 +312,8 @@
 				&:before {
 					content: '';
 					position: absolute;
-					top: 5px;
-					left: 4.5px;
+					top: 4px;
+					left: 4px;
 					display: block;
 					width: 7px;
 					height: 6px;
@@ -246,6 +339,10 @@
 		margin: 0;
 		&:hover {
 			background: $color--light-purple-light;
+		}
+		&:focus {
+			background: $color--light-purple-light;
+			outline: none;
 		}
 		:global(svg) {
 			margin-left: auto;
