@@ -26,7 +26,7 @@
 	/**
 	 * The value of the input
 	 */
-	export let value = '';
+	export let value: number | undefined = undefined;
 	/**
 	 * Whether the input is disabled
 	 */
@@ -42,7 +42,7 @@
 	/**
 	 * The type of the input
 	 */
-	export let type: 'number' | 'time' | 'float' = 'float';
+	export let type: 'number' | 'time' = 'number';
 	/**
 	 * The time format of the input
 	 */
@@ -52,7 +52,7 @@
 	 */
 	export let placeholder = '';
 
-	const dispatchChange: (name: string, detail: string) => boolean =
+	const dispatchChange: (name: string, detail: number) => boolean =
 		createEventDispatcher();
 	const dispatchBlurAndFocus: (name: string) => boolean =
 		createEventDispatcher();
@@ -67,90 +67,41 @@
 			numeralThousandsGroupStyle: 'thousand',
 		} as CleaveOptions;
 
-		if (type === 'time') {
-			cleaveOptions = {
-				time: true,
-				timePattern: ['h', 'm'],
-				timeFormat: timeFormat,
-			};
-		} else if (type === 'float') {
-			cleaveOptions.numeralDecimalMark = '.';
-			cleaveOptions.numeralDecimalScale = 2;
-		}
-
 		if (input) {
 			new Cleave(input, cleaveOptions);
 		}
 	}
 
-	const valueToNumber = (value: string) => {
-		if (!value?.length) {
-			return 0;
+	const getValue = (increment: boolean): number | undefined => {
+		const currentValue = value;
+		if (currentValue === undefined) {
+			if (increment) {
+				return min + step;
+			} else {
+				return max - step;
+			}
 		}
-
-		if (type === 'time') {
-			const [hours, minutes] = value.split(':');
-			return parseInt(hours) * 60 + parseInt(minutes);
-		} else {
-			return parseFloat(value);
-		}
-	};
-
-	const getValue = (increment: boolean): string => {
-		if (type === 'time') {
-			let [hours, minutes] = value.split(':');
-			if (!hours?.length) {
-				hours = '0';
-			}
-			if (!minutes?.length) {
-				minutes = '0';
-			}
-			const totalMinutes = parseInt(hours) * 60 + parseInt(minutes);
-			const newTotalMinutes = increment
-				? totalMinutes + step
-				: totalMinutes - step;
-			let newHours = Math.floor(newTotalMinutes / 60);
-			let newMinutes = newTotalMinutes % 60;
-			if (timeFormat === '12') {
-				if (newHours > 12) {
-					newHours = newHours - 12;
-				} else if (newHours === 0) {
-					newHours = 12;
-				}
-			}
-			if (timeFormat === '24') {
-				if (newHours < 0) {
-					newHours = 23;
-				} else if (newHours > 23) {
-					newHours = 0;
-				}
-			}
-			return `${newHours.toString().padStart(2, '0')}:${newMinutes
-				.toString()
-				.padStart(2, '0')}`;
-		} else {
-			const currentValue = valueToNumber(value);
-			let newValue = increment
-				? currentValue + step
-				: currentValue - step;
-			if (newValue === max) {
+		let newValue = increment ? currentValue + step : currentValue - step;
+		if (!overflow) {
+			if (newValue >= max) {
+				console.log('max');
 				newValue = max;
-			} else if (newValue === min) {
+			} else if (newValue <= min) {
 				newValue = min;
 			}
-
-			if (overflow && newValue > max) {
-				return min.toString();
-			} else if (overflow && newValue < min) {
-				return max.toString();
-			}
-			return newValue.toString();
 		}
+		if (overflow && newValue > max) {
+			return min;
+		} else if (overflow && newValue < min) {
+			return max;
+		}
+		return newValue;
 	};
 
-	const changeValue = (newValue: string) => {
-		if (newValue !== value) {
+	const changeValue = (newValue: number | undefined) => {
+		if (newValue !== value && newValue !== undefined) {
 			value = newValue;
+
 			dispatchChange('change', value);
 		}
 	};
@@ -164,16 +115,16 @@
 	};
 
 	const inputChange = () => {
-		let val = '';
-
-		if (parseFloat(val) >= min && parseFloat(val) <= max) {
-			value = val;
+		if (value === undefined) {
+			return;
+		}
+		if (value >= min && value <= max) {
+			value;
 		}
 	};
 
 	const inputHandler = () => {
 		inputChange();
-		dispatchChange('change', value);
 	};
 
 	// on keydown check if the key is NaN or : or arrows/enter/tab and return false
@@ -225,6 +176,7 @@
 <div class="sp-number-spinner sp-number-spinner--{type}">
 	<input
 		class="sp-number-spinner--input"
+		type="number"
 		bind:value
 		bind:this={input}
 		on:keyup={keyUpHandler}
@@ -349,5 +301,16 @@
 
 	.sp-number-spinner--button-icon--flipped {
 		transform: rotate(180deg);
+	}
+
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		/* display: none; <- Crashes Chrome on hover */
+		-webkit-appearance: none;
+		margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+	}
+
+	input[type='number'] {
+		-moz-appearance: textfield; /* Firefox */
 	}
 </style>
