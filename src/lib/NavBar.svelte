@@ -3,19 +3,14 @@
 	lang="ts">
 	import { Icon, type IconName } from './index';
 
-	export type NavBarData = {
+	export interface NavBarData {
 		icon: IconName;
-		title?: string;
 		link: string;
-	};
+		title?: string;
+	}
 </script>
 
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-
-	const dispatch: (name: string, detail: string) => boolean =
-		createEventDispatcher();
-
 	export let data: NavBarData[] = [];
 </script>
 
