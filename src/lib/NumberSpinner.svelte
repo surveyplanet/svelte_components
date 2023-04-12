@@ -40,14 +40,6 @@
 	 */
 	export let overflow = false;
 	/**
-	 * The type of the input
-	 */
-	export let type: 'number' | 'time' = 'number';
-	/**
-	 * The time format of the input
-	 */
-	export let timeFormat: '12' | '24' = '24';
-	/**
 	 * The placeholder of the input
 	 */
 	export let placeholder = '';
@@ -173,7 +165,7 @@
 		<span class="sp-dropdown--label--required">*</span>
 	{/if}
 </label>
-<div class="sp-number-spinner sp-number-spinner--{type}">
+<div class="sp-number-spinner sp-number-spinner">
 	<input
 		class="sp-number-spinner--input"
 		type="number"
