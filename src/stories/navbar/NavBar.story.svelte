@@ -1,28 +1,30 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { NavBar, type NavBarData } from '../../lib/index';
-	import { json } from '@sveltejs/kit';
+	import { NavBar, type MenuData, type NavBarData } from '../../lib/index';
+	import { menuData } from '../menu/menu_data';
+
 	export let Hst: Histoire;
 
 	let data: NavBarData[] = [
 		{
 			icon: 'edit',
 			link: '#',
+			id: 'edit',
 		},
 		{
 			icon: 'chartColumn',
 			link: '#',
+			id: 'chart',
 		},
 		{
 			icon: 'share',
 			link: '#',
-		},
-		{
-			icon: 'ellipses',
-			link: '#',
+			id: 'share',
 		},
 	];
+
+	let navMenuData: MenuData[] = menuData;
 </script>
 
 <Hst.Story title="NavBar">
@@ -33,6 +35,8 @@
 	</svelte:fragment>
 
 	<Hst.Variant title="NavBar">
-		<NavBar {data} />
+		<NavBar
+			{data}
+			{navMenuData} />
 	</Hst.Variant>
 </Hst.Story>

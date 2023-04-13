@@ -12,10 +12,10 @@
 </script>
 
 <script lang="ts">
-	import { Menu, type MenuData } from './Menu.svelte';
+	import { Menu, type MenuData } from './index';
 	import { createEventDispatcher } from 'svelte';
 	export let data: NavBarData[] = [];
-	export let menuData: MenuData[] = [];
+	export let navMenuData: MenuData[] = [];
 	let showMenu = false;
 
 	const dispatchLink: (name: string, detail: string) => boolean =
@@ -25,16 +25,16 @@
 		const target = e.target as HTMLLinkElement;
 		if (target.href.length) {
 			window.location.href = target.href;
+		} else {
+			dispatchLink('nav-link', target.id);
 		}
-		dispatchLink('nav-link', target.id);
 	};
 
-	const navMenuTriggerClickHandler = (e: MouseEvent) => {
+	const navMenuTriggerClickHandler = () => {
 		showMenu = !showMenu;
 	};
 </script>
 
-//if no link dispatch id if there is a link d oa link
 <nav class="sp-nav">
 	{#each data as item}
 		<a
@@ -49,7 +49,7 @@
 			<Icon name={item.icon} /></a>
 	{/each}
 
-	{#if menuData?.length}
+	{#if navMenuData?.length}
 		<a
 			class="sp-nav-menu-trigger"
 			href="#"
@@ -57,7 +57,9 @@
 			<Icon name="ellipsis" />
 		</a>
 		{#if showMenu}
-			<Menu data={menuData} />
+			<div class="sp-nav-menu">
+				<Menu data={navMenuData} />
+			</div>
 		{/if}
 	{/if}
 </nav>
@@ -78,5 +80,13 @@
 		justify-content: center;
 		align-items: center;
 		padding: $size--18;
+	}
+
+	.sp-nav-menu {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		z-index: 1;
+		width: 100%;
 	}
 </style>

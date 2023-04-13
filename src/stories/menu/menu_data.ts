@@ -1,6 +1,7 @@
-import { type menuData } from '../../lib';
+import { COLORS } from '$lib';
+import type { MenuData } from '../../lib';
 
-export let menuData: menuData = [
+export const menuData: MenuData[] = [
 	{ label: 'Edit', id: 'edit' },
 	{ label: 'Preview', id: 'preview' },
 	{ label: 'Duplicate', id: 'duplicate' },

@@ -1,14 +1,14 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Menu, Button, Icon, COLORS, type MenuData } from '../../lib';
+	import { Menu, Button, Icon, type MenuData } from '../../lib';
 	import { logEvent } from 'histoire/client';
-	import { menuData } from 'menu_data';
+	import { menuData } from './menu_data';
 
 	// import { default as source } from './source';
 	export let Hst: Histoire;
 
 	let visible = true;
-	let data = menuData;
+	let data: MenuData[] = menuData;
 
 	const buttonClickHandler = () => {
 		visible = !visible;
