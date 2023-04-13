@@ -4,7 +4,7 @@
 	import { cubicOut } from 'svelte/easing';
 	import { Icon } from './';
 
-	const dispatch = createEventDispatcher();
+	const dispatch: (name: string) => boolean = createEventDispatcher();
 	/**
 	 * Main modal title.
 	 */

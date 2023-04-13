@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	const dispatch = createEventDispatcher();
+	const dispatch: (name: string, detail: Event) => boolean =
+		createEventDispatcher();
 
 	export let id: string = (Date.now() + Math.random()).toString(36);
 	export let name: string;
