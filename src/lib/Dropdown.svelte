@@ -67,7 +67,6 @@
 		if (query?.length) {
 			visible = true;
 			menuData = options.filter((item) => {
-				// item.selected = false;
 				return item.label.toLowerCase().trim().includes(query);
 			});
 		} else {
