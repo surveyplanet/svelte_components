@@ -99,15 +99,21 @@
 				return;
 			}
 		}
-
+		//fix this so that it doesn't close the menu when arrow down is pressed
 		visible = false;
 	};
 
 	const searchKeyupHandler = (event: KeyboardEvent) => {
 		// fix the arrow down key so that idt doesn't close down the menu
-		if (event.key === 'ArrowDown') {
-			return;
-		}
+		// if (event.key === 'ArrowDown') {
+		// 	const e = new KeyboardEvent('keydown', {
+		// 		key: 'ArrowDown',
+		// 		bubbles: true,
+		// 		cancelable: true,
+		// 	});
+		// 	document.dispatchEvent(e);
+		// 	visible = true;
+		// }
 		const target = event.target as HTMLInputElement;
 		search(target.value);
 	};
