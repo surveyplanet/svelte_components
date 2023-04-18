@@ -158,16 +158,16 @@
 </script>
 
 <label
-	for="sp-number-spinner"
-	class="sp-number-spinner--label"
+	for="sp-spinner"
+	class="sp-spinner--label"
 	>{label}
 	{#if required}
 		<span class="sp-dropdown--label--required">*</span>
 	{/if}
 </label>
-<div class="sp-number-spinner sp-number-spinner">
+<div class="sp-spinner sp-spinner">
 	<input
-		class="sp-number-spinner--input"
+		class="sp-spinner--input"
 		type="number"
 		bind:value
 		bind:this={input}
@@ -180,16 +180,16 @@
 		{disabled}
 		on:input={inputHandler} />
 
-	<div class="sp-number-spinner--buttons">
+	<div class="sp-spinner--buttons">
 		<button
-			class="sp-number-spinner--button sp-number-spinner--button--up"
+			class="sp-spinner--button sp-spinner--button--up"
 			on:mousedown={upMouseDownHandler}
 			on:mouseup={mouseUpHandler}
 			on:click={() => {
 				increment();
 			}}>
 			<svg
-				class="sp-number-spinner--button-icon--flipped"
+				class="sp-spinner--button-icon--flipped"
 				width="7"
 				height="4"
 				viewBox="0 0 7 4"
@@ -204,14 +204,14 @@
 			</svg>
 		</button>
 		<button
-			class="sp-number-spinner--button sp-number-spinner--button--down"
+			class="sp-spinner--button sp-spinner--button--down"
 			on:mousedown={downMouseDownHandler}
 			on:mouseup={mouseUpHandler}
 			on:click={() => {
 				decrement();
 			}}>
 			<svg
-				class="sp-number-spinner--button-icon"
+				class="sp-spinner--button-icon"
 				width="7"
 				height="4"
 				viewBox="0 0 7 4"
@@ -231,7 +231,7 @@
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 
-	.sp-number-spinner {
+	.sp-spinner {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -291,7 +291,7 @@
 		width: 100%;
 	}
 
-	.sp-number-spinner--button-icon--flipped {
+	.sp-spinner--button-icon--flipped {
 		transform: rotate(180deg);
 	}
 

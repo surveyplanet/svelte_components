@@ -3,25 +3,25 @@ import { loadStory, setControl, getLastEvent, getAllEvents } from './_utils.js';
 
 test.describe('Number Spinner component', () => {
 	test('Number', async ({ page }) => {
-		const preview = await loadStory(page, 'numberspinner');
+		const preview = await loadStory(page, 'spinner');
 
-		const numberspinner = preview.locator('.sp-number-spinner');
-		const label = preview.locator('.sp-number-spinner--label');
-		const input = numberspinner.locator('input');
-		const upButton = preview.locator('.sp-number-spinner--button--up');
-		const downButton = preview.locator('.sp-number-spinner--button--down');
+		const spinner = preview.locator('.sp-spinner');
+		const label = preview.locator('.sp-spinner--label');
+		const input = spinner.locator('input');
+		const upButton = preview.locator('.sp-spinner--button--up');
+		const downButton = preview.locator('.sp-spinner--button--down');
 		await setControl(page, 'Type', 'select', 'number');
 		await setControl(page, 'Step', 'number', '1');
 		await setControl(page, 'Min', 'number', '0');
 		await setControl(page, 'Max', 'number', '10');
 		await setControl(page, 'Overflow', 'checkbox', 'false');
 
-		await expect(numberspinner).toBeVisible();
+		await expect(spinner).toBeVisible();
 		await expect(input).toBeVisible();
 		await expect(upButton).toBeVisible();
 		await expect(downButton).toBeVisible();
 		await expect(label).toHaveText('Number Spinner');
-		await expect(label).toHaveAttribute('for', 'sp-number-spinner');
+		await expect(label).toHaveAttribute('for', 'sp-spinner');
 
 		await expect(input).toHaveValue('');
 
@@ -51,15 +51,15 @@ test.describe('Number Spinner component', () => {
 	});
 
 	test('Float', async ({ page }) => {
-		const preview = await loadStory(page, 'numberspinner');
+		const preview = await loadStory(page, 'spinner');
 
 		await setControl(page, 'Step', 'number', '0.1');
-		const numberspinner = preview.locator('.sp-number-spinner');
-		const input = numberspinner.locator('input');
-		const upButton = preview.locator('.sp-number-spinner--button--up');
-		const downButton = preview.locator('.sp-number-spinner--button--down');
+		const spinner = preview.locator('.sp-spinner');
+		const input = spinner.locator('input');
+		const upButton = preview.locator('.sp-spinner--button--up');
+		const downButton = preview.locator('.sp-spinner--button--down');
 
-		await expect(numberspinner).toBeVisible();
+		await expect(spinner).toBeVisible();
 		await expect(input).toBeVisible();
 		await expect(upButton).toBeVisible();
 		await expect(downButton).toBeVisible();
@@ -74,18 +74,18 @@ test.describe('Number Spinner component', () => {
 		await expect(input).toHaveValue('0.1');
 	});
 	test('Number with overflow and step', async ({ page }) => {
-		const preview = await loadStory(page, 'numberspinner');
+		const preview = await loadStory(page, 'spinner');
 
 		await setControl(page, 'Min', 'number', '0');
 		await setControl(page, 'Max', 'number', '10');
 		await setControl(page, 'Step', 'number', '2');
 		await setControl(page, 'Overflow', 'checkbox', 'true');
-		const numberspinner = preview.locator('.sp-number-spinner');
-		const input = numberspinner.locator('input');
-		const upButton = preview.locator('.sp-number-spinner--button--up');
-		const downButton = preview.locator('.sp-number-spinner--button--down');
+		const spinner = preview.locator('.sp-spinner');
+		const input = spinner.locator('input');
+		const upButton = preview.locator('.sp-spinner--button--up');
+		const downButton = preview.locator('.sp-spinner--button--down');
 
-		await expect(numberspinner).toBeVisible();
+		await expect(spinner).toBeVisible();
 		await expect(input).toBeVisible();
 		await expect(upButton).toBeVisible();
 		await expect(downButton).toBeVisible();
@@ -116,9 +116,9 @@ test.describe('Number Spinner component', () => {
 		await expect(input).toHaveValue('2');
 	});
 	test('disabled and required', async ({ page }) => {
-		const preview = await loadStory(page, 'numberspinner');
-		const numberspinner = preview.locator('.sp-number-spinner');
-		const input = numberspinner.locator('input');
+		const preview = await loadStory(page, 'spinner');
+		const spinner = preview.locator('.sp-spinner');
+		const input = spinner.locator('input');
 		const required = preview.locator('.sp-dropdown--label--required');
 
 		await setControl(page, 'Disabled', 'checkbox', 'true');

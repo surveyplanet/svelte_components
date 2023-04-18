@@ -2,7 +2,7 @@
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { logEvent } from 'histoire/client';
 	// import source from './source';
-	import { NumberSpinner } from '../../lib';
+	import { Spinner } from '../../lib';
 	export let Hst: Histoire;
 
 	let label = 'Number Spinner';
@@ -19,7 +19,7 @@
 	let placeholder = '';
 </script>
 
-<Hst.Story title="Form controls / NumberSpinner">
+<Hst.Story title="Form controls / Spinner">
 	<svelte:fragment slot="controls">
 		<Hst.Text
 			bind:value={label}
@@ -62,7 +62,7 @@
 	</svelte:fragment>
 
 	<Hst.Variant title="Primary">
-		<NumberSpinner
+		<Spinner
 			{timeFormat}
 			{label}
 			{step}
