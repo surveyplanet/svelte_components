@@ -9,11 +9,11 @@
 	let step = 1;
 	let min = 0;
 	let max = 10;
-	let value: string | undefined = undefined;
+	let value: number | undefined = undefined;
 	let disabled = false;
 	let required = false;
 	let overflow = false;
-	let type: 'number' | 'time' | 'float' = 'number';
+	let type: 'number' | 'time' = 'number';
 	let timeFormat: '12' | '24' = '24';
 	let id = (Date.now() + Math.random()).toString(36);
 	let placeholder = '';
@@ -36,7 +36,7 @@
 		<Hst.Number
 			bind:value={max}
 			title="Max" />
-		<Hst.Text
+		<Hst.Number
 			bind:value
 			title="Value" />
 		<Hst.Checkbox
@@ -51,7 +51,7 @@
 		<Hst.Select
 			bind:value={type}
 			title="Type"
-			options={['number', 'time', 'float']} />
+			options={['number', 'time']} />
 		<Hst.Select
 			bind:value={timeFormat}
 			title="Time Format"
@@ -64,7 +64,6 @@
 	<Hst.Variant title="Primary">
 		<Spinner
 			{timeFormat}
-			{type}
 			{label}
 			{step}
 			{min}

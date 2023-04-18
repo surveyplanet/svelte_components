@@ -10,6 +10,11 @@ test.describe('Number Spinner component', () => {
 		const input = spinner.locator('input');
 		const upButton = preview.locator('.sp-spinner--button--up');
 		const downButton = preview.locator('.sp-spinner--button--down');
+		await setControl(page, 'Type', 'select', 'number');
+		await setControl(page, 'Step', 'number', '1');
+		await setControl(page, 'Min', 'number', '0');
+		await setControl(page, 'Max', 'number', '10');
+		await setControl(page, 'Overflow', 'checkbox', 'false');
 
 		await expect(spinner).toBeVisible();
 		await expect(input).toBeVisible();
@@ -30,64 +35,24 @@ test.describe('Number Spinner component', () => {
 		await expect(input).toHaveValue('2');
 		await downButton.click();
 		await expect(input).toHaveValue('1');
+		await downButton.click();
+		await expect(input).toHaveValue('0');
+		await downButton.click();
+		await expect(input).toHaveValue('0');
 
 		const events = await getAllEvents(page);
 		expect(events.length > 0).toBeTruthy();
 		const totalChange = events.filter((i) => i.name == 'change').length;
-		expect(totalChange).toBe(3);
+		expect(totalChange).toBe(4);
 		const totalBlurEvents = events.filter((i) => i.name == 'blur').length;
 		expect(totalBlurEvents).toBe(1);
 		const totalFocusEvents = events.filter((i) => i.name == 'focus').length;
 		expect(totalFocusEvents).toBe(1);
 	});
-	test('Time', async ({ page }) => {
-		const preview = await loadStory(page, 'spinner');
-
-		await setControl(page, 'Type', 'select', 'time');
-		const spinner = preview.locator('.sp-spinner');
-		const input = spinner.locator('input');
-		const upButton = preview.locator('.sp-spinner--button--up');
-		const downButton = preview.locator('.sp-spinner--button--down');
-
-		await expect(spinner).toBeVisible();
-		await expect(input).toBeVisible();
-		await expect(upButton).toBeVisible();
-		await expect(downButton).toBeVisible();
-
-		await expect(input).toHaveValue('');
-		await upButton.click();
-
-		await expect(input).toHaveValue('00:01');
-		await upButton.click();
-		await expect(input).toHaveValue('00:02');
-		await downButton.click();
-		await expect(input).toHaveValue('00:01');
-	});
-	test('Time with time format change', async ({ page }) => {
-		const preview = await loadStory(page, 'spinner');
-		await setControl(page, 'Type', 'select', 'time');
-		await setControl(page, 'Time Format', 'select', '12');
-		const spinner = preview.locator('.sp-spinner');
-		const input = spinner.locator('input');
-		const upButton = preview.locator('.sp-spinner--button--up');
-		const downButton = preview.locator('.sp-spinner--button--down');
-
-		await expect(spinner).toBeVisible();
-		await expect(input).toBeVisible();
-		await expect(upButton).toBeVisible();
-		await expect(downButton).toBeVisible();
-
-		await expect(input).toHaveValue('');
-		await input.type('12:59');
-		await expect(input).toHaveValue('12:59');
-		await upButton.click();
-		await expect(input).toHaveValue('01:00');
-	});
 
 	test('Float', async ({ page }) => {
 		const preview = await loadStory(page, 'spinner');
 
-		await setControl(page, 'Type', 'select', 'float');
 		await setControl(page, 'Step', 'number', '0.1');
 		const spinner = preview.locator('.sp-spinner');
 		const input = spinner.locator('input');

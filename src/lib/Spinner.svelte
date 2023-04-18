@@ -26,7 +26,7 @@
 	/**
 	 * The value of the input
 	 */
-	export let value = '';
+	export let value: number | undefined = undefined;
 	/**
 	 * Whether the input is disabled
 	 */
@@ -40,19 +40,11 @@
 	 */
 	export let overflow = false;
 	/**
-	 * The type of the input
-	 */
-	export let type: 'number' | 'time' | 'float' = 'float';
-	/**
-	 * The time format of the input
-	 */
-	export let timeFormat: '12' | '24' = '24';
-	/**
 	 * The placeholder of the input
 	 */
 	export let placeholder = '';
 
-	const dispatchChange: (name: string, detail: string) => boolean =
+	const dispatchChange: (name: string, detail: number) => boolean =
 		createEventDispatcher();
 
 	const dispatchBlurAndFocus: (name: string) => boolean =
@@ -68,90 +60,43 @@
 			numeralThousandsGroupStyle: 'thousand',
 		} as CleaveOptions;
 
-		if (type === 'time') {
-			cleaveOptions = {
-				time: true,
-				timePattern: ['h', 'm'],
-				timeFormat: timeFormat,
-			};
-		} else if (type === 'float') {
-			cleaveOptions.numeralDecimalMark = '.';
-			cleaveOptions.numeralDecimalScale = 2;
-		}
-
 		if (input) {
 			new Cleave(input, cleaveOptions);
 		}
 	}
 
-	const valueToNumber = (value: string) => {
-		if (!value?.length) {
-			return 0;
-		}
+	const getValue = (increment: boolean): number | undefined => {
+		const currentValue = value;
 
-		if (type === 'time') {
-			const [hours, minutes] = value.split(':');
-			return parseInt(hours) * 60 + parseInt(minutes);
-		} else {
-			return parseFloat(value);
+		if (currentValue === undefined) {
+			if (increment) {
+				return min + step;
+			} else {
+				return max - step;
+			}
 		}
-	};
+		let newValue = increment ? currentValue + step : currentValue - step;
 
-	const getValue = (increment: boolean): string => {
-		if (type === 'time') {
-			let [hours, minutes] = value.split(':');
-			if (!hours?.length) {
-				hours = '0';
-			}
-			if (!minutes?.length) {
-				minutes = '0';
-			}
-			const totalMinutes = parseInt(hours) * 60 + parseInt(minutes);
-			const newTotalMinutes = increment
-				? totalMinutes + step
-				: totalMinutes - step;
-			let newHours = Math.floor(newTotalMinutes / 60);
-			let newMinutes = newTotalMinutes % 60;
-			if (timeFormat === '12') {
-				if (newHours > 12) {
-					newHours = newHours - 12;
-				} else if (newHours === 0) {
-					newHours = 12;
-				}
-			}
-			if (timeFormat === '24') {
-				if (newHours < 0) {
-					newHours = 23;
-				} else if (newHours > 23) {
-					newHours = 0;
-				}
-			}
-			return `${newHours.toString().padStart(2, '0')}:${newMinutes
-				.toString()
-				.padStart(2, '0')}`;
-		} else {
-			const currentValue = valueToNumber(value);
-			let newValue = increment
-				? currentValue + step
-				: currentValue - step;
-			if (newValue === max) {
+		if (!overflow) {
+			if (newValue >= max) {
+				console.log('max');
 				newValue = max;
-			} else if (newValue === min) {
+			} else if (newValue <= min) {
 				newValue = min;
 			}
-
-			if (overflow && newValue > max) {
-				return min.toString();
-			} else if (overflow && newValue < min) {
-				return max.toString();
-			}
-			return newValue.toString();
 		}
+		if (overflow && newValue > max) {
+			return min;
+		} else if (overflow && newValue < min) {
+			return max;
+		}
+		return newValue;
 	};
 
-	const changeValue = (newValue: string) => {
-		if (newValue !== value) {
+	const changeValue = (newValue: number | undefined) => {
+		if (newValue !== value && newValue !== undefined) {
 			value = newValue;
+
 			dispatchChange('change', value);
 		}
 	};
@@ -165,15 +110,20 @@
 	};
 
 	const inputChange = () => {
-		let val = '';
-
-		if (parseFloat(val) >= min && parseFloat(val) <= max) {
-			value = val;
+		if (value === undefined) {
+			return;
+		}
+		if (value >= min && value <= max) {
+			value;
 		}
 	};
 
+	const inputHandler = () => {
+		inputChange();
+	};
+
 	// on keydown check if the key is NaN or : or arrows/enter/tab and return false
-	const inputKeyUpHandler = (e: KeyboardEvent) => {
+	const keyUpHandler = (e: KeyboardEvent) => {
 		if (e.key === 'ArrowUp') {
 			increment();
 		} else if (e.key === 'ArrowDown') {
@@ -181,24 +131,15 @@
 		}
 	};
 
-	const inputBlurHandler = () => {
+	const blurHandler = () => {
 		dispatchBlurAndFocus('blur');
 	};
 
-	const inputFocusHandler = () => {
+	const focusHandler = () => {
 		dispatchBlurAndFocus('focus');
 	};
 
-	const inputChangeHandler = () => {
-		dispatchBlurAndFocus('change', value);
-	};
-
-	const inputInputHandler = () => {
-		inputChange();
-		dispatchChange('input', value);
-	};
-
-	const upButtonMouseDownHandler = (e: MouseEvent) => {
+	const upMouseDownHandler = (e: MouseEvent) => {
 		const input = e.target as HTMLInputElement;
 		input.focus();
 		spinnerInterval = setInterval(() => {
@@ -206,7 +147,7 @@
 		}, 100);
 	};
 
-	const downButtonMouseDownHandler = (e: MouseEvent) => {
+	const downMouseDownHandler = (e: MouseEvent) => {
 		const input = e.target as HTMLInputElement;
 		input.focus();
 		spinnerInterval = setInterval(() => {
@@ -214,43 +155,40 @@
 		}, 100);
 	};
 
-	const upButtonMouseUpHandler = () => {
-		clearInterval(spinnerInterval);
-	};
-
-	const downButtonMouseUpHandler = () => {
+	const mouseUpHandler = () => {
 		clearInterval(spinnerInterval);
 	};
 </script>
 
-<label
-	for="sp-spinner"
-	class="sp-spinner--label"
-	>{label}
-	{#if required}
-		<span class="sp-dropdown--label--required">*</span>
-	{/if}
-</label>
-<div class="sp-spinner sp-spinner--{type}">
+<div class="sp-spinner sp-spinner">
+	<label
+		for="sp-spinner"
+		class="sp-spinner--label"
+		>{label}
+		{#if required}
+			<span class="sp-spinner--label--required">*</span>
+		{/if}
+	</label>
+
 	<input
 		class="sp-spinner--input"
+		type="number"
 		bind:value
 		bind:this={input}
-		on:keyup={inputKeyUpHandler}
-		on:blur={inputBlurHandler}
-		on:focus={inputFocusHandler}
-		on:input={inputInputHandler}
-		on:change={inputChangeHandler}
+		on:keyup={keyUpHandler}
+		on:blur={blurHandler}
+		on:focus={focusHandler}
 		{placeholder}
 		{step}
 		{id}
-		{disabled} />
+		{disabled}
+		on:input={inputHandler} />
 
 	<div class="sp-spinner--buttons">
 		<button
 			class="sp-spinner--button sp-spinner--button--up"
-			on:mousedown={upButtonMouseDownHandler}
-			on:mouseup={upButtonMouseUpHandler}
+			on:mousedown={upMouseDownHandler}
+			on:mouseup={mouseUpHandler}
 			on:click={() => {
 				increment();
 			}}>
@@ -271,8 +209,8 @@
 		</button>
 		<button
 			class="sp-spinner--button sp-spinner--button--down"
-			on:mousedown={downButtonMouseDownHandler}
-			on:mouseup={downButtonMouseUpHandler}
+			on:mousedown={downMouseDownHandler}
+			on:mouseup={mouseUpHandler}
 			on:click={() => {
 				decrement();
 			}}>
@@ -298,66 +236,124 @@
 	@use '@surveyplanet/styles' as *;
 
 	.sp-spinner {
+		position: relative;
+		font: $font--default;
+	}
+
+	label {
+		color: $color--slate-dark;
+		display: block;
+		font: $font--default;
+		font-size: $font-size--12;
+		padding: 0 0 $size--12 $size--4;
+		.sp-spinner--label--required {
+			color: $color--pink;
+			font-size: $font-size--14;
+		}
+	}
+
+	.sp-spinner--buttons {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		height: $size--40;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	button {
+		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: $size-gutter;
-		border: 1px solid $color--slate;
-		border-radius: 4px;
-		padding: 0 8px;
-		font: $font--default;
-
-		&:focus-within {
-			border-color: $color--light-purple-dark;
+		box-sizing: border-box;
+		width: 24px;
+		height: 50%;
+		border: none;
+		background-color: transparent;
+		transition: background-color 0.2s ease-in-out;
+		// background-color: pink;
+		&:first-child {
+			padding-top: $size--10;
+			border-radius: 0 $size-radius--default 0 0;
+		}
+		&:last-child {
+			padding-bottom: $size--10;
+			border-radius: 0 0 $size-radius--default 0;
+		}
+		&:hover {
+			background-color: $color--light-purple-dark;
 		}
 
-		&--label {
-			color: $color--slate-dark;
-			display: block;
-			font: $font--default;
-			font-size: $font-size--12;
-			padding: 0 0 $size--12 $size--4;
-			.sp-dropdown--label--required {
-				color: $color--pink;
-				font-size: $font-size--14;
-			}
-		}
-		&--buttons {
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			height: 100%;
-		}
-
-		&--button {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 24px;
-			height: 24px;
-			border: none;
-			border-radius: 4px;
-			background-color: transparent;
-			transition: background-color 0.2s ease-in-out;
-
-			&:hover {
-				background-color: $color--light-purple-dark;
-			}
-
-			&:active {
-				background-color: $color--light-purple-dark;
-			}
+		&:active {
+			background-color: $color--light-purple-dark;
 		}
 	}
 
 	input {
-		border: hidden;
-		outline: none;
-		text-align: left;
+		box-sizing: border-box;
+		font: $font--default;
+		font-size: $font-size--12;
 		width: 100%;
+		height: $size--40;
+		min-width: $size--256;
+		background-color: $color--white;
+		border: 1px solid $color--slate-lighter;
+		border-radius: $size-radius--default;
+		padding: $size--12 $size--16;
+		@include set-focus {
+			box-shadow: 0px 0px 0px 1px $color--white,
+				0px 0px 0px 2px $color--slate;
+		}
+		&:active {
+			border: 1px solid #e7e3ff;
+			box-shadow: 0px 0px 0px 2px $color--light-purple-light;
+		}
+
+		// read-only controls can still function and are still focusable
+		&:read-only {
+			@include set-focus {
+				box-shadow: none;
+			}
+			&:active {
+				box-shadow: none;
+			}
+		}
+
+		// disabled controls can not receive focus and are not submitted with the
+		// form and generally do not function as controls until they are enabled
+		&:disabled {
+			cursor: not-allowed;
+			color: $color--slate-light;
+			border-color: $color--slate-light;
+			background-color: rgba(0, 0, 0, 0.075);
+			box-shadow: none;
+			@include set-focus {
+				box-shadow: none;
+			}
+			&:active {
+				box-shadow: none;
+			}
+		}
+
+		&::placeholder {
+			color: $color--slate-light;
+		}
 	}
 
 	.sp-spinner--button-icon--flipped {
 		transform: rotate(180deg);
+	}
+
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		/* display: none; <- Crashes Chrome on hover */
+		-webkit-appearance: none;
+		margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+	}
+
+	input[type='number'] {
+		-moz-appearance: textfield; /* Firefox */
 	}
 </style>

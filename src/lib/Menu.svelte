@@ -2,7 +2,7 @@
 	lang="ts"
 	context="module">
 	import { Icon, type IconName } from './index';
-	export interface menuData {
+	export interface MenuData {
 		id: string;
 		label?: string;
 		html?: string;
@@ -11,7 +11,7 @@
 		divide?: boolean;
 		inline?: boolean;
 		selected?: boolean;
-		submenu?: menuData[];
+		submenu?: MenuData[];
 	}
 </script>
 
@@ -26,34 +26,65 @@
 	/**
 	 * Menu data
 	 */
-	export let data: menuData[] = [];
-
-	// Should freeze data so current state an data are the same object
-	// onMount(() => {
-	// 	Object.freeze(data);
-	// });
+	export let data: MenuData[] = [{ id: 'edit' }];
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
-		const allButtons = document.querySelectorAll(
-			'.sp-menu--item button'
-		) as HTMLButtonElement[];
+		const allButtons = document.querySelectorAll('.sp-menu--item button');
 		const activeButton = document.activeElement as HTMLButtonElement;
 		const activeButtonIndex = [...allButtons].indexOf(activeButton);
-
-		if (direction === 'down') {
-			if (activeButtonIndex < allButtons.length - 1) {
-				allButtons[activeButtonIndex + 1].focus();
+		if (
+			!activeButton.parentElement?.classList.contains(
+				'sp-menu--item--inline'
+			)
+		) {
+			if (direction === 'down') {
+				if (activeButtonIndex < allButtons.length - 1) {
+					(
+						allButtons[activeButtonIndex + 1] as HTMLButtonElement
+					).focus();
+				} else {
+					(allButtons[0] as HTMLButtonElement).focus();
+				}
+			} else if (direction === 'up') {
+				if (activeButtonIndex > 0) {
+					(
+						allButtons[activeButtonIndex - 1] as HTMLButtonElement
+					).focus();
+				} else {
+					(
+						allButtons[allButtons.length - 1] as HTMLButtonElement
+					).focus();
+				}
+			} else if (
+				direction === 'right' &&
+				activeButton.parentElement?.classList.contains(
+					'sp-menu--item--submenu'
+				)
+			) {
+				activeButton.click();
+			} else if (direction === 'left' && location.length) {
+				backClickHandler();
 			}
-		} else if (direction === 'up') {
-			if (activeButtonIndex > 0) {
-				allButtons[activeButtonIndex - 1].focus();
-			} else {
-				allButtons[allButtons.length - 1].focus();
+		} else {
+			if (direction === 'right') {
+				if (activeButtonIndex < allButtons.length - 1) {
+					(
+						allButtons[activeButtonIndex + 1] as HTMLButtonElement
+					).focus();
+				}
+			} else if (direction === 'left') {
+				if (activeButtonIndex > 0) {
+					(
+						allButtons[activeButtonIndex - 1] as HTMLButtonElement
+					).focus();
+				} else {
+					(
+						allButtons[allButtons.length - 1] as HTMLButtonElement
+					).focus();
+				}
+			} else if (direction === 'up' && location.length) {
+				backClickHandler();
 			}
-		} else if (direction === 'right') {
-			activeButton.click();
-		} else if (direction === 'left' && location.length) {
-			backClickHandler();
 		}
 	};
 
@@ -68,9 +99,9 @@
 	let location: string[] = [];
 
 	const getState = (
-		data: menuData[],
+		data: MenuData[],
 		id: string
-	): menuData['submenu'] | null => {
+	): MenuData['submenu'] | null => {
 		for (let item of data) {
 			if (item.id === id && item.submenu?.length) {
 				return item.submenu;
@@ -86,6 +117,7 @@
 	};
 
 	const arrowClickHandler = (event: KeyboardEvent) => {
+		// user correct arrow keys when MenuData.inline is true;
 		if (event.key === 'ArrowDown') {
 			event.preventDefault();
 			scrollMenu('down');
