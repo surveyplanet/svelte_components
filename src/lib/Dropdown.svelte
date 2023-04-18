@@ -113,6 +113,7 @@
 	const searchKeyupHandler = (event: KeyboardEvent) => {
 		const target = event.target as HTMLInputElement;
 		search(target.value);
+		reset();
 	};
 
 	const closeButtonHandler = () => {

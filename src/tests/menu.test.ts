@@ -13,7 +13,7 @@ test.describe('Menu component', () => {
 
 		await items.nth(4).click();
 		const backButton = menu.locator('.sp-menu--back-btn');
-		await expect(backButton.locator('.sp-icon--arrowLeft')).toBeVisible();
+		await expect(backButton.locator('.sp-icon--arrow-left')).toBeVisible();
 		await expect(backButton).toBeVisible();
 
 		await expect(items.nth(1)).toHaveClass(/sp-menu--item--selected/);
