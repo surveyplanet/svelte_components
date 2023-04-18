@@ -17,8 +17,10 @@
 			<li>
 				<svelte:element
 					this={item.link?.length ? 'a' : 'span'}
-					href={item.link?.length ? item.link : void 0}
-					class="sp-footer--item">{item.label}</svelte:element>
+					class="sp-footer--item"
+					href={item.link?.length ? item.link : void 0}>
+					{item.label}
+				</svelte:element>
 			</li>
 		{/each}
 	</ul>
@@ -26,30 +28,51 @@
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
+
 	.sp-footer {
 		font-family: $font--default;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		padding: 1rem;
-		a {
+		color: $color--purple;
+		font: $font--small;
+
+		ul {
+			display: flex;
+			flex-flow: column wrap;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.sp-footer--item {
+			color: $color--purple;
 			text-decoration: none;
-			padding: 0.5rem;
-			color: $color--purple;
+			margin: 0;
+			padding: 0;
+			white-space: nowrap;
 		}
-		.sp-footer--divider {
-			color: $color--purple;
-			padding: 0.5rem;
+
+		a:hover {
+			text-decoration: underline;
 		}
-	}
-	// add separator dots
-	ul {
-		list-style: none;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-		padding: 0;
-		margin: 0;
+
+		// add separator dots
+		ul {
+			list-style: none;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			padding: 0;
+			margin: 0;
+		}
+
+		li {
+			margin: 0;
+			padding: 0;
+			& + li {
+				&:before {
+					content: '\002022';
+					margin: 0 $size-gutter--quarter;
+				}
+			}
+		}
 	}
 </style>

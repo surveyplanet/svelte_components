@@ -1,22 +1,21 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { Footer, type FooterData } from '../../lib';
-	import { logEvent } from 'histoire/client';
 
 	// import { default as source } from './source';
 	export let Hst: Histoire;
 
 	let footerData: FooterData[] = [
 		{
-			link: 'https://www.surveyplanet.com/about',
+			link: '/about',
 			label: 'About',
 		},
 		{
-			link: 'https://www.surveyplanet.com/terms',
+			link: '/terms',
 			label: 'Terms Of Service',
 		},
 		{
-			link: 'https://www.surveyplanet.com/contact',
+			link: '/contact',
 			label: 'Contact',
 		},
 		{
