@@ -167,7 +167,7 @@
 </label>
 <div class="sp-spinner sp-spinner">
 	<input
-		class="sp-spinner--input"
+		class="sp-number-spinner--input"
 		type="number"
 		bind:value
 		bind:this={input}
