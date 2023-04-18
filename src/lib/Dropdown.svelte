@@ -99,7 +99,7 @@
 				return;
 			}
 		}
-
+		//fix this so that it doesn't close the menu when arrow down is pressed
 		visible = false;
 	};
 
