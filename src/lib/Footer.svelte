@@ -12,14 +12,16 @@
 </script>
 
 <nav class="sp-footer">
-	{#each footerData as item}
-		<a
-			class="sp-footer--item"
-			href={item.link}>{item.label}</a>
-		{#if footerData.indexOf(item) < footerData.length - 1}
-			<span class="sp-footer--divider"> · </span>
-		{/if}
-	{/each}
+	<ul>
+		{#each footerData as item}
+			<li>
+				<svelte:element
+					this={item.link?.length ? 'a' : 'span'}
+					href={item.link?.length ? item.link : void 0}
+					class="sp-footer--item">{item.label}</svelte:element>
+			</li>
+		{/each}
+	</ul>
 </nav>
 
 <style lang="scss">
@@ -39,5 +41,15 @@
 			color: $color--purple;
 			padding: 0.5rem;
 		}
+	}
+	// add separator dots
+	ul {
+		list-style: none;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		padding: 0;
+		margin: 0;
 	}
 </style>
