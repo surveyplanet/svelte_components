@@ -2,6 +2,7 @@
 	"language": "en",
 	"words": [
 		"CCPA",
+		"dasherize",
 		"fullscreen",
 		"Histoire",
 		"historie",
@@ -10,6 +11,7 @@
 		"introstart",
 		"keydown",
 		"keyup",
+		"manzano",
 		"msedge",
 		"outro",
 		"outroend",
@@ -20,9 +22,16 @@
 		"textbox",
 		"textinput"
 	],
-	"ignoreWords": ["xsmall"],
-	"flagWords": ["hte", "survey planet"],
-	"files": ["./**/*.{txt,md,js,ts,yaml,json,svelte}"],
+	"ignoreWords": [
+		"xsmall"
+	],
+	"flagWords": [
+		"hte",
+		"survey planet"
+	],
+	"files": [
+		"./**/*.{txt,md,js,ts,yaml,json,svelte}"
+	],
 	"useGitignore": true,
 	"ignorePaths": [
 		"cspell.json",

@@ -34,7 +34,7 @@ test.describe('Menu component', () => {
 		await expect(strawberry.locator('.sp-menu--item--meta')).toHaveText(
 			'(52)'
 		);
-		await expect(strawberry).toHaveText('Strawberry(52)');
+		await expect(strawberry).toHaveText('Strawberry   (52) ');
 
 		const apple = items.nth(2);
 		await expect(apple).toBeVisible();
@@ -73,5 +73,24 @@ test.describe('Menu component', () => {
 		await expect(menu).not.toBeVisible();
 
 		// test events
+	});
+	test('Arrow navigation', async ({ page }) => {
+		const preview = await loadStory(page, 'menu');
+		const menu = preview.locator('.sp-menu');
+		const items = menu.locator('.sp-menu--item');
+
+		await expect(menu).toBeVisible();
+		await expect(items).toHaveCount(6);
+
+		await page.click('body');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowUp');
+		await page.keyboard.press('ArrowRight');
+
+		await expect(items).toHaveCount(3);
 	});
 });
