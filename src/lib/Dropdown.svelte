@@ -104,6 +104,10 @@
 	};
 
 	const searchKeyupHandler = (event: KeyboardEvent) => {
+		// fix the arrow down key so that idt doesn't close down the menu
+		if (event.key === 'ArrowDown') {
+			return;
+		}
 		const target = event.target as HTMLInputElement;
 		search(target.value);
 	};
