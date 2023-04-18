@@ -13,3 +13,4 @@ export { default as Alert } from './Alert.svelte';
 export { default as Modal } from './Modal.svelte';
 export { default as Menu, type MenuData } from './Menu.svelte';
 export { default as Dropdown, type DropdownOptions } from './Dropdown.svelte';
+export { default as TabBar, type TabBarData } from './TabBar.svelte';
