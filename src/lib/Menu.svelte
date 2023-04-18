@@ -72,9 +72,10 @@
 					(
 						allButtons[activeButtonIndex + 1] as HTMLButtonElement
 					).focus();
+				} else {
+					(allButtons[0] as HTMLButtonElement).focus();
 				}
 			} else if (direction === 'left') {
-				//fix this
 				if (activeButtonIndex > 0) {
 					(
 						allButtons[activeButtonIndex - 1] as HTMLButtonElement
