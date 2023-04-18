@@ -53,7 +53,6 @@ test.describe('Number Spinner component', () => {
 	test('Float', async ({ page }) => {
 		const preview = await loadStory(page, 'numberspinner');
 
-		await setControl(page, 'Type', 'select', 'float');
 		await setControl(page, 'Step', 'number', '0.1');
 		const numberspinner = preview.locator('.sp-number-spinner');
 		const input = numberspinner.locator('input');
