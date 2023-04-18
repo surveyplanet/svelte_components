@@ -2,11 +2,6 @@
 
 This module exports a Svelte component that provides an input field for entering numeric values with increment and decrement buttons.
 
-## Table of Contents
-
--   [Interfaces](#interfaces)
--   [Exported Variables](#exported-variables)
-
 ## Exported Variables
 
 | Name        | Type                | Description                                                                                                                             |
