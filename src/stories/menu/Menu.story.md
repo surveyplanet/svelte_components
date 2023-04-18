@@ -2,7 +2,7 @@
 
 | Name   | Type                  | Description                                                                   |
 | ------ | --------------------- | ----------------------------------------------------------------------------- |
-| data   | `menuData[]`          | Menu data                                                                     |
+| data   | `MenuData[]`          | Menu data                                                                     |
 | update | `CustomEvent<string>` | Dispatched when an item with submenu is clicked and it updates the menu state |
 | click  | `CustomEvent<string>` | Dispatched when an item without submenu is clicked                            |
 
@@ -13,7 +13,7 @@
 | MenuData | Interface for menu item data         |
 | IconName | Type for icon names used in the menu |
 
-### menuData
+### MenuData
 
 | Property | Type       | Description                             |
 | -------- | ---------- | --------------------------------------- |
@@ -25,4 +25,4 @@
 | divide   | boolean    | If true, the item should have a divider |
 | inline   | boolean    | If true, the item should be inline      |
 | selected | boolean    | If true, the item is currently selected |
-| submenu  | menuData[] | An array of submenu items               |
+| submenu  | MenuData[] | An array of submenu items               |
