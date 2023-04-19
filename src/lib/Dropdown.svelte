@@ -24,14 +24,12 @@
 	export let disabled = false;
 	export let required = false;
 
-	$: console.log(value);
-
 	let input: HTMLInputElement;
 	let visible = false;
 	let displayValue: DropdownOptions['label'] | '' = '';
 
 	$: searchable = options.length >= searchThreshold;
-	$: menuData = [...options];
+	$: MenuData = [...options];
 
 	onMount(() => {
 		if (value?.length) {
@@ -40,8 +38,8 @@
 	});
 
 	const reset = () => {
-		menuData = [...options];
-		for (let item of menuData) {
+		MenuData = [...options];
+		for (let item of MenuData) {
 			item.selected = false;
 		}
 	};
@@ -49,7 +47,7 @@
 	const setValue = (id: string, silent = false) => {
 		value = id;
 		displayValue = '';
-		for (let item of menuData) {
+		for (let item of MenuData) {
 			item.selected = false;
 			if (item.id === id) {
 				item.selected = true;
@@ -66,7 +64,7 @@
 
 		if (query?.length) {
 			visible = true;
-			menuData = options.filter((item) => {
+			MenuData = options.filter((item) => {
 				return item.label.toLowerCase().trim().includes(query);
 			});
 		} else {
@@ -90,7 +88,6 @@
 
 	const menuClickHandler = (event: CustomEvent) => {
 		setValue(event.detail);
-		console.log(event.detail);
 		visible = false; // blur handler hides the menu
 	};
 
@@ -112,7 +109,6 @@
 	const searchKeyupHandler = (event: KeyboardEvent) => {
 		const target = event.target as HTMLInputElement;
 		search(target.value);
-		reset();
 	};
 
 	const closeButtonHandler = () => {
@@ -174,7 +170,7 @@
 </div>
 {#if visible}
 	<Menu
-		data={menuData}
+		data={MenuData}
 		on:click={menuClickHandler} />
 {/if}
 

@@ -40,6 +40,13 @@ Options will be passed down to the Menu component as a prop. The Menu component 
 | `searchKeyupHandler(event: KeyboardEvent)` | Filters the dropdown options by the current search query when a keyup event is detected on the search input.                            |
 | `closeButtonHandler()`                     | Clears the selected value and resets the dropdown to its initial state when the close button is clicked.                                |
 
+### Events
+
+| Event  | Description                                                                                                                 |
+| ------ | --------------------------------------------------------------------------------------------------------------------------- |
+| change | Triggered when the selected value of the dropdown changes. The event detail contains the `id` of the newly selected option. |
+| click  | Triggered when the dropdown button is clicked.                                                                              |
+
 ### Usage
 
 To use this component, import it and add it to your Svelte template like so:

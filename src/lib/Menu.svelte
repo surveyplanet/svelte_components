@@ -97,7 +97,7 @@
 		easing: cubicOut,
 	};
 
-	let currentState: MenuData[] = [...data];
+	$: currentState = [...data];
 
 	let location: string[] = [];
 
@@ -120,6 +120,7 @@
 	};
 
 	const arrowClickHandler = (event: KeyboardEvent) => {
+		// user correct arrow keys when MenuData.inline is true;
 		if (event.key === 'ArrowDown') {
 			event.preventDefault();
 			scrollMenu('down');
