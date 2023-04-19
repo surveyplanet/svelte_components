@@ -1,7 +1,5 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import Cleave from 'cleave.js';
-	import type { CleaveOptions } from 'cleave.js/options';
 
 	/**
 	 * The label of the input
@@ -44,11 +42,19 @@
 	 */
 	export let placeholder = '';
 
-	const dispatchChange: (name: string, detail: number) => boolean =
-		createEventDispatcher();
+	const dispatchChange: (
+		name: string,
+		detail: number | undefined
+	) => boolean = createEventDispatcher();
 
-	const dispatchBlurAndFocus: (name: string) => boolean =
-		createEventDispatcher();
+	const dispatchUpdate: (
+		name: string,
+		detail: number | undefined
+	) => boolean = createEventDispatcher();
+
+	const dispatchFocus: (name: string) => boolean = createEventDispatcher();
+
+	const dispatchBlur: (name: string) => boolean = createEventDispatcher();
 
 	let input: HTMLInputElement;
 
@@ -59,17 +65,6 @@
 	let spinnerIntervalSpeed = 25;
 
 	// let spinnerIntervalCount = 0;
-
-	$: {
-		let cleaveOptions = {
-			numeral: true,
-			numeralThousandsGroupStyle: 'thousand',
-		} as CleaveOptions;
-
-		if (input) {
-			new Cleave(input, cleaveOptions);
-		}
-	}
 
 	const getValue = (increment: boolean): number | undefined => {
 		const currentValue = value;
@@ -123,6 +118,10 @@
 		}
 	};
 
+	const changeHandler = () => {
+		dispatchChange('change', value);
+	};
+
 	const inputHandler = () => {
 		inputChange();
 	};
@@ -136,8 +135,7 @@
 		}
 	};
 
-	const upMouseDownHandler = (e: MouseEvent) => {
-		const input = e.target as HTMLInputElement;
+	const upMouseDownHandler = () => {
 		input.focus();
 
 		// increment then use to delay for 1 sec before setting interval
@@ -147,11 +145,10 @@
 			spinnerInterval = setInterval(() => {
 				increment();
 			}, spinnerIntervalSpeed);
-		}, 1000);
+		}, 500);
 	};
 
-	const downMouseDownHandler = (e: MouseEvent) => {
-		const input = e.target as HTMLInputElement;
+	const downMouseDownHandler = () => {
 		input.focus();
 
 		decrement();
@@ -160,22 +157,20 @@
 			spinnerInterval = setInterval(() => {
 				decrement();
 			}, spinnerIntervalSpeed);
-		}, 1000);
+		}, 500);
 	};
 
 	const mouseUpHandler = () => {
-		// spinnerIntervalCount = 0;
-		// spinnerIntervalSpeed = 100;
 		clearTimeout(spinnerTimeout);
 		clearInterval(spinnerInterval);
 	};
 
 	const blurHandler = () => {
-		dispatchBlurAndFocus('blur');
+		dispatchFocus('blur');
 	};
 
 	const focusHandler = () => {
-		dispatchBlurAndFocus('focus');
+		dispatchFocus('focus');
 	};
 </script>
 
@@ -196,12 +191,13 @@
 		bind:this={input}
 		on:keyup={keyUpHandler}
 		on:blur={blurHandler}
+		on:change={changeHandler}
 		on:focus={focusHandler}
+		on:input={inputHandler}
 		{placeholder}
 		{step}
 		{id}
-		{disabled}
-		on:input={inputHandler} />
+		{disabled} />
 
 	<div class="sp-spinner--buttons">
 		<button
@@ -262,6 +258,8 @@
 	}
 
 	input {
+		appearance: textfield;
+		-moz-appearance: textfield;
 		box-sizing: border-box;
 		font: $font--default;
 		font-size: $font-size--12;
@@ -279,6 +277,10 @@
 		&:active {
 			border: 1px solid #e7e3ff;
 			box-shadow: 0px 0px 0px 2px $color--light-purple-light;
+		}
+
+		&:hover {
+			cursor: ew-resize;
 		}
 
 		// read-only controls can still function and are still focusable
@@ -310,17 +312,13 @@
 		&::placeholder {
 			color: $color--slate-light;
 		}
-	}
 
-	input::-webkit-outer-spin-button,
-	input::-webkit-inner-spin-button {
-		/* display: none; <- Crashes Chrome on hover */
-		-webkit-appearance: none;
-		margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-	}
-
-	input[type='number'] {
-		-moz-appearance: textfield; /* Firefox */
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			/* display: none; <- Crashes Chrome on hover */
+			-webkit-appearance: none;
+			margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+		}
 	}
 
 	.sp-spinner--buttons {
