@@ -52,7 +52,13 @@
 
 	let input: HTMLInputElement;
 
+	let spinnerTimeout: ReturnType<typeof setTimeout>;
+
 	let spinnerInterval: ReturnType<typeof setInterval>;
+
+	let spinnerIntervalSpeed = 25;
+
+	// let spinnerIntervalCount = 0;
 
 	$: {
 		let cleaveOptions = {
@@ -79,7 +85,6 @@
 
 		if (!overflow) {
 			if (newValue >= max) {
-				console.log('max');
 				newValue = max;
 			} else if (newValue <= min) {
 				newValue = min;
@@ -131,32 +136,46 @@
 		}
 	};
 
+	const upMouseDownHandler = (e: MouseEvent) => {
+		const input = e.target as HTMLInputElement;
+		input.focus();
+
+		// increment then use to delay for 1 sec before setting interval
+		increment();
+
+		spinnerTimeout = setTimeout(() => {
+			spinnerInterval = setInterval(() => {
+				increment();
+			}, spinnerIntervalSpeed);
+		}, 1000);
+	};
+
+	const downMouseDownHandler = (e: MouseEvent) => {
+		const input = e.target as HTMLInputElement;
+		input.focus();
+
+		decrement();
+
+		spinnerTimeout = setTimeout(() => {
+			spinnerInterval = setInterval(() => {
+				decrement();
+			}, spinnerIntervalSpeed);
+		}, 1000);
+	};
+
+	const mouseUpHandler = () => {
+		// spinnerIntervalCount = 0;
+		// spinnerIntervalSpeed = 100;
+		clearTimeout(spinnerTimeout);
+		clearInterval(spinnerInterval);
+	};
+
 	const blurHandler = () => {
 		dispatchBlurAndFocus('blur');
 	};
 
 	const focusHandler = () => {
 		dispatchBlurAndFocus('focus');
-	};
-
-	const upMouseDownHandler = (e: MouseEvent) => {
-		const input = e.target as HTMLInputElement;
-		input.focus();
-		spinnerInterval = setInterval(() => {
-			increment();
-		}, 100);
-	};
-
-	const downMouseDownHandler = (e: MouseEvent) => {
-		const input = e.target as HTMLInputElement;
-		input.focus();
-		spinnerInterval = setInterval(() => {
-			decrement();
-		}, 100);
-	};
-
-	const mouseUpHandler = () => {
-		clearInterval(spinnerInterval);
 	};
 </script>
 
@@ -188,12 +207,8 @@
 		<button
 			class="sp-spinner--button sp-spinner--button--up"
 			on:mousedown={upMouseDownHandler}
-			on:mouseup={mouseUpHandler}
-			on:click={() => {
-				increment();
-			}}>
+			on:mouseup={mouseUpHandler}>
 			<svg
-				class="sp-spinner--button-icon--flipped"
 				width="7"
 				height="4"
 				viewBox="0 0 7 4"
@@ -201,7 +216,6 @@
 				xmlns="http://www.w3.org/2000/svg">
 				<path
 					d="M1.08984 0.830868L3.50606 3.24707L6.0002 0.75293"
-					stroke="#162137"
 					stroke-width="1.5"
 					stroke-linecap="round"
 					stroke-linejoin="round" />
@@ -210,12 +224,8 @@
 		<button
 			class="sp-spinner--button sp-spinner--button--down"
 			on:mousedown={downMouseDownHandler}
-			on:mouseup={mouseUpHandler}
-			on:click={() => {
-				decrement();
-			}}>
+			on:mouseup={mouseUpHandler}>
 			<svg
-				class="sp-spinner--button-icon"
 				width="7"
 				height="4"
 				viewBox="0 0 7 4"
@@ -223,7 +233,6 @@
 				xmlns="http://www.w3.org/2000/svg">
 				<path
 					d="M1.08984 0.830868L3.50606 3.24707L6.0002 0.75293"
-					stroke="#162137"
 					stroke-width="1.5"
 					stroke-linecap="round"
 					stroke-linejoin="round" />
@@ -249,45 +258,6 @@
 		.sp-spinner--label--required {
 			color: $color--pink;
 			font-size: $font-size--14;
-		}
-	}
-
-	.sp-spinner--buttons {
-		position: absolute;
-		bottom: 0;
-		right: 0;
-		height: $size--40;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	}
-
-	button {
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		box-sizing: border-box;
-		width: 24px;
-		height: 50%;
-		border: none;
-		background-color: transparent;
-		transition: background-color 0.2s ease-in-out;
-		// background-color: pink;
-		&:first-child {
-			padding-top: $size--10;
-			border-radius: 0 $size-radius--default 0 0;
-		}
-		&:last-child {
-			padding-bottom: $size--10;
-			border-radius: 0 0 $size-radius--default 0;
-		}
-		&:hover {
-			background-color: $color--light-purple-dark;
-		}
-
-		&:active {
-			background-color: $color--light-purple-dark;
 		}
 	}
 
@@ -342,10 +312,6 @@
 		}
 	}
 
-	.sp-spinner--button-icon--flipped {
-		transform: rotate(180deg);
-	}
-
 	input::-webkit-outer-spin-button,
 	input::-webkit-inner-spin-button {
 		/* display: none; <- Crashes Chrome on hover */
@@ -355,5 +321,59 @@
 
 	input[type='number'] {
 		-moz-appearance: textfield; /* Firefox */
+	}
+
+	.sp-spinner--buttons {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		height: $size--40;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	button {
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+		width: 24px;
+		height: 50%;
+		border: none;
+		background-color: transparent;
+		transition: background-color 0.2s ease-in-out;
+		svg path {
+			stroke: $color--slate-dark;
+		}
+		// background-color: pink;
+		&:first-child {
+			padding-top: $size--10;
+			border-radius: 0 $size-radius--default 0 0;
+		}
+		&:last-child {
+			padding-bottom: $size--10;
+			border-radius: 0 0 $size-radius--default 0;
+		}
+		&:hover {
+			// background-color: $color--slate-light;
+			svg path {
+				stroke: $color--purple;
+			}
+		}
+
+		&:active {
+			background-color: $color--slate-lighter;
+			svg path {
+				stroke: $color--slate-dark;
+			}
+		}
+
+		&.sp-spinner--button--up {
+			svg {
+				transform: rotate(180deg);
+			}
+		}
 	}
 </style>

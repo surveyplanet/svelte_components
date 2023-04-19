@@ -10,7 +10,6 @@ test.describe('Number Spinner component', () => {
 		const input = spinner.locator('input');
 		const upButton = preview.locator('.sp-spinner--button--up');
 		const downButton = preview.locator('.sp-spinner--button--down');
-		await setControl(page, 'Type', 'select', 'number');
 		await setControl(page, 'Step', 'number', '1');
 		await setControl(page, 'Min', 'number', '0');
 		await setControl(page, 'Max', 'number', '10');
@@ -119,7 +118,7 @@ test.describe('Number Spinner component', () => {
 		const preview = await loadStory(page, 'spinner');
 		const spinner = preview.locator('.sp-spinner');
 		const input = spinner.locator('input');
-		const required = preview.locator('.sp-dropdown--label--required');
+		const required = preview.locator('.sp-spinner--label--required');
 
 		await setControl(page, 'Disabled', 'checkbox', 'true');
 		await setControl(page, 'Required', 'checkbox', 'true');

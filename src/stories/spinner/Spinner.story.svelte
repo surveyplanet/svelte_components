@@ -8,13 +8,11 @@
 	let label = 'Number Spinner';
 	let step = 1;
 	let min = 0;
-	let max = 10;
+	let max = 1000;
 	let value: number | undefined = undefined;
 	let disabled = false;
 	let required = false;
 	let overflow = false;
-	let type: 'number' | 'time' = 'number';
-	let timeFormat: '12' | '24' = '24';
 	let id = (Date.now() + Math.random()).toString(36);
 	let placeholder = '';
 </script>
@@ -48,14 +46,6 @@
 		<Hst.Checkbox
 			bind:value={overflow}
 			title="Overflow" />
-		<Hst.Select
-			bind:value={type}
-			title="Type"
-			options={['number', 'time']} />
-		<Hst.Select
-			bind:value={timeFormat}
-			title="Time Format"
-			options={['12', '24']} />
 		<Hst.Text
 			bind:value={placeholder}
 			title="Placeholder" />
@@ -63,7 +53,6 @@
 
 	<Hst.Variant title="Primary">
 		<Spinner
-			{timeFormat}
 			{label}
 			{step}
 			{min}
