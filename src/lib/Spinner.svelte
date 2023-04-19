@@ -96,8 +96,6 @@
 	const changeValue = (newValue: number | undefined) => {
 		if (newValue !== value && newValue !== undefined) {
 			value = newValue;
-
-			dispatchChange('change', value);
 		}
 	};
 
@@ -116,14 +114,7 @@
 		if (value >= min && value <= max) {
 			value;
 		}
-	};
-
-	const changeHandler = () => {
-		dispatchChange('change', value);
-	};
-
-	const inputHandler = () => {
-		inputChange();
+		dispatchUpdate('update', value);
 	};
 
 	// on keydown check if the key is NaN or : or arrows/enter/tab and return false
@@ -159,14 +150,20 @@
 			}, spinnerIntervalSpeed);
 		}, 500);
 	};
+	const changeHandler = () => {
+		dispatchChange('change', value);
+	};
 
+	const inputHandler = () => {
+		inputChange();
+	};
 	const mouseUpHandler = () => {
 		clearTimeout(spinnerTimeout);
 		clearInterval(spinnerInterval);
 	};
 
 	const blurHandler = () => {
-		dispatchFocus('blur');
+		dispatchBlur('blur');
 	};
 
 	const focusHandler = () => {

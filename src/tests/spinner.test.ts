@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { loadStory, setControl, getLastEvent, getAllEvents } from './_utils.js';
 
-test.describe('Number Spinner component', () => {
+test.describe('Spinner component', () => {
 	test('Number', async ({ page }) => {
 		const preview = await loadStory(page, 'spinner');
 
@@ -44,9 +44,13 @@ test.describe('Number Spinner component', () => {
 		const totalChange = events.filter((i) => i.name == 'change').length;
 		expect(totalChange).toBe(4);
 		const totalBlurEvents = events.filter((i) => i.name == 'blur').length;
-		expect(totalBlurEvents).toBe(1);
+		expect(totalBlurEvents).toBe(6);
 		const totalFocusEvents = events.filter((i) => i.name == 'focus').length;
-		expect(totalFocusEvents).toBe(1);
+		expect(totalFocusEvents).toBe(6);
+		const totalUpdateEvents = events.filter(
+			(i) => i.name == 'update'
+		).length;
+		expect(totalUpdateEvents).toBe(4);
 	});
 
 	test('Float', async ({ page }) => {

@@ -64,6 +64,7 @@
 			{placeholder}
 			on:blur={() => logEvent('blur', { value })}
 			on:change={() => logEvent('change', { value })}
-			on:focus={() => logEvent('focus', value)} />
+			on:focus={() => logEvent('focus', value)}
+			on:update={() => logEvent('update', { value })} />
 	</Hst.Variant>
 </Hst.Story>

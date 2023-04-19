@@ -17,9 +17,15 @@ This module exports a Svelte component that provides an input field for entering
 | overflow    | boolean             | Whether the value will change to the min or max value when the user tries to increment or decrement the value over the min or max value |
 | placeholder | string              | The placeholder of the input                                                                                                            |
 
-### CleaveOptions
+## Events
 
-A type from the 'cleave.js/options' module that specifies options for the Cleave.js library.
+| Event  | Description                                                                                                         |
+| ------ | ------------------------------------------------------------------------------------------------------------------- |
+| change | Triggered when the value of the input changes. The event detail contains the `value` of the input.                  |
+| blur   | Triggered when the input is blurred. The event detail contains the `value` of the input.                            |
+| focus  | Triggered when the input is focused. The event detail contains the `value` of the input.                            |
+| input  | Triggered when the value of the input changes and blur happens. The event detail contains the `value` of the input. |
+| update | Triggered when the value of the input changes. The event detail contains the `value` of the input.                  |
 
 ## Example Usage
 
