@@ -13,6 +13,7 @@
 		"keyup",
 		"manzano",
 		"msedge",
+		"spinner",
 		"outro",
 		"outroend",
 		"outrostart",
@@ -22,16 +23,9 @@
 		"textbox",
 		"textinput"
 	],
-	"ignoreWords": [
-		"xsmall"
-	],
-	"flagWords": [
-		"hte",
-		"survey planet"
-	],
-	"files": [
-		"./**/*.{txt,md,js,ts,yaml,json,svelte}"
-	],
+	"ignoreWords": ["xsmall"],
+	"flagWords": ["hte", "survey planet"],
+	"files": ["./**/*.{txt,md,js,ts,yaml,json,svelte}"],
 	"useGitignore": true,
 	"ignorePaths": [
 		"cspell.json",
