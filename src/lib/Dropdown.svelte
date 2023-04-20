@@ -24,8 +24,6 @@
 	export let disabled = false;
 	export let required = false;
 
-	$: console.log(value);
-
 	let input: HTMLInputElement;
 	let visible = false;
 	let displayValue: DropdownOptions['label'] | '' = '';
@@ -67,7 +65,6 @@
 		if (query?.length) {
 			visible = true;
 			MenuData = options.filter((item) => {
-				// item.selected = false;
 				return item.label.toLowerCase().trim().includes(query);
 			});
 		} else {
