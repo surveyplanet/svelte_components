@@ -14,7 +14,7 @@
 	let required = false;
 	let overflow = false;
 	let id = (Date.now() + Math.random()).toString(36);
-	let placeholder = '';
+	let placeholder = 'Please put in the number';
 </script>
 
 <Hst.Story title="Form controls / Spinner">

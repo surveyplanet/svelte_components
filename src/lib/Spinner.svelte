@@ -117,15 +117,6 @@
 		dispatchUpdate('update', value);
 	};
 
-	// on keydown check if the key is NaN or : or arrows/enter/tab and return false
-	const keyUpHandler = (e: KeyboardEvent) => {
-		if (e.key === 'ArrowUp') {
-			increment();
-		} else if (e.key === 'ArrowDown') {
-			decrement();
-		}
-	};
-
 	const upMouseDownHandler = () => {
 		input.focus();
 
@@ -186,11 +177,12 @@
 		type="number"
 		bind:value
 		bind:this={input}
-		on:keyup={keyUpHandler}
 		on:blur={blurHandler}
 		on:change={changeHandler}
 		on:focus={focusHandler}
 		on:input={inputHandler}
+		{min}
+		{max}
 		{placeholder}
 		{step}
 		{id}
