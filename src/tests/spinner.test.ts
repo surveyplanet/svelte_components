@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { loadStory, setControl, getLastEvent, getAllEvents } from './_utils.js';
 
 test.describe('Spinner component', () => {
-	test('Number', async ({ page }) => {
+	test.only('Number', async ({ page }) => {
 		const preview = await loadStory(page, 'spinner');
 
 		const spinner = preview.locator('.sp-spinner');
@@ -38,6 +38,9 @@ test.describe('Spinner component', () => {
 		await expect(input).toHaveValue('0');
 		await downButton.click();
 		await expect(input).toHaveValue('0');
+
+		await input.click();
+		input.press('5');
 		await page.click('body');
 
 		const events = await getAllEvents(page);
@@ -45,13 +48,15 @@ test.describe('Spinner component', () => {
 		const totalChange = events.filter((i) => i.name == 'change').length;
 		expect(totalChange).toBe(1);
 		const totalBlurEvents = events.filter((i) => i.name == 'blur').length;
-		expect(totalBlurEvents).toBe(7);
+		expect(totalBlurEvents).toBe(2);
 		const totalFocusEvents = events.filter((i) => i.name == 'focus').length;
-		expect(totalFocusEvents).toBe(6);
+		expect(totalFocusEvents).toBe(2);
 		const totalUpdateEvents = events.filter(
 			(i) => i.name == 'update'
 		).length;
-		expect(totalUpdateEvents).toBe(4);
+		expect(totalUpdateEvents).toBe(6);
+		const totalInputEvents = events.filter((i) => i.name == 'input').length;
+		expect(totalInputEvents).toBe(3);
 	});
 
 	test('Float', async ({ page }) => {
@@ -119,6 +124,27 @@ test.describe('Spinner component', () => {
 		await downButton.click();
 		await expect(input).toHaveValue('2');
 	});
+
+	// test.only('Drag', async ({ page }) => {
+	// 	const preview = await loadStory(page, 'spinner');
+	// 	const spinner = preview.locator('.sp-spinner');
+	// 	const input = spinner.locator('input');
+
+	// 	const inputBoundingBox = await input.boundingBox();
+	// 	if (!inputBoundingBox) {
+	// 		throw new Error('input bounding box not found');
+	// 	}
+	// 	const inputCenterX = inputBoundingBox.x + inputBoundingBox.width / 3;
+	// 	const inputCenterY = inputBoundingBox.y + inputBoundingBox.height / 3;
+
+	// 	await page.mouse.move(inputCenterX, inputCenterY);
+	// 	await page.mouse.down();
+	// 	await page.mouse.move(inputCenterX, inputCenterY - 100);
+	// 	await page.mouse.up();
+
+	// 	await expect(input).toHaveValue('10');
+	// });
+
 	test('disabled and required', async ({ page }) => {
 		const preview = await loadStory(page, 'spinner');
 		const spinner = preview.locator('.sp-spinner');

@@ -15,6 +15,7 @@
 	let overflow = false;
 	let id = (Date.now() + Math.random()).toString(36);
 	let placeholder = 'Please put in the number';
+	let dragSpeed = 10;
 </script>
 
 <Hst.Story title="Form controls / Spinner">
@@ -49,6 +50,9 @@
 		<Hst.Text
 			bind:value={placeholder}
 			title="Placeholder" />
+		<Hst.Number
+			bind:value={dragSpeed}
+			title="Drag speed" />
 	</svelte:fragment>
 
 	<Hst.Variant title="Primary">
@@ -65,6 +69,7 @@
 			on:blur={() => logEvent('blur', { value })}
 			on:change={() => logEvent('change', { value })}
 			on:focus={() => logEvent('focus', value)}
-			on:update={() => logEvent('update', { value })} />
+			on:update={() => logEvent('update', { value })}
+			on:input={() => logEvent('input', { value })} />
 	</Hst.Variant>
 </Hst.Story>

@@ -41,16 +41,13 @@
 	 * The placeholder of the input
 	 */
 	export let placeholder = '';
+	/**
+	 * The speed for the drag in pixels
+	 */
+	export let dragSpeed = 10;
 
-	const dispatchChange: (
-		name: string,
-		detail: number | undefined
-	) => boolean = createEventDispatcher();
-
-	const dispatchUpdate: (
-		name: string,
-		detail: number | undefined
-	) => boolean = createEventDispatcher();
+	const dispatch: (name: string, detail: number | undefined) => boolean =
+		createEventDispatcher();
 
 	const dispatchFocus: (name: string) => boolean = createEventDispatcher();
 
@@ -64,20 +61,12 @@
 
 	let spinnerIntervalSpeed = 25;
 
-	// let spinnerIntervalCount = 0;
+	let controlValue: number | undefined = value;
 
-	const getValue = (increment: boolean): number | undefined => {
-		const currentValue = value;
-
-		if (currentValue === undefined) {
-			if (increment) {
-				return min + step;
-			} else {
-				return max - step;
-			}
+	const checkOverflow = (newValue: number | undefined): number => {
+		if (newValue === undefined) {
+			newValue = min;
 		}
-		let newValue = increment ? currentValue + step : currentValue - step;
-
 		if (!overflow) {
 			if (newValue >= max) {
 				newValue = max;
@@ -85,41 +74,95 @@
 				newValue = min;
 			}
 		}
+
 		if (overflow && newValue > max) {
-			return min;
+			newValue = min;
 		} else if (overflow && newValue < min) {
-			return max;
+			newValue = max;
 		}
 		return newValue;
 	};
 
-	const changeValue = (newValue: number | undefined) => {
+	const changeValue = (increment: boolean) => {
+		let currentValue = value;
+
+		if (currentValue === undefined) {
+			currentValue = min;
+		}
+
+		let newValue = increment ? currentValue + step : currentValue - step;
+
 		if (newValue !== value && newValue !== undefined) {
-			value = newValue;
+			value = checkOverflow(newValue);
+			dispatch('update', value);
+		}
+		if (currentValue === undefined) {
+			if (increment) {
+				return checkOverflow(min + step);
+			} else {
+				return checkOverflow(max - step);
+			}
 		}
 	};
 
 	const increment = () => {
-		changeValue(getValue(true));
+		changeValue(true);
 	};
 
 	const decrement = () => {
-		changeValue(getValue(false));
+		changeValue(false);
 	};
 
-	const inputChange = () => {
+	const inputChange = (arrow?: string) => {
 		if (value === undefined) {
 			return;
 		}
-		if (value >= min && value <= max) {
-			value;
+		if (arrow === 'ArrowUp' && value + step >= max) {
+			value = checkOverflow(value + step);
+		} else if (arrow === 'ArrowDown' && value - step <= min) {
+			value = checkOverflow(value - step);
+		} else {
+			value = checkOverflow(value);
 		}
-		dispatchUpdate('update', value);
+		dispatch('update', value);
+	};
+	// Mouse dragging
+	let startX: number;
+	let isDragging = false;
+	const onMouseMove = (event: MouseEvent) => {
+		// call changeValue every 10px the mouse moves
+		if (event.clientX - startX > dragSpeed) {
+			startX = event.clientX;
+			changeValue(true);
+		} else if (event.clientX - startX < -dragSpeed) {
+			startX = event.clientX;
+			changeValue(false);
+		}
+	};
+
+	const stopDragging = () => {
+		isDragging = false;
+		window.removeEventListener('mousemove', onMouseMove);
+		window.removeEventListener('mouseup', stopDragging);
+	};
+
+	const checkForValueChange = () => {
+		if (value !== controlValue) {
+			dispatch('input', value);
+		}
+		controlValue = value;
+	};
+
+	// Handlers
+
+	const mouseDragDownHandler = (event: MouseEvent) => {
+		isDragging = true;
+		startX = event.clientX;
+		window.addEventListener('mousemove', onMouseMove);
+		window.addEventListener('mouseup', stopDragging);
 	};
 
 	const upMouseDownHandler = () => {
-		input.focus();
-
 		// increment then use to delay for 1 sec before setting interval
 		increment();
 
@@ -131,8 +174,6 @@
 	};
 
 	const downMouseDownHandler = () => {
-		input.focus();
-
 		decrement();
 
 		spinnerTimeout = setTimeout(() => {
@@ -142,7 +183,7 @@
 		}, 500);
 	};
 	const changeHandler = () => {
-		dispatchChange('change', value);
+		dispatch('change', value);
 	};
 
 	const inputHandler = () => {
@@ -154,11 +195,22 @@
 	};
 
 	const blurHandler = () => {
+		checkForValueChange();
 		dispatchBlur('blur');
 	};
 
 	const focusHandler = () => {
 		dispatchFocus('focus');
+	};
+	const inputClickHandler = () => {
+		input.focus();
+	};
+	const keydownHandler = (event: KeyboardEvent) => {
+		if (event.key === 'ArrowUp') {
+			inputChange('ArrowUp');
+		} else if (event.key === 'ArrowDown') {
+			inputChange('ArrowDown');
+		}
 	};
 </script>
 
@@ -181,6 +233,9 @@
 		on:change={changeHandler}
 		on:focus={focusHandler}
 		on:input={inputHandler}
+		on:click={inputClickHandler}
+		on:mousedown={mouseDragDownHandler}
+		on:keydown={keydownHandler}
 		{min}
 		{max}
 		{placeholder}
@@ -192,7 +247,10 @@
 		<button
 			class="sp-spinner--button sp-spinner--button--up"
 			on:mousedown={upMouseDownHandler}
-			on:mouseup={mouseUpHandler}>
+			on:mouseup={mouseUpHandler}
+			on:blur={blurHandler}
+			on:change={changeHandler}
+			on:focus={focusHandler}>
 			<svg
 				width="7"
 				height="4"
