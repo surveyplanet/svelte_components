@@ -63,6 +63,10 @@
 
 	let controlValue: number | undefined = value;
 
+	let startX: number;
+
+	let isDragging = false;
+
 	const checkOverflow = (newValue: number | undefined): number => {
 		if (newValue === undefined) {
 			newValue = min;
@@ -127,8 +131,7 @@
 		dispatch('update', value);
 	};
 	// Mouse dragging
-	let startX: number;
-	let isDragging = false;
+
 	const onMouseMove = (event: MouseEvent) => {
 		// call changeValue every 10px the mouse moves
 		if (event.clientX - startX > dragSpeed) {
