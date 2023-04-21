@@ -20,13 +20,12 @@ This module exports a Svelte component that provides an input field for entering
 
 ## Events
 
-| Event  | Description                                                                                                         |
-| ------ | ------------------------------------------------------------------------------------------------------------------- |
-| change | Triggered when the change from input happens. The event detail contains the `value` of the input.                   |
-| blur   | Triggered when the input is blurred. The event detail contains the `value` of the input.                            |
-| focus  | Triggered when the input is focused. The event detail contains the `value` of the input.                            |
-| input  | Triggered when the value of the input changes and blur happens. The event detail contains the `value` of the input. |
-| update | Triggered when the value of the input changes. The event detail contains the `value` of the input.                  |
+| Event  | Description                                                                                        |
+| ------ | -------------------------------------------------------------------------------------------------- |
+| change | Triggered when the change from input happens. The event detail contains the `value` of the input.  |
+| blur   | Triggered when the input is blurred. The event detail contains the `value` of the input.           |
+| focus  | Triggered when the input is focused. The event detail contains the `value` of the input.           |
+| update | Triggered when the value of the input changes. The event detail contains the `value` of the input. |
 
 ## Example Usage
 

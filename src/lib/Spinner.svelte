@@ -63,9 +63,7 @@
 
 	let controlValue: number | undefined = value;
 
-	// Mouse dragging
 	let startX: number;
-
 	let isDragging = false;
 
 	const checkOverflow = (newValue: number | undefined): number => {
@@ -110,6 +108,11 @@
 		}
 	};
 
+	const reset = () => {
+		value = undefined;
+		dispatch('update', value);
+	};
+
 	const increment = () => {
 		changeValue(true);
 	};
@@ -131,6 +134,7 @@
 		}
 		dispatch('update', value);
 	};
+	// Mouse dragging
 
 	const onMouseMove = (event: MouseEvent) => {
 		// call changeValue every 10px the mouse moves
@@ -213,6 +217,8 @@
 			inputChange('ArrowUp');
 		} else if (event.key === 'ArrowDown') {
 			inputChange('ArrowDown');
+		} else if (event.key === 'Backspace' || event.key === 'Delete') {
+			reset();
 		}
 	};
 </script>

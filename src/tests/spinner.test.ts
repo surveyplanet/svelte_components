@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { loadStory, setControl, getLastEvent, getAllEvents } from './_utils.js';
 
 test.describe('Spinner component', () => {
-	test.only('Number', async ({ page }) => {
+	test('Number', async ({ page }) => {
 		const preview = await loadStory(page, 'spinner');
 
 		const spinner = preview.locator('.sp-spinner');
@@ -48,15 +48,13 @@ test.describe('Spinner component', () => {
 		const totalChange = events.filter((i) => i.name == 'change').length;
 		expect(totalChange).toBe(1);
 		const totalBlurEvents = events.filter((i) => i.name == 'blur').length;
-		expect(totalBlurEvents).toBe(2);
+		expect(totalBlurEvents).toBe(3);
 		const totalFocusEvents = events.filter((i) => i.name == 'focus').length;
-		expect(totalFocusEvents).toBe(2);
+		expect(totalFocusEvents).toBe(3);
 		const totalUpdateEvents = events.filter(
 			(i) => i.name == 'update'
 		).length;
 		expect(totalUpdateEvents).toBe(6);
-		const totalInputEvents = events.filter((i) => i.name == 'input').length;
-		expect(totalInputEvents).toBe(3);
 	});
 
 	test('Float', async ({ page }) => {
