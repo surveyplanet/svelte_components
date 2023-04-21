@@ -69,6 +69,7 @@
 			{disabled}
 			{required}
 			{overflow}
+			{dragSpeed}
 			{placeholder}
 			on:blur={spinnerEventHandler}
 			on:change={spinnerEventHandler}
