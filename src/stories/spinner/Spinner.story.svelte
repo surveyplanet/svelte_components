@@ -16,6 +16,10 @@
 	let id = (Date.now() + Math.random()).toString(36);
 	let placeholder = 'Please put in the number';
 	let dragSpeed = 10;
+
+	const spinnerEventHandler = (e: CustomEvent) => {
+		logEvent(e.type, e);
+	};
 </script>
 
 <Hst.Story title="Form controls / Spinner">
@@ -66,10 +70,9 @@
 			{required}
 			{overflow}
 			{placeholder}
-			on:blur={() => logEvent('blur', { value })}
-			on:change={() => logEvent('change', { value })}
-			on:focus={() => logEvent('focus', value)}
-			on:update={() => logEvent('update', { value })}
-			on:input={() => logEvent('input', { value })} />
+			on:blur={spinnerEventHandler}
+			on:change={spinnerEventHandler}
+			on:focus={spinnerEventHandler}
+			on:update={spinnerEventHandler} />
 	</Hst.Variant>
 </Hst.Story>
