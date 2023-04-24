@@ -26,7 +26,7 @@
 	/**
 	 * Menu data
 	 */
-	export let data: MenuData[] = [];
+	export let data: MenuData[] = [{ id: 'edit' }];
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
 		const allButtons = Array.from(
@@ -133,6 +133,7 @@
 
 	const itemClickHandler = (event: MouseEvent) => {
 		let id = (event.target as HTMLElement).id;
+		// console.log('itemClickHandler', id);
 
 		if (!id?.length) {
 			const btn = (event.target as HTMLElement).closest('button');
@@ -172,7 +173,6 @@
 			</button>
 		</li>
 	{/if}
-
 	{#each currentState as item}
 		<li
 			class="sp-menu--item"
@@ -182,6 +182,7 @@
 			class:sp-menu--item--submenu={item?.submenu?.length}
 			transition:slide={transitionProps}>
 			<button
+				class="sp-menu--item--btn"
 				id={item.id}
 				on:click|preventDefault={itemClickHandler}>
 				{#if item.label}
@@ -219,6 +220,10 @@
 		box-shadow: 0px 5px 5px rgba(142, 117, 205, 0.1);
 		border-radius: $size-radius--large;
 		max-width: 260px;
+		// &:empty { empty doesn't work because of whitespace
+		&:not(:has(li)) {
+			display: none;
+		}
 	}
 	.sp-menu--item {
 		position: relative;
