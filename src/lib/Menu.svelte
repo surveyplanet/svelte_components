@@ -26,36 +26,27 @@
 	/**
 	 * Menu data
 	 */
-	export let data: MenuData[] = [{ id: 'edit' }];
+	export let data: MenuData[] = [];
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
-		const allButtons = document.querySelectorAll('.sp-menu--item button');
+		const allButtons = Array.from(
+			document.querySelectorAll('.sp-menu--item button')
+		) as HTMLButtonElement[];
 		const activeButton = document.activeElement as HTMLButtonElement;
-		const activeButtonIndex = [...allButtons].indexOf(activeButton);
+		const activeButtonIndex = allButtons.indexOf(activeButton);
+
 		if (
 			!activeButton.parentElement?.classList.contains(
 				'sp-menu--item--inline'
 			)
 		) {
 			if (direction === 'down') {
-				if (activeButtonIndex < allButtons.length - 1) {
-					// remap from node list to array to fix the type error (as HTMLButtonElement)
-					(
-						allButtons[activeButtonIndex + 1] as HTMLButtonElement
-					).focus();
-				} else {
-					(allButtons[0] as HTMLButtonElement).focus();
-				}
+				allButtons[(activeButtonIndex + 1) % allButtons.length].focus();
 			} else if (direction === 'up') {
-				if (activeButtonIndex > 0) {
-					(
-						allButtons[activeButtonIndex - 1] as HTMLButtonElement
-					).focus();
-				} else {
-					(
-						allButtons[allButtons.length - 1] as HTMLButtonElement
-					).focus();
-				}
+				allButtons[
+					(activeButtonIndex + allButtons.length - 1) %
+						allButtons.length
+				].focus();
 			} else if (
 				direction === 'right' &&
 				activeButton.parentElement?.classList.contains(
@@ -68,23 +59,12 @@
 			}
 		} else {
 			if (direction === 'right') {
-				if (activeButtonIndex < allButtons.length - 1) {
-					(
-						allButtons[activeButtonIndex + 1] as HTMLButtonElement
-					).focus();
-				} else {
-					(allButtons[0] as HTMLButtonElement).focus();
-				}
+				allButtons[(activeButtonIndex + 1) % allButtons.length].focus();
 			} else if (direction === 'left') {
-				if (activeButtonIndex > 0) {
-					(
-						allButtons[activeButtonIndex - 1] as HTMLButtonElement
-					).focus();
-				} else {
-					(
-						allButtons[allButtons.length - 1] as HTMLButtonElement
-					).focus();
-				}
+				allButtons[
+					(activeButtonIndex + allButtons.length - 1) %
+						allButtons.length
+				].focus();
 			} else if (direction === 'up' && location.length) {
 				backClickHandler();
 			}

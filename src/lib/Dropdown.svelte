@@ -116,6 +116,12 @@
 	const closeButtonHandler = () => {
 		clear();
 	};
+
+	$: {
+		if (value?.length) {
+			setValue(value, true);
+		}
+	}
 </script>
 
 <svelte:window on:click={blurOnBodyClick} />
@@ -133,7 +139,10 @@
 
 <div
 	class="sp-dropdown"
-	class:sp-dropdown--open={visible}>
+	class:sp-dropdown--open={visible}
+	on:click={searchFocusHandler}
+	on:keyup={searchKeyupHandler}
+	on:keydown={reset}>
 	{#if searchable && displayValue?.length}
 		<button
 			class="sp-dropdown--close-btn"
@@ -206,7 +215,7 @@
 		width: 100%;
 		height: $size--40;
 		min-width: $size--256;
-		background-color: $color--white;
+		background-color: transparent;
 		border: 1px solid $color--slate-lighter;
 		border-radius: $size-radius--default;
 		margin: 0;
