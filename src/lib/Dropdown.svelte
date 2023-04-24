@@ -1,7 +1,7 @@
 <script
 	lang="ts"
 	context="module">
-	export interface DropdownOptions {
+	export interface dropdownOptions {
 		label: string;
 		id: string;
 		meta?: string;
@@ -17,16 +17,18 @@
 	const dispatch: (name: string, detail: string) => boolean =
 		createEventDispatcher();
 
-	export let options: DropdownOptions[];
-	export let value: DropdownOptions['id'] | null = null;
+	export let options: dropdownOptions[];
+	export let value: dropdownOptions['id'] | null = null;
 	export let label: string | null = null;
 	export let searchThreshold = 15;
 	export let disabled = false;
 	export let required = false;
 
+	$: console.log(value);
+
 	let input: HTMLInputElement;
 	let visible = false;
-	let displayValue: DropdownOptions['label'] | '' = '';
+	let displayValue: dropdownOptions['label'] | '' = '';
 
 	$: searchable = options.length >= searchThreshold;
 	$: MenuData = [...options];
@@ -52,7 +54,7 @@
 			if (item.id === id) {
 				item.selected = true;
 				displayValue = item.label;
-			} else item.selected = false;
+			}
 		}
 		if (!silent) {
 			dispatch('change', value);
@@ -65,19 +67,12 @@
 		if (query?.length) {
 			visible = true;
 			MenuData = options.filter((item) => {
+				// item.selected = false;
 				return item.label.toLowerCase().trim().includes(query);
 			});
 		} else {
 			reset();
 		}
-	};
-
-	const blurOnBodyClick = (event: MouseEvent) => {
-		const target = event.target as HTMLElement;
-		if (target.classList.contains('sp-dropdown--search')) {
-			return;
-		}
-		visible = false;
 	};
 
 	const clear = () => {
@@ -88,7 +83,6 @@
 
 	const menuClickHandler = (event: CustomEvent) => {
 		setValue(event.detail);
-		console.log(event.detail);
 		visible = false; // blur handler hides the menu
 	};
 
@@ -105,26 +99,19 @@
 				return;
 			}
 		}
+
+		visible = false;
 	};
 
 	const searchKeyupHandler = (event: KeyboardEvent) => {
 		const target = event.target as HTMLInputElement;
 		search(target.value);
-		reset();
 	};
 
 	const closeButtonHandler = () => {
 		clear();
 	};
-
-	$: {
-		if (value?.length) {
-			setValue(value, true);
-		}
-	}
 </script>
-
-<svelte:window on:click={blurOnBodyClick} />
 
 {#if label}
 	<label
@@ -139,10 +126,7 @@
 
 <div
 	class="sp-dropdown"
-	class:sp-dropdown--open={visible}
-	on:click={searchFocusHandler}
-	on:keyup={searchKeyupHandler}
-	on:keydown={reset}>
+	class:sp-dropdown--open={visible}>
 	{#if searchable && displayValue?.length}
 		<button
 			class="sp-dropdown--close-btn"
@@ -215,7 +199,7 @@
 		width: 100%;
 		height: $size--40;
 		min-width: $size--256;
-		background-color: transparent;
+		background-color: $color--white;
 		border: 1px solid $color--slate-lighter;
 		border-radius: $size-radius--default;
 		margin: 0;
