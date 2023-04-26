@@ -24,14 +24,12 @@
 	export let disabled = false;
 	export let required = false;
 
-	$: console.log(value);
-
 	let input: HTMLInputElement;
 	let visible = false;
 	let displayValue: DropdownOptions['label'] | '' = '';
 
 	$: searchable = options.length >= searchThreshold;
-	$: menuData = [...options];
+	$: MenuData = [...options];
 
 	onMount(() => {
 		if (value?.length) {
@@ -40,8 +38,8 @@
 	});
 
 	const reset = () => {
-		menuData = [...options];
-		for (let item of menuData) {
+		MenuData = [...options];
+		for (let item of MenuData) {
 			item.selected = false;
 		}
 	};
@@ -49,12 +47,12 @@
 	const setValue = (id: string, silent = false) => {
 		value = id;
 		displayValue = '';
-		for (let item of menuData) {
+		for (let item of MenuData) {
 			item.selected = false;
 			if (item.id === id) {
 				item.selected = true;
 				displayValue = item.label;
-			} else item.selected = false;
+			}
 		}
 		if (!silent) {
 			dispatch('change', value);
@@ -66,7 +64,7 @@
 
 		if (query?.length) {
 			visible = true;
-			menuData = options.filter((item) => {
+			MenuData = options.filter((item) => {
 				// item.selected = false;
 				return item.label.toLowerCase().trim().includes(query);
 			});
@@ -99,27 +97,21 @@
 				return;
 			}
 		}
-		//fix this so that it doesn't close the menu when arrow down is pressed
+
 		visible = false;
 	};
 
 	const searchKeyupHandler = (event: KeyboardEvent) => {
-		// fix the arrow down key so that idt doesn't close down the menu
-		// if (event.key === 'ArrowDown') {
-		// 	const e = new KeyboardEvent('keydown', {
-		// 		key: 'ArrowDown',
-		// 		bubbles: true,
-		// 		cancelable: true,
-		// 	});
-		// 	document.dispatchEvent(e);
-		// 	visible = true;
-		// }
 		const target = event.target as HTMLInputElement;
 		search(target.value);
 	};
 
 	const closeButtonHandler = () => {
 		clear();
+	};
+
+	const toggleIconClickHandler = () => {
+		visible = !visible;
 	};
 </script>
 
@@ -164,7 +156,9 @@
 		height="4"
 		viewBox="0 0 7 4"
 		fill="none"
-		xmlns="http://www.w3.org/2000/svg">
+		xmlns="http://www.w3.org/2000/svg"
+		on:click={toggleIconClickHandler}
+		on:keydown={toggleIconClickHandler}>
 		<path
 			d="M1.08984 0.830868L3.50606 3.24707L6.0002 0.75293"
 			stroke="#162137"
@@ -175,7 +169,7 @@
 </div>
 {#if visible}
 	<Menu
-		data={menuData}
+		data={MenuData}
 		on:click={menuClickHandler} />
 {/if}
 

@@ -29,33 +29,24 @@
 	export let data: MenuData[] = [{ id: 'edit' }];
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
-		const allButtons = document.querySelectorAll('.sp-menu--item button');
+		const allButtons = Array.from(
+			document.querySelectorAll('.sp-menu--item button')
+		) as HTMLButtonElement[];
 		const activeButton = document.activeElement as HTMLButtonElement;
-		const activeButtonIndex = [...allButtons].indexOf(activeButton);
+		const activeButtonIndex = allButtons.indexOf(activeButton);
+
 		if (
 			!activeButton.parentElement?.classList.contains(
 				'sp-menu--item--inline'
 			)
 		) {
 			if (direction === 'down') {
-				if (activeButtonIndex < allButtons.length - 1) {
-					// remap from node list to array to fix the type error (as HTMLButtonElement)
-					(
-						allButtons[activeButtonIndex + 1] as HTMLButtonElement
-					).focus();
-				} else {
-					(allButtons[0] as HTMLButtonElement).focus();
-				}
+				allButtons[(activeButtonIndex + 1) % allButtons.length].focus();
 			} else if (direction === 'up') {
-				if (activeButtonIndex > 0) {
-					(
-						allButtons[activeButtonIndex - 1] as HTMLButtonElement
-					).focus();
-				} else {
-					(
-						allButtons[allButtons.length - 1] as HTMLButtonElement
-					).focus();
-				}
+				allButtons[
+					(activeButtonIndex + allButtons.length - 1) %
+						allButtons.length
+				].focus();
 			} else if (
 				direction === 'right' &&
 				activeButton.parentElement?.classList.contains(
@@ -68,23 +59,12 @@
 			}
 		} else {
 			if (direction === 'right') {
-				if (activeButtonIndex < allButtons.length - 1) {
-					(
-						allButtons[activeButtonIndex + 1] as HTMLButtonElement
-					).focus();
-				} else {
-					(allButtons[0] as HTMLButtonElement).focus();
-				}
+				allButtons[(activeButtonIndex + 1) % allButtons.length].focus();
 			} else if (direction === 'left') {
-				if (activeButtonIndex > 0) {
-					(
-						allButtons[activeButtonIndex - 1] as HTMLButtonElement
-					).focus();
-				} else {
-					(
-						allButtons[allButtons.length - 1] as HTMLButtonElement
-					).focus();
-				}
+				allButtons[
+					(activeButtonIndex + allButtons.length - 1) %
+						allButtons.length
+				].focus();
 			} else if (direction === 'up' && location.length) {
 				backClickHandler();
 			}
@@ -97,7 +77,7 @@
 		easing: cubicOut,
 	};
 
-	let currentState: MenuData[] = [...data];
+	$: currentState = [...data];
 
 	let location: string[] = [];
 
@@ -120,6 +100,7 @@
 	};
 
 	const arrowClickHandler = (event: KeyboardEvent) => {
+		// user correct arrow keys when MenuData.inline is true;
 		if (event.key === 'ArrowDown') {
 			event.preventDefault();
 			scrollMenu('down');
@@ -152,6 +133,7 @@
 
 	const itemClickHandler = (event: MouseEvent) => {
 		let id = (event.target as HTMLElement).id;
+		// console.log('itemClickHandler', id);
 
 		if (!id?.length) {
 			const btn = (event.target as HTMLElement).closest('button');
@@ -175,10 +157,16 @@
 			dispatch('update', id);
 		}
 	};
+
+	const menuBlurHandler = (event: FocusEvent) => {
+		dispatch('blur', (event.target as HTMLElement).id);
+	};
 </script>
 
 <svelte:window on:keydown={arrowClickHandler} />
-<ul class="sp-menu">
+<ul
+	class="sp-menu"
+	on:blur={menuBlurHandler}>
 	{#if location.length}
 		<li transition:slide={transitionProps}>
 			<button
@@ -191,7 +179,6 @@
 			</button>
 		</li>
 	{/if}
-
 	{#each currentState as item}
 		<li
 			class="sp-menu--item"
@@ -201,6 +188,7 @@
 			class:sp-menu--item--submenu={item?.submenu?.length}
 			transition:slide={transitionProps}>
 			<button
+				class="sp-menu--item--btn"
 				id={item.id}
 				on:click|preventDefault={itemClickHandler}>
 				{#if item.label}
@@ -238,6 +226,10 @@
 		box-shadow: 0px 5px 5px rgba(142, 117, 205, 0.1);
 		border-radius: $size-radius--large;
 		max-width: 260px;
+		// &:empty { empty doesn't work because of whitespace
+		&:not(:has(li)) {
+			display: none;
+		}
 	}
 	.sp-menu--item {
 		position: relative;
