@@ -14,12 +14,12 @@
 		},
 		{
 			icon: 'chartColumn',
-			link: '#',
+			link: '#12',
 			id: 'chart',
 		},
 		{
 			icon: 'share',
-			link: '#',
+			link: '#42',
 			id: 'share',
 		},
 	];

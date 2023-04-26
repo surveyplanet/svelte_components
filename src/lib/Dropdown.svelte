@@ -24,8 +24,6 @@
 	export let disabled = false;
 	export let required = false;
 
-	$: console.log(value);
-
 	let input: HTMLInputElement;
 	let visible = false;
 	let displayValue: DropdownOptions['label'] | '' = '';
@@ -111,6 +109,10 @@
 	const closeButtonHandler = () => {
 		clear();
 	};
+
+	const toggleIconClickHandler = () => {
+		visible = !visible;
+	};
 </script>
 
 {#if label}
@@ -154,7 +156,9 @@
 		height="4"
 		viewBox="0 0 7 4"
 		fill="none"
-		xmlns="http://www.w3.org/2000/svg">
+		xmlns="http://www.w3.org/2000/svg"
+		on:click={toggleIconClickHandler}
+		on:keydown={toggleIconClickHandler}>
 		<path
 			d="M1.08984 0.830868L3.50606 3.24707L6.0002 0.75293"
 			stroke="#162137"

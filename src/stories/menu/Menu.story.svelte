@@ -22,6 +22,10 @@
 	const menuUpdateHandler = (event: CustomEvent) => {
 		logEvent('update', event);
 	};
+
+	const menuBlurHandler = (event: CustomEvent) => {
+		logEvent('blur', event);
+	};
 </script>
 
 <Hst.Story title="Menu">
@@ -44,7 +48,8 @@
 				<Menu
 					{data}
 					on:update={menuUpdateHandler}
-					on:click={menuClickHandler} />
+					on:click={menuClickHandler}
+					on:blur={menuBlurHandler} />
 			{/if}
 		</div>
 	</Hst.Variant>

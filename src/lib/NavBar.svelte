@@ -16,7 +16,7 @@
 	import { createEventDispatcher } from 'svelte';
 	export let data: NavBarData[] = [];
 	export let navMenuData: MenuData[] = [];
-	let showMenu = false;
+	$: menuVisible = false;
 
 	const dispatchLink: (name: string, detail: string) => boolean =
 		createEventDispatcher();
@@ -31,14 +31,32 @@
 	};
 
 	const navMenuTriggerClickHandler = () => {
-		showMenu = !showMenu;
+		menuVisible = !menuVisible;
+	};
+
+	const hideMenuOnBodyClick = (e: MouseEvent) => {
+		const target = e.target as HTMLLinkElement;
+		if (
+			target.closest('.sp-nav--menu-trigger') ||
+			target.closest('.sp-menu')
+		) {
+			return;
+		}
+		menuVisible = false;
+	};
+
+	const menuClickHandler = () => {
+		menuVisible = false;
+		console.log('menuUpdateHandler');
 	};
 </script>
+
+<svelte:window on:click={hideMenuOnBodyClick} />
 
 <nav class="sp-nav">
 	{#each data as item}
 		<a
-			class="sp-nav-link"
+			class="sp-nav--link"
 			href={item.link}
 			id={item.id}
 			on:click|preventDefault={navLinkClickHandler}>
@@ -51,18 +69,19 @@
 
 	{#if navMenuData?.length}
 		<a
-			class="sp-nav-menu-trigger"
-			href="#"
+			class="sp-nav--menu-trigger"
+			href="c"
 			on:click|preventDefault={navMenuTriggerClickHandler}>
 			<Icon name="ellipsis" />
 		</a>
-		{#if showMenu}
-			<div class="sp-nav-menu">
-				<Menu data={navMenuData} />
-			</div>
-		{/if}
 	{/if}
 </nav>
+
+{#if menuVisible}
+	<Menu
+		data={navMenuData}
+		on:click={menuClickHandler} />
+{/if}
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
@@ -80,13 +99,5 @@
 		justify-content: center;
 		align-items: center;
 		padding: $size--18;
-	}
-
-	.sp-nav-menu {
-		position: absolute;
-		top: 0;
-		left: 50%;
-		z-index: 1;
-		width: 100%;
 	}
 </style>

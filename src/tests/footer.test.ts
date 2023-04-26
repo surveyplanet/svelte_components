@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { loadStory, setControl, getLastEvent } from './_utils.js';
 
-test.describe('Dropdown component', () => {
+test.describe('Footer component', () => {
 	test('basic', async ({ page }) => {
 		const preview = await loadStory(page, 'footer');
 		const footer = preview.locator('.sp-footer');

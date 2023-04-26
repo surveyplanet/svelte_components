@@ -157,10 +157,16 @@
 			dispatch('update', id);
 		}
 	};
+
+	const menuBlurHandler = (event: FocusEvent) => {
+		dispatch('blur', (event.target as HTMLElement).id);
+	};
 </script>
 
 <svelte:window on:keydown={arrowClickHandler} />
-<ul class="sp-menu">
+<ul
+	class="sp-menu"
+	on:blur={menuBlurHandler}>
 	{#if location.length}
 		<li transition:slide={transitionProps}>
 			<button
