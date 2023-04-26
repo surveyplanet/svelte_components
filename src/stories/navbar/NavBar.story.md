@@ -10,6 +10,7 @@ The following props can be passed to the `NavBar` component:
 | ------------- | -------------- | ------------- | ----------------------------------------------------------------------------------------------------- |
 | `data`        | `NavBarData[]` | `[]`          | An array of objects that represent links displayed in the navigation bar.                             |
 | `navMenuData` | `MenuData[]`   | `[]`          | An array of objects that represent the items displayed in the navigation menu. This prop is optional. |
+| `vertical`    | `boolean`      | `false`       | If `true`, the navigation bar is displayed vertically.                                                |
 
 ## Interface
 

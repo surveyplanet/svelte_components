@@ -16,6 +16,7 @@
 	import { createEventDispatcher } from 'svelte';
 	export let data: NavBarData[] = [];
 	export let navMenuData: MenuData[] = [];
+	export let vertical = false;
 	$: menuVisible = false;
 
 	const dispatchLink: (name: string, detail: string) => boolean =
@@ -53,7 +54,9 @@
 
 <svelte:window on:click={hideMenuOnBodyClick} />
 
-<nav class="sp-nav">
+<nav
+	class="sp-nav"
+	class:sp-nav--vertical={vertical}>
 	{#each data as item}
 		<a
 			class="sp-nav--link"
@@ -99,5 +102,8 @@
 		justify-content: center;
 		align-items: center;
 		padding: $size--18;
+	}
+	.sp-nav--vertical {
+		flex-direction: column;
 	}
 </style>

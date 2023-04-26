@@ -25,6 +25,8 @@
 	];
 
 	let navMenuData: MenuData[] = menuData;
+
+	let vertical = false;
 </script>
 
 <Hst.Story title="NavBar">
@@ -32,11 +34,18 @@
 		<Hst.Json
 			bind:value={data}
 			title="Data" />
+		<Hst.Json
+			bind:value={navMenuData}
+			title="Menu Data" />
+		<Hst.Checkbox
+			bind:value={vertical}
+			title="Vertical" />
 	</svelte:fragment>
 
 	<Hst.Variant title="NavBar">
 		<NavBar
 			{data}
-			{navMenuData} />
+			{navMenuData}
+			{vertical} />
 	</Hst.Variant>
 </Hst.Story>
