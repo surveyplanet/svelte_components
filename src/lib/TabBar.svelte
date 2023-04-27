@@ -33,6 +33,8 @@
 	 */
 	export let data: TabBarData[] = [];
 
+	$: data = [...data];
+
 	const selectTabButton = (event: Event) => {
 		const target = event.target as HTMLElement;
 		const id = target.closest('li')?.id;
@@ -63,16 +65,17 @@
 		<li
 			class="sp-tab-bar--item"
 			id={item.id}
-			class:sp-tab-bar--item--active={item.selected}>
+			class:sp-tab-bar--item--active={item.selected}
+			aria-selected={item.selected}>
 			<button
 				class="sp-tab-bar--button"
 				class:sp-tab-bar--button--disabled={item.disabled}
 				on:click={tabButtonHandler}>
 				{#if item.label}
-					<span class="sp-tab-bar--label">{item.label}</span>
+					<span class="sp-tab-bar--button--label">{item.label}</span>
 				{/if}
 				{#if item.html}
-					<span class="sp-tab-bar--html">{item.html}</span>
+					<span class="sp-tab-bar--button--html">{item.html}</span>
 				{/if}
 				{#if item.icon}
 					<Icon name={item.icon} />
@@ -87,9 +90,8 @@
 
 	.sp-tab-bar {
 		font: $font-family--default;
-		position: relative; /* add this */
+		position: relative;
 	}
-
 	ul {
 		display: inline-flex;
 		flex-direction: row;
@@ -102,7 +104,7 @@
 		padding: 0;
 		background-color: $color--light-purple-light;
 		border-radius: 100px;
-		position: relative; /* add this */
+		position: relative;
 	}
 
 	li {
@@ -113,7 +115,7 @@
 
 	.sp-tab-bar--label {
 		margin: 0;
-		padding: 0 8px;
+		padding: 0.375rem;
 	}
 
 	button {
@@ -140,8 +142,13 @@
 		border-radius: 100px;
 	}
 
+	.sp-tab-bar--item--active {
+		background-color: white;
+		border-radius: 100px;
+	}
+
 	.sp-tab-bar--button--disabled {
-		cursor: not-allowed;
+		pointer-events: none;
 		background-color: $color--slate-lighter;
 		border-radius: 100px;
 	}
@@ -151,8 +158,6 @@
 	}
 
 	.sp-tab-bar--grow {
-		li {
-			flex-grow: 1;
-		}
+		width: 100%;
 	}
 </style>

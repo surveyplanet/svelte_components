@@ -9,18 +9,18 @@
 	let data: TabBarData[] = [
 		{
 			id: 'tab1',
-			label: 'Tab 1',
+			label: 'Edit',
 			selected: true,
 			icon: 'edit',
 		},
 		{
 			id: 'tab2',
-			label: 'Tab 2',
+			label: 'Tablet',
 			icon: 'tablet',
 		},
 		{
 			id: 'tab3',
-			label: 'Tab 3',
+			label: 'Monitor',
 			icon: 'monitor',
 			disabled: true,
 		},
@@ -30,8 +30,8 @@
 
 	let id = (Date.now() + Math.random()).toString(36);
 
-	const changeEventHandler = (e: Event): void => {
-		logEvent('change', e);
+	const tabButtonCli8ckHandler = (event: Event): void => {
+		logEvent('tabButton', event);
 	};
 </script>
 
@@ -39,17 +39,14 @@
 	<svelte:fragment slot="controls">
 		<Hst.Json
 			title="Data"
-			bind:value={data}
-			on:change={changeEventHandler} />
+			bind:value={data} />
 		<Hst.Checkbox
 			title="Grow"
-			bind:value={grow}
-			on:change={changeEventHandler} />
+			bind:value={grow} />
 
 		<Hst.Text
 			title="Id"
-			bind:value={id}
-			on:change={changeEventHandler} />
+			bind:value={id} />
 	</svelte:fragment>
 
 	<Hst.Variant title="Primary">
@@ -57,7 +54,8 @@
 			<TabBar
 				{grow}
 				{id}
-				{data} />
+				{data}
+				on:tabButton={tabButtonCli8ckHandler} />
 		</div>
 	</Hst.Variant>
 </Hst.Story>

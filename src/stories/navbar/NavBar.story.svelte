@@ -11,16 +11,19 @@
 			icon: 'edit',
 			link: '#',
 			id: 'edit',
+			title: 'Edit',
 		},
 		{
 			icon: 'chartColumn',
 			link: '#12',
 			id: 'chart',
+			title: 'Chart',
 		},
 		{
 			icon: 'share',
 			link: '#42',
 			id: 'share',
+			title: 'Share',
 		},
 	];
 
