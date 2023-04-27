@@ -37,7 +37,7 @@ test.describe('Navbar component', () => {
 
 		// await expect(navMenu).not.toBeVisible();
 
-		// // const linkevent = await getLastEvent(
+		// // const linkEvent = await getLastEvent(
 	});
 
 	test('vertical', async ({ page }) => {

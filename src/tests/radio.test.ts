@@ -1,7 +1,7 @@
 import { test, expect, type FrameLocator } from '@playwright/test';
 import { setControl, loadStory, getLastEvent, getStyles } from './_utils.js';
 
-test.describe('Toggle component', () => {
+test.describe('Radio component', () => {
 	let canvas: FrameLocator;
 
 	test.beforeEach(async ({ page }) => {
