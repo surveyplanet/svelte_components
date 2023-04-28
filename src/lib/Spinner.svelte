@@ -65,6 +65,7 @@
 
 	let startX: number;
 	let isDragging = false;
+	let visibleButtons = false;
 
 	const checkOverflow = (newValue: number | undefined): number => {
 		if (newValue === undefined) {
@@ -204,10 +205,12 @@
 	const blurHandler = () => {
 		checkForValueChange();
 		dispatchBlur('blur');
+		visibleButtons = false;
 	};
 
 	const focusHandler = () => {
 		dispatchFocus('focus');
+		visibleButtons = true;
 	};
 	const inputClickHandler = () => {
 		input.focus();
@@ -221,9 +224,18 @@
 			reset();
 		}
 	};
+	const spinnerFocusHandler = () => {
+		input.focus();
+	};
+	const spinnerBlurHandler = () => {
+		input.blur();
+	};
 </script>
 
-<div class="sp-spinner sp-spinner">
+<div
+	class="sp-spinner sp-spinner"
+	on:focus={spinnerFocusHandler}
+	on:blur={spinnerBlurHandler}>
 	<label
 		for="sp-spinner"
 		class="sp-spinner--label"
@@ -252,13 +264,15 @@
 		{id}
 		{disabled} />
 
-	<div class="sp-spinner--buttons">
+	<div
+		class="sp-spinner--buttons"
+		class:sp-spinner--buttons--visible={visibleButtons}>
 		<button
 			class="sp-spinner--button sp-spinner--button--up"
 			on:mousedown={upMouseDownHandler}
 			on:mouseup={mouseUpHandler}
-			on:blur={blurHandler}
 			on:change={changeHandler}
+			on:blur={blurHandler}
 			on:focus={focusHandler}>
 			<svg
 				width="7"
@@ -276,7 +290,9 @@
 		<button
 			class="sp-spinner--button sp-spinner--button--down"
 			on:mousedown={downMouseDownHandler}
-			on:mouseup={mouseUpHandler}>
+			on:mouseup={mouseUpHandler}
+			on:blur={blurHandler}
+			on:focus={focusHandler}>
 			<svg
 				width="7"
 				height="4"
@@ -299,6 +315,11 @@
 	.sp-spinner {
 		position: relative;
 		font: $font--default;
+	}
+	.sp-spinner:hover {
+		.sp-spinner--buttons {
+			visibility: visible;
+		}
 	}
 
 	label {
@@ -382,9 +403,14 @@
 		bottom: 0;
 		right: 0;
 		height: $size--40;
+		visibility: hidden;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+	}
+	.sp-spinner--buttons:hover,
+	.sp-spinner--buttons--visible {
+		visibility: visible;
 	}
 
 	button {

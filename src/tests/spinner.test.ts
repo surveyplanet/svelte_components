@@ -15,8 +15,16 @@ test.describe('Spinner component', () => {
 		await setControl(page, 'Max', 'number', '10');
 		await setControl(page, 'Overflow', 'checkbox', 'false');
 
+		const click = (arr: typeof upButton | typeof downButton) => {
+			input.click();
+			arr.click();
+		};
+
 		await expect(spinner).toBeVisible();
 		await expect(input).toBeVisible();
+		await expect(upButton).not.toBeVisible();
+		await expect(downButton).not.toBeVisible();
+		await input.click();
 		await expect(upButton).toBeVisible();
 		await expect(downButton).toBeVisible();
 		await expect(label).toHaveText('Number Spinner');
@@ -24,19 +32,16 @@ test.describe('Spinner component', () => {
 
 		await expect(input).toHaveValue('');
 
-		await input.click();
-		const blurEvent = await getLastEvent(page);
-		expect(blurEvent.name).toBe('blur');
-		await upButton.click();
+		await click(upButton);
 
 		await expect(input).toHaveValue('1');
-		await upButton.click();
+		await click(upButton);
 		await expect(input).toHaveValue('2');
-		await downButton.click();
+		await click(downButton);
 		await expect(input).toHaveValue('1');
-		await downButton.click();
+		await click(downButton);
 		await expect(input).toHaveValue('0');
-		await downButton.click();
+		await click(downButton);
 		await expect(input).toHaveValue('0');
 
 		await input.click();
@@ -48,13 +53,13 @@ test.describe('Spinner component', () => {
 		const totalChange = events.filter((i) => i.name == 'change').length;
 		expect(totalChange).toBe(1);
 		const totalBlurEvents = events.filter((i) => i.name == 'blur').length;
-		expect(totalBlurEvents).toBe(3);
+		expect(totalBlurEvents).toBe(4);
 		const totalFocusEvents = events.filter((i) => i.name == 'focus').length;
-		expect(totalFocusEvents).toBe(3);
+		expect(totalFocusEvents).toBe(4);
 		const totalUpdateEvents = events.filter(
 			(i) => i.name == 'update'
 		).length;
-		expect(totalUpdateEvents).toBe(6);
+		expect(totalUpdateEvents).toBe(5);
 	});
 
 	test('Float', async ({ page }) => {
@@ -68,6 +73,7 @@ test.describe('Spinner component', () => {
 
 		await expect(spinner).toBeVisible();
 		await expect(input).toBeVisible();
+		await input.click();
 		await expect(upButton).toBeVisible();
 		await expect(downButton).toBeVisible();
 
@@ -92,14 +98,10 @@ test.describe('Spinner component', () => {
 		const upButton = preview.locator('.sp-spinner--button--up');
 		const downButton = preview.locator('.sp-spinner--button--down');
 
-		await expect(spinner).toBeVisible();
-		await expect(input).toBeVisible();
-		await expect(upButton).toBeVisible();
-		await expect(downButton).toBeVisible();
+		await input.click();
 
 		await expect(input).toHaveValue('');
 		await upButton.click();
-
 		await expect(input).toHaveValue('2');
 		await upButton.click();
 		await expect(input).toHaveValue('4');
