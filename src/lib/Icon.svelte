@@ -60,7 +60,7 @@
 	fill="none"
 	data-color={color}
 	style={debug ? 'background-color: red;' : ''}>
-	<title>{'icon ' + name}</title>
+	<!-- <title>{'icon ' + name}</title> -->
 	{#each pathData as data}
 		<path
 			stroke-width={strokeWidth}

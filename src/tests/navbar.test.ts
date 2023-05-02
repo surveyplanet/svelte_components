@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { loadStory, getLastEvent, setControl } from './_utils.js';
+import { loadStory, getAllEvents, setControl } from './_utils.js';
 
 test.describe('Navbar component', () => {
 	test('basic', async ({ page }) => {
@@ -8,36 +8,50 @@ test.describe('Navbar component', () => {
 		const navbarLink = navbar.locator('a');
 		const navLinkIcon = navbarLink.locator('.sp-icon');
 		const navMenuTrigger = navbar.locator('.sp-nav--menu-trigger');
-		const navMenu = page.locator('.sp-menu');
-		const navMenuItems = navMenu.locator('.sp-menu--item');
 
 		await expect(navbar).toBeVisible();
 		await expect(navbarLink).toHaveCount(4);
 		await expect(navbarLink.nth(0)).toHaveAttribute('href', '#');
+		await navbarLink.nth(0).click();
 		await expect(navLinkIcon.nth(0)).toHaveClass(/sp-icon sp-icon--edit/);
 		await expect(navMenuTrigger).toBeVisible();
 
-		// await navMenuTrigger.click();
+		await navMenuTrigger.click();
 
-		// await expect(navMenu).toBeVisible();
+		const navMenu = preview.locator('.sp-menu');
+		const navMenuItems = navMenu.locator('.sp-menu--item');
 
-		// await navMenuTrigger.click();
+		await expect(navMenu).toBeVisible();
 
-		// await expect(navMenu).not.toBeVisible();
+		await navMenuTrigger.click();
 
-		// await navMenuTrigger.click();
+		await expect(navMenu).not.toBeVisible();
 
-		// await navMenuItems.nth(1).click();
+		await navMenuTrigger.click();
 
-		// await expect(navMenu).not.toBeVisible();
+		await navMenuItems.nth(1).click();
 
-		// await navMenuTrigger.click();
+		await expect(navMenu).not.toBeVisible();
 
-		// await page.mouse.move(0, 0);
+		await navMenuTrigger.click();
 
-		// await expect(navMenu).not.toBeVisible();
+		await navMenuItems.nth(3).click();
 
-		// // const linkEvent = await getLastEvent(
+		await page.locator('body').click();
+
+		await expect(navMenu).not.toBeVisible();
+
+		const events = await getAllEvents(page);
+
+		const navLinkEvent = events.filter((i) => i.name === 'nav-link').length;
+		const navMenuClickEvent = events.filter(
+			(i) => i.name === 'click'
+		).length;
+		const navMenuUpdateEvent = events.filter((i) => i.name === 'update');
+
+		expect(navLinkEvent).toBe(1);
+		expect(navMenuClickEvent).toBe(1);
+		expect(navMenuUpdateEvent).toHaveLength(1);
 	});
 
 	test('vertical', async ({ page }) => {

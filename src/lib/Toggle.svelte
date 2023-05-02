@@ -11,6 +11,7 @@
 	export let tall = false;
 	export let label: string | null = null;
 	export let prependLabel = false;
+	export let amPmSwitch = false;
 
 	const changeHandler = (event: Event): void => {
 		if (disabled) {
@@ -43,8 +44,11 @@
 
 	<div class="sp-toggle--track" />
 </div>
-
-{#if label?.length && !prependLabel}
+{#if amPmSwitch}
+	<label
+		class="sp-toggle--label sp-toggle--label-am-pm"
+		for={id}>{'AM PM'}</label>
+{:else if label?.length && !prependLabel}
 	<label
 		class="sp-toggle--label"
 		for={id}>{label}</label>
@@ -140,6 +144,16 @@
 		}
 	}
 
+	.sp-toggle--label-am-pm {
+		cursor: pointer;
+		display: inline-block;
+		vertical-align: top;
+		font: $font--default;
+		height: $size--20;
+		line-height: $size--20;
+		font-size: $font-size--12;
+		padding-left: $size-gutter--quarter;
+	}
 	.sp-toggle--label {
 		cursor: pointer;
 		display: inline-block;

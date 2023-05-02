@@ -13,6 +13,7 @@
 	let name: string;
 	let label = 'Toggle switch';
 	let prependLabel = false;
+	let amPmSwitch = false;
 
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
@@ -42,6 +43,9 @@
 		<Hst.Checkbox
 			bind:value={tall}
 			title="Tall" />
+		<Hst.Checkbox
+			bind:value={amPmSwitch}
+			title="Time switch" />
 	</svelte:fragment>
 
 	<Hst.Variant
@@ -55,6 +59,7 @@
 			{on}
 			{prependLabel}
 			{tall}
-			{disabled} />
+			{disabled}
+			{amPmSwitch} />
 	</Hst.Variant>
 </Hst.Story>

@@ -6,7 +6,7 @@
 	export interface NavBarData {
 		icon: IconName;
 		link?: string;
-		title?: string;
+		title: string;
 		id: string;
 	}
 </script>
@@ -21,10 +21,12 @@
 
 	const dispatchLink: (name: string, detail: string) => boolean =
 		createEventDispatcher();
+	const dispatchMenu: (name: string, detail: string) => boolean =
+		createEventDispatcher();
 
 	const navLinkClickHandler = (e: MouseEvent) => {
 		const target = e.target as HTMLLinkElement;
-		if (target.href.length) {
+		if (target.href) {
 			window.location.href = target.href;
 		} else {
 			dispatchLink('nav-link', target.id);
@@ -46,9 +48,13 @@
 		menuVisible = false;
 	};
 
-	const menuClickHandler = () => {
+	const menuClickHandler = (e: CustomEvent) => {
 		menuVisible = false;
-		console.log('menuUpdateHandler');
+		dispatchMenu('click', e.detail);
+	};
+
+	const menuUpdateHandler = (e: CustomEvent) => {
+		dispatchMenu('update', e.detail);
 	};
 </script>
 
@@ -62,11 +68,8 @@
 			class="sp-nav--link"
 			href={item.link}
 			id={item.id}
+			title={item.title}
 			on:click|preventDefault={navLinkClickHandler}>
-			{#if item.title}
-				{item.title}
-			{/if}
-
 			<Icon name={item.icon} /></a>
 	{/each}
 
@@ -83,7 +86,8 @@
 {#if menuVisible}
 	<Menu
 		data={navMenuData}
-		on:click={menuClickHandler} />
+		on:click={menuClickHandler}
+		on:update={menuUpdateHandler} />
 {/if}
 
 <style lang="scss">

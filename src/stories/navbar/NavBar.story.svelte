@@ -28,8 +28,19 @@
 	];
 
 	let navMenuData: MenuData[] = menuData;
-
 	let vertical = false;
+
+	const menuUpdateHandler = (e: CustomEvent) => {
+		logEvent('update', e.detail);
+	};
+
+	const menuClickHandler = (e: CustomEvent) => {
+		logEvent('click', e.detail);
+	};
+
+	const navLinkHandler = (e: CustomEvent) => {
+		logEvent('nav-link', e.detail);
+	};
 </script>
 
 <Hst.Story title="NavBar">
@@ -49,6 +60,9 @@
 		<NavBar
 			{data}
 			{navMenuData}
-			{vertical} />
+			{vertical}
+			on:nav-link={navLinkHandler}
+			on:update={menuUpdateHandler}
+			on:click={menuClickHandler} />
 	</Hst.Variant>
 </Hst.Story>
