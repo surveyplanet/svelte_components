@@ -226,6 +226,8 @@
 		box-shadow: 0px 5px 5px rgba(142, 117, 205, 0.1);
 		border-radius: $size-radius--large;
 		max-width: 260px;
+		max-height: 200px;
+		overflow-y: auto;
 		// &:empty { empty doesn't work because of whitespace
 		&:not(:has(li)) {
 			display: none;
