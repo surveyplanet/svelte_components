@@ -17,3 +17,4 @@ export { default as Footer, type FooterData } from './Footer.svelte';
 export { default as Spinner } from './Spinner.svelte';
 export { default as NavBar, type NavBarData } from './NavBar.svelte';
 export { default as TabBar, type TabBarData } from './TabBar.svelte';
+export { default as Chips, type ChipData } from './Chips.svelte';
