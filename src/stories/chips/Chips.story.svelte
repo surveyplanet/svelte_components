@@ -54,6 +54,5 @@
 			{multiple}
 			{data}
 			on:click={clickEventHandler} />
-		/>
 	</Hst.Variant>
 </Hst.Story>
