@@ -273,7 +273,7 @@
 		}
 
 		// not supported in FF
-		// disable the button hover and focus states for color chips
+		// disable the button hover and focus states for color chip
 		&:has(> button .color-chip) {
 			/* styles to apply to the li tag */
 			button {
