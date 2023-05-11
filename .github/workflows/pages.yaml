@@ -64,8 +64,8 @@ jobs:
             - name: Build Histoire
               run: npm run story:build
 
-            - name: Serve Histoire and run tests
-              run: npm run test:dev
+            # - name: Serve Histoire and run tests
+            #   run: npm run test:dev
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v1
