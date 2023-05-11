@@ -61,10 +61,10 @@ jobs:
             - name: Install Playwright (for tests)
               run: npx playwright install --with-deps
 
-            - name: Build Storybook
-              run: npm run storybook:build
+            - name: Build Histoire
+              run: npm run story:build
 
-            - name: Serve Storybook and run tests
+            - name: Serve Histoire and run tests
               run: npm run test:ci
 
             - name: Upload artifact
@@ -76,8 +76,8 @@ jobs:
               id: deployment
               uses: actions/deploy-pages@v1
 
-            - name: Run Storybook tests on live site
-              run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
+            # - name: Run Storybook tests on live site
+            #   run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
 
             - name: Package components
               run: npm run package
