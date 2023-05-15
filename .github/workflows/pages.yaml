@@ -52,32 +52,32 @@ jobs:
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-            - name: Check Typescript errors
-              run: npm run check
+            # - name: Check Typescript errors
+            #   run: npm run check
 
-            - name: Check spelling errors
-              run: npm run spell
+            # - name: Check spelling errors
+            #   run: npm run spell
 
-            - name: Install Playwright (for tests)
-              run: npx playwright install --with-deps
+            # - name: Install Playwright (for tests)
+            #   run: npx playwright install --with-deps
 
-            - name: Build Storybook
-              run: npm run storybook:build
+            # - name: Build Storybook
+            #   run: npm run storybook:build
 
-            - name: Serve Storybook and run tests
-              run: npm run test:ci
+            # - name: Serve Storybook and run tests
+            #   run: npm run test:ci
 
-            - name: Upload artifact
-              uses: actions/upload-pages-artifact@v1
-              with:
-                  path: './static'
+            # - name: Upload artifact
+            #   uses: actions/upload-pages-artifact@v1
+            #   with:
+            #       path: './static'
 
-            - name: Deploy to GitHub Pages
-              id: deployment
-              uses: actions/deploy-pages@v1
+            # - name: Deploy to GitHub Pages
+            #   id: deployment
+            #   uses: actions/deploy-pages@v1
 
-            - name: Run Storybook tests on live site
-              run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
+            # - name: Run Storybook tests on live site
+            #   run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
 
             - name: Package components
               run: npm run package

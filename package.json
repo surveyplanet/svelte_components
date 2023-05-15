@@ -13,7 +13,7 @@
 		"radio",
 		"toggle"
 	],
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"homepage": "https://ui.surveyplanet.com",
 	"license": "MIT",
 	"author": "Jonah Werre <jonahwerre@gmail.com> (https://github.com/jwerre)",
@@ -61,7 +61,7 @@
 		"@semantic-release/npm": "^10.0.3",
 		"@semantic-release/release-notes-generator": "^11.0.1",
 		"@surveyplanet/publish": "^1.0.1",
-		"@surveyplanet/styles": "^0.1.7-25",
+		"@surveyplanet/styles": "0.1.7-24",
 		"@sveltejs/adapter-auto": "^2.0.1",
 		"@sveltejs/kit": "^1.16.3",
 		"@sveltejs/package": "^2.0.2",
@@ -82,7 +82,6 @@
 		"react-dom": "^18.2.0",
 		"remark-gfm": "^3.0.1",
 		"sass": "^1.62.1",
-		"svelte": "^3.59.1",
 		"svelte-check": "^3.3.2",
 		"tslib": "^2.5.0",
 		"typescript": "^5.0.4",
@@ -92,6 +91,13 @@
 	"type": "module",
 	"dependencies": {
 		"@surveyplanet/utilities": "^1.0.0-beta.6",
+		"svelte": "^3.59.1",
 		"cleave.js": "^1.6.0"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js"
+		}
 	}
 }
