@@ -61,11 +61,11 @@ jobs:
             # - name: Install Playwright (for tests)
             #   run: npx playwright install --with-deps
 
-            # - name: Build Storybook
-            #   run: npm run storybook:build
+            # - name: Build Histoire
+            #   run: npm run story:build
 
-            # - name: Serve Storybook and run tests
-            #   run: npm run test:ci
+            # - name: Serve Histoire and run tests
+            #   run: npm run test:dev
 
             # - name: Upload artifact
             #   uses: actions/upload-pages-artifact@v1

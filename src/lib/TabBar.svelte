@@ -65,8 +65,7 @@
 		<li
 			class="sp-tab-bar--item"
 			id={item.id}
-			class:sp-tab-bar--item--active={item.selected}
-			aria-selected={item.selected}>
+			class:sp-tab-bar--item--active={item.selected}>
 			<button
 				class="sp-tab-bar--button"
 				class:sp-tab-bar--button--disabled={item.disabled}
@@ -111,11 +110,6 @@
 		display: flex;
 		margin: 0;
 		padding: 0;
-	}
-
-	.sp-tab-bar--label {
-		margin: 0;
-		padding: 0.375rem;
 	}
 
 	button {

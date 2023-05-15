@@ -17,7 +17,7 @@
 
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { slide } from 'svelte/transition';
+	import { slide, type SlideParams } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 
 	const dispatch: (name: string, detail: string) => boolean =
@@ -71,7 +71,7 @@
 		}
 	};
 
-	const transitionProps = {
+	const transitionProps: SlideParams = {
 		axis: 'x',
 		duration: 150,
 		easing: cubicOut,
@@ -273,7 +273,7 @@
 		}
 
 		// not supported in FF
-		// disable the button hover and focus states for color chips
+		// disable the button hover and focus states for color chip
 		&:has(> button .color-chip) {
 			/* styles to apply to the li tag */
 			button {
