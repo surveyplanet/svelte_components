@@ -11,8 +11,8 @@ plugins:
     - '@semantic-release/release-notes-generator'
     - '@semantic-release/changelog'
     - - '@semantic-release/npm'
-      - pkgRoot: dist
+      - pkgRoot: package
     - - '@semantic-release/github'
       - assets:
-            - path: dist
+            - path: package
               label: Svelte components
