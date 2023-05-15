@@ -51,6 +51,7 @@ module.exports = {
 		'/build',
 		'/.svelte-kit',
 		'/package',
+		'/dist',
 		'.env',
 		'.env.*',
 		'!.env.example',
