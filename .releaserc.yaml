@@ -14,5 +14,5 @@ plugins:
       - pkgRoot: dist
     - - '@semantic-release/github'
       - assets:
-            - path: package
+            - path: dist
               label: Svelte components
