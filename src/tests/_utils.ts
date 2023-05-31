@@ -59,12 +59,30 @@ export const loadStory = async (
  * @param locator {Locator} The Playwright locator to evaluate (see: https://playwright.dev/docs/locators)
 \ * @returns Promise<CSSStyleDeclaration> The style value
  */
-export const getStyles = async (
-	locator: Locator
-): Promise<CSSStyleDeclaration> => {
-	return await locator.evaluate((el) => {
+export const getStyles = (locator: Locator): Promise<CSSStyleDeclaration> => {
+	return locator.evaluate((el) => {
 		return window.getComputedStyle(el) as CSSStyleDeclaration;
 	});
+};
+
+/**
+ * Retrieve a single computes style for a locator element.
+ *
+ * @function getStyle
+ * @async
+ * @param locator {Locator} The Playwright locator to evaluate (see: https://playwright.dev/docs/locators)
+ * @param property {string} The CSS property for the style to retrieve
+ * @returns Promise<string> The style value
+ */
+export const getStyle = async (
+	locator: Locator,
+	property: string
+): Promise<string> => {
+	return locator.evaluate(
+		(el, property) =>
+			window.getComputedStyle(el).getPropertyValue(property),
+		property
+	);
 };
 
 const _parseEventData = (dataTxt: string): object => {
