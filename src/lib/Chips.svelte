@@ -38,11 +38,11 @@
 <div class="sp-chips">
 	{#each data as chip}
 		<button
-			class="sp-chips--button"
-			class:sp-chips--button--selected={chip.selected}
 			id={chip.id}
-			on:click={chipClickHandler}
-			title={chip.title}>
+			title={chip.title}
+			class="sp-chips--chip"
+			class:sp-chips--chip--selected={chip.selected}
+			on:click={chipClickHandler}>
 			{chip.label}
 		</button>
 	{/each}
@@ -61,7 +61,7 @@
 		font: $font--default;
 	}
 
-	.sp-chips--button {
+	.sp-chips--chip {
 		box-sizing: border-box;
 
 		display: flex;
@@ -80,7 +80,7 @@
 		flex-grow: 0;
 	}
 
-	.sp-chips--button--selected {
+	.sp-chips--chip--selected {
 		background: linear-gradient(180deg, #bdffd8 0%, #f7f5af 100%);
 		border-radius: 60px;
 	}
