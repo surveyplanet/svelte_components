@@ -72,7 +72,7 @@
 	};
 
 	const transitionProps: SlideParams = {
-		axis: 'x',
+		// axis: 'x',
 		duration: 150,
 		easing: cubicOut,
 	};

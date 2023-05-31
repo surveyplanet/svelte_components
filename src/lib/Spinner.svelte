@@ -64,7 +64,7 @@
 	let controlValue: number | undefined = value;
 
 	let startX: number;
-	let isDragging = false;
+	// let isDragging = false;
 	let visibleButtons = false;
 
 	const checkOverflow = (newValue: number | undefined): number => {
@@ -149,7 +149,7 @@
 	};
 
 	const stopDragging = () => {
-		isDragging = false;
+		// isDragging = false;
 		window.removeEventListener('mousemove', onMouseMove);
 		window.removeEventListener('mouseup', stopDragging);
 	};
@@ -164,7 +164,7 @@
 	// Handlers
 
 	const mouseDragDownHandler = (event: MouseEvent) => {
-		isDragging = true;
+		// isDragging = true;
 		startX = event.clientX;
 		window.addEventListener('mousemove', onMouseMove);
 		window.addEventListener('mouseup', stopDragging);

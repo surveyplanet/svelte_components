@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { loadStory, setControl, getLastEvent, getAllEvents } from './_utils.js';
+import { loadStory, setControl, getAllEvents } from './_utils.js';
 
 test.describe('Spinner component', () => {
 	test('Number', async ({ page }) => {
@@ -32,16 +32,16 @@ test.describe('Spinner component', () => {
 
 		await expect(input).toHaveValue('');
 
-		await click(upButton);
+		click(upButton);
 
 		await expect(input).toHaveValue('1');
-		await click(upButton);
+		click(upButton);
 		await expect(input).toHaveValue('2');
-		await click(downButton);
+		click(downButton);
 		await expect(input).toHaveValue('1');
-		await click(downButton);
+		click(downButton);
 		await expect(input).toHaveValue('0');
-		await click(downButton);
+		click(downButton);
 		await expect(input).toHaveValue('0');
 
 		await input.click();

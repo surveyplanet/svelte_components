@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { loadStory, getLastEvent, setControl } from './_utils.js';
+import { loadStory, getLastEvent } from './_utils.js';
 
 test.describe('TabBar component', () => {
 	test('basic', async ({ page }) => {
