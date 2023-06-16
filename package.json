@@ -39,7 +39,7 @@
 		"build": "svelte-kit sync && svelte-package && cp -r src/assets ./",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"clean": "rm -rf dist coverage node_modules dist .svelte-kit && npm i",
+		"clean": "rm -rf assets dist coverage node_modules dist .svelte-kit && npm i",
 		"clean:hard": "rm package-lock.json && npm run clean",
 		"dev": "npm run story:dev",
 		"format": "prettier --plugin-search-dir . --write .",
@@ -94,7 +94,7 @@
 	},
 	"dependencies": {
 		"@surveyplanet/styles": "^0.1.13",
-		"@surveyplanet/utilities": "^1.0.0-beta.6",
+		"@surveyplanet/utilities": "^1.0.0-beta.10",
 		"cleave.js": "^1.6.0",
 		"svelte": "^3.59.1"
 	}
