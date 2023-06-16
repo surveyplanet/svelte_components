@@ -33,7 +33,7 @@
 	},
 	"files": [
 		"dist",
-		"static/assets/mascots"
+		"src/assets"
 	],
 	"scripts": {
 		"build": "svelte-kit sync && svelte-package",
