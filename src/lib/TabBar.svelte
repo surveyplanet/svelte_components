@@ -162,17 +162,12 @@
 		height: 100%;
 		font: inherit;
 		background: none;
-	}
-
-	// .sp-tab-bar--item--active {
-	// 	background-color: $color--white;
-	// }
-
-	.sp-tab-bar--button--disabled {
-		pointer-events: none;
-		background-color: $color--beige-darker;
-		&:hover {
-			background-color: $color--beige-darker;
+		&:disabled {
+			pointer-events: none;
+			color: $color--beige-darkest;
+			:global(svg path) {
+				stroke: $color--beige-darkest;
+			}
 		}
 	}
 </style>
