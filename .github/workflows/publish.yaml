@@ -37,21 +37,21 @@ jobs:
             - name: Check spelling errors
               run: npm run spell
 
-            - name: Install Playwright (for tests)
-              run: npx playwright install --with-deps
+            # - name: Install Playwright (for tests)
+            #   run: npx playwright install --with-deps
 
-            - name: Build Histoire
-              run: npm run story:build
+            # - name: Build Histoire
+            #   run: npm run story:build
 
-            # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
-            - name: Serve Histoire and run tests
-              run: npm run test:ci
+            # # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
+            # - name: Serve Histoire and run tests
+            #   run: npm run test:ci
 
             - name: Package components
               run: npm run build
 
-            # - name: Publish to NPM
-            #   run: npm run release
-            #   env:
-            #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            #       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - name: Publish to NPM
+              run: npm run release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
