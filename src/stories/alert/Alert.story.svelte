@@ -8,13 +8,14 @@
 
 	let title = 'Did you know?';
 	let subtitle = 'Informational alert';
-	let alertType: 'info' | 'warning' | 'error' | 'success' = 'info';
+	let type: 'info' | 'warning' | 'error' | 'success' = 'info';
 	let hideDelay = 0;
 	let confirm = false;
 	let confirmButtonLabel = 'Confirm';
 	let cancelButtonLabel = 'Cancel';
-	let challenge: string;
-	let content = '';
+	let challenge: 'yes';
+	let content =
+		'Instructions on how to reset your password have been sent to: <strong style="color:black;">diego@studiovoila.com</strong>. If the email doesn’t arrive in the next 5 minutes check your spam folder.';
 
 	const openHandler = (e: Event) => {
 		logEvent('open', e);
@@ -36,7 +37,7 @@
 <Hst.Story>
 	<svelte:fragment slot="controls">
 		<Hst.Select
-			bind:value={alertType}
+			bind:value={type}
 			title="Type"
 			options={[
 				{ label: 'Info', value: 'info' },
@@ -83,7 +84,7 @@
 				on:confirm={confirmHandler}
 				{title}
 				{subtitle}
-				{alertType}
+				{type}
 				{hideDelay}
 				{confirm}
 				{confirmButtonLabel}

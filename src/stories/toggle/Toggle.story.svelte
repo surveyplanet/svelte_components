@@ -13,7 +13,7 @@
 	let name: string;
 	let label = 'Toggle switch';
 	let prependLabel = false;
-	let amPmSwitch = false;
+	// let meridiemIndicator = false;
 
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
@@ -43,23 +43,30 @@
 		<Hst.Checkbox
 			bind:value={tall}
 			title="Tall" />
-		<Hst.Checkbox
-			bind:value={amPmSwitch}
-			title="Time switch" />
+		<!-- <Hst.Checkbox
+			bind:value={meridiemIndicator}
+			title="Time switch" /> -->
 	</svelte:fragment>
 
 	<Hst.Variant
 		title="Primary"
 		{source}>
-		<Toggle
-			on:change={changeEventHandler}
-			{id}
-			{name}
-			{label}
-			{on}
-			{prependLabel}
-			{tall}
-			{disabled}
-			{amPmSwitch} />
+		<div class="wrapper">
+			<Toggle
+				on:change={changeEventHandler}
+				{id}
+				{name}
+				{label}
+				{on}
+				{prependLabel}
+				{tall}
+				{disabled} />
+		</div>
 	</Hst.Variant>
 </Hst.Story>
+
+<style>
+	.wrapper {
+		padding: 1rem;
+	}
+</style>

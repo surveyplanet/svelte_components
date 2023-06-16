@@ -16,6 +16,7 @@
 	let id = (Date.now() + Math.random()).toString(36);
 	let placeholder = 'Please put in the number';
 	let dragSpeed = 10;
+	let size: 'small' | 'medium' | 'large' = 'small';
 
 	const spinnerEventHandler = (e: CustomEvent) => {
 		logEvent(e.type, e);
@@ -57,23 +58,36 @@
 		<Hst.Number
 			bind:value={dragSpeed}
 			title="Drag speed" />
+		<Hst.Select
+			bind:value={size}
+			title="Size"
+			options={['small', 'medium', 'large']} />
 	</svelte:fragment>
 
-	<Hst.Variant title="Primary">
-		<Spinner
-			{label}
-			{step}
-			{min}
-			{max}
-			{value}
-			{disabled}
-			{required}
-			{overflow}
-			{dragSpeed}
-			{placeholder}
-			on:blur={spinnerEventHandler}
-			on:change={spinnerEventHandler}
-			on:focus={spinnerEventHandler}
-			on:update={spinnerEventHandler} />
-	</Hst.Variant>
+	<div class="wrapper">
+		<Hst.Variant title="Primary">
+			<Spinner
+				{label}
+				{step}
+				{min}
+				{max}
+				{value}
+				{disabled}
+				{required}
+				{overflow}
+				{dragSpeed}
+				{placeholder}
+				{size}
+				on:blur={spinnerEventHandler}
+				on:change={spinnerEventHandler}
+				on:focus={spinnerEventHandler}
+				on:update={spinnerEventHandler} />
+		</Hst.Variant>
+	</div>
 </Hst.Story>
+
+<style>
+	.wrapper {
+		padding: 1rem;
+	}
+</style>

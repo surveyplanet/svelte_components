@@ -10,26 +10,26 @@
 </script>
 
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { Menu, Icon } from './index';
-	import { onMount } from 'svelte';
 
-	const dispatch: (name: string, detail: string) => boolean =
-		createEventDispatcher();
+	const dispatchChange = createEventDispatcher<{ change: string }>();
 
 	export let options: DropdownOptions[];
+	export let placeholder: string | null = null;
 	export let value: DropdownOptions['id'] | null = null;
 	export let label: string | null = null;
 	export let searchThreshold = 15;
 	export let disabled = false;
 	export let required = false;
+	export let size: 'small' | 'medium' | 'large' = 'small';
 
 	let input: HTMLInputElement;
 	let visible = false;
 	let displayValue: DropdownOptions['label'] | '' = '';
 
 	$: searchable = options.length >= searchThreshold;
-	$: MenuData = [...options];
+	$: menuData = [...options];
 
 	onMount(() => {
 		if (value?.length) {
@@ -38,8 +38,8 @@
 	});
 
 	const reset = () => {
-		MenuData = [...options];
-		for (let item of MenuData) {
+		menuData = [...options];
+		for (let item of menuData) {
 			item.selected = false;
 		}
 	};
@@ -47,7 +47,7 @@
 	const setValue = (id: string, silent = false) => {
 		value = id;
 		displayValue = '';
-		for (let item of MenuData) {
+		for (let item of menuData) {
 			item.selected = false;
 			if (item.id === id) {
 				item.selected = true;
@@ -55,7 +55,7 @@
 			}
 		}
 		if (!silent) {
-			dispatch('change', value);
+			dispatchChange('change', value);
 		}
 	};
 
@@ -64,7 +64,7 @@
 
 		if (query?.length) {
 			visible = true;
-			MenuData = options.filter((item) => {
+			menuData = options.filter((item) => {
 				// item.selected = false;
 				return item.label.toLowerCase().trim().includes(query);
 			});
@@ -84,11 +84,12 @@
 		visible = false; // blur handler hides the menu
 	};
 
-	const searchFocusHandler = () => {
-		visible = true;
+	const searchClickHandler = () => {
+		visible = !visible;
 	};
 
 	const searchBlurHandler = (event: FocusEvent) => {
+		console.log('searchBlurHandler');
 		const newFocusEl = (event.relatedTarget as HTMLElement) || null;
 
 		// let menu click handler hide itself after value has been set
@@ -115,86 +116,115 @@
 	};
 </script>
 
-{#if label}
-	<label
-		for="sp-dropdown"
-		class="sp-dropdown--label">
-		{label}
-		{#if required}
-			<span class="sp-dropdown--label--required">*</span>
-		{/if}
-	</label>
-{/if}
-
 <div
-	class="sp-dropdown"
+	class="sp-dropdown sp-dropdown--{size}"
 	class:sp-dropdown--open={visible}>
-	{#if searchable && displayValue?.length}
-		<button
-			class="sp-dropdown--close-btn"
-			on:click={closeButtonHandler}>
-			<Icon
-				name="x"
-				size={16} />
-		</button>
+	{#if label}
+		<label
+			for="sp-dropdown"
+			class="sp-dropdown--label">
+			{label}
+			{#if required}
+				<span class="sp-dropdown--label--required">*</span>
+			{/if}
+		</label>
 	{/if}
 
-	<input
-		type="text"
-		class="sp-dropdown--search"
-		bind:this={input}
-		{disabled}
-		value={displayValue}
-		readonly={!searchable}
-		on:focus={searchFocusHandler}
-		on:blur={searchBlurHandler}
-		on:keyup={searchKeyupHandler} />
+	<div class="sp-dropdown--input-wrapper">
+		{#if searchable && displayValue?.length}
+			<button
+				class="sp-dropdown--close-btn"
+				{disabled}
+				on:click|stopPropagation|preventDefault={closeButtonHandler}>
+				<Icon
+					name="x"
+					size={16} />
+			</button>
+		{:else}
+			<button
+				class="sp-dropdown--toggle-btn"
+				{disabled}
+				on:click|stopPropagation|preventDefault={toggleIconClickHandler}>
+				<svg
+					class="sp-dropdown--toggle-btn--icon"
+					width="7"
+					height="4"
+					viewBox="0 0 7 4"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M1.08984 0.830868L3.50606 3.24707L6.0002 0.75293"
+						stroke="#162137"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round" />
+				</svg>
+			</button>
+		{/if}
 
-	<svg
-		class="sp-dropdown--toggle-icon"
-		width="7"
-		height="4"
-		viewBox="0 0 7 4"
-		fill="none"
-		xmlns="http://www.w3.org/2000/svg"
-		on:click={toggleIconClickHandler}
-		on:keydown={toggleIconClickHandler}>
-		<path
-			d="M1.08984 0.830868L3.50606 3.24707L6.0002 0.75293"
-			stroke="#162137"
-			stroke-width="1.5"
-			stroke-linecap="round"
-			stroke-linejoin="round" />
-	</svg>
+		<input
+			type="text"
+			class="sp-dropdown--search"
+			bind:this={input}
+			{placeholder}
+			{disabled}
+			value={displayValue}
+			readonly={!searchable}
+			on:click={searchClickHandler}
+			on:blur={searchBlurHandler}
+			on:keyup={searchKeyupHandler} />
+	</div>
+	{#if visible}
+		<Menu
+			data={menuData}
+			{size}
+			on:click={menuClickHandler} />
+	{/if}
 </div>
-{#if visible}
-	<Menu
-		data={MenuData}
-		on:click={menuClickHandler} />
-{/if}
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 
 	.sp-dropdown {
-		position: relative;
+		font: $font--default;
+		font-size: $font-size--default;
 		&.sp-dropdown--open {
-			.sp-dropdown--toggle-icon {
+			.sp-dropdown--toggle-btn svg {
 				rotate: (180deg);
 			}
+		}
+
+		&.sp-dropdown--medium {
+			font-size: $font-size--14;
+			input {
+				height: $size--48;
+			}
+		}
+		&.sp-dropdown--large {
+			font-size: $font-size--16;
+			input {
+				height: $size--52;
+			}
+		}
+		:global(.sp-menu) {
+			max-width: 100%;
+			// width: 100%;
 		}
 	}
 
 	label {
-		color: $color--slate-dark;
+		color: $color--dark;
 		display: block;
-		font: $font--default;
-		font-size: $font-size--12;
 		padding: 0 0 $size--12 $size--4;
+		font: inherit;
 		.sp-dropdown--label--required {
 			color: $color--pink;
-			font-size: $font-size--14;
+			font-size: smaller;
 		}
+	}
+
+	.sp-dropdown--input-wrapper {
+		position: relative;
 	}
 
 	input {
@@ -203,28 +233,35 @@
 		width: 100%;
 		height: $size--40;
 		min-width: $size--256;
+		font: inherit;
 		background-color: $color--white;
-		border: 1px solid $color--slate-lighter;
+		border: 1px solid $color--beige-darker;
 		border-radius: $size-radius--default;
 		margin: 0;
 		padding: 0 0 0 $size--16;
 		text-align: left;
-		@include set-focus {
-			box-shadow: 0px 0px 0px 1px $color--white,
-				0px 0px 0px 2px $color--slate;
-		}
-		&:active {
-			border: 1px solid #e7e3ff;
-			box-shadow: 0px 0px 0px 2px $color--light-purple-light;
+
+		&::placeholder {
+			color: $color--beige-darkest;
 		}
 
-		// disabled controls can not receive focus and are not submitted with the
+		@include set-focus {
+			border: 1px solid $color--beige-darker;
+			box-shadow: 0px 0px 0px 2px $color--beige-dark;
+		}
+
+		&:active {
+			box-shadow: 0px 0px 0px 1px $color--white,
+				0px 0px 0px 2px $color--beige-darkest;
+		}
+
+		// disabled controls can not receive focus, are not submitted with the
 		// form and generally do not function as controls until they are enabled
 		&:disabled {
 			cursor: not-allowed;
-			color: $color--slate-light;
-			border-color: $color--slate-light;
-			background-color: rgba(0, 0, 0, 0.075);
+			color: $color--beige-darkest;
+			border-color: $color--beige-darker;
+			background-color: $color--beige-dark;
 			box-shadow: none;
 			@include set-focus {
 				box-shadow: none;
@@ -235,49 +272,54 @@
 		}
 	}
 
-	.sp-dropdown--close-btn,
-	.sp-dropdown--toggle-icon {
+	.sp-dropdown--toggle-btn,
+	.sp-dropdown--close-btn {
 		cursor: pointer;
 		position: absolute;
-		right: $size-gutter--half;
-	}
-
-	.sp-dropdown--toggle-icon {
-		top: calc(50% - 2px);
-	}
-
-	.sp-dropdown--close-btn {
-		top: calc(50% - 8px);
+		top: 1px;
+		right: 0;
+		display: flex; // inline-flex
+		justify-content: center;
+		align-items: center;
+		width: $size--40;
+		height: calc(100% - 2px);
+		background-color: transparent;
 		border: none;
-		width: 16px;
-		height: 16px;
-		min-width: auto;
+		border-radius: 0 $size-radius--small $size-radius--small 0;
 		margin: 0;
 		padding: 0;
-		background-color: white;
-		border-radius: $size-radius--small;
-		z-index: 1;
-		&:hover {
-			background-color: $color--slate-lighter;
-			:global(.sp-icon path) {
-				stroke: white;
+		outline: none;
+		&:disabled {
+			:global(path) {
+				stroke: $color--beige-darkest;
 			}
 		}
 	}
 
+	.sp-dropdown--close-btn {
+		z-index: 1;
+		&:hover {
+			background-color: $color--beige-darker;
+			:global(.sp-icon path) {
+				stroke: $color--white;
+			}
+		}
+	}
+
+	// dark mode
 	// :global(html.dark) {
 	// 	label {
 	// 		color: $color--white;
 	// 	}
 	// 	.sp-dropdown--close-btn {
 	// 		:global(.sp-icon path) {
-	// 			stroke: white;
+	// 			stroke: $color--white;
 	// 		}
 
 	// 		&:hover {
-	// 			background-color: $color--slate-dark;
+	// 			background-color: $color--dark;
 	// 			:global(.sp-icon path) {
-	// 				stroke: white;
+	// 				stroke: $color--white;
 	// 			}
 	// 		}
 	// 	}

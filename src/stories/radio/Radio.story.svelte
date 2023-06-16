@@ -12,6 +12,7 @@
 	let labelThree = 'Moe';
 	let disabled = false;
 	let prependLabel = false;
+	let size: 'small' | 'medium' | 'large' = 'small';
 
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
@@ -38,6 +39,10 @@
 		<Hst.Checkbox
 			bind:value={disabled}
 			title="Disabled" />
+		<Hst.Select
+			bind:value={size}
+			title="Size"
+			options={['small', 'medium', 'large']} />
 	</svelte:fragment>
 
 	<Hst.Variant
@@ -51,6 +56,7 @@
 				value={labelOne}
 				label={labelOne}
 				{prependLabel}
+				{size}
 				on:change={changeEventHandler} />
 			<Radio
 				id={labelTwo.toLowerCase().replace(' ', '-')}
@@ -59,6 +65,7 @@
 				value={labelTwo}
 				label={labelTwo}
 				{prependLabel}
+				{size}
 				on:change={changeEventHandler} />
 			<Radio
 				id={labelThree.toLowerCase().replace(' ', '-')}
@@ -67,6 +74,7 @@
 				value={labelThree}
 				label={labelThree}
 				{prependLabel}
+				{size}
 				on:change={changeEventHandler} />
 		</div>
 	</Hst.Variant>

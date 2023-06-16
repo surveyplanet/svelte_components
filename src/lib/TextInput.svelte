@@ -73,6 +73,8 @@
 	 */
 	export let validationMessage: string | null = null;
 
+	export let size: 'small' | 'medium' | 'large' = 'small';
+
 	/**
 	 * Whether to automatically show the validation error message or not.
 	 */
@@ -134,7 +136,7 @@
 </script>
 
 <div
-	class="sp-text-input"
+	class="sp-text-input sp-text-input--{size}"
 	class:validation-error={hasValidationErrors}>
 	{#if label?.length}
 		<label
@@ -193,6 +195,21 @@
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 	.sp-text-input {
+		font: $font--default;
+
+		&.sp-text-input--medium {
+			font-size: $font-size--14;
+			input {
+				height: $size--48;
+			}
+		}
+		&.sp-text-input--large {
+			font-size: $font-size--16;
+			input {
+				height: $size--52;
+			}
+		}
+
 		&.validation-error {
 			input,
 			textarea {
@@ -202,36 +219,35 @@
 	}
 
 	label {
-		color: $color--slate-dark;
+		color: $color--dark;
 		display: block;
-		font: $font--default;
-		font-size: $font-size--12;
+		font: inherit;
 		padding: 0 0 $size--12 $size--4;
 		.sp-text-input--label--required {
 			color: $color--pink;
-			font-size: $font-size--14;
+			font-size: smaller;
 		}
 	}
 
 	input,
 	textarea {
 		box-sizing: border-box;
-		font: $font--default;
-		font-size: $font-size--12;
+		font: inherit;
 		width: 100%;
 		height: $size--40;
 		min-width: $size--256;
 		background-color: $color--white;
-		border: 1px solid $color--slate-lighter;
+		border: 1px solid $color--beige-darker;
 		border-radius: $size-radius--default;
 		padding: $size--12 $size--16;
 		@include set-focus {
-			box-shadow: 0px 0px 0px 1px $color--white,
-				0px 0px 0px 2px $color--slate;
+			border: 1px solid $color--beige-darker;
+			box-shadow: 0px 0px 0px 2px $color--beige-dark;
 		}
+
 		&:active {
-			border: 1px solid #e7e3ff;
-			box-shadow: 0px 0px 0px 2px $color--light-purple-light;
+			box-shadow: 0px 0px 0px 1px $color--white,
+				0px 0px 0px 2px $color--beige-darkest;
 		}
 
 		// read-only controls can still function and are still focusable
@@ -248,9 +264,9 @@
 		// form and generally do not function as controls until they are enabled
 		&:disabled {
 			cursor: not-allowed;
-			color: $color--slate-light;
-			border-color: $color--slate-light;
-			background-color: rgba(0, 0, 0, 0.075);
+			color: $color--beige-darkest;
+			border-color: $color--beige-darker;
+			background-color: $color--beige-dark;
 			box-shadow: none;
 			@include set-focus {
 				box-shadow: none;
@@ -261,7 +277,7 @@
 		}
 
 		&::placeholder {
-			color: $color--slate-light;
+			color: $color--beige-darkest;
 		}
 	}
 

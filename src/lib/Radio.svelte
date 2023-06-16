@@ -11,12 +11,9 @@
 	export let checked = false;
 	export let disabled = false;
 	export let prependLabel = false;
-	export let attr = {};
+	export let size: 'small' | 'medium' | 'large' = 'small';
 
 	const changeEventHandler = (event: Event): void => {
-		if (disabled) {
-			return;
-		}
 		dispatch('change', event);
 	};
 </script>
@@ -28,11 +25,11 @@
 	{value}
 	{checked}
 	{disabled}
-	{...attr}
+	{...$$restProps}
 	on:change={changeEventHandler} />
 
 <label
-	class="sp-radio"
+	class="sp-radio sp-radio--{size}"
 	class:sp-radio--prepend={prependLabel}
 	for={id}>
 	<span class="sp-radio--dot">
@@ -68,12 +65,18 @@
 		flex-wrap: nowrap;
 		gap: $size--14;
 		font: $font--default;
-		font-size: $font-size--12;
 		&:hover .sp-radio--dot {
-			border-color: $color--slate;
+			border-color: $color--beige-darker-mid;
 		}
 		&.sp-radio--prepend {
 			flex-direction: row-reverse;
+		}
+
+		&.sp-radio--medium {
+			font-size: $font-size--14;
+		}
+		&.sp-radio--large {
+			font-size: $font-size--16;
 		}
 	}
 
@@ -83,13 +86,13 @@
 		height: px-to-rem(24);
 		border-radius: 50%;
 		transform: scale(1);
-		border: 1px solid $color--slate-light;
+		border: 1px solid $color--beige-darker;
 		transition: all 0.2s ease;
 		&:before {
 			content: '';
 			width: 100%;
 			height: 100%;
-			background: $color--purple;
+			background: $color--darkest;
 			display: block;
 			transform: scale(0);
 			opacity: 1;
@@ -121,12 +124,10 @@
 		&:disabled {
 			& + .sp-radio {
 				.sp-radio--dot {
-					border-color: $color--slate-light;
+					border-color: $color--beige-darker;
+					background-color: $color--beige-dark;
 					outline: unset;
 					outline-offset: unset;
-				}
-				.sp-radio--label {
-					color: $color--slate-light;
 				}
 			}
 		}
@@ -134,11 +135,11 @@
 		&:checked {
 			& + .sp-radio {
 				.sp-radio--dot {
-					border-color: $color--purple;
+					border-color: $color--darkest;
 					background: transparent;
 					animation: check 0.6s ease;
 					svg {
-						fill: $color--purple;
+						fill: $color--darkest;
 					}
 					&:before {
 						transform: scale(2.2);
@@ -153,7 +154,7 @@
 			& + .sp-radio {
 				.sp-radio--dot {
 					box-shadow: 0px 0px 0px 1px $color--white,
-						0px 0px 0px 2px $color--slate;
+						0px 0px 0px 2px $color--beige-darker;
 				}
 			}
 		}

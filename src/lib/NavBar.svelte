@@ -70,44 +70,64 @@
 			id={item.id}
 			title={item.title}
 			on:click|preventDefault={navLinkClickHandler}>
-			<Icon name={item.icon} /></a>
+			<Icon
+				name={item.icon}
+				size={16} />
+		</a>
 	{/each}
 
 	{#if navMenuData?.length}
-		<a
+		<button
 			class="sp-nav--menu-trigger"
-			href="c"
 			on:click|preventDefault={navMenuTriggerClickHandler}>
-			<Icon name="ellipsis" />
-		</a>
+			<Icon
+				name="ellipsis"
+				size={16} />
+		</button>
 	{/if}
 </nav>
-
 {#if menuVisible}
-	<Menu
-		data={navMenuData}
-		on:click={menuClickHandler}
-		on:update={menuUpdateHandler} />
+	<!-- TODO: This needs to be positioned correctly with library like: https://floating-ui.com -->
+	<div class="sp-nav--menu">
+		<Menu
+			data={navMenuData}
+			on:click={menuClickHandler}
+			on:update={menuUpdateHandler} />
+	</div>
 {/if}
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 	nav {
+		position: relative;
 		display: flex;
 		max-width: fit-content;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-	}
+		gap: $size--32;
+		overflow: visible;
+		// background-color: purple;
+		&.sp-nav--vertical {
+			flex-direction: column;
+		}
 
-	a {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-		padding: $size--18;
-	}
-	.sp-nav--vertical {
-		flex-direction: column;
+		a,
+		button {
+			cursor: pointer;
+			box-sizing: border-box;
+			background-color: transparent;
+			width: $size--16;
+			height: $size--16;
+			margin: 0;
+			padding: 0;
+			border: none;
+			&:hover {
+				// background-color: $color--pink;
+				:global(path) {
+					stroke: $color--beige-darkest;
+				}
+			}
+		}
 	}
 </style>

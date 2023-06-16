@@ -5,83 +5,139 @@
 		id: string;
 		label?: string;
 		selected?: boolean;
-		title: string;
 	}
 </script>
 
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import { Icon } from './index';
 
 	export let data: ChipData[] = [];
-	export let multiple = false;
+	export let selectable = false;
+	export let multiSelect = false;
+	export let removable = false;
 
-	const dispatch: (name: string, detail: string) => boolean =
-		createEventDispatcher();
+	const dispatchClick = createEventDispatcher<{ click: ChipData[] }>();
+	const dispatchRemove = createEventDispatcher<{ remove: ChipData[] }>();
 
-	const chipClickHandler = (e: MouseEvent) => {
-		const target = e.target as HTMLButtonElement;
-		toggleSelected(target.id);
-		dispatch('click', target.id);
+	const getChipId = (chipEl: HTMLButtonElement) => {
+		const parent = chipEl.closest('.sp-chips--chip')! as HTMLButtonElement;
+		return parent.id;
 	};
 
-	const toggleSelected = (id: string) => {
-		for (let chip of data) {
+	const remove = (id: string) => {
+		data = data.filter((chip) => chip.id !== id);
+		dispatchRemove('remove', data);
+	};
+
+	const toggle = (id: string) => {
+		data = data.map((chip) => {
 			if (chip.id === id) {
 				chip.selected = !chip.selected;
-			} else if (!multiple) {
+			} else if (!multiSelect) {
 				chip.selected = false;
 			}
+			return chip;
+		});
+
+		dispatchClick('click', data);
+	};
+
+	const chipClickHandler = (e: MouseEvent) => {
+		if (!selectable) {
+			return e.preventDefault();
 		}
+		const target = e.target as HTMLButtonElement;
+		const id = getChipId(target);
+		toggle(id);
+		console.log(data);
+	};
+
+	const closeButtonClickHandler = (e: MouseEvent) => {
+		const target = e.target as HTMLButtonElement;
+		const id = getChipId(target);
+		remove(id);
 	};
 </script>
 
-<div class="sp-chips">
+<menu
+	class="sp-chips"
+	class:sp-chips--selectable={selectable}
+	class:sp-chips--multi={multiSelect}>
 	{#each data as chip}
-		<button
-			id={chip.id}
-			title={chip.title}
-			class="sp-chips--chip"
-			class:sp-chips--chip--selected={chip.selected}
-			on:click={chipClickHandler}>
-			{chip.label}
-		</button>
+		<li>
+			<button
+				id={chip.id}
+				class="sp-chips--chip"
+				class:sp-chips--chip--selected={chip.selected}
+				on:click|preventDefault={chipClickHandler}>
+				<span class="sp-chips--chip--label"> {chip.label} </span>
+				{#if removable}
+					<button
+						title="Remove"
+						class="sp-chips--chip--close-btn"
+						on:click|preventDefault|stopPropagation={closeButtonClickHandler}>
+						<Icon
+							name="x"
+							size={20} />
+					</button>
+				{/if}
+			</button>
+		</li>
 	{/each}
-</div>
+</menu>
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 
 	.sp-chips {
 		display: flex;
-		// flex-wrap: wrap;
-		align-items: center;
-		margin: $size-gutter;
-		padding: $size-gutter;
+		flex-wrap: wrap;
+		gap: $size-gutter--half;
 		list-style: none;
 		font: $font--default;
 	}
 
 	.sp-chips--chip {
+		cursor: default;
 		box-sizing: border-box;
-
 		display: flex;
 		flex-direction: row;
-		justify-content: center;
+		flex-wrap: nowrap;
 		align-items: center;
-		padding: 11px 20px;
-		margin: $size-gutter--quarter;
-		width: fit-content;
-		height: 32px;
-		background: #ffffff;
-		border: 1px solid #ebe6d7;
-		border-radius: 66px;
-		flex: none;
-		order: 2;
-		flex-grow: 0;
+		gap: $size-gutter--quarter;
+		padding: 0 $size-gutter--half;
+		height: $size--32;
+		border: 1px solid $color--beige-darker;
+		border-radius: $size--32;
+		background: $color--white;
+		span {
+			padding: 0;
+			line-height: auto;
+		}
 	}
 
-	.sp-chips--chip--selected {
-		background: linear-gradient(180deg, #bdffd8 0%, #f7f5af 100%);
-		border-radius: 60px;
+	.sp-chips--selectable {
+		.sp-chips--chip {
+			cursor: pointer;
+		}
+
+		.sp-chips--chip--selected {
+			background: $color--gradient--green;
+		}
+	}
+
+	button.sp-chips--chip--close-btn {
+		cursor: pointer;
+		display: inline-block;
+		margin: 0;
+		padding: 0;
+		width: $size--12;
+		height: $size--12;
+		border: none;
+		background-color: transparent;
+		:global(svg) {
+			transform: translate(-4px, -4px); // remove the space around icon
+		}
 	}
 </style>

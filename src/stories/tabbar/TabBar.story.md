@@ -41,8 +41,8 @@ The following CSS classes can be used to customize the component:
 
 The following variables can be customized by importing them from the @surveyplanet/styles
 
-| Variable Name              |
-| -------------------------- |
-| $font-family--default      |
-| $color--light-purple-light |
-| $color--slate-lighter      |
+| Variable Name         |
+| --------------------- |
+| $font-family--default |
+| $color--blue          |
+| $color--beige-darker  |

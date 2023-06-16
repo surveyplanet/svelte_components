@@ -36,12 +36,12 @@ module.exports = {
 			files: ['**/*.test.ts'],
 			rules: {
 				'@typescript-eslint/unbound-method': 'off',
-				'@typescript-eslint/no-non-null-assertion': 'off', // allow ! in tests
 			},
 		},
 	],
 	rules: {
 		'@typescript-eslint/no-unnecessary-condition': 'off',
+		'@typescript-eslint/no-non-null-assertion': 'off', // allow Non-null assertion operator (!)
 		'no-undef': 'off', // typescript already checks this
 	},
 	ignorePatterns: [

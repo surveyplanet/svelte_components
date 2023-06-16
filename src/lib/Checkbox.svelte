@@ -10,11 +10,9 @@
 	export let checked = false;
 	export let disabled = false;
 	export let prependLabel = false;
+	export let size: 'small' | 'medium' | 'large' = 'small';
 
 	const changeEventHandler = (event: Event) => {
-		if (disabled) {
-			return;
-		}
 		dispatch('change', event);
 	};
 </script>
@@ -29,7 +27,7 @@
 	{...$$restProps}
 	on:change={changeEventHandler} />
 <label
-	class="sp-checkbox"
+	class="sp-checkbox sp-checkbox--{size}"
 	class:sp-checkbox--prepend={prependLabel}
 	for={id}>
 	<span class="sp-checkbox--check">
@@ -64,10 +62,16 @@
 		font: $font--default;
 		font-size: $font-size--12;
 		&:hover .sp-checkbox--check {
-			border-color: $color--slate;
+			border-color: $color--beige-darkest;
 		}
 		&.sp-checkbox--prepend {
 			flex-direction: row-reverse;
+		}
+		&.sp-checkbox--medium {
+			font-size: $font-size--14;
+		}
+		&.sp-checkbox--large {
+			font-size: $font-size--16;
 		}
 	}
 
@@ -77,13 +81,13 @@
 		height: px-to-rem(22);
 		border-radius: $size-radius--small;
 		transform: scale(1);
-		border: 1px solid $color--slate-light;
+		border: 1px solid $color--beige-darker;
 		transition: all 0.2s ease;
 		&:before {
 			content: '';
 			width: 100%;
 			height: 100%;
-			background: $color--purple;
+			background: $color--darkest;
 			display: block;
 			transform: scale(0);
 			opacity: 1;
@@ -96,7 +100,7 @@
 			top: 7px;
 			left: 5px;
 			fill: none;
-			stroke: white;
+			stroke: $color--white;
 			stroke-width: 2;
 			stroke-linecap: round;
 			stroke-linejoin: round;
@@ -120,21 +124,19 @@
 		&:disabled {
 			& + .sp-checkbox {
 				.sp-checkbox--check {
-					border-color: $color--slate-light;
+					border-color: $color--beige-darker;
+					background-color: $color--beige-dark;
 					outline: unset;
 					outline-offset: unset;
-				}
-				.sp-checkbox--label {
-					color: $color--slate-light;
 				}
 			}
 		}
 
-		&:checked {
+		&:checked:not(:disabled) {
 			& + .sp-checkbox {
 				.sp-checkbox--check {
-					border-color: $color--purple;
-					background: $color--purple;
+					border-color: $color--darkest;
+					background: $color--darkest;
 					animation: check 0.6s ease;
 					svg {
 						stroke-dashoffset: 0;
@@ -151,8 +153,8 @@
 		@include set-focus {
 			& + .sp-checkbox {
 				.sp-checkbox--check {
-					box-shadow: 0px 0px 0px 1px $color--white,
-						0px 0px 0px 2px $color--slate;
+					box-shadow: 0px 0px 0px 2px $color--beige,
+						0px 0px 0px 3px $color--beige-darkest;
 				}
 			}
 		}

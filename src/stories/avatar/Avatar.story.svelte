@@ -2,13 +2,13 @@
 	import { logEvent } from 'histoire/client';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import source from './source';
-	import { Avatar } from '../../lib';
-	import { MASCOTS } from '../../lib/_definitions';
+	import { Avatar, MASCOTS } from '../../lib';
 
 	export let Hst: Histoire;
 
-	let imgSrc = MASCOTS.marvin;
-	let id = '';
+	// let profileImage = '';
+	let profileImage = 'https://loremflickr.com/500/500/headshot';
+	let id = 'my-uniqie-id@example.com';
 	let size: 'small' | 'medium' | 'large' = 'large';
 	let disabled = false;
 
@@ -30,20 +30,12 @@
 				{ label: 'Medium', value: 'medium' },
 				{ label: 'Large', value: 'large' },
 			]} />
-		<Hst.Select
-			bind:value={imgSrc}
-			title="Mascot"
-			options={Object.keys(MASCOTS).map((key) => {
-				return {
-					label: key.charAt(0).toUpperCase() + key.slice(1),
-					value: MASCOTS[key],
-				};
-			})} />
+
 		<Hst.Text
 			bind:value={id}
-			title="Id" />
+			title="Unique Identifier" />
 		<Hst.Text
-			bind:value={imgSrc}
+			bind:value={profileImage}
 			title="Image source" />
 		<Hst.Checkbox
 			bind:value={disabled}
@@ -55,7 +47,7 @@
 		{source}>
 		<Avatar
 			on:click={clickHandler}
-			{imgSrc}
+			{profileImage}
 			{size}
 			{disabled}
 			{id} />

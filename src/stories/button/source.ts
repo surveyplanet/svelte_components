@@ -1,14 +1,15 @@
-export default `<script>
-	import { Button } from '@surveyplanet/svelte-components';
+export default `
+<script>
+	import { Button, type BUTTON_MODES } from '@surveyplanet/svelte-components';
 
 </script>
 
 
 <Button
 	on:click={clickHandler}
-	mode="primary"
+	mode={BUTTON_MODES.primary}
 	size="small"
-	round="true"
+	round={true}
 	> Submit
 </Button>
 `;

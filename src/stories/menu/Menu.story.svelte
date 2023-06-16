@@ -9,6 +9,7 @@
 
 	let visible = true;
 	let data: MenuData[] = menuData;
+	let size: 'small' | 'medium' | 'large' = 'small';
 
 	const buttonClickHandler = () => {
 		visible = !visible;
@@ -33,6 +34,11 @@
 		<Hst.Json
 			bind:value={data}
 			title="Menu Items" />
+
+		<Hst.Select
+			bind:value={size}
+			title="Size"
+			options={['small', 'medium', 'large']} />
 	</svelte:fragment>
 
 	<Hst.Variant title="Primary">
@@ -40,13 +46,16 @@
 			<Button
 				action={true}
 				on:click={buttonClickHandler}>
-				<Icon name="plus" />
+				<Icon
+					name="plus"
+					color="white" />
 			</Button>
 			<br />
 			<br />
 			{#if visible}
 				<Menu
-					{data}
+					bind:data
+					{size}
 					on:update={menuUpdateHandler}
 					on:click={menuClickHandler}
 					on:blur={menuBlurHandler} />

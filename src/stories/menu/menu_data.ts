@@ -185,33 +185,23 @@ export const menuData: MenuData[] = [
 		id: 'colors',
 		submenu: [
 			{
-				html: `<span class="color-chip" style="background-color: ${COLORS.yellow};"></span>`,
-				// label: 'Yellow',
+				html: `<span class="color-chip" style="background: linear-gradient( 180deg, ${COLORS.yellowGradientStart} 0%, ${COLORS.yellowGradientEnd} 100% );"></span>`,
 				id: 'yellow',
 				inline: true,
 			},
 			{
-				html: `<span class="color-chip" style="background-color: ${COLORS.purple};"></span>`,
-				// label: 'Purple',
-				id: 'purple',
+				html: `<span class="color-chip" style="background: linear-gradient( 180deg, ${COLORS.blueGradientStart} 0%, ${COLORS.blueGradientEnd} 100% );"></span>`,
+				id: 'blue',
 				inline: true,
 				selected: true,
 			},
 			{
-				html: `<span class="color-chip" style="background-color: ${COLORS.blue};"></span>`,
-				// label: 'Blue',
-				id: 'blue',
-				inline: true,
-			},
-			{
-				html: `<span class="color-chip" style="background-color: ${COLORS.pink};"></span>`,
-				// label: 'Pink',
+				html: `<span class="color-chip" style="background: linear-gradient( 180deg, ${COLORS.pinkGradientStart} 0%, ${COLORS.pinkGradientEnd} 100% );"></span>`,
 				id: 'pink',
 				inline: true,
 			},
 			{
-				html: `<span class="color-chip" style="background-color: ${COLORS.green};"></span>`,
-				// label: 'Green',
+				html: `<span class="color-chip" style="background: linear-gradient( 180deg, ${COLORS.greenGradientStart} 0%, ${COLORS.greenGradientEnd} 100% );"></span>`,
 				id: 'green',
 				inline: true,
 			},

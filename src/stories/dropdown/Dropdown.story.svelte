@@ -7,6 +7,10 @@
 	export let Hst: Histoire;
 
 	let options: DropdownOptions[] = [
+		// {
+		// 	label: 'None',
+		// 	id: '',
+		// },
 		{
 			label: 'Bengal tiger',
 			id: 'bengal-tiger',
@@ -44,15 +48,16 @@
 		},
 	];
 
-	let searchThreshold = 5;
+	let searchThreshold = 10;
 	let disabled = false;
 	let required = false;
 	let value = options[3].id;
+	let placeholder = 'Choose one';
 	let label = 'Dropdown component';
+	let size: 'small' | 'medium' | 'large' = 'small';
 
 	const dropdownChangeHandler = (event: CustomEvent) => {
 		value = event.detail;
-
 		logEvent('change', event.detail);
 	};
 </script>
@@ -72,22 +77,31 @@
 			bind:value={required}
 			title="Required" />
 		<Hst.Text
+			bind:value={placeholder}
+			title="Placeholder" />
+		<Hst.Text
 			bind:value
 			title="Value" />
 		<Hst.Text
 			bind:value={label}
 			title="Label" />
+		<Hst.Select
+			bind:value={size}
+			title="Size"
+			options={['small', 'medium', 'large']} />
 	</svelte:fragment>
 
 	<Hst.Variant title="Primary">
 		<div class="wrapper">
 			<Dropdown
-				{options}
+				bind:options
 				{searchThreshold}
+				{placeholder}
 				{disabled}
 				{required}
 				{value}
 				{label}
+				{size}
 				on:change={dropdownChangeHandler} />
 		</div>
 	</Hst.Variant>

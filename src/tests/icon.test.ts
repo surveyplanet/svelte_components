@@ -27,10 +27,10 @@ test.describe('Icon component', () => {
 		const icon = canvas.locator('svg');
 		await expect(icon).toBeVisible();
 
-		await setControl(page, 'Color', 'select', 'LightPurpleLight');
+		await setControl(page, 'Color', 'select', 'YellowDarker');
 		const path = icon.locator('path').first();
 		await expect(path).toBeVisible();
-		await expect(path).toHaveAttribute('stroke', COLORS.lightPurpleLight);
+		await expect(path).toHaveAttribute('stroke', COLORS.yellowDarker);
 	});
 
 	test('large', async ({ page }) => {

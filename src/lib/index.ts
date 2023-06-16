@@ -1,6 +1,6 @@
 export * from './_definitions';
 
-export { default as Avatar } from './Avatar.svelte';
+export { default as Avatar, MASCOTS } from './Avatar.svelte';
 export { default as Badge } from './Badge.svelte';
 export { default as Breadcrumbs } from './Breadcrumbs.svelte';
 export { default as Button, BUTTON_MODES } from './Button.svelte';

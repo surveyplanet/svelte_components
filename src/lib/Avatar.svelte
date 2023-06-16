@@ -1,18 +1,35 @@
+<script
+	lang="ts"
+	context="module">
+	import cubbi from '../../static/assets/mascots/cubbi_1.svg';
+	import gruffi from '../../static/assets/mascots/gruffi_1.svg';
+	import sunni from '../../static/assets/mascots/sunni_1.svg';
+	import tummi from '../../static/assets/mascots/tummi_1.svg';
+	import zummi from '../../static/assets/mascots/zummi_1.svg';
+
+	export const MASCOTS = {
+		cubbi: cubbi,
+		gruffi: gruffi,
+		sunni: sunni,
+		tummi: tummi,
+		zummi: zummi,
+	} as Record<string, string>;
+</script>
+
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { COLORS, MASCOTS } from './index';
 
 	const dispatch: (name: string, detail: MouseEvent) => boolean =
 		createEventDispatcher();
-
-	const bgColors = [COLORS.blue, COLORS.green, COLORS.pink, COLORS.yellow];
 
 	// mascot should return a type that is a key of MASCOTS
 	const mascots = Object.keys(MASCOTS).map((key) => {
 		return MASCOTS[key];
 	});
 
-	export let imgSrc: string;
+	const bgColors = ['yellow', 'blue', 'pink', 'green'] as const;
+
+	export let profileImage: string;
 
 	export let id: string;
 
@@ -20,9 +37,15 @@
 
 	export let disabled = false;
 
+	let bgColor: (typeof bgColors)[number] = bgColors[0];
+
 	$: {
-		if (!/^https?:\/\//.test(imgSrc)) {
-			mascots[getPersistentIndex(mascots.length)];
+		if (!/^https?:\/\//.test(profileImage)) {
+			profileImage = mascots[getPersistentIndex(mascots.length)];
+		}
+
+		if (id?.length) {
+			bgColor = bgColors[getPersistentIndex(bgColors.length)];
 		}
 	}
 
@@ -30,12 +53,9 @@
 		if (!id?.length) {
 			return 0;
 		}
-		const charCode: number = id.trim().toLowerCase().charCodeAt(0);
-		return charCode % length;
-	};
+		const idx = id.trim().toLowerCase().charCodeAt(0) % length;
 
-	const getBgColor = (): string => {
-		return bgColors[getPersistentIndex(bgColors.length)];
+		return idx;
 	};
 
 	const clickHandler = (e: MouseEvent): void => {
@@ -47,17 +67,18 @@
 </script>
 
 <button
-	class="sp-avatar sp-avatar--{size}"
+	class="sp-avatar sp-avatar--{size} sp-avatar--background--{bgColor}"
 	on:click={clickHandler}
-	style:background-color={getBgColor()}
 	aria-label={disabled ? null : 'profile image'}
 	role={disabled ? 'presentation' : null}
 	{disabled}>
-	<span class="sp-avatar--image">
+	<div
+		class="sp-avatar--image"
+		class:sp-avatar--image--profile={/^https?:\/\//.test(profileImage)}>
 		<img
-			src={imgSrc}
+			src={profileImage}
 			alt="profile" />
-	</span>
+	</div>
 </button>
 
 <style lang="scss">
@@ -65,23 +86,42 @@
 
 	.sp-avatar {
 		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
 		display: inline-flex;
 		height: $size--36;
 		width: $size--36;
-		padding: 0 $size--4;
 		text-align: center;
 		white-space: nowrap;
 		vertical-align: baseline;
 		border-radius: 100%;
 		border: 0;
 		overflow: hidden;
+		background: $color--gradient--yellow;
 
 		&:hover {
 			cursor: pointer;
 		}
 
 		@include set-focus {
-			border: 1px solid $color--slate-dark;
+			border: 1px solid $color--dark;
+		}
+
+		&.sp-avatar--background--yellow {
+			background: $color--gradient--yellow;
+		}
+
+		&.sp-avatar--background--blue {
+			background: $color--gradient--blue;
+		}
+
+		&.sp-avatar--background--pink {
+			background: $color--gradient--pink;
+		}
+
+		&.sp-avatar--background--green {
+			background: $color--gradient--green;
 		}
 	}
 	.sp-avatar--medium {
@@ -93,14 +133,22 @@
 		width: $size--64;
 	}
 	.sp-avatar--image {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		display: flex; // inline-flex
+		justify-content: center; // flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
+		align-items: center; // flex-start | flex-end | center | baseline | first baseline | last baseline | start | end | self-start | self-end + ... safe | unsafe;
 		width: 100%;
 		height: 100%;
 		img {
-			max-width: 130%;
-			height: auto;
+			height: 80%;
+			width: 80%;
+		}
+		// make images full size
+		&.sp-avatar--image--profile {
+			img {
+				height: 100%;
+				width: 100%;
+				object-fit: cover;
+			}
 		}
 	}
 </style>

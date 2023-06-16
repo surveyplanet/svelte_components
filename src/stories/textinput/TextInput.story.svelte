@@ -18,6 +18,7 @@
 	let cleaveOptions = {};
 	let validationRules: string[] = [];
 	let validationMessage: string;
+	let size: 'small' | 'medium' | 'large' = 'small';
 
 	const changeHandler = (e: Event): void => {
 		logEvent('change', e);
@@ -91,27 +92,41 @@
 		<Hst.Json
 			bind:value={cleaveOptions}
 			title="Mask options" />
+
+		<Hst.Select
+			bind:value={size}
+			title="Size"
+			options={['small', 'medium', 'large']} />
 	</svelte:fragment>
 
 	<Hst.Variant
 		title="Basic"
 		{source}>
-		<TextInput
-			on:change={changeHandler}
-			on:focus={focusHandler}
-			on:keydown={keydownHandler}
-			on:keyup={keyupHandler}
-			{disabled}
-			{readonly}
-			{multiline}
-			{label}
-			{placeholder}
-			{type}
-			{value}
-			{name}
-			{id}
-			{validationRules}
-			{validationMessage}
-			{cleaveOptions} />
+		<div class="wrapper">
+			<TextInput
+				on:change={changeHandler}
+				on:focus={focusHandler}
+				on:keydown={keydownHandler}
+				on:keyup={keyupHandler}
+				{disabled}
+				{readonly}
+				{multiline}
+				{label}
+				{placeholder}
+				{type}
+				{value}
+				{name}
+				{id}
+				{size}
+				{validationRules}
+				{validationMessage}
+				{cleaveOptions} />
+		</div>
 	</Hst.Variant>
 </Hst.Story>
+
+<style>
+	.wrapper {
+		padding: 1rem;
+	}
+</style>

@@ -12,6 +12,7 @@
 	let checked = false;
 	let disabled = false;
 	let prependLabel = false;
+	let size: 'small' | 'medium' | 'large' = 'small';
 
 	const changeEventHandler = (e: Event): void => {
 		logEvent('change', e);
@@ -41,20 +42,45 @@
 		<Hst.Checkbox
 			bind:value={disabled}
 			title="Disabled" />
+		<Hst.Select
+			bind:value={size}
+			title="Size"
+			options={['small', 'medium', 'large']} />
 	</svelte:fragment>
 
 	<Hst.Variant
 		title="Primary"
 		{source}>
-		<Checkbox
-			test-id="primary"
-			on:change={changeEventHandler}
-			{checked}
-			{disabled}
-			{prependLabel}
-			{label}
-			{value}
-			{name}
-			{id} />
+		<div class="wrapper">
+			<Checkbox
+				test-id="primary"
+				on:change={changeEventHandler}
+				{checked}
+				{disabled}
+				{prependLabel}
+				{label}
+				{value}
+				{name}
+				{size}
+				{id} />
+			<br />
+			<Checkbox
+				test-id="primary"
+				on:change={changeEventHandler}
+				{checked}
+				{disabled}
+				{prependLabel}
+				{label}
+				{value}
+				{name}
+				{size}
+				{id} />
+		</div>
 	</Hst.Variant>
 </Hst.Story>
+
+<style lang="scss">
+	.wrapper {
+		padding: 1rem;
+	}
+</style>

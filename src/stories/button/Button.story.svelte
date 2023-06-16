@@ -7,14 +7,13 @@
 	export let Hst: Histoire;
 
 	let content = 'Submit';
-	let mode = BUTTON_MODES.PRIMARY;
+	let mode = BUTTON_MODES.primary;
 	let disabled = false;
 	let loader = false;
 	let round = false;
 	let block = false;
 	let action = false;
 	let type: 'button' | 'submit' | 'reset' = 'button';
-	let form: string | null = null;
 	let size: 'small' | 'medium' | 'large' = 'medium';
 
 	const clickHandler = (e: CustomEvent): void => {
@@ -35,7 +34,14 @@
 		<Hst.Select
 			bind:value={mode}
 			title="Mode"
-			options={Object.values(BUTTON_MODES)} />
+			options={Object.keys(BUTTON_MODES).map((key) => {
+				let label = key.charAt(0).toUpperCase() + key.slice(1);
+				label = label.replace(/_/g, ' ');
+				return {
+					label: label,
+					value: BUTTON_MODES[key],
+				};
+			})} />
 		<Hst.Checkbox
 			bind:value={disabled}
 			title="Disabled" />
@@ -64,77 +70,88 @@
 	<Hst.Variant
 		title="Basic"
 		{source}>
-		<Button
-			on:click={clickHandler}
-			data-testid="basic"
-			{mode}
-			{disabled}
-			{loader}
-			{round}
-			{block}
-			{action}
-			{type}
-			{form}
-			{size}>{content}</Button>
+		<div class="wrapper">
+			<Button
+				on:click={clickHandler}
+				data-testid="basic"
+				{mode}
+				{disabled}
+				{loader}
+				{round}
+				{block}
+				{action}
+				{type}
+				{size}>{content}</Button>
+		</div>
 	</Hst.Variant>
 
 	<Hst.Variant
 		title="Loader"
 		{source}>
-		<Button
-			on:click={clickHandler}
-			data-testid="loader"
-			{mode}
-			disabled={true}
-			loader={true}
-			{round}
-			{block}
-			{action}
-			{type}
-			{form}
-			{size}>{content}</Button>
+		<div class="wrapper">
+			<Button
+				on:click={clickHandler}
+				data-testid="loader"
+				{mode}
+				disabled={true}
+				loader={true}
+				{round}
+				{block}
+				{action}
+				{type}
+				{size}>{content}</Button>
+		</div>
 	</Hst.Variant>
 
 	<Hst.Variant
 		title="Icon button"
 		{source}>
-		<Button
-			on:click={clickHandler}
-			data-testid="icon"
-			{mode}
-			{disabled}
-			{loader}
-			{round}
-			{block}
-			{action}
-			{type}
-			{form}
-			{size}>
-			<Icon
-				name="search"
-				size={20} /> Search
-		</Button>
+		<div class="wrapper">
+			<Button
+				on:click={clickHandler}
+				data-testid="icon"
+				{mode}
+				{disabled}
+				{loader}
+				{round}
+				{block}
+				{action}
+				{type}
+				{size}>
+				<Icon
+					name="search"
+					color="white"
+					size={20} /> Search
+			</Button>
+		</div>
 	</Hst.Variant>
 
 	<Hst.Variant
 		title="FAB - Floating action button"
 		{source}>
-		<Button
-			on:click={clickHandler}
-			data-testid="fab"
-			{mode}
-			{disabled}
-			{loader}
-			{round}
-			{block}
-			action={true}
-			{type}
-			{form}
-			{size}>
-			<Icon
-				name="plus"
-				size={20}
-				color="white" />
-		</Button>
+		<div class="wrapper">
+			<Button
+				on:click={clickHandler}
+				data-testid="fab"
+				{mode}
+				{disabled}
+				{loader}
+				{round}
+				{block}
+				action={true}
+				{type}
+				{size}>
+				<Icon
+					name="plus"
+					size={20}
+					color="white" />
+			</Button>
+		</div>
 	</Hst.Variant>
 </Hst.Story>
+
+<style lang="scss">
+	.wrapper {
+		padding: 1rem;
+	}
+</style>

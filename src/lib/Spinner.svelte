@@ -1,50 +1,18 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	/**
-	 * The label of the input
-	 */
 	export let label = '';
-	/**
-	 * The unique id of the input
-	 */
 	export let id = (Date.now() + Math.random()).toString(36);
-	/**
-	 * The step of the input
-	 */
 	export let step = 1;
-	/**
-	 * The minimum value of the input
-	 */
 	export let min = 0;
-	/**
-	 * The maximum value of the input
-	 */
 	export let max = 100;
-	/**
-	 * The value of the input
-	 */
 	export let value: number | undefined = undefined;
-	/**
-	 * Whether the input is disabled
-	 */
 	export let disabled = false;
-	/**
-	 * Whether the input is required
-	 */
 	export let required = false;
-	/**
-	 * Whether the value will change to the min or max value when the user tries to increment or decrement the value over the min or max value
-	 */
 	export let overflow = false;
-	/**
-	 * The placeholder of the input
-	 */
-	export let placeholder = '';
-	/**
-	 * The speed for the drag in pixels
-	 */
 	export let dragSpeed = 10;
+	export let placeholder: string | null = null;
+	export let size: 'small' | 'medium' | 'large' = 'small';
 
 	const dispatch: (name: string, detail: number | undefined) => boolean =
 		createEventDispatcher();
@@ -162,7 +130,6 @@
 	};
 
 	// Handlers
-
 	const mouseDragDownHandler = (event: MouseEvent) => {
 		// isDragging = true;
 		startX = event.clientX;
@@ -233,7 +200,7 @@
 </script>
 
 <div
-	class="sp-spinner sp-spinner"
+	class="sp-spinner sp-spinner--{size}"
 	on:focus={spinnerFocusHandler}
 	on:blur={spinnerBlurHandler}>
 	<label
@@ -269,6 +236,7 @@
 		class:sp-spinner--buttons--visible={visibleButtons}>
 		<button
 			class="sp-spinner--button sp-spinner--button--up"
+			{disabled}
 			on:mousedown={upMouseDownHandler}
 			on:mouseup={mouseUpHandler}
 			on:change={changeHandler}
@@ -289,6 +257,7 @@
 		</button>
 		<button
 			class="sp-spinner--button sp-spinner--button--down"
+			{disabled}
 			on:mousedown={downMouseDownHandler}
 			on:mouseup={mouseUpHandler}
 			on:blur={blurHandler}
@@ -315,6 +284,25 @@
 	.sp-spinner {
 		position: relative;
 		font: $font--default;
+
+		&.sp-spinner--medium {
+			font-size: $font-size--14;
+			input {
+				height: $size--48;
+			}
+			.sp-spinner--buttons {
+				height: $size--48;
+			}
+		}
+		&.sp-spinner--large {
+			font-size: $font-size--16;
+			input {
+				height: $size--52;
+			}
+			.sp-spinner--buttons {
+				height: $size--52;
+			}
+		}
 	}
 	.sp-spinner:hover {
 		.sp-spinner--buttons {
@@ -323,37 +311,36 @@
 	}
 
 	label {
-		color: $color--slate-dark;
+		color: $color--dark;
 		display: block;
-		font: $font--default;
-		font-size: $font-size--12;
+		font: inherit;
 		padding: 0 0 $size--12 $size--4;
 		.sp-spinner--label--required {
 			color: $color--pink;
-			font-size: $font-size--14;
+			font-size: smaller;
 		}
 	}
 
 	input {
+		box-sizing: border-box;
 		appearance: textfield;
 		-moz-appearance: textfield;
-		box-sizing: border-box;
-		font: $font--default;
-		font-size: $font-size--12;
+		font: inherit;
 		width: 100%;
 		height: $size--40;
 		min-width: $size--256;
 		background-color: $color--white;
-		border: 1px solid $color--slate-lighter;
+		border: 1px solid $color--beige-darker;
 		border-radius: $size-radius--default;
 		padding: $size--12 $size--16;
 		@include set-focus {
-			box-shadow: 0px 0px 0px 1px $color--white,
-				0px 0px 0px 2px $color--slate;
+			border: 1px solid $color--beige-darker;
+			box-shadow: 0px 0px 0px 2px $color--beige-dark;
 		}
+
 		&:active {
-			border: 1px solid #e7e3ff;
-			box-shadow: 0px 0px 0px 2px $color--light-purple-light;
+			box-shadow: 0px 0px 0px 1px $color--white,
+				0px 0px 0px 2px $color--beige-darkest;
 		}
 
 		&:hover {
@@ -374,9 +361,9 @@
 		// form and generally do not function as controls until they are enabled
 		&:disabled {
 			cursor: not-allowed;
-			color: $color--slate-light;
-			border-color: $color--slate-light;
-			background-color: rgba(0, 0, 0, 0.075);
+			color: $color--beige-darkest;
+			border-color: $color--beige-darker;
+			background-color: $color--beige-dark;
 			box-shadow: none;
 			@include set-focus {
 				box-shadow: none;
@@ -385,9 +372,8 @@
 				box-shadow: none;
 			}
 		}
-
 		&::placeholder {
-			color: $color--slate-light;
+			color: $color--beige-darkest;
 		}
 
 		&::-webkit-outer-spin-button,
@@ -399,6 +385,7 @@
 	}
 
 	.sp-spinner--buttons {
+		box-sizing: border-box;
 		position: absolute;
 		bottom: 0;
 		right: 0;
@@ -407,6 +394,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		padding: 1px 1px 1px 0;
+		// background-color: red;
 	}
 	.sp-spinner--buttons:hover,
 	.sp-spinner--buttons--visible {
@@ -414,6 +403,7 @@
 	}
 
 	button {
+		box-sizing: border-box;
 		cursor: pointer;
 		display: flex;
 		align-items: center;
@@ -425,7 +415,7 @@
 		background-color: transparent;
 		transition: background-color 0.2s ease-in-out;
 		svg path {
-			stroke: $color--slate-dark;
+			stroke: $color--dark;
 		}
 		// background-color: pink;
 		&:first-child {
@@ -436,17 +426,18 @@
 			padding-bottom: $size--10;
 			border-radius: 0 0 $size-radius--default 0;
 		}
-		&:hover {
-			// background-color: $color--slate-light;
-			svg path {
-				stroke: $color--purple;
-			}
+		&:hover:not(:disabled) {
+			background-color: $color--beige-dark;
 		}
 
-		&:active {
-			background-color: $color--slate-lighter;
-			svg path {
-				stroke: $color--slate-dark;
+		&:active:not(:disabled) {
+			background-color: $color--beige-darker;
+		}
+
+		&:disabled {
+			cursor: not-allowed;
+			:global(svg path) {
+				stroke: $color--beige-darkest;
 			}
 		}
 

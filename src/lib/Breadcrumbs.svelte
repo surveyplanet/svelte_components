@@ -43,9 +43,10 @@
 	.sp-breadcrumbs--divider {
 		display: inline-block;
 		vertical-align: top;
-		font: $font--default-bold;
+		font: $font--default;
+		font-weight: $font-weight--medium;
 		white-space: nowrap;
-		color: $color--slate;
+		color: $color--beige-darkest;
 	}
 
 	.sp-breadcrumbs--link {
@@ -54,10 +55,10 @@
 		@include truncate($size-gutter--quadruple);
 		&:hover {
 			text-decoration: underline;
-			color: $color--purple;
+			// color: $color--yellow;
 		}
 		&:last-child {
-			color: $color--slate-dark;
+			color: $color--dark;
 		}
 	}
 

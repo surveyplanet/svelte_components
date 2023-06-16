@@ -8,21 +8,21 @@
 
 	let data: TabBarData[] = [
 		{
-			id: 'tab1',
+			id: 'edit',
 			label: 'Edit',
 			selected: true,
 			icon: 'edit',
 		},
 		{
-			id: 'tab2',
-			label: 'Tablet',
-			icon: 'tablet',
+			id: 'preview',
+			label: 'Preview',
+			icon: 'eye',
 		},
 		{
-			id: 'tab3',
-			label: 'Monitor',
-			icon: 'monitor',
-			disabled: true,
+			id: 'results',
+			label: 'Results',
+			icon: 'chartColumn',
+			// disabled: true,
 		},
 	];
 
@@ -35,11 +35,12 @@
 	};
 </script>
 
-<Hst.Story title=" TabBar">
+<Hst.Story title="TabBar">
 	<svelte:fragment slot="controls">
 		<Hst.Json
 			title="Data"
 			bind:value={data} />
+
 		<Hst.Checkbox
 			title="Grow"
 			bind:value={grow} />

@@ -1,12 +1,11 @@
 <script lang="ts">
-	export let bgColor: string | null;
-	export let textColor: string | null;
+	export let color: 'yellow' | 'blue' | 'pink' | 'green' = 'yellow';
+	export let flat = false;
 </script>
 
 <span
-	class="sp-badge"
-	style:background-color={bgColor}
-	style:color={textColor}>
+	class="sp-badge sp-badge--{color}"
+	class:sp-badge--flat={flat}>
 	<slot />
 </span>
 
@@ -23,7 +22,7 @@
 		white-space: nowrap;
 		vertical-align: middle;
 		border-radius: $size-radius--large;
-		color: $color--slate-dark;
+		color: $color--darkest;
 		font: $font--xsmall-bold;
 		line-height: $size--14;
 		font-size: $size--8;
@@ -35,6 +34,31 @@
 		:global(.sp-icon) {
 			width: 12px;
 			height: 12px;
+		}
+	}
+
+	.sp-badge--yellow {
+		background: $color--gradient--yellow;
+		&.sp-badge--flat {
+			background: $color--yellow;
+		}
+	}
+	.sp-badge--blue {
+		background: $color--gradient--blue;
+		&.sp-badge--flat {
+			background: $color--blue;
+		}
+	}
+	.sp-badge--green {
+		background: $color--gradient--green;
+		&.sp-badge--flat {
+			background: $color--green;
+		}
+	}
+	.sp-badge--pink {
+		background: $color--gradient--pink;
+		&.sp-badge--flat {
+			background: $color--pink;
 		}
 	}
 </style>

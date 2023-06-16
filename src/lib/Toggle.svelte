@@ -11,7 +11,7 @@
 	export let tall = false;
 	export let label: string | null = null;
 	export let prependLabel = false;
-	export let amPmSwitch = false;
+	// export let meridiemIndicator = false;
 
 	const changeHandler = (event: Event): void => {
 		if (disabled) {
@@ -26,6 +26,7 @@
 {#if label?.length && prependLabel}
 	<label
 		class="sp-toggle--label sp-toggle--label-prepend"
+		class:sp-toggle--label--disabled={disabled}
 		for={id}>{label}</label>
 {/if}
 
@@ -44,13 +45,11 @@
 
 	<div class="sp-toggle--track" />
 </div>
-{#if amPmSwitch}
-	<label
-		class="sp-toggle--label sp-toggle--label-am-pm"
-		for={id}>{'AM PM'}</label>
-{:else if label?.length && !prependLabel}
+
+{#if label?.length && !prependLabel}
 	<label
 		class="sp-toggle--label"
+		class:sp-toggle--label--disabled={disabled}
 		for={id}>{label}</label>
 {/if}
 
@@ -58,6 +57,7 @@
 	@use '@surveyplanet/styles' as *;
 
 	.sp-toggle {
+		font: $font--default;
 		display: inline-block;
 		position: relative;
 		width: $size--40;
@@ -65,7 +65,7 @@
 		@include set-focus {
 			.sp-toggle--track {
 				box-shadow: 0px 0px 0px 1px $color--white,
-					0px 0px 0px 2px $color--slate;
+					0px 0px 0px 2px $color--beige;
 			}
 		}
 
@@ -82,7 +82,7 @@
 			z-index: 1;
 
 			&:checked + .sp-toggle--track {
-				background-color: $color--slate-dark;
+				background-color: $color--darkest;
 				&:after {
 					transform: translateX(calc(100% + 4px));
 				}
@@ -91,12 +91,17 @@
 			@include set-focus {
 				& + .sp-toggle--track {
 					box-shadow: 0px 0px 0px 1px $color--white,
-						0px 0px 0px 2px $color--slate;
+						0px 0px 0px 2px $color--beige;
 				}
 			}
 
-			&:disabled + .sp-toggle--track {
-				background-color: $color--slate-lighter;
+			&:disabled {
+				+ .sp-toggle--track {
+					background-color: $color--beige-dark;
+					&:after {
+						background-color: $color--beige-darker;
+					}
+				}
 			}
 		}
 
@@ -107,7 +112,7 @@
 			width: 100%;
 			height: 100%;
 			border-radius: $size--20;
-			background-color: $color--light-purple;
+			background-color: $color--beige-darker;
 			transition: transform 400ms, background-color 400ms;
 
 			&:after {
@@ -144,16 +149,6 @@
 		}
 	}
 
-	.sp-toggle--label-am-pm {
-		cursor: pointer;
-		display: inline-block;
-		vertical-align: top;
-		font: $font--default;
-		height: $size--20;
-		line-height: $size--20;
-		font-size: $font-size--12;
-		padding-left: $size-gutter--quarter;
-	}
 	.sp-toggle--label {
 		cursor: pointer;
 		display: inline-block;

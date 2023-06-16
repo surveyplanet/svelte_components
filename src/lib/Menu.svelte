@@ -27,6 +27,7 @@
 	 * Menu data
 	 */
 	export let data: MenuData[] = [{ id: 'edit' }];
+	export let size: 'small' | 'medium' | 'large' = 'small';
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
 		const allButtons = Array.from(
@@ -149,7 +150,7 @@
 			currentState = [...state];
 		}
 
-		// if clicked item doesn't have a submenu dispatch 'click'
+		// if clicked and item doesn't have a submenu dispatch 'click'
 		// otherwise dispatch 'update'
 		if (!state) {
 			dispatch('click', id);
@@ -164,11 +165,13 @@
 </script>
 
 <svelte:window on:keydown={arrowClickHandler} />
-<ul
-	class="sp-menu"
+<menu
+	class="sp-menu sp-menu--{size}"
 	on:blur={menuBlurHandler}>
 	{#if location.length}
-		<li transition:slide={transitionProps}>
+		<li
+			transition:slide={transitionProps}
+			class="sp-menu--back">
 			<button
 				class="sp-menu--back-btn"
 				on:click|preventDefault={backClickHandler}>
@@ -213,26 +216,50 @@
 			</button>
 		</li>
 	{/each}
-</ul>
+</menu>
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 	.sp-menu {
+		box-sizing: border-box;
 		list-style: none;
 		overflow: hidden;
 		margin: 0;
-		padding: $size-gutter--quarter 0;
-		background-color: white;
+		font: $font--default;
+		padding: $size-gutter--quarter;
+		background-color: $color--white;
 		box-shadow: 0px 5px 5px rgba(142, 117, 205, 0.1);
 		border-radius: $size-radius--large;
-		max-width: 260px;
-		max-height: 200px;
+		max-width: $size--256;
+		// max-height: $size--256;
 		overflow-y: auto;
 		// &:empty { empty doesn't work because of whitespace
 		&:not(:has(li)) {
 			display: none;
 		}
+
+		&.sp-menu--medium {
+			font-size: $font-size--14;
+		}
+		&.sp-menu--large {
+			font-size: $font-size--16;
+		}
 	}
+
+	.sp-menu--back {
+		border-bottom: 1px solid $color--beige-darker;
+		padding-bottom: $size-gutter--quarter;
+		margin-bottom: $size-gutter--quarter;
+		.sp-menu--back-btn {
+			.sp-menu--back-btn--label {
+				padding-left: $size-gutter--quarter;
+			}
+			:global(svg) {
+				margin-left: 0;
+			}
+		}
+	}
+
 	.sp-menu--item {
 		position: relative;
 		&.sp-menu--item--submenu {
@@ -249,15 +276,18 @@
 				background-position: 50% 50%;
 			}
 		}
+
 		&.sp-menu--item--divide {
-			border-top: 1px solid #dcdee1;
+			border-top: 1px solid $color--beige-darker;
+			padding-top: $size-gutter--quarter;
+			margin-top: $size-gutter--quarter;
 		}
 
 		&.sp-menu--item--inline {
 			display: inline;
 			button {
+				display: inline-block;
 				width: auto;
-				display: inline;
 			}
 			&.sp-menu--item--selected {
 				// no background-color if selected button is displayed inline
@@ -268,7 +298,8 @@
 		}
 		&.sp-menu--item--selected {
 			button {
-				background-color: $color--light-purple-light;
+				background-color: $color--darkest;
+				color: $color--white;
 			}
 		}
 
@@ -326,31 +357,23 @@
 		cursor: pointer;
 		border: none;
 		background-color: transparent;
+		border-radius: $size-radius--small;
 		padding: $size-gutter--quarter $size-gutter--half;
 		margin: 0;
+		font-size: inherit;
 		&:hover {
-			background: $color--light-purple-light;
+			background: $color--beige-dark;
 		}
 		&:focus {
-			background: $color--light-purple-light;
+			background: $color--beige-dark;
 			outline: none;
 		}
 		:global(svg) {
 			margin-left: auto;
 		}
-		&.sp-menu--back-btn {
-			border-bottom: 1px solid #dcdee1;
-			.sp-menu--back-btn--label {
-				padding-left: $size-gutter--quarter;
-			}
-			:global(svg) {
-				margin-left: 0;
-			}
-		}
-
 		.sp-menu--item--meta {
 			margin-left: auto;
-			color: $color--slate;
+			color: $color--beige-darkest;
 		}
 	}
 </style>

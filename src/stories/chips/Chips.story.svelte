@@ -10,32 +10,30 @@
 			id: 'apple',
 			label: 'Apple',
 			selected: false,
-			title: 'Apple',
 		},
 		{
 			id: 'peach',
 			label: 'Peach',
 			selected: false,
-			title: 'Peach',
 		},
 		{
 			id: 'banana',
 			label: 'Banana',
 			selected: false,
-			title: 'Banana',
 		},
 		{
 			id: 'orange',
 			label: 'Orange ',
 			selected: false,
-			title: 'Orange ',
 		},
 	];
 
-	let multiple = false;
+	let selectable = true;
+	let multiSelect = false;
+	let removable = false;
 
-	const clickEventHandler = (e: CustomEvent) => {
-		logEvent('click', e.detail);
+	const eventHandler = (e: CustomEvent) => {
+		logEvent(e.type, e.detail);
 	};
 </script>
 
@@ -45,14 +43,25 @@
 			bind:value={data}
 			title="Data" />
 		<Hst.Checkbox
-			bind:value={multiple}
-			title="Multiple" />
+			bind:value={removable}
+			title="Removable" />
+		<Hst.Checkbox
+			bind:value={selectable}
+			title="Selectable" />
+		{#if selectable}
+			<Hst.Checkbox
+				bind:value={multiSelect}
+				title="Multi select" />
+		{/if}
 	</svelte:fragment>
 
 	<Hst.Variant title="Primary">
 		<Chips
-			{multiple}
-			{data}
-			on:click={clickEventHandler} />
+			bind:data
+			bind:removable
+			bind:selectable
+			bind:multiSelect
+			on:click={eventHandler}
+			on:remove={eventHandler} />
 	</Hst.Variant>
 </Hst.Story>

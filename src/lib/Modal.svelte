@@ -5,30 +5,13 @@
 	import { Icon } from './';
 
 	const dispatch: (name: string) => boolean = createEventDispatcher();
-	/**
-	 * Main modal title.
-	 */
+
 	export let title = 'Modal';
-	/**
-	 * Modal subtitle.
-	 */
 	export let subtitle = 'Subtitle';
-	/**
-	 * Whether the modal should be fullscreen.
-	 */
 	export let fullscreen = false;
-	/**
-	 * Whether should should be a transparent
-	 * background element which prevents interaction
-	 * with other elements on the stage.
-	 */
 	export let overlay = true;
-
 	export let visible = false;
-
 	export let animationMilliseconds = 350;
-
-	// TODO: add support for different sizes
 	export let size: 'small' | 'medium' | 'large' = 'medium';
 
 	const modalOpened = () => {
@@ -121,10 +104,10 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: $color--slate-dark;
-		opacity: 0.6;
+		width: 100vw;
+		height: 100vh;
+		background-color: $color--beige;
+		opacity: 0.8;
 	}
 
 	.sp-modal {
@@ -150,17 +133,19 @@
 	}
 
 	h3.sp-modal--header--title {
-		font-size: $font-size--16;
+		font-size: $font-size--20;
 		font-weight: $font-weight--bold;
 		margin: 0;
+		margin-bottom: $size-gutter--half;
 		padding: 0;
 	}
 
 	h4.sp-modal--header--subtitle {
-		font-size: $font-size--14;
+		font-size: $font-size--16;
 		font-weight: $font-weight--normal;
-		color: $color--slate;
-		margin: $size-gutter--half 0;
+		color: $color--beige-darkest;
+		margin: 0;
+		margin-bottom: $size-gutter--half;
 	}
 
 	.sp-modal--body {
@@ -194,9 +179,9 @@
 		background-color: transparent;
 		border-radius: $size-radius--small;
 		&:hover {
-			background-color: $color--slate-lighter;
+			background-color: $color--beige-darker;
 			:global(.sp-icon path) {
-				stroke: white;
+				stroke: $color--white;
 			}
 		}
 	}

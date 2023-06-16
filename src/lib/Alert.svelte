@@ -4,6 +4,11 @@
 	import { cubicOut } from 'svelte/easing';
 	import { COLORS, BUTTON_MODES, Button, Icon, TextInput } from './';
 
+	import successIcon from '../../static/assets/mascots/tummi_3.svg';
+	import infoIcon from '../../static/assets/mascots/cubbi_3.svg';
+	import warningIcon from '../../static/assets/mascots/zummi_3.svg';
+	import errorIcon from '../../static/assets/mascots/sunni_3.svg';
+
 	const dispatch = createEventDispatcher();
 	const dispatchConfirm: (name: string, detail: boolean) => boolean =
 		createEventDispatcher();
@@ -21,7 +26,7 @@
 	/**
 	 * The type of alert.
 	 */
-	export let alertType: 'info' | 'warning' | 'error' | 'success' = 'success';
+	export let type: 'info' | 'warning' | 'error' | 'success' = 'success';
 
 	/**
 	 * Automatically hide alert after X milliseconds. A value of 0 means don't hide.
@@ -59,14 +64,29 @@
 	export let animationMilliseconds = 350;
 
 	let visible = false;
+	let icon = successIcon;
 	$: isChallenge = confirm && challenge.length > 0;
 	$: disableConfirmButton = isChallenge;
-
 	$: {
 		if (!confirm && hideDelay > 0) {
 			setTimeout(() => {
 				visible = false;
 			}, hideDelay);
+		}
+
+		switch (type) {
+			case 'info':
+				icon = infoIcon;
+				break;
+			case 'warning':
+				icon = warningIcon;
+				break;
+			case 'error':
+				icon = errorIcon;
+				break;
+			default:
+				icon = successIcon;
+				break;
 		}
 	}
 
@@ -111,7 +131,7 @@
 {#if visible}
 	<div
 		role="alert"
-		class="sp-alert sp-alert--{alertType}"
+		class="sp-alert sp-alert--{type}"
 		class:sp-alert--confirm={confirm}
 		class:sp-alert--challenge={isChallenge}
 		transition:fly={{
@@ -123,64 +143,71 @@
 		on:introend={introEndHandler}
 		on:outrostart={outroStartHandler}
 		on:outroend={outroEndHandler}>
-		<header class="sp-alert--header">
-			{#if !confirm}
-				<button
-					on:click={closeButtonClickHandler}
-					class="sp-alert--header--close-btn">
-					<Icon
-						color={COLORS.slate}
-						name="x"
-						size={20} />
-				</button>
-			{/if}
-
-			{#if title?.length}
-				<h3 class="sp-alert--header--title">{title}</h3>
-			{/if}
-
-			{#if subtitle?.length}
-				<h4 class="sp-alert--header--subtitle">{subtitle}</h4>
-			{/if}
-		</header>
-
-		<div class="sp-alert--body">
-			<slot />
+		<div class="sp-alert--col-a">
+			<div class="sp-alert--sidebar">
+				<img
+					src={icon}
+					alt={type} />
+			</div>
 		</div>
-
-		{#if confirm}
-			<footer class="sp-alert--footer">
-				{#if isChallenge}
-					<div class="sp-alert--challenge">
-						<TextInput
-							id="defaultId"
-							name="challenge"
-							label={challengeLabel}
-							placeholder={challenge}
-							on:keyup={challengeKeyupHandler} />
-					</div>
+		<div class="sp-alert--col-b">
+			<header class="sp-alert--header">
+				{#if !confirm}
+					<button
+						on:click={closeButtonClickHandler}
+						class="sp-alert--header--close-btn">
+						<Icon
+							color={COLORS.dark}
+							name="x"
+							size={20} />
+					</button>
 				{/if}
-				<nav>
-					<ul>
+
+				{#if title?.length}
+					<h3 class="sp-alert--header--title">{title}</h3>
+				{/if}
+
+				{#if subtitle?.length}
+					<h4 class="sp-alert--header--subtitle">{subtitle}</h4>
+				{/if}
+			</header>
+
+			<div class="sp-alert--body">
+				<slot />
+			</div>
+
+			{#if confirm}
+				<footer class="sp-alert--footer">
+					{#if isChallenge}
+						<div class="sp-alert--challenge">
+							<TextInput
+								id="defaultId"
+								name="challenge"
+								label={challengeLabel}
+								placeholder={challenge}
+								on:keyup={challengeKeyupHandler} />
+						</div>
+					{/if}
+					<menu>
 						<li class="sp-alert--confirm-btn">
 							<Button
 								disabled={disableConfirmButton}
 								on:click={alertConfirmButtonClickHandler}
-								mode={BUTTON_MODES.DARK}>
+								mode={BUTTON_MODES.primary}>
 								{confirmButtonLabel}
 							</Button>
 						</li>
 						<li class="sp-alert--close-btn">
 							<Button
 								on:click={closeButtonClickHandler}
-								mode={BUTTON_MODES.LIGHT}>
+								mode={BUTTON_MODES.light}>
 								{cancelButtonLabel}
 							</Button>
 						</li>
-					</ul>
-				</nav>
-			</footer>
-		{/if}
+					</menu>
+				</footer>
+			{/if}
+		</div>
 	</div>
 {/if}
 
@@ -190,69 +217,85 @@
 	$animation-speed: 300ms;
 
 	.sp-alert {
-		position: absolute;
-		z-index: 1000;
-		min-width: $size--256;
-		max-width: $size--256;
-		padding: $size-gutter;
 		position: relative;
-		border: 1px solid $color--slate-dark;
-		border-radius: $size-radius--default;
-		box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.25);
+		// position: absolute;
+		z-index: 1000;
+		box-sizing: border-box;
+		min-width: $size--256;
+		max-width: px-to-rem(375);
+		margin: 0;
+		padding: $size-gutter--eighth;
+		border-radius: $size-radius--large;
+		box-shadow: 0px 0px 25px 0px rgba(235, 231, 220, 0.8);
 		font: $font--default;
 		background-color: $color--white;
-
+		color: $color--beige-darkest;
+		// overflow: hidden;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: flex-start;
 		&.sp-alert--info {
-			// background-color: $color--blue;
-			border-color: $color--blue-dark;
-			color: $color--blue-dark;
+			.sp-alert--sidebar {
+				background: $color--gradient--blue;
+			}
 		}
 
 		&.sp-alert--warning {
-			// background-color: $color--yellow;
-			border-color: $color--yellow-dark;
-			color: $color--yellow-dark;
+			.sp-alert--sidebar {
+				background: $color--gradient--yellow;
+			}
 		}
 
 		&.sp-alert--error {
-			// background-color: $color--pink;
-			border-color: $color--pink-dark;
-			color: $color--pink-dark;
+			.sp-alert--sidebar {
+				background: $color--gradient--pink;
+			}
 		}
 
 		&.sp-alert--success {
-			// background-color: $color--green;
-			border-color: $color--green-dark;
-			color: $color--green-dark;
+			.sp-alert--sidebar {
+				background: $color--gradient--green;
+			}
+		}
+	}
+
+	.sp-alert--col-a {
+		flex-basis: $size--64;
+	}
+	.sp-alert--col-b {
+		flex-grow: 1;
+		// background-color: red;
+		padding: $size-gutter--half;
+	}
+
+	.sp-alert--sidebar {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: $size-radius--default;
+		img {
+			max-width: $size--56;
 		}
 	}
 
 	.sp-alert--header {
 		position: relative;
-		.sp-alert--header--title {
-			margin: 0;
-			padding: 0;
-		}
-		.sp-alert--header--subtitle {
-			margin: 0;
-			padding: 0;
-		}
+		box-sizing: border-box;
 
-		.sp-alert--header--close-btn {
-			border-radius: $size-radius--small;
-			&:hover {
-				background-color: $color--slate-lighter;
-				:global(.sp-icon path) {
-					stroke: white;
-				}
-			}
+		.sp-alert--header--subtitle,
+		.sp-alert--header--title {
+			color: $color--dark;
+			margin: 0;
+			padding: 0;
 		}
 	}
 
 	.sp-alert--header--close-btn {
 		position: absolute;
-		right: -($size-gutter--half);
-		top: -($size-gutter--half);
+		right: 0;
+		top: 0;
 		cursor: pointer;
 		width: $size--20;
 		height: $size--20;
@@ -261,10 +304,16 @@
 		margin: 0;
 		border: 0;
 		background-color: transparent;
+		border-radius: $size-radius--small;
+		&:hover {
+			background-color: $color--beige-darker;
+			:global(.sp-icon path) {
+				stroke: $color--white;
+			}
+		}
 	}
 
 	.sp-alert--body {
-		color: $color--slate;
 		padding-top: $size-gutter--half;
 		&:empty {
 			display: none;
@@ -273,7 +322,7 @@
 
 	.sp-alert--footer {
 		padding-top: $size-gutter--half;
-		ul {
+		menu {
 			display: flex;
 			flex-direction: row;
 			flex-wrap: wrap;

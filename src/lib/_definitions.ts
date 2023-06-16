@@ -1,52 +1,38 @@
 export const COLORS = {
-	slateLighter: '#dcdee1',
-	slateLight: '#a2a6af',
-	slate: '#737a87',
-	slateDark: '#162137',
+	darkest: '#191f29',
+	darker: '#2f3136',
+	dark: '#4e4f52',
 
-	lightPurpleLight: '#f4f0ff',
-	lightPurple: '#ece5ff',
-	lightPurpleDark: '#baa5db',
+	beige: '#fbfaf7',
+	beigeDark: '#f7f5ee',
+	beigeDarker: '#ebe6d7',
+	beigeDarkerMid: '#bdbaac',
+	beigeDarkest: '#8f8d82',
 
-	purpleLight: '#dbccff',
-	purple: '#b598ff',
-	purpleDark: '#9a79ed',
+	yellow: '#fff0a3',
+	yellowDark: '#f9dd97',
+	yellowDarker: '#e2bd60',
+	yellowGradientStart: '#f7f5af',
+	yellowGradientEnd: '#ffd8c0',
 
-	blueLight: '#d8f4fd',
-	blue: '#9ee4fa',
-	blueDark: '#78c4ee',
+	blue: '#bfedfd',
+	blueDark: '#a0d9f2',
+	blueDarker: '#79c5e6',
+	blueGradientStart: '#bfedfd',
+	blueGradientEnd: '#bdffd8',
 
-	greenLight: '#d9fedb',
-	green: '#a1fda5',
-	greenDark: '#7be492',
+	pink: '#fdced5',
+	pinkDark: '#f3c1de',
+	pinkDarker: '#f3c1de',
+	pinkGradientStart: '#fdced5',
+	pinkGradientEnd: '#f1c4f5',
 
-	pinkLight: '#ffd8f1',
-	pink: '#ffb1e3',
-	pinkDark: '#ea83c5',
-
-	yellowLight: '#fff5bc',
-	yellow: '#ffe978',
-	yellowDark: '#fac766',
+	green: '#bdffd8',
+	greenDark: '#a7f4c3',
+	greenDarker: '#7de3a2',
+	greenGradientStart: '#bdffd8',
+	greenGradientEnd: '#f7f5af',
 
 	white: '#ffffff',
-	black: '#162137',
-} as Record<string, string>;
-
-export const MASCOTS = {
-	marvin: `https://via.placeholder.com/512/${COLORS.blue.replace(
-		'#',
-		''
-	)}/${COLORS.black.replace('#', '')}?text=MARVIN`,
-	dylan: `https://via.placeholder.com/512/${COLORS.green.replace(
-		'#',
-		''
-	)}/${COLORS.black.replace('#', '')}?text=DYLAN`,
-	aaron: `https://via.placeholder.com/512/${COLORS.pink.replace(
-		'#',
-		''
-	)}/${COLORS.black.replace('#', '')}?text=AARON`,
-	jack: `https://via.placeholder.com/512/${COLORS.yellow.replace(
-		'#',
-		''
-	)}/${COLORS.black.replace('#', '')}?text=JACK`,
+	black: '#191f29', // darkest alias
 } as Record<string, string>;

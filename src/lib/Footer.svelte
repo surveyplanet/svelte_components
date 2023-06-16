@@ -31,8 +31,8 @@
 
 	.sp-footer {
 		font-family: $font--default;
-		color: $color--purple;
 		font: $font--small;
+		color: $color--beige-darkest;
 
 		ul {
 			display: flex;
@@ -42,11 +42,11 @@
 		}
 
 		.sp-footer--item {
-			color: $color--purple;
 			text-decoration: none;
 			margin: 0;
 			padding: 0;
 			white-space: nowrap;
+			color: $color--beige-darkest;
 		}
 
 		a:hover {
