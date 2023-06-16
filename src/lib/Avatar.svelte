@@ -1,11 +1,11 @@
 <script
 	lang="ts"
 	context="module">
-	import cubbi from '../../static/assets/mascots/cubbi_1.svg';
-	import gruffi from '../../static/assets/mascots/gruffi_1.svg';
-	import sunni from '../../static/assets/mascots/sunni_1.svg';
-	import tummi from '../../static/assets/mascots/tummi_1.svg';
-	import zummi from '../../static/assets/mascots/zummi_1.svg';
+	import cubbi from '../assets/mascots/cubbi_1.svg';
+	import gruffi from '../assets/mascots/gruffi_1.svg';
+	import sunni from '../assets/mascots/sunni_1.svg';
+	import tummi from '../assets/mascots/tummi_1.svg';
+	import zummi from '../assets/mascots/zummi_1.svg';
 
 	export const MASCOTS = {
 		cubbi: cubbi,

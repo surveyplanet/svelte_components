@@ -4,10 +4,10 @@
 	import { cubicOut } from 'svelte/easing';
 	import { COLORS, BUTTON_MODES, Button, Icon, TextInput } from './';
 
-	import successIcon from '../../static/assets/mascots/tummi_3.svg';
-	import infoIcon from '../../static/assets/mascots/cubbi_3.svg';
-	import warningIcon from '../../static/assets/mascots/zummi_3.svg';
-	import errorIcon from '../../static/assets/mascots/sunni_3.svg';
+	import successIcon from '../assets/mascots/tummi_3.svg';
+	import infoIcon from '../assets/mascots/cubbi_3.svg';
+	import warningIcon from '../assets/mascots/zummi_3.svg';
+	import errorIcon from '../assets/mascots/sunni_3.svg';
 
 	const dispatch = createEventDispatcher();
 	const dispatchConfirm: (name: string, detail: boolean) => boolean =
