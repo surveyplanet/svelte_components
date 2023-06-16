@@ -26,7 +26,7 @@
 	/**
 	 * The icon color. default: '#262b35'
 	 */
-	export let color: string = COLORS.dark;
+	export let color: string = COLORS.black;
 
 	/**
 	 * The icon width and height in pixes. default: 48
