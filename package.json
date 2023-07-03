@@ -13,7 +13,7 @@
 		"radio",
 		"toggle"
 	],
-	"version": "0.0.10",
+	"version": "0.0.0",
 	"homepage": "https://ui.surveyplanet.com",
 	"license": "MIT",
 	"author": "Jonah Werre <jonahwerre@gmail.com> (https://github.com/jwerre)",
@@ -25,6 +25,7 @@
 		"url": "git@github.com:surveyplanet/svelte_components.git"
 	},
 	"type": "module",
+	"main": "dist/index.js",
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
