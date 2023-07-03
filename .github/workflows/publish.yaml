@@ -20,6 +20,16 @@ jobs:
               with:
                   node-version: 16
 
+            - name: 'DEBUG: Check NPM_TOKEN'
+              run: echo $NPM_TOKEN | sed 's/.\{1,35\}/***/'
+              env:
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+            - name: 'DEBUG: Check NPM user'
+              run: npm whoami
+              env:
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
             - name: Install dependencies
               run: |
                   npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
