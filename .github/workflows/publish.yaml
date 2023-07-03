@@ -21,13 +21,8 @@ jobs:
               with:
                   node-version: 18
 
-            - name: 'DEBUG: Check NPM_TOKEN'
-              run: echo $NPM_TOKEN | sed 's/.\{1,35\}/***/'
-              env:
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-            # - name: 'DEBUG: Check NPM user'
-            #   run: npm whoami
+            # - name: 'DEBUG: Check NPM_TOKEN'
+            #   run: echo $NPM_TOKEN | sed 's/.\{1,35\}/***/'
             #   env:
             #       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
