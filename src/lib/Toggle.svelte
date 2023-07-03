@@ -1,11 +1,17 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	const dispatch = createEventDispatcher();
+	const dispatch: (name: string, detail: boolean) => boolean =
+		createEventDispatcher();
 
-	export let on: boolean = false;
-	export let disabled: boolean = false;
-	export let tall: boolean = false;
+	export let id: string = (Date.now() + Math.random()).toString(36);
+	export let name: string;
+	export let disabled = false;
+	export let on = false;
+	export let tall = false;
+	export let label: string | null = null;
+	export let prependLabel = false;
+	// export let meridiemIndicator = false;
 
 	const changeHandler = (event: Event): void => {
 		if (disabled) {
@@ -17,93 +23,140 @@
 	};
 </script>
 
+{#if label?.length && prependLabel}
+	<label
+		class="sp-toggle--label sp-toggle--label-prepend"
+		class:sp-toggle--label--disabled={disabled}
+		for={id}>{label}</label>
+{/if}
+
 <div
-	data-testid="toggle"
 	class="sp-toggle sp-toggle--{on ? 'on' : 'off'}"
-	class:sp-toggle--tall={tall}>
+	class:sp-toggle--tall={tall}
+	role="switch"
+	aria-checked={on}>
 	<input
 		type="checkbox"
-		class="sp-toggle--input"
 		bind:checked={on}
+		{id}
+		{name}
 		{disabled}
 		on:change={changeHandler} />
 
 	<div class="sp-toggle--track" />
 </div>
 
+{#if label?.length && !prependLabel}
+	<label
+		class="sp-toggle--label"
+		class:sp-toggle--label--disabled={disabled}
+		for={id}>{label}</label>
+{/if}
+
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 
 	.sp-toggle {
-		display: block;
+		font: $font--default;
+		display: inline-block;
 		position: relative;
 		width: $size--40;
 		height: $size--20;
-	}
-
-	.sp-toggle--input {
-		position: absolute;
-		top: 0;
-		left: 0;
-		margin: 0;
-		padding: 0;
-		width: 100%;
-		height: 100%;
-		opacity: 0;
-		cursor: pointer;
-		z-index: 1;
-
-		&:checked + .sp-toggle--track {
-			background-color: $color--slate-dark;
-			&:after {
-				transform: translateX(calc(100% + 4px));
+		@include set-focus {
+			.sp-toggle--track {
+				box-shadow: 0px 0px 0px 1px $color--white,
+					0px 0px 0px 2px $color--beige;
 			}
 		}
 
-		&:disabled + .sp-toggle--track {
-			background-color: $color--slate-lighter;
-		}
-	}
-	.sp-toggle--track {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		border-radius: $size--20;
-		background-color: $color--light-purple;
-		transition: 0.4s;
-
-		&:after {
+		input[type='checkbox'] {
 			position: absolute;
-			content: '';
-			height: calc($size--20 - 4px);
-			width: calc($size--20 - 4px);
-			left: 2px;
-			top: 2px;
-			background-color: $color--white;
-			transition: 0.4s;
-			border-radius: 50%;
-		}
-	}
+			top: 0;
+			left: 0;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			cursor: pointer;
+			z-index: 1;
 
-	.sp-toggle--tall {
-		width: $size--36;
-		height: $size--24;
-		.sp-toggle--track {
-			&:after {
-				position: absolute;
-				content: '';
-				height: calc($size--24 - 4px);
-				width: calc($size--24 - 4px);
-			}
-		}
-		.sp-toggle--input {
 			&:checked + .sp-toggle--track {
+				background-color: $color--darkest;
 				&:after {
-					transform: translateX(calc(100% - 8px));
+					transform: translateX(calc(100% + 4px));
+				}
+			}
+
+			@include set-focus {
+				& + .sp-toggle--track {
+					box-shadow: 0px 0px 0px 1px $color--white,
+						0px 0px 0px 2px $color--beige;
+				}
+			}
+
+			&:disabled {
+				+ .sp-toggle--track {
+					background-color: $color--beige-dark;
+					&:after {
+						background-color: $color--beige-darker;
+					}
 				}
 			}
 		}
+
+		.sp-toggle--track {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border-radius: $size--20;
+			background-color: $color--beige-darker;
+			transition: transform 400ms, background-color 400ms;
+
+			&:after {
+				position: absolute;
+				content: '';
+				height: calc($size--20 - 4px);
+				width: calc($size--20 - 4px);
+				left: 2px;
+				top: 2px;
+				background-color: $color--white;
+				transition: transform 400ms, background-color 400ms;
+				border-radius: 50%;
+			}
+		}
+
+		&.sp-toggle--tall {
+			width: $size--36;
+			height: $size--24;
+			.sp-toggle--track {
+				&:after {
+					position: absolute;
+					content: '';
+					height: calc($size--24 - 4px);
+					width: calc($size--24 - 4px);
+				}
+			}
+			input[type='checkbox'] {
+				&:checked + .sp-toggle--track {
+					&:after {
+						transform: translateX(calc(100% - 8px));
+					}
+				}
+			}
+		}
+	}
+
+	.sp-toggle--label {
+		cursor: pointer;
+		display: inline-block;
+		vertical-align: top;
+		font: $font--default;
+		height: $size--20;
+		line-height: $size--20;
+		font-size: $font-size--12;
+		padding-left: $size-gutter--quarter;
 	}
 </style>

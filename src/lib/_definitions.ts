@@ -1,67 +1,38 @@
-export const enum SIZES {
-	SMALL = 'small',
-	MEDIUM = 'medium',
-	LARGE = 'large',
-}
-
-export const enum BUTTON_MODES {
-	PRIMARY = 'primary',
-	SECONDARY = 'secondary',
-	TERTIARY = 'tertiary',
-	QUATERNARY = 'quaternary',
-	DARK = 'dark',
-	LIGHT = 'light',
-}
-
 export const COLORS = {
-	slate_lighter: '#dcdee1',
-	slate_light: '#a2a6af',
-	slate: '#737a87',
-	slate_dark: '#162137',
+	darkest: '#191f29',
+	darker: '#2f3136',
+	dark: '#4e4f52',
 
-	light_purple_light: '#f4f0ff',
-	light_purple: '#ece5ff',
-	light_purple_dark: '#baa5db',
+	beige: '#fbfaf7',
+	beigeDark: '#f7f5ee',
+	beigeDarker: '#ebe6d7',
+	beigeDarkerMid: '#bdbaac',
+	beigeDarkest: '#8f8d82',
 
-	purple_light: '#dbccff',
-	purple: '#b598ff',
-	purple_dark: '#9a79ed',
+	yellow: '#fff0a3',
+	yellowDark: '#f9dd97',
+	yellowDarker: '#e2bd60',
+	yellowGradientStart: '#f7f5af',
+	yellowGradientEnd: '#ffd8c0',
 
-	blue_light: '#d8f4fd',
-	blue: '#9ee4fa',
-	blue_dark: '#78c4ee',
+	blue: '#bfedfd',
+	blueDark: '#a0d9f2',
+	blueDarker: '#79c5e6',
+	blueGradientStart: '#bfedfd',
+	blueGradientEnd: '#bdffd8',
 
-	green_light: '#d9fedb',
-	green: '#a1fda5',
-	green_dark: '#7be492',
+	pink: '#fdced5',
+	pinkDark: '#f3c1de',
+	pinkDarker: '#f3c1de',
+	pinkGradientStart: '#fdced5',
+	pinkGradientEnd: '#f1c4f5',
 
-	pink_light: '#ffd8f1',
-	pink: '#ffb1e3',
-	pink_dark: '#ea83c5',
-
-	yellow_light: '#fff5bc',
-	yellow: '#ffe978',
-	yellow_dark: '#fac766',
+	green: '#bdffd8',
+	greenDark: '#a7f4c3',
+	greenDarker: '#7de3a2',
+	greenGradientStart: '#bdffd8',
+	greenGradientEnd: '#f7f5af',
 
 	white: '#ffffff',
-	black: '#162137',
-};
-
-export const MASCOTS = {
-	marvin: `https://via.placeholder.com/512/${COLORS.blue.replace(
-		'#',
-		''
-	)}/FFFFFF?text=MARVIN`,
-	dylan: `https://via.placeholder.com/512/${COLORS.green.replace(
-		'#',
-		''
-	)}/FFFFFF?text=DYLAN`,
-	aaron: `https://via.placeholder.com/512/${COLORS.pink.replace(
-		'#',
-		''
-	)}/FFFFFF?text=AARON`,
-	jack: `https://via.placeholder.com/512/${COLORS.yellow.replace(
-		'#',
-		''
-	)}/FFFFFF?text=JACK`,
-};
+	black: '#191f29', // darkest alias
+} as Record<string, string>;

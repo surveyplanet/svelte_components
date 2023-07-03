@@ -1,8 +1,22 @@
+<script
+	lang="ts"
+	context="module">
+	export const BUTTON_MODES = {
+		primary: 'primary',
+		light: 'light',
+		accent: 'accent',
+		accent_alt_1: 'accent-alt1',
+		accent_alt_2: 'accent-alt2',
+		accent_alt_3: 'accent-alt3',
+		outline: 'outline',
+	} as Record<string, string>;
+</script>
+
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { BUTTON_MODES, SIZES } from './_definitions';
 
-	const dispatch = createEventDispatcher();
+	const dispatchClick: (name: string, detail: MouseEvent) => boolean =
+		createEventDispatcher();
 
 	/**
 	 * A Button Component
@@ -12,154 +26,264 @@
 	/**
 	 * The button mode. See BUTTON_MODES.
 	 */
-	export let mode: BUTTON_MODES = BUTTON_MODES.PRIMARY;
+	export let mode = BUTTON_MODES.primary;
 
 	/**
 	 * Whether the button is disabled or not
 	 */
-	export let disabled: boolean = false;
+	export let disabled = false;
 
 	/**
-	 * Whether the button should show a loader when disabled
+	 * Whether the button should show a loader animation when disabled
 	 */
-	export let loader: boolean = false;
+	export let loader = false;
 
 	/**
 	 * Whether the left and right edges should be rounded off
 	 */
-	export let round: boolean = false;
+	export let round = true;
 
 	/**
 	 * Whether the button should consume all available horizontal space.
 	 */
-	export let block: boolean = false;
+	export let block = false;
 
 	/**
 	 * Whether the button should render as a square action button.
 	 */
-	export let action: boolean = false;
+	export let action = false;
+
+	/**
+	 * The type of button
+	 */
+	export let type: 'button' | 'submit' | 'reset' = 'button';
+
+	/**
+	 * The id of a Form element to associate the button.
+	 */
+	export let form: string | null = null;
 
 	/**
 	 * The button size, either: 'small', 'medium' or 'large'
 	 * @required
 	 */
-	export let size: SIZES = SIZES.MEDIUM;
-
-	let clickAnimationEl: HTMLElement;
-
-	/**
-	 * Whether or not the button is in a depressed (mousedown) state.
-	 */
-	let active: boolean = false;
+	export let size: 'small' | 'medium' | 'large' = 'medium';
 
 	const clickHandler = (e: MouseEvent): void => {
-		dispatch('click', e);
-	};
-
-	const mouseUpHandler = (): void => {
-		deactivate();
-	};
-	const mouseDownHandler = (e: MouseEvent): void => {
-		const target = e.target as Element;
-		const btn = target.closest('button') as Element;
-		const rect = btn.getBoundingClientRect();
-		const x = e.clientX - rect.left;
-		const y = e.clientY - rect.top;
-		activate(x, y);
-	};
-
-	const deactivate = () => {
-		active = false;
-	};
-
-	const activate = (mouseX: number, mouseY: number) => {
-		let w = clickAnimationEl.offsetWidth * 0.5;
-		let h = clickAnimationEl.offsetHeight * 0.5;
-		clickAnimationEl.style.left = `${mouseX - w}px`;
-		clickAnimationEl.style.top = `${mouseY - h}px`;
-		active = true;
+		dispatchClick('click', e);
 	};
 </script>
 
 <button
-	type="button"
+	{type}
+	{disabled}
+	{form}
+	{...$$restProps}
 	class="sp-button sp-button--{mode} sp-button--{size}"
 	class:sp-button--round={round}
 	class:sp-button--loader={loader}
-	class:sp-button--active={active}
 	class:sp-button--block={block}
 	class:sp-button--action={action}
-	{disabled}
-	on:click={clickHandler}
-	on:mouseup={mouseUpHandler}
-	on:mousedown={mouseDownHandler}>
-	<span
-		class="sp-button--ripple"
-		bind:this={clickAnimationEl} />
-
+	on:click={clickHandler}>
 	<span class="sp-button--label"><slot /></span>
 </button>
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
-	$anim--hover-speed: 500ms;
-	$anim--active-speed: 150ms;
-	$anim--active-size: px-to-rem(150);
+	// $anim--hover-speed: 5000ms;
 
 	@include spin(); // loader animation
-	@include fadeInOut(); // click animation
+	@include fade-in-out(); // click animation
 
 	.sp-button {
+		// box-sizing: border-box;
+
 		position: relative;
 		overflow: hidden;
 		cursor: pointer;
 		display: inline-block;
 		height: $size--40;
-		padding: 0 $size--20;
+		padding: 1px $size--20 0;
 		border: 0;
 		border-radius: 5px;
 		font: $font--default;
-		background-color: $color--purple;
-		color: $color--slate-dark;
+		background-color: $color--darkest;
+		color: $color--white;
 
-		:global(svg) {
-			width: 20px;
-			height: 20px;
+		.sp-button--label {
+			color: $color--white;
 		}
 
-		:global(svg path) {
-			fill: $color--slate-dark;
-		}
+		// Change icon color and size at component level
+		// :global(svg) {width: 20px; height: 20px; }
+		// :global(svg path) {stroke: $color--dark;}
 
-		// hover state
-		&:before {
-			@include pseudo();
-			z-index: 0;
-			width: 150%;
-			height: 100%;
-			top: 0;
-			left: 0;
-			background-image: linear-gradient(
-				90deg,
-				$color--purple-dark 75%,
-				transparent 100%
-			);
-			opacity: 0;
-			transform: translateX(-150%);
-			transition-timing-function: ease-out;
-			transition: transform $anim--hover-speed, opacity $anim--hover-speed;
+		@include set-focus {
+			box-shadow: 0px 0px 0px 2px $color--beige,
+				0px 0px 0px 3px $color--darkest;
 		}
 
 		&:hover {
-			&:before {
-				opacity: 1;
-				transform: translateX(0);
+			background-color: $color--darker;
+		}
+
+		&:enabled:active {
+			background-color: #56585a;
+		}
+
+		&:disabled:not(.sp-button--loader) {
+			cursor: default !important;
+			background-color: $color--beige-darker;
+			.sp-button--label {
+				color: $color--beige-darkest;
+			}
+			:global(svg path) {
+				stroke: $color--beige-darkest;
+			}
+
+			&.sp-button--light {
+				background-color: $color--beige;
+				.sp-button--label {
+					color: $color--beige-darker;
+				}
+			}
+			&.sp-button--outline {
+				box-shadow: inset 0px 0px 0px 1px $color--beige-darker;
+				background-color: transparent;
+				.sp-button--label {
+					color: $color--beige-darker;
+				}
 			}
 		}
 
-		&:focus {
-			outline: none;
-			// box-shadow: inset 0px 0px 3px 2px $color--blue;
+		&.sp-button--light {
+			background-color: $color--beige-dark;
+			color: $color--darkest;
+			.sp-button--label {
+				color: $color--darkest;
+				background: unset;
+			}
+			&:hover {
+				background-color: $color--beige-darker;
+			}
+
+			&:enabled:active {
+				background-color: $color--beige-darkest;
+			}
+
+			@include set-focus {
+				box-shadow: 0px 0px 0px 2px $color--beige,
+					0px 0px 0px 3px $color--beige-darker;
+			}
+		}
+		// yellow gradient
+		&.sp-button--accent {
+			background-color: $color--yellow;
+			background-image: $color--gradient--yellow;
+			color: $color--darkest;
+			.sp-button--label {
+				color: $color--darkest;
+			}
+			&:hover {
+				background-image: linear-gradient(
+					180deg,
+					$color--yellow-gradient-start 0%,
+					$color--yellow-gradient-end 50%
+				);
+			}
+
+			&:enabled:active {
+				background-color: $color--yellow;
+				background-image: unset;
+			}
+		}
+
+		// blue gradient
+		&.sp-button--accent-alt1 {
+			background-color: $color--blue;
+			background-image: $color--gradient--blue;
+			color: $color--darkest;
+			.sp-button--label {
+				color: $color--darkest;
+			}
+			&:hover {
+				background-image: linear-gradient(
+					180deg,
+					$color--blue-gradient-start 0%,
+					$color--blue-gradient-end 50%
+				);
+			}
+
+			&:enabled:active {
+				background-color: $color--blue;
+				background-image: unset;
+			}
+		}
+
+		// green gradient
+		&.sp-button--accent-alt2 {
+			background-color: $color--green;
+			background-image: $color--gradient--green;
+			color: $color--darkest;
+			.sp-button--label {
+				color: $color--darkest;
+			}
+			&:hover {
+				background-image: linear-gradient(
+					180deg,
+					$color--green-gradient-start 0%,
+					$color--green-gradient-end 50%
+				);
+			}
+
+			&:enabled:active {
+				background-color: $color--green;
+				background-image: unset;
+			}
+		}
+
+		// pink gradient
+		&.sp-button--accent-alt3 {
+			background-color: $color--pink;
+			background-image: $color--gradient--pink;
+			color: $color--darkest;
+			.sp-button--label {
+				color: $color--darkest;
+			}
+			&:hover {
+				background-image: linear-gradient(
+					180deg,
+					$color--pink-gradient-start 0%,
+					$color--pink-gradient-end 50%
+				);
+			}
+
+			&:enabled:active {
+				background-color: $color--pink;
+				background-image: unset;
+			}
+		}
+		&.sp-button--outline {
+			background-color: $color--white;
+			box-shadow: inset 0px 0px 0px 1px $color--beige-darker;
+
+			.sp-button--label {
+				color: $color--darkest;
+			}
+
+			&:hover {
+				box-shadow: inset 0px 0px 0px 1px $color--beige-darkest;
+			}
+
+			&:enabled:active {
+				box-shadow: inset 0px 0px 0px 1px $color--beige-darkest;
+			}
+
+			@include set-focus {
+				box-shadow: 0px 0px 0px 1px $color--beige-darker,
+					0px 0px 0px 3px $color--beige,
+					0px 0px 0px 4px $color--beige-darkest;
+			}
 		}
 
 		&.sp-button--block {
@@ -184,110 +308,6 @@
 			}
 		}
 
-		&.sp-button--secondary {
-			background-color: $color--yellow;
-
-			&:before {
-				background-image: linear-gradient(
-					90deg,
-					$color--yellow-dark 75%,
-					transparent 100%
-				);
-			}
-
-			.sp-button--ripple {
-				background: $color--yellow;
-				background: radial-gradient(
-					circle,
-					$color--yellow 0%,
-					transparent 60%
-				);
-			}
-		}
-		&.sp-button--tertiary {
-			background-color: $color--green;
-
-			&:before {
-				background-image: linear-gradient(
-					90deg,
-					$color--green-dark 75%,
-					transparent 100%
-				);
-			}
-
-			.sp-button--ripple {
-				background: $color--green;
-				background: radial-gradient(
-					circle,
-					$color--green 0%,
-					transparent 60%
-				);
-			}
-		}
-		&.sp-button--quaternary {
-			background-color: $color--blue;
-
-			&:before {
-				background-image: linear-gradient(
-					90deg,
-					$color--blue-dark 75%,
-					transparent 100%
-				);
-			}
-
-			.sp-button--ripple {
-				background: $color--blue;
-				background: radial-gradient(
-					circle,
-					$color--blue 0%,
-					transparent 60%
-				);
-			}
-		}
-		&.sp-button--dark {
-			background-color: $color--slate-dark;
-			color: $color--slate-lighter;
-			:global(svg path) {
-				fill: $color--slate-lighter;
-			}
-
-			&:before {
-				background-image: linear-gradient(
-					90deg,
-					#454d5f 75%,
-					#454d5f 100%
-				);
-			}
-
-			.sp-button--ripple {
-				background: radial-gradient(
-					circle,
-					$color--slate-dark 0%,
-					transparent 60%
-				);
-			}
-		}
-		&.sp-button--light {
-			background-color: $color--white;
-			box-shadow: inset 0px 0px 0px 1px $color--slate-lighter;
-
-			&:before {
-				background: unset;
-				background-image: unset;
-			}
-
-			&:hover {
-				box-shadow: inset 0px 0px 0px 1px #c4c7cd;
-			}
-
-			&:active {
-				box-shadow: inset 0px 0px 0px 1px $color--slate;
-			}
-
-			.sp-button--ripple {
-				display: none;
-			}
-		}
 		&.sp-button--small {
 			font-size: $font-size--12;
 			padding: 0 $size-gutter--half;
@@ -322,68 +342,25 @@
 				width: 24px;
 				height: 24px;
 			}
-		}
-		&:disabled:not(.sp-button--loader) {
-			cursor: default !important;
-			color: $color--purple-light;
-			background: $color--light-purple;
-			:global(svg path) {
-				fill: $color--purple-light;
-			}
 
-			&:before {
-				background: unset;
-				background-image: unset;
-			}
-
-			&.sp-button--secondary {
-				color: $color--yellow-dark;
-				background-color: $color--yellow-light;
-				:global(svg path) {
-					fill: $color--yellow-dark;
-				}
-			}
-			&.sp-button--tertiary {
-				color: $color--green-dark;
-				background-color: $color--green-light;
-				:global(svg path) {
-					fill: $color--green-dark;
-				}
-			}
-			&.sp-button--quaternary {
-				color: $color--blue-dark;
-				background-color: $color--blue-light;
-				:global(svg path) {
-					fill: $color--blue-dark;
-				}
-			}
-			&.sp-button--dark {
-				color: $color--slate;
-				background-color: $color--slate-lighter;
-				:global(svg path) {
-					fill: $color--slate;
-				}
-			}
-			&.sp-button--light {
-				color: $color--slate-lighter;
-				background-color: $color--white;
-				box-shadow: inset 0px 0px 0px 1px $color--slate-lighter;
-				:global(svg path) {
-					fill: $color--slate-lighter;
-				}
-			}
+			// gradient text for large buttons
+			// &.sp-button--primary {
+			// 	.sp-button--label {
+			// 		background: linear-gradient(
+			// 			180deg,
+			// 			$color--yellow-gradient-start 25%,
+			// 			$color--yellow-gradient-end 75%
+			// 		);
+			// 		-webkit-background-clip: text;
+			// 		background-clip: text;
+			// 		color: transparent;
+			// 	}
+			// }
 		}
+
 		&.sp-button--loader {
 			position: relative;
 			transition: none;
-
-			// hide the text/icon so only spinner is seen
-			&:disabled {
-				.sp-button--label {
-					visibility: hidden;
-					opacity: 0;
-				}
-			}
 
 			&:after {
 				content: '';
@@ -394,33 +371,61 @@
 				height: $size--16;
 				top: calc(50% - 8px);
 				left: calc(50% - 8px);
-				border: 2px solid $color--slate-dark;
+				border: 2px solid $color--white;
 				border-top: 2px solid transparent;
 				border-radius: 100%;
 				animation: spin 1s linear infinite;
 			}
+
+			// hide the text/icon so only spinner is seen
 			&:disabled {
 				cursor: default !important;
+
+				.sp-button--label {
+					visibility: hidden;
+					opacity: 0;
+				}
+
 				&:after {
 					display: block; // show loader when disabled
 				}
+
+				// &:enabled:active {
+				// 	background-color: unset;
+				// }
 			}
+
+			&.sp-button--dark:after {
+				border-color: transparent $color--white $color--white;
+			}
+
 			&.sp-button--small:after {
 				width: $size--12;
 				height: $size--12;
 				top: calc(50% - 6px);
 				left: calc(50% - 6px);
 			}
+
 			&.sp-button--large:after {
 				width: $size--18;
 				height: $size--18;
 				top: calc(50% - 9px);
 				left: calc(50% - 9px);
 			}
+
+			&.sp-button--light:after,
+			&.sp-button--accent:after,
+			&.sp-button--accent-alt1:after,
+			&.sp-button--accent-alt2:after,
+			&.sp-button--accent-alt3:after,
+			&.sp-button--outline:after {
+				border-color: $color--darkest;
+				border-top-color: transparent;
+			}
 		}
 
 		.sp-button--label {
-			display: inline-flex;
+			display: flex;
 			justify-content: center;
 			align-items: center;
 			column-gap: $size--6;
@@ -428,35 +433,6 @@
 			z-index: 2;
 			&:empty {
 				display: none;
-			}
-		}
-
-		.sp-button--ripple {
-			position: absolute;
-			z-index: 1;
-			left: calc(50% - ($anim--active-size * 0.5));
-			top: calc(50% - ($anim--active-size * 0.5));
-			width: $anim--active-size;
-			height: $anim--active-size;
-			display: block;
-			border-radius: $size--40;
-			transform: scale(0.1);
-			opacity: 0;
-			background: $color--purple;
-			background: radial-gradient(
-				circle,
-				$color--purple 50%,
-				transparent 60%
-			);
-			transition-timing-function: ease-out;
-			transition: transform $anim--active-speed,
-				opacity $anim--active-speed;
-		}
-
-		&.sp-button--active {
-			.sp-button--ripple {
-				transform: scale(1);
-				opacity: 1;
 			}
 		}
 	}
