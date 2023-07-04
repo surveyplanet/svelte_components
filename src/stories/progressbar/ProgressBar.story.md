@@ -35,7 +35,7 @@ The following props can be passed to the `ProgressBar` component:
 	           id: '3',
 	           question: 'What is your favorite color?',
 	           type: 'text',
-	           answer: '',
+	           answer: 'hello',
 	           required: true,
 	       },
 	   ];
