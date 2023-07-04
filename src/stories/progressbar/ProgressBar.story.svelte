@@ -2,7 +2,6 @@
 	import { logEvent } from 'histoire/client';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { ProgressBar, Button } from '../../lib/index';
-	import { menuData } from '../menu/menu_data';
 
 	export let Hst: Histoire;
 
@@ -24,7 +23,7 @@
 	$: index = 0;
 
 	const nextButtonClickHandler = () => {
-		if (index < questions.length - 1) {
+		if (index < questions.length) {
 			index += 1;
 		} else {
 			index = 0;
@@ -48,6 +47,17 @@
 		<ProgressBar
 			{questions}
 			{index} />
-		<Button on:click={nextButtonClickHandler}>Next</Button>
+		<div class="wrapper">
+			<Button on:click={nextButtonClickHandler}>Next</Button>
+		</div>
 	</Hst.Variant>
 </Hst.Story>
+
+<style>
+	.wrapper {
+		display: flex;
+		justify-content: left;
+		align-items: center;
+		margin-top: 100px;
+	}
+</style>
