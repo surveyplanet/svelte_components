@@ -1,6 +1,6 @@
 import { test, expect, type FrameLocator } from '@playwright/test';
 import { loadStory, setControl } from './_utils.js';
-import { COLORS } from '../lib/_definitions.js';
+import { COLORS } from '$lib/_definitions.js';
 
 test.describe('Icon component', () => {
 	let canvas: FrameLocator;

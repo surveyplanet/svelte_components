@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { ProgressBar, Button } from '../../lib/index';
+	import { ProgressBar, Button } from '$lib/index';
 
 	export let Hst: Histoire;
 

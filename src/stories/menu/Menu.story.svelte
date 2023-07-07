@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Menu, Button, Icon, type MenuData } from '../../lib';
+	import { Menu, Button, Icon, type MenuData } from '$lib';
 	import { logEvent } from 'histoire/client';
 	import { menuData } from './menu_data';
 

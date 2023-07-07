@@ -2,7 +2,7 @@
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { logEvent } from 'histoire/client';
 	// import source from './source';
-	import { Spinner } from '../../lib';
+	import { Spinner } from '$lib';
 	export let Hst: Histoire;
 
 	let label = 'Number Spinner';

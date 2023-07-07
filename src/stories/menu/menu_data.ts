@@ -1,5 +1,5 @@
 import { COLORS } from '$lib';
-import type { MenuData } from '../../lib';
+import type { MenuData } from '$lib';
 
 export const menuData: MenuData[] = [
 	{ label: 'Edit', id: 'edit' },

@@ -34,7 +34,6 @@ test.describe('Progressbar component', () => {
 
 	test.only('test for 10 "question"s', async ({ page }) => {
 		const preview = await loadStory(page, 'progressbar');
-		const progressbar = preview.locator('.sp-progress-bar');
 		const progress = preview.locator('.sp-progress-bar--progress');
 		const testButton = preview.locator('button');
 		await setControl(
@@ -56,6 +55,7 @@ test.describe('Progressbar component', () => {
 ]
             `
 		);
+
 		expect(await getStyles(progress)).toHaveProperty('width', '0px');
 
 		await testButton.click();

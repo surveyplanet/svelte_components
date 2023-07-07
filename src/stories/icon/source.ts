@@ -1,4 +1,4 @@
-import { COLORS } from '../../lib/_definitions';
+import { COLORS } from '$lib/_definitions';
 
 export default `<Icon 
 color="${COLORS.pink}"

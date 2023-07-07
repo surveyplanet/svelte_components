@@ -19,3 +19,4 @@ export { default as NavBar, type NavBarData } from './NavBar.svelte';
 export { default as TabBar, type TabBarData } from './TabBar.svelte';
 export { default as Chips, type ChipData } from './Chips.svelte';
 export { default as ProgressBar } from './ProgressBar.svelte';
+export { default as Loader } from './Loader.svelte';
