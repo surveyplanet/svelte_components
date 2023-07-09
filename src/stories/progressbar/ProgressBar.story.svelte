@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { ProgressBar } from '../../lib/index';
+	import { ProgressBar, Button } from '$lib/index';
 
 	export let Hst: Histoire;
 
@@ -9,7 +9,7 @@
 	let value = 0;
 </script>
 
-<Hst.Story title="ProgressBar">
+<Hst.Story title="Progress Bar">
 	<svelte:fragment slot="controls">
 		<Hst.Number
 			bind:value={max}

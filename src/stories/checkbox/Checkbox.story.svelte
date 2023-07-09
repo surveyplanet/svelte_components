@@ -2,7 +2,7 @@
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { logEvent } from 'histoire/client';
 	import source from './source';
-	import { Checkbox } from '../../lib';
+	import { Checkbox } from '$lib';
 	export let Hst: Histoire;
 
 	let id: string;

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { NavBar, type MenuData, type NavBarData } from '../../lib/index';
+	import { NavBar, type MenuData, type NavBarData } from '$lib/index';
 	import { menuData } from '../menu/menu_data';
 
 	export let Hst: Histoire;

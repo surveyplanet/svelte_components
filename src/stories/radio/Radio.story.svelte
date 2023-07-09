@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { logEvent } from 'histoire/client';
-	import { Radio } from '../../lib';
+	import { Radio } from '$lib';
 	import source from './source';
 
 	export let Hst: Histoire;

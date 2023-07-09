@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Icon, type IconName, type IconSize } from '../../lib';
-	import { COLORS } from '../../lib/_definitions';
+	import { Icon, type IconName, type IconSize } from '$lib';
+	import { COLORS } from '$lib/_definitions';
 	import { default as source } from './source';
-	import ICON_DATA from '../../lib/_icon_data';
+	import ICON_DATA from '$lib/_icon_data';
 	export let Hst: Histoire;
 
 	let color = COLORS.dark;

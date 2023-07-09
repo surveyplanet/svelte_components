@@ -1,4 +1,4 @@
-# NavBar Component
+# ProgressBar Component
 
 The `ProgressBar` component displays how much of a task has been completed.
 

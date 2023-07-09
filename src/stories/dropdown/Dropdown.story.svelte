@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Dropdown, type DropdownOptions } from '../../lib';
+	import { Dropdown, type DropdownOptions } from '$lib';
 	import { logEvent } from 'histoire/client';
 
 	// import { default as source } from './source';

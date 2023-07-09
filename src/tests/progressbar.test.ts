@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { loadStory, getStyle, setControl } from './_utils.js';
+import { loadStory, setControl } from './_utils.js';
 
 test.describe('Progress Bar component', () => {
 	test('basic', async ({ page }) => {

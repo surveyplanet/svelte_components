@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Badge } from '../../lib';
+	import { Badge } from '$lib';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { COLORS } from '../../lib/_definitions';
+	import { COLORS } from '$lib/_definitions';
 	export let Hst: Histoire;
 
 	let color: 'yellow' | 'blue' | 'pink' | 'green' = 'yellow';

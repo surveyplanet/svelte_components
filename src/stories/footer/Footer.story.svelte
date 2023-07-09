@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Footer, type FooterData } from '../../lib';
+	import { Footer, type FooterData } from '$lib';
 
 	// import { default as source } from './source';
 	export let Hst: Histoire;
