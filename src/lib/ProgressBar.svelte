@@ -1,12 +1,14 @@
 <script lang="ts">
-	export let index: number;
-	export let questions: object[];
+	export let max = 0;
+	export let value = 0;
 
-	const progressPercentage = (index: number, questions: object[]) => {
-		return (index / questions.length) * 100;
-	};
+	let progress = 0;
 
-	$: progress = progressPercentage(index, questions);
+	$: {
+		if (value > max) value = max;
+		if (value < 0) value = 0;
+		progress = (value / max) * 100;
+	}
 </script>
 
 <div class="sp-progress-bar">
@@ -15,21 +17,20 @@
 		style="width: {progress}%" />
 </div>
 
-<style>
+<style lang="scss">
+	@use '@surveyplanet/styles' as *;
+
 	.sp-progress-bar {
 		width: 100%;
-		height: 10px;
-		position: inherit;
+		height: $size--6;
 		margin: 0 auto;
-		border-radius: 30px;
-		background: var(--beige-shade-2-strokes, #ebe6d7);
+		border-radius: $size--6;
+		background: $color--beige-darker;
 	}
 
 	.sp-progress-bar--progress {
-		height: 6px;
-		flex-shrink: 0;
 		height: 100%;
-		border-radius: 30px;
-		background: var(--green, #bdffd8);
+		border-radius: $size--6;
+		background: $color--green;
 	}
 </style>

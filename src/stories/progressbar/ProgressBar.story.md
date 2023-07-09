@@ -6,10 +6,10 @@ The `ProgressBar` component displays how much of a task has been completed.
 
 The following props can be passed to the `ProgressBar` component:
 
-| Prop name   | Type                      | Default value | Description                                                                                     |
-| ----------- | ------------------------- | ------------- | ----------------------------------------------------------------------------------------------- |
-| `questions` | `SurveyData['questions']` |               | An array of questions from Survey Data from which the component derives the potential progress. |
-| `index`     | `number`                  | 0             | The index of the current question.                                                              |
+| Prop name | Type     | Default value | Description                        |
+| --------- | -------- | ------------- | ---------------------------------- |
+| `max`     | `number` | 0             | The max value of the progress.     |
+| `value`   | `number` | 0             | The current value of the progress. |
 
 ## Example
 
