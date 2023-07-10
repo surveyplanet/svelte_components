@@ -1,38 +1,43 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { Loader } from '$lib';
+	import { COLORS } from '$lib/_definitions';
 
 	// import { default as source } from './source';
 	export let Hst: Histoire;
-	let colors: string[] = [
-		'#e2bd60',
-		'#79c5e5',
-		'#dc8dbb',
-		'#7de3a2',
-		'#034cfd',
-		'#ce3129',
-		'#baf522',
-		'#000000',
-	];
-	let size: 'small' | 'medium' | 'large' = 'large';
+	let colors: string[];
+	// let colors: string[] = getRandomColors(50, 100);
+	let size = 60;
+	let strokeWidth: 1 | 2 | 3 | 4 = 4;
+
+	function getRandomColors(min = 4, max = 20) {
+		const rand = Math.floor(Math.random() * (max - min + 1) + min); // random number between 20 and 4
+		return Array.from(
+			{ length: rand },
+			() => `#${Math.floor(Math.random() * 16777215).toString(16)}` // random hex color
+		);
+	}
 </script>
 
 <Hst.Story title="Loader">
 	<svelte:fragment slot="controls">
 		<Hst.Json
 			bind:value={colors}
-			title="Loader items" />
-		<Hst.Select
+			title="Colors" />
+		<Hst.Number
 			bind:value={size}
-			title="Size"
-			options={['small', 'medium', 'large']} />
+			title="Size" />
+		<Hst.Number
+			bind:value={strokeWidth}
+			title="Stroke width" />
 	</svelte:fragment>
 
 	<Hst.Variant title="Primary">
 		<div class="wrapper">
 			<Loader
 				{colors}
-				{size} />
+				{size}
+				{strokeWidth} />
 		</div>
 	</Hst.Variant>
 </Hst.Story>

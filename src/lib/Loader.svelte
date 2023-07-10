@@ -1,38 +1,20 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { COLORS } from './_definitions';
 
-	export let colors = ['#e2bd60', '#79c5e5', '#e2bd60', '#79c5e5'];
-	export let size: 'small' | 'medium' | 'large' = 'medium';
+	const strokeDashOffset = 63;
 
-	onMount(() => {
-		injectKeyframes();
-	});
+	export let colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green];
+	export let size = 72;
+	export let strokeWidth: 1 | 2 | 3 | 4 = 4; // stroke width doesn't look good above 4
 
-	let loaderDuration = colors.length;
+	// When updating the colors the animation can get out of sync since the
+	// speed is based on the number of colors. This should be fine as long as the
+	// colors don't change after initialization. This could be an issue using it
+	// in a single page app.
+	$: speed = colors.length;
 
-	let strokeDashOffset = 63;
-	let box = 24;
-	let cx = 12;
-	let cy = 12;
-	let r = 10;
-	let strokeWidth = 4;
-
-	if (size === 'small') {
-		strokeDashOffset = 15;
-		box = 12;
-		cx = 6;
-		cy = 6;
-		r = 2;
-		strokeWidth = 1;
-	} else if (size === 'large') {
-		strokeDashOffset = 126;
-		box = 48;
-		cx = 24;
-		cy = 24;
-		r = 15;
-		strokeWidth = 8;
-	}
-
+	// keyframes can not be applied to svg element directly so inject in to head
 	function injectKeyframes() {
 		const keyframeElId = 'sp-loader--animation-keyframes';
 		let keyframeEl = document.getElementById(keyframeElId);
@@ -41,49 +23,52 @@
 			keyframeEl.id = keyframeElId;
 		}
 
-		const keyframe = (1 / (colors.length * 2)) * 100;
+		const keyframe = Math.round((1 / (colors.length * 2)) * 100);
 		keyframeEl.textContent = `@keyframes loader-stroke {
 	${keyframe}% { stroke-dashoffset: 0 } ${keyframe * 2}%,
 	100% { stroke-dashoffset: ${strokeDashOffset} } 
 }`;
 		document.head.appendChild(keyframeEl);
 	}
+
+	onMount(() => {
+		injectKeyframes();
+	});
 </script>
 
 <svg
-	class="sp-loader"
-	viewBox="0 0 {box} {box}"
-	height={box}
-	width={box}
-	style="--loaderDuration: {loaderDuration}s; --dash: {strokeDashOffset}; ">
+	class="sp-loader sp-loader--{size}"
+	viewBox="0 0 24 24"
+	style:width="{size}px"
+	style:height="{size}px">
 	{#each colors as color, index}
 		<circle
 			class="sp-loader--track"
-			{cx}
-			{cy}
-			{r}
+			cx="12"
+			cy="12"
+			r="10"
 			stroke-width={strokeWidth}
 			stroke={color}
+			style:animation-duration="{speed}s"
+			style:stroke-dasharray={strokeDashOffset}
+			style:stroke-dashoffset={strokeDashOffset}
 			style:animation-delay="{index + 1}s" />
 	{/each}
 </svg>
 
 <style>
-	:root {
-		--loaderDuration: 4s;
-		--dash: 63;
-	}
 	.sp-loader {
 		animation: loader-turn 1s linear infinite;
 		padding: 0;
 		margin: 0;
+		/* background-color: red; */
 	}
 
 	.sp-loader--track {
-		animation: loader-stroke var(--loaderDuration) linear infinite;
+		animation-name: loader-stroke;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
 		fill: none;
-		stroke-dasharray: var(--dash);
-		stroke-dashoffset: var(--dash);
 		stroke-linecap: round;
 	}
 
