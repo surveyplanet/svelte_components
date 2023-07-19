@@ -38,7 +38,7 @@ export default defineConfig({
 		hideColorSchemeSwitch: false,
 		storeColorScheme: false,
 	},
-	// setupFile: '/src/histoire/setup.ts', // <-- doesn't work
+	setupFile: './src/stories/histoire.setup.ts', // <-- doesn't work
 	// viteIgnorePlugins: [
 	// 	'vite-plugin-sveltekit-setup',
 	// 	'vite-plugin-sveltekit-compile',

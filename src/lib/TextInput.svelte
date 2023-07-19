@@ -1,7 +1,13 @@
 <script
 	context="module"
 	lang="ts">
-	export type TextInputType = 'password' | 'search' | 'text';
+	export type TextInputType =
+		| 'password'
+		| 'search'
+		| 'text'
+		| 'date'
+		| 'time'
+		| 'datetime-local';
 </script>
 
 <script lang="ts">

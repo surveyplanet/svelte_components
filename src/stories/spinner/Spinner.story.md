@@ -1,6 +1,6 @@
 # Spinner Component
 
-This module exports a Svelte component that provides an input field for entering numeric values with increment and decrement buttons.
+This module exports a Svelte component that provides an input field for entering numeric response with increment and decrement buttons.
 
 ## Exported Variables
 
@@ -50,6 +50,6 @@ This module exports a Svelte component that provides an input field for entering
 
 ## Implementation Details
 
-This module exports a Svelte component that provides an input field for entering numeric values with increment and decrement buttons. The component uses the Cleave.js library to format the input value as a number. It also provides event dispatchers for change and blur/focus events.
+This module exports a Svelte component that provides an input field for entering numeric response with increment and decrement buttons. The component uses the Cleave.js library to format the input value as a number. It also provides event dispatchers for change and blur/focus events.
 
 This component can be used for time inputs. To do so, set the step to 60 and the min to 0. Then, the value will be in minutes and the input will be formatted as a time. Use 2 separate time inputs to enter hours and minutes. You can use 12 as max for the first input if 12h time format is desired.
