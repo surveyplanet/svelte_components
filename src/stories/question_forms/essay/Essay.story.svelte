@@ -12,8 +12,8 @@
 	let max: EssayProperties['max'] = 10;
 	let single: EssayProperties['single'] = false;
 	let response: EssayValue[] = [];
-	const essayInputHandler = (event: CustomEvent) => {
-		logEvent('change', event.detail[0]);
+	const essayResponseHandler = (event: CustomEvent) => {
+		logEvent(event.type, event.detail[0]);
 	};
 </script>
 
@@ -46,7 +46,7 @@
 				{max}
 				{single}
 				{response}
-				on:input={essayInputHandler} />
+				on:response={essayResponseHandler} />
 		</div>
 	</Hst.Variant>
 </Hst.Story>

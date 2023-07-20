@@ -13,7 +13,9 @@
 	import { createEventDispatcher } from 'svelte';
 	import { Button, Radio } from '../';
 
-	const dispatchResponse = createEventDispatcher<{ input: ScoringValue[] }>();
+	const dispatchResponse = createEventDispatcher<{
+		response: ScoringValue[];
+	}>();
 
 	export let id: string;
 	export let definitions: ScoringDefinitions;
@@ -41,7 +43,7 @@
 
 		updateResponse(value);
 
-		dispatchResponse('input', response);
+		dispatchResponse('response', response);
 	};
 
 	const clearButtonClickHandler = () => {

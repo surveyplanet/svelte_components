@@ -31,8 +31,8 @@
 			value: '',
 		},
 	];
-	const imageInputHandler = (event: CustomEvent) => {
-		logEvent('change', event.detail);
+	const imageResponseHandler = (event: CustomEvent) => {
+		logEvent(event.type, event.detail);
 	};
 </script>
 
@@ -98,7 +98,7 @@
 				{random}
 				{min}
 				{max}
-				on:input={imageInputHandler} />
+				on:response={imageResponseHandler} />
 		</div>
 	</Hst.Variant>
 </Hst.Story>

@@ -1,15 +1,7 @@
-/* @use '@surveyplanet/styles' as *; */
-
-body {
-	background-color: red;
-}
+@use '@surveyplanet/styles' as *;
 
 :global {
-	fieldset {
-		border: 1px solid blue;
+	.wrapper {
+		padding: $size-gutter;
 	}
-}
-
-.farfignugen {
-	color: blue;
 }

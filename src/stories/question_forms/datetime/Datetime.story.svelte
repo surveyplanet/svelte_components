@@ -23,7 +23,7 @@
 
 	const dateTimeResponseHandler = (event: CustomEvent) => {
 		console.log('DateTime: ', event.detail[0]);
-		logEvent('change', event.detail);
+		logEvent(event.type, event.detail);
 	};
 </script>
 

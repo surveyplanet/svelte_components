@@ -11,8 +11,8 @@
 	let min: RangeProperties['min'] = 0;
 	let max: RangeProperties['max'] = 10;
 	let response: RangeValue[] = [];
-	const rangeInputHandler = (event: CustomEvent) => {
-		logEvent('change', event.detail);
+	const rangeResponseHandler = (event: CustomEvent) => {
+		logEvent(event.type, event.detail);
 	};
 </script>
 
@@ -41,7 +41,7 @@
 				{min}
 				{max}
 				{response}
-				on:input={rangeInputHandler} />
+				on:response={rangeResponseHandler} />
 		</div>
 	</Hst.Variant>
 </Hst.Story>

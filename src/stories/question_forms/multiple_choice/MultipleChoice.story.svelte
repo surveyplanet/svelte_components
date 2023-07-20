@@ -10,7 +10,7 @@
 	export let Hst: Histoire;
 
 	// Component props
-	let id: string;
+	let id: string = 'abc123';
 	let labels: MultipleChoiceProperties['labels'] = ['Harry', 'Larry', 'Moe'];
 	let multi: MultipleChoiceProperties['multi'];
 	let layout: MultipleChoiceProperties['layout'] = '1';
@@ -18,8 +18,8 @@
 	let min: MultipleChoiceProperties['min'];
 	let max: MultipleChoiceProperties['max'];
 	let response: MultipleChoiceValue[] = [];
-	const multipleChoiceInputHandler = (event: CustomEvent) => {
-		logEvent('change', event.detail);
+	const multipleChoiceResponseHandler = (event: CustomEvent) => {
+		logEvent(event.type, event.detail);
 	};
 </script>
 
@@ -67,9 +67,7 @@
 				{min}
 				{max}
 				{response}
-				on:input={multipleChoiceInputHandler} />
+				on:response={multipleChoiceResponseHandler} />
 		</div>
 	</Hst.Variant>
 </Hst.Story>
-
-<style lang="scss"></style>

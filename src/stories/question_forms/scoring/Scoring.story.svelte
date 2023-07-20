@@ -22,8 +22,8 @@
 	let requireAll: ScoringProperties['requireAll'] = false;
 	let requireUnique: ScoringProperties['requireUnique'] = false;
 	let response: ScoringValue[] = [];
-	const scoringInputHandler = (event: CustomEvent) => {
-		logEvent('change', event.detail);
+	const scoringResponseHandler = (event: CustomEvent) => {
+		logEvent(event.type, event.detail);
 	};
 </script>
 
@@ -73,7 +73,7 @@
 		)}>
 		<div class="wrapper">
 			<Scoring
-				on:input={scoringInputHandler}
+				on:response={scoringResponseHandler}
 				{id}
 				{definitions}
 				{values}

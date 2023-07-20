@@ -3,7 +3,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { TextInput } from '../';
 
-	const dispatchResponse = createEventDispatcher<{ input: FormValue[] }>();
+	const dispatchResponse = createEventDispatcher<{ response: FormValue[] }>();
 
 	export let id: string;
 	export let labels: FormProperties['labels'] = [];
@@ -25,7 +25,7 @@
 			value: target.value,
 		} as FormValue;
 		updateResponse(value);
-		dispatchResponse('input', response);
+		dispatchResponse('response', response);
 	};
 
 	const inputKeyupHandler = inputChangeHandler;

@@ -3,7 +3,9 @@
 	import { createEventDispatcher } from 'svelte';
 	import RangeSlider from 'svelte-range-slider-pips';
 
-	const dispatchResponse = createEventDispatcher<{ input: RangeValue[] }>();
+	const dispatchResponse = createEventDispatcher<{
+		response: RangeValue[];
+	}>();
 
 	export let id: string;
 	export let min: RangeProperties['min'];
@@ -12,9 +14,9 @@
 
 	let rangeValues: number[] = [response[0] || min, response[1] || max];
 
-	const inputChangeHandler = () => {
+	const rangeSliderStopHandler = () => {
 		response = [rangeValues[0], rangeValues[1]];
-		dispatchResponse('input', response);
+		dispatchResponse('response', response);
 	};
 </script>
 
@@ -28,5 +30,5 @@
 		max={Number(max)}
 		all="label"
 		bind:values={rangeValues}
-		on:stop={inputChangeHandler} />
+		on:stop={rangeSliderStopHandler} />
 </form>

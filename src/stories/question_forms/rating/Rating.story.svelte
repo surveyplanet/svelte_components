@@ -37,8 +37,8 @@
 	let order: RatingProperties['order'] = 'default';
 	let layout: RatingProperties['layout'] = '1';
 	let response: RatingValue[] = [];
-	const ratingInputHandler = (event: CustomEvent) => {
-		logEvent('change', event.detail);
+	const ratingResponseHandler = (event: CustomEvent) => {
+		logEvent(event.type, event.detail);
 	};
 </script>
 
@@ -90,7 +90,7 @@
 				{order}
 				{layout}
 				{response}
-				on:input={ratingInputHandler} />
+				on:response={ratingResponseHandler} />
 		</div>
 	</Hst.Variant>
 </Hst.Story>

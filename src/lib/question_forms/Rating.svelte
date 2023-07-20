@@ -4,7 +4,9 @@
 	import RangeSlider from 'svelte-range-slider-pips';
 	import { Radio } from '../';
 
-	const dispatchResponse = createEventDispatcher<{ input: RatingValue[] }>();
+	const dispatchResponse = createEventDispatcher<{
+		response: RatingValue[];
+	}>();
 
 	export let id: string;
 	export let labels: RatingProperties['labels'] = [];
@@ -40,7 +42,7 @@
 	const inputChangeHandler = (event: CustomEvent) => {
 		const target = event.detail.target as HTMLInputElement;
 		updateResponse(Number(target.value));
-		dispatchResponse('input', response);
+		dispatchResponse('response', response);
 	};
 </script>
 
