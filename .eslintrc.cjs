@@ -52,6 +52,7 @@ module.exports = {
 		'/.svelte-kit',
 		'/package',
 		'/dist',
+		'/bin',
 		'.env',
 		'.env.*',
 		'!.env.example',
@@ -60,6 +61,6 @@ module.exports = {
 		'svelte.config.js',
 		'histoire.config.ts',
 		'playwright.config.ts',
-		'src/stories',
+		'/src/stories',
 	],
 };
