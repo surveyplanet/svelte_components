@@ -18,8 +18,8 @@
 		response?.push(value);
 	};
 
-	const inputChangeHandler = (event: CustomEvent) => {
-		const target = event.detail.target as HTMLInputElement;
+	const inputChangeHandler = ({ detail }: CustomEvent['detail']) => {
+		const { target } = detail;
 		const value = {
 			label: target.name,
 			value: target.value,

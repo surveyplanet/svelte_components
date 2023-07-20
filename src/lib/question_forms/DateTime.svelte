@@ -8,14 +8,6 @@
 		currentDate: Language['definitions']['currentDate'];
 		currentDatetime: Language['definitions']['currentDatetime'];
 	}
-
-	interface Units {
-		hours?: number;
-		minutes?: number;
-		day?: number;
-		month?: number;
-		year?: number;
-	}
 </script>
 
 <script lang="ts">
@@ -23,7 +15,7 @@
 		DateTimeValues,
 		DateTimeProperties,
 	} from '@surveyplanet/types';
-	import { Spinner, TextInput, Checkbox } from '../';
+	import { TextInput, type TextInputType } from '../';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatchResponse = createEventDispatcher<{
@@ -34,164 +26,112 @@
 	export let definitions: DateTimeDefinitions;
 	export let date: DateTimeProperties['date'] = false;
 	export let time: DateTimeProperties['time'] = false;
-	export let layout: DateTimeProperties['layout'];
-	export let standardizedTime: DateTimeProperties['standardizedTime']; // 24 hour time
 	export let response: DateTimeValues = [];
 
-	let units: Units = {};
+	let inputType: TextInputType = 'date';
+	$: inputType = date && time ? 'datetime-local' : time ? 'time' : 'date';
+	$: inputValue = dateToString();
 
-	$: className = (function (d: boolean, t: boolean): string {
-		const name = 'sp-survey--question--datetime';
-		if (d && t) return `${name}--date-time`;
-		if (d) return `${name}--date`;
-		if (t) return `${name}--time`;
-		return '';
+	$: currentButtonLabel = (function (d: boolean, t: boolean): string {
+		if (d && t) return definitions.currentDatetime;
+		if (t) return definitions.currentTime;
+		return definitions.currentDate;
 	})(date, time);
 
-	$: dateInputNames = (function (l: DateTimeProperties['layout']) {
-		switch (l) {
-			case 'd/m/y':
-				return ['day', 'month', 'year'];
-			case 'y/m/d':
-				return ['year', 'month', 'day'];
-			default:
-				return ['month', 'day', 'year'];
-		}
-	})(layout);
+	// $: className = (function (d: boolean, t: boolean): string {
+	// 	const name = 'sp-survey--question--datetime';
+	// 	if (d && t) return `${name}--date-time`;
+	// 	if (d) return `${name}--date`;
+	// 	if (t) return `${name}--time`;
+	// 	return '';
+	// })(date, time);
 
-	const updateResponse = () => {
-		const dateVal = new Date(0, 0, 0);
-
-		if (time) {
-			if (units.hours && !isNaN(units.hours)) {
-				dateVal.setHours(units.hours + 2);
-			}
-			if (units.minutes && !isNaN(units.minutes)) {
-				dateVal.setMinutes(units.minutes);
-			}
-		}
-		if (date) {
-			if (units.day && !isNaN(units.day)) {
-				dateVal.setDate(units.day);
-			}
-			if (units.month && !isNaN(units.month)) {
-				dateVal.setMonth(units.month - 1);
-			}
-			if (units.year && !isNaN(units.year)) {
-				dateVal.setFullYear(units.year);
-			}
-		}
-
-		response = [dateVal.toISOString()];
-
+	const updateResponse = (value: Date) => {
+		response = [value.toISOString()];
 		dispatchResponse('response', response);
 	};
 
-	const getCurrentButtonLabel = () => {
-		if (date && time) return definitions.currentDatetime;
-		if (date) return definitions.currentDate;
-		if (time) return definitions.currentTime;
+	const stringToDate = (isoStr: string): Date | undefined => {
+		console.log('stringToDate', isoStr);
+
+		if (!isoStr?.length) {
+			return;
+		}
+
+		isoStr = isoStr.trim(); // clean up whitespace
+
+		let result: Date;
+
+		// Time format only e.g.: 11:35
+		if (!date) {
+			const [hr, min] = isoStr.split(':').map(Number);
+
+			if (isNaN(hr) || isNaN(min)) {
+				return;
+			}
+
+			// BUG: this will be in the user's timezone instead of UTC, need to
+			// use Intl API: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
+			result = new Date(0, 0, 0, hr, min, 0);
+		} else {
+			// This should work for both date and datetime formats e.g.: 1977-04-29 or 1977-03-29T06:00:00
+			result = new Date(isoStr); // BUG: same bug as above.
+		}
+
+		if (isNaN(result.getTime())) {
+			return;
+		}
+
+		return result;
 	};
 
-	const setCurrent = () => {
-		const date = new Date();
-		units.hours = date.getHours();
-		units.minutes = date.getMinutes();
-		units.day = date.getDate();
-		units.month = date.getMonth() + 1;
-		units.year = date.getFullYear();
-		updateResponse();
+	const dateToString = () => {
+		if (!response?.length) {
+			return '';
+		}
+
+		const dateVal = new Date(response[0]);
+
+		if (isNaN(dateVal.getTime())) {
+			return '';
+		}
+
+		if (date && time) {
+			return dateVal.toISOString().split('.')[0]; // datetime-local
+		}
+
+		if (time) {
+			return dateVal.toISOString().split('T')[1].split('.')[0]; // time only
+		}
+
+		if (date) {
+			return dateVal.toISOString().split('T')[0]; // date only
+		}
+
+		return '';
 	};
 
-	const spinnerUpdateHandler = () => {
-		updateResponse();
+	const dateInputChangeHandler = ({ detail }: CustomEvent['detail']) => {
+		const { value } = detail.target;
+		const date = stringToDate(value);
+		if (date) {
+			updateResponse(date);
+		}
 	};
 </script>
 
-<form class="sp-survey--question--datetime {className}">
-	{#if date}
-		<!-- This needs to be dynamic so we change the format d/m/y or y/m/d -->
-		<!-- {#each dateInputNames as unit}
-			{@const max = unit === 'year' ? 9999 : unit === 'month' ? 12 : 31}
-			{@const min = unit === 'year' ? 1900 : 1}
-			{@const label =
-				unit === 'year' ? 'Year' : unit === 'month' ? 'Month' : 'Day'}
-			<div class="sp-survey--question--datetime--{unit}">
-				<Spinner
-					{min}
-					{max}
-					{label}
-					id={`${id}-${unit}`}
-					size="large"
-					bind:value={units[unit]}
-					on:update={spinnerUpdateHandler} />
-			</div>
-		{/each} -->
-		<TextInput
-			size="large"
-			label="Date"
-			type="date" />
-	{/if}
-	{#if time}
-		<div class="sp-survey--question--datetime--hours">
-			<Spinner
-				max={standardizedTime ? 24 : 12}
-				overflow={true}
-				label={'Hours'}
-				id={`${id}-hours`}
-				size="large"
-				bind:value={units['hours']}
-				on:update={spinnerUpdateHandler} />
-		</div>
-		<span class="sp-survey--question--datetime--separator">:</span>
-		<div class="sp-survey--question--datetime--minutes">
-			<Spinner
-				max={59}
-				overflow={true}
-				label={'Minutes'}
-				id={`${id}-minutes`}
-				size="large"
-				bind:value={units['minutes']}
-				on:update={spinnerUpdateHandler} />
-		</div>
-	{/if}
-
-	<Checkbox
-		label={getCurrentButtonLabel()}
-		name={'set_current'}
-		on:change={setCurrent} />
+<form class="sp-survey--question--datetime">
+	<TextInput
+		id="{id}-date"
+		name="date"
+		size="large"
+		label=""
+		type={inputType}
+		on:input={dateInputChangeHandler}
+		value={inputValue} />
+	<!-- on:change={dateInputChangeHandler} -->
 </form>
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
-
-	.sp-survey--question--datetime {
-		display: flex; // inline-flex
-		flex-direction: row; // row-reverse | column | column-reverse
-		flex-wrap: wrap; // wrap | wrap-reverse
-		justify-content: flex-start; // flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
-		align-items: stretch; // flex-start | flex-end | center | baseline | first baseline | last baseline | start | end | self-start | self-end + ... safe | unsafe;
-		// align-content: flex-start; // This property only takes effect on multi-line flexible containers, where flex-wrap is set to either wrap or wrap-reverse
-	}
-	// .sp-survey--question--datetime {
-	// 	display: grid;
-	// 	gap: $size-gutter--half;
-	// 	grid-template-columns: repeat(3, 1fr);
-	// 	&.sp-survey--question--datetime--date-time {
-	// 		grid-template-columns: repeat(6, 1fr);
-	// 	}
-	// 	// &.sp-survey--question--datetime--date {
-	// 	// 	grid-template-columns: repeat(3, 1fr);
-	// 	// }
-	// 	// &.sp-survey--question--datetime--time {
-	// 	// 	grid-template-columns: repeat(2, 1fr);
-	// 	// }
-	// }
-
-	.sp-survey--question--datetime--hours {
-		// position: relative;
-		.sp-survey--question--datetime--separator {
-			float: right;
-		}
-	}
 </style>

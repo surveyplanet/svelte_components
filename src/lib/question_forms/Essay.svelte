@@ -24,9 +24,8 @@
 		}
 	};
 
-	const inputKeyupHandler = (event: CustomEvent) => {
-		const target = event.detail.target as HTMLTextAreaElement;
-		updateResponse(target.value);
+	const inputKeyupHandler = ({ detail }: CustomEvent['detail']) => {
+		updateResponse(detail.target.value);
 		dispatchUpdate('update', response);
 	};
 </script>

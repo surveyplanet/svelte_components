@@ -17,10 +17,11 @@
 
 ### Events
 
-| Name      | Returns       | Description                                  |
-| --------- | ------------- | -------------------------------------------- |
-| `focus`   | DOMEvent      | Dispatched when the input is in focus.       |
-| `blur`    | DOMEvent      | Dispatched when the input loses focus.       |
-| `change`  | DOMEvent      | Dispatched when the input value has changed. |
-| `keydown` | KeyboardEvent | Dispatched when a key is fully depressed.    |
-| `keyup`   | KeyboardEvent | Dispatched when a key is fully released.     |
+| Name      | Returns     | Description                                                   |
+| --------- | ----------- | ------------------------------------------------------------- |
+| `focus`   | CustomEvent | Dispatched when the input is in focus.                        |
+| `blur`    | CustomEvent | Dispatched when the input loses focus.                        |
+| `input`   | CustomEvent | Dispatched when the input value has changed.                  |
+| `change`  | CustomEvent | Dispatched when the input value has changed and looses focus. |
+| `keydown` | CustomEvent | Dispatched when a key is fully depressed.                     |
+| `keyup`   | CustomEvent | Dispatched when a key is fully released.                      |

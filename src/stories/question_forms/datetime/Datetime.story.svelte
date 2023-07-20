@@ -9,19 +9,20 @@
 	import { default as source } from './source';
 	export let Hst: Histoire;
 
-	let id = '1';
+	let id = 'abc123';
 	let definitions: DateTimeDefinitions = {
 		currentTime: 'Set current time',
 		currentDate: 'Set current date',
 		currentDatetime: 'Set current date and time',
 	};
 	let date: DateTimeProperties['date'] = true;
-	let time: DateTimeProperties['time'] = false;
-	let layout: DateTimeProperties['layout'] = 'm/d/y';
-	let standardizedTime: DateTimeProperties['standardizedTime'] = false;
-	let response: DateTimeValues = [];
+	let time: DateTimeProperties['time'] = true;
+	let response: DateTimeValues = [
+		new Date(1977, 3, 29, 12, 0, 0).toISOString(),
+	];
 
 	const dateTimeResponseHandler = (event: CustomEvent) => {
+		console.log('DateTime: ', event.detail[0]);
 		logEvent('change', event.detail);
 	};
 </script>
@@ -37,13 +38,6 @@
 		<Hst.Checkbox
 			bind:value={time}
 			title="Time" />
-		<Hst.Checkbox
-			bind:value={standardizedTime}
-			title="Standardized Time" />
-		<Hst.Select
-			options={['m/d/y', 'd/m/y', 'y/m/d']}
-			bind:value={layout}
-			title="Date format" />
 		<Hst.Json
 			bind:value={definitions}
 			title="Language definitions" />
@@ -54,22 +48,12 @@
 
 	<Hst.Variant
 		title="Primary"
-		source={source(
-			id,
-			date,
-			time,
-			layout,
-			standardizedTime,
-			definitions,
-			response
-		)}>
+		source={source(id, date, time, definitions, response)}>
 		<div class="wrapper">
 			<DateTime
 				{id}
 				{date}
 				{time}
-				{layout}
-				{standardizedTime}
 				{definitions}
 				{response}
 				on:response={dateTimeResponseHandler} />
