@@ -7,6 +7,7 @@
 		"fullscreen",
 		"Histoire",
 		"historie",
+		"histoires",
 		"honeycrisp",
 		"introend",
 		"introstart",
@@ -27,26 +28,15 @@
 		"textbox",
 		"textinput"
 	],
-	"ignoreWords": [
-		"xsmall",
-		"cubbi",
-		"gruffi",
-		"sunni",
-		"tummi",
-		"zummi"
-	],
-	"flagWords": [
-		"hte",
-		"survey planet"
-	],
-	"files": [
-		"./**/*.{txt,md,js,ts,yaml,json,svelte}"
-	],
+	"ignoreWords": ["xsmall", "cubbi", "gruffi", "sunni", "tummi", "zummi"],
+	"flagWords": ["hte", "survey planet"],
+	"files": ["./**/*.{txt,md,js,ts,yaml,json,svelte}"],
 	"useGitignore": true,
 	"ignorePaths": [
 		"cspell.json",
 		"node_modules/**",
 		"static/**",
+		"bin/**",
 		"src/pug/_removed/**",
 		"etc/*.json",
 		"functions/test/fixtures.json",
