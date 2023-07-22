@@ -12,21 +12,21 @@
 
 <script lang="ts">
 	import type {
-		DateTimeValues,
+		DateTimeValue,
 		DateTimeProperties,
 	} from '@surveyplanet/types';
 	import { TextInput, type TextInputType } from '../';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatchResponse = createEventDispatcher<{
-		response: DateTimeValues;
+		response: DateTimeValue[];
 	}>();
 
 	export let id: string;
 	export let definitions: DateTimeDefinitions;
 	export let date: DateTimeProperties['date'] = false;
 	export let time: DateTimeProperties['time'] = false;
-	export let response: DateTimeValues = [];
+	export let response: DateTimeValue[] = [];
 
 	let inputType: TextInputType = 'date';
 	$: inputType = date && time ? 'datetime-local' : time ? 'time' : 'date';

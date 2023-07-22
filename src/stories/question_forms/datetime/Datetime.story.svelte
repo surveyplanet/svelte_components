@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type {
 		DateTimeProperties,
-		DateTimeValues,
+		DateTimeValue,
 	} from '@surveyplanet/types';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { DateTime, type DateTimeDefinitions } from '$lib';
@@ -17,7 +17,7 @@
 	};
 	let date: DateTimeProperties['date'] = true;
 	let time: DateTimeProperties['time'] = true;
-	let response: DateTimeValues = [
+	let response: DateTimeValue[] = [
 		new Date(1977, 3, 29, 12, 0, 0).toISOString(),
 	];
 
