@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let max = 0;
 	export let value = 0;
-	export let speed = 1000; // miliseconds
+	export let speed = 1000; // milliseconds
 
 	let progress = 0;
 
