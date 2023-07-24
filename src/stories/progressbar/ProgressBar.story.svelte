@@ -5,6 +5,7 @@
 
 	export let Hst: Histoire;
 
+	let speed = 1000;
 	let max = 100;
 	let value = 0;
 </script>
@@ -17,10 +18,14 @@
 		<Hst.Number
 			bind:value
 			title="Value" />
+		<Hst.Number
+			bind:value={speed}
+			title="Speed (ms)" />
 	</svelte:fragment>
 
 	<Hst.Variant title="ProgressBar">
 		<ProgressBar
+			{speed}
 			{max}
 			{value} />
 	</Hst.Variant>

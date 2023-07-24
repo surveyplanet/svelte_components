@@ -1,6 +1,5 @@
 export default `<script>
 	import Modal from '@surveyplanet/svelte_components';
-	
 </script>
 
 <Modal title="My new modal" subtitle="..." >
