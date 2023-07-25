@@ -256,7 +256,6 @@
 
 	input,
 	textarea {
-		box-sizing: border-box;
 		font: inherit;
 		width: 100%;
 		height: $size--40;

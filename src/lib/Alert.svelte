@@ -220,7 +220,6 @@
 		position: relative;
 		// position: absolute;
 		z-index: 1000;
-		box-sizing: border-box;
 		min-width: $size--256;
 		max-width: px-to-rem(375);
 		margin: 0;
@@ -282,7 +281,6 @@
 
 	.sp-alert--header {
 		position: relative;
-		box-sizing: border-box;
 
 		.sp-alert--header--subtitle,
 		.sp-alert--header--title {

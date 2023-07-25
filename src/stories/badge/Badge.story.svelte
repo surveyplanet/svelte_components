@@ -47,9 +47,7 @@
 	@use '@surveyplanet/styles' as *;
 
 	.wrapper {
-		width: 50%;
 		background-color: $color--beige;
 		border-radius: $size-radius--small;
-		padding: $size-gutter--half;
 	}
 </style>

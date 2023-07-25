@@ -100,7 +100,6 @@
 
 	.sp-chips--chip {
 		cursor: default;
-		box-sizing: border-box;
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;

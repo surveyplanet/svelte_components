@@ -57,12 +57,14 @@
 	</svelte:fragment>
 
 	<Hst.Variant title="NavBar">
-		<NavBar
-			{data}
-			{navMenuData}
-			{vertical}
-			on:nav-link={navLinkHandler}
-			on:update={menuUpdateHandler}
-			on:click={menuClickHandler} />
+		<div class="wrapper">
+			<NavBar
+				{data}
+				{navMenuData}
+				{vertical}
+				on:nav-link={navLinkHandler}
+				on:update={menuUpdateHandler}
+				on:click={menuClickHandler} />
+		</div>
 	</Hst.Variant>
 </Hst.Story>

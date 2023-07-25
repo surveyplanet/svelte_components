@@ -322,7 +322,6 @@
 	}
 
 	input {
-		box-sizing: border-box;
 		appearance: textfield;
 		-moz-appearance: textfield;
 		font: inherit;
@@ -385,7 +384,6 @@
 	}
 
 	.sp-spinner--buttons {
-		box-sizing: border-box;
 		position: absolute;
 		bottom: 0;
 		right: 0;
@@ -403,12 +401,10 @@
 	}
 
 	button {
-		box-sizing: border-box;
 		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		box-sizing: border-box;
 		width: 24px;
 		height: 50%;
 		border: none;
