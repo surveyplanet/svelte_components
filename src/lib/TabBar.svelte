@@ -100,7 +100,6 @@
 
 	.sp-tab-bar {
 		display: inline-block;
-		box-sizing: border-box;
 		height: $size--36;
 		padding: $size--4;
 		font: $font--default;
@@ -155,7 +154,6 @@
 		justify-content: center;
 		align-items: center;
 		gap: $size-gutter--quarter;
-		box-sizing: border-box;
 		cursor: pointer;
 		margin: 0;
 		padding: 0 $size-gutter;

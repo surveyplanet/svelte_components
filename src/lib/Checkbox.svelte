@@ -99,8 +99,8 @@
 		svg {
 			position: absolute;
 			z-index: 1;
-			top: 7px;
-			left: 5px;
+			top: 6px;
+			left: 4px;
 			fill: none;
 			stroke: $color--white;
 			stroke-width: 2;

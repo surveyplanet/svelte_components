@@ -122,7 +122,6 @@
 		a,
 		button {
 			cursor: pointer;
-			box-sizing: border-box;
 			background-color: transparent;
 			width: $size--16;
 			height: $size--16;

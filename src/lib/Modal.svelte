@@ -115,7 +115,6 @@
 
 	.sp-modal {
 		z-index: 1000;
-		box-sizing: border-box;
 		position: absolute;
 		padding: $size-gutter;
 		width: $medium-width;

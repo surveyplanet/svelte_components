@@ -83,8 +83,8 @@
 
 	.sp-radio--dot {
 		position: relative;
-		width: px-to-rem(24);
-		height: px-to-rem(24);
+		width: px-to-rem(22);
+		height: px-to-rem(22);
 		border-radius: 50%;
 		transform: scale(1);
 		border: 1px solid $color--beige-darker;
@@ -103,8 +103,8 @@
 		svg {
 			position: absolute;
 			z-index: 1;
-			top: 4px;
-			left: 4px;
+			top: 2px;
+			left: 2px;
 			fill: transparent;
 			transition: all 0.3s ease;
 			transition-delay: 0.1s;

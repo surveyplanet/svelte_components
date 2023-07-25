@@ -174,7 +174,6 @@
 		position: relative;
 		cursor: pointer;
 		display: block;
-		box-sizing: border-box;
 		font-size: $font-size--16;
 		// background-color: red;
 		input {
@@ -196,7 +195,6 @@
 
 		picture {
 			display: block;
-			box-sizing: border-box;
 			width: auto;
 			margin: 0;
 			padding: 0;

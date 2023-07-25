@@ -95,8 +95,6 @@
 	@include fade-in-out(); // click animation
 
 	.sp-button {
-		// box-sizing: border-box;
-
 		position: relative;
 		overflow: hidden;
 		cursor: pointer;
@@ -363,7 +361,6 @@
 
 			&:after {
 				content: '';
-				box-sizing: border-box;
 				position: absolute;
 				display: none; // hide loader when not disabled
 				width: $size--16;

@@ -230,7 +230,6 @@
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 	.sp-menu {
-		box-sizing: border-box;
 		list-style: none;
 		overflow: hidden;
 		margin: 0;
@@ -329,7 +328,6 @@
 
 		:global(.color-chip) {
 			position: relative;
-			box-sizing: border-box;
 			display: inline-block;
 			border: 1px solid transparent;
 			width: $size--16;

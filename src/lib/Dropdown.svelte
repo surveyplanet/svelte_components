@@ -231,7 +231,6 @@
 
 	input {
 		cursor: pointer;
-		box-sizing: border-box;
 		width: 100%;
 		height: $size--40;
 		min-width: $size--256;

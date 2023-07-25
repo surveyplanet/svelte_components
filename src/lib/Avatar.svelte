@@ -86,10 +86,8 @@
 	@use '@surveyplanet/styles' as *;
 
 	.sp-avatar {
-		box-sizing: border-box;
 		margin: 0;
 		padding: 0;
-		box-sizing: border-box;
 		display: inline-flex;
 		height: $size--36;
 		width: $size--36;
