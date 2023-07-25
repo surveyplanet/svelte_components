@@ -10,8 +10,7 @@
 	import errorIcon from '../assets/mascots/sunni_3.svg';
 
 	const dispatch = createEventDispatcher();
-	const dispatchConfirm: (name: string, detail: boolean) => boolean =
-		createEventDispatcher();
+	const dispatchConfirm = createEventDispatcher<{ confirm: boolean }>();
 
 	/**
 	 * Main alert title.

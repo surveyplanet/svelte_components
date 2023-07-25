@@ -14,12 +14,17 @@
 	export let placeholder: string | null = null;
 	export let size: 'small' | 'medium' | 'large' = 'small';
 
-	const dispatch: (name: string, detail: number | undefined) => boolean =
-		createEventDispatcher();
-
-	const dispatchFocus: (name: string) => boolean = createEventDispatcher();
-
-	const dispatchBlur: (name: string) => boolean = createEventDispatcher();
+	const dispatchFocus = createEventDispatcher<{ focus: boolean }>();
+	const dispatchBlur = createEventDispatcher<{ blur: boolean }>();
+	const dispatchChange = createEventDispatcher<{
+		change: number | undefined;
+	}>();
+	const dispatchInput = createEventDispatcher<{
+		input: number | undefined;
+	}>();
+	const dispatchUpdate = createEventDispatcher<{
+		update: number | undefined;
+	}>();
 
 	let input: HTMLInputElement;
 
@@ -66,7 +71,7 @@
 
 		if (newValue !== value && newValue !== undefined) {
 			value = checkOverflow(newValue);
-			dispatch('update', value);
+			dispatchUpdate('update', value);
 		}
 		if (currentValue === undefined) {
 			if (increment) {
@@ -79,7 +84,7 @@
 
 	const reset = () => {
 		value = undefined;
-		dispatch('update', value);
+		dispatchUpdate('update', value);
 	};
 
 	const increment = () => {
@@ -101,7 +106,7 @@
 		} else {
 			value = checkOverflow(value);
 		}
-		dispatch('update', value);
+		dispatchUpdate('update', value);
 	};
 	// Mouse dragging
 
@@ -124,7 +129,7 @@
 
 	const checkForValueChange = () => {
 		if (value !== controlValue) {
-			dispatch('input', value);
+			dispatchInput('input', value);
 		}
 		controlValue = value;
 	};
@@ -158,7 +163,7 @@
 		}, 500);
 	};
 	const changeHandler = () => {
-		dispatch('change', value);
+		dispatchChange('change', value);
 	};
 
 	const inputHandler = () => {

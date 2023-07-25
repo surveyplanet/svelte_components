@@ -15,8 +15,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	const dispatchClick: (name: string, detail: MouseEvent) => boolean =
-		createEventDispatcher();
+	const dispatchClick = createEventDispatcher<{ click: MouseEvent }>();
 
 	/**
 	 * A Button Component

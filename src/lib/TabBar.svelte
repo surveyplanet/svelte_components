@@ -15,8 +15,9 @@
 <script lang="ts">
 	import { createEventDispatcher, onMount } from 'svelte';
 
-	const dispatch: (name: string, id: string) => boolean =
-		createEventDispatcher();
+	const dispatchTabButton = createEventDispatcher<{
+		tabButton: TabBarData['id'];
+	}>();
 
 	export let id: string = (Date.now() + Math.random()).toString(36);
 	export let grow = false;
@@ -45,7 +46,7 @@
 		activeIndicator.style.width = `${width}px`;
 		activeIndicator.style.left = `${left}px`;
 
-		dispatch('tabButton', id);
+		dispatchTabButton('tabButton', id);
 	};
 
 	const tabButtonHandler = (event: Event) => {
