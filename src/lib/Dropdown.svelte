@@ -9,8 +9,6 @@
 	}
 </script>
 
-
-// NEEDS TO BE FIXED, INPUT NOT WORKING AT ALL
 <script lang="ts">
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { Menu, Icon } from './index';

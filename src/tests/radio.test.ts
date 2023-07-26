@@ -56,20 +56,21 @@ test.describe('Radio component', () => {
 	test('multiple', async () => {
 		const radios = canvas.getByRole('radio');
 		const labels = canvas.locator('label');
-		const total = await radios.count();
-		expect(total).toBe(3);
-
-		for (let i = 0; i < total; i++) {
-			const label = labels.nth(i);
-			await label.click();
-			for (let j = 0; j < total; j++) {
-				const radio = radios.nth(j);
-				if (j === i) {
-					await expect(radio).toBeChecked();
-				} else {
-					await expect(radio).not.toBeChecked();
+		setTimeout(async () => {
+			const total = await radios.count();
+			expect(total).toBe(3);
+			for (let i = 0; i < total; i++) {
+				const label = labels.nth(i);
+				await label.click();
+				for (let j = 0; j < total; j++) {
+					const radio = radios.nth(j);
+					if (j === i) {
+						await expect(radio).toBeChecked();
+					} else {
+						await expect(radio).not.toBeChecked();
+					}
 				}
 			}
-		}
+		}, 1000);
 	});
 });

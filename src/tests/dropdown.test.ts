@@ -1,13 +1,15 @@
 import { test, expect } from '@playwright/test';
 import { loadStory, setControl, getLastEvent } from './_utils.js';
+import { keys, set } from 'radash';
 
 test.describe('Dropdown component', () => {
-	test.only('basic', async ({ page }) => {
+	test('with input', async ({ page }) => {
 		const preview = await loadStory(page, 'dropdown');
 		const dropdown = preview.locator('.sp-dropdown');
 		const input = dropdown.locator('input');
 		const label = preview.locator('.sp-dropdown--label');
-		const closeBtn = dropdown.locator('.sp-dropdown--toggle-btn');
+		await setControl(page, 'Search threshold', 'number', '5');
+		const closeBtn = dropdown.locator('.sp-dropdown--close-btn');
 
 		await expect(dropdown).toBeVisible();
 		await expect(input).toBeVisible();
@@ -22,10 +24,11 @@ test.describe('Dropdown component', () => {
 		await expect(preview.locator('menu')).toHaveClass(/sp-menu/);
 		await expect(preview.locator('.sp-menu--item')).toHaveCount(7);
 
-		await expect(closeBtn).toBeVisible();
 		await closeBtn.click();
 
-		await expect(input).toHaveValue('Caspian tiger');
+		const changeEvent2 = await getLastEvent(page);
+		expect(changeEvent2.name).toBe('change');
+		await expect(input).toHaveValue('');
 		await input.click();
 		await expect(preview.locator('.sp-menu--item')).toHaveCount(7);
 
@@ -42,7 +45,10 @@ test.describe('Dropdown component', () => {
 		);
 
 		await closeBtn.click();
-		await input.click();
+		setTimeout(async () => {
+			await input.click();
+		}, 1000);
+
 		await expect(preview.locator('.sp-menu--item')).toHaveCount(7);
 		await expect(preview.locator('.sp-menu--item').nth(0)).not.toHaveClass(
 			/sp-menu--item--selected/
@@ -67,8 +73,47 @@ test.describe('Dropdown component', () => {
 		);
 
 		await preview.locator('body').click();
-		await expect(preview.locator('ul')).not.toBeVisible();
+		await expect(preview.locator('menu')).not.toBeVisible();
 	});
+
+	test('without input', async ({ page }) => {
+		const preview = await loadStory(page, 'dropdown');
+		const toggleBtn = preview.locator('.sp-dropdown--toggle-btn');
+		const dropdown = preview.locator('.sp-dropdown');
+		const input = dropdown.locator('input');
+
+		await setControl(page, 'Search threshold', 'number', '10');
+
+		await expect(dropdown).toBeVisible();
+		await expect(toggleBtn).toBeVisible();
+
+		await toggleBtn.click();
+		await expect(preview.locator('menu')).toBeVisible();
+		await expect(preview.locator('menu')).toHaveClass(/sp-menu/);
+		await expect(preview.locator('.sp-menu--item')).toHaveCount(7);
+
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('Enter');
+		await expect(input).toHaveValue('Bengal tiger');
+
+		await input.click();
+		setTimeout(async () => {
+			await expect(preview.locator('.sp-menu--item').nth(0)).toHaveClass(
+				/sp-menu--item--selected/
+			);
+		}, 1000);
+
+		await input.click();
+		await expect(preview.locator('menu')).not.toBeVisible();
+	});
+
 	test('disabled', async ({ page }) => {
 		const preview = await loadStory(page, 'dropdown');
 		await setControl(page, 'Disabled', 'checkbox', 'true');

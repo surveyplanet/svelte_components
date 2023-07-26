@@ -8,7 +8,6 @@
 	let id: string;
 	let name: 'checkbox';
 	let value: string;
-	let label = 'Checkbox';
 	let checked = false;
 	let disabled = false;
 	let prependLabel = false;
@@ -33,9 +32,6 @@
 		<Hst.Text
 			bind:value={id}
 			title="Id" />
-		<Hst.Text
-			bind:value={label}
-			title="Label" />
 		<Hst.Checkbox
 			bind:value={prependLabel}
 			title="Prepend label" />
@@ -58,7 +54,7 @@
 				{checked}
 				{disabled}
 				{prependLabel}
-				{label}
+				label="Primary"
 				{value}
 				{name}
 				{size}
@@ -70,7 +66,7 @@
 				{checked}
 				{disabled}
 				{prependLabel}
-				{label}
+				label="Secondary"
 				{value}
 				{name}
 				{size}

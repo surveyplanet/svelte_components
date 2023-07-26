@@ -39,7 +39,7 @@
 	};
 
 	const navLinkHandler = (e: CustomEvent) => {
-		logEvent('nav-link', e.detail);
+		logEvent('navLink', e.detail);
 	};
 </script>
 
@@ -62,7 +62,7 @@
 				{data}
 				{navMenuData}
 				{vertical}
-				on:nav-link={navLinkHandler}
+				on:navLink={navLinkHandler}
 				on:update={menuUpdateHandler}
 				on:click={menuClickHandler} />
 		</div>

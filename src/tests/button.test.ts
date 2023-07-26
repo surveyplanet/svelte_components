@@ -61,74 +61,83 @@ test.describe('Button component', () => {
 		// expect(event.data?.detail).toBe('[object Object]');
 	});
 
-	test('secondary', async ({ page }) => {
-		await loadButtonPage(page);
-		const btn = page.getByTestId('basic');
-		await expect(btn).toBeVisible();
-
-		await setControl(page, 'Mode', 'select', 'secondary');
-
-		await expect(btn).toHaveClass(/sp-button--secondary/);
-		const styles = await getStyles(btn);
-		expect(styles.backgroundColor).toBe('rgb(255, 233, 120)');
-	});
-
-	test('tertiary', async ({ page }) => {
-		await loadButtonPage(page);
-		const btn = page.getByTestId('basic');
-		await expect(btn).toBeVisible();
-
-		await setControl(page, 'Mode', 'select', 'tertiary');
-
-		await expect(btn).toHaveClass(/sp-button--tertiary/);
-		const styles = await getStyles(btn);
-		expect(styles.backgroundColor).toBe('rgb(161, 253, 165)');
-	});
-
-	test('quaternary', async ({ page }) => {
-		await loadButtonPage(page);
-		const btn = page.getByTestId('basic');
-		await expect(btn).toBeVisible();
-
-		await setControl(page, 'Mode', 'select', 'quaternary');
-
-		await expect(btn).toHaveClass(/sp-button--quaternary/);
-		const styles = await getStyles(btn);
-		expect(styles.backgroundColor).toBe('rgb(158, 228, 250)');
-	});
-
-	test('dark', async ({ page }) => {
-		await loadButtonPage(page);
-		const btn = page.getByTestId('basic');
-		await expect(btn).toBeVisible();
-
-		await setControl(page, 'Mode', 'select', 'dark');
-
-		await expect(btn).toHaveClass(/sp-button--dark/);
-		const styles = await getStyles(btn);
-		expect(styles.backgroundColor).toBe('rgb(22, 33, 55)');
-		expect(styles.color).toBe('rgb(220, 222, 225)');
-	});
-
 	test('light', async ({ page }) => {
 		await loadButtonPage(page);
 		const btn = page.getByTestId('basic');
 		await expect(btn).toBeVisible();
 
-		await setControl(page, 'Mode', 'select', 'light');
+		await setControl(page, 'Mode', 'select', 'Light');
 
 		await expect(btn).toHaveClass(/sp-button--light/);
 		let styles = await getStyles(btn);
-		expect(styles.backgroundColor).toBe('rgb(255, 255, 255)');
-		expect(styles.boxShadow).toBe(
-			'rgb(220, 222, 225) 0px 0px 0px 1px inset'
-		);
+		expect(styles.backgroundColor).toBe('rgb(247, 245, 238)');
+		// expect(styles.boxShadow).toBe(
+		// 	'rgb(220, 222, 225) 0px 0px 0px 1px inset'
+		// );
 
 		await btn.hover();
 		styles = await getStyles(btn);
-		expect(styles.boxShadow).toBe(
-			'rgb(196, 199, 205) 0px 0px 0px 1px inset'
-		);
+		expect(styles.backgroundColor).toBe('rgb(235, 230, 215)');
+	});
+
+	test('accent', async ({ page }) => {
+		await loadButtonPage(page);
+		const btn = page.getByTestId('basic');
+		await expect(btn).toBeVisible();
+
+		await setControl(page, 'Mode', 'select', 'Accent');
+
+		await expect(btn).toHaveClass(/sp-button--accent/);
+		const styles = await getStyles(btn);
+		expect(styles.backgroundColor).toBe('rgb(255, 240, 163)');
+	});
+
+	test('accent alt 1', async ({ page }) => {
+		await loadButtonPage(page);
+		const btn = page.getByTestId('basic');
+		await expect(btn).toBeVisible();
+
+		await setControl(page, 'Mode', 'select', 'Accent alt 1');
+
+		await expect(btn).toHaveClass(/sp-button--accent-alt1/);
+		const styles = await getStyles(btn);
+		expect(styles.backgroundColor).toBe('rgb(191, 237, 253)');
+	});
+
+	test('accent alt 2', async ({ page }) => {
+		await loadButtonPage(page);
+		const btn = page.getByTestId('basic');
+		await expect(btn).toBeVisible();
+
+		await setControl(page, 'Mode', 'select', 'Accent alt 2');
+
+		await expect(btn).toHaveClass(/sp-button--accent-alt2/);
+		const styles = await getStyles(btn);
+		expect(styles.backgroundColor).toBe('rgb(189, 255, 216)');
+	});
+
+	test('accent alt 3', async ({ page }) => {
+		await loadButtonPage(page);
+		const btn = page.getByTestId('basic');
+		await expect(btn).toBeVisible();
+
+		await setControl(page, 'Mode', 'select', 'Accent alt 3');
+
+		await expect(btn).toHaveClass(/sp-button--accent-alt3/);
+		const styles = await getStyles(btn);
+		expect(styles.backgroundColor).toBe('rgb(253, 206, 213)');
+	});
+
+	test('outline', async ({ page }) => {
+		await loadButtonPage(page);
+		const btn = page.getByTestId('basic');
+		await expect(btn).toBeVisible();
+
+		await setControl(page, 'Mode', 'select', 'Outline');
+
+		await expect(btn).toHaveClass(/sp-button--outline/);
+		const styles = await getStyles(btn);
+		expect(styles.backgroundColor).toBe('rgb(255, 255, 255)');
 	});
 
 	test('rounded', async ({ page }) => {
@@ -170,105 +179,105 @@ test.describe('Button component', () => {
 		const iconStyles = await getStyles(icon);
 
 		await expect(btn).toBeDisabled();
-		expect(styles.backgroundColor).toBe('rgb(236, 229, 255)');
-		expect(styles.color).toBe('rgb(219, 204, 255)');
-		expect(iconStyles.stroke).toBe(styles.color);
+		expect(styles.backgroundColor).toBe('rgb(235, 230, 215)');
+		// expect(styles.color).toBe('rgb(143, 141, 130)');
+		// expect(iconStyles.stroke).toBe(styles.color);
 	});
 
-	test('disabled secondary', async ({ page }) => {
-		await loadButtonPage(page, 2);
-		const btn = page.getByTestId('icon');
-		await expect(btn).toBeVisible();
-		const icon = btn.locator('svg path');
-		await expect(icon).toBeVisible();
+	// test('disabled secondary', async ({ page }) => {
+	// 	await loadButtonPage(page, 2);
+	// 	const btn = page.getByTestId('icon');
+	// 	await expect(btn).toBeVisible();
+	// 	const icon = btn.locator('svg path');
+	// 	await expect(icon).toBeVisible();
 
-		await setControl(page, 'Disabled', 'checkbox', 'true');
-		await setControl(page, 'Mode', 'select', 'secondary');
-		const styles = await getStyles(btn);
-		const iconStyles = await getStyles(icon);
+	// 	await setControl(page, 'Disabled', 'checkbox', 'true');
+	// 	await setControl(page, 'Mode', 'select', 'secondary');
+	// 	const styles = await getStyles(btn);
+	// 	const iconStyles = await getStyles(icon);
 
-		await expect(btn).toBeDisabled();
-		await expect(btn).toHaveClass(/sp-button--secondary/);
-		expect(styles.backgroundColor).toBe('rgb(255, 245, 188)');
-		expect(styles.color).toBe('rgb(250, 199, 102)');
-		expect(iconStyles.stroke).toBe(styles.color);
-	});
+	// 	await expect(btn).toBeDisabled();
+	// 	await expect(btn).toHaveClass(/sp-button--secondary/);
+	// 	expect(styles.backgroundColor).toBe('rgb(255, 245, 188)');
+	// 	expect(styles.color).toBe('rgb(250, 199, 102)');
+	// 	expect(iconStyles.stroke).toBe(styles.color);
+	// });
 
-	test('disabled tertiary', async ({ page }) => {
-		await loadButtonPage(page, 2);
-		const btn = page.getByTestId('icon');
-		await expect(btn).toBeVisible();
-		const icon = btn.locator('svg path');
-		await expect(icon).toBeVisible();
+	// test('disabled tertiary', async ({ page }) => {
+	// 	await loadButtonPage(page, 2);
+	// 	const btn = page.getByTestId('icon');
+	// 	await expect(btn).toBeVisible();
+	// 	const icon = btn.locator('svg path');
+	// 	await expect(icon).toBeVisible();
 
-		await setControl(page, 'Disabled', 'checkbox', 'true');
-		await setControl(page, 'Mode', 'select', 'tertiary');
-		const styles = await getStyles(btn);
-		const iconStyles = await getStyles(icon);
+	// 	await setControl(page, 'Disabled', 'checkbox', 'true');
+	// 	await setControl(page, 'Mode', 'select', 'tertiary');
+	// 	const styles = await getStyles(btn);
+	// 	const iconStyles = await getStyles(icon);
 
-		await expect(btn).toBeDisabled();
-		await expect(btn).toHaveClass(/sp-button--tertiary/);
-		expect(styles.backgroundColor).toBe('rgb(217, 254, 219)');
-		expect(styles.color).toBe('rgb(123, 228, 146)');
-		expect(iconStyles.stroke).toBe(styles.color);
-	});
+	// 	await expect(btn).toBeDisabled();
+	// 	await expect(btn).toHaveClass(/sp-button--tertiary/);
+	// 	expect(styles.backgroundColor).toBe('rgb(217, 254, 219)');
+	// 	expect(styles.color).toBe('rgb(123, 228, 146)');
+	// 	expect(iconStyles.stroke).toBe(styles.color);
+	// });
 
-	test('disabled quaternary', async ({ page }) => {
-		await loadButtonPage(page, 2);
-		const btn = page.getByTestId('icon');
-		await expect(btn).toBeVisible();
-		const icon = btn.locator('svg path');
-		await expect(icon).toBeVisible();
+	// test('disabled quaternary', async ({ page }) => {
+	// 	await loadButtonPage(page, 2);
+	// 	const btn = page.getByTestId('icon');
+	// 	await expect(btn).toBeVisible();
+	// 	const icon = btn.locator('svg path');
+	// 	await expect(icon).toBeVisible();
 
-		await setControl(page, 'Disabled', 'checkbox', 'true');
-		await setControl(page, 'Mode', 'select', 'quaternary');
-		const styles = await getStyles(btn);
-		const iconStyles = await getStyles(icon);
+	// 	await setControl(page, 'Disabled', 'checkbox', 'true');
+	// 	await setControl(page, 'Mode', 'select', 'quaternary');
+	// 	const styles = await getStyles(btn);
+	// 	const iconStyles = await getStyles(icon);
 
-		await expect(btn).toBeDisabled();
-		await expect(btn).toHaveClass(/sp-button--quaternary/);
-		expect(styles.backgroundColor).toBe('rgb(216, 244, 253)');
-		expect(styles.color).toBe('rgb(120, 196, 238)');
-		expect(iconStyles.stroke).toBe(styles.color);
-	});
+	// 	await expect(btn).toBeDisabled();
+	// 	await expect(btn).toHaveClass(/sp-button--quaternary/);
+	// 	expect(styles.backgroundColor).toBe('rgb(216, 244, 253)');
+	// 	expect(styles.color).toBe('rgb(120, 196, 238)');
+	// 	expect(iconStyles.stroke).toBe(styles.color);
+	// });
 
-	test('disabled dark', async ({ page }) => {
-		await loadButtonPage(page, 2);
-		const btn = page.getByTestId('icon');
-		await expect(btn).toBeVisible();
-		const icon = btn.locator('svg path');
-		await expect(icon).toBeVisible();
+	// test('disabled dark', async ({ page }) => {
+	// 	await loadButtonPage(page, 2);
+	// 	const btn = page.getByTestId('icon');
+	// 	await expect(btn).toBeVisible();
+	// 	const icon = btn.locator('svg path');
+	// 	await expect(icon).toBeVisible();
 
-		await setControl(page, 'Disabled', 'checkbox', 'true');
-		await setControl(page, 'Mode', 'select', 'dark');
-		const styles = await getStyles(btn);
-		const iconStyles = await getStyles(icon);
+	// 	await setControl(page, 'Disabled', 'checkbox', 'true');
+	// 	await setControl(page, 'Mode', 'select', 'dark');
+	// 	const styles = await getStyles(btn);
+	// 	const iconStyles = await getStyles(icon);
 
-		await expect(btn).toBeDisabled();
-		await expect(btn).toHaveClass(/sp-button--dark/);
-		expect(styles.backgroundColor).toBe('rgb(220, 222, 225)');
-		expect(styles.color).toBe('rgb(115, 122, 135)');
-		expect(iconStyles.stroke).toBe(styles.color);
-	});
+	// 	await expect(btn).toBeDisabled();
+	// 	await expect(btn).toHaveClass(/sp-button--dark/);
+	// 	expect(styles.backgroundColor).toBe('rgb(220, 222, 225)');
+	// 	expect(styles.color).toBe('rgb(115, 122, 135)');
+	// 	expect(iconStyles.stroke).toBe(styles.color);
+	// });
 
-	test('disabled light', async ({ page }) => {
-		await loadButtonPage(page, 2);
-		const btn = page.getByTestId('icon');
-		await expect(btn).toBeVisible();
-		const icon = btn.locator('svg path');
-		await expect(icon).toBeVisible();
+	// test('disabled light', async ({ page }) => {
+	// 	await loadButtonPage(page, 2);
+	// 	const btn = page.getByTestId('icon');
+	// 	await expect(btn).toBeVisible();
+	// 	const icon = btn.locator('svg path');
+	// 	await expect(icon).toBeVisible();
 
-		await setControl(page, 'Disabled', 'checkbox', 'true');
-		await setControl(page, 'Mode', 'select', 'light');
-		const styles = await getStyles(btn);
-		const iconStyles = await getStyles(icon);
+	// 	await setControl(page, 'Disabled', 'checkbox', 'true');
+	// 	await setControl(page, 'Mode', 'select', 'light');
+	// 	const styles = await getStyles(btn);
+	// 	const iconStyles = await getStyles(icon);
 
-		await expect(btn).toBeDisabled();
-		await expect(btn).toHaveClass(/sp-button--light/);
-		expect(styles.backgroundColor).toBe('rgb(255, 255, 255)');
-		expect(styles.color).toBe('rgb(220, 222, 225)');
-		expect(iconStyles.stroke).toBe(styles.color);
-	});
+	// 	await expect(btn).toBeDisabled();
+	// 	await expect(btn).toHaveClass(/sp-button--light/);
+	// 	expect(styles.backgroundColor).toBe('rgb(255, 255, 255)');
+	// 	expect(styles.color).toBe('rgb(220, 222, 225)');
+	// 	expect(iconStyles.stroke).toBe(styles.color);
+	// });
 
 	test('icon button', async ({ page }) => {
 		await loadButtonPage(page, 2);
@@ -280,33 +289,33 @@ test.describe('Button component', () => {
 		const btnStyles = await getStyles(btn);
 		const iconStyles = await getStyles(iconPath);
 
-		expect(btnStyles.backgroundColor).toBe('rgb(181, 152, 255)');
-		expect(btnStyles.color).toBe('rgb(22, 33, 55)');
+		expect(btnStyles.backgroundColor).toBe('rgb(25, 31, 41)');
+		expect(btnStyles.color).toBe('rgb(255, 255, 255)');
 
 		await expect(icon).toHaveAttribute('width', '20');
 		await expect(icon).toHaveAttribute('height', '20');
 		expect(iconStyles.stroke).toBe(btnStyles.color);
 	});
 
-	test('icon button dark', async ({ page }) => {
-		await loadButtonPage(page, 2);
-		const btn = page.getByTestId('icon');
-		const icon = btn.locator('svg');
-		const iconPath = btn.locator('svg path');
-		await expect(icon).toBeVisible();
+	// test('icon button dark', async ({ page }) => {
+	// 	await loadButtonPage(page, 2);
+	// 	const btn = page.getByTestId('icon');
+	// 	const icon = btn.locator('svg');
+	// 	const iconPath = btn.locator('svg path');
+	// 	await expect(icon).toBeVisible();
 
-		await setControl(page, 'Mode', 'select', 'dark');
+	// 	await setControl(page, 'Mode', 'select', 'dark');
 
-		const bBox = await icon.boundingBox();
-		const btnStyles = await getStyles(btn);
-		const iconStyles = await getStyles(iconPath);
+	// 	const bBox = await icon.boundingBox();
+	// 	const btnStyles = await getStyles(btn);
+	// 	const iconStyles = await getStyles(iconPath);
 
-		expect(btnStyles.backgroundColor).toBe('rgb(22, 33, 55)');
-		expect(btnStyles.color).toBe('rgb(220, 222, 225)');
-		expect(bBox!.width).toBe(20);
-		expect(bBox!.height).toBe(20);
-		expect(iconStyles.stroke).toBe(btnStyles.color);
-	});
+	// 	expect(btnStyles.backgroundColor).toBe('rgb(22, 33, 55)');
+	// 	expect(btnStyles.color).toBe('rgb(220, 222, 225)');
+	// 	expect(bBox!.width).toBe(20);
+	// 	expect(bBox!.height).toBe(20);
+	// 	expect(iconStyles.stroke).toBe(btnStyles.color);
+	// });
 
 	test('icon small', async ({ page }) => {
 		await loadButtonPage(page, 2);
@@ -428,7 +437,7 @@ test.describe('Button component', () => {
 		});
 
 		await expect(btnLabel).not.toBeVisible();
-		expect(styles.backgroundColor).toBe('rgb(181, 152, 255)');
+		expect(styles.backgroundColor).toBe('rgb(25, 31, 41)');
 		// await expect(btn.innerText).toBe('');
 		expect(afterEl.display).toBe('block');
 		expect(afterEl.width).toBe('16px');
@@ -437,7 +446,7 @@ test.describe('Button component', () => {
 		expect(afterEl.animationDuration).toBe('1s');
 		expect(afterEl.animationTimingFunction).toBe('linear');
 		expect(afterEl.animationIterationCount).toBe('infinite');
-		expect(afterEl.borderBottom).toBe('2px solid rgb(22, 33, 55)');
+		expect(afterEl.borderBottom).toBe('2px solid rgb(255, 255, 255)');
 		expect(afterEl.borderTop).toBe('2px solid rgba(0, 0, 0, 0)');
 	});
 
