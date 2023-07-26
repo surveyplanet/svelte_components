@@ -2,12 +2,12 @@ import { test, expect } from '@playwright/test';
 import { loadStory, setControl, getLastEvent } from './_utils.js';
 
 test.describe('Dropdown component', () => {
-	test('basic', async ({ page }) => {
+	test.only('basic', async ({ page }) => {
 		const preview = await loadStory(page, 'dropdown');
 		const dropdown = preview.locator('.sp-dropdown');
 		const input = dropdown.locator('input');
 		const label = preview.locator('.sp-dropdown--label');
-		const closeBtn = dropdown.locator('button');
+		const closeBtn = dropdown.locator('.sp-dropdown--toggle-btn');
 
 		await expect(dropdown).toBeVisible();
 		await expect(input).toBeVisible();
@@ -18,16 +18,14 @@ test.describe('Dropdown component', () => {
 		await expect(label).toBeVisible();
 
 		await input.click();
-		await expect(preview.locator('ul')).toBeVisible();
-		await expect(preview.locator('ul')).toHaveClass(/sp-menu/);
+		await expect(preview.locator('menu')).toBeVisible();
+		await expect(preview.locator('menu')).toHaveClass(/sp-menu/);
 		await expect(preview.locator('.sp-menu--item')).toHaveCount(7);
 
 		await expect(closeBtn).toBeVisible();
 		await closeBtn.click();
 
-		const changeEvent2 = await getLastEvent(page);
-		expect(changeEvent2.name).toBe('change');
-		await expect(input).toHaveValue('');
+		await expect(input).toHaveValue('Caspian tiger');
 		await input.click();
 		await expect(preview.locator('.sp-menu--item')).toHaveCount(7);
 

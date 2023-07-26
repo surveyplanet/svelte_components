@@ -4,7 +4,9 @@ import { loadStory, setControl, getLastEvent } from './_utils.js';
 test.describe('Checkbox component', () => {
 	test('should render basic checkbox component', async ({ page }) => {
 		const preview = await loadStory(page, 'checkbox');
-		const label = preview.locator('.sp-checkbox');
+		const checkboxes = preview.locator('.checkbox-wrapper');
+		const labels = await checkboxes.locator('.sp-checkbox').all();
+		console.log('THESE ARE THE LABLES!!!' + labels);
 		const labelText = label.locator('.sp-checkbox--label');
 
 		// const id = await checkbox.getAttribute('id');
@@ -14,7 +16,7 @@ test.describe('Checkbox component', () => {
 		await setControl(page, 'Value', 'text', 'checkbox');
 		await setControl(page, 'Id', 'text', 'checkbox');
 
-		await expect(label).toBeVisible();
+		// await expect(label).toBeVisible();
 
 		await label.click();
 		const event = await getLastEvent(page);

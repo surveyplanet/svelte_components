@@ -51,7 +51,7 @@
 	<Hst.Variant
 		title="Primary"
 		{source}>
-		<div class="wrapper">
+		<div class="checkbox-wrapper">
 			<Checkbox
 				test-id="primary"
 				on:change={changeEventHandler}
