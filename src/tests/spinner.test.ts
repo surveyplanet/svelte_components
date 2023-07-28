@@ -3,6 +3,7 @@ import { loadStory, setControl, getAllEvents } from './_utils.js';
 
 test.describe('Spinner component', () => {
 	test('Number', async ({ page }) => {
+		// test runs on it's own, but sometimes it can't find arr on line 21 and click it
 		const preview = await loadStory(page, 'spinner');
 
 		const spinner = preview.locator('.sp-spinner');
