@@ -69,7 +69,7 @@
 
 	<Hst.Variant
 		title="Basic"
-		{source}>
+		source={source(content,mode,disabled,loader,round,block,action,type,size)}>
 		<div class="wrapper">
 			<Button
 				on:click={clickHandler}
@@ -87,7 +87,7 @@
 
 	<Hst.Variant
 		title="Loader"
-		{source}>
+		source={source(content,mode,disabled,loader,round,block,action,type,size)}>
 		<div class="wrapper">
 			<Button
 				on:click={clickHandler}
@@ -105,7 +105,7 @@
 
 	<Hst.Variant
 		title="Icon button"
-		{source}>
+		source={source(content,mode,disabled,loader,round,block,action,type,size)}>
 		<div class="wrapper">
 			<Button
 				on:click={clickHandler}
@@ -128,7 +128,7 @@
 
 	<Hst.Variant
 		title="FAB - Floating action button"
-		{source}>
+		source={source(content,mode,disabled,loader,round,block,action,type,size)}>
 		<div class="wrapper">
 			<Button
 				on:click={clickHandler}

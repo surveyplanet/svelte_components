@@ -3,7 +3,7 @@
 	import { Loader } from '$lib';
 	import { COLORS } from '$lib/_definitions';
 
-	// import { default as source } from './source';
+	import { default as source } from './source';
 	export let Hst: Histoire;
 	let colors: string[];
 	// let colors: string[] = getRandomColors(50, 100);
@@ -32,7 +32,9 @@
 			title="Stroke width" />
 	</svelte:fragment>
 
-	<Hst.Variant title="Primary">
+	<Hst.Variant title="Primary"
+		source={source(colors, size, strokeWidth)}
+	>
 		<div class="wrapper">
 			<Loader
 				{colors}

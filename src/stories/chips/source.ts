@@ -1,23 +1,19 @@
-export default:`<script lang="ts">
+import type { ChipData } from '$lib';
+
+export default (
+	data: ChipData[],
+	selectable: boolean,
+	multiSelect: boolean,
+	removable: boolean
+) => {
+	return `<script lang="ts">
 	import { Chips, type ChipData } from '@surveyplanet/svelte_components';
 
-	const data = [
-		{
-			id: 'chip1',
-			label: 'Chip 1',
-			selected: true,
-		},
-		{
-			id: 'chip2',
-			label: 'Chip 2',
-			selected: false,
-		},
-		{
-			id: 'chip3',
-			label: 'Chip 3',
-			selected: false,
-		},
-	] as ChipData;
+	const data = ${JSON.stringify(data)};
+	const selectable = ${selectable};
+	const multiSelect = ${multiSelect};
+	const removable = ${removable};
+
 
 	const chipClickHandler = (event:CustomEvent) {
 		console.log('Clicked chip:', event.detail);
@@ -26,7 +22,8 @@ export default:`<script lang="ts">
 
 <Chip
 	{data}
-	selectable={true}
-	multiSelect={false}
-	closeable={false}
-	on:click={chipClickHandler} />`
+	{selectable}
+	{multiSelect}
+	{removable}
+	on:click={chipClickHandler} />`;
+};

@@ -22,24 +22,3 @@ The `NavBarData` interface is used to describe the objects in the `data` array.
 | `link`        | `string`   | The URL to navigate to when the link is clicked.           |
 | `title`       | `string`   | The text to display as the link's label. This is optional. |
 | `id`          | `string`   | The ID of the link.                                        |
-
-## Example
-
-```html
-<script>
-	import { NavBar } from 'components/NavBar';
-	let data = [
-		{ icon: 'home', link: '/', title: 'Home', id: 'nav-home' },
-		{ icon: 'info', link: '/about', title: 'About', id: 'nav-about' },
-		{
-			icon: 'contact',
-			link: '/contact',
-			title: 'Contact',
-			id: 'nav-contact',
-		},
-	];
-</script>
-<NavBar {data} />
-```
-
-This example creates a `NavBar` component with one link that displays the "home" icon, navigates to the home page when clicked, and has the label "Home".

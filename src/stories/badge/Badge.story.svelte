@@ -2,13 +2,13 @@
 	import { Badge } from '$lib';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { COLORS } from '$lib/_definitions';
+	import { default as source } from './source';
 	export let Hst: Histoire;
 
 	let color: 'yellow' | 'blue' | 'pink' | 'green' = 'yellow';
 	let content = 'Pro';
 	let flat = false;
 
-	const source = `<Badge color>{content}</Badge>`;
 </script>
 
 <Hst.Story title="Badge">
@@ -34,7 +34,8 @@
 
 	<Hst.Variant
 		title="Primary"
-		{source}>
+		
+		source = {source(color, content, flat)}>
 		<div class="wrapper">
 			<Badge
 				{color}

@@ -44,7 +44,7 @@
 
 	<Hst.Variant
 		title="Avatar"
-		{source}>
+		source = {source(profileImage,id,size,disabled)}>
 		<Avatar
 			on:click={clickHandler}
 			{profileImage}

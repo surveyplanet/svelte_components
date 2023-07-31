@@ -46,7 +46,7 @@
 
 	<Hst.Variant
 		title="Primary"
-		{source}>
+		source={source(id, name, value, checked, disabled, prependLabel, size)}>
 		<div class="checkbox-wrapper">
 			<Checkbox
 				test-id="primary"

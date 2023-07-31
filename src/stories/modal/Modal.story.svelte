@@ -58,7 +58,7 @@
 
 	<Hst.Variant
 		title="Modal"
-		{source}>
+		source={source(title, subtitle, fullscreen, overlay, visible, size)}>
 		<Modal
 			bind:size
 			bind:visible

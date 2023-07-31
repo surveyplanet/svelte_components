@@ -46,27 +46,3 @@ Options will be passed down to the Menu component as a prop. The Menu component 
 | ------ | --------------------------------------------------------------------------------------------------------------------------- |
 | change | Triggered when the selected value of the dropdown changes. The event detail contains the `id` of the newly selected option. |
 | click  | Triggered when the dropdown button is clicked.                                                                              |
-
-### Usage
-
-To use this component, import it and add it to your Svelte template like so:
-
-```html
-<script>
-	import Dropdown from './Dropdown.svelte';
-
-	const options = [
-		{ label: 'Option 1', id: '1' },
-		{ label: 'Option 2', id: '2' },
-		{ label: 'Option 3', id: '3' },
-	];
-</script>
-
-<Dropdown
-	options="{options}"
-	value="{null}"
-	label="Select an option"
-	searchThreshold="{2}"
-	disabled="{false}"
-	required="{false}" />
-```

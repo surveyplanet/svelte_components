@@ -26,3 +26,38 @@
 | inline   | boolean    | If true, the item should be inline      |
 | selected | boolean    | If true, the item is currently selected |
 | submenu  | MenuData[] | An array of submenu items               |
+
+### Usage
+
+    ```svelte
+
+    <script lang="ts">
+        import { Menu, type MenuData } from '@surveyplanet/svelte_components';
+
+        const data = [
+            {
+                id: 'item1',
+                label: 'Item 1',
+                selected: true,
+            },
+            {
+                id: 'item2',
+                label: 'Item 2',
+                selected: false,
+            },
+            {
+                id: 'item3',
+                label: 'Item 3',
+                selected: false,
+            },
+        ] as MenuData;
+
+        const menuClickHandler = (event:CustomEvent) {
+            console.log('Clicked menu item:', event.detail);
+        }
+    </script>
+
+    <Menu
+        {data}
+        on:click={menuClickHandler} />
+    ```

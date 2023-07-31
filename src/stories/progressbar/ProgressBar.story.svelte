@@ -2,6 +2,7 @@
 	import { logEvent } from 'histoire/client';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { ProgressBar, Button } from '$lib/index';
+	import { default as source} from './source';
 
 	export let Hst: Histoire;
 
@@ -23,7 +24,9 @@
 			title="Speed (ms)" />
 	</svelte:fragment>
 
-	<Hst.Variant title="ProgressBar">
+	<Hst.Variant title="ProgressBar"
+		source={source(speed, max, value)}
+	>
 		<ProgressBar
 			{speed}
 			{max}
