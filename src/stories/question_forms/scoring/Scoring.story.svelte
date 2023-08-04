@@ -41,12 +41,14 @@
 		<Hst.Json
 			bind:value={labels}
 			title="Labels" />
-		<Hst.Text
-			bind:value={maxLabel}
-			title="Max Label" />
-		<Hst.Text
-			bind:value={minLabel}
-			title="Min Label" />
+		{#if maxLabel !== null && minLabel !== null}
+			<Hst.Text
+				bind:value={maxLabel}
+				title="Max Label" />
+			<Hst.Text
+				bind:value={minLabel}
+				title="Min Label" />
+		{/if}
 		<Hst.Checkbox
 			bind:value={requireAll}
 			title="Require All" />

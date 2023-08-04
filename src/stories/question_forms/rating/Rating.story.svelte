@@ -50,31 +50,35 @@
 		<Hst.Json
 			bind:value={labels}
 			title="Labels" />
-		<Hst.Select
-			bind:value={order}
-			options={[
-				'default',
-				'random',
-				'asc_title',
-				'desc_title',
-				'asc_value',
-				'desc_value',
-			]}
-			title="Order" />
-		<Hst.Select
-			bind:value={layout}
-			options={[
-				'1',
-				'2',
-				'3',
-				'4',
-				'slider',
-				'star',
-				'heart',
-				'smiley',
-				'thumbs',
-			]}
-			title="Layout" />
+		{#if order !== null}
+			<Hst.Select
+				bind:value={order}
+				options={[
+					'default',
+					'random',
+					'asc_title',
+					'desc_title',
+					'asc_value',
+					'desc_value',
+				]}
+				title="Order" />
+		{/if}
+		{#if layout !== null}
+			<Hst.Select
+				bind:value={layout}
+				options={[
+					'1',
+					'2',
+					'3',
+					'4',
+					'slider',
+					'star',
+					'heart',
+					'smiley',
+					'thumbs',
+				]}
+				title="Layout" />
+		{/if}
 		<Hst.Json
 			bind:value={response}
 			title="Response" />

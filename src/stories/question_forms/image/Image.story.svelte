@@ -60,7 +60,7 @@
 		<Hst.Checkbox
 			bind:value={multi}
 			title="Multi" />
-		{#if multi}
+		{#if multi && min !== null && max !== null}
 			<Hst.Number
 				bind:value={min}
 				title="Min" />

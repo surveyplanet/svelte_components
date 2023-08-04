@@ -31,17 +31,19 @@
 		<Hst.Json
 			bind:value={labels}
 			title="Labels" />
-		<Hst.Select
-			bind:value={layout}
-			options={['1', '2', '3', '4', 'dropdown']}
-			title="Layout" />
+		{#if layout !== null}
+			<Hst.Select
+				bind:value={layout}
+				options={['1', '2', '3', '4', 'dropdown']}
+				title="Layout" />
+		{/if}
 		<Hst.Checkbox
 			bind:value={random}
 			title="Random" />
 		<Hst.Checkbox
 			bind:value={multi}
 			title="Multi" />
-		{#if multi}
+		{#if multi && min !== null && max !== null}
 			<Hst.Number
 				bind:value={min}
 				title="Min" />

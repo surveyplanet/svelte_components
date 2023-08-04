@@ -22,12 +22,14 @@
 		<Hst.Text
 			bind:value={id}
 			title="Id" />
-		<Hst.Number
-			bind:value={min}
-			title="Min" />
-		<Hst.Number
-			bind:value={max}
-			title="Max" />
+		{#if min !== null && max !== null}
+			<Hst.Number
+				bind:value={min}
+				title="Min" />
+			<Hst.Number
+				bind:value={max}
+				title="Max" />
+		{/if}
 		<Hst.Checkbox
 			bind:value={single}
 			title="Single line" />
