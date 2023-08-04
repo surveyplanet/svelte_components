@@ -1,6 +1,6 @@
 # Spinner Component
 
-This module exports a Svelte component that provides an input field for entering numeric response with increment and decrement buttons.
+This module exports a Svelte component that provides an input field for entering numeric response with increment and decrement buttons as well as a drag option.
 
 ## Exported Variables
 
