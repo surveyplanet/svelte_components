@@ -60,6 +60,5 @@ module.exports = {
 		'svelte.config.js',
 		'histoire.config.ts',
 		'playwright.config.ts',
-		'src/stories',
 	],
 };
