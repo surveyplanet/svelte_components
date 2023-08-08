@@ -2,7 +2,7 @@
 	import { logEvent } from 'histoire/client';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import source from './source';
-	import { Avatar, MASCOTS } from '../../lib';
+	import { Avatar, MASCOTS } from '$lib';
 
 	export let Hst: Histoire;
 
@@ -44,7 +44,7 @@
 
 	<Hst.Variant
 		title="Avatar"
-		{source}>
+		source = {source(profileImage,id,size,disabled)}>
 		<Avatar
 			on:click={clickHandler}
 			{profileImage}

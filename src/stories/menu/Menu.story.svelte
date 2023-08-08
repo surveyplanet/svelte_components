@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Menu, Button, Icon, type MenuData } from '../../lib';
+	import { Menu, Button, Icon, type MenuData } from '$lib';
 	import { logEvent } from 'histoire/client';
 	import { menuData } from './menu_data';
 
-	// import { default as source } from './source';
+	import { default as source } from './source';
 	export let Hst: Histoire;
 
 	let visible = true;
@@ -41,7 +41,9 @@
 			options={['small', 'medium', 'large']} />
 	</svelte:fragment>
 
-	<Hst.Variant title="Primary">
+	<Hst.Variant title="Primary"
+		source={source(visible,data, size)}
+	>
 		<div class="wrapper">
 			<Button
 				action={true}

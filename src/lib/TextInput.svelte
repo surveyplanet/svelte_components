@@ -1,7 +1,13 @@
 <script
 	context="module"
 	lang="ts">
-	export type TextInputType = 'password' | 'search' | 'text';
+	export type TextInputType =
+		| 'password'
+		| 'search'
+		| 'text'
+		| 'date'
+		| 'time'
+		| 'datetime-local';
 </script>
 
 <script lang="ts">
@@ -10,8 +16,12 @@
 	import Cleave from 'cleave.js';
 	import type { CleaveOptions } from 'cleave.js/options';
 
-	const dispatch: (name: string, detail: Event) => boolean =
-		createEventDispatcher();
+	const dispatchChange = createEventDispatcher<{ change: Event }>();
+	const dispatchInput = createEventDispatcher<{ input: Event }>();
+	const dispatchKeyDown = createEventDispatcher<{ keydown: Event }>();
+	const dispatchKeyUp = createEventDispatcher<{ keyup: Event }>();
+	const dispatchFocus = createEventDispatcher<{ focus: FocusEvent }>();
+	const dispatchBlur = createEventDispatcher<{ blur: FocusEvent }>();
 
 	/**
 	 * The unique id of the input
@@ -31,7 +41,7 @@
 	/**
 	 * The value of the input
 	 */
-	export let value: string | null = '';
+	export let value = '';
 
 	/**
 	 * The input label
@@ -93,36 +103,48 @@
 		}
 	}
 
-	const changeHandler = (event: Event) => {
-		const errors: ValidatorError[] = validate(
-			event.target as HTMLInputElement
-		);
+	const validateInput = (target: HTMLInputElement) => {
+		const errors: ValidatorError[] = validate(target);
+
 		if (errors.length) {
 			hasValidationErrors = true;
 			validationDisplayMessage = errors[0].error;
-			return;
 		}
-		dispatch('change', event);
+	};
+
+	const changeHandler = (event: Event) => {
+		const target = event.target as HTMLInputElement;
+		validateInput(target);
+		if (!hasValidationErrors) {
+			dispatchChange('change', event);
+		}
+	};
+
+	const inputHandler = (event: Event) => {
+		const target = event.target as HTMLInputElement;
+		validateInput(target);
+		if (!hasValidationErrors) {
+			dispatchInput('input', event);
+		}
 	};
 
 	const focusHandler = (event: FocusEvent) => {
-		dispatch('focus', event);
+		dispatchFocus('focus', event);
 	};
 
 	const blurHandler = (event: FocusEvent) => {
-		dispatch('blur', event);
+		dispatchBlur('blur', event);
 	};
 
 	const keydownHandler = (event: KeyboardEvent) => {
-		dispatch('keydown', event);
+		dispatchKeyDown('keydown', event);
 	};
 
 	const keyupHandler = (event: KeyboardEvent) => {
+		const target = event.target as HTMLInputElement;
 		// if the input has errors validate on keyup
 		if (hasValidationErrors) {
-			const errors: ValidatorError[] = validate(
-				event.target as HTMLInputElement
-			);
+			const errors: ValidatorError[] = validate(target);
 
 			hasValidationErrors = errors.length > 0;
 
@@ -131,7 +153,7 @@
 				return;
 			}
 		}
-		dispatch('keyup', event);
+		dispatchKeyUp('keyup', event);
 	};
 </script>
 
@@ -160,6 +182,7 @@
 				? validationRules.join(',')
 				: null}
 			data-validate-message={validationMessage}
+			on:input={inputHandler}
 			on:blur={blurHandler}
 			on:change={changeHandler}
 			on:focus={focusHandler}
@@ -179,6 +202,7 @@
 				: null}
 			data-validate-message={validationMessage}
 			on:blur={blurHandler}
+			on:input={inputHandler}
 			on:change={changeHandler}
 			on:focus={focusHandler}
 			on:keydown={keydownHandler}
@@ -187,8 +211,9 @@
 	{#if !validationHideMessage && hasValidationErrors && validationDisplayMessage.length}
 		<label
 			for={id}
-			class="validation-error-message"
-			>{@html validationDisplayMessage}</label>
+			class="validation-error-message">
+			{@html validationDisplayMessage}
+		</label>
 	{/if}
 </div>
 
@@ -231,7 +256,6 @@
 
 	input,
 	textarea {
-		box-sizing: border-box;
 		font: inherit;
 		width: 100%;
 		height: $size--40;

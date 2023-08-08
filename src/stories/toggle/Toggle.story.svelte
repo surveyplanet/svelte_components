@@ -2,7 +2,7 @@
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { logEvent } from 'histoire/client';
 	import source from './source';
-	import { Toggle } from '../../lib';
+	import { Toggle } from '$lib';
 
 	export let Hst: Histoire;
 
@@ -50,7 +50,8 @@
 
 	<Hst.Variant
 		title="Primary"
-		{source}>
+		source={source(id, on, disabled, tall, name, label, prependLabel)}
+		>
 		<div class="wrapper">
 			<Toggle
 				on:change={changeEventHandler}

@@ -15,30 +15,3 @@ This component renders a footer navigation bar. It accepts an array of `FooterDa
 | Name         | Type           | Description                                                                              |
 | ------------ | -------------- | ---------------------------------------------------------------------------------------- |
 | `footerData` | `FooterData[]` | An array of `FooterData` objects that represent the items to be displayed in the footer. |
-
-## Example Usage
-
-```html
-<script>
-	import { FooterData } from './Footer';
-
-	const data: FooterData[] = [
-		{
-			link: '/about',
-			label: 'About Us',
-		},
-		{
-			link: '/contact',
-			label: 'Contact Us',
-		},
-		{
-			label: 'Privacy Policy',
-		},
-		{
-			label: 'Terms of Service',
-		},
-	];
-</script>
-
-<footer {footerData} />
-```

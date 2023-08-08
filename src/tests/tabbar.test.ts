@@ -17,10 +17,9 @@ test.describe('TabBar component', () => {
 		await tabbarButtons.nth(0).click();
 
 		await tabbarButtons.nth(1).click();
-
-		await expect(tabbarButtons.nth(1)).toHaveClass(/sp-tab-bar--button /);
-		await expect(tabBarListItems.nth(1)).toHaveClass(
-			/ sp-tab-bar--item--active/
+		await expect(tabbarButtons.nth(1)).toHaveClass(/sp-tab-bar--button/);
+		await expect(tabbarButtons.nth(1)).toHaveClass(
+			/sp-tab-bar--item--active/
 		);
 		//some weird bug with the class name not passing
 		// await expect(tabbarButtons.nth(2)).toHaveClass(
@@ -31,14 +30,14 @@ test.describe('TabBar component', () => {
 			/sp-icon sp-icon--edit/
 		);
 		await expect(tabbarButtonsIcon.nth(1)).toHaveClass(
-			/sp-icon sp-icon--tablet/
+			/sp-icon sp-icon--eye/
 		);
 		await expect(tabbarButtonsIcon.nth(2)).toHaveClass(
-			/sp-icon sp-icon--monitor/
+			/sp-icon sp-icon--chart-column/
 		);
 		await expect(tabbarButtonsLabel.nth(0)).toHaveText('Edit');
-		await expect(tabbarButtonsLabel.nth(1)).toHaveText('Tablet');
-		await expect(tabbarButtonsLabel.nth(2)).toHaveText('Monitor');
+		await expect(tabbarButtonsLabel.nth(1)).toHaveText('Preview');
+		await expect(tabbarButtonsLabel.nth(2)).toHaveText('Results');
 
 		const tabButtonEvent = await getLastEvent(page);
 		expect(tabButtonEvent.name).toBe('tabButton');

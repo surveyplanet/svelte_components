@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Dropdown, type DropdownOptions } from '../../lib';
+	import { Dropdown, type DropdownOptions } from '$lib';
 	import { logEvent } from 'histoire/client';
 
-	// import { default as source } from './source';
+	import { default as source } from './source';
 	export let Hst: Histoire;
 
 	let options: DropdownOptions[] = [
@@ -91,7 +91,8 @@
 			options={['small', 'medium', 'large']} />
 	</svelte:fragment>
 
-	<Hst.Variant title="Primary">
+	<Hst.Variant title="Primary"
+		source={source(options, searchThreshold, disabled, required, value, placeholder, label, size)}>
 		<div class="wrapper">
 			<Dropdown
 				bind:options

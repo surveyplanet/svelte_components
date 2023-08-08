@@ -1,5 +1,15 @@
-export default `<script>
+export default (
+	color: 'yellow' | 'blue' | 'pink' | 'green',
+	content: string,
+	flat: boolean
+) => {
+	return `<script>
 	import {Badge} from '@surveyplanet/svelte-components';
+
+	const color = '${color}';
+	const content = '${content}';
+	const flat = ${flat};
 </script>
-<Badge color="rgba(225,0,0,.5)">Pro</Badge>
+<Badge {color} {content} {flat} ">Pro</Badge>
 `;
+};

@@ -19,17 +19,24 @@
 	export let vertical = false;
 	$: menuVisible = false;
 
-	const dispatchLink: (name: string, detail: string) => boolean =
-		createEventDispatcher();
-	const dispatchMenu: (name: string, detail: string) => boolean =
-		createEventDispatcher();
+	const dispatchLink = createEventDispatcher<{
+		navLink: string;
+	}>();
+
+	const dispatchClick = createEventDispatcher<{
+		click: CustomEvent['detail'];
+	}>();
+
+	const dispatchUpdate = createEventDispatcher<{
+		update: CustomEvent['detail'];
+	}>();
 
 	const navLinkClickHandler = (e: MouseEvent) => {
 		const target = e.target as HTMLLinkElement;
 		if (target.href) {
 			window.location.href = target.href;
 		} else {
-			dispatchLink('nav-link', target.id);
+			dispatchLink('navLink', target.id);
 		}
 	};
 
@@ -50,11 +57,11 @@
 
 	const menuClickHandler = (e: CustomEvent) => {
 		menuVisible = false;
-		dispatchMenu('click', e.detail);
+		dispatchClick('click', e.detail);
 	};
 
 	const menuUpdateHandler = (e: CustomEvent) => {
-		dispatchMenu('update', e.detail);
+		dispatchUpdate('update', e.detail);
 	};
 </script>
 
@@ -115,7 +122,6 @@
 		a,
 		button {
 			cursor: pointer;
-			box-sizing: border-box;
 			background-color: transparent;
 			width: $size--16;
 			height: $size--16;

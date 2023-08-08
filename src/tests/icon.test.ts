@@ -20,7 +20,7 @@ test.describe('Icon component', () => {
 		await expect(icon).toHaveAttribute('width', '24');
 		await expect(icon).toHaveAttribute('height', '24');
 		await expect(icon).toHaveAttribute('fill', 'none');
-		await expect(path).toHaveAttribute('stroke', COLORS.black);
+		await expect(path).toHaveAttribute('stroke', COLORS.dark); //COLORS.black
 	});
 
 	test('light', async ({ page }) => {

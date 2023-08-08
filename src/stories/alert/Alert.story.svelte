@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Alert } from '../../lib';
+	import { Alert } from '$lib';
 	import { default as source } from './source';
 
 	export let Hst: Histoire;
@@ -74,7 +74,7 @@
 
 	<Hst.Variant
 		title="Alert"
-		{source}>
+		source={source(title, subtitle, type, hideDelay, confirm, confirmButtonLabel, cancelButtonLabel, challenge)}>
 		<div class="alert-wrapper">
 			<Alert
 				on:open={openHandler}

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Breadcrumbs } from '../../lib';
+	import { Breadcrumbs } from '$lib';
 	import source from './source';
 	export let Hst: Histoire;
 
@@ -33,7 +33,7 @@
 
 	<Hst.Variant
 		title="Primary"
-		{source}>
+		source={source(breadcrumbs)}>
 		<Breadcrumbs {breadcrumbs} />
 	</Hst.Variant>
 </Hst.Story>

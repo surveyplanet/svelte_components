@@ -2,13 +2,12 @@
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { logEvent } from 'histoire/client';
 	import source from './source';
-	import { Checkbox } from '../../lib';
+	import { Checkbox } from '$lib';
 	export let Hst: Histoire;
 
 	let id: string;
 	let name: 'checkbox';
 	let value: string;
-	let label = 'Checkbox';
 	let checked = false;
 	let disabled = false;
 	let prependLabel = false;
@@ -33,9 +32,6 @@
 		<Hst.Text
 			bind:value={id}
 			title="Id" />
-		<Hst.Text
-			bind:value={label}
-			title="Label" />
 		<Hst.Checkbox
 			bind:value={prependLabel}
 			title="Prepend label" />
@@ -50,15 +46,15 @@
 
 	<Hst.Variant
 		title="Primary"
-		{source}>
-		<div class="wrapper">
+		source={source(id, name, value, checked, disabled, prependLabel, size)}>
+		<div class="checkbox-wrapper">
 			<Checkbox
 				test-id="primary"
 				on:change={changeEventHandler}
 				{checked}
 				{disabled}
 				{prependLabel}
-				{label}
+				label="Primary"
 				{value}
 				{name}
 				{size}
@@ -70,7 +66,7 @@
 				{checked}
 				{disabled}
 				{prependLabel}
-				{label}
+				label="Secondary"
 				{value}
 				{name}
 				{size}

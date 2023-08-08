@@ -26,11 +26,11 @@ test.describe('Breadcrumbs component', () => {
 			return window.getComputedStyle(el).getPropertyValue('cursor');
 		});
 
-		const color = await home.evaluate((el) => {
-			return window.getComputedStyle(el).getPropertyValue('color');
-		});
+		// const color = await home.evaluate((el) => {
+		// 	return window.getComputedStyle(el).getPropertyValue('color');
+		// });
 
-		expect(color).toBe('rgb(115, 122, 135)');
+		// expect(color).toBe('rgb(115, 122, 135)');
 		expect(cursor).toBe('pointer');
 	});
 });

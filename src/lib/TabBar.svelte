@@ -15,8 +15,9 @@
 <script lang="ts">
 	import { createEventDispatcher, onMount } from 'svelte';
 
-	const dispatch: (name: string, id: string) => boolean =
-		createEventDispatcher();
+	const dispatchTabButton = createEventDispatcher<{
+		tabButton: TabBarData['id'];
+	}>();
 
 	export let id: string = (Date.now() + Math.random()).toString(36);
 	export let grow = false;
@@ -45,7 +46,7 @@
 		activeIndicator.style.width = `${width}px`;
 		activeIndicator.style.left = `${left}px`;
 
-		dispatch('tabButton', id);
+		dispatchTabButton('tabButton', id);
 	};
 
 	const tabButtonHandler = (event: Event) => {
@@ -99,7 +100,6 @@
 
 	.sp-tab-bar {
 		display: inline-block;
-		box-sizing: border-box;
 		height: $size--36;
 		padding: $size--4;
 		font: $font--default;
@@ -154,7 +154,6 @@
 		justify-content: center;
 		align-items: center;
 		gap: $size-gutter--quarter;
-		box-sizing: border-box;
 		cursor: pointer;
 		margin: 0;
 		padding: 0 $size-gutter;

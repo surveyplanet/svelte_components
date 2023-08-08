@@ -13,7 +13,6 @@
 	@use '@surveyplanet/styles' as *;
 
 	.sp-badge {
-		box-sizing: border-box;
 		display: inline-block;
 		height: $size--14;
 		max-width: 100%;

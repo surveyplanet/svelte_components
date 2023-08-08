@@ -23,7 +23,7 @@ export default defineConfig({
 	},
 	theme: {
 		title: 'SurveyPlanet design system',
-		favicon: './static/assets/favicon.ico',
+		favicon: './static/favicon.ico',
 		logo: {
 			square: './static/assets/surveyplanet-logo-square.svg',
 			light: './static/assets/surveyplanet-logo-dark.svg',
@@ -38,7 +38,7 @@ export default defineConfig({
 		hideColorSchemeSwitch: false,
 		storeColorScheme: false,
 	},
-	// setupFile: '/src/histoire/setup.ts', // <-- doesn't work
+	setupFile: './src/stories/histoire.setup.ts', // <-- doesn't work
 	// viteIgnorePlugins: [
 	// 	'vite-plugin-sveltekit-setup',
 	// 	'vite-plugin-sveltekit-compile',

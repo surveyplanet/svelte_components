@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { logEvent } from 'histoire/client';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Modal, Button } from '../../lib';
+	import { Modal, Button } from '$lib';
 	import source from './source';
 	export let Hst: Histoire;
 
@@ -58,7 +58,7 @@
 
 	<Hst.Variant
 		title="Modal"
-		{source}>
+		source={source(title, subtitle, fullscreen, overlay, visible, size)}>
 		<Modal
 			bind:size
 			bind:visible

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { logEvent } from 'histoire/client';
-	// import source from './source';
-	import { Spinner } from '../../lib';
+	import source from './source';
+	import { Spinner } from '$lib';
 	export let Hst: Histoire;
 
 	let label = 'Number Spinner';
@@ -65,7 +65,9 @@
 	</svelte:fragment>
 
 	<div class="wrapper">
-		<Hst.Variant title="Primary">
+		<Hst.Variant title="Primary"
+			source={source(label, step, min, max, value, disabled, required, overflow, id, placeholder, dragSpeed, size)}
+		>
 			<Spinner
 				{label}
 				{step}

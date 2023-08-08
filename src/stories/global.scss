@@ -1,5 +1,22 @@
 @use '@surveyplanet/styles' as *;
 
+@include normalize();
+
+/* default: Suisse Intl Regular, 12px, medium */
+@include load-suisse-font();
+/* light */
+// @include load-suisse-font(intl, light);
+/* regular */
+// @include load-suisse-font(intl, regular);
+/* medium */
+// @include load-suisse-font(intl, medium);
+
 body {
-	background-color: $color--red;
+	font: $font--default;
+}
+
+.wrapper {
+	padding: $size-gutter;
+	// background-color: $color--beige;
+	// border-radius: $size-radius--small;
 }

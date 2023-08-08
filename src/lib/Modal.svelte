@@ -4,7 +4,10 @@
 	import { cubicOut } from 'svelte/easing';
 	import { Icon } from './';
 
-	const dispatch: (name: string) => boolean = createEventDispatcher();
+	const dispatchOpen = createEventDispatcher<{ open: boolean }>();
+	const dispatchClose = createEventDispatcher<{ close: boolean }>();
+	const dispatchIn = createEventDispatcher<{ in: boolean }>();
+	const dispatchOut = createEventDispatcher<{ out: boolean }>();
 
 	export let title = 'Modal';
 	export let subtitle = 'Subtitle';
@@ -15,19 +18,19 @@
 	export let size: 'small' | 'medium' | 'large' = 'medium';
 
 	const modalOpened = () => {
-		dispatch('open');
+		dispatchOpen('open');
 	};
 
 	const modalIn = () => {
-		dispatch('in');
+		dispatchIn('in');
 	};
 
 	const modalOut = () => {
-		dispatch('out');
+		dispatchOut('out');
 	};
 
 	const modalClosed = () => {
-		dispatch('close');
+		dispatchClose('close');
 	};
 
 	const overlayClickHandler = (e: KeyboardEvent) => {
@@ -112,7 +115,6 @@
 
 	.sp-modal {
 		z-index: 1000;
-		box-sizing: border-box;
 		position: absolute;
 		padding: $size-gutter;
 		width: $medium-width;

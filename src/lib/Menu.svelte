@@ -20,8 +20,17 @@
 	import { slide, type SlideParams } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 
-	const dispatch: (name: string, detail: string) => boolean =
-		createEventDispatcher();
+	const dispatchClick = createEventDispatcher<{
+		click: HTMLElement['id'];
+	}>();
+
+	const dispatchUpdate = createEventDispatcher<{
+		update: HTMLElement['id'];
+	}>();
+
+	const dispatchBlur = createEventDispatcher<{
+		blur: HTMLElement['id'];
+	}>();
 
 	/**
 	 * Menu data
@@ -129,7 +138,7 @@
 		} else {
 			currentState = [...data]; // go to root
 		}
-		dispatch('update', id);
+		dispatchUpdate('update', id);
 	};
 
 	const itemClickHandler = (event: MouseEvent) => {
@@ -153,14 +162,14 @@
 		// if clicked and item doesn't have a submenu dispatch 'click'
 		// otherwise dispatch 'update'
 		if (!state) {
-			dispatch('click', id);
+			dispatchClick('click', id);
 		} else {
-			dispatch('update', id);
+			dispatchUpdate('update', id);
 		}
 	};
 
 	const menuBlurHandler = (event: FocusEvent) => {
-		dispatch('blur', (event.target as HTMLElement).id);
+		dispatchBlur('blur', (event.target as HTMLElement).id);
 	};
 </script>
 
@@ -221,7 +230,6 @@
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 	.sp-menu {
-		box-sizing: border-box;
 		list-style: none;
 		overflow: hidden;
 		margin: 0;
@@ -320,7 +328,6 @@
 
 		:global(.color-chip) {
 			position: relative;
-			box-sizing: border-box;
 			display: inline-block;
 			border: 1px solid transparent;
 			width: $size--16;

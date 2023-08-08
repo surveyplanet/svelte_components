@@ -10,7 +10,7 @@ test.describe('Navbar component', () => {
 		const navMenuTrigger = navbar.locator('.sp-nav--menu-trigger');
 
 		await expect(navbar).toBeVisible();
-		await expect(navbarLink).toHaveCount(4);
+		await expect(navbarLink).toHaveCount(3);
 		await expect(navbarLink.nth(0)).toHaveAttribute('href', '#');
 		await navbarLink.nth(0).click();
 		await expect(navLinkIcon.nth(0)).toHaveClass(/sp-icon sp-icon--edit/);
@@ -43,7 +43,7 @@ test.describe('Navbar component', () => {
 
 		const events = await getAllEvents(page);
 
-		const navLinkEvent = events.filter((i) => i.name === 'nav-link').length;
+		const navLinkEvent = events.filter((i) => i.name === 'navLink').length;
 		const navMenuClickEvent = events.filter(
 			(i) => i.name === 'click'
 		).length;

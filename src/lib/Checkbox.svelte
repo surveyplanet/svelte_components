@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	const dispatch = createEventDispatcher();
+	const dispatchChange = createEventDispatcher<{
+		change: Event;
+	}>();
 
 	export let id: string = (Date.now() + Math.random()).toString(36);
 	export let name: string;
@@ -13,7 +15,7 @@
 	export let size: 'small' | 'medium' | 'large' = 'small';
 
 	const changeEventHandler = (event: Event) => {
-		dispatch('change', event);
+		dispatchChange('change', event);
 	};
 </script>
 
@@ -97,8 +99,8 @@
 		svg {
 			position: absolute;
 			z-index: 1;
-			top: 7px;
-			left: 5px;
+			top: 6px;
+			left: 4px;
 			fill: none;
 			stroke: $color--white;
 			stroke-width: 2;
