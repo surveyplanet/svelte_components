@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { loadStory, setControl, getAllEvents } from './_utils.js';
 
-test.describe.only('Multiple choice  component ', () => {
+test.describe('Multiple choice  component ', () => {
 	test('basic', async ({ page }) => {
 		const preview = await loadStory(page, 'question_forms/multipleChoice');
 		const form = preview.locator('form');
