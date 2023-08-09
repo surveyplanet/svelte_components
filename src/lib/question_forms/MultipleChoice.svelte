@@ -72,7 +72,7 @@
 </script>
 
 <form
-	class="sp-survey--question--mutliple-choice--form sp-survey--question--mutliple-choice--layout-{layout}">
+	class="sp-survey--question--multiple-choice--form sp-survey--question--multiple-choice--layout-{layout}">
 	{#if layout === 'dropdown'}
 		<Dropdown
 			options={labels.map(getDropdownOption)}

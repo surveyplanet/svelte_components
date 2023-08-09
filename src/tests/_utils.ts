@@ -38,11 +38,19 @@ export const loadStory = async (
 	name: string,
 	variant: number | null = 0
 ): Promise<FrameLocator | Page> => {
-	name = name.toLocaleLowerCase();
+	const parser: string[] = name.toLocaleLowerCase().split('/');
 
-	let url = `/story/src-stories-${name}-${name}-story-svelte`;
+	const componentName = parser.pop();
+	const path = parser.join('-').replace(/_/g, '-');
+
+	let url = '';
+	if (path.length) {
+		url = `/story/src-stories-${path}-${componentName}-${componentName}-story-svelte`;
+	} else {
+		url = `/story/src-stories-${componentName}-${componentName}-story-svelte`;
+	}
 	if (variant !== null && !isNaN(variant)) {
-		url += `?variantId=src-stories-${name}-${name}-story-svelte-${variant}`;
+		url += `?variantId=src-stories-${componentName}-${componentName}-story-svelte-${variant}`;
 	}
 
 	await page.goto(url);

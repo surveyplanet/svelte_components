@@ -3,12 +3,14 @@
 	"words": [
 		"CCPA",
 		"dasherize",
+		"datetime",
 		"fadeinout",
 		"fullscreen",
 		"Histoire",
-		"historie",
 		"histoires",
+		"historie",
 		"honeycrisp",
+		"hoverable",
 		"introend",
 		"introstart",
 		"keydown",
@@ -26,11 +28,24 @@
 		"tabbar",
 		"testid",
 		"textbox",
-		"textinput"
+		"textinput",
+		"valuenow"
 	],
-	"ignoreWords": ["xsmall", "cubbi", "gruffi", "sunni", "tummi", "zummi"],
-	"flagWords": ["hte", "survey planet"],
-	"files": ["./**/*.{txt,md,js,ts,yaml,json,svelte}"],
+	"ignoreWords": [
+		"xsmall",
+		"cubbi",
+		"gruffi",
+		"sunni",
+		"tummi",
+		"zummi"
+	],
+	"flagWords": [
+		"hte",
+		"survey planet"
+	],
+	"files": [
+		"./**/*.{txt,md,js,ts,yaml,json,svelte}"
+	],
 	"useGitignore": true,
 	"ignorePaths": [
 		"cspell.json",
