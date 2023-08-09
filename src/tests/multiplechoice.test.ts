@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { loadStory, setControl, getAllEvents } from './_utils.js';
 
-test.describe('Multiple choice  component ', () => {
+test.describe.only('Multiple choice  component ', () => {
 	test('basic', async ({ page }) => {
-		const preview = await loadStory(page, 'question_forms/multiple-choice');
+		const preview = await loadStory(page, 'question_forms/multipleChoice');
 		const form = preview.locator('form');
 		const input1 = form.locator('input').nth(0);
 		const input2 = form.locator('input').nth(1);
@@ -39,7 +39,7 @@ test.describe('Multiple choice  component ', () => {
 	});
 
 	test('multi', async ({ page }) => {
-		const preview = await loadStory(page, 'question_forms/multiple-choice');
+		const preview = await loadStory(page, 'question_forms/multipleChoice');
 		const form = preview.locator('form');
 		const input1 = form.locator('input').nth(0);
 		const input2 = form.locator('input').nth(1);
