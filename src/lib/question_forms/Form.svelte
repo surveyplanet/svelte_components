@@ -7,9 +7,9 @@
 
 	export let id: string;
 	export let labels: FormProperties['labels'] = [];
-	export let requireAll: FormProperties['requireAll'];
+	// export let validations: FormProperties['validations'];
+	// export let requireAll: FormProperties['requireAll'];
 	export let random: FormProperties['random'];
-	export let validations: FormProperties['validations'];
 	export let response: FormValue[] = [];
 
 	const updateResponse = (value: FormValue) => {

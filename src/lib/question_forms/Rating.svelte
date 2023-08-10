@@ -48,12 +48,6 @@
 	class="sp-survey--question--rating--form sp-survey--question--rating--layout-{layout}">
 	{#if layout === 'slider'}
 		<RangeSlider />
-		<!--
-		{:else if layout === 'star'}
-		{:else if layout === 'heart'}
-		{:else if layout === 'smiley'}
-		{:else if layout === 'thumbs'}
-		-->
 	{:else}
 		{#each labels as item}
 			<div>

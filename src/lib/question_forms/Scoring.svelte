@@ -52,49 +52,54 @@
 </script>
 
 <form class="sp-survey--question--scoring--form">
-	<table>
-		<thead>
-			<tr>
-				<th scope="row">&nbsp;</th>
-				<th
-					colspan={Math.floor(values.length * 0.5)}
-					class="sp-survey--question--scoring--form--min-label">
-					{minLabel}
-				</th>
-				<th
-					colspan={Math.ceil(values.length * 0.5)}
-					class="sp-survey--question--scoring--form--max-label">
-					{maxLabel}
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-			{#each labels as label, rowIndex}
+	{#if requireAll && requireUnique}
+		<!-- make a sortable list here -->
+		<div>This should be a sortable list</div>
+	{:else}
+		<table>
+			<thead>
 				<tr>
+					<th scope="row">&nbsp;</th>
 					<th
-						scope="row"
-						class="sp-survey--question--scoring--form--label-row"
-						>{label}</th>
-
-					{#each values as value, cellIndex}
-						<td>
-							<Radio
-								name={label}
-								value={value.toString()}
-								id="{id}-{rowIndex}-{cellIndex}"
-								on:change={inputChangeHandler} />
-						</td>
-					{/each}
+						colspan={Math.floor(values.length * 0.5)}
+						class="sp-survey--question--scoring--form--min-label">
+						{minLabel}
+					</th>
+					<th
+						colspan={Math.ceil(values.length * 0.5)}
+						class="sp-survey--question--scoring--form--max-label">
+						{maxLabel}
+					</th>
 				</tr>
-			{/each}
-		</tbody>
-		<tfoot>
-			<Button
-				size={'small'}
-				type="reset"
-				on:click={clearButtonClickHandler}>
-				{definitions.scoringResetButton}
-			</Button>
-		</tfoot>
-	</table>
+			</thead>
+			<tbody>
+				{#each labels as label, rowIndex}
+					<tr>
+						<th
+							scope="row"
+							class="sp-survey--question--scoring--form--label-row"
+							>{label}</th>
+
+						{#each values as value, cellIndex}
+							<td>
+								<Radio
+									name={label}
+									value={value.toString()}
+									id="{id}-{rowIndex}-{cellIndex}"
+									on:change={inputChangeHandler} />
+							</td>
+						{/each}
+					</tr>
+				{/each}
+			</tbody>
+			<tfoot>
+				<Button
+					size={'small'}
+					type="reset"
+					on:click={clearButtonClickHandler}>
+					{definitions.scoringResetButton}
+				</Button>
+			</tfoot>
+		</table>
+	{/if}
 </form>

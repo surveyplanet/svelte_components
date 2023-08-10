@@ -15,14 +15,17 @@
 	export let multi: MultipleChoiceProperties['multi'];
 	export let layout: MultipleChoiceProperties['layout'] = '1';
 	export let random: MultipleChoiceProperties['random'] = false;
-	export let min: MultipleChoiceProperties['min'];
-	export let max: MultipleChoiceProperties['max'];
+	// export let min: MultipleChoiceProperties['min'];
+	// export let max: MultipleChoiceProperties['max'];
 
 	export let response: MultipleChoiceValue[] = [];
 
-	if (random) {
-		labels = labels.sort(() => Math.random() - 0.5);
-	}
+	// let randomized = false;
+
+	// $: if (random && !randomized) {
+	// 	labels = labels.sort(() => Math.random() - 0.5);
+	// 	randomized = true;
+	// }
 
 	const updateResponse = (value: MultipleChoiceValue, remove = false) => {
 		// remove value if already exits.

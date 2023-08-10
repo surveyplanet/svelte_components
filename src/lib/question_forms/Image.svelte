@@ -13,8 +13,8 @@
 	export let multi: ImageProperties['multi'];
 	export let size: ImageProperties['size'] = 'medium';
 	export let hideCaptions: ImageProperties['hideCaptions'];
-	export let min: ImageProperties['min'];
-	export let max: ImageProperties['max'];
+	// export let min: ImageProperties['min'];
+	// export let max: ImageProperties['max'];
 	export let random: ImageProperties['random'];
 	// TODO: this property doesn't exist but is should be added in the app.
 	// It's not a pretty but will enable the entire image to be visible with cropping.
