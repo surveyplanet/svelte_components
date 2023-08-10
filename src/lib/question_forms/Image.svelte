@@ -6,7 +6,9 @@
 		type TransformOptions,
 	} from '@surveyplanet/utilities';
 
-	const dispatchResponse = createEventDispatcher<{ input: ImageValue[] }>();
+	const dispatchResponse = createEventDispatcher<{
+		response: ImageValue[];
+	}>();
 
 	export let id: string;
 	export let labels: ImageProperties['labels'];
@@ -73,7 +75,7 @@
 	const inputChangeHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		updateResponse(target.value, !target.checked);
-		dispatchResponse('input', response);
+		dispatchResponse('response', response);
 	};
 </script>
 
@@ -172,7 +174,6 @@
 		position: relative;
 		cursor: pointer;
 		display: block;
-		box-sizing: border-box;
 		font-size: $font-size--16;
 		// background-color: red;
 		input {
@@ -194,7 +195,6 @@
 
 		picture {
 			display: block;
-			box-sizing: border-box;
 			width: auto;
 			margin: 0;
 			padding: 0;

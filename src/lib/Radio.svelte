@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	const dispatch: (name: string, detail: Event) => boolean =
-		createEventDispatcher();
+	const dispatchChange = createEventDispatcher<{
+		change: Event;
+	}>();
 
 	export let id: string = (Date.now() + Math.random()).toString(36);
 	export let name: string;
@@ -14,7 +15,7 @@
 	export let size: 'small' | 'medium' | 'large' = 'small';
 
 	const changeEventHandler = (event: Event): void => {
-		dispatch('change', event);
+		dispatchChange('change', event);
 	};
 </script>
 
@@ -82,8 +83,8 @@
 
 	.sp-radio--dot {
 		position: relative;
-		width: px-to-rem(24);
-		height: px-to-rem(24);
+		width: px-to-rem(22);
+		height: px-to-rem(22);
 		border-radius: 50%;
 		transform: scale(1);
 		border: 1px solid $color--beige-darker;
@@ -102,8 +103,8 @@
 		svg {
 			position: absolute;
 			z-index: 1;
-			top: 4px;
-			left: 4px;
+			top: 2px;
+			left: 2px;
 			fill: transparent;
 			transition: all 0.3s ease;
 			transition-delay: 0.1s;

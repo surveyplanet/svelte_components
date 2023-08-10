@@ -1,11 +1,7 @@
 name: build
 
-on:
-    push:
-        branches:
-            - main
-    # Allow this workflow to run manually from the Actions tab
-    workflow_dispatch:
+# Only run workflow manually
+on: workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions: write-all
@@ -67,23 +63,23 @@ jobs:
             # - name: Serve Histoire and run tests
             #   run: npm run test:dev
 
-            # - name: Upload artifact
-            #   uses: actions/upload-pages-artifact@v1
-            #   with:
-            #       path: './static'
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v1
+              with:
+                  path: './static'
 
-            # - name: Deploy to GitHub Pages
-            #   id: deployment
-            #   uses: actions/deploy-pages@v1
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v1
 
             # - name: Run Storybook tests on live site
             #   run: ./node_modules/.bin/test-storybook --url https://ui.surveyplanet.com
 
-            - name: Package components
-              run: npm run package
+            # - name: Package components
+            #   run: npm run package
 
-            - name: Publish to NPM
-              run: npm run release
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+            # - name: Publish to NPM
+            #   run: npm run release
+            #   env:
+            #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            #       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

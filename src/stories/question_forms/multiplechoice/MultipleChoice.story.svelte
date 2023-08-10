@@ -10,7 +10,7 @@
 	export let Hst: Histoire;
 
 	// Component props
-	let id: string;
+	let id: string = 'abc123';
 	let labels: MultipleChoiceProperties['labels'] = ['Harry', 'Larry', 'Moe'];
 	let multi: MultipleChoiceProperties['multi'];
 	let layout: MultipleChoiceProperties['layout'] = '1';
@@ -18,8 +18,8 @@
 	let min: MultipleChoiceProperties['min'];
 	let max: MultipleChoiceProperties['max'];
 	let response: MultipleChoiceValue[] = [];
-	const multipleChoiceInputHandler = (event: CustomEvent) => {
-		logEvent('change', event.detail);
+	const multipleChoiceResponseHandler = (event: CustomEvent) => {
+		logEvent(event.type, event.detail);
 	};
 </script>
 
@@ -31,17 +31,19 @@
 		<Hst.Json
 			bind:value={labels}
 			title="Labels" />
-		<Hst.Select
-			bind:value={layout}
-			options={['1', '2', '3', '4', 'dropdown']}
-			title="Layout" />
+		{#if layout !== null}
+			<Hst.Select
+				bind:value={layout}
+				options={['1', '2', '3', '4', 'dropdown']}
+				title="Layout" />
+		{/if}
 		<Hst.Checkbox
 			bind:value={random}
 			title="Random" />
 		<Hst.Checkbox
 			bind:value={multi}
 			title="Multi" />
-		{#if multi}
+		{#if multi && min !== null && max !== null}
 			<Hst.Number
 				bind:value={min}
 				title="Min" />
@@ -67,9 +69,7 @@
 				{min}
 				{max}
 				{response}
-				on:input={multipleChoiceInputHandler} />
+				on:response={multipleChoiceResponseHandler} />
 		</div>
 	</Hst.Variant>
 </Hst.Story>
-
-<style lang="scss"></style>

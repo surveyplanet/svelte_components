@@ -12,25 +12,24 @@
 
 <script lang="ts">
 	import type {
-		DateTimeValues,
+		DateTimeValue,
 		DateTimeProperties,
 	} from '@surveyplanet/types';
 	import { TextInput, type TextInputType } from '../';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatchResponse = createEventDispatcher<{
-		response: DateTimeValues;
+		response: DateTimeValue[];
 	}>();
 
 	export let id: string;
 	export let definitions: DateTimeDefinitions;
 	export let date: DateTimeProperties['date'] = false;
 	export let time: DateTimeProperties['time'] = false;
-	export let response: DateTimeValues = [];
+	export let response: DateTimeValue[] = [];
 
 	let inputType: TextInputType = 'date';
 	$: inputType = date && time ? 'datetime-local' : time ? 'time' : 'date';
-	$: inputValue = dateToString();
 
 	$: currentButtonLabel = (function (d: boolean, t: boolean): string {
 		if (d && t) return definitions.currentDatetime;
@@ -69,13 +68,22 @@
 			if (isNaN(hr) || isNaN(min)) {
 				return;
 			}
-
 			// BUG: this will be in the user's timezone instead of UTC, need to
 			// use Intl API: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
-			result = new Date(0, 0, 0, hr, min, 0);
+			result = new Date(0, 0, 0);
+			result.setUTCHours(hr);
+			result.setUTCMinutes(min);
 		} else {
 			// This should work for both date and datetime formats e.g.: 1977-04-29 or 1977-03-29T06:00:00
-			result = new Date(isoStr); // BUG: same bug as above.
+			if (!time) {
+				result = new Date(isoStr); // BUG: same bug as above.
+			} else {
+				const [d, t] = isoStr.split('T');
+				const [hr, min] = t.split(':').map(Number);
+				result = new Date(d);
+				result.setUTCHours(hr);
+				result.setUTCMinutes(min);
+			}
 		}
 
 		if (isNaN(result.getTime())) {
@@ -128,8 +136,8 @@
 		label=""
 		type={inputType}
 		on:input={dateInputChangeHandler}
-		value={inputValue} />
-	<!-- on:change={dateInputChangeHandler} -->
+		value={dateToString()} />
+	<!-- on:change={dateInputChangeHandler} Don't think we need this -->
 </form>
 
 <style lang="scss">

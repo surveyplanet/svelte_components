@@ -2,7 +2,7 @@
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { Footer, type FooterData } from '$lib';
 
-	// import { default as source } from './source';
+	import { default as source } from './source';
 	export let Hst: Histoire;
 
 	let footerData: FooterData[] = [
@@ -31,7 +31,9 @@
 			title="Footer items" />
 	</svelte:fragment>
 
-	<Hst.Variant title="Primary">
+	<Hst.Variant title="Primary"
+	
+	source={source(footerData)}>
 		<div class="wrapper">
 			<Footer {footerData} />
 		</div>

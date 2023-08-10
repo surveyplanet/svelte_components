@@ -22,8 +22,8 @@
 	let requireAll: ScoringProperties['requireAll'] = false;
 	let requireUnique: ScoringProperties['requireUnique'] = false;
 	let response: ScoringValue[] = [];
-	const scoringInputHandler = (event: CustomEvent) => {
-		logEvent('change', event.detail);
+	const scoringResponseHandler = (event: CustomEvent) => {
+		logEvent(event.type, event.detail);
 	};
 </script>
 
@@ -41,12 +41,14 @@
 		<Hst.Json
 			bind:value={labels}
 			title="Labels" />
-		<Hst.Text
-			bind:value={maxLabel}
-			title="Max Label" />
-		<Hst.Text
-			bind:value={minLabel}
-			title="Min Label" />
+		{#if maxLabel !== null && minLabel !== null}
+			<Hst.Text
+				bind:value={maxLabel}
+				title="Max Label" />
+			<Hst.Text
+				bind:value={minLabel}
+				title="Min Label" />
+		{/if}
 		<Hst.Checkbox
 			bind:value={requireAll}
 			title="Require All" />
@@ -73,7 +75,7 @@
 		)}>
 		<div class="wrapper">
 			<Scoring
-				on:input={scoringInputHandler}
+				on:response={scoringResponseHandler}
 				{id}
 				{definitions}
 				{values}

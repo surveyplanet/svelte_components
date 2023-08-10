@@ -74,7 +74,6 @@
 		"@semantic-release/npm": "^10.0.3",
 		"@semantic-release/release-notes-generator": "^11.0.1",
 		"@surveyplanet/publish": "^1.0.1",
-		"@surveyplanet/types": "^1.0.0-alpha.10",
 		"@sveltejs/adapter-auto": "^2.0.1",
 		"@sveltejs/kit": "^1.16.3",
 		"@sveltejs/package": "^2.0.2",
@@ -97,6 +96,7 @@
 	},
 	"dependencies": {
 		"@surveyplanet/styles": "^0.1.14",
+		"@surveyplanet/types": "^1.0.0-alpha.20",
 		"@surveyplanet/utilities": "^1.0.0-beta.13",
 		"cleave.js": "^1.6.0",
 		"radash": "^11.0.0",

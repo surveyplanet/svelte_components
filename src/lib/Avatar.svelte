@@ -19,8 +19,9 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	const dispatch: (name: string, detail: MouseEvent) => boolean =
-		createEventDispatcher();
+	const dispatchClick = createEventDispatcher<{
+		click: MouseEvent;
+	}>();
 
 	// mascot should return a type that is a key of MASCOTS
 	const mascots = Object.keys(MASCOTS).map((key) => {
@@ -62,7 +63,7 @@
 		if (disabled) {
 			return;
 		}
-		dispatch('click', e);
+		dispatchClick('click', e);
 	};
 </script>
 
@@ -85,10 +86,8 @@
 	@use '@surveyplanet/styles' as *;
 
 	.sp-avatar {
-		box-sizing: border-box;
 		margin: 0;
 		padding: 0;
-		box-sizing: border-box;
 		display: inline-flex;
 		height: $size--36;
 		width: $size--36;

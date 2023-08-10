@@ -35,8 +35,8 @@
 	let response: FormValue[] = [];
 	let requireAll: FormProperties['requireAll'];
 	let random: FormProperties['random'];
-	const formInputHandler = (event: CustomEvent) => {
-		logEvent('change', event.detail);
+	const formResponseHandler = (event: CustomEvent) => {
+		logEvent(event.type, event.detail);
 	};
 </script>
 
@@ -73,7 +73,7 @@
 				{random}
 				{validations}
 				{response}
-				on:input={formInputHandler} />
+				on:response={formResponseHandler} />
 		</div>
 	</Hst.Variant>
 </Hst.Story>

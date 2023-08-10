@@ -12,7 +12,7 @@
 	let max: ScaleProperties['max'] = 10;
 	let response: ScaleValue[] = [];
 	const scaleResponseHandler = (event: CustomEvent) => {
-		logEvent('change', event.detail);
+		logEvent(event.type, event.detail);
 	};
 </script>
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { logEvent } from 'histoire/client';
-	// import source from './source';
+	import source from './source';
 	import { Chips, type ChipData } from '$lib';
 	export let Hst: Histoire;
 
@@ -55,7 +55,9 @@
 		{/if}
 	</svelte:fragment>
 
-	<Hst.Variant title="Primary">
+	<Hst.Variant title="Primary"
+	source={source(data, removable, selectable, multiSelect)}
+	>
 		<Chips
 			bind:data
 			bind:removable

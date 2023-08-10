@@ -6,6 +6,7 @@ test.describe('Progress Bar component', () => {
 		const preview = await loadStory(page, 'progressbar');
 		const progressbar = preview.locator('.sp-progress-bar');
 		const progress = preview.locator('.sp-progress-bar--progress');
+		const progressValue = preview.locator('.sp-progress-bar--value');
 		await expect(progressbar).toBeVisible();
 		await expect(progress).not.toBeVisible(); // not visible until value is set
 
@@ -17,6 +18,9 @@ test.describe('Progress Bar component', () => {
 			progressStyle = await progress.getAttribute('style');
 			expect(progressStyle).toContain(`width: ${value}%`);
 			await expect(progress).toBeVisible();
+			await progressbar.hover();
+			await expect(progressValue).toBeVisible();
+			await expect(progressValue).toHaveText(`${value}`);
 		}
 	});
 });

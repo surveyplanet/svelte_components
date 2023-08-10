@@ -7,7 +7,7 @@
 	import { Checkbox, Radio, Dropdown } from '../';
 
 	const dispatchResponse = createEventDispatcher<{
-		input: MultipleChoiceValue[];
+		response: MultipleChoiceValue[];
 	}>();
 
 	export let id: string;
@@ -50,7 +50,7 @@
 			value: true, // this needs to change to the write-in value if it exists.
 		} as MultipleChoiceValue;
 		updateResponse(value, !target.checked);
-		dispatchResponse('input', response);
+		dispatchResponse('response', response);
 	};
 
 	const dropdownChangeHandler = (event: CustomEvent) => {
@@ -59,7 +59,7 @@
 			value: true,
 		} as MultipleChoiceValue;
 		updateResponse(value);
-		dispatchResponse('input', response);
+		dispatchResponse('response', response);
 	};
 
 	const getDropdownOption = (label: string) => {
@@ -75,7 +75,7 @@
 </script>
 
 <form
-	class="sp-survey--question--mutliple-choice--form sp-survey--question--mutliple-choice--layout-{layout}">
+	class="sp-survey--question--multiple-choice--form sp-survey--question--multiple-choice--layout-{layout}">
 	{#if layout === 'dropdown'}
 		<Dropdown
 			options={labels.map(getDropdownOption)}

@@ -1,3 +1,8 @@
+import type {
+	MultipleChoiceValue,
+	MultipleChoiceProperties,
+} from '@surveyplanet/types';
+
 export default (
 	id: string,
 	labels: MultipleChoiceProperties['labels'],

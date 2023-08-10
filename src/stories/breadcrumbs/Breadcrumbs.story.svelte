@@ -33,7 +33,7 @@
 
 	<Hst.Variant
 		title="Primary"
-		{source}>
+		source={source(breadcrumbs)}>
 		<Breadcrumbs {breadcrumbs} />
 	</Hst.Variant>
 </Hst.Story>

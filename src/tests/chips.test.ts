@@ -17,10 +17,10 @@ test.describe('Chips component', () => {
 
 		await chipsButtons.nth(0).click();
 		await expect(chipsButtons.nth(0)).toHaveClass(
-			/sp-chips--button--selected/
+			/sp-chips--chip--selected/
 		);
 		await expect(chipsButtons.nth(1)).not.toHaveClass(
-			/sp-chips--button--selected/
+			/sp-chips--chip--selected/
 		);
 
 		const events = await getAllEvents(page);
@@ -31,25 +31,25 @@ test.describe('Chips component', () => {
 		const preview = await loadStory(page, 'chips');
 		const chips = preview.locator('.sp-chips');
 		const chipsButtons = chips.locator('button');
-		await setControl(page, 'Multiple', 'checkbox', 'true');
+		await setControl(page, 'Multi select', 'checkbox', 'true');
 
 		expect(chips).toBeTruthy();
 
 		await chipsButtons.nth(0).click();
 		await expect(chipsButtons.nth(0)).toHaveClass(
-			/sp-chips--button--selected/
+			/sp-chips--chip--selected/
 		);
 		await chipsButtons.nth(1).click();
 		await expect(chipsButtons.nth(1)).toHaveClass(
-			/sp-chips--button--selected/
+			/sp-chips--chip--selected/
 		);
 		await chipsButtons.nth(2).click();
 		await expect(chipsButtons.nth(2)).toHaveClass(
-			/sp-chips--button--selected/
+			/sp-chips--chip--selected/
 		);
 		await chipsButtons.nth(3).click();
 		await expect(chipsButtons.nth(3)).toHaveClass(
-			/sp-chips--button--selected/
+			/sp-chips--chip--selected/
 		);
 
 		const events = await getAllEvents(page);

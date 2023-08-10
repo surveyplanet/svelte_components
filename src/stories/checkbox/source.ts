@@ -1,8 +1,26 @@
-export default `<script>
+export default (
+	id: string,
+	name: string,
+	value: string,
+	checked: boolean,
+	disabled: boolean,
+	prependLabel: boolean,
+	size: 'small' | 'medium' | 'large'
+) => {
+	return `<script>
 	import Checkbox from '@surveyplanet/svelte_components';
 	const changeEventHandler = (event) => {
 		console.log("Option $event.value was selected");
 	};
+
+	let id = '${id}';
+	let name = '${name}';
+	let value = '${value}';
+	let checked = ${checked};
+	let disabled = ${disabled};
+	let prependLabel = ${prependLabel};
+	let size = '${size}';
+	
 </script>
 
 <Checkbox
@@ -19,3 +37,4 @@ export default `<script>
 	value="two"
 	on:change="{changeEventHandler}" />
 `;
+};

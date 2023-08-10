@@ -13,7 +13,9 @@
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { Menu, Icon } from './index';
 
-	const dispatchChange = createEventDispatcher<{ change: string }>();
+	const dispatchChange = createEventDispatcher<{
+		change: DropdownOptions['id'];
+	}>();
 
 	export let options: DropdownOptions[];
 	export let placeholder: string | null = null;
@@ -229,7 +231,6 @@
 
 	input {
 		cursor: pointer;
-		box-sizing: border-box;
 		width: 100%;
 		height: $size--40;
 		min-width: $size--256;

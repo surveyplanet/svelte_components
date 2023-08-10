@@ -3,8 +3,9 @@
 	import { TextInput } from '../';
 	import { createEventDispatcher } from 'svelte';
 
-	const dispatchUpdate = createEventDispatcher<{ update: EssayValue[] }>();
-	const dispatchInvalid = createEventDispatcher<{ invalid: boolean }>();
+	const dispatchResponse = createEventDispatcher<{
+		response: EssayValue[];
+	}>();
 
 	export let id: string;
 	export let min: EssayProperties['min'];
@@ -14,19 +15,11 @@
 
 	const updateResponse = (value: string) => {
 		response = [value];
-
-		if (typeof min !== 'undefined' && value.length < min) {
-			return dispatchInvalid('invalid', true);
-		}
-
-		if (typeof max !== 'undefined' && value.length > max) {
-			return dispatchInvalid('invalid', true);
-		}
 	};
 
 	const inputKeyupHandler = ({ detail }: CustomEvent['detail']) => {
 		updateResponse(detail.target.value);
-		dispatchUpdate('update', response);
+		dispatchResponse('response', response);
 	};
 </script>
 

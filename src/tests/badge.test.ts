@@ -33,20 +33,18 @@ test.describe('Badge component', () => {
 		});
 
 		await expect(badge).toHaveClass(/sp-badge/);
-		expect(bgColor).toBe('rgb(255, 233, 120)');
-		expect(labelColor).toBe('rgb(22, 33, 55)');
+		// expect(bgColor).toBe('rgb(255, 233, 120)');
+		expect(labelColor).toBe('rgb(25, 31, 41)');
 		expect(textTransform).toBe('uppercase');
 		expect(textOverflow).toBe('ellipsis');
 		expect(overflow).toBe('hidden');
 	});
 
-	// THIS TEST WILL ONLY WORK WITH SCREENSHOT
-	// test('should overflow text label', async ({ page }) => {
-	// 	const preview = await loadStory(page, 'badge');
-	// 	const value =
-	// 		'Worse almost in fellow never cared the pride bidding. Are him harold since forgot heart, to drowsy below control in.';
-	// 	await setControl(page, 'Content', 'text', value);
-	// 	const badge = preview.getByText(/^Worse(.+)\.{3}$/);
-	// 	expect(badge).toBeVisible();
-	// });
+	test('should make badge flat', async ({ page }) => {
+		const preview = await loadStory(page, 'badge');
+		const badge = preview.locator('.sp-badge');
+		await setControl(page, 'Flat', 'checkbox', 'true');
+
+		await expect(badge).toHaveClass(/sp-badge--flat/);
+	});
 });

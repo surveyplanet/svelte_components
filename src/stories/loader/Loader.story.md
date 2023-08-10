@@ -10,13 +10,3 @@ The following props can be passed to the `Loader` component:
 | --------- | ------------------------------- | ---------------------- | ---------------------- |
 | `colors`  | `string[]`                      | ['#e2bd60', '#79c5e5'] | An array of hex colors |
 | `size`    | `'small' \|'medium' \| 'large'` | 'medium'               | The size of the loader |
-
-## Example
-
-```html
-<script>
-	import { Loader } from 'components/Loader';
-	let colors = ['#e2bd60', '#79c5e5', '#e2bd60', '#79c5e5'];
-</script>
-<Loader {colors} />
-```

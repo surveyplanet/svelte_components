@@ -1,3 +1,5 @@
+import type { RangeValue, RangeProperties } from '@surveyplanet/types';
+
 export default (
 	id: string,
 	min: RangeProperties['min'],

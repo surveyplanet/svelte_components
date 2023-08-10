@@ -23,7 +23,7 @@ export default defineConfig({
 	},
 	theme: {
 		title: 'SurveyPlanet design system',
-		favicon: './static/assets/favicon.ico',
+		favicon: './static/favicon.ico',
 		logo: {
 			square: './static/assets/surveyplanet-logo-square.svg',
 			light: './static/assets/surveyplanet-logo-dark.svg',

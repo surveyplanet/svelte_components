@@ -74,7 +74,7 @@
 
 	<Hst.Variant
 		title="Alert"
-		{source}>
+		source={source(title, subtitle, type, hideDelay, confirm, confirmButtonLabel, cancelButtonLabel, challenge)}>
 		<div class="alert-wrapper">
 			<Alert
 				on:open={openHandler}

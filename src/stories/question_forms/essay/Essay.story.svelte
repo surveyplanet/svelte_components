@@ -12,8 +12,8 @@
 	let max: EssayProperties['max'] = 10;
 	let single: EssayProperties['single'] = false;
 	let response: EssayValue[] = [];
-	const essayInputHandler = (event: CustomEvent) => {
-		logEvent('change', event.detail[0]);
+	const essayResponseHandler = (event: CustomEvent) => {
+		logEvent(event.type, event.detail[0]);
 	};
 </script>
 
@@ -22,12 +22,14 @@
 		<Hst.Text
 			bind:value={id}
 			title="Id" />
-		<Hst.Number
-			bind:value={min}
-			title="Min" />
-		<Hst.Number
-			bind:value={max}
-			title="Max" />
+		{#if min !== null && max !== null}
+			<Hst.Number
+				bind:value={min}
+				title="Min" />
+			<Hst.Number
+				bind:value={max}
+				title="Max" />
+		{/if}
 		<Hst.Checkbox
 			bind:value={single}
 			title="Single line" />
@@ -46,7 +48,7 @@
 				{max}
 				{single}
 				{response}
-				on:input={essayInputHandler} />
+				on:response={essayResponseHandler} />
 		</div>
 	</Hst.Variant>
 </Hst.Story>

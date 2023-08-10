@@ -1,6 +1,6 @@
 # Spinner Component
 
-This module exports a Svelte component that provides an input field for entering numeric response with increment and decrement buttons.
+This module exports a Svelte component that provides an input field for entering numeric response with increment and decrement buttons as well as a drag option.
 
 ## Exported Variables
 
@@ -26,27 +26,6 @@ This module exports a Svelte component that provides an input field for entering
 | blur   | Triggered when the input is blurred. The event detail contains the `value` of the input.           |
 | focus  | Triggered when the input is focused. The event detail contains the `value` of the input.           |
 | update | Triggered when the value of the input changes. The event detail contains the `value` of the input. |
-
-## Example Usage
-
-```html
-<script>
-	import Spinner from './Spinner.svelte';
-
-	let value = 50;
-	let disabled = false;
-</script>
-
-<Spinner
-	label="Enter a number:"
-	min="0"
-	max="100"
-	step="1"
-	value="{value}"
-	disabled="{disabled}"
-	required
-	overflow />
-```
 
 ## Implementation Details
 
