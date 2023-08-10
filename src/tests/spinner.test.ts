@@ -126,7 +126,7 @@ test.describe('Spinner component', () => {
 		await expect(input).toHaveValue('2');
 	});
 
-	// test.only('Drag', async ({ page }) => {
+	// test('Drag', async ({ page }) => {
 	// 	const preview = await loadStory(page, 'spinner');
 	// 	const spinner = preview.locator('.sp-spinner');
 	// 	const input = spinner.locator('input');
