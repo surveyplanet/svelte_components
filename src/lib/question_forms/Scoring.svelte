@@ -12,6 +12,7 @@
 	import type { ScoringValue, ScoringProperties } from '@surveyplanet/types';
 	import { createEventDispatcher } from 'svelte';
 	import { Button, Radio } from '../';
+	import SortableList from '$lib/SortableList.svelte';
 
 	const dispatchResponse = createEventDispatcher<{
 		response: ScoringValue[];
@@ -27,10 +28,14 @@
 	export let requireUnique: ScoringProperties['requireUnique'] = false;
 	export let response: ScoringValue[] = [];
 
+	console.log('values', values);
+	console.log('labels', labels);
+
 	const updateResponse = (value: ScoringValue) => {
 		// remove value if already exits.
 		response = response?.filter((val) => val.label !== value.label);
 		response.push(value);
+		console.log('response', response);
 	};
 
 	const inputChangeHandler = (event: CustomEvent) => {
@@ -46,17 +51,40 @@
 		dispatchResponse('response', response);
 	};
 
+	const sortableEventHandler = (event: CustomEvent) => {
+		console.log('sortableEventHandler', event.detail);
+		const list: string[] = event.detail;
+		for (let i = 0; i < list.length; i++) {
+			response = response?.filter((val) => val.label !== list[i]);
+			response.push({
+				label: list[i],
+				value: list.length - i,
+			});
+		}
+		console.log('response', response);
+	};
+
 	const clearButtonClickHandler = () => {
-		// This is a 'reset' button so no need unset radio buttons as long as its inside a form.
-		// Still need to rest the response array.
 		response = [];
+		dispatchResponse('response', response);
 	};
 </script>
 
 <form class="sp-survey--question--scoring--form">
 	{#if requireAll && requireUnique}
-		<!-- make a sortable list here -->
-		<div>This should be a sortable list</div>
+		{#if maxLabel}
+			<p class="sp-survey--question--scoring--form--min-label">
+				{minLabel}
+			</p>
+		{/if}
+		<SortableList
+			data={labels}
+			on:sort={sortableEventHandler} />
+		{#if maxLabel}
+			<p class="sp-survey--question--scoring--form--max-label">
+				{maxLabel}
+			</p>
+		{/if}
 	{:else}
 		<table>
 			<thead>

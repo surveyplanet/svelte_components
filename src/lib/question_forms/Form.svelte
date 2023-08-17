@@ -12,6 +12,9 @@
 	export let random: FormProperties['random'];
 	export let response: FormValue[] = [];
 
+	$: if (random) {
+		labels = labels.sort(() => Math.random() - 0.5);
+	}
 	const updateResponse = (value: FormValue) => {
 		// remove value if already exits.
 		response = response?.filter((v) => v.label !== value.label);

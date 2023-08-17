@@ -20,12 +20,9 @@
 
 	export let response: MultipleChoiceValue[] = [];
 
-	// let randomized = false;
-
-	// $: if (random && !randomized) {
-	// 	labels = labels.sort(() => Math.random() - 0.5);
-	// 	randomized = true;
-	// }
+	$: if (random) {
+		labels = labels.sort(() => Math.random() - 0.5);
+	}
 
 	const updateResponse = (value: MultipleChoiceValue, remove = false) => {
 		// remove value if already exits.

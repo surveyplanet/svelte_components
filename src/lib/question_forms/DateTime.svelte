@@ -17,16 +17,23 @@
 	} from '@surveyplanet/types';
 	import { TextInput, type TextInputType } from '../';
 	import { createEventDispatcher } from 'svelte';
+	import { handle_promise } from 'svelte/internal';
 
 	const dispatchResponse = createEventDispatcher<{
 		response: DateTimeValue[];
 	}>();
-
+	type DateTimeInputType = 'date' | 'time' | 'datetime-local';
 	export let id: string;
 	export let definitions: DateTimeDefinitions;
 	export let date: DateTimeProperties['date'] = false;
 	export let time: DateTimeProperties['time'] = false;
 	export let response: DateTimeValue[] = [];
+
+	$: type = (function (d: boolean, t: boolean): DateTimeInputType {
+		if (d && t) return 'datetime-local';
+		if (t) return 'time';
+		return 'date';
+	})(date, time);
 
 	let inputType: TextInputType = 'date';
 	$: inputType = date && time ? 'datetime-local' : time ? 'time' : 'date';
@@ -51,7 +58,7 @@
 	};
 
 	const stringToDate = (isoStr: string): Date | undefined => {
-		console.log('stringToDate', isoStr);
+		// console.log('stringToDate', isoStr);
 
 		if (!isoStr?.length) {
 			return;
@@ -93,8 +100,13 @@
 		return result;
 	};
 
-	const dateToString = () => {
-		if (!response?.length) {
+	//
+
+	const dateToString = (
+		type: DateTimeInputType,
+		response: DateTimeValue[]
+	): string | '' => {
+		if (!response.length) {
 			return '';
 		}
 
@@ -102,29 +114,26 @@
 
 		if (isNaN(dateVal.getTime())) {
 			return '';
-		}
-
-		if (date && time) {
+		} else if (type === 'datetime-local') {
 			return dateVal.toISOString().split('.')[0]; // datetime-local
-		}
-
-		if (time) {
+		} else if (type === 'time') {
 			return dateVal.toISOString().split('T')[1].split('.')[0]; // time only
-		}
-
-		if (date) {
+		} else {
 			return dateVal.toISOString().split('T')[0]; // date only
 		}
-
-		return '';
 	};
 
 	const dateInputChangeHandler = ({ detail }: CustomEvent['detail']) => {
-		const { value } = detail.target;
+		const { value } = detail.target; // "1977-04-12T11:21"
 		const date = stringToDate(value);
 		if (date) {
 			updateResponse(date);
 		}
+	};
+
+	const handle = (): string | undefined => {
+		console.log('handle', response, type);
+		return dateToString(type, response);
 	};
 </script>
 
@@ -136,8 +145,7 @@
 		label=""
 		type={inputType}
 		on:input={dateInputChangeHandler}
-		value={dateToString()} />
-	<!-- on:change={dateInputChangeHandler} Don't think we need this -->
+		value={handle()} />
 </form>
 
 <style lang="scss">

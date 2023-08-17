@@ -50,7 +50,6 @@
 		const target = e.target as HTMLButtonElement;
 		const id = getChipId(target);
 		toggle(id);
-		console.log(data);
 	};
 
 	const closeButtonClickHandler = (e: MouseEvent) => {

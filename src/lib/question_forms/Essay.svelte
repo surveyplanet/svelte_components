@@ -31,5 +31,19 @@
 		multiline={!single}
 		value={response?.length ? response[0] : ''}
 		on:keyup={inputKeyupHandler} />
-	<!-- TODO: add Min/Max labels -->
+
+	{#if min ?? max}
+		<div class="sp-survey--question--essay--form--counter">
+			{#if min}
+				<span class="sp-survey--question--essay--form--counter--min">
+					{min}
+				</span>
+			{/if}
+			{#if max}
+				<span class="sp-survey--question--essay--form--counter--max">
+					{max}
+				</span>
+			{/if}
+		</div>
+	{/if}
 </form>

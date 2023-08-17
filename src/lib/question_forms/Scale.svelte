@@ -21,27 +21,15 @@
 </script>
 
 <form class="sp-survey--question--scale--form">
-	{#if max - min < 12}
-		<!--
-		{#if layout === 'star'}
-		{:else if layout === 'heart'}
-		{:else if layout === 'smiley'}
-		{:else if layout === 'thumbs'}
-		{:else}
-			# Likert scale (use Radio component)
-		{#if}
-		-->
-	{:else}
-		<RangeSlider
-			range
-			pushy
-			float
-			{id}
-			min={Number(min)}
-			max={Number(max)}
-			all="label"
-			bind:values={rangeValues}
-			on:stop={sliderStopHandler} />
-		<!-- needs min/max inputs -->
-	{/if}
+	<RangeSlider
+		range
+		pushy
+		float
+		{id}
+		min={Number(min)}
+		max={Number(max)}
+		all="label"
+		bind:values={rangeValues}
+		on:stop={sliderStopHandler} />
+	<!-- needs min/max inputs -->
 </form>
