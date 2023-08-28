@@ -1,7 +1,14 @@
 <script
 	lang="ts"
 	context="module">
-	export type ListData = string[];
+	import { Icon, type IconName } from './index';
+	export interface ListData {
+		name: string;
+		meta?: string;
+		image?: string;
+		icon?: IconName;
+	}
+
 	export type CustomDragEventTarget = HTMLElement & {
 		dataset: DOMStringMap & { index: string; id: string };
 		index: string;
@@ -13,9 +20,10 @@
 	import { quintOut } from 'svelte/easing';
 	import { crossfade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
-	import { get } from 'svelte/store';
-	const dispatch = createEventDispatcher();
-	export let data: ListData;
+	const dispatch = createEventDispatcher<{
+		sort: ListData[];
+	}>();
+	export let data: ListData[];
 
 	$: data = data;
 
@@ -42,6 +50,7 @@
 		let newList = [...data];
 		newList[from] = [newList[to], (newList[to] = newList[from])][0];
 		data = newList;
+		console.log(data);
 		dispatch('sort', newList);
 	};
 
@@ -95,10 +104,11 @@
 	};
 </script>
 
-{#if data?.length}
-	<ul>
+<ul class="sp--sortable-list">
+	{#if data?.length}
 		{#each data as item, index (item)}
 			<li
+				class="sp-sortable-list--list-item"
 				data-index={index}
 				data-id={JSON.stringify(item)}
 				draggable="true"
@@ -106,19 +116,33 @@
 				on:dragover={listItemDragOverHandler}
 				on:dragleave={listItemDragLeaveHandler}
 				on:drop={listItemDragDropHandler}
-				in:receive={{ key: item }}
-				out:send={{ key: item }}
+				in:receive={{ key: item.name }}
+				out:send={{ key: item.name }}
 				animate:flip={{ duration: 300 }}
 				class:float={isOver}>
 				<slot
 					{item}
 					{index}>
-					<p>{item}</p>
+					<p class="sp-sortable-list--list-item-name">{item.name}</p>
+					{#if item.meta}
+						<span class="sp-sortable-list--list-item-meta">
+							{item.meta}
+						</span>
+					{/if}
+					{#if item.image}
+						<img
+							class="sp-sortable-list--list-item-image"
+							src={item.image}
+							alt={item.name} />
+					{/if}
+					{#if item.icon}
+						<Icon name={item.icon} />
+					{/if}
 				</slot>
 			</li>
 		{/each}
-	</ul>
-{/if}
+	{/if}
+</ul>
 
 <style>
 	ul {

@@ -10,9 +10,11 @@
 
 <script lang="ts">
 	import type { ScoringValue, ScoringProperties } from '@surveyplanet/types';
+	import type { ListData } from '$lib/SortableList.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { Button, Radio } from '../';
 	import SortableList from '$lib/SortableList.svelte';
+	import type data from '$lib/_icon_data';
 
 	const dispatchResponse = createEventDispatcher<{
 		response: ScoringValue[];
@@ -58,7 +60,7 @@
 			response = response?.filter((val) => val.label !== list[i]);
 			response.push({
 				label: list[i],
-				value: list.length - i,
+				value: values[i],
 			});
 		}
 		console.log('response', response);
@@ -68,17 +70,27 @@
 		response = [];
 		dispatchResponse('response', response);
 	};
+	let sortedLabels = [] as { name: string }[];
+	const listSorted = (labels: string[]): typeof sortedLabels => {
+		labels.forEach((label) => {
+			sortedLabels.push({
+				name: label,
+			});
+		});
+		return sortedLabels;
+	};
 </script>
 
 <form class="sp-survey--question--scoring--form">
-	{#if requireAll && requireUnique}
+	{#if requireAll && requireUnique && values.length === labels.length}
 		{#if maxLabel}
 			<p class="sp-survey--question--scoring--form--min-label">
 				{minLabel}
 			</p>
 		{/if}
+
 		<SortableList
-			data={labels}
+			data={listSorted(labels)}
 			on:sort={sortableEventHandler} />
 		{#if maxLabel}
 			<p class="sp-survey--question--scoring--form--max-label">

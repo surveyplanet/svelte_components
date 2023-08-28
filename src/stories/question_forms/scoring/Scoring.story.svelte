@@ -6,7 +6,7 @@
 	import { default as source } from './source';
 	export let Hst: Histoire;
 	// Component props
-	let id: string = 'abc123';
+	let id = 'abc123';
 	let definitions: ScoringDefinitions = {
 		scoringResetButton: 'Reset',
 	};
