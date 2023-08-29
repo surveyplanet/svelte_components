@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { loadStory, setControl, getAllEvents } from './_utils.js';
 
 test.describe('Sortable libs', () => {
-	test.only('Sortable', async ({ page }) => {
+	test('Sortable', async ({ page }) => {
 		const preview = await loadStory(page, 'sortablelist');
 
 		const sortable = preview.locator('.sp--sortable-list');
