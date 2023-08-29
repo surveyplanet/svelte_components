@@ -7,7 +7,7 @@
 	export let Hst: Histoire;
 
 	// Component props
-	let id: string = 'abc123';
+	let id = 'abc123';
 	let labels: FormProperties['labels'] = [
 		'First name',
 		'Last name',
@@ -69,9 +69,7 @@
 			<Form
 				{id}
 				{labels}
-				{requireAll}
 				{random}
-				{validations}
 				{response}
 				on:response={formResponseHandler} />
 		</div>

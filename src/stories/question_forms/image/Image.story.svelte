@@ -7,7 +7,7 @@
 	export let Hst: Histoire;
 
 	// Component props
-	let id: string = 'abc123';
+	let id = 'abc123';
 	let labels: ImageProperties['labels'] = [
 		{
 			image: 'https://media.surveyplanet.com/testing/default',
@@ -96,8 +96,6 @@
 				{hideCaptions}
 				{contain}
 				{random}
-				{min}
-				{max}
 				on:response={imageResponseHandler} />
 		</div>
 	</Hst.Variant>

@@ -10,7 +10,7 @@
 	export let Hst: Histoire;
 
 	// Component props
-	let id: string = 'abc123';
+	let id = 'abc123';
 	let labels: MultipleChoiceProperties['labels'] = ['Harry', 'Larry', 'Moe'];
 	let multi: MultipleChoiceProperties['multi'];
 	let layout: MultipleChoiceProperties['layout'] = '1';
@@ -66,8 +66,6 @@
 				{multi}
 				{layout}
 				{random}
-				{min}
-				{max}
 				{response}
 				on:response={multipleChoiceResponseHandler} />
 		</div>

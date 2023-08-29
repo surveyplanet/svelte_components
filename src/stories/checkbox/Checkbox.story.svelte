@@ -76,7 +76,7 @@
 </Hst.Story>
 
 <style lang="scss">
-	.wrapper {
+	.checkbox-wrapper {
 		padding: 1rem;
 	}
 </style>
