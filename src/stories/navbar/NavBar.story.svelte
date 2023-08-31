@@ -3,7 +3,7 @@
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { NavBar, type MenuData, type NavBarData } from '$lib/index';
 	import { menuData } from '../menu/menu_data';
-	import {default as source} from './source';
+	import { default as source } from './source';
 
 	export let Hst: Histoire;
 
@@ -57,17 +57,60 @@
 			title="Vertical" />
 	</svelte:fragment>
 
-	<Hst.Variant title="NavBar"
-		source={source(data, navMenuData, vertical)}
-	>
-		<div class="wrapper">
-			<NavBar
-				{data}
-				{navMenuData}
-				{vertical}
-				on:navLink={navLinkHandler}
-				on:update={menuUpdateHandler}
-				on:click={menuClickHandler} />
+	<Hst.Variant
+		title="NavBar"
+		source={source(data, navMenuData, vertical)}>
+		<div class="row-wrapper">
+			<div class="wrapper">
+				<NavBar
+					{data}
+					{navMenuData}
+					{vertical}
+					on:navLink={navLinkHandler}
+					on:update={menuUpdateHandler}
+					on:click={menuClickHandler} />
+				<div class="spacer" />
+				<NavBar
+					{data}
+					{navMenuData}
+					{vertical}
+					on:navLink={navLinkHandler}
+					on:update={menuUpdateHandler}
+					on:click={menuClickHandler} />
+			</div>
+			<div class="wrapper">
+				<NavBar
+					{data}
+					{navMenuData}
+					{vertical}
+					on:navLink={navLinkHandler}
+					on:update={menuUpdateHandler}
+					on:click={menuClickHandler} />
+				<div class="spacer" />
+				<NavBar
+					{data}
+					{navMenuData}
+					{vertical}
+					on:navLink={navLinkHandler}
+					on:update={menuUpdateHandler}
+					on:click={menuClickHandler} />
+			</div>
 		</div>
 	</Hst.Variant>
 </Hst.Story>
+
+<style>
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		margin-right: 70px;
+	}
+	.spacer {
+		height: 250px;
+		width: 50px;
+	}
+	.row-wrapper {
+		display: flex;
+		flex-direction: row;
+	}
+</style>

@@ -356,6 +356,7 @@
 
 	button {
 		width: 100%;
+		min-width: px-to-rem(120);
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;

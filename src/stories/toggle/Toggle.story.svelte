@@ -50,8 +50,7 @@
 
 	<Hst.Variant
 		title="Primary"
-		source={source(id, on, disabled, tall, name, label, prependLabel)}
-		>
+		source={source(id, on, disabled, tall, name, label, prependLabel)}>
 		<div class="wrapper">
 			<Toggle
 				on:change={changeEventHandler}

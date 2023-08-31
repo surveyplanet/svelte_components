@@ -101,7 +101,21 @@
 
 	<Hst.Variant
 		title="Basic"
-		source={source(id, name, type, value, label, placeholder, multiline, readonly, disabled, cleaveOptions, validationRules, validationMessage, size)}>
+		source={source(
+			id,
+			name,
+			type,
+			value,
+			label,
+			placeholder,
+			multiline,
+			readonly,
+			disabled,
+			cleaveOptions,
+			validationRules,
+			validationMessage,
+			size
+		)}>
 		<div class="wrapper">
 			<TextInput
 				on:change={changeHandler}

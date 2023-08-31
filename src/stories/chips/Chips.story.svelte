@@ -55,9 +55,9 @@
 		{/if}
 	</svelte:fragment>
 
-	<Hst.Variant title="Primary"
-	source={source(data, removable, selectable, multiSelect)}
-	>
+	<Hst.Variant
+		title="Primary"
+		source={source(data, removable, selectable, multiSelect)}>
 		<Chips
 			bind:data
 			bind:removable

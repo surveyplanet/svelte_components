@@ -12,8 +12,12 @@
 </script>
 
 <script lang="ts">
+	import { offset, flip, shift } from 'svelte-floating-ui/dom';
+	import { createFloatingActions } from 'svelte-floating-ui';
+
 	import { Menu, type MenuData } from './index';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
+
 	export let data: NavBarData[] = [];
 	export let navMenuData: MenuData[] = [];
 	export let vertical = false;
@@ -63,6 +67,11 @@
 	const menuUpdateHandler = (e: CustomEvent) => {
 		dispatchUpdate('update', e.detail);
 	};
+	const [floatingRef, floatingContent] = createFloatingActions({
+		strategy: 'fixed',
+		placement: 'top-start',
+		middleware: [offset(10), flip(), shift()],
+	});
 </script>
 
 <svelte:window on:click={hideMenuOnBodyClick} />
@@ -85,6 +94,7 @@
 
 	{#if navMenuData?.length}
 		<button
+			use:floatingRef
 			class="sp-nav--menu-trigger"
 			on:click|preventDefault={navMenuTriggerClickHandler}>
 			<Icon
@@ -94,8 +104,9 @@
 	{/if}
 </nav>
 {#if menuVisible}
-	<!-- TODO: This needs to be positioned correctly with library like: https://floating-ui.com -->
-	<div class="sp-nav--menu">
+	<div
+		class="sp-nav--menu"
+		use:floatingContent>
 		<Menu
 			data={navMenuData}
 			on:click={menuClickHandler}
@@ -135,5 +146,9 @@
 				}
 			}
 		}
+	}
+	.sp-nav--menu {
+		min-width: px-to-rem(150);
+		position: absolute;
 	}
 </style>

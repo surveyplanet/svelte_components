@@ -91,8 +91,18 @@
 			options={['small', 'medium', 'large']} />
 	</svelte:fragment>
 
-	<Hst.Variant title="Primary"
-		source={source(options, searchThreshold, disabled, required, value, placeholder, label, size)}>
+	<Hst.Variant
+		title="Primary"
+		source={source(
+			options,
+			searchThreshold,
+			disabled,
+			required,
+			value,
+			placeholder,
+			label,
+			size
+		)}>
 		<div class="wrapper">
 			<Dropdown
 				bind:options

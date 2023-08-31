@@ -65,9 +65,22 @@
 	</svelte:fragment>
 
 	<div class="wrapper">
-		<Hst.Variant title="Primary"
-			source={source(label, step, min, max, value, disabled, required, overflow, id, placeholder, dragSpeed, size)}
-		>
+		<Hst.Variant
+			title="Primary"
+			source={source(
+				label,
+				step,
+				min,
+				max,
+				value,
+				disabled,
+				required,
+				overflow,
+				id,
+				placeholder,
+				dragSpeed,
+				size
+			)}>
 			<Spinner
 				{label}
 				{step}

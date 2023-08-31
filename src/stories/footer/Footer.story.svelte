@@ -31,9 +31,9 @@
 			title="Footer items" />
 	</svelte:fragment>
 
-	<Hst.Variant title="Primary"
-	
-	source={source(footerData)}>
+	<Hst.Variant
+		title="Primary"
+		source={source(footerData)}>
 		<div class="wrapper">
 			<Footer {footerData} />
 		</div>

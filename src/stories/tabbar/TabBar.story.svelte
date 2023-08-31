@@ -2,7 +2,7 @@
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { logEvent } from 'histoire/client';
 	import { TabBar, type TabBarData } from '$lib';
-	import {default as source} from './source';
+	import { default as source } from './source';
 
 	export let Hst: Histoire;
 
@@ -50,9 +50,9 @@
 			bind:value={id} />
 	</svelte:fragment>
 
-	<Hst.Variant title="Primary"
-	source={source(data, grow, id)}
-	>
+	<Hst.Variant
+		title="Primary"
+		source={source(data, grow, id)}>
 		<div id="wrapper">
 			<TabBar
 				{grow}

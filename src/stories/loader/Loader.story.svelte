@@ -32,9 +32,9 @@
 			title="Stroke width" />
 	</svelte:fragment>
 
-	<Hst.Variant title="Primary"
-		source={source(colors, size, strokeWidth)}
-	>
+	<Hst.Variant
+		title="Primary"
+		source={source(colors, size, strokeWidth)}>
 		<div class="wrapper">
 			<Loader
 				{colors}

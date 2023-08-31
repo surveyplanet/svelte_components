@@ -8,7 +8,6 @@
 	let color: 'yellow' | 'blue' | 'pink' | 'green' = 'yellow';
 	let content = 'Pro';
 	let flat = false;
-
 </script>
 
 <Hst.Story title="Badge">
@@ -34,8 +33,7 @@
 
 	<Hst.Variant
 		title="Primary"
-		
-		source = {source(color, content, flat)}>
+		source={source(color, content, flat)}>
 		<div class="wrapper">
 			<Badge
 				{color}

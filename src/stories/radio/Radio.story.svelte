@@ -47,7 +47,15 @@
 
 	<Hst.Variant
 		title="Primary"
-		source={source(name, labelOne, labelTwo, labelThree, disabled, prependLabel, size)}>
+		source={source(
+			name,
+			labelOne,
+			labelTwo,
+			labelThree,
+			disabled,
+			prependLabel,
+			size
+		)}>
 		<div id="wrapper">
 			<Radio
 				id={labelOne.toLowerCase().replace(' ', '-')}

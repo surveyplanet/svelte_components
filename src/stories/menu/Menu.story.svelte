@@ -41,9 +41,9 @@
 			options={['small', 'medium', 'large']} />
 	</svelte:fragment>
 
-	<Hst.Variant title="Primary"
-		source={source(visible,data, size)}
-	>
+	<Hst.Variant
+		title="Primary"
+		source={source(visible, data, size)}>
 		<div class="wrapper">
 			<Button
 				action={true}
