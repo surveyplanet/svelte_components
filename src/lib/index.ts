@@ -21,6 +21,7 @@ export { default as TabBar, type TabBarData } from './TabBar.svelte';
 export { default as TextInput, type TextInputType } from './TextInput.svelte';
 export { default as Toggle } from './Toggle.svelte';
 export { default as SortableList, type ListData } from './SortableList.svelte';
+export { default as ImageUpload } from './ImageUpload.svelte';
 
 // QUESTION FORMS
 export {
