@@ -65,7 +65,7 @@
 			name="plus"
 			color={COLORS.white} /></Button>
 	<input
-		style="display:none"
+		class="sp-image-upload-input"
 		type="file"
 		accept={formatAccept}
 		on:change={fileInputHandler}
@@ -79,5 +79,8 @@
 		align-items: center;
 		justify-content: center;
 		flex-flow: column;
+	}
+	.sp-image-upload-input {
+		display: none;
 	}
 </style>

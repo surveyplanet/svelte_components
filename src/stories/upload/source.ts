@@ -4,7 +4,7 @@ export default () => {
 		console.log(event.detail);
 	};
 	
-	<ImageUpload
+	<Upload
 		on:change={imageUploadHandler}
 	/>`;
 };

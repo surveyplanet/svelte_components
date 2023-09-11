@@ -1,4 +1,4 @@
-# ImageUpload component
+# Upload component
 
 <DESCRIPTION HERE>
  

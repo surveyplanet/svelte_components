@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { ImageUpload } from '$lib';
+	import { Upload } from '$lib';
 	import { logEvent } from 'histoire/client';
 	import { default as source } from './source';
 	export let Hst: Histoire;
@@ -14,20 +14,21 @@
 	const imageUploadChangeHandler = (event: CustomEvent) => {
 		logEvent('change', event.detail);
 
-		setImage(event.detail);
+		setUpload(event.detail);
 	};
 
-	const setImage = (event: {
-		image: File;
+	const setUpload = (event: {
+		upload: File;
 		data: string | ArrayBuffer | null;
 	}) => {
 		let data = event.data;
-		let img = document.getElementById('image') as HTMLImageElement;
+		let img = document.getElementById('upload') as HTMLImageElement;
 		img.src = data as string;
+		img.classList.remove('none');
 	};
 </script>
 
-<Hst.Story title="Image Upload">
+<Hst.Story title="Upload">
 	<svelte:fragment slot="controls">
 		<Hst.Text
 			bind:value={label}
@@ -44,21 +45,27 @@
 		title="Primary"
 		source={source()}>
 		<div class="wrapper">
-			<ImageUpload
+			<Upload
 				{label}
 				{formats}
 				{maxSize}
 				on:change={imageUploadChangeHandler} />
 		</div>
-		<img
-			id="image"
-			alt="test_image" />
+
+		<embed
+			id="upload"
+			class="image-upload none"
+			width="1000"
+			height="1000" />
 	</Hst.Variant>
 </Hst.Story>
 
 <style lang="scss">
-	#image {
+	#upload {
 		width: 100%;
 		height: auto;
+	}
+	.none {
+		display: none;
 	}
 </style>
