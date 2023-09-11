@@ -6,6 +6,11 @@
 	export let Hst: Histoire;
 
 	// Component props
+
+	let label = 'Upload';
+	let formats = ['.jpg', '.jpeg', '.png', '.gif', '.pdf'];
+	let maxSize = 10;
+
 	const imageUploadChangeHandler = (event: CustomEvent) => {
 		logEvent('change', event.detail);
 
@@ -23,13 +28,27 @@
 </script>
 
 <Hst.Story title="Image Upload">
-	<svelte:fragment slot="controls" />
+	<svelte:fragment slot="controls">
+		<Hst.Text
+			bind:value={label}
+			title="Label" />
+		<Hst.Json
+			bind:value={formats}
+			title="Formats" />
+		<Hst.Number
+			bind:value={maxSize}
+			title="Max Size" />
+	</svelte:fragment>
 
 	<Hst.Variant
 		title="Primary"
 		source={source()}>
 		<div class="wrapper">
-			<ImageUpload on:change={imageUploadChangeHandler} />
+			<ImageUpload
+				{label}
+				{formats}
+				{maxSize}
+				on:change={imageUploadChangeHandler} />
 		</div>
 		<img
 			id="image"

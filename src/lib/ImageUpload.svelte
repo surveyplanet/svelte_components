@@ -3,9 +3,17 @@
 	import { Button, Icon } from '$lib/index';
 	import { COLORS } from '$lib/index';
 
-	let fileinput: HTMLInputElement;
+	export let label = 'Upload';
+	export let formats = ['.jpg', '.jpeg', '.png', '.gif'];
+	export let maxSize = 10;
+
 	type FileEventTarget = (EventTarget & { files: FileList }) | DataTransfer;
 
+	let fileinput: HTMLInputElement;
+	$: note =
+		` ${formats.join(', ').toUpperCase().replaceAll('.', '')}.` +
+		` Up to ${maxSize}MB`;
+	const formatAccept = formats.join(',');
 	const dispatchChange = createEventDispatcher<{
 		change: { image: File; data: string | ArrayBuffer | null };
 	}>();
@@ -51,17 +59,18 @@
 		}}
 		variant="primary"
 		round={false}>
-		Upload <Icon
+		{label}
+		<Icon
 			size={12}
 			name="plus"
 			color={COLORS.white} /></Button>
 	<input
 		style="display:none"
 		type="file"
-		accept=".jpg, .jpeg, .png, .gif"
+		accept={formatAccept}
 		on:change={fileInputHandler}
 		bind:this={fileinput} />
-	<p>JPG, PNG or GIF. Up to 5MB.</p>
+	<p>{note}</p>
 </div>
 
 <style>
