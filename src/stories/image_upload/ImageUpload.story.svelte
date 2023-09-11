@@ -8,6 +8,17 @@
 	// Component props
 	const imageUploadChangeHandler = (event: CustomEvent) => {
 		logEvent('change', event.detail);
+
+		setImage(event.detail);
+	};
+
+	const setImage = (event: {
+		image: File;
+		data: string | ArrayBuffer | null;
+	}) => {
+		let data = event.data;
+		let img = document.getElementById('image') as HTMLImageElement;
+		img.src = data as string;
 	};
 </script>
 
@@ -20,7 +31,15 @@
 		<div class="wrapper">
 			<ImageUpload on:change={imageUploadChangeHandler} />
 		</div>
+		<img
+			id="image"
+			alt="test_image" />
 	</Hst.Variant>
 </Hst.Story>
 
-<style lang="scss"></style>
+<style lang="scss">
+	#image {
+		width: 100%;
+		height: auto;
+	}
+</style>

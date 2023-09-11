@@ -4,18 +4,18 @@
 	import { COLORS } from '$lib/index';
 
 	let fileinput: HTMLInputElement;
-	type FileEventTarget = EventTarget & { files: FileList };
+	type FileEventTarget = (EventTarget & { files: FileList }) | DataTransfer;
 
 	const dispatchChange = createEventDispatcher<{
 		change: { image: File; data: string | ArrayBuffer | null };
 	}>();
 
-	const fileSelected = (files: FileList) => {
-		let image = files[0];
+	const fileSelected = (target: FileEventTarget) => {
+		let image = target.files[0];
 		let reader = new FileReader();
 		reader.readAsDataURL(image);
-		let data = reader.result;
-		reader.onload = () => {
+		reader.onloadend = () => {
+			let data = reader.result;
 			dispatchChange('change', { image, data });
 		};
 	};
@@ -24,7 +24,7 @@
 			return;
 		}
 		let target = event.target as FileEventTarget;
-		fileSelected(target.files);
+		fileSelected(target);
 	};
 
 	const dragOverHandler = (event: DragEvent) => {
@@ -36,7 +36,7 @@
 		if (!event.dataTransfer) {
 			return;
 		}
-		fileSelected(event.dataTransfer.files);
+		fileSelected(event.dataTransfer);
 	};
 </script>
 
