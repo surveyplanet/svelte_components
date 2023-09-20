@@ -17,7 +17,6 @@
 	} from '@surveyplanet/types';
 	import { TextInput, type TextInputType } from '../';
 	import { createEventDispatcher } from 'svelte';
-	import { handle_promise } from 'svelte/internal';
 
 	const dispatchResponse = createEventDispatcher<{
 		response: DateTimeValue[];
