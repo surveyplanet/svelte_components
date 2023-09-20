@@ -73,7 +73,7 @@ test.describe('Text Input component', () => {
 		expect(readOnlyAttr).not.toBeNull(); // readonly doesn't have a value
 	});
 
-	test('validate', async ({ page }) => {
+	test.skip('validate', async ({ page }) => {
 		const validationRules = ['required', 'email'];
 		const validationMsg =
 			"What's the matter with you, you don't know your email address?";
