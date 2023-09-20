@@ -76,6 +76,7 @@
 		"@semantic-release/npm": "^10.0.3",
 		"@semantic-release/release-notes-generator": "^11.0.1",
 		"@surveyplanet/publish": "^1.0.1",
+		"@surveyplanet/types": "^1.0.0-alpha.29",
 		"@surveyplanet/utilities": "^1.0.0-beta.16",
 		"@sveltejs/adapter-auto": "^2.0.1",
 		"@sveltejs/kit": "^1.20.4",
@@ -87,6 +88,7 @@
 		"eslint": "^8.40.0",
 		"eslint-config-prettier": "^8.8.0",
 		"eslint-plugin-eslint-comments": "^3.2.0",
+		"eslint-plugin-svelte": "^2.33.2",
 		"histoire": "^0.17.0",
 		"prettier": "^2.8.8",
 		"prettier-plugin-svelte": "^2.10.1",
@@ -99,9 +101,7 @@
 	},
 	"dependencies": {
 		"@surveyplanet/styles": "^0.1.14",
-		"@surveyplanet/types": "^1.0.0-alpha.28",
 		"cleave.js": "^1.6.0",
-		"eslint-plugin-svelte": "^2.33.2",
 		"radash": "^11.0.0",
 		"svelte": "^4.0.0",
 		"svelte-range-slider-pips": "^2.1.1"

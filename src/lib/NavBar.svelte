@@ -16,7 +16,7 @@
 	import { createFloatingActions } from 'svelte-floating-ui';
 
 	import { Menu, type MenuData } from './index';
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	export let data: NavBarData[] = [];
 	export let navMenuData: MenuData[] = [];

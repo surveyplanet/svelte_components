@@ -4,10 +4,10 @@
 	import { cubicOut } from 'svelte/easing';
 	import { Icon } from './';
 
-	const dispatchOpen = createEventDispatcher<{ open: boolean }>();
-	const dispatchClose = createEventDispatcher<{ close: boolean }>();
-	const dispatchIn = createEventDispatcher<{ in: boolean }>();
-	const dispatchOut = createEventDispatcher<{ out: boolean }>();
+	const dispatchOpen = createEventDispatcher<{ open: undefined }>();
+	const dispatchClose = createEventDispatcher<{ close: undefined }>();
+	const dispatchIn = createEventDispatcher<{ in: undefined }>();
+	const dispatchOut = createEventDispatcher<{ out: undefined }>();
 
 	export let title = 'Modal';
 	export let subtitle = 'Subtitle';
@@ -48,6 +48,8 @@
 
 {#if overlay && visible}
 	<div
+		role="button"
+		tabindex="0"
 		class="sp-modal--overlay"
 		transition:fade|global
 		on:click={closeHandler}
