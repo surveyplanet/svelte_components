@@ -133,7 +133,7 @@
 		class="sp-alert sp-alert--{type}"
 		class:sp-alert--confirm={confirm}
 		class:sp-alert--challenge={isChallenge}
-		transition:fly={{
+		transition:fly|global={{
 			y: -250,
 			duration: animationMilliseconds,
 			easing: cubicOut,

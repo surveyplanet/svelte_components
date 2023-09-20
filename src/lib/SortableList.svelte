@@ -116,8 +116,8 @@
 				on:dragover={listItemDragOverHandler}
 				on:dragleave={listItemDragLeaveHandler}
 				on:drop={listItemDragDropHandler}
-				in:receive={{ key: item.name }}
-				out:send={{ key: item.name }}
+				in:receive|global={{ key: item.name }}
+				out:send|global={{ key: item.name }}
 				animate:flip={{ duration: 300 }}
 				class:float={isOver}>
 				<slot

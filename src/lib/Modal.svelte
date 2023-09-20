@@ -49,13 +49,13 @@
 {#if overlay && visible}
 	<div
 		class="sp-modal--overlay"
-		transition:fade
+		transition:fade|global
 		on:click={closeHandler}
 		on:keydown={overlayClickHandler} />
 {/if}
 {#if visible}
 	<div
-		transition:fly={{
+		transition:fly|global={{
 			y: -250,
 			duration: animationMilliseconds,
 			easing: cubicOut,

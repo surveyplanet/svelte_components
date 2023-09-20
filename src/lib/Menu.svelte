@@ -179,7 +179,7 @@
 	on:blur={menuBlurHandler}>
 	{#if location.length}
 		<li
-			transition:slide={transitionProps}
+			transition:slide|global={transitionProps}
 			class="sp-menu--back">
 			<button
 				class="sp-menu--back-btn"
@@ -198,7 +198,7 @@
 			class:sp-menu--item--inline={item.inline}
 			class:sp-menu--item--selected={item.selected}
 			class:sp-menu--item--submenu={item?.submenu?.length}
-			transition:slide={transitionProps}>
+			transition:slide|global={transitionProps}>
 			<button
 				class="sp-menu--item--btn"
 				id={item.id}
