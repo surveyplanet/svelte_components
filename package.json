@@ -67,7 +67,7 @@
 	"devDependencies": {
 		"@floating-ui/core": "^1.4.1",
 		"@floating-ui/dom": "^1.5.1",
-		"@histoire/plugin-svelte": "^0.16.1",
+		"@histoire/plugin-svelte": "^0.17.0",
 		"@jwerre/minimist": "^2.1.2",
 		"@playwright/test": "^1.33.0",
 		"@semantic-release/changelog": "^6.0.3",
@@ -76,6 +76,7 @@
 		"@semantic-release/npm": "^10.0.3",
 		"@semantic-release/release-notes-generator": "^11.0.1",
 		"@surveyplanet/publish": "^1.0.1",
+		"@surveyplanet/utilities": "^1.0.0-beta.16",
 		"@sveltejs/adapter-auto": "^2.0.1",
 		"@sveltejs/kit": "^1.20.4",
 		"@sveltejs/package": "^2.0.2",
@@ -86,22 +87,21 @@
 		"eslint": "^8.40.0",
 		"eslint-config-prettier": "^8.8.0",
 		"eslint-plugin-eslint-comments": "^3.2.0",
-		"eslint-plugin-svelte3": "^4.0.0",
-		"histoire": "^0.16.2",
+		"histoire": "^0.17.0",
 		"prettier": "^2.8.8",
 		"prettier-plugin-svelte": "^2.10.1",
 		"sass": "^1.62.1",
-		"svelte-check": "^3.4.3",
+		"svelte-check": "^3.5.2",
 		"svelte-floating-ui": "^1.5.3",
 		"tslib": "^2.5.0",
 		"typescript": "^5.0.4",
-		"vite": "^4.3.5"
+		"vite": "^4.4.9"
 	},
 	"dependencies": {
 		"@surveyplanet/styles": "^0.1.14",
 		"@surveyplanet/types": "^1.0.0-alpha.28",
-		"@surveyplanet/utilities": "^1.0.0-beta.13",
 		"cleave.js": "^1.6.0",
+		"eslint-plugin-svelte": "^2.33.2",
 		"radash": "^11.0.0",
 		"svelte": "^4.0.0",
 		"svelte-range-slider-pips": "^2.1.1"

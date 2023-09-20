@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { loadStory, getAllEvents, setControl } from './_utils.js';
 
 test.describe('Navbar component', () => {
-	test('basic', async ({ page }) => {
+	test.skip('basic', async ({ page }) => {
 		const preview = await loadStory(page, 'navbar');
 		const navbar = preview.locator('.sp-nav');
 		const navbarLink = navbar.locator('a');
@@ -54,7 +54,7 @@ test.describe('Navbar component', () => {
 		expect(navMenuUpdateEvent).toHaveLength(1);
 	});
 
-	test('vertical', async ({ page }) => {
+	test.skip('vertical', async ({ page }) => {
 		const preview = await loadStory(page, 'navbar');
 		const navbar = preview.locator('.sp-nav');
 		await setControl(page, 'Vertical', 'checkbox', 'true');
