@@ -24,7 +24,7 @@
 	let contain: ImageProperties['contain'] = false;
 	let min: ImageProperties['min'];
 	let max: ImageProperties['max'];
-	let random: ImageProperties['random'] = true;
+	let random: ImageProperties['random'] = false;
 	let response: ImageValue[] = [
 		{
 			label: '',
