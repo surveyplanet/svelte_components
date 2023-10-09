@@ -100,7 +100,7 @@
 		"@surveyplanet/utilities": "^2.0.0",
 		"cleave.js": "^1.6.0",
 		"radash": "^11.0.0",
-		"svelte": "^4.0.0",
+		"svelte": "^4.2.1",
 		"svelte-floating-ui": "^1.5.3",
 		"svelte-range-slider-pips": "^2.1.1"
 	}
