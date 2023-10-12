@@ -16,6 +16,9 @@
 </script>
 
 <script lang="ts">
+	// on first load the list is not working properly
+	// works after browser window reset
+
 	import { createEventDispatcher } from 'svelte';
 	import { quintOut } from 'svelte/easing';
 	import { crossfade } from 'svelte/transition';

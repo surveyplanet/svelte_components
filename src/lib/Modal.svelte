@@ -51,13 +51,13 @@
 		role="button"
 		tabindex="0"
 		class="sp-modal--overlay"
-		transition:fade|global
+		transition:fade
 		on:click={closeHandler}
 		on:keydown={overlayClickHandler} />
 {/if}
 {#if visible}
 	<div
-		transition:fly|global={{
+		transition:fly={{
 			y: -250,
 			duration: animationMilliseconds,
 			easing: cubicOut,
