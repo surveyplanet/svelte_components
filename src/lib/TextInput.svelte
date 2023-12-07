@@ -173,6 +173,7 @@
 
 	{#if multiline}
 		<textarea
+			class="sp-text-input--textarea"
 			{name}
 			{id}
 			{placeholder}
@@ -190,6 +191,7 @@
 			on:keyup={keyupHandler}>{value}</textarea>
 	{:else}
 		<input
+			class="sp-text-input--input"
 			{name}
 			{type}
 			{id}
