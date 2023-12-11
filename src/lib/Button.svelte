@@ -94,7 +94,7 @@
 	@include spin(); // loader animation
 	@include fade-in-out(); // click animation
 
-	.sp-button {
+	:global(.sp-button) {
 		position: relative;
 		overflow: hidden;
 		cursor: pointer;
@@ -106,10 +106,6 @@
 		font: $font--default;
 		background-color: $color--darkest;
 		color: $color--white;
-
-		.sp-button--label {
-			color: $color--white;
-		}
 
 		// Change icon color and size at component level
 		// :global(svg) {width: 20px; height: 20px; }
@@ -367,8 +363,10 @@
 				height: $size--16;
 				top: calc(50% - 8px);
 				left: calc(50% - 8px);
-				border: 2px solid $color--white;
-				border-top: 2px solid transparent;
+				// border-color: $color--white; // global style
+				border-top-color: transparent !important;
+				border-width: 2px;
+				border-style: solid;
 				border-radius: 100%;
 				animation: spin 1s linear infinite;
 			}
@@ -431,5 +429,13 @@
 				display: none;
 			}
 		}
+	}
+
+	:global(.sp-button--label) {
+		color: $color--white;
+	}
+
+	:global(.sp-button.sp-button--loader:after) {
+		border-color: $color--white;
 	}
 </style>

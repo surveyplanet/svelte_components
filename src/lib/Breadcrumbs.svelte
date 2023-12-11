@@ -27,6 +27,21 @@
 <!-- Path: src/lib/Breadcrumbs.svelte -->
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
+
+	:global(.sp-breadcrumbs--link) {
+		color: $color--beige-darkest;
+		&:hover {
+			color: inherit;
+		}
+		&:last-child {
+			color: $color--dark;
+		}
+	}
+
+	:global(.sp-breadcrumbs--divider) {
+		color: $color--beige-darkest;
+	}
+
 	.sp-breadcrumbs ul {
 		display: flex;
 		flex-direction: row;
@@ -46,7 +61,6 @@
 		font: $font--default;
 		font-weight: $font-weight--medium;
 		white-space: nowrap;
-		color: $color--beige-darkest;
 	}
 
 	.sp-breadcrumbs--link {
@@ -55,10 +69,6 @@
 		@include truncate($size-gutter--quadruple);
 		&:hover {
 			text-decoration: underline;
-			// color: $color--yellow;
-		}
-		&:last-child {
-			color: $color--dark;
 		}
 	}
 

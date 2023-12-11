@@ -29,10 +29,15 @@
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 
-	.sp-footer {
-		font-family: $font--default;
-		font: $font--small;
+	:global(.sp-footer) {
 		color: $color--beige-darkest;
+	}
+	:global(.sp-footer .sp-footer--item) {
+		color: inherit;
+	}
+
+	.sp-footer {
+		font: $font--small;
 
 		ul {
 			display: flex;
@@ -46,7 +51,6 @@
 			margin: 0;
 			padding: 0;
 			white-space: nowrap;
-			color: $color--beige-darkest;
 		}
 
 		a:hover {

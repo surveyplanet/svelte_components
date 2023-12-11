@@ -4,6 +4,7 @@
 	import { cubicOut } from 'svelte/easing';
 	import { COLORS, BUTTON_MODES, Button, Icon, TextInput } from './';
 
+	// import '../assets/styles/alert.scss';
 	import successIcon from '../assets/mascots/tummi_3.svg';
 	import infoIcon from '../assets/mascots/cubbi_3.svg';
 	import warningIcon from '../assets/mascots/zummi_3.svg';
@@ -215,24 +216,9 @@
 
 	$animation-speed: 300ms;
 
-	.sp-alert {
-		position: relative;
-		// position: absolute;
-		z-index: 1000;
-		min-width: $size--256;
-		max-width: px-to-rem(375);
-		margin: 0;
-		padding: $size-gutter--eighth;
-		border-radius: $size-radius--large;
-		box-shadow: 0px 0px 25px 0px rgba(235, 231, 220, 0.8);
-		font: $font--default;
+	:global(.sp-alert) {
 		background-color: $color--white;
-		color: $color--beige-darkest;
-		// overflow: hidden;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: nowrap;
-		justify-content: flex-start;
+
 		&.sp-alert--info {
 			.sp-alert--sidebar {
 				background: $color--gradient--blue;
@@ -256,6 +242,25 @@
 				background: $color--gradient--green;
 			}
 		}
+	}
+
+	.sp-alert {
+		position: relative;
+		// position: absolute;
+		z-index: 1000;
+		min-width: $size--256;
+		max-width: px-to-rem(375);
+		margin: 0;
+		padding: $size-gutter--eighth;
+		border-radius: $size-radius--large;
+		box-shadow: 0px 0px 25px 0px rgba(235, 231, 220, 0.8);
+		font: $font--default;
+		color: $color--beige-darkest;
+		// overflow: hidden;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: flex-start;
 	}
 
 	.sp-alert--col-a {

@@ -12,6 +12,10 @@
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 
+	:global(.sp-badge) {
+		color: $color--darkest;
+	}
+
 	.sp-badge {
 		display: inline-block;
 		height: $size--14;
@@ -21,7 +25,6 @@
 		white-space: nowrap;
 		vertical-align: middle;
 		border-radius: $size-radius--large;
-		color: $color--darkest;
 		font: $font--xsmall-bold;
 		line-height: $size--14;
 		font-size: $size--8;
