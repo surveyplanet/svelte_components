@@ -23,7 +23,7 @@
 	};
 </script>
 
-<form class="sp-survey--question--essay--form">
+<form class="sp-survey--question--form--essay">
 	<TextInput
 		name="text-input"
 		type="text"
@@ -33,14 +33,14 @@
 		on:keyup={inputKeyupHandler} />
 
 	{#if min ?? max}
-		<div class="sp-survey--question--essay--form--counter">
+		<div class="sp-survey--question--form--essay--counters">
 			{#if min}
-				<span class="sp-survey--question--essay--form--counter--min">
+				<span class="sp-survey--question--form--essay--counter-min">
 					{min}
 				</span>
 			{/if}
 			{#if max}
-				<span class="sp-survey--question--essay--form--counter--max">
+				<span class="sp-survey--question--form--essay--counter-max">
 					{max}
 				</span>
 			{/if}

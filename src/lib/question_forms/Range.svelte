@@ -56,7 +56,7 @@
 	};
 </script>
 
-<form class="sp-survey--question--range--form">
+<form class="sp-survey--question--form--range">
 	<RangeSlider
 		range
 		pushy

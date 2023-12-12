@@ -78,8 +78,8 @@
 </script>
 
 <form
-	class="sp-survey--question--image--form sp-survey--question--image--{size}"
-	class:sp-survey--question--image--contain={contain}>
+	class="sp-survey--question--form--image sp-survey--question--form--image--{size}"
+	class:sp-survey--question--form--image--contain={contain}>
 	{#each labels as item, index}
 		{@const inputId = `${id}-${index}`}
 		{@const img = transformImage(
@@ -87,7 +87,7 @@
 			getImageTransformOptions(),
 			'png'
 		)}
-		<label class="sp-survey--question--image--item for={inputId}">
+		<label class="sp-survey--question--form--image--item for={inputId}">
 			<input
 				id={inputId}
 				name={id}
@@ -96,7 +96,7 @@
 				on:input={inputChangeHandler} />
 
 			{#if !hideCaptions}
-				<span class="sp-survey--question--image--item--label">
+				<span class="sp-survey--question--form--image--item--label">
 					{item.label}
 				</span>
 			{/if}
@@ -107,7 +107,7 @@
 				viewBox="0 0 20 20"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
-				class="sp-survey--question--image--item--selected-icon">
+				class="sp-survey--question--form--image--item--selected-icon">
 				<circle
 					fill="white"
 					cx="10"
@@ -134,76 +134,67 @@
 
 	$select-animation-speed: 200ms;
 
-	/**
- * Capitalize the first letter of a word
- */
-	/**
- * Remove the units (e.g.: px, rem, etc.) from a measurement
- */
-	/**
- * Remove the units (e.g.: px, rem, etc.) from a measurement
- */
-	:global(.sp-survey--question--image--form) {
+	:global(.sp-survey--question--form--image) {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		gap: $size-gutter;
 	}
 	:global(
-			.sp-survey--question--image--form.sp-survey--question--image--small
+			.sp-survey--question--form--image.sp-survey--question--form--image--small
 		) {
 		grid-template-columns: repeat(4, 1fr);
 	}
 	:global(
-			.sp-survey--question--image--form.sp-survey--question--image--small
-				.sp-survey--question--image--item
+			.sp-survey--question--form--image.sp-survey--question--form--image--small
+				.sp-survey--question--form--image--item
 				picture
 		) {
 		min-width: 150px;
 		height: $size-gutter--triple;
 	}
 	:global(
-			.sp-survey--question--image--form.sp-survey--question--image--large
+			.sp-survey--question--form--image.sp-survey--question--form--image--large
 		) {
 		grid-template-columns: repeat(1, 1fr);
 	}
 	:global(
-			.sp-survey--question--image--form.sp-survey--question--image--large
-				.sp-survey--question--image--item
+			.sp-survey--question--form--image.sp-survey--question--form--image--large
+				.sp-survey--question--form--image--item
 				picture
 		) {
 		height: $size-gutter--quadruple * 2;
 	}
 	:global(
-			.sp-survey--question--image--form.sp-survey--question--image--contain
-				.sp-survey--question--image--item
+			.sp-survey--question--form--image.sp-survey--question--form--image--contain
+				.sp-survey--question--form--image--item
 				picture
 		) {
 		background-size: contain;
 	}
 
-	:global(.sp-survey--question--image--item) {
+	:global(.sp-survey--question--form--image--item) {
 		position: relative;
 		cursor: pointer;
 		display: block;
 		font-size: $font-size--16;
 	}
-	:global(.sp-survey--question--image--item input) {
+	:global(.sp-survey--question--form--image--item input) {
 		appearance: none;
 	}
-	:global(.sp-survey--question--image--item input:checked ~ picture) {
+	:global(.sp-survey--question--form--image--item input:checked ~ picture) {
 		border: 1px solid $color--darkest;
 		box-shadow: $shadow--default;
 	}
 	:global(
-			.sp-survey--question--image--item
+			.sp-survey--question--form--image--item
 				input:checked
-				~ .sp-survey--question--image--item--selected-icon
+				~ .sp-survey--question--form--image--item--selected-icon
 		) {
 		visibility: visible;
 		opacity: 1;
 		bottom: $size-gutter--half;
 	}
-	:global(.sp-survey--question--image--item picture) {
+	:global(.sp-survey--question--form--image--item picture) {
 		display: block;
 		width: auto;
 		margin: 0;
@@ -217,12 +208,12 @@
 		border: 1px solid $color--beige-darker;
 	}
 
-	:global(.sp-survey--question--image--item--label) {
+	:global(.sp-survey--question--form--image--item--label) {
 		display: block;
 		padding-bottom: $size-gutter--quarter;
 	}
 
-	:global(.sp-survey--question--image--item--selected-icon) {
+	:global(.sp-survey--question--form--image--item--selected-icon) {
 		display: block;
 		visibility: hidden;
 		opacity: 0;

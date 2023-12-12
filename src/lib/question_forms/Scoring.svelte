@@ -30,9 +30,6 @@
 	export let requireUnique: ScoringProperties['requireUnique'] = false;
 	export let response: ScoringValue[] = [];
 
-	console.log('values', values);
-	console.log('labels', labels);
-
 	const updateResponse = (value: ScoringValue) => {
 		// remove value if already exits.
 		response = response?.filter((val) => val.label !== value.label);
@@ -54,7 +51,6 @@
 	};
 
 	const sortableEventHandler = (event: CustomEvent) => {
-		console.log('sortableEventHandler', event.detail);
 		const list: string[] = event.detail;
 		for (let i = 0; i < list.length; i++) {
 			response = response?.filter((val) => val.label !== list[i]);
@@ -63,7 +59,6 @@
 				value: values[i],
 			});
 		}
-		console.log('response', response);
 	};
 
 	const clearButtonClickHandler = () => {
@@ -81,10 +76,10 @@
 	};
 </script>
 
-<form class="sp-survey--question--scoring--form">
+<form class="sp-survey--question--form--scoring">
 	{#if requireAll && requireUnique && values.length === labels.length}
 		{#if maxLabel}
-			<p class="sp-survey--question--scoring--form--min-label">
+			<p class="sp-survey--question--form--scoring--min-label">
 				{minLabel}
 			</p>
 		{/if}
@@ -93,7 +88,7 @@
 			data={listSorted(labels)}
 			on:sort={sortableEventHandler} />
 		{#if maxLabel}
-			<p class="sp-survey--question--scoring--form--max-label">
+			<p class="sp-survey--question--form--scoring--max-label">
 				{maxLabel}
 			</p>
 		{/if}
@@ -104,12 +99,12 @@
 					<th scope="row">&nbsp;</th>
 					<th
 						colspan={Math.floor(values.length * 0.5)}
-						class="sp-survey--question--scoring--form--min-label">
+						class="sp-survey--question--form--scoring--min-label">
 						{minLabel}
 					</th>
 					<th
 						colspan={Math.ceil(values.length * 0.5)}
-						class="sp-survey--question--scoring--form--max-label">
+						class="sp-survey--question--form--scoring--max-label">
 						{maxLabel}
 					</th>
 				</tr>
@@ -119,7 +114,7 @@
 					<tr>
 						<th
 							scope="row"
-							class="sp-survey--question--scoring--form--label-row"
+							class="sp-survey--question--form--scoring--label-row"
 							>{label}</th>
 
 						{#each values as value, cellIndex}

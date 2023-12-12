@@ -136,7 +136,7 @@
 	};
 </script>
 
-<form class="sp-survey--question--datetime">
+<form class="sp-survey--question--form sp-survey--question--form--datetime">
 	<TextInput
 		id="{id}-date"
 		name="date"
@@ -146,7 +146,3 @@
 		on:input={dateInputChangeHandler}
 		value={handle()} />
 </form>
-
-<style lang="scss">
-	@use '@surveyplanet/styles' as *;
-</style>

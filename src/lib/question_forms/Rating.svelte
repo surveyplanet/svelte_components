@@ -47,7 +47,7 @@
 </script>
 
 <form
-	class="sp-survey--question--rating--form sp-survey--question--rating--layout-{layout}">
+	class="sp-survey--question--form--rating sp-survey--question--form--rating--layout-{layout}">
 	{#if layout === 'slider'}
 		<RangeSlider />
 	{:else}
