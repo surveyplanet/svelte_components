@@ -33,7 +33,7 @@ jobs:
             - name: Security audit
               run: npm audit --audit-level=moderate --omit=dev
 
-            - name: Check Typescript errors
+            - name: Check Lint errors
               run: npm run lint
 
             - name: Check Typescript errors
