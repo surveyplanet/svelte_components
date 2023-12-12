@@ -4,7 +4,7 @@
 	import { COLORS } from '$lib/index';
 
 	export let label = 'Upload';
-	export let formats = ['.jpg', '.jpeg', '.png', '.gif'];
+	export let formats: string[] = ['.jpg', '.jpeg', '.png', '.gif'];
 	export let maxSize = 10;
 
 	type FileEventTarget = (EventTarget & { files: FileList }) | DataTransfer;

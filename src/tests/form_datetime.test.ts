@@ -2,9 +2,11 @@ import { test, expect } from '@playwright/test';
 import { loadStory, setControl, getAllEvents } from './_utils.js';
 
 test.describe('Date Time component ', () => {
-	test('basic', async ({ page }) => {
+	test('date and time', async ({ page }) => {
 		const preview = await loadStory(page, 'question_forms/datetime');
-		const dateTime = preview.locator('.sp-survey--question--datetime');
+		const dateTime = preview.locator(
+			'.sp-survey--question--form--datetime'
+		);
 		const textInput = dateTime.locator('.sp-text-input');
 		const input = textInput.locator('input');
 
@@ -14,22 +16,25 @@ test.describe('Date Time component ', () => {
 
 		await expect(input).toHaveAttribute('type', 'datetime-local');
 		await input.focus();
-		await page.keyboard.type('20022021');
+		await page.keyboard.type('08302021');
 		await page.keyboard.press('ArrowRight');
-		await page.keyboard.type('0000');
-		await expect(input).toHaveValue('2021-02-20T00:00');
+		await page.keyboard.type('0000A');
+		// console.log(await input.inputValue());
+		await expect(input).toHaveValue('2021-08-30T00:00');
 
 		const events = await getAllEvents(page);
-		const changeEvents = events.filter((i) => i.name === 'response').length;
-		expect(changeEvents).toBe(8);
+		const changeEvents = events.filter((i) => i.name === 'response');
+		expect(changeEvents).toHaveLength(9);
 
 		await setControl(page, 'Id', 'text', 'my-id');
-		await expect(input).toHaveAttribute('id', 'my-id-date');
+		await expect(input).toHaveAttribute('id', 'my-id-datetime-input');
 	});
 
-	test('date', async ({ page }) => {
+	test('date only', async ({ page }) => {
 		const preview = await loadStory(page, 'question_forms/datetime');
-		const dateTime = preview.locator('.sp-survey--question--datetime');
+		const dateTime = preview.locator(
+			'.sp-survey--question--form--datetime'
+		);
 		const textInput = dateTime.locator('.sp-text-input');
 		setControl(page, 'Date', 'checkbox', 'true');
 		setControl(page, 'Time', 'checkbox', 'false');
@@ -41,17 +46,19 @@ test.describe('Date Time component ', () => {
 
 		await expect(input).toHaveAttribute('type', 'date');
 		await input.focus();
-		await page.keyboard.type('20022021');
-		await expect(input).toHaveValue('2021-02-20');
+		await page.keyboard.type('08302021');
+		await expect(input).toHaveValue('2021-08-30');
 
 		const events = await getAllEvents(page);
 		const changeEvents = events.filter((i) => i.name === 'response').length;
 		expect(changeEvents).toBe(4);
 	});
 
-	test('time', async ({ page }) => {
+	test('time only', async ({ page }) => {
 		const preview = await loadStory(page, 'question_forms/datetime');
-		const dateTime = preview.locator('.sp-survey--question--datetime');
+		const dateTime = preview.locator(
+			'.sp-survey--question--form--datetime'
+		);
 		const textInput = dateTime.locator('.sp-text-input');
 		setControl(page, 'Date', 'checkbox', 'false');
 		setControl(page, 'Time', 'checkbox', 'true');
@@ -63,7 +70,7 @@ test.describe('Date Time component ', () => {
 
 		await expect(input).toHaveAttribute('type', 'time');
 		await input.focus();
-		await page.keyboard.type('1221');
-		await expect(input).toHaveValue('12:21');
+		await page.keyboard.type('0821A');
+		await expect(input).toHaveValue('08:21');
 	});
 });

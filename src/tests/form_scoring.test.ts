@@ -4,7 +4,7 @@ import { loadStory, setControl, getAllEvents } from './_utils.js';
 test.describe('Scoring component ', () => {
 	test('basic', async ({ page }) => {
 		const preview = await loadStory(page, 'question_forms/scoring');
-		const form = preview.locator('.sp-survey--question--scoring--form');
+		const form = preview.locator('.sp-survey--question--form--scoring');
 		const table = form.locator('table');
 		const thead = table.locator('thead');
 		const tbody = table.locator('tbody');

@@ -4,7 +4,7 @@ import { loadStory, setControl, getAllEvents } from './_utils.js';
 test.describe('Rating component ', () => {
 	test('basic', async ({ page }) => {
 		const preview = await loadStory(page, 'question_forms/rating');
-		const form = preview.locator('.sp-survey--question--rating--form');
+		const form = preview.locator('.sp-survey--question--form--rating');
 		const input1 = form.locator('input').nth(0);
 		const input2 = form.locator('input').nth(1);
 		const input3 = form.locator('input').nth(2);
@@ -19,7 +19,7 @@ test.describe('Rating component ', () => {
 		const label6 = form.locator('.sp-radio--label').nth(5);
 
 		await expect(form).toHaveClass(
-			/sp-survey--question--rating--form sp-survey--question--rating--layout-1/
+			/sp-survey--question--form--rating sp-survey--question--form--rating--layout-1/
 		);
 
 		await expect(form).toBeVisible();

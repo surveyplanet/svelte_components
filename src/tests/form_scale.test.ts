@@ -4,7 +4,7 @@ import { loadStory, setControl, getAllEvents } from './_utils.js';
 test.describe('Scale component ', () => {
 	test('basic', async ({ page }) => {
 		const preview = await loadStory(page, 'question_forms/scale');
-		const form = preview.locator('.sp-survey--question--scale--form');
+		const form = preview.locator('.sp-survey--question--form--scale');
 
 		const range = form.locator('.rangeSlider');
 		const slider = range.getByRole('slider');

@@ -4,7 +4,7 @@ import { loadStory, setControl, getAllEvents } from './_utils.js';
 test.describe('Essay component ', () => {
 	test('basic', async ({ page }) => {
 		const preview = await loadStory(page, 'question_forms/essay');
-		const form = preview.locator('.sp-survey--question--essay--form');
+		const form = preview.locator('.sp-survey--question--form--essay');
 		const input = form.locator('.sp-text-input');
 		const textarea = input.locator('textarea');
 
@@ -18,7 +18,7 @@ test.describe('Essay component ', () => {
 	});
 	test('min and max length', async ({ page }) => {
 		const preview = await loadStory(page, 'question_forms/essay');
-		const form = preview.locator('.sp-survey--question--essay--form');
+		const form = preview.locator('.sp-survey--question--form--essay');
 		const input = form.locator('.sp-text-input');
 
 		await setControl(page, 'Min', 'number', '5');

@@ -28,7 +28,7 @@
 	};
 </script>
 
-<Hst.Story title="Upload">
+<Hst.Story title="Form controls / Upload">
 	<svelte:fragment slot="controls">
 		<Hst.Text
 			bind:value={label}

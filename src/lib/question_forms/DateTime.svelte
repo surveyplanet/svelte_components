@@ -138,7 +138,7 @@
 
 <form class="sp-survey--question--form sp-survey--question--form--datetime">
 	<TextInput
-		id="{id}-date"
+		id="{id}-datetime-input"
 		name="date"
 		size="large"
 		label=""

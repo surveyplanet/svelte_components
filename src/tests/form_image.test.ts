@@ -4,9 +4,13 @@ import { loadStory, setControl, getAllEvents } from './_utils.js';
 test.describe('Image  component ', () => {
 	test('basic', async ({ page }) => {
 		const preview = await loadStory(page, 'question_forms/image');
-		const form = preview.locator('.sp-survey--question--image--form');
-		const label1 = form.locator('.sp-survey--question--image--item').nth(0);
-		const label2 = form.locator('.sp-survey--question--image--item').nth(1);
+		const form = preview.locator('.sp-survey--question--form--image');
+		const label1 = form
+			.locator('.sp-survey--question--form--image--item')
+			.nth(0);
+		const label2 = form
+			.locator('.sp-survey--question--form--image--item')
+			.nth(1);
 		const choice1 = label1.locator('input');
 		const choice2 = label2.locator('input');
 		const image1 = label1.locator('picture');
@@ -37,21 +41,18 @@ test.describe('Image  component ', () => {
 			'background-image: url("https://media.surveyplanet.com/w_1000/testing/default.png");'
 		);
 
-		await setControl(
-			page,
-			'Labels',
-			'json',
-			`[
-  {
-    "image": "https://media.surveyplanet.com/testing/default/1",
-    "label": "Image 1"
-  },
-  {
-    "image": "https://media.surveyplanet.com/testing/no-extension-jpg",
-    "label": "Image 2"
-  }
-]`
-		);
+		const data = [
+			{
+				image: 'https://media.surveyplanet.com/testing/default/1',
+				label: 'Image 1',
+			},
+			{
+				image: 'https://media.surveyplanet.com/testing/no-extension-jpg',
+				label: 'Image 2',
+			},
+		];
+
+		await setControl(page, 'Labels', 'json', JSON.stringify(data));
 		await expect(image1).toHaveAttribute(
 			'style',
 			'background-image: url("https://media.surveyplanet.com/w_1000/testing/default/1.png");'
@@ -60,9 +61,13 @@ test.describe('Image  component ', () => {
 
 	test('multiple', async ({ page }) => {
 		const preview = await loadStory(page, 'question_forms/image');
-		const form = preview.locator('.sp-survey--question--image--form');
-		const label1 = form.locator('.sp-survey--question--image--item').nth(0);
-		const label2 = form.locator('.sp-survey--question--image--item').nth(1);
+		const form = preview.locator('.sp-survey--question--form--image');
+		const label1 = form
+			.locator('.sp-survey--question--form--image--item')
+			.nth(0);
+		const label2 = form
+			.locator('.sp-survey--question--form--image--item')
+			.nth(1);
 		const choice1 = label1.locator('input');
 		const choice2 = label2.locator('input');
 
@@ -81,9 +86,13 @@ test.describe('Image  component ', () => {
 
 	test('hide caption', async ({ page }) => {
 		const preview = await loadStory(page, 'question_forms/image');
-		const form = preview.locator('.sp-survey--question--image--form');
-		const label1 = form.locator('.sp-survey--question--image--item').nth(0);
-		const label2 = form.locator('.sp-survey--question--image--item').nth(1);
+		const form = preview.locator('.sp-survey--question--form--image');
+		const label1 = form
+			.locator('.sp-survey--question--form--image--item')
+			.nth(0);
+		const label2 = form
+			.locator('.sp-survey--question--form--image--item')
+			.nth(1);
 
 		await expect(form).toBeVisible();
 

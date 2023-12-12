@@ -4,7 +4,7 @@ import parseArgs from '@jwerre/minimist';
 import { resolve } from 'path';
 import { existsSync } from 'fs';
 import fs from 'fs/promises';
-import { snake, title, template } from 'radash';
+import { snake, title } from 'radash';
 
 const ROOT_DIR = resolve('src');
 const LIB_DIR = resolve(ROOT_DIR, 'lib');
