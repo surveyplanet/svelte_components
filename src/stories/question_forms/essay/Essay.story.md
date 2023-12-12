@@ -26,10 +26,10 @@
 ```svelte
 <script>
 	import Essay from '@surveyplanet/svelte-components';
-	const questionId;
-	const min;
-	const max;
-	const response;
+	let questionId;
+	let min;
+	let max;
+	let response;
 </script>
 
 <Essay

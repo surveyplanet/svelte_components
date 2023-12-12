@@ -42,9 +42,9 @@ This component is a custom Svelte component for creating a set of chips/buttons.
 		},
 	] as ChipData;
 
-	const chipClickHandler = (event:CustomEvent) {
+	const chipClickHandler = (event: CustomEvent) => {
 		console.log('Clicked chip:', event.detail);
-	}
+	};
 </script>
 
 <Chip

@@ -30,14 +30,14 @@
 ```svelte
 <script>
 	import Image from '@surveyplanet/svelte-components';
-	const id;
-	const labels;
-	const multi;
-	const size = 'medium';
-	const hideCaptions;
-	const contain = false;
-	const min;
-	const max;
+	let id;
+	let labels;
+	let multi;
+	let size = 'medium';
+	let hideCaptions;
+	let contain = false;
+	let min;
+	let max;
 </script>
 
 <Image

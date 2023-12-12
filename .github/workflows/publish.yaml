@@ -34,6 +34,9 @@ jobs:
               run: npm audit --audit-level=moderate --omit=dev
 
             - name: Check Typescript errors
+              run: npm run lint
+
+            - name: Check Typescript errors
               run: npm run check
 
             - name: Check spelling errors
@@ -45,8 +48,11 @@ jobs:
             # - name: Build Histoire
             #   run: npm run story:build
 
+            - name: Serve Histoire stories
+              run: npm run story:preview
+
             # # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
-            - name: Serve Histoire and run tests
+            - name: Run Playwright tests
               run: npm run test:ci
 
             - name: Package components
