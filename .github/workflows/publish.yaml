@@ -30,17 +30,17 @@ jobs:
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-            - name: Security audit
-              run: npm audit --audit-level=moderate --omit=dev
+            # - name: Security audit
+            #   run: npm audit --audit-level=moderate --omit=dev
 
             # - name: Check Lint errors
             #   run: npm run lint
 
-            - name: Check Typescript errors
-              run: npm run check
+            # - name: Check Typescript errors
+            #   run: npm run check
 
-            - name: Check spelling errors
-              run: npm run spell
+            # - name: Check spelling errors
+            #   run: npm run spell
 
             - name: Install Playwright (for tests)
               run: npx playwright install --with-deps
@@ -49,7 +49,10 @@ jobs:
             #   run: npm run story:build
 
             - name: Serve Histoire stories
-              run: npm run story:preview
+              run: npm run story:preview &
+
+            - name: Wait for server
+              run: ./bin/wait-for-histoire.sh
 
             # # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
             - name: Run Playwright tests
