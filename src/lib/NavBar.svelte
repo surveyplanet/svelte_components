@@ -116,7 +116,7 @@
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
-	nav {
+	.sp-nav {
 		position: relative;
 		display: flex;
 		max-width: fit-content;
@@ -125,7 +125,6 @@
 		align-items: center;
 		gap: $size--32;
 		overflow: visible;
-		// background-color: purple;
 		&.sp-nav--vertical {
 			flex-direction: column;
 		}

@@ -38,6 +38,7 @@
 	aria-checked={on}>
 	<input
 		type="checkbox"
+		class="sp-toggle--input"
 		bind:checked={on}
 		{id}
 		{name}
@@ -57,100 +58,107 @@
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 
-	.sp-toggle {
+	:global(.sp-toggle) {
 		font: $font--default;
 		display: inline-block;
 		position: relative;
 		width: $size--40;
 		height: $size--20;
-		@include set-focus {
-			.sp-toggle--track {
-				box-shadow: 0px 0px 0px 1px $color--white,
-					0px 0px 0px 2px $color--beige;
-			}
+	}
+	:global(.sp-toggle:focus-visible) {
+		outline: none;
+	}
+	:global(.sp-toggle:focus-visible .sp-toggle--track) {
+		box-shadow: 0px 0px 0px 1px $color--white, 0px 0px 0px 2px $color--beige;
+	}
+	@supports not selector(:focus-visible) {
+		:global(.sp-toggle:focus) {
+			outline: none;
 		}
-
-		input[type='checkbox'] {
-			position: absolute;
-			top: 0;
-			left: 0;
-			margin: 0;
-			padding: 0;
-			width: 100%;
-			height: 100%;
-			opacity: 0;
-			cursor: pointer;
-			z-index: 1;
-
-			&:checked + .sp-toggle--track {
-				background-color: $color--darkest;
-				&:after {
-					transform: translateX(calc(100% + 4px));
-				}
-			}
-
-			@include set-focus {
-				& + .sp-toggle--track {
-					box-shadow: 0px 0px 0px 1px $color--white,
-						0px 0px 0px 2px $color--beige;
-				}
-			}
-
-			&:disabled {
-				+ .sp-toggle--track {
-					background-color: $color--beige-dark;
-					&:after {
-						background-color: $color--beige-darker;
-					}
-				}
-			}
-		}
-
-		.sp-toggle--track {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			border-radius: $size--20;
-			background-color: $color--beige-darker;
-			transition: transform 400ms, background-color 400ms;
-
-			&:after {
-				position: absolute;
-				content: '';
-				height: calc($size--20 - 4px);
-				width: calc($size--20 - 4px);
-				left: 2px;
-				top: 2px;
-				background-color: $color--white;
-				transition: transform 400ms, background-color 400ms;
-				border-radius: 50%;
-			}
-		}
-
-		&.sp-toggle--tall {
-			width: $size--36;
-			height: $size--24;
-			.sp-toggle--track {
-				&:after {
-					position: absolute;
-					content: '';
-					height: calc($size--24 - 4px);
-					width: calc($size--24 - 4px);
-				}
-			}
-			input[type='checkbox'] {
-				&:checked + .sp-toggle--track {
-					&:after {
-						transform: translateX(calc(100% - 8px));
-					}
-				}
-			}
+		:global(.sp-toggle:focus .sp-toggle--track) {
+			box-shadow: 0px 0px 0px 1px $color--white,
+				0px 0px 0px 2px $color--beige;
 		}
 	}
+	:global(.sp-toggle--input) {
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		cursor: pointer;
+		z-index: 1;
+	}
+	:global(.sp-toggle--input:checked + .sp-toggle--track) {
+		background-color: $color--darkest;
+	}
+	:global(.sp-toggle--input:checked + .sp-toggle--track:after) {
+		transform: translateX(calc(100% + 4px));
+	}
+	:global(.sp-toggle--input:focus-visible) {
+		outline: none;
+	}
+	:global(.sp-toggle--input:focus-visible + .sp-toggle--track) {
+		box-shadow: 0px 0px 0px 1px $color--white, 0px 0px 0px 2px $color--beige;
+	}
+	@supports not selector(:focus-visible) {
+		:global(.sp-toggle--input:focus) {
+			outline: none;
+		}
+		:global(.sp-toggle--input:focus + .sp-toggle--track) {
+			box-shadow: 0px 0px 0px 1px $color--white,
+				0px 0px 0px 2px $color--beige;
+		}
+	}
+	:global(.sp-toggle--input:disabled + .sp-toggle--track) {
+		background-color: $color--beige-dark;
+	}
+	:global(.sp-toggle--input:disabled + .sp-toggle--track:after) {
+		background-color: $color--beige-darker;
+	}
+	:global(.sp-toggle--track) {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: $size--20;
+		background-color: $color--beige-darker;
+		transition: transform 400ms, background-color 400ms;
+	}
+	:global(.sp-toggle--track:after) {
+		position: absolute;
+		content: '';
+		height: calc($size--20 - 4px);
+		width: calc($size--20 - 4px);
+		left: 2px;
+		top: 2px;
+		background-color: $color--white;
+		transition: transform 400ms, background-color 400ms;
+		border-radius: 50%;
+	}
+	:global(.sp-toggle.sp-toggle--tall) {
+		width: $size--36;
+		height: $size--24;
+	}
+	:global(.sp-toggle.sp-toggle--tall .sp-toggle--track:after) {
+		position: absolute;
+		content: '';
+		height: calc($size--24 - 4px);
+		width: calc($size--24 - 4px);
+	}
+	:global(
+			.sp-toggle.sp-toggle--tall
+				.sp-toggle--input:checked
+				+ .sp-toggle--track:after
+		) {
+		transform: translateX(calc(100% - 8px));
+	}
 
-	.sp-toggle--label {
+	:global(.sp-toggle--label) {
 		cursor: pointer;
 		display: inline-block;
 		vertical-align: top;

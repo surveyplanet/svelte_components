@@ -52,7 +52,8 @@
 	class="sp-image-upload"
 	id="drop_zone"
 	on:drop={dropHandler}
-	on:dragover={dragOverHandler}>
+	on:dragover={dragOverHandler}
+	aria-dropeffect="copy">
 	<Button
 		on:click={() => {
 			fileinput.click();
@@ -63,24 +64,26 @@
 		<Icon
 			size={12}
 			name="plus"
-			color={COLORS.white} /></Button>
+			color={COLORS.white} />
+	</Button>
+
 	<input
-		class="sp-image-upload-input"
+		class="sp-image-upload--input"
 		type="file"
 		accept={formatAccept}
 		on:change={fileInputHandler}
 		bind:this={fileinput} />
-	<p>{note}</p>
+
+	{#if note && note.length}
+		<p class="sp-image-upload--note">{note}</p>
+	{/if}
 </div>
 
-<style>
-	.sp-image-upload {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-flow: column;
+<style lang="scss">
+	:global(.sp-image-upload) {
+		display: block;
 	}
-	.sp-image-upload-input {
+	.sp-image-upload--input {
 		display: none;
 	}
 </style>

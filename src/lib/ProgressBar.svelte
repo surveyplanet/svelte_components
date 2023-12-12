@@ -28,7 +28,7 @@
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 
-	.sp-progress-bar {
+	:global(.sp-progress-bar) {
 		width: 100%;
 		height: $size--6;
 		margin: 0 auto;
@@ -37,17 +37,18 @@
 		display: flex;
 		transition-duration: 0.5s;
 		transition-timing-function: ease-out;
-		&:hover {
-			height: 15px;
-			visibility: visible;
-
-			.sp-progress-bar--value {
-				opacity: 1;
-			}
-		}
 	}
 
-	.sp-progress-bar--progress {
+	:global(.sp-progress-bar:hover) {
+		height: 15px;
+		visibility: visible;
+	}
+
+	:global(.sp-progress-bar:hover .sp-progress-bar--value) {
+		opacity: 1;
+	}
+
+	:global(.sp-progress-bar--progress) {
 		height: 100%;
 		border-radius: $size--6;
 		background: $color--green;
@@ -55,7 +56,7 @@
 		transition-timing-function: ease-out;
 	}
 
-	.sp-progress-bar--value {
+	:global(.sp-progress-bar--value) {
 		opacity: 0;
 		position: absolute;
 		width: 20px;

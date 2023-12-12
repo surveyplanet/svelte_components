@@ -89,7 +89,7 @@
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 
-	.sp-chips {
+	:global(.sp-chips) {
 		display: flex;
 		flex-wrap: wrap;
 		gap: $size-gutter--half;
@@ -97,7 +97,7 @@
 		font: $font--default;
 	}
 
-	.sp-chips--chip {
+	:global(.sp-chips--chip) {
 		cursor: default;
 		display: flex;
 		flex-direction: row;
@@ -109,23 +109,23 @@
 		border: 1px solid $color--beige-darker;
 		border-radius: $size--32;
 		background: $color--white;
-		span {
+		:global(span) {
 			padding: 0;
 			line-height: auto;
 		}
 	}
 
-	.sp-chips--selectable {
-		.sp-chips--chip {
+	:global(.sp-chips--selectable) {
+		:global(.sp-chips--chip) {
 			cursor: pointer;
 		}
 
-		.sp-chips--chip--selected {
+		:global(.sp-chips--chip--selected) {
 			background: $color--gradient--green;
 		}
 	}
 
-	button.sp-chips--chip--close-btn {
+	:global(button.sp-chips--chip--close-btn) {
 		cursor: pointer;
 		display: inline-block;
 		margin: 0;

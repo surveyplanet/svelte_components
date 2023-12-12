@@ -134,84 +134,95 @@
 
 	$select-animation-speed: 200ms;
 
-	.sp-survey--question--image--form {
+	/**
+ * Capitalize the first letter of a word
+ */
+	/**
+ * Remove the units (e.g.: px, rem, etc.) from a measurement
+ */
+	/**
+ * Remove the units (e.g.: px, rem, etc.) from a measurement
+ */
+	:global(.sp-survey--question--image--form) {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr); // 2 columns
-		gap: $size-gutter; // 1rem gap between cells
-
-		&.sp-survey--question--image--small {
-			grid-template-columns: repeat(4, 1fr); // 2 columns
-			.sp-survey--question--image--item {
-				picture {
-					min-width: 150px;
-					height: $size-gutter--triple;
-				}
-			}
-		}
-
-		&.sp-survey--question--image--large {
-			grid-template-columns: repeat(1, 1fr); // 1 columns
-			.sp-survey--question--image--item {
-				picture {
-					height: $size-gutter--quadruple * 2;
-				}
-			}
-		}
-
-		&.sp-survey--question--image--contain {
-			.sp-survey--question--image--item {
-				picture {
-					// background-color: $color--black;
-					background-size: contain;
-				}
-			}
-		}
+		grid-template-columns: repeat(2, 1fr);
+		gap: $size-gutter;
+	}
+	:global(
+			.sp-survey--question--image--form.sp-survey--question--image--small
+		) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+	:global(
+			.sp-survey--question--image--form.sp-survey--question--image--small
+				.sp-survey--question--image--item
+				picture
+		) {
+		min-width: 150px;
+		height: $size-gutter--triple;
+	}
+	:global(
+			.sp-survey--question--image--form.sp-survey--question--image--large
+		) {
+		grid-template-columns: repeat(1, 1fr);
+	}
+	:global(
+			.sp-survey--question--image--form.sp-survey--question--image--large
+				.sp-survey--question--image--item
+				picture
+		) {
+		height: $size-gutter--quadruple * 2;
+	}
+	:global(
+			.sp-survey--question--image--form.sp-survey--question--image--contain
+				.sp-survey--question--image--item
+				picture
+		) {
+		background-size: contain;
 	}
 
-	.sp-survey--question--image--item {
+	:global(.sp-survey--question--image--item) {
 		position: relative;
 		cursor: pointer;
 		display: block;
 		font-size: $font-size--16;
-		// background-color: red;
-		input {
-			appearance: none;
-			&:checked {
-				& ~ picture {
-					border: 1px solid $color--darkest;
-					// box-shadow: 0px 0px 15px hsla(218, 24%, 13%, 0.5); // .2 opacity
-					box-shadow: $shadow--default;
-				}
-
-				& ~ .sp-survey--question--image--item--selected-icon {
-					visibility: visible;
-					opacity: 1;
-					bottom: $size-gutter--half;
-				}
-			}
-		}
-
-		picture {
-			display: block;
-			width: auto;
-			margin: 0;
-			padding: 0;
-			height: $size-gutter--quadruple;
-			border-radius: $size-radius--default;
-			background-repeat: no-repeat;
-			background-position: 50% 50%; // center image
-			background-size: cover;
-			transition: box-shadow $select-animation-speed ease-out;
-			border: 1px solid $color--beige-darker;
-		}
+	}
+	:global(.sp-survey--question--image--item input) {
+		appearance: none;
+	}
+	:global(.sp-survey--question--image--item input:checked ~ picture) {
+		border: 1px solid $color--darkest;
+		box-shadow: $shadow--default;
+	}
+	:global(
+			.sp-survey--question--image--item
+				input:checked
+				~ .sp-survey--question--image--item--selected-icon
+		) {
+		visibility: visible;
+		opacity: 1;
+		bottom: $size-gutter--half;
+	}
+	:global(.sp-survey--question--image--item picture) {
+		display: block;
+		width: auto;
+		margin: 0;
+		padding: 0;
+		height: $size-gutter--quadruple;
+		border-radius: $size-radius--default;
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+		background-size: cover;
+		transition: box-shadow $select-animation-speed ease-out;
+		border: 1px solid $color--beige-darker;
 	}
 
-	.sp-survey--question--image--item--label {
+	:global(.sp-survey--question--image--item--label) {
 		display: block;
 		padding-bottom: $size-gutter--quarter;
 	}
 
-	.sp-survey--question--image--item--selected-icon {
+	:global(.sp-survey--question--image--item--selected-icon) {
 		display: block;
 		visibility: hidden;
 		opacity: 0;

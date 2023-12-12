@@ -187,49 +187,54 @@
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
 
-	.sp-dropdown {
+	/**
+ * Capitalize the first letter of a word
+ */
+	/**
+ * Remove the units (e.g.: px, rem, etc.) from a measurement
+ */
+	/**
+ * Remove the units (e.g.: px, rem, etc.) from a measurement
+ */
+	:global(.sp-dropdown) {
 		font: $font--default;
 		font-size: $font-size--default;
-		&.sp-dropdown--open {
-			.sp-dropdown--toggle-btn svg {
-				rotate: (180deg);
-			}
-		}
-
-		&.sp-dropdown--medium {
-			font-size: $font-size--14;
-			input {
-				height: $size--48;
-			}
-		}
-		&.sp-dropdown--large {
-			font-size: $font-size--16;
-			input {
-				height: $size--52;
-			}
-		}
-		:global(.sp-menu) {
-			max-width: 100%;
-			// width: 100%;
-		}
+	}
+	:global(.sp-dropdown.sp-dropdown--open .sp-dropdown--toggle-btn svg) {
+		rotate: 180deg;
+	}
+	:global(.sp-dropdown.sp-dropdown--medium) {
+		font-size: $font-size--14;
+	}
+	:global(.sp-dropdown.sp-dropdown--medium .sp-dropdown--search) {
+		height: $size--48;
+	}
+	:global(.sp-dropdown.sp-dropdown--large) {
+		font-size: $font-size--16;
+	}
+	:global(.sp-dropdown.sp-dropdown--large .sp-dropdown--search) {
+		height: $size--52;
+	}
+	:global(.sp-dropdown .sp-menu) {
+		max-width: 100%;
 	}
 
-	label {
+	:global(.sp-dropdown--label) {
 		color: $color--dark;
 		display: block;
 		padding: 0 0 $size--12 $size--4;
 		font: inherit;
-		.sp-dropdown--label--required {
-			color: $color--pink;
-			font-size: smaller;
-		}
+	}
+	:global(.sp-dropdown--label .sp-dropdown--label--required) {
+		color: $color--pink;
+		font-size: smaller;
 	}
 
-	.sp-dropdown--input-wrapper {
+	:global(.sp-dropdown--input-wrapper) {
 		position: relative;
 	}
 
-	input {
+	:global(.sp-dropdown--search) {
 		cursor: pointer;
 		width: 100%;
 		height: $size--40;
@@ -241,45 +246,53 @@
 		margin: 0;
 		padding: 0 0 0 $size--16;
 		text-align: left;
-
-		&::placeholder {
-			color: $color--beige-darkest;
-		}
-
-		@include set-focus {
+	}
+	:global(.sp-dropdown--search::placeholder) {
+		color: $color--beige-darkest;
+	}
+	:global(.sp-dropdown--search:focus-visible) {
+		outline: none;
+		border: 1px solid $color--beige-darker;
+		box-shadow: 0px 0px 0px 2px $color--beige-dark;
+	}
+	@supports not selector(:focus-visible) {
+		:global(.sp-dropdown--search:focus) {
+			outline: none;
 			border: 1px solid $color--beige-darker;
 			box-shadow: 0px 0px 0px 2px $color--beige-dark;
 		}
-
-		&:active {
-			box-shadow: 0px 0px 0px 1px $color--white,
-				0px 0px 0px 2px $color--beige-darkest;
-		}
-
-		// disabled controls can not receive focus, are not submitted with the
-		// form and generally do not function as controls until they are enabled
-		&:disabled {
-			cursor: not-allowed;
-			color: $color--beige-darkest;
-			border-color: $color--beige-darker;
-			background-color: $color--beige-dark;
+	}
+	:global(.sp-dropdown--search:active) {
+		box-shadow: 0px 0px 0px 1px $color--white,
+			0px 0px 0px 2px $color--beige-darkest;
+	}
+	:global(.sp-dropdown--search:disabled) {
+		cursor: not-allowed;
+		color: $color--beige-darkest;
+		border-color: $color--beige-darker;
+		background-color: $color--beige-dark;
+		box-shadow: none;
+	}
+	:global(.sp-dropdown--search:disabled:focus-visible) {
+		outline: none;
+		box-shadow: none;
+	}
+	@supports not selector(:focus-visible) {
+		:global(.sp-dropdown--search:disabled:focus) {
+			outline: none;
 			box-shadow: none;
-			@include set-focus {
-				box-shadow: none;
-			}
-			&:active {
-				box-shadow: none;
-			}
 		}
 	}
+	:global(.sp-dropdown--search:disabled:active) {
+		box-shadow: none;
+	}
 
-	.sp-dropdown--toggle-btn,
-	.sp-dropdown--close-btn {
+	:global(.sp-dropdown--toggle-btn, .sp-dropdown--close-btn) {
 		cursor: pointer;
 		position: absolute;
 		top: 1px;
 		right: 0;
-		display: flex; // inline-flex
+		display: flex;
 		justify-content: center;
 		align-items: center;
 		width: $size--40;
@@ -290,20 +303,22 @@
 		margin: 0;
 		padding: 0;
 		outline: none;
-		&:disabled {
-			:global(path) {
-				stroke: $color--beige-darkest;
-			}
-		}
 	}
 
-	.sp-dropdown--close-btn {
+	:global(
+			.sp-dropdown--toggle-btn:disabled path,
+			.sp-dropdown--close-btn:disabled path
+		) {
+		stroke: $color--beige-darkest;
+	}
+
+	:global(.sp-dropdown--close-btn) {
 		z-index: 1;
-		&:hover {
-			background-color: $color--beige-darker;
-			:global(.sp-icon path) {
-				stroke: $color--white;
-			}
+	}
+	:global(.sp-dropdown--close-btn:hover) {
+		background-color: $color--beige-darker;
+		:global(.sp-icon path) {
+			stroke: $color--white;
 		}
 	}
 

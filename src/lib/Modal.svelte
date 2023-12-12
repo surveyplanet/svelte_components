@@ -104,6 +104,15 @@
 	$medium-width: $size--256 * 2;
 	$large-width: $size--256 * 3;
 
+	:global(.sp-modal--overlay) {
+		background-color: $color--beige;
+	}
+
+	:global(.sp-modal) {
+		font: $font--default;
+		background-color: $color--white;
+	}
+
 	.sp-modal--overlay {
 		z-index: 999;
 		position: fixed;
@@ -111,7 +120,6 @@
 		left: 0;
 		width: 100vw;
 		height: 100vh;
-		background-color: $color--beige;
 		opacity: 0.8;
 	}
 
@@ -123,10 +131,8 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		font: $font--default;
 		border-radius: $size-radius--large;
 		box-shadow: 0px 1px 6px rgba(22, 33, 55, 0.15);
-		background-color: $color--white;
 
 		&.sp-modal--small {
 			width: $small-width;

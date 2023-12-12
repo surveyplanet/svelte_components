@@ -56,22 +56,7 @@
 	{/each}
 </svg>
 
-<style>
-	.sp-loader {
-		animation: loader-turn 1s linear infinite;
-		padding: 0;
-		margin: 0;
-		/* background-color: red; */
-	}
-
-	.sp-loader--track {
-		animation-name: loader-stroke;
-		animation-timing-function: linear;
-		animation-iteration-count: infinite;
-		fill: none;
-		stroke-linecap: round;
-	}
-
+<style lang="scss">
 	@keyframes loader-turn {
 		50% {
 			transform: rotate(180deg);
@@ -79,5 +64,19 @@
 		100% {
 			transform: rotate(720deg);
 		}
+	}
+
+	:global(.sp-loader) {
+		animation: loader-turn 1s linear infinite;
+		padding: 0;
+		margin: 0;
+	}
+
+	:global(.sp-loader--track) {
+		animation-name: loader-stroke;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+		fill: none;
+		stroke-linecap: round;
 	}
 </style>

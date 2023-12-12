@@ -221,43 +221,41 @@
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
-	.sp-text-input {
+
+	:global(.sp-text-input) {
 		font: $font--default;
-
-		&.sp-text-input--medium {
-			font-size: $font-size--14;
-			input {
-				height: $size--48;
-			}
-		}
-		&.sp-text-input--large {
-			font-size: $font-size--16;
-			input {
-				height: $size--52;
-			}
-		}
-
-		&.validation-error {
-			input,
-			textarea {
-				border-color: $color--pink;
-			}
-		}
+	}
+	:global(.sp-text-input.sp-text-input--medium) {
+		font-size: $font-size--14;
+	}
+	:global(.sp-text-input.sp-text-input--medium input) {
+		height: $size--48;
+	}
+	:global(.sp-text-input.sp-text-input--large) {
+		font-size: $font-size--16;
+	}
+	:global(.sp-text-input.sp-text-input--large input) {
+		height: $size--52;
+	}
+	:global(
+			.sp-text-input.validation-error input,
+			.sp-text-input.validation-error textarea
+		) {
+		border-color: $color--pink;
 	}
 
-	label {
+	:global(.sp-text-input--label) {
 		color: $color--dark;
 		display: block;
 		font: inherit;
 		padding: 0 0 $size--12 $size--4;
-		.sp-text-input--label--required {
-			color: $color--pink;
-			font-size: smaller;
-		}
+	}
+	:global(.sp-text-input--label .sp-text-input--label--required) {
+		color: $color--pink;
+		font-size: smaller;
 	}
 
-	input,
-	textarea {
+	:global(.sp-text-input--input, .sp-text-input--textarea) {
 		font: inherit;
 		width: 100%;
 		height: $size--40;
@@ -266,57 +264,90 @@
 		border: 1px solid $color--beige-darker;
 		border-radius: $size-radius--default;
 		padding: $size--12 $size--16;
-		@include set-focus {
+	}
+	:global(
+			.sp-text-input--input:focus-visible,
+			.sp-text-input--textarea:focus-visible
+		) {
+		outline: none;
+		border: 1px solid $color--beige-darker;
+		box-shadow: 0px 0px 0px 2px $color--beige-dark;
+	}
+	@supports not selector(:focus-visible) {
+		:global(.sp-text-input--input:focus, .sp-text-input--textarea:focus) {
+			outline: none;
 			border: 1px solid $color--beige-darker;
 			box-shadow: 0px 0px 0px 2px $color--beige-dark;
 		}
-
-		&:active {
-			box-shadow: 0px 0px 0px 1px $color--white,
-				0px 0px 0px 2px $color--beige-darkest;
-		}
-
-		// read-only controls can still function and are still focusable
-		&:read-only {
-			@include set-focus {
-				box-shadow: none;
-			}
-			&:active {
-				box-shadow: none;
-			}
-		}
-
-		// disabled controls can not receive focus and are not submitted with the
-		// form and generally do not function as controls until they are enabled
-		&:disabled {
-			cursor: not-allowed;
-			color: $color--beige-darkest;
-			border-color: $color--beige-darker;
-			background-color: $color--beige-dark;
+	}
+	:global(.sp-text-input--input:active, .sp-text-input--textarea:active) {
+		box-shadow: 0px 0px 0px 1px $color--white,
+			0px 0px 0px 2px $color--beige-darkest;
+	}
+	:global(
+			.sp-text-input--input:read-only:focus-visible,
+			.sp-text-input--textarea:read-only:focus-visible
+		) {
+		outline: none;
+		box-shadow: none;
+	}
+	@supports not selector(:focus-visible) {
+		:global(
+				.sp-text-input--input:read-only:focus,
+				.sp-text-input--textarea:read-only:focus
+			) {
+			outline: none;
 			box-shadow: none;
-			@include set-focus {
-				box-shadow: none;
-			}
-			&:active {
-				box-shadow: none;
-			}
-		}
-
-		&::placeholder {
-			color: $color--beige-darkest;
 		}
 	}
-
-	textarea {
-		min-height: $size--80;
+	:global(
+			.sp-text-input--input:read-only:active,
+			.sp-text-input--textarea:read-only:active
+		) {
+		box-shadow: none;
+	}
+	:global(.sp-text-input--input:disabled, .sp-text-input--textarea:disabled) {
+		cursor: not-allowed;
+		color: $color--beige-darkest;
+		border-color: $color--beige-darker;
+		background-color: $color--beige-dark;
+		box-shadow: none;
+	}
+	:global(
+			.sp-text-input--input:disabled:focus-visible,
+			.sp-text-input--textarea:disabled:focus-visible
+		) {
+		outline: none;
+		box-shadow: none;
+	}
+	@supports not selector(:focus-visible) {
+		:global(
+				.sp-text-input--input:disabled:focus,
+				.sp-text-input--textarea:disabled:focus
+			) {
+			outline: none;
+			box-shadow: none;
+		}
+	}
+	:global(
+			.sp-text-input--input:disabled:active,
+			.sp-text-input--textarea:disabled:active
+		) {
+		box-shadow: none;
+	}
+	:global(
+			.sp-text-input--input::placeholder,
+			.sp-text-input--textarea::placeholder
+		) {
+		color: $color--beige-darkest;
 	}
 
-	.validation-error-message {
+	:global(.validation-error-message) {
 		font-size: $font-size--10;
 		padding: $size--6 0 0 $size--4;
 		color: $color--pink;
-		:global(em) {
-			font-style: normal;
-		}
+	}
+	:global(.validation-error-message em) {
+		font-style: normal;
 	}
 </style>

@@ -229,28 +229,32 @@
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
+
+	:global(.sp-menu) {
+		max-width: $size--256;
+		background-color: $color--white;
+		font: $font--default;
+		box-shadow: 0px 5px 5px rgba(142, 117, 205, 0.1);
+		border-radius: $size-radius--large;
+	}
+
+	:global(.sp-menu.sp-menu--medium) {
+		font-size: $font-size--14;
+	}
+	:global(.sp-menu.sp-menu--large) {
+		font-size: $font-size--16;
+	}
+
 	.sp-menu {
 		list-style: none;
 		overflow: hidden;
 		margin: 0;
-		font: $font--default;
 		padding: $size-gutter--quarter;
-		background-color: $color--white;
-		box-shadow: 0px 5px 5px rgba(142, 117, 205, 0.1);
-		border-radius: $size-radius--large;
-		max-width: $size--256;
 		// max-height: $size--256;
 		overflow-y: auto;
 		// &:empty { empty doesn't work because of whitespace
 		&:not(:has(li)) {
 			display: none;
-		}
-
-		&.sp-menu--medium {
-			font-size: $font-size--14;
-		}
-		&.sp-menu--large {
-			font-size: $font-size--16;
 		}
 	}
 
