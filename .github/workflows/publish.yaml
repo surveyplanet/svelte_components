@@ -1,15 +1,12 @@
-name: Run unit tests, package components and publish to NPM.
+name: Deploy Svelte components
 
-# run everywhere *except* 'main'
-on:
-    push:
-        branches-ignore:
-            - main
+on: [push]
+
 env:
     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
-    deploy:
+    publish:
         runs-on: ubuntu-latest
 
         steps:

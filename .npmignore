@@ -1,9 +1,8 @@
+.eslint*
 .github
-.storybook
+.prettier*
 .svelte-kit
 .vscode
 src
-.eslint*
-.prettier*
-vite.config.js
 tsconfig.json
+vite.config.js
