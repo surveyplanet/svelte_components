@@ -40,9 +40,6 @@ jobs:
             # - name: Install Playwright (for tests)
             #   run: npx playwright install --with-deps
 
-            # - name: Build Histoire
-            #   run: npm run story:build
-
             # - name: Serve Histoire stories
             #   run: npm run story:preview &
 
@@ -52,6 +49,15 @@ jobs:
             # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
             # - name: Run Playwright tests
             #   run: npm run test:ci
+
+            # - name: Build Histoire
+            #   run: npm run story:build
+
+            # - name: Serve Histoire stories and run tests concurrently
+            #   run: |
+            #     npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            #     "npx http-server .histoire --port 6006 --silent" \
+            #     "npx wait-on tcp:6006 && npm run test:ci"
 
             - name: Package components
               run: npm run build
