@@ -54,7 +54,6 @@
 				{id}
 				{date}
 				{time}
-				{definitions}
 				{response}
 				on:response={dateTimeResponseHandler} />
 		</div>
