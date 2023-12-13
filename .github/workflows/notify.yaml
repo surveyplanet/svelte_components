@@ -1,0 +1,33 @@
+name: Discord notification
+
+on:
+    workflow_run:
+        workflows:
+            - Publish Svelte components
+        types:
+            - completed
+
+jobs:
+    success:
+        runs-on: ubuntu-latest
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        steps:
+            - name: 'Success: Discord notification'
+              env:
+                  DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+              uses: Ilshidur/action-discord@master
+              with:
+                  args: |
+                      **SUCCESS**: `${{github.event.repository.name}}` has been deployed to `${{github.event.workflow_run.head_branch}}` by ${{github.event.workflow_run.head_commit.committer.name}}.
+
+    failure:
+        runs-on: ubuntu-latest
+        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+        steps:
+            - name: 'Failure: Discord notification'
+              env:
+                  DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+              uses: Ilshidur/action-discord@master
+              with:
+                  args: |
+                      **ERROR**: `${{github.event.repository.name}}` failed to to deploy to `${{github.event.workflow_run.head_branch}}` by ${{github.event.workflow_run.head_commit.committer.name}}.
