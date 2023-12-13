@@ -11,7 +11,8 @@
 		"checkbox",
 		"icon",
 		"radio",
-		"toggle"
+		"toggle",
+		"form control"
 	],
 	"version": "0.0.0",
 	"homepage": "https://ui.surveyplanet.com",
