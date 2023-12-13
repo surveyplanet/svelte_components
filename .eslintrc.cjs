@@ -42,11 +42,18 @@ module.exports = {
 				'@typescript-eslint/unbound-method': 'off',
 			},
 		},
+		{
+			files: ['**/*.story.svelte'],
+			rules: {
+				'svelte/no-at-html-tags': 'off',
+			},
+		},
 	],
 	rules: {
 		'@typescript-eslint/no-unnecessary-condition': 'off',
 		'@typescript-eslint/no-non-null-assertion': 'off', // allow Non-null assertion operator (!)
 		'no-undef': 'off', // typescript already checks this
+		'svelte/no-at-html-tags': 'warn',
 	},
 	ignorePatterns: [
 		'!.env.example',

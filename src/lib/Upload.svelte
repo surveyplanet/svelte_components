@@ -50,10 +50,12 @@
 
 <div
 	class="sp-image-upload"
+	role="button"
+	tabindex="0"
 	id="drop_zone"
+	aria-dropeffect="copy"
 	on:drop={dropHandler}
-	on:dragover={dragOverHandler}
-	aria-dropeffect="copy">
+	on:dragover={dragOverHandler}>
 	<Button
 		on:click={() => {
 			fileinput.click();
@@ -74,7 +76,7 @@
 		on:change={fileInputHandler}
 		bind:this={fileinput} />
 
-	{#if note && note.length}
+	{#if note?.length}
 		<p class="sp-image-upload--note">{note}</p>
 	{/if}
 </div>

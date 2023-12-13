@@ -2,7 +2,7 @@
 	import { logEvent } from 'histoire/client';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import source from './source';
-	import { Avatar, MASCOTS } from '$lib';
+	import { Avatar } from '$lib';
 
 	export let Hst: Histoire;
 

@@ -3,7 +3,6 @@
 	import { createEventDispatcher } from 'svelte';
 	import TextInput from '../TextInput.svelte';
 	import RangeSlider from 'svelte-range-slider-pips';
-	import { range } from 'radash';
 
 	const dispatchResponse = createEventDispatcher<{
 		response: RangeValue[];

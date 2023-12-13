@@ -176,7 +176,7 @@ test.describe('Button component', () => {
 		await setControl(page, 'Disabled', 'checkbox', 'true');
 
 		const styles = await getStyles(btn);
-		const iconStyles = await getStyles(icon);
+		// const iconStyles = await getStyles(icon);
 
 		await expect(btn).toBeDisabled();
 		expect(styles.backgroundColor).toBe('rgb(235, 230, 215)');

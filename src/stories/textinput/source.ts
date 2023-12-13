@@ -1,3 +1,5 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable @typescript-eslint/no-base-to-string */
 import type { TextInputType } from '$lib';
 export default (
 	id: string,
@@ -9,7 +11,7 @@ export default (
 	multiline: boolean,
 	readonly: boolean,
 	disabled: boolean,
-	cleaveOptions: {},
+	cleaveOptions: object,
 	validationRules: string[],
 	validationMessage: string,
 	size: 'small' | 'medium' | 'large'

@@ -1,6 +1,5 @@
 import { test, expect, type FrameLocator } from '@playwright/test';
 import { setControl, loadStory, getLastEvent, getStyles } from './_utils.js';
-import { delay } from '@surveyplanet/utilities';
 
 test.describe('Radio component', () => {
 	let canvas: FrameLocator;
