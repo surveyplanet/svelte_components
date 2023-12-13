@@ -2,8 +2,8 @@ name: Deploy Svelte components
 
 on: [push]
 
-env:
-    NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+# env:
+#     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
     publish:
@@ -18,11 +18,6 @@ jobs:
               with:
                   node-version: 18
 
-            # - name: 'DEBUG: Check NPM_TOKEN'
-            #   run: echo $NPM_TOKEN | sed 's/.\{1,35\}/***/'
-            #   env:
-            #       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
             - name: Install dependencies
               run: |
                   npm install -D esbuild
@@ -30,33 +25,33 @@ jobs:
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-            # - name: Security audit
-            #   run: npm audit --audit-level=moderate --omit=dev
+            - name: Security audit
+              run: npm audit --audit-level=moderate --omit=dev
 
             # - name: Check Lint errors
             #   run: npm run lint
 
-            # - name: Check Typescript errors
-            #   run: npm run check
+            - name: Check Typescript errors
+              run: npm run check
 
-            # - name: Check spelling errors
-            #   run: npm run spell
+            - name: Check spelling errors
+              run: npm run spell
 
-            - name: Install Playwright (for tests)
-              run: npx playwright install --with-deps
+            # - name: Install Playwright (for tests)
+            #   run: npx playwright install --with-deps
 
             # - name: Build Histoire
             #   run: npm run story:build
 
-            - name: Serve Histoire stories
-              run: npm run story:preview &
+            # - name: Serve Histoire stories
+            #   run: npm run story:preview &
 
-            - name: Wait for server
-              run: ./bin/wait-for-histoire.sh
+            # - name: Wait for Histoire server
+            #   run: ./bin/wait-for-histoire.sh
 
-            # # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
-            - name: Run Playwright tests
-              run: npm run test:ci
+            # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
+            # - name: Run Playwright tests
+            #   run: npm run test:ci
 
             - name: Package components
               run: npm run build

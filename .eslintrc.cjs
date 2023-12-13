@@ -13,10 +13,9 @@ module.exports = {
 		extraFileExtensions: ['.svelte'],
 	},
 	settings: {
-		'svelte3/typescript': () => require('typescript'),
-		// 'svelte3/typescript': true, ... or, load TypeScript as peer dependency
+		// 'svelte3/typescript': () => require('typescript'),
 	},
-	plugins: ['@typescript-eslint', 'svelte3'],
+	plugins: ['@typescript-eslint'],
 	extends: [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/eslint-recommended',
@@ -25,12 +24,17 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended',
 		'plugin:@typescript-eslint/strict',
 		'plugin:eslint-comments/recommended',
-		'prettier',
+		'plugin:svelte/recommended', // https://github.com/sveltejs/eslint-plugin-svelte?tab=readme-ov-file#book-usage
+		// 'prettier',
 	],
 	overrides: [
 		{
-			files: ['**/*.svelte'],
-			processor: 'svelte3/svelte3',
+			files: ['*.svelte'],
+			parser: 'svelte-eslint-parser',
+			// Parse the `<script>` in `.svelte` as TypeScript by adding the following configuration.
+			parserOptions: {
+				parser: '@typescript-eslint/parser',
+			},
 		},
 		{
 			files: ['**/*.test.ts'],
@@ -45,21 +49,22 @@ module.exports = {
 		'no-undef': 'off', // typescript already checks this
 	},
 	ignorePatterns: [
-		'*.cjs',
-		'.DS_Store',
-		'node_modules',
-		'/build',
-		'/.svelte-kit',
-		'/package',
-		'/dist',
-		'/bin',
-		'.env',
-		'.env.*',
 		'!.env.example',
-		'package-lock.json',
-		'vite.config.js',
-		'svelte.config.js',
+		'.DS_Store',
+		'.env.*',
+		'.env',
+		'.histoire',
+		'.svelte-kit',
+		'*.cjs',
+		'bin',
+		'build',
+		'dist',
 		'histoire.config.ts',
+		'node_modules',
+		'package-lock.json',
+		'package',
 		'playwright.config.ts',
+		'svelte.config.js',
+		'vite.config.js',
 	],
 };
