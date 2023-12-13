@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { loadStory, setControl, getAllEvents } from './_utils.js';
+import { loadStory, getAllEvents } from './_utils.js';
 
 test.describe('Scale component ', () => {
 	test('basic', async ({ page }) => {

@@ -7,7 +7,7 @@
 	export let Hst: Histoire;
 
 	// Component props
-	let id: string = 'abc123';
+	let id = 'abc123';
 	let min: RangeProperties['min'] = 0;
 	let max: RangeProperties['max'] = 10;
 	let response: RangeValue[] = [];

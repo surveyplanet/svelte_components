@@ -10,11 +10,9 @@
 
 <script lang="ts">
 	import type { ScoringValue, ScoringProperties } from '@surveyplanet/types';
-	import type { ListData } from '$lib/SortableList.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { Button, Radio } from '../';
 	import SortableList from '$lib/SortableList.svelte';
-	import type data from '$lib/_icon_data';
 
 	const dispatchResponse = createEventDispatcher<{
 		response: ScoringValue[];

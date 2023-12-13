@@ -7,7 +7,7 @@
 	export let Hst: Histoire;
 
 	// Component props
-	let id: string = 'abc123';
+	let id = 'abc123';
 	let min: EssayProperties['min'] = 1;
 	let max: EssayProperties['max'] = 10;
 	let single: EssayProperties['single'] = false;

@@ -6,7 +6,6 @@ test.describe('TabBar component', () => {
 		const preview = await loadStory(page, 'tabbar');
 		const tabbar = preview.locator('.sp-tab-bar');
 		const tabbarButtons = tabbar.locator('.sp-tab-bar--button');
-		const tabBarListItems = tabbar.locator('.sp-tab-bar--item');
 		const tabbarButtonsIcon = tabbarButtons.locator('.sp-icon');
 		const tabbarButtonsLabel = tabbarButtons.locator(
 			'.sp-tab-bar--button--label'

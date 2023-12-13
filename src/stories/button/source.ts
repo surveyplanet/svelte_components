@@ -1,5 +1,3 @@
-import type { BUTTON_MODES } from '$lib';
-
 export default (
 	content: string,
 	mode: string,

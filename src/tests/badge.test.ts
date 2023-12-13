@@ -10,11 +10,11 @@ test.describe('Badge component', () => {
 		const badge = preview.getByText(value);
 		expect(badge).toBeVisible();
 
-		const bgColor = await badge.evaluate((el) => {
-			return window
-				.getComputedStyle(el)
-				.getPropertyValue('background-color');
-		});
+		// const bgColor = await badge.evaluate((el) => {
+		// 	return window
+		// 		.getComputedStyle(el)
+		// 		.getPropertyValue('background-color');
+		// });
 		const labelColor = await badge.evaluate((el) => {
 			return window.getComputedStyle(el).getPropertyValue('color');
 		});

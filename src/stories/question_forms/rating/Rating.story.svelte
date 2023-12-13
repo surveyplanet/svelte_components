@@ -7,7 +7,7 @@
 	export let Hst: Histoire;
 
 	// Component props
-	let id: string = 'abc123';
+	let id = 'abc123';
 	let labels: RatingProperties['labels'] = [
 		{
 			label: 'Very Unsatisfied',

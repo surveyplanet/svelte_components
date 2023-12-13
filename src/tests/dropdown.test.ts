@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
 import { loadStory, setControl, getLastEvent } from './_utils.js';
-import { keys, set } from 'radash';
 
 test.describe('Dropdown component', () => {
 	test.skip('with input', async ({ page }) => {

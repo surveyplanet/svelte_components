@@ -19,8 +19,8 @@ export default (
 	multi={${multi}}
 	layout={${layout}}
 	random={${random}}
-	min={${min || ''}}
-	max={${max || ''}}
+	min={${min ?? ''}}
+	max={${max ?? ''}}
 	response={${JSON.stringify(response)}}
 />`;
 };

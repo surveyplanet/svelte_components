@@ -23,7 +23,7 @@
 	}>();
 	type DateTimeInputType = 'date' | 'time' | 'datetime-local';
 	export let id: string;
-	export let definitions: DateTimeDefinitions;
+	// export let definitions: DateTimeDefinitions;
 	export let date: DateTimeProperties['date'] = false;
 	export let time: DateTimeProperties['time'] = false;
 	export let response: DateTimeValue[] = [];
@@ -37,11 +37,11 @@
 	let inputType: TextInputType = 'date';
 	$: inputType = date && time ? 'datetime-local' : time ? 'time' : 'date';
 
-	$: currentButtonLabel = (function (d: boolean, t: boolean): string {
-		if (d && t) return definitions.currentDatetime;
-		if (t) return definitions.currentTime;
-		return definitions.currentDate;
-	})(date, time);
+	// $: currentButtonLabel = (function (d: boolean, t: boolean): string {
+	// 	if (d && t) return definitions.currentDatetime;
+	// 	if (t) return definitions.currentTime;
+	// 	return definitions.currentDate;
+	// })(date, time);
 
 	// $: className = (function (d: boolean, t: boolean): string {
 	// 	const name = 'sp-survey--question--datetime';

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { loadStory, setControl, getAllEvents } from './_utils.js';
+import { loadStory, setControl } from './_utils.js';
 
 test.describe('Essay component ', () => {
 	test('basic', async ({ page }) => {
