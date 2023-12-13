@@ -97,7 +97,7 @@
 	},
 	"dependencies": {
 		"@surveyplanet/styles": "^0.1.14",
-		"@surveyplanet/utilities": "^2.0.0",
+		"@surveyplanet/utilities": "^2.2.1",
 		"cleave.js": "^1.6.0",
 		"radash": "^11.0.0",
 		"svelte": "^4.2.1",
