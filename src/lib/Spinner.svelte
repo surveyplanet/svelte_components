@@ -14,8 +14,8 @@
 	export let placeholder: string | null = null;
 	export let size: 'small' | 'medium' | 'large' = 'small';
 
-	const dispatchFocus = createEventDispatcher<{ focus: boolean }>();
-	const dispatchBlur = createEventDispatcher<{ blur: boolean }>();
+	const dispatchFocus = createEventDispatcher();
+	const dispatchBlur = createEventDispatcher();
 	const dispatchChange = createEventDispatcher<{
 		change: number | undefined;
 	}>();
