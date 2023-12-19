@@ -1,10 +1,8 @@
 @use '@surveyplanet/styles' as *;
-@use '../styles/alert.scss';
+@use '../styles/main.scss';
 
 @include normalize();
-
-/* default: Suisse Intl Regular, 12px, medium */
-@include load-suisse-font();
+@include load-suisse-font(); /* default: Suisse Intl Regular, 12px, medium */
 
 body {
 	font: $font--default;
@@ -12,21 +10,4 @@ body {
 
 .wrapper {
 	padding: $size-gutter;
-	// background-color: $color--beige;
-	// border-radius: $size-radius--small;
 }
-
-// .sp-button {
-// 	background-color: blue;
-// 	.sp-button--label {
-// 		color: red;
-// 	}
-// 	&.sp-button--loader {
-// 		&:after {
-// 			border-color: green;
-// 		}
-// 	}
-// 	&:hover {
-// 		background-color: yellow;
-// 	}
-// }

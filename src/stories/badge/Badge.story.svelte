@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge } from '$lib';
+	import { Badge, Icon } from '$lib';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { default as source } from './source';
 	export let Hst: Histoire;
@@ -36,7 +36,13 @@
 		<div class="wrapper">
 			<Badge
 				{color}
-				{flat}>{content}</Badge>
+				{flat}>
+				{content}</Badge>
+			<!-- <Badge
+				{color}
+				{flat}>
+				<Icon name="chartPie" /> Icon
+			</Badge> -->
 		</div>
 	</Hst.Variant>
 </Hst.Story>
