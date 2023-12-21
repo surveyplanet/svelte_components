@@ -3,5 +3,10 @@
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"typescript.validate.enable": true,
 	"svelte.plugin.typescript.enable": true,
-	"eslint.validate": ["typescript", "svelte"]
+	"eslint.validate": ["typescript", "svelte"],
+	"[yaml]": {
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2,
+		"editor.autoIndent": "keep"
+	}
 }

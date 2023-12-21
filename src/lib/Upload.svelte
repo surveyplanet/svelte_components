@@ -80,12 +80,3 @@
 		<p class="sp-image-upload--note">{note}</p>
 	{/if}
 </div>
-
-<style lang="scss">
-	:global(.sp-image-upload) {
-		display: block;
-	}
-	.sp-image-upload--input {
-		display: none;
-	}
-</style>

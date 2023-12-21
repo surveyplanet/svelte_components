@@ -1,0 +1,67 @@
+@use '@surveyplanet/styles' as *;
+
+.sp-avatar {
+	margin: 0;
+	padding: 0;
+	display: inline-flex;
+	height: $size--36;
+	width: $size--36;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: 100%;
+	border: 0;
+	overflow: hidden;
+	background: $color--gradient--yellow;
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	@include set-focus {
+		border: 1px solid $color--dark;
+	}
+
+	&.sp-avatar--background--yellow {
+		background: $color--gradient--yellow;
+	}
+
+	&.sp-avatar--background--blue {
+		background: $color--gradient--blue;
+	}
+
+	&.sp-avatar--background--pink {
+		background: $color--gradient--pink;
+	}
+
+	&.sp-avatar--background--green {
+		background: $color--gradient--green;
+	}
+}
+.sp-avatar--medium {
+	height: $size--48;
+	width: $size--48;
+}
+.sp-avatar--large {
+	height: $size--64;
+	width: $size--64;
+}
+.sp-avatar--image {
+	display: flex; // inline-flex
+	justify-content: center; // flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
+	align-items: center; // flex-start | flex-end | center | baseline | first baseline | last baseline | start | end | self-start | self-end + ... safe | unsafe;
+	width: 100%;
+	height: 100%;
+	img {
+		height: 80%;
+		width: 80%;
+	}
+	// make images full size
+	&.sp-avatar--image--profile {
+		img {
+			height: 100%;
+			width: 100%;
+			object-fit: cover;
+		}
+	}
+}

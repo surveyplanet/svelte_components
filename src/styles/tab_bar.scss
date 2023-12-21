@@ -1,0 +1,75 @@
+@use '@surveyplanet/styles' as *;
+
+$indicator--speed: 0.5s;
+
+.sp-tab-bar {
+	display: inline-block;
+	height: $size--36;
+	padding: $size--4;
+	font: $font--default;
+	font-size: $size--14;
+	background-color: $color--beige-dark;
+	border-radius: 100px;
+	width: auto;
+	&.sp-tab-bar--grow {
+		display: block;
+		ul {
+			justify-content: space-between;
+		}
+	}
+
+	ul {
+		position: relative;
+		display: inline-flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: flex-start;
+		align-items: stretch;
+		align-content: stretch;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		height: 100%;
+		width: 100%;
+		z-index: 1;
+	}
+
+	li {
+		margin: 0;
+		padding: 0;
+	}
+
+	button {
+		display: flex; // inline-flex
+		justify-content: center;
+		align-items: center;
+		gap: $size-gutter--quarter;
+		cursor: pointer;
+		margin: 0;
+		padding: 0 $size-gutter;
+		border: none;
+		height: 100%;
+		font: inherit;
+		background: none;
+		&:disabled {
+			pointer-events: none;
+			color: $color--beige-darkest;
+			:global(svg path) {
+				stroke: $color--beige-darkest;
+			}
+		}
+	}
+}
+
+.sp-tab-bar--active-indicator {
+	display: block;
+	position: absolute;
+	top: 4px;
+	left: 0;
+	height: $size--28;
+	border-radius: $size--36;
+	width: 0; // start off with no width
+	background-color: $color--white;
+	z-index: 0;
+	transition: left 0.2s ease-out, width 0.2s ease-out;
+}
