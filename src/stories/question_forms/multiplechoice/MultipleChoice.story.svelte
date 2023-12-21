@@ -18,6 +18,7 @@
 	let min: MultipleChoiceProperties['min'];
 	let max: MultipleChoiceProperties['max'];
 	let response: MultipleChoiceValue[] = [];
+	let other: MultipleChoiceProperties['other'] = undefined;
 	const multipleChoiceResponseHandler = (event: CustomEvent) => {
 		logEvent(event.type, event.detail);
 	};
@@ -54,6 +55,9 @@
 		<Hst.Json
 			bind:value={response}
 			title="Response" />
+		<Hst.Text
+			bind:value={other}
+			title="Other" />
 	</svelte:fragment>
 
 	<Hst.Variant
@@ -67,6 +71,7 @@
 				{layout}
 				{random}
 				{response}
+				{other}
 				on:response={multipleChoiceResponseHandler} />
 		</div>
 	</Hst.Variant>

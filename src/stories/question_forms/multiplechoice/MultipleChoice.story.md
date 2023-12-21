@@ -19,6 +19,7 @@
 | min      | MultipleChoiceProperties['min']    |             |
 | max      | MultipleChoiceProperties['max']    |             |
 | response | MultipleChoiceValue[]              |             |
+| other    | MultipleChoiceProperties['other']  |             |
 
 ### Events
 
