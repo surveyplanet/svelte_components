@@ -34,11 +34,12 @@
 		}
 	},
 	"files": [
+		"assets",
 		"dist",
-		"assets"
+		"styles"
 	],
 	"scripts": {
-		"build": "svelte-kit sync && svelte-package && cp -r src/assets ./",
+		"build": "svelte-kit sync && svelte-package && cp -r src/assets ./ && cp -r src/styles ./",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"clean": "rm -rf assets dist coverage node_modules dist .svelte-kit && npm i",

@@ -7,6 +7,8 @@
 /assets
 /build
 /dist
+# styles directory is creatd by `npm run build` and should not be in the root
+/styles
 /node_modules
 /package
 /playwright-report
