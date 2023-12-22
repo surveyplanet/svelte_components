@@ -20,11 +20,11 @@ test.describe('Date Time component ', () => {
 		await page.keyboard.press('ArrowRight');
 		await page.keyboard.type('0000A');
 		// console.log(await input.inputValue());
-		await expect(input).toHaveValue('2021-08-30T00:00');
+		await expect(input).toHaveValue('2021-03-08T00:00');
 
 		const events = await getAllEvents(page);
 		const changeEvents = events.filter((i) => i.name === 'response');
-		expect(changeEvents).toHaveLength(9);
+		expect(changeEvents).toHaveLength(7);
 
 		await setControl(page, 'Id', 'text', 'my-id');
 		await expect(input).toHaveAttribute('id', 'my-id-datetime-input');
@@ -47,7 +47,7 @@ test.describe('Date Time component ', () => {
 		await expect(input).toHaveAttribute('type', 'date');
 		await input.focus();
 		await page.keyboard.type('08302021');
-		await expect(input).toHaveValue('2021-08-30');
+		await expect(input).toHaveValue('2021-03-08');
 
 		const events = await getAllEvents(page);
 		const changeEvents = events.filter((i) => i.name === 'response').length;

@@ -9,6 +9,9 @@ const config = {
 		port: 6006,
 		strictPort: true,
 	},
+	test: {
+		environment: 'jsdom',
+	},
 };
 
 export default config;

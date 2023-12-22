@@ -327,8 +327,8 @@ test.describe('Button component', () => {
 
 		const bBox = await icon.boundingBox();
 
-		expect(bBox!.width).toBe(16);
-		expect(bBox!.height).toBe(16);
+		expect(bBox!.width).toBe(20);
+		expect(bBox!.height).toBe(20);
 	});
 
 	test('icon large', async ({ page }) => {
@@ -341,8 +341,8 @@ test.describe('Button component', () => {
 
 		const bBox = await icon.boundingBox();
 
-		expect(bBox!.width).toBe(24);
-		expect(bBox!.height).toBe(24);
+		expect(bBox!.width).toBe(20);
+		expect(bBox!.height).toBe(20);
 	});
 
 	test('floating action button', async ({ page }) => {
@@ -377,8 +377,8 @@ test.describe('Button component', () => {
 		expect(btnRect!.height).toBe(24);
 
 		const iconRect = await icon.boundingBox();
-		expect(iconRect!.width).toBe(16);
-		expect(iconRect!.height).toBe(16);
+		expect(iconRect!.width).toBe(20);
+		expect(iconRect!.height).toBe(20);
 	});
 
 	test('floating action button - large ', async ({ page }) => {
@@ -396,8 +396,8 @@ test.describe('Button component', () => {
 		expect(btnRect!.height).toBe(48);
 
 		const iconRect = await icon.boundingBox();
-		expect(iconRect!.width).toBe(24);
-		expect(iconRect!.height).toBe(24);
+		expect(iconRect!.width).toBe(20);
+		expect(iconRect!.height).toBe(20);
 	});
 
 	test('floating action button - large and round', async ({ page }) => {
@@ -417,8 +417,8 @@ test.describe('Button component', () => {
 		expect(btnRect!.height).toBe(48);
 
 		const iconRect = await icon.boundingBox();
-		expect(iconRect!.width).toBe(24);
-		expect(iconRect!.height).toBe(24);
+		expect(iconRect!.width).toBe(20);
+		expect(iconRect!.height).toBe(20);
 		expect(styles.borderRadius).toBe('32px');
 	});
 

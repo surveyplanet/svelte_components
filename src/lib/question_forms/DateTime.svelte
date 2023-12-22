@@ -17,6 +17,8 @@
 	} from '@surveyplanet/types';
 	import { TextInput, type TextInputType } from '../';
 	import { createEventDispatcher } from 'svelte';
+	import { stringToDate } from '@surveyplanet/utilities';
+	import { dateToString } from '@surveyplanet/utilities';
 
 	const dispatchResponse = createEventDispatcher<{
 		response: DateTimeValue[];
@@ -56,75 +58,75 @@
 		dispatchResponse('response', response);
 	};
 
-	const stringToDate = (isoStr: string): Date | undefined => {
-		// console.log('stringToDate', isoStr);
+	// const stringToDate = (isoStr: string): Date | undefined => {
+	// 	// console.log('stringToDate', isoStr);
 
-		if (!isoStr?.length) {
-			return;
-		}
+	// 	if (!isoStr?.length) {
+	// 		return;
+	// 	}
 
-		isoStr = isoStr.trim(); // clean up whitespace
+	// 	isoStr = isoStr.trim(); // clean up whitespace
 
-		let result: Date;
+	// 	let result: Date;
 
-		// Time format only e.g.: 11:35
-		if (!date) {
-			const [hr, min] = isoStr.split(':').map(Number);
+	// 	// Time format only e.g.: 11:35
+	// 	if (!date) {
+	// 		const [hr, min] = isoStr.split(':').map(Number);
 
-			if (isNaN(hr) || isNaN(min)) {
-				return;
-			}
-			// BUG: this will be in the user's timezone instead of UTC, need to
-			// use Intl API: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
-			result = new Date(0, 0, 0);
-			result.setUTCHours(hr);
-			result.setUTCMinutes(min);
-		} else {
-			// This should work for both date and datetime formats e.g.: 1977-04-29 or 1977-03-29T06:00:00
-			if (!time) {
-				result = new Date(isoStr); // BUG: same bug as above.
-			} else {
-				const [d, t] = isoStr.split('T');
-				const [hr, min] = t.split(':').map(Number);
-				result = new Date(d);
-				result.setUTCHours(hr);
-				result.setUTCMinutes(min);
-			}
-		}
+	// 		if (isNaN(hr) || isNaN(min)) {
+	// 			return;
+	// 		}
+	// 		// BUG: this will be in the user's timezone instead of UTC, need to
+	// 		// use Intl API: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
+	// 		result = new Date(0, 0, 0);
+	// 		result.setUTCHours(hr);
+	// 		result.setUTCMinutes(min);
+	// 	} else {
+	// 		// This should work for both date and datetime formats e.g.: 1977-04-29 or 1977-03-29T06:00:00
+	// 		if (!time) {
+	// 			result = new Date(isoStr); // BUG: same bug as above.
+	// 		} else {
+	// 			const [d, t] = isoStr.split('T');
+	// 			const [hr, min] = t.split(':').map(Number);
+	// 			result = new Date(d);
+	// 			result.setUTCHours(hr);
+	// 			result.setUTCMinutes(min);
+	// 		}
+	// 	}
 
-		if (isNaN(result.getTime())) {
-			return;
-		}
+	// 	if (isNaN(result.getTime())) {
+	// 		return;
+	// 	}
 
-		return result;
-	};
+	// 	return result;
+	// };
 
 	//
 
-	const dateToString = (
-		type: DateTimeInputType,
-		response: DateTimeValue[]
-	): string | '' => {
-		if (!response.length) {
-			return '';
-		}
+	// const dateToString = (
+	// 	type: DateTimeInputType,
+	// 	response: DateTimeValue[]
+	// ): string | '' => {
+	// 	if (!response.length) {
+	// 		return '';
+	// 	}
 
-		const dateVal = new Date(response[0]);
+	// 	const dateVal = new Date(response[0]);
 
-		if (isNaN(dateVal.getTime())) {
-			return '';
-		} else if (type === 'datetime-local') {
-			return dateVal.toISOString().split('.')[0]; // datetime-local
-		} else if (type === 'time') {
-			return dateVal.toISOString().split('T')[1].split('.')[0]; // time only
-		} else {
-			return dateVal.toISOString().split('T')[0]; // date only
-		}
-	};
+	// 	if (isNaN(dateVal.getTime())) {
+	// 		return '';
+	// 	} else if (type === 'datetime-local') {
+	// 		return dateVal.toISOString().split('.')[0]; // datetime-local
+	// 	} else if (type === 'time') {
+	// 		return dateVal.toISOString().split('T')[1].split('.')[0]; // time only
+	// 	} else {
+	// 		return dateVal.toISOString().split('T')[0]; // date only
+	// 	}
+	// };
 
 	const dateInputChangeHandler = ({ detail }: CustomEvent['detail']) => {
 		const { value } = detail.target; // "1977-04-12T11:21"
-		const date = stringToDate(value);
+		const date = stringToDate(type, value);
 		if (date) {
 			updateResponse(date);
 		}

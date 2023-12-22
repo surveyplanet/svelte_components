@@ -4,7 +4,7 @@
 		MultipleChoiceProperties,
 	} from '@surveyplanet/types';
 	import { createEventDispatcher } from 'svelte';
-	import { Checkbox, Radio, Dropdown } from '../';
+	import { Checkbox, Radio, Dropdown, TextInput } from '../';
 
 	const dispatchResponse = createEventDispatcher<{
 		response: MultipleChoiceValue[];
@@ -15,6 +15,7 @@
 	export let multi: MultipleChoiceProperties['multi'];
 	export let layout: MultipleChoiceProperties['layout'] = '1';
 	export let random: MultipleChoiceProperties['random'] = false;
+	export let other: MultipleChoiceProperties['other'] = 'Other';
 	// export let min: MultipleChoiceProperties['min'];
 	// export let max: MultipleChoiceProperties['max'];
 
@@ -23,7 +24,7 @@
 	$: if (random) {
 		labels = labels.sort(() => Math.random() - 0.5);
 	}
-
+	$: otherTextValue = '';
 	const updateResponse = (value: MultipleChoiceValue, remove = false) => {
 		// remove value if already exits.
 		if (multi) {
@@ -48,6 +49,20 @@
 		} as MultipleChoiceValue;
 		updateResponse(value, !target.checked);
 		dispatchResponse('response', response);
+	};
+
+	const otherChangeHandler = (event: CustomEvent) => {
+		const target = event.detail.target as HTMLInputElement;
+		const value = {
+			label: target.value,
+			value: otherTextValue,
+		} as MultipleChoiceValue;
+		updateResponse(value, !target.checked);
+		dispatchResponse('response', response);
+	};
+
+	const updateOtherValue = (event: CustomEvent) => {
+		otherTextValue = event.detail.target.value;
 	};
 
 	const dropdownChangeHandler = (event: CustomEvent) => {
@@ -89,5 +104,23 @@
 					on:change={inputChangeHandler} />
 			</div>
 		{/each}
+		{#if other}
+			<div class="sp-survey--question--form--multiple-choice-other">
+				<svelte:component
+					this={multi ? Checkbox : Radio}
+					name={id}
+					disabled={otherTextValue === ''}
+					value={other}
+					{other}
+					size="large"
+					on:change={otherChangeHandler} />
+				<TextInput
+					name={id}
+					{id}
+					placeholder={other}
+					size="large"
+					on:input={updateOtherValue} />
+			</div>
+		{/if}
 	{/if}
 </form>
