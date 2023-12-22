@@ -43,9 +43,6 @@
 		"node_modules/**",
 		"static/**",
 		"bin/**",
-		"src/pug/_removed/**",
-		"etc/*.json",
-		"functions/test/fixtures.json",
 		"package.json",
 		"package-lock.json"
 	]
