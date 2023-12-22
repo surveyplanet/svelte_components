@@ -30,9 +30,9 @@
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"svelte": "./dist/index.js",
-			"styles": "./styles/main.scss"
-		}
+			"svelte": "./dist/index.js"
+		},
+		"./styles": "./styles/main.scss"
 	},
 	"files": [
 		"assets",
