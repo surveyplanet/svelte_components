@@ -111,6 +111,7 @@
 					name={id}
 					disabled={otherTextValue === ''}
 					value={other}
+					label={other}
 					{other}
 					size="large"
 					on:change={otherChangeHandler} />
