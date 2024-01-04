@@ -25,6 +25,7 @@
 		labels = labels.sort(() => Math.random() - 0.5);
 	}
 	$: otherTextValue = '';
+	let otherChecked = false;
 	const updateResponse = (value: MultipleChoiceValue, remove = false) => {
 		// remove value if already exits.
 		if (multi) {
@@ -53,6 +54,7 @@
 
 	const otherChangeHandler = (event: CustomEvent) => {
 		const target = event.detail.target as HTMLInputElement;
+		console.log('otherChangeHandler', target);
 		const value = {
 			label: target.value,
 			value: otherTextValue,
@@ -61,8 +63,16 @@
 		dispatchResponse('response', response);
 	};
 
-	const updateOtherValue = (event: CustomEvent) => {
+	const otherTextInputHandler = (event: CustomEvent) => {
+		// console.log('otherInputHandler', event);
 		otherTextValue = event.detail.target.value;
+		const siblingLabel =
+			event.detail.target.parentElement?.previousElementSibling;
+
+		if (otherTextValue && otherTextValue.length) {
+			siblingLabel.click();
+		}
+		console.log('siblingLabel', siblingLabel);
 	};
 
 	const dropdownChangeHandler = (event: CustomEvent) => {
@@ -109,9 +119,9 @@
 				<svelte:component
 					this={multi ? Checkbox : Radio}
 					name={id}
-					disabled={otherTextValue === ''}
 					value={other}
 					label={other}
+					checked={otherChecked}
 					{other}
 					size="large"
 					on:change={otherChangeHandler} />
@@ -120,7 +130,7 @@
 					{id}
 					placeholder={other}
 					size="large"
-					on:input={updateOtherValue} />
+					on:blur={otherTextInputHandler} />
 			</div>
 		{/if}
 	{/if}
