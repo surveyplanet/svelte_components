@@ -43,10 +43,11 @@
 	};
 
 	const inputChangeHandler = (event: CustomEvent) => {
+		otherChecked = false;
 		const target = event.detail.target as HTMLInputElement;
 		const value = {
 			label: target.value,
-			value: true, // this needs to change to the write-in value if it exists.
+			value: true,
 		} as MultipleChoiceValue;
 		updateResponse(value, !target.checked);
 		dispatchResponse('response', response);
@@ -66,15 +67,18 @@
 	};
 
 	const otherTextInputHandler = (event: CustomEvent) => {
-		// console.log('otherInputHandler', event);
 		otherTextValue = event.detail.target.value;
-		const siblingLabel =
-			event.detail.target.parentElement?.previousElementSibling;
-
-		if (otherTextValue && otherTextValue.length) {
-			siblingLabel.click();
+		if (otherTextValue && otherTextValue.length && !otherChecked) {
+			otherChecked = true;
 		}
-		console.log('siblingLabel', siblingLabel);
+		updateResponse(
+			{
+				label: other,
+				value: otherTextValue,
+			} as MultipleChoiceValue,
+			!otherTextValue.length
+		);
+		dispatchResponse('response', response);
 	};
 
 	const dropdownChangeHandler = (event: CustomEvent) => {
@@ -132,7 +136,7 @@
 					id={id + '-text-input'}
 					placeholder={other}
 					size="large"
-					on:blur={otherTextInputHandler} />
+					on:change={otherTextInputHandler} />
 			</div>
 		{/if}
 	{/if}
