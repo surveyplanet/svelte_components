@@ -89,4 +89,17 @@ test.describe('Multiple choice  component ', () => {
 		const changeEvents = events.filter((i) => i.name === 'response').length;
 		expect(changeEvents).toBe(1);
 	});
+
+	test('other focus on input', async ({ page }) => {
+		const preview = await loadStory(page, 'question_forms/multipleChoice');
+		const form = preview.locator('form');
+		await setControl(page, 'Other', 'text', 'Other');
+
+		const inputOther = form.locator('.sp-radio').nth(3);
+
+		const other = form.locator('.sp-text-input--input');
+
+		await inputOther.click();
+		await expect(other).toBeFocused();
+	});
 });

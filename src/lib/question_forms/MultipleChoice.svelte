@@ -54,11 +54,13 @@
 
 	const otherChangeHandler = (event: CustomEvent) => {
 		const target = event.detail.target as HTMLInputElement;
-		console.log('otherChangeHandler', target);
 		const value = {
 			label: target.value,
 			value: otherTextValue,
 		} as MultipleChoiceValue;
+		(
+			document.querySelector(`#${id + '-text-input'}`) as HTMLInputElement
+		)?.focus();
 		updateResponse(value, !target.checked);
 		dispatchResponse('response', response);
 	};
@@ -127,7 +129,7 @@
 					on:change={otherChangeHandler} />
 				<TextInput
 					name={id}
-					{id}
+					id={id + '-text-input'}
 					placeholder={other}
 					size="large"
 					on:blur={otherTextInputHandler} />
