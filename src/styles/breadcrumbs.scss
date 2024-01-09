@@ -23,6 +23,8 @@
 
 .sp-breadcrumbs--link {
 	cursor: pointer;
+	font-family: 'Suisse Intl Medium', 'Suisse Intl Regular', 'Helvetica Neue',
+		Helvetica, Arial, sans-serif;
 	text-decoration: none;
 	@include truncate($size-gutter--quadruple);
 	color: $color--beige-darkest;

@@ -1,8 +1,7 @@
 ## Options
 
-| Name             | Type   | Description                             |
-| ---------------- | ------ | --------------------------------------- |
-| Title            | string | Add title to the breadcrumbs component  |
-| breadcrumbs      | array  | List of objects containing name and URL |
-| breadcrumbs.name | string | Name of the breadcrumb                  |
-| breadcrumbs.url  | string | URL of the breadcrumb                   |
+| Name      | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| data      | array  | List of objects containing name and URL |
+| data.name | string | Name of a breadcrumb                    |
+| data.url  | string | URL to visit when breadcrumb is clicked |

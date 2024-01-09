@@ -4,19 +4,19 @@
 		url: string;
 	}
 
-	export let breadcrumbs: BreadcrumbOptions[] = [];
+	export let data: BreadcrumbOptions[] = [];
 </script>
 
 <nav class="sp-breadcrumbs">
 	<ul>
-		{#each breadcrumbs as breadcrumb, i}
+		{#each data as item, i}
 			<li>
 				<a
 					class="sp-breadcrumbs--link"
-					href={breadcrumb.url}>
-					{breadcrumb.name}
+					href={item.url}>
+					{item.name}
 				</a>
-				{#if i !== breadcrumbs.length - 1}
+				{#if i !== data.length - 1}
 					<span class="sp-breadcrumbs--divider">/</span>
 				{/if}
 			</li>

@@ -4,6 +4,8 @@ $indicator--speed: 0.5s;
 
 .sp-tab-bar {
 	display: inline-block;
+	overflow: hidden;
+	position: relative;
 	height: $size--36;
 	padding: $size--4;
 	font: $font--default;
@@ -64,7 +66,6 @@ $indicator--speed: 0.5s;
 .sp-tab-bar--active-indicator {
 	display: block;
 	position: absolute;
-	top: 4px;
 	left: 0;
 	height: $size--28;
 	border-radius: $size--36;

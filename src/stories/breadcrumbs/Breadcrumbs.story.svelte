@@ -4,7 +4,7 @@
 	import source from './source';
 	export let Hst: Histoire;
 
-	let breadcrumbs = [
+	let data = [
 		{
 			name: 'Home',
 			url: '/',
@@ -27,13 +27,13 @@
 <Hst.Story title="Breadcrumbs">
 	<svelte:fragment slot="controls">
 		<Hst.Json
-			bind:value={breadcrumbs}
+			bind:value={data}
 			title="Content" />
 	</svelte:fragment>
 
 	<Hst.Variant
 		title="Primary"
-		source={source(breadcrumbs)}>
-		<Breadcrumbs {breadcrumbs} />
+		source={source(data)}>
+		<Breadcrumbs {data} />
 	</Hst.Variant>
 </Hst.Story>
