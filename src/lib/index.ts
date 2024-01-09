@@ -11,6 +11,11 @@ export { default as Dropdown, type DropdownOptions } from './Dropdown.svelte';
 export { default as Footer, type FooterData } from './Footer.svelte';
 export { default as Icon, type IconName, type IconSize } from './Icon.svelte';
 export { default as Loader } from './Loader.svelte';
+export {
+	default as Logo,
+	type LogoSize,
+	type LogoFillColor,
+} from './Logo.svelte';
 export { default as Menu, type MenuData } from './Menu.svelte';
 export { default as Modal } from './Modal.svelte';
 export { default as NavBar, type NavBarData } from './NavBar.svelte';
