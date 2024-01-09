@@ -1,11 +1,16 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import source from './source';
-	import { Logo, type LogoSize, type LogoFillColor } from '$lib';
+	import {
+		Logo,
+		type LogoSize,
+		type LogoFillColor,
+		type LogoColor,
+	} from '$lib';
 	import { COLORS } from '$lib/_definitions';
 	export let Hst: Histoire;
 
-	let color = COLORS.black;
+	let color: LogoColor = COLORS.black;
 	let size: LogoSize = 256;
 	let fill: LogoFillColor = 'blue';
 

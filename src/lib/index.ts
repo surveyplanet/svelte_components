@@ -14,6 +14,7 @@ export { default as Loader } from './Loader.svelte';
 export {
 	default as Logo,
 	type LogoSize,
+	type LogoColor,
 	type LogoFillColor,
 } from './Logo.svelte';
 export { default as Menu, type MenuData } from './Menu.svelte';

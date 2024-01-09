@@ -1,6 +1,8 @@
 <script
 	context="module"
 	lang="ts">
+	import { COLORS } from './_definitions';
+
 	export type LogoSize =
 		| 8
 		| 12
@@ -20,14 +22,14 @@
 		| 'pink'
 		| 'green'
 		| 'transparent';
+
+	export type LogoColor = typeof COLORS.black | typeof COLORS.white;
 </script>
 
 <script lang="ts">
-	import { COLORS } from './_definitions';
-
 	const DEFAULT_SIZE: LogoSize = 24;
 
-	export let color: COLORS.black | COLORS.white = COLORS.black;
+	export let color: LogoColor = COLORS.black;
 
 	export let fill: LogoFillColor = 'blue';
 
