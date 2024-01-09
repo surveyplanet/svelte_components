@@ -30,7 +30,7 @@
 
 	let id = (Date.now() + Math.random()).toString(36);
 
-	const tabButtonCli8ckHandler = (event: Event): void => {
+	const tabButtonClickHandler = (event: Event): void => {
 		logEvent('tabButton', event);
 	};
 </script>
@@ -58,7 +58,7 @@
 				{grow}
 				{id}
 				{data}
-				on:tabButton={tabButtonCli8ckHandler} />
+				on:tabButton={tabButtonClickHandler} />
 		</div>
 	</Hst.Variant>
 </Hst.Story>
