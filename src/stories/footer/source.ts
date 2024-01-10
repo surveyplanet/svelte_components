@@ -2,8 +2,8 @@ import type { FooterData } from '$lib';
 
 export default (footerData: FooterData[]) => {
 	return `<script>
-	import { FooterData } from './Footer';
-	let footerData: FooterData[] = ${JSON.stringify(footerData)};
+	import { Footer, type FooterData } from '@surveyplanet/svelte_components';
+	let footerData: FooterData[] = ${JSON.stringify(footerData, null, 2)};
 
 	
 </script>

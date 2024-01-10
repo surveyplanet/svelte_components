@@ -10,7 +10,7 @@ export default (
     <script lang="ts">
         import { Menu, type MenuData } from '@surveyplanet/svelte_components';
 
-        const data = ${JSON.stringify(data)};
+        const data = ${JSON.stringify(data, null, 2)};
         const visible = ${visible};
         const size = ${size};
 

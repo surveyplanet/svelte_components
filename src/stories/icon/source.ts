@@ -1,7 +1,8 @@
-import { COLORS } from '$lib/_definitions';
+import { type IconName, type IconSize } from '$lib';
 
-export default `<Icon 
-color="${COLORS.pink}"
-size={32}
-name="search"
-/>`;
+export default (color: string, size: IconSize, name: IconName) => {
+	return `
+import { Icon, type IconName, type IconSize } from '@surveyplanet/svelte_components';
+<Icon color="${color}" size={${size}} name="${name}" />
+`;
+};

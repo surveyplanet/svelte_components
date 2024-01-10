@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
-	import { Breadcrumbs } from '$lib';
+	import { Breadcrumbs, type BreadcrumbData } from '$lib';
 	import source from './source';
 	export let Hst: Histoire;
 
-	let data = [
+	let data: BreadcrumbData[] = [
 		{
 			name: 'Home',
 			url: '/',

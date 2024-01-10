@@ -7,11 +7,11 @@ export default (
 ) => {
 	return `<script>
 	import { NavBar } from 'components/NavBar';
-	let data = ${JSON.stringify(data)};
-	let navMenuData = ${JSON.stringify(navMenuData)};
 	let vertical = ${vertical};
+	let data = ${JSON.stringify(data, null, 2)};
+	let navMenuData = ${JSON.stringify(navMenuData, null, 2)};
 
 </script>
-<NavBar {data}{navMenuData} {vertical} />
+<NavBar {data} {navMenuData} {vertical} />
 `;
 };

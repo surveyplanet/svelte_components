@@ -1,16 +1,13 @@
-export default (
-	breadcrumbs: {
-		name: string;
-		url: string;
-	}[]
-) => {
+import { type BreadcrumbData } from '$lib';
+
+export default (data: BreadcrumbData[]) => {
 	return `<script>
 import { Breadcrumbs } from '@surveyplanet/svelte_components';
 
-const breadcrumbs = ${JSON.stringify(breadcrumbs)};
+const data = ${JSON.stringify(data, null, 2)};
 </script>
 
 
-<Breadcrumbs {breadcrumbs} />
+<Breadcrumbs {data} />
 `;
 };

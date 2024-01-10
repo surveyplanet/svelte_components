@@ -1,10 +1,14 @@
-<script lang="ts">
-	interface BreadcrumbOptions {
+<script
+	lang="ts"
+	context="module">
+	export interface BreadcrumbData {
 		name: string;
-		url?: string; // last item doesn't need a url
+		url?: string;
 	}
+</script>
 
-	export let data: BreadcrumbOptions[] = [];
+<script lang="ts">
+	export let data: BreadcrumbData[] = [];
 </script>
 
 <nav class="sp-breadcrumbs">

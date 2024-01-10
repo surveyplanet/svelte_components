@@ -9,7 +9,7 @@ export default (
 	return `<script lang="ts">
 	import { Chips, type ChipData } from '@surveyplanet/svelte_components';
 
-	const data = ${JSON.stringify(data)};
+	const data = ${JSON.stringify(data, null, 2)};
 	const selectable = ${selectable};
 	const multiSelect = ${multiSelect};
 	const removable = ${removable};

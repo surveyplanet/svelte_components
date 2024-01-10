@@ -55,7 +55,7 @@
 
 	<Hst.Variant
 		title="Primary"
-		{source}>
+		source={source(color, size, name)}>
 		<Icon
 			{name}
 			{size}
