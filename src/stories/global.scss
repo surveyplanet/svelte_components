@@ -3,7 +3,7 @@
 
 @include normalize();
 @include load-suisse-font(); /* default: Suisse Intl Regular, 12px, medium */
-// @include load-suisse-font('intl', 'medium');
+@include load-suisse-font('intl', 'medium');
 
 body {
 	font: $font--default;

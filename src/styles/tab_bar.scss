@@ -4,24 +4,22 @@ $indicator--speed: 0.5s;
 
 .sp-tab-bar {
 	display: inline-block;
-	overflow: hidden;
-	position: relative;
-	height: $size--36;
+	height: $size--40;
+	width: auto;
 	padding: $size--4;
 	font: $font--default;
+	font-family: $font-family--sans-medium;
 	font-size: $size--14;
 	background-color: $color--beige-dark;
-	border-radius: 100px;
-	width: auto;
+	border-radius: $size--40;
+	clip-path: inset(0px 0px);
 	&.sp-tab-bar--grow {
 		display: block;
 		ul {
 			justify-content: space-between;
 		}
 	}
-
 	ul {
-		position: relative;
 		display: inline-flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
@@ -29,6 +27,7 @@ $indicator--speed: 0.5s;
 		align-items: stretch;
 		align-content: stretch;
 		list-style: none;
+		position: relative;
 		margin: 0;
 		padding: 0;
 		height: 100%;
@@ -47,17 +46,36 @@ $indicator--speed: 0.5s;
 		align-items: center;
 		gap: $size-gutter--quarter;
 		cursor: pointer;
+		border-radius: $size--36;
 		margin: 0;
 		padding: 0 $size-gutter;
 		border: none;
 		height: 100%;
 		font: inherit;
-		background: none;
+		color: $color--black;
+		background: transparent;
 		&:disabled {
-			pointer-events: none;
+			// pointer-events: none;
 			color: $color--beige-darkest;
-			:global(svg path) {
+			svg path {
 				stroke: $color--beige-darkest;
+			}
+		}
+		transition: color 0.2s ease-out;
+		svg path {
+			transition: stroke 0.2s ease-out;
+		}
+		&:hover {
+			color: $color--beige-darkest;
+			svg path {
+				stroke: $color--beige-darkest;
+			}
+
+			&.sp-tab-bar--item--active {
+				color: $color--black;
+				svg path {
+					stroke: $color--black;
+				}
 			}
 		}
 	}
@@ -66,11 +84,12 @@ $indicator--speed: 0.5s;
 .sp-tab-bar--active-indicator {
 	display: block;
 	position: absolute;
-	left: 0;
-	height: $size--28;
-	border-radius: $size--36;
-	width: 0; // start off with no width
-	background-color: $color--white;
 	z-index: 0;
+	left: 50%;
+	height: px-to-rem(32);
+	width: 0; // start off with no width
+	border-radius: $size--36;
+	background-color: $color--white;
 	transition: left 0.2s ease-out, width 0.2s ease-out;
+	transform-origin: center;
 }
