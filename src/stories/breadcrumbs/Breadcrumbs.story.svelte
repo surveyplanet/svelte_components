@@ -19,7 +19,6 @@
 		},
 		{
 			name: 'Submit',
-			url: '/submit',
 		},
 	];
 </script>

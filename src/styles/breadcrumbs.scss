@@ -12,16 +12,17 @@
 	font-size: 0; // remove the space between inline-block elements
 }
 
-.sp-breadcrumbs--link,
+.sp-breadcrumbs--item,
 .sp-breadcrumbs--divider {
 	display: inline-block;
 	vertical-align: top;
 	font: $font--default;
 	font-weight: $font-weight--medium;
+	font-size: $font-step--1;
 	white-space: nowrap;
 }
 
-.sp-breadcrumbs--link {
+.sp-breadcrumbs--item {
 	cursor: pointer;
 	font-family: $font-family--sans-medium;
 	text-decoration: none;
@@ -32,6 +33,7 @@
 		color: inherit;
 	}
 	&:last-child {
+		pointer-events: none;
 		color: $color--dark;
 	}
 }

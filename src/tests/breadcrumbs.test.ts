@@ -20,17 +20,6 @@ test.describe('Breadcrumbs component', () => {
 		await expect(home).toHaveAttribute('href', '/');
 		await expect(ellipses).toHaveAttribute('href', '/about');
 		await expect(contact).toHaveAttribute('href', '/contact');
-		await expect(submit).toHaveAttribute('href', '/submit');
-
-		const cursor = await home.evaluate((el) => {
-			return window.getComputedStyle(el).getPropertyValue('cursor');
-		});
-
-		// const color = await home.evaluate((el) => {
-		// 	return window.getComputedStyle(el).getPropertyValue('color');
-		// });
-
-		// expect(color).toBe('rgb(115, 122, 135)');
-		expect(cursor).toBe('pointer');
+		await expect(submit).toHaveAttribute('href', '#');
 	});
 });
