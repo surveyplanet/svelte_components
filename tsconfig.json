@@ -9,7 +9,7 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"isolatedModules": false,
-		"importsNotUsedAsValues": "remove"
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext"
 	}
 }

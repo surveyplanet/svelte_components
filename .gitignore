@@ -1,18 +1,11 @@
-!.env.example
 .DS_Store
-.env
-.env.*
-/.histoire
-/.svelte-kit
-/assets
+node_modules
 /build
 /dist
-# styles directory is creatd by `npm run build` and should not be in the root
-/styles
-/node_modules
+/.svelte-kit
 /package
-/playwright-report
-/playwright/.cache
-/test-results
-/tests/screenshots
+.env
+.env.*
+!.env.example
 vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
