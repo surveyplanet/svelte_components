@@ -154,3 +154,21 @@
 		}
 	}
 }
+
+.sp-menu--header,
+.sp-menu--footer {
+	padding: $size-gutter--quarter $size-gutter--half;
+	&:empty {
+		display: none;
+	}
+}
+
+.sp-menu--header {
+	border-bottom: 1px solid $color--beige-darker;
+	margin-bottom: $size-gutter--quarter;
+}
+
+.sp-menu--footer {
+	border-top: 1px solid $color--beige-darker;
+	margin-top: $size-gutter--quarter;
+}

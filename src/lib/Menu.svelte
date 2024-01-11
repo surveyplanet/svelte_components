@@ -35,7 +35,7 @@
 	/**
 	 * Menu data
 	 */
-	export let data: MenuData[] = [{ id: 'edit' }];
+	export let data: MenuData[] = [];
 	export let size: 'small' | 'medium' | 'large' = 'small';
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
@@ -177,6 +177,10 @@
 <menu
 	class="sp-menu sp-menu--{size}"
 	on:blur={menuBlurHandler}>
+	<li class="sp-menu--header">
+		<slot name="header" />
+	</li>
+
 	{#if location.length}
 		<li
 			transition:slide|global={transitionProps}
@@ -191,6 +195,7 @@
 			</button>
 		</li>
 	{/if}
+
 	{#each currentState as item}
 		<li
 			class="sp-menu--item"
@@ -225,4 +230,8 @@
 			</button>
 		</li>
 	{/each}
+
+	<li class="sp-menu--footer">
+		<slot name="footer" />
+	</li>
 </menu>
