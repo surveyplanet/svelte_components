@@ -69,7 +69,7 @@
 
 <button
 	class="sp-avatar sp-avatar--{size} sp-avatar--background--{bgColor}"
-	on:click={clickHandler}
+	on:click|preventDefault={clickHandler}
 	aria-label={disabled ? null : 'profile image'}
 	role={disabled ? 'presentation' : null}
 	{disabled}>
