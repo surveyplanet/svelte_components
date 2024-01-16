@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge, Icon } from '$lib';
+	import { Badge } from '$lib';
 	import type { Hst as Histoire } from '@histoire/plugin-svelte';
 	import { default as source } from './source';
 	export let Hst: Histoire;

@@ -11,8 +11,9 @@
 	export let Hst: Histoire;
 
 	let color: LogoColor = COLORS.black;
-	let size: LogoSize = 256;
+	let size: LogoSize = 24;
 	let fill: LogoFillColor = 'blue';
+	let symbolOnly = false;
 
 	let sizeAsString = size.toString();
 
@@ -52,9 +53,12 @@
 		<Hst.Select
 			bind:value={sizeAsString}
 			title="Size"
-			options={[8, 16, 20, 24, 32, 48, 64, 128, 256, 512].map((n) =>
+			options={[16, 20, 24, 32, 48, 64, 128, 256, 512].map((n) =>
 				n.toString()
 			)} />
+		<Hst.Checkbox
+			bind:value={symbolOnly}
+			title="Symbol Only" />
 	</svelte:fragment>
 
 	<Hst.Variant
@@ -63,6 +67,7 @@
 		<Logo
 			{size}
 			{color}
-			{fill} />
+			{fill}
+			{symbolOnly} />
 	</Hst.Variant>
 </Hst.Story>

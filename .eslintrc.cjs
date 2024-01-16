@@ -27,6 +27,12 @@ module.exports = {
 		'plugin:svelte/recommended', // https://github.com/sveltejs/eslint-plugin-svelte?tab=readme-ov-file#book-usage
 		// 'prettier',
 	],
+	rules: {
+		'@typescript-eslint/no-unnecessary-condition': 'off',
+		'@typescript-eslint/no-non-null-assertion': 'off', // allow Non-null assertion operator (!)
+		'no-undef': 'off', // typescript already checks this
+		// 'svelte/no-at-html-tags': 'warn',
+	},
 	overrides: [
 		{
 			files: ['*.svelte'],
@@ -34,6 +40,13 @@ module.exports = {
 			// Parse the `<script>` in `.svelte` as TypeScript by adding the following configuration.
 			parserOptions: {
 				parser: '@typescript-eslint/parser',
+			},
+		},
+		{
+			// @html is okay in these paces
+			files: ['Menu.svelte', 'TextInput.svelte', '*.story.svelte'],
+			rules: {
+				'svelte/no-at-html-tags': 'off',
 			},
 		},
 		{
@@ -49,12 +62,6 @@ module.exports = {
 			},
 		},
 	],
-	rules: {
-		'@typescript-eslint/no-unnecessary-condition': 'off',
-		'@typescript-eslint/no-non-null-assertion': 'off', // allow Non-null assertion operator (!)
-		'no-undef': 'off', // typescript already checks this
-		'svelte/no-at-html-tags': 'warn',
-	},
 	ignorePatterns: [
 		'!.env.example',
 		'.DS_Store',
