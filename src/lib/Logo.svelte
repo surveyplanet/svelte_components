@@ -63,7 +63,7 @@
 		width = symbolOnly ? size : size * ASPECT_RATION;
 
 		// 24px square when symbolOnly is true
-		viewboxWidth = symbolOnly ? ORIGINAL_HEIGHT : ORIGINAL_WIDTH;
+		viewboxWidth = symbolOnly ? DEFAULT_SIZE : ORIGINAL_WIDTH;
 
 		console.log({ width, height: size, ASPECT_RATION, symbolOnly });
 	}
