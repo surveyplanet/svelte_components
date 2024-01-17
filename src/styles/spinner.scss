@@ -1,0 +1,165 @@
+@use '@surveyplanet/styles' as *;
+
+.sp-spinner {
+	position: relative;
+	font: $font--default;
+
+	&.sp-spinner--medium {
+		font-size: $font-size--14;
+		input {
+			height: $size--48;
+		}
+		.sp-spinner--buttons {
+			height: $size--48;
+		}
+	}
+	&.sp-spinner--large {
+		font-size: $font-size--16;
+		input {
+			height: $size--52;
+		}
+		.sp-spinner--buttons {
+			height: $size--52;
+		}
+	}
+}
+.sp-spinner:hover {
+	.sp-spinner--buttons {
+		visibility: visible;
+	}
+}
+
+.sp-spinner--label {
+	color: $color--dark;
+	display: block;
+	font: inherit;
+	padding: 0 0 $size--12 $size--4;
+	.sp-spinner--label--required {
+		color: $color--pink;
+		font-size: smaller;
+	}
+}
+
+.sp-number-spinner--input {
+	appearance: textfield;
+	-moz-appearance: textfield;
+	font: inherit;
+	width: 100%;
+	height: $size--40;
+	min-width: $size--256;
+	background-color: $color--white;
+	border: 1px solid $color--beige-darker;
+	border-radius: $size-radius--default;
+	padding: $size--12 $size--16;
+	@include set-focus {
+		border: 1px solid $color--beige-darker;
+		box-shadow: 0px 0px 0px 2px $color--beige-dark;
+	}
+
+	&:active {
+		box-shadow:
+			0px 0px 0px 1px $color--white,
+			0px 0px 0px 2px $color--beige-darkest;
+	}
+
+	&:hover {
+		cursor: ew-resize;
+	}
+
+	// read-only controls can still function and are still focusable
+	&:read-only {
+		@include set-focus {
+			box-shadow: none;
+		}
+		&:active {
+			box-shadow: none;
+		}
+	}
+
+	// disabled controls can not receive focus and are not submitted with the
+	// form and generally do not function as controls until they are enabled
+	&:disabled {
+		cursor: not-allowed;
+		color: $color--beige-darkest;
+		border-color: $color--beige-darker;
+		background-color: $color--beige-dark;
+		box-shadow: none;
+		@include set-focus {
+			box-shadow: none;
+		}
+		&:active {
+			box-shadow: none;
+		}
+	}
+	&::placeholder {
+		color: $color--beige-darkest;
+	}
+
+	&::-webkit-outer-spin-button,
+	&::-webkit-inner-spin-button {
+		/* display: none; <- Crashes Chrome on hover */
+		-webkit-appearance: none;
+		margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+	}
+}
+
+.sp-spinner--buttons {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	height: $size--40;
+	visibility: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 1px 1px 1px 0;
+	// background-color: red;
+}
+.sp-spinner--buttons:hover,
+.sp-spinner--buttons--visible {
+	visibility: visible;
+}
+
+.sp-spinner--button {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 50%;
+	border: none;
+	background-color: transparent;
+	transition: background-color 0.2s ease-in-out;
+	svg path {
+		stroke: $color--dark;
+	}
+	// background-color: pink;
+	&:first-child {
+		padding-top: $size--10;
+		border-radius: 0 $size-radius--default 0 0;
+	}
+	&:last-child {
+		padding-bottom: $size--10;
+		border-radius: 0 0 $size-radius--default 0;
+	}
+	&:hover:not(:disabled) {
+		background-color: $color--beige-dark;
+	}
+
+	&:active:not(:disabled) {
+		background-color: $color--beige-darker;
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+		svg path {
+			stroke: $color--beige-darkest;
+		}
+	}
+
+	&.sp-spinner--button--up {
+		svg {
+			transform: rotate(180deg);
+		}
+	}
+}

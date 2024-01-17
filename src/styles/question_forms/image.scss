@@ -1,0 +1,92 @@
+@use '@surveyplanet/styles' as *;
+
+$select-animation-speed: 200ms;
+
+.sp-survey--question--form--image {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr); // 2 columns
+	gap: $size-gutter; // 1rem gap between cells
+
+	&.sp-survey--question--form--image--small {
+		grid-template-columns: repeat(4, 1fr); // 2 columns
+		.sp-survey--question--form--image--item {
+			picture {
+				min-width: 150px;
+				height: $size-gutter--triple;
+			}
+		}
+	}
+
+	&.sp-survey--question--form--image--large {
+		grid-template-columns: repeat(1, 1fr); // 1 columns
+		.sp-survey--question--form--image--item {
+			picture {
+				height: $size-gutter--quadruple * 2;
+			}
+		}
+	}
+
+	&.sp-survey--question--form--image--contain {
+		.sp-survey--question--form--image--item {
+			picture {
+				// background-color: $color--black;
+				background-size: contain;
+			}
+		}
+	}
+}
+
+.sp-survey--question--form--image--item {
+	position: relative;
+	cursor: pointer;
+	display: block;
+	font-size: $font-size--16;
+	// background-color: red;
+	input {
+		appearance: none;
+		&:checked {
+			& ~ picture {
+				border: 1px solid $color--darkest;
+				// box-shadow: 0px 0px 15px hsla(218, 24%, 13%, 0.5); // .2 opacity
+				box-shadow: $shadow--default;
+			}
+
+			& ~ .sp-survey--question--form--image--item--selected-icon {
+				visibility: visible;
+				opacity: 1;
+				bottom: $size-gutter--half;
+			}
+		}
+	}
+
+	picture {
+		display: block;
+		width: auto;
+		margin: 0;
+		padding: 0;
+		height: $size-gutter--quadruple;
+		border-radius: $size-radius--default;
+		background-repeat: no-repeat;
+		background-position: 50% 50%; // center image
+		background-size: cover;
+		transition: box-shadow $select-animation-speed ease-out;
+		border: 1px solid $color--beige-darker;
+	}
+}
+
+.sp-survey--question--form--image--item--label {
+	display: block;
+	padding-bottom: $size-gutter--quarter;
+}
+
+.sp-survey--question--form--image--item--selected-icon {
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	position: absolute;
+	bottom: 0;
+	right: $size-gutter--half;
+	transition:
+		bottom $select-animation-speed ease-out,
+		opacity $select-animation-speed ease-out;
+}

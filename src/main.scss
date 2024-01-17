@@ -1,0 +1,28 @@
+@use '@surveyplanet/styles' as *;
+
+@include normalize();
+@include load-suisse-font();
+@include load-suisse-font('intl', 'medium');
+@include load-suisse-font('intl', 'bold');
+
+:root {
+	font: $font--default;
+	color: $color--dark;
+	font-size: 1rem;
+}
+
+body {
+	background-color: $color--white;
+	&.dark {
+		background-color: $color--dark;
+		// color: $color--white;
+	}
+}
+
+// section {
+// 	background-color: blue;
+// }
+
+// header {
+// 	background-color: orange;
+// }

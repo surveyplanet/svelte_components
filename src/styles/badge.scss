@@ -1,0 +1,52 @@
+@use '@surveyplanet/styles' as *;
+
+.sp-badge {
+	display: inline-block;
+	height: $size--14;
+	max-width: 100%;
+	padding: 0.5px $size--6;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	border-radius: $size-radius--large;
+	font: $font--xsmall-bold;
+	line-height: $size--14;
+	font-size: $size--8;
+	text-transform: uppercase;
+	background-color: $color--yellow;
+	color: $color--darkest;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	.sp-icon {
+		width: 12px;
+		height: 12px;
+		float: left;
+		margin-right: 2px;
+	}
+}
+
+.sp-badge--yellow {
+	background: $color--gradient--yellow;
+	&.sp-badge--flat {
+		background: $color--yellow;
+	}
+}
+.sp-badge--blue {
+	background: $color--gradient--blue;
+	&.sp-badge--flat {
+		background: $color--blue;
+	}
+}
+.sp-badge--green {
+	background: $color--gradient--green;
+	&.sp-badge--flat {
+		background: $color--green;
+	}
+}
+.sp-badge--pink {
+	background: $color--gradient--pink;
+	&.sp-badge--flat {
+		background: $color--pink;
+	}
+}
