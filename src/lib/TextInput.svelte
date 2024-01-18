@@ -158,7 +158,7 @@
 </script>
 
 <div
-	class="sp-text-input sp-text-input--{size}"
+	class="sp-form-control sp-text-input sp-text-input--{size}"
 	class:validation-error={hasValidationErrors}>
 	{#if label?.length}
 		<label

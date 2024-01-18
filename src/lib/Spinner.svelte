@@ -205,7 +205,7 @@
 </script>
 
 <div
-	class="sp-spinner sp-spinner--{size}"
+	class="sp-form-control sp-spinner sp-spinner--{size}"
 	on:focus={spinnerFocusHandler}
 	on:blur={spinnerBlurHandler}>
 	<label

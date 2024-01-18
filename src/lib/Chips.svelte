@@ -60,7 +60,7 @@
 </script>
 
 <menu
-	class="sp-chips"
+	class="sp-chips sp-form-control"
 	class:sp-chips--selectable={selectable}
 	class:sp-chips--multi={multiSelect}>
 	{#each data as chip}

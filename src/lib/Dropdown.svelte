@@ -119,7 +119,7 @@
 </script>
 
 <div
-	class="sp-dropdown sp-dropdown--{size}"
+	class="sp-form-control sp-dropdown sp-dropdown--{size}"
 	class:sp-dropdown--open={visible}>
 	{#if label}
 		<label

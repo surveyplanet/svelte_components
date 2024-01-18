@@ -49,7 +49,7 @@
 </script>
 
 <div
-	class="sp-image-upload"
+	class="sp-form-control sp-image-upload"
 	role="button"
 	tabindex="0"
 	id="drop_zone"

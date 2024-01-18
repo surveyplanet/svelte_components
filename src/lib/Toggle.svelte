@@ -32,7 +32,7 @@
 {/if}
 
 <div
-	class="sp-toggle sp-toggle--{on ? 'on' : 'off'}"
+	class="sp-form-control sp-toggle sp-toggle--{on ? 'on' : 'off'}"
 	class:sp-toggle--tall={tall}
 	role="switch"
 	aria-checked={on}>
