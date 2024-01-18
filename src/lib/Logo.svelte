@@ -48,10 +48,6 @@
 	let viewboxWidth: number;
 	let viewboxHeight = ORIGINAL_HEIGHT;
 
-	// let width = symbolOnly ? size : 158;
-
-	// let ASPECT_RATION = width / 24;
-
 	$: {
 		if (fill !== 'transparent') {
 			const startColor = COLORS[`${fill}GradientStart`];
@@ -64,8 +60,6 @@
 
 		// 24px square when symbolOnly is true
 		viewboxWidth = symbolOnly ? DEFAULT_SIZE : ORIGINAL_WIDTH;
-
-		console.log({ width, height: size, ASPECT_RATION, symbolOnly });
 	}
 </script>
 
