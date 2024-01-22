@@ -58,7 +58,6 @@
 		height = size;
 		width = symbolOnly ? size : size * ASPECT_RATION;
 
-		// 24px square when symbolOnly is true
 		viewboxWidth = symbolOnly ? DEFAULT_SIZE : ORIGINAL_WIDTH;
 	}
 </script>
