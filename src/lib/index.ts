@@ -7,6 +7,7 @@ export {
 	default as Breadcrumbs,
 	type BreadcrumbData,
 } from './Breadcrumbs.svelte';
+export { default as Banner } from './Banner.svelte';
 export { default as Button, BUTTON_MODES } from './Button.svelte';
 export { default as Checkbox } from './Checkbox.svelte';
 export { default as Chips, type ChipData } from './Chips.svelte';

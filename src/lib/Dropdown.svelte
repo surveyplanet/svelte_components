@@ -36,8 +36,7 @@
 	}>();
 
 	let input: HTMLInputElement | undefined = $state(undefined);
-	let dropdownVisible = $state(false);
-	$inspect({ dropdownVisible, value });
+	let visible = $state(false);
 	let displayValue: DropdownOptions['label'] | '' = $state('');
 
 	let searchable = $derived(options.length >= searchThreshold);
@@ -76,7 +75,7 @@
 		query = query.toLowerCase().trim();
 
 		if (query?.length) {
-			dropdownVisible = true;
+			visible = true;
 			menuData = options.filter((item) => {
 				// item.selected = false;
 				return item.label.toLowerCase().trim().includes(query);
@@ -96,11 +95,11 @@
 
 	const menuClickHandler = (id: string) => {
 		setValue(id);
-		dropdownVisible = false; // blur handler hides the menu
+		visible = false; // blur handler hides the menu
 	};
 
 	const searchClickHandler = () => {
-		dropdownVisible = !dropdownVisible;
+		visible = !visible;
 	};
 
 	const searchBlurHandler = (event: FocusEvent) => {
@@ -113,7 +112,7 @@
 			}
 		}
 
-		dropdownVisible = false;
+		visible = false;
 	};
 
 	const searchKeyupHandler = (event: KeyboardEvent) => {
@@ -130,13 +129,13 @@
 	const toggleIconClickHandler = (event: Event) => {
 		event.preventDefault();
 		event.stopPropagation();
-		dropdownVisible = !dropdownVisible;
+		visible = !visible;
 	};
 </script>
 
 <div
 	class="sp-dropdown sp-dropdown--{size}"
-	class:sp-dropdown--open={dropdownVisible}>
+	class:sp-dropdown--open={visible}>
 	{#if label}
 		<label
 			for="sp-dropdown"
@@ -192,7 +191,7 @@
 			onblur={searchBlurHandler}
 			onkeyup={searchKeyupHandler} />
 	</div>
-	{#if dropdownVisible}
+	{#if visible}
 		<Menu
 			data={menuData}
 			{size}
