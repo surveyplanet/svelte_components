@@ -1,0 +1,76 @@
+@use '@surveyplanet/styles' as *;
+
+.sp-banner {
+	position: relative;
+	z-index: 1000;
+	min-width: $size--256;
+	max-width: px-to-rem(375);
+	margin: 0;
+	padding: $size-space--xs;
+	padding-left: 0;
+	border-radius: $size-radius--large;
+	box-shadow: 0px 0px 25px 0px rgba(235, 231, 220, 0.8);
+	font: $font--default;
+	color: $color--beige-darkest;
+	// overflow: hidden;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+
+	background-color: $color--white;
+
+	&.sp-banner--info {
+		.sp-banner--icon--wrapper {
+			background: $color--gradient--blue;
+		}
+	}
+
+	&.sp-banner--warning {
+		.sp-banner--icon--wrapper {
+			background: $color--gradient--yellow;
+		}
+	}
+
+	&.sp-banner--error {
+		.sp-banner--icon--wrapper {
+			background: $color--gradient--pink;
+		}
+	}
+
+	&.sp-banner--success {
+		.sp-banner--icon--wrapper {
+			background: $color--gradient--green;
+		}
+	}
+}
+
+.sp-banner--icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-basis: $size--64;
+	padding: 0 $size-space--s;
+}
+.sp-banner--icon--wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	border-radius: $size--16;
+	width: $size--32;
+	height: $size--32;
+}
+
+.sp-banner--content {
+	flex-grow: 1;
+	// padding: 0 $size-space--s;
+	color: $color--dark;
+	a {
+		color: $color--dark;
+	}
+	.sp-banner--header--title {
+		margin: 0;
+		padding: 0;
+	}
+}
