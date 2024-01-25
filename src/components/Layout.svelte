@@ -5,17 +5,13 @@
 	import TabBar from '$lib/TabBar.svelte';
 	import Toggle from '$lib/Toggle.svelte';
 	import Button from '$lib/Button.svelte';
-	import { get } from 'svelte/store';
-	import { componentsStore } from './components.store';
-	import { onMount } from 'svelte';
-	onMount(() => {
-		console.log('the component has been refreshed');
-	});
+	// import { get } from 'svelte/store';
+	import { createComponentsStore } from './stores/components.store.svelte';
 
 	interface LayoutProps {
 		example: string;
 		md: string;
-		events?: string[];
+		events?: string[] | string[][];
 		component: string;
 	}
 
@@ -28,37 +24,37 @@
 
 	let mkd = $state(marked(md));
 	let reload = $state(0); //used to force reload the component
-	let componentsData = get(componentsStore);
-	let eventsLogs = $derived<String[]>(events || []);
+	let componentsData = createComponentsStore.componentsStore;
+	let eventsLogs = $derived<typeof events>(events || []);
 
-	let logContent: HTMLElement;
+	let logContent: HTMLElement | null = $state(null);
 	//should scroll to the bottom of the logContent
 
 	let tabSelected = $state('Example');
 	let dropdownValue = $state();
 
-	const darkModeHandler = (e: CustomEvent) => {
+	const darkModeHandler = (e: boolean) => {
 		const body = document.querySelector('body');
-		if (e.detail && body) {
+		if (e && body) {
 			body.classList.add('dark');
 		} else if (body) {
 			body.classList.remove('dark');
 		}
 	};
-	const tabHandler = (e: CustomEvent) => {
-		tabSelected = e.detail;
-		console.log('tabSelected', tabSelected);
+	const tabHandler = (id: string) => {
+		tabSelected = id;
 	};
 
 	const reloadComponent = () => {
 		reload++;
-		// eventsLogs = [];
+		events = [];
 	};
 
-	const dropdownHandler = (e: CustomEvent) => {
-		dropdownValue = e.detail;
+	const dropdownHandler = (id: string) => {
+		console.log(id);
+		dropdownValue = id;
 
-		window.location.href = `http://localhost:6006/${e.detail}`;
+		window.location.href = `http://localhost:6006/${id}`;
 	};
 	const homeHandler = () => {
 		window.location.href = `http://localhost:6006`;
@@ -72,14 +68,14 @@
 </svelte:head> -->
 
 <header id="main-header">
-	<h2 on:click={homeHandler}>SurveyPlanet UI Component Library</h2>
+	<h2 onclick={homeHandler}>SurveyPlanet UI Component Library</h2>
 
 	<div class="dark-mode-toggle">
 		<Toggle
 			id="dark-mode-toggle"
 			name="dark-mode-toggle"
 			label="Dark mode"
-			on:change={darkModeHandler} />
+			onchange={darkModeHandler} />
 	</div>
 </header>
 
@@ -91,17 +87,17 @@
 			size="medium"
 			value={JSON.stringify(dropdownValue)}
 			placeholder={component}
-			on:change={dropdownHandler} />
+			onchange={dropdownHandler} />
 	</section>
 
 	<section id="component-preview">
 		<header class="component-preview--header">
 			<Button
-				id="reload-button"
-				icon="reload"
-				color="primary"
+				mode="primary"
 				block={true}
-				on:click={reloadComponent}>Reload</Button>
+				onclick={reloadComponent}>
+				Reload
+			</Button>
 		</header>
 		<div class="container">
 			{#key reload}
@@ -129,7 +125,7 @@
 						selected: true,
 					},
 				]}
-				on:tabButton={tabHandler} />
+				tabButton={tabHandler} />
 		</header>
 
 		<div class="container">
@@ -259,15 +255,10 @@
 			align-items: center;
 			gap: $size-gutter--quarter;
 
-			.component-preview--header {
-				// display: flex;
-				// justify-content: center;
-				// align-items: center;
-			}
 			.container {
-				border: 3px solid yellow;
-				background-color: #fff;
-				border-radius: 4px;
+				border: 3px;
+				background-color: $color--beige;
+				border-radius: $size-radius--large;
 				box-shadow:
 					0 0 0 1px rgba(0, 0, 0, 0.1),
 					0 2px 4px rgba(0, 0, 0, 0.1);
@@ -291,24 +282,37 @@
 	#event-logs {
 		grid-column: 1 / 8;
 		grid-row: 2 / 2;
+		border: 3px;
+		background-color: $color--beige;
+		border-radius: $size-radius--large;
+		box-shadow: $shadow--default;
+
 		display: flex;
+		flex-direction: column; // Change direction to column
 		justify-content: center;
 		align-items: center;
-		flex-direction: row;
 		padding-left: $size-gutter--half;
 		gap: $size-gutter--half;
 		width: 100%;
+
+		h2 {
+			display: block; // Change to block
+			margin: $size-gutter--half;
+			text-align: center; // Center the text
+			width: 100%; // Full width
+		}
+
 		.log-content {
 			margin: $size-gutter--quarter;
 			padding: $size-gutter--half;
-			background-color: $color--beige;
-			box-shadow: $shadow--default;
+			order: 1;
+			flex: 1, 0, fit-content;
 			height: 200px;
-			width: 100%;
-			display: flex;
-			justify-content: start;
-			align-items: baseline;
+			width: 500px; // Make the width 100%
+			display: block;
 			overflow-y: scroll;
+			white-space: pre-wrap; // Wrap the text
+			word-wrap: break-word; // Break words if necessary
 		}
 	}
 

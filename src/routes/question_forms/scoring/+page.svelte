@@ -12,7 +12,7 @@
 	let definitions: ScoringDefinitions = $state({
 		scoringResetButton: 'Reset',
 	});
-	let values: ScoringProperties['values'] = $state([1, 2, 3, 4, 5]);
+	let values: ScoringProperties['values'] = $state([1, 2, 3, 4]);
 	let labels: ScoringProperties['labels'] = $state([
 		'Apple',
 		'Orange',
@@ -21,11 +21,11 @@
 	]);
 	let maxLabel: ScoringProperties['maxLabel'] = $state('Yummy');
 	let minLabel: ScoringProperties['minLabel'] = $state('Yucky');
-	let requireAll: ScoringProperties['requireAll'] = $state(false);
-	let requireUnique: ScoringProperties['requireUnique'] = $state(false);
+	let requireAll: ScoringProperties['requireAll'] = $state(true);
+	let requireUnique: ScoringProperties['requireUnique'] = $state(true);
 	let response: ScoringValue[] = $state([]);
-	const scoringResponseHandler = (event: CustomEvent) => {
-		events.push('response');
+	const scoringResponseHandler = (response: ScoringValue[]) => {
+		events.push(JSON.stringify(response));
 	};
 </script>
 
@@ -48,31 +48,59 @@
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
-				value={id} />
+				value={id}
+				oninput={(e: Event) => {
+						id = (e.target as HTMLInputElement).value;
+					}} />
+
 			<PropsChanger
 				object="Definitions"
-				value={JSON.stringify(definitions)} />
+				value={JSON.stringify(definitions)}
+				oninput={(e: Event) => {
+						definitions = JSON.parse((e.target as HTMLInputElement).value);
+					}} />
 			<PropsChanger
 				object="Values"
-				value={JSON.stringify(values)} />
+				value={JSON.stringify(values)}
+				oninput={(e: Event) => {
+						values = JSON.parse((e.target as HTMLInputElement).value);
+					}} />
 			<PropsChanger
 				object="Labels"
-				value={JSON.stringify(labels)} />
+				value={JSON.stringify(labels)}
+				oninput={(e: Event) => {
+						labels = JSON.parse((e.target as HTMLInputElement).value);
+					}} />
 			<PropsChanger
 				text="Max Label"
-				value={maxLabel} />
+				value={maxLabel}
+				oninput={(e: Event) => {
+						maxLabel = (e.target as HTMLInputElement).value;
+					}} />
 			<PropsChanger
 				text="Min Label"
-				value={minLabel} />
+				value={minLabel}
+				oninput={(e: Event) => {
+						minLabel = (e.target as HTMLInputElement).value;
+					}} />
 			<PropsChanger
-				text="Require All"
-				value={requireAll} />
+				boolean="Require All"
+				value={requireAll}
+				oninput={(e: Event) => {
+						requireAll = (e.target as HTMLInputElement).checked;
+					}} />
 			<PropsChanger
-				text="Require Unique"
-				value={requireUnique} />
+				boolean="Require Unique"
+				value={requireUnique}
+				oninput={(e: Event) => {
+						requireUnique = (e.target as HTMLInputElement).checked;
+					}} />
 			<PropsChanger
 				object="Response"
-				value={JSON.stringify(response)} />
+				value={JSON.stringify(response)}
+				oninput={(e: Event) => {
+						response = JSON.parse((e.target as HTMLInputElement).value);
+					}} />
 		</PropsContainer>
 	</svelte:fragment>
 	<svelte:fragment slot="main">
@@ -86,6 +114,6 @@
 			{requireAll}
 			{requireUnique}
 			{response}
-			on:response={scoringResponseHandler} />
+			scoringResponse={scoringResponseHandler} />
 	</svelte:fragment>
 </Layout>

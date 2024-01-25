@@ -1,35 +1,42 @@
 <script lang="ts">
 	import type { RatingValue, RatingProperties } from '@surveyplanet/types';
-	import { createEventDispatcher } from 'svelte';
 	import RangeSlider from 'svelte-range-slider-pips';
 	import { Radio } from '../';
 
-	const dispatchResponse = createEventDispatcher<{
+	let {
+		id,
+		labels = [],
+		order = 'default',
+		layout = '1',
+		response = [],
+		ratingResponse,
+	} = $props<{
+		id: string;
+		labels: RatingProperties['labels'];
+		order: RatingProperties['order'];
+		layout: RatingProperties['layout'];
 		response: RatingValue[];
+		ratingResponse: (value: RatingValue[]) => void;
 	}>();
 
-	export let id: string;
-	export let labels: RatingProperties['labels'] = [];
-	export let order: RatingProperties['order'] = 'default';
-	export let layout: RatingProperties['layout'] = '1';
-	export let response: RatingValue[] = [];
-
 	// TODO: THIS NEEDS TO BE TESTED
-	if (order === 'random') {
-		labels = labels.sort(() => Math.random() - 0.5);
-	} else if (order === 'asc_title') {
-		labels = labels.sort((a, b) =>
-			'label' in a ? -1 : 'label' in b ? 1 : 0
-		);
-	} else if (order === 'desc_title') {
-		labels = labels.sort((a, b) =>
-			'label' in a ? 1 : 'label' in b ? -1 : 0
-		);
-	} else if (order === 'asc_value') {
-		labels = labels.sort((item) => Number(item.value));
-	} else if (order === 'desc_value') {
-		labels = labels.sort((item) => -Number(item.value));
-	}
+	$effect(() => {
+		if (order === 'random') {
+			labels = labels.sort(() => Math.random() - 0.5);
+		} else if (order === 'asc_title') {
+			labels = labels.sort((a, b) =>
+				'label' in a ? -1 : 'label' in b ? 1 : 0
+			);
+		} else if (order === 'desc_title') {
+			labels = labels.sort((a, b) =>
+				'label' in a ? 1 : 'label' in b ? -1 : 0
+			);
+		} else if (order === 'asc_value') {
+			labels = labels.sort((item) => Number(item.value));
+		} else if (order === 'desc_value') {
+			labels = labels.sort((item) => -Number(item.value));
+		}
+	});
 
 	const updateResponse = (value: number) => {
 		response = [];
@@ -39,17 +46,31 @@
 		response.push(result);
 	};
 
-	const inputChangeHandler = (event: CustomEvent) => {
-		const target = event.detail.target as HTMLInputElement;
+	const inputChangeHandler = (event: Event) => {
+		if (layout === 'slider') {
+			throw new Error(
+				'UNDER CONSTRUCTION: Rating slider layout is not yet implemented.'
+			);
+		}
+
+		const target = event.target as HTMLInputElement;
 		updateResponse(Number(target.value));
-		dispatchResponse('response', response);
+		ratingResponse(response);
 	};
 </script>
 
 <form
 	class="sp-survey--question--form--rating sp-survey--question--form--rating--layout-{layout}">
 	{#if layout === 'slider'}
-		<RangeSlider />
+		<RangeSlider
+			pushy
+			float
+			{id}
+			min={Number(labels[0].value)}
+			max={Number(labels[labels.length - 1].value)}
+			all="label"
+			bind:value={response}
+			on:stop={inputChangeHandler} />
 	{:else}
 		{#each labels as item}
 			<div>
@@ -58,7 +79,7 @@
 					value={item.value.toString()}
 					label={item.label}
 					size="large"
-					on:change={inputChangeHandler} />
+					onchange={inputChangeHandler} />
 			</div>
 		{/each}
 	{/if}

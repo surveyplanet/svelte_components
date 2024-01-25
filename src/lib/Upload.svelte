@@ -1,22 +1,30 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { Button, Icon } from '$lib/index';
 	import { COLORS } from '$lib/index';
 
-	export let label = 'Upload';
-	export let formats: string[] = ['.jpg', '.jpeg', '.png', '.gif'];
-	export let maxSize = 10;
+	let {
+		label = 'Upload',
+		formats = ['.jpg', '.jpeg', '.png', '.gif'],
+		maxSize = 10,
+		onchange,
+	} = $props<{
+		label?: string;
+		formats?: string[];
+		maxSize?: number;
+		onchange: (data: {
+			image: File;
+			data: string | ArrayBuffer | null;
+		}) => void;
+	}>();
 
 	type FileEventTarget = (EventTarget & { files: FileList }) | DataTransfer;
 
-	let fileinput: HTMLInputElement;
-	$: note =
+	let fileinput: HTMLInputElement | null = $state(null);
+	let note = $state(
 		` ${formats.join(', ').toUpperCase().replaceAll('.', '')}.` +
-		` Up to ${maxSize}MB`;
+			` Up to ${maxSize}MB`
+	);
 	const formatAccept = formats.join(',');
-	const dispatchChange = createEventDispatcher<{
-		change: { image: File; data: string | ArrayBuffer | null };
-	}>();
 
 	const fileSelected = (target: FileEventTarget) => {
 		let image = target.files[0];
@@ -24,7 +32,7 @@
 		reader.readAsDataURL(image);
 		reader.onloadend = () => {
 			let data = reader.result;
-			dispatchChange('change', { image, data });
+			onchange({ image, data });
 		};
 	};
 	const fileInputHandler = (event: Event) => {
@@ -57,10 +65,11 @@
 	on:drop={dropHandler}
 	on:dragover={dragOverHandler}>
 	<Button
-		on:click={() => {
-			fileinput.click();
+		onclick={() => {
+			if (fileinput) {
+				fileinput.click();
+			}
 		}}
-		variant="primary"
 		round={false}>
 		{label}
 		<Icon
@@ -70,11 +79,11 @@
 	</Button>
 
 	<input
+		bind:this={fileinput}
 		class="sp-image-upload--input"
 		type="file"
 		accept={formatAccept}
-		on:change={fileInputHandler}
-		bind:this={fileinput} />
+		onchange={fileInputHandler} />
 
 	{#if note?.length}
 		<p class="sp-image-upload--note">{note}</p>

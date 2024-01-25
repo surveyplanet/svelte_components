@@ -5,7 +5,7 @@ export default (
 	searchThreshold: number,
 	disabled: boolean,
 	required: boolean,
-	value: string | null,
+	value: string | undefined,
 	placeholder: string,
 	label: string,
 	size: 'small' | 'medium' | 'large'

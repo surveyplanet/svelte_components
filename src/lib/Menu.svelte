@@ -16,27 +16,25 @@
 </script>
 
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import type { Snippet } from 'svelte';
+
 	import { slide, type SlideParams } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-
-	const dispatchClick = createEventDispatcher<{
-		click: HTMLElement['id'];
-	}>();
-
-	const dispatchUpdate = createEventDispatcher<{
-		update: HTMLElement['id'];
-	}>();
-
-	const dispatchBlur = createEventDispatcher<{
-		blur: HTMLElement['id'];
-	}>();
-
 	/**
 	 * Menu data
 	 */
-	export let data: MenuData[] = [];
-	export let size: 'small' | 'medium' | 'large' = 'small';
+
+	let {
+		data = [],
+		size = 'small',
+		menuUpdate,
+		menuClick,
+	} = $props<{
+		data?: MenuData[];
+		size?: 'small' | 'medium' | 'large';
+		menuUpdate?: (id: string) => void;
+		menuClick?: (id: string) => void;
+	}>();
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
 		const allButtons = Array.from(
@@ -87,9 +85,9 @@
 		easing: cubicOut,
 	};
 
-	$: currentState = [...data];
+	let currentState = $state([...data]);
 
-	let location: string[] = [];
+	let location: string[] = $state([]);
 
 	const getState = (
 		data: MenuData[],
@@ -125,7 +123,8 @@
 		}
 	};
 
-	const backClickHandler = () => {
+	const backClickHandler = (event?: Event) => {
+		if (event) event.preventDefault();
 		const id = location[location.length - 2];
 		location.pop(); // remove the last location
 
@@ -138,13 +137,12 @@
 		} else {
 			currentState = [...data]; // go to root
 		}
-		dispatchUpdate('update', id);
+		if (menuUpdate) menuUpdate(id);
 	};
 
 	const itemClickHandler = (event: MouseEvent) => {
+		event.preventDefault();
 		let id = (event.target as HTMLElement).id;
-		// console.log('itemClickHandler', id);
-
 		if (!id?.length) {
 			const btn = (event.target as HTMLElement).closest('button');
 			if (btn) {
@@ -162,21 +160,17 @@
 		// if clicked and item doesn't have a submenu dispatch 'click'
 		// otherwise dispatch 'update'
 		if (!state) {
-			dispatchClick('click', id);
+			if (menuClick) menuClick(id);
 		} else {
-			dispatchUpdate('update', id);
+			if (menuUpdate) menuUpdate(id);
 		}
-	};
-
-	const menuBlurHandler = (event: FocusEvent) => {
-		dispatchBlur('blur', (event.target as HTMLElement).id);
 	};
 </script>
 
-<svelte:window on:keydown={arrowClickHandler} />
+<svelte:window onkeydown={arrowClickHandler} />
 <menu
 	class="sp-menu sp-menu--{size}"
-	on:blur={menuBlurHandler}>
+	{onblur}>
 	<li class="sp-menu--header">
 		<slot name="header" />
 	</li>
@@ -187,7 +181,7 @@
 			class="sp-menu--back">
 			<button
 				class="sp-menu--back-btn"
-				on:click|preventDefault={backClickHandler}>
+				onclick={backClickHandler}>
 				<Icon
 					name="arrowLeft"
 					size={16} />
@@ -207,7 +201,7 @@
 			<button
 				class="sp-menu--item--btn"
 				id={item.id}
-				on:click|preventDefault={itemClickHandler}>
+				onclick={itemClickHandler}>
 				{#if item.label}
 					<span class="sp-menu--item--label">
 						{item.label}

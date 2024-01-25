@@ -7,7 +7,7 @@
 	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state([]) as string[];
+	let events = $state([]) as MultipleChoice['value'][];
 	let keys = $state(0);
 
 	// Component props
@@ -24,8 +24,8 @@
 	let max: MultipleChoiceProperties['max'] = $state(null);
 	let response: MultipleChoiceValue[] = $state([]);
 	let other: MultipleChoiceProperties['other'] = $state(undefined);
-	const multipleChoiceResponseHandler = (event: CustomEvent) => {
-		events.push('response');
+	const multipleChoiceResponseHandler = (event: MultipleChoiceValue[]) => {
+		events.push(event);
 	};
 </script>
 
@@ -38,25 +38,48 @@
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
-				value={id} />
+				value={id}
+				oninput={(e: Event) => {
+						id = (e.target as HTMLInputElement).value;
+					}} />
 			<PropsChanger
 				object="Labels"
-				value={JSON.stringify(labels)} />
+				value={JSON.stringify(labels)}
+				oninput={(e: Event) => {
+						labels = JSON.parse((e.target as HTMLInputElement).value);
+					}} />
 			<PropsChanger
-				text="Multi"
-				value={multi} />
+				boolean="Multi"
+				value={multi}
+				oninput={(e: Event) => {
+						multi = (e.target as HTMLInputElement).checked;
+					}} />
 			<PropsChanger
-				number="Layout"
-				value={layout} />
+				select="Layout"
+				selectOptions={['1', '2', '3', '4', 'dropdown']}
+				value={layout}
+				oninput={(e: Event) => {
+						layout = ((e.target as HTMLInputElement).value) as MultipleChoiceProperties['layout'];
+					}} />
 			<PropsChanger
 				boolean="Random"
-				value={random} />
+				value={random}
+				oninput={(e: Event) => {
+						random = (e.target as HTMLInputElement).checked;
+					}} />
+
 			<PropsChanger
 				object="Response"
-				value={JSON.stringify(response)} />
+				value={JSON.stringify(response)}
+				oninput={(e: Event) => {
+						response = JSON.parse((e.target as HTMLInputElement).value);
+					}} />
 			<PropsChanger
-				boolean="Other"
-				value={other} />
+				text="Other"
+				value={other}
+				oninput={(e: Event) => {
+						other = (e.target as HTMLInputElement).value;
+					}} />
 		</PropsContainer>
 	</svelte:fragment>
 	<svelte:fragment slot="main">
@@ -68,6 +91,6 @@
 			{random}
 			{response}
 			{other}
-			on:response={multipleChoiceResponseHandler} />
+			multipleChoiceResponse={multipleChoiceResponseHandler} />
 	</svelte:fragment>
 </Layout>

@@ -50,25 +50,25 @@
 			<PropsChanger
 				text="data"
 				value={JSON.stringify(data)}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					data = JSON.parse((e.target as HTMLInputElement).value)
 				}} />
 			<PropsChanger
 				boolean="selectable"
 				value={selectable}
-				booleanInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					selectable = (e.target as HTMLInputElement).checked;
 				}} />
 			<PropsChanger
 				boolean="multiSelect"
 				value={multiSelect}
-				booleanInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					multiSelect = (e.target as HTMLInputElement).checked;
 				}} />
 			<PropsChanger
 				boolean="removable"
 				value={removable}
-				booleanInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					removable = (e.target as HTMLInputElement).checked;
 				}} />
 		</PropsContainer>

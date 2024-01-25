@@ -12,7 +12,7 @@
 	let name: IconName = $state('bell');
 	let debug = $state(false);
 
-	let sizeAsString = $state(size.toString());
+	let sizeAsString = $derived(size.toString());
 
 	// size = Number(sizeAsString) as IconSize;
 </script>
@@ -25,33 +25,35 @@
 	<svelte:fragment slot="controls">
 		<PropsContainer>
 			<PropsChanger
-				text="Color"
-				textInputHandler={(e: Event) => {
+				select="Color"
+				selectOptions={Object.keys(COLORS)}
+				oninput={(e: Event) => {
 					color = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
-				text="Size"
-				textInputHandler={(e: Event) => {
-					sizeAsString = (e.target as HTMLInputElement).value;
+				select="Size"
+				selectOptions={[8, 12, 16, 20, 24, 32, 48, 64, 128, 256, 512]}
+				value={sizeAsString}
+				oninput={(e: Event) => {
 					size = Number(sizeAsString) as IconSize;
 				}} />
 			<PropsChanger
-				text="Name"
-				textInputHandler={(e: Event) => {
+				select="Name"
+				selectOptions={Object.keys(ICON_DATA)}
+				value={name}
+				oninput={(e: Event) => {
 					name = (e.target as HTMLInputElement).value as IconName;
 				}} />
 			<PropsChanger
-				text="Debug"
-				textInputHandler={(e: Event) => {
-					debug = (e.target as HTMLInputElement).value === 'true';
+				boolean="Debug"
+				value={debug}
+				oninput={(e: Event) => {
+					debug = (e.target as HTMLInputElement).checked
 				}} />
 		</PropsContainer>
 	</svelte:fragment>
 	<svelte:fragment slot="main">
 		<Icon
-			on:click={(e) => {
-				events.push('click');
-			}}
 			{color}
 			{size}
 			{name}

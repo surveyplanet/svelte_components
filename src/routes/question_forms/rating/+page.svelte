@@ -39,8 +39,8 @@
 	let order: RatingProperties['order'] = $state('default');
 	let layout: RatingProperties['layout'] = $state('1');
 	let response: RatingValue[] = $state([]);
-	const ratingResponseHandler = (event: CustomEvent) => {
-		events.push('response');
+	const ratingResponseHandler = (response: RatingValue[]) => {
+		events.push(JSON.stringify(response));
 	};
 </script>
 
@@ -53,28 +53,70 @@
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
-				value={id} />
+				value={id}
+				oninput={(e: Event) => {
+						id = (e.target as HTMLInputElement).value;
+					}} />
 			<PropsChanger
 				object="Labels"
-				value={JSON.stringify(labels)} />
+				value={JSON.stringify(labels)}
+				oninput={(e: Event) => {
+						labels = JSON.parse((e.target as HTMLInputElement).value);
+					}} />
 			<PropsChanger
-				text="Order"
-				value={order} />
+				select="Order"
+				value={order}
+				selectOptions={[
+					'default',
+					'random',
+					'asc_title',
+					'desc_title',
+					'asc_value',
+					'desc_value',
+				]}
+				oninput={(e: Event) => {
+						order = ((e.target as HTMLInputElement).value) as RatingProperties['order'];
+					}} />
 			<PropsChanger
-				text="Layout"
-				value={layout} />
+				select="Layout"
+				value={layout}
+				selectOptions={[
+					'1',
+					'2',
+					'3',
+					'4',
+					'slider',
+					'star',
+					'heart',
+					'smiley',
+					'thumbs',
+				]}
+				oninput={(e: Event) => {
+						layout = (e.target as HTMLInputElement).value as RatingProperties['layout'];
+					}} />
 			<PropsChanger
 				object="Response"
 				value={JSON.stringify(response)} />
 		</PropsContainer>
 	</svelte:fragment>
 	<svelte:fragment slot="main">
-		<Rating
-			{id}
-			{labels}
-			{order}
-			{layout}
-			{response}
-			on:response={ratingResponseHandler} />
+		<div class="wrapper">
+			<Rating
+				{id}
+				{labels}
+				{order}
+				{layout}
+				{response}
+				ratingResponse={ratingResponseHandler} />
+		</div>
 	</svelte:fragment>
 </Layout>
+
+<style>
+	.wrapper {
+		display: block;
+		width: 500px;
+		height: 100px;
+		padding: 20px;
+	}
+</style>

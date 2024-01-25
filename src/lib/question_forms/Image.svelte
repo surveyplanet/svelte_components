@@ -1,29 +1,41 @@
 <script lang="ts">
 	import type { ImageValue, ImageProperties } from '@surveyplanet/types';
-	import { createEventDispatcher } from 'svelte';
 	import {
 		transformImage,
 		type TransformOptions,
 	} from '@surveyplanet/utilities';
 
-	const dispatchResponse = createEventDispatcher<{
-		response: ImageValue[];
-	}>();
-
-	export let id: string;
-	export let labels: ImageProperties['labels'];
-	export let multi: ImageProperties['multi'];
-	export let size: ImageProperties['size'] = 'medium';
-	export let hideCaptions: ImageProperties['hideCaptions'];
-	export let random: ImageProperties['random'];
 	// TODO: this property doesn't exist but is should be added in the app.
 	// It's not a pretty but will enable the entire image to be visible with cropping.
-	export let contain: ImageProperties['contain'] = false;
-	export let response: ImageValue[] = [];
+	// export let contain: ImageProperties['contain'] = false;
 
-	$: if (random) {
-		labels = labels.sort(() => Math.random() - 0.5);
-	}
+	let {
+		id,
+		labels,
+		multi,
+		size,
+		hideCaptions,
+		random,
+		contain = false,
+		response = [],
+		imageResponse,
+	} = $props<{
+		id: string;
+		labels: ImageProperties['labels'];
+		multi: ImageProperties['multi'];
+		size: ImageProperties['size'];
+		hideCaptions: ImageProperties['hideCaptions'];
+		random: ImageProperties['random'];
+		contain: ImageProperties['contain'];
+		response: ImageValue[];
+		imageResponse: (value: ImageValue[]) => void;
+	}>();
+	//nopt working
+	$effect(() => {
+		if (random) {
+			labels = labels.sort(() => Math.random() - 0.5);
+		}
+	});
 
 	const getImageTransformOptions = (): TransformOptions => {
 		// The most common aspect ratio in digital photography is 4:3, this is because
@@ -73,7 +85,7 @@
 	const inputChangeHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		updateResponse(target.value, !target.checked);
-		dispatchResponse('response', response);
+		imageResponse(response);
 	};
 </script>
 
@@ -93,7 +105,7 @@
 				name={id}
 				value={item.image}
 				type={multi ? 'checkbox' : 'radio'}
-				on:input={inputChangeHandler} />
+				oninput={inputChangeHandler} />
 
 			{#if !hideCaptions}
 				<span class="sp-survey--question--form--image--item--label">

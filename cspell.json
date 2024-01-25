@@ -1,0 +1,68 @@
+{
+	"language": "en",
+	"words": [
+		"CCPA",
+		"dasherize",
+		"datetime",
+		"fadeinout",
+		"fullscreen",
+		"Histoire",
+		"histoires",
+		"historie",
+		"honeycrisp",
+		"hoverable",
+		"imageupload",
+		"introend",
+		"introstart",
+		"keydown",
+		"keyup",
+		"manzano",
+		"msedge",
+		"multiplechoice",
+		"onin",
+		"onintroend",
+		"onintrostart",
+		"onnavlink",
+		"onout",
+		"onoutroend",
+		"onoutrostart",
+		"outro",
+		"outroend",
+		"outrostart",
+		"Pisang",
+		"progressbar",
+		"radash",
+		"sortablelist",
+		"spinner",
+		"surveyplanet",
+		"tabbar",
+		"testid",
+		"textbox",
+		"textinput",
+		"valuenow"
+	],
+	"ignoreWords": [
+		"xsmall",
+		"cubbi",
+		"gruffi",
+		"sunni",
+		"tummi",
+		"zummi"
+	],
+	"flagWords": [
+		"hte",
+		"survey planet"
+	],
+	"files": [
+		"./**/*.{txt,md,js,ts,yaml,json,svelte}"
+	],
+	"useGitignore": true,
+	"ignorePaths": [
+		"cspell.json",
+		"node_modules/**",
+		"static/**",
+		"bin/**",
+		"package.json",
+		"package-lock.json"
+	]
+}

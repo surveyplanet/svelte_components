@@ -1,18 +1,25 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-
-	const dispatchChange = createEventDispatcher<{
-		change: boolean;
-	}>();
-
-	export let id: string = (Date.now() + Math.random()).toString(36);
-	export let name: string;
-	export let disabled = false;
-	export let on = false;
-	export let tall = false;
-	export let label: string | null = null;
-	export let prependLabel = false;
 	// export let meridiemIndicator = false;
+
+	let {
+		id = (Date.now() + Math.random()).toString(36),
+		name,
+		disabled = false,
+		on = false,
+		tall = false,
+		label = null,
+		prependLabel = false,
+		onchange,
+	} = $props<{
+		id?: string;
+		name?: string;
+		disabled?: boolean;
+		on?: boolean;
+		tall?: boolean;
+		label?: string | null;
+		prependLabel?: boolean;
+		onchange: (on: boolean) => void;
+	}>();
 
 	const changeHandler = (event: Event): void => {
 		if (disabled) {
@@ -20,7 +27,7 @@
 			return event.preventDefault();
 		}
 
-		dispatchChange('change', on);
+		onchange(on);
 	};
 </script>
 
@@ -43,7 +50,7 @@
 		{id}
 		{name}
 		{disabled}
-		on:change={changeHandler} />
+		onchange={changeHandler} />
 
 	<div class="sp-toggle--track" />
 </div>

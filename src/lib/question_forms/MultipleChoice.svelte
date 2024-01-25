@@ -3,29 +3,40 @@
 		MultipleChoiceValue,
 		MultipleChoiceProperties,
 	} from '@surveyplanet/types';
-	import { createEventDispatcher } from 'svelte';
+	import type { DropdownOptions } from '$lib/Dropdown.svelte';
 	import { Checkbox, Radio, Dropdown, TextInput } from '../';
 
-	const dispatchResponse = createEventDispatcher<{
-		response: MultipleChoiceValue[];
-	}>();
-
-	export let id: string;
-	export let labels: MultipleChoiceProperties['labels'] = [];
-	export let multi: MultipleChoiceProperties['multi'];
-	export let layout: MultipleChoiceProperties['layout'] = '1';
-	export let random: MultipleChoiceProperties['random'] = false;
-	export let other: MultipleChoiceProperties['other'] = 'Other';
 	// export let min: MultipleChoiceProperties['min'];
 	// export let max: MultipleChoiceProperties['max'];
 
-	export let response: MultipleChoiceValue[] = [];
+	let {
+		id,
+		labels = [],
+		multi,
+		layout = '1',
+		random = false,
+		other = 'Other',
+		response = [],
+		multipleChoiceResponse,
+	} = $props<{
+		id: string;
+		labels: MultipleChoiceProperties['labels'];
+		multi: MultipleChoiceProperties['multi'];
+		layout: MultipleChoiceProperties['layout'];
+		random: MultipleChoiceProperties['random'];
+		other: MultipleChoiceProperties['other'];
+		response: MultipleChoiceValue[];
+		multipleChoiceResponse: (response: MultipleChoiceValue[]) => void;
+	}>();
 
-	$: if (random) {
-		labels = labels.sort(() => Math.random() - 0.5);
-	}
-	$: otherTextValue = '';
-	let otherChecked = false;
+	$effect(() => {
+		if (random) {
+			labels = labels.sort(() => Math.random() - 0.5);
+		}
+	});
+
+	let otherTextValue = $state('');
+	let otherChecked = $state(false);
 	const updateResponse = (value: MultipleChoiceValue, remove = false) => {
 		// remove value if already exits.
 		if (multi) {
@@ -42,19 +53,19 @@
 		response.push(value);
 	};
 
-	const inputChangeHandler = (event: CustomEvent) => {
+	const inputChangeHandler = (event: Event) => {
 		otherChecked = false;
-		const target = event.detail.target as HTMLInputElement;
+		const target = event.target as HTMLInputElement;
 		const value = {
 			label: target.value,
 			value: true,
 		} as MultipleChoiceValue;
 		updateResponse(value, !target.checked);
-		dispatchResponse('response', response);
+		multipleChoiceResponse(response);
 	};
 
-	const otherChangeHandler = (event: CustomEvent) => {
-		const target = event.detail.target as HTMLInputElement;
+	const otherChangeHandler = (event: Event) => {
+		const target = event.target as HTMLInputElement;
 		const value = {
 			label: target.value,
 			value: otherTextValue,
@@ -63,11 +74,11 @@
 			document.querySelector(`#${id + '-text-input'}`) as HTMLInputElement
 		)?.focus();
 		updateResponse(value, !target.checked);
-		dispatchResponse('response', response);
+		multipleChoiceResponse(response);
 	};
 
-	const otherTextInputHandler = (event: CustomEvent) => {
-		otherTextValue = event.detail.target.value;
+	const otherTextInputHandler = (event: Event) => {
+		otherTextValue = (event.target as HTMLInputElement).value;
 		if (otherTextValue && otherTextValue.length && !otherChecked) {
 			otherChecked = true;
 		}
@@ -78,16 +89,16 @@
 			} as MultipleChoiceValue,
 			!otherTextValue.length
 		);
-		dispatchResponse('response', response);
+		multipleChoiceResponse(response);
 	};
 
-	const dropdownChangeHandler = (event: CustomEvent) => {
+	const dropdownChangeHandler = (label: DropdownOptions['id']) => {
 		const value = {
-			label: event.detail,
+			label: label,
 			value: true,
 		} as MultipleChoiceValue;
 		updateResponse(value);
-		dispatchResponse('response', response);
+		multipleChoiceResponse(response);
 	};
 
 	const getDropdownOption = (label: string) => {
@@ -107,7 +118,7 @@
 	{#if layout === 'dropdown'}
 		<Dropdown
 			options={labels.map(getDropdownOption)}
-			on:change={dropdownChangeHandler} />
+			onchange={dropdownChangeHandler} />
 	{:else}
 		{#each labels as label}
 			<div>
@@ -117,7 +128,7 @@
 					value={label}
 					{label}
 					size="large"
-					on:change={inputChangeHandler} />
+					onchange={inputChangeHandler} />
 			</div>
 		{/each}
 		{#if other}
@@ -128,15 +139,15 @@
 					value={other}
 					label={other}
 					checked={otherChecked}
-					{other}
 					size="large"
-					on:change={otherChangeHandler} />
+					onchange={otherChangeHandler} />
 				<TextInput
 					name={id}
 					id={id + '-text-input'}
 					placeholder={other}
 					size="large"
-					on:change={otherTextInputHandler} />
+					oninput={otherTextInputHandler}
+					onblur={otherTextInputHandler} />
 			</div>
 		{/if}
 	{/if}

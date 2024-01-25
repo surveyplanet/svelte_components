@@ -1,12 +1,18 @@
 <script lang="ts">
 	import '../main.scss'; // app styles
 	import '../styles/main.scss'; // component styles
-	import type { DropdownOptions } from '$lib/Dropdown.svelte';
-	import { componentsStore } from '../components/components.store';
+	import type { Snippet } from 'svelte';
+	import type { PageData } from './$types';
 
-	export let data;
-	let componentsData: DropdownOptions[] = data.componentsList;
-	componentsStore.set(componentsData);
+	import { createComponentsStore } from '../components/stores/components.store.svelte';
+
+	let { data, children } = $props<{
+		data: PageData;
+		children?: Snippet;
+	}>();
+	createComponentsStore.componentsStore = data.componentsList;
 </script>
 
-<slot />
+{#if children}
+	{@render children()}
+{/if}

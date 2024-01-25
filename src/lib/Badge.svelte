@@ -1,10 +1,17 @@
 <script lang="ts">
-	export let color: 'yellow' | 'blue' | 'pink' | 'green' = 'yellow';
-	export let flat = false;
+	import type { Snippet } from 'svelte';
+
+	let { color, flat, children } = $props<{
+		color: 'yellow' | 'blue' | 'pink' | 'green';
+		flat: boolean;
+		children?: Snippet;
+	}>();
 </script>
 
 <span
 	class="sp-badge sp-badge--{color}"
 	class:sp-badge--flat={flat}>
-	<slot />
+	{#if children}
+		{@render children()}
+	{/if}
 </span>

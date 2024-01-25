@@ -12,8 +12,8 @@
 	let min: ScaleProperties['min'] = $state(0);
 	let max: ScaleProperties['max'] = $state(10);
 	let response: ScaleValue[] = $state([]);
-	const scaleResponseHandler = (event: CustomEvent) => {
-		events.push('response');
+	const scaleResponseHandler = (response: ScaleValue[]) => {
+		events.push(JSON.stringify(response));
 	};
 </script>
 
@@ -26,16 +26,28 @@
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
-				value={id} />
+				value={id}
+				oninput={(e: Event) => {
+					id = (e.target as HTMLInputElement).value;
+				}} />
 			<PropsChanger
-				text="Min"
-				value={min} />
+				number="Min"
+				value={min}
+				oninput={(e: Event) => {
+					min = Number((e.target as HTMLInputElement).value);
+				}} />
 			<PropsChanger
-				text="Max"
-				value={max} />
+				number="Max"
+				value={max}
+				oninput={(e: Event) => {
+					max = Number((e.target as HTMLInputElement).value);
+				}} />
 			<PropsChanger
 				object="Response"
-				value={JSON.stringify(response)} />
+				value={JSON.stringify(response)}
+				oninput={(e: Event) => {
+					response = JSON.parse((e.target as HTMLInputElement).value);
+				}} />
 		</PropsContainer>
 	</svelte:fragment>
 	<svelte:fragment slot="main">
@@ -45,7 +57,7 @@
 				{min}
 				{max}
 				{response}
-				on:response={scaleResponseHandler} />
+				scaleResponse={scaleResponseHandler} />
 		</div></svelte:fragment>
 </Layout>
 

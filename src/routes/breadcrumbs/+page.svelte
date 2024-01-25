@@ -4,6 +4,7 @@
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
+	let keys = $state(0);
 
 	let data: BreadcrumbData[] = $state([
 		{
@@ -22,6 +23,8 @@
 			name: 'Submit',
 		},
 	]);
+
+	$inspect(data);
 </script>
 
 <Layout
@@ -34,9 +37,16 @@
 			<PropsChanger
 				object="Data"
 				value={JSON.stringify(data)}
-				textInputHandler={(e: Event) => {
-			data = JSON.parse((e.target as HTMLInputElement).value);
-		}} />
+				oninput={(event: Event) => {
+				console.log(data);
+			//doesn't work
+			data = JSON.parse((event.target as HTMLInputElement).value);
+
+		}}
+				onblur={() => {
+					keys++;
+					console.log('blur', [...data]);
+				}} />
 		</PropsContainer>
 	</svelte:fragment>
 	<svelte:fragment slot="main">

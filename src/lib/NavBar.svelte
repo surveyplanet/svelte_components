@@ -14,33 +14,33 @@
 <script lang="ts">
 	import { offset, flip, shift } from 'svelte-floating-ui/dom';
 	import { createFloatingActions } from 'svelte-floating-ui';
+	import { preventDefault } from '../utils/event_modifiers';
 
 	import { Menu, type MenuData } from './index';
-	import { createEventDispatcher } from 'svelte';
 
-	export let data: NavBarData[] = [];
-	export let navMenuData: MenuData[] = [];
-	export let vertical = false;
-	$: menuVisible = false;
-
-	const dispatchLink = createEventDispatcher<{
-		navLink: string;
+	let {
+		data = [],
+		navMenuData = [],
+		vertical = false,
+		onnavlink,
+		onclick,
+		onupdate,
+	} = $props<{
+		data: NavBarData[];
+		navMenuData: MenuData[];
+		vertical: boolean;
+		onnavlink: (navLink: string) => void;
+		onclick: (id: string) => void;
+		onupdate: (id: string) => void;
 	}>();
 
-	const dispatchClick = createEventDispatcher<{
-		click: CustomEvent['detail'];
-	}>();
-
-	const dispatchUpdate = createEventDispatcher<{
-		update: CustomEvent['detail'];
-	}>();
+	let menuVisible = $state(false);
 
 	const navLinkClickHandler = (e: MouseEvent) => {
 		const target = e.target as HTMLLinkElement;
 		if (target.href) {
 			window.location.href = target.href;
-		} else {
-			dispatchLink('navLink', target.id);
+			onnavlink(target.id);
 		}
 	};
 
@@ -59,13 +59,13 @@
 		menuVisible = false;
 	};
 
-	const menuClickHandler = (e: CustomEvent) => {
+	const menuClickHandler = (id: string) => {
 		menuVisible = false;
-		dispatchClick('click', e.detail);
+		onclick(id);
 	};
 
-	const menuUpdateHandler = (e: CustomEvent) => {
-		dispatchUpdate('update', e.detail);
+	const menuUpdateHandler = (id: string) => {
+		onupdate(id);
 	};
 	const [floatingRef, floatingContent] = createFloatingActions({
 		strategy: 'fixed',
@@ -74,7 +74,7 @@
 	});
 </script>
 
-<svelte:window on:click={hideMenuOnBodyClick} />
+<svelte:window onclick={hideMenuOnBodyClick} />
 
 <nav
 	class="sp-nav"
@@ -85,10 +85,12 @@
 			href={item.link}
 			id={item.id}
 			title={item.title}
-			on:click|preventDefault={navLinkClickHandler}>
-			<Icon
-				name={item.icon}
-				size={16} />
+			onclick={navLinkClickHandler}>
+			<div class="sp-nav--icon">
+				<Icon
+					name={item.icon}
+					size={16} />
+			</div>
 		</a>
 	{/each}
 
@@ -96,7 +98,7 @@
 		<button
 			use:floatingRef
 			class="sp-nav--menu-trigger"
-			on:click|preventDefault={navMenuTriggerClickHandler}>
+			onclick={preventDefault(navMenuTriggerClickHandler)}>
 			<Icon
 				name="ellipsis"
 				size={16} />
@@ -109,7 +111,13 @@
 		use:floatingContent>
 		<Menu
 			data={navMenuData}
-			on:click={menuClickHandler}
-			on:update={menuUpdateHandler} />
+			menuClick={menuClickHandler}
+			menuUpdate={menuUpdateHandler} />
 	</div>
 {/if}
+
+<style>
+	.sp-nav--icon {
+		pointer-events: none;
+	}
+</style>

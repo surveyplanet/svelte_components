@@ -5,16 +5,18 @@
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
 
-	let id: string;
-	let name: 'checkbox';
+	let id: string = $state((Date.now() + Math.random()).toString(36));
+	let name = $state('checkbox');
 	let value: string;
-	let checked = false;
-	let disabled = false;
-	let prependLabel = false;
-	let size: 'small' | 'medium' | 'large' = 'small';
+	let label = $state('Checkbox');
+
+	let checked = $state(false);
+	let disabled = $state(false);
+	let prependLabel = $state(false);
+	let size: 'small' | 'medium' | 'large' = $state('small');
 
 	const changeEventHandler = (e: Event): void => {
-		events.push('change');
+		events.push(JSON.stringify(e));
 	};
 </script>
 
@@ -28,7 +30,7 @@
 			<PropsChanger
 				text="id"
 				value={id}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					id = (e.target as HTMLInputElement).value;
 				}} />
 		</PropsContainer>
@@ -37,11 +39,12 @@
 		<Checkbox
 			{id}
 			{name}
+			{label}
 			{value}
 			{checked}
 			{disabled}
 			{prependLabel}
 			{size}
-			on:change={changeEventHandler} />
+			onchange={changeEventHandler} />
 	</svelte:fragment>
 </Layout>

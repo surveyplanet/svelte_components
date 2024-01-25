@@ -8,7 +8,9 @@
 </script>
 
 <script lang="ts">
-	export let data: BreadcrumbData[] = [];
+	let { data } = $props<{
+		data: BreadcrumbData[];
+	}>();
 </script>
 
 <nav class="sp-breadcrumbs">

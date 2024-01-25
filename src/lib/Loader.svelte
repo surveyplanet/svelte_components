@@ -1,18 +1,23 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { COLORS } from './_definitions';
 
 	const strokeDashOffset = 63;
 
-	export let colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green];
-	export let size = 72;
-	export let strokeWidth: 1 | 2 | 3 | 4 = 4; // stroke width doesn't look good above 4
+	let {
+		colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green],
+		size = 72,
+		strokeWidth = 4, // stroke width doesn't look good above 4
+	} = $props<{
+		colors?: string[];
+		size?: number;
+		strokeWidth?: 1 | 2 | 3 | 4;
+	}>();
 
 	// When updating the colors the animation can get out of sync since the
 	// speed is based on the number of colors. This should be fine as long as the
 	// colors don't change after initialization. This could be an issue using it
 	// in a single page app.
-	$: speed = colors.length;
+	let speed = $derived(colors.length);
 
 	// keyframes can not be applied to svg element directly so inject in to head
 	function injectKeyframes() {
@@ -31,7 +36,7 @@
 		document.head.appendChild(keyframeEl);
 	}
 
-	onMount(() => {
+	$effect(() => {
 		injectKeyframes();
 	});
 </script>

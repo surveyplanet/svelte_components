@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { Alert } from '$lib';
 	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
-
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -11,7 +10,7 @@
 	let subtitle = $state('Informational alert');
 	let type: 'info' | 'warning' | 'error' | 'success' = $state('info');
 	let hideDelay = $state(0);
-	let confirm = $state(true);
+	let confirm = $state(false);
 	let confirmButtonLabel = $state('Confirm');
 	let cancelButtonLabel = $state('Cancel');
 	let challenge = $state('yes');
@@ -55,57 +54,66 @@
 			<PropsChanger
 				text="Title"
 				value={title}
-				blurHandler={() => {
+				onblur={() => {
 					keys += 1;
 				}}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 			title = (e.target as HTMLInputElement).value;
 		}} />
 			<PropsChanger
 				text="Subtitle"
 				value={subtitle}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 			subtitle = (e.target as HTMLInputElement).value;
 		}} />
 			<PropsChanger
-				text="Type"
+				select="Type"
 				value={type}
-				textInputHandler={(e: Event) => {
+				selectOptions={['info', 'warning', 'error', 'success']}
+				oninput={(e: Event) => {
 			type = (e.target as HTMLInputElement).value as 'info' | 'warning' | 'error' | 'success';
 		}} />
 			<PropsChanger
 				number="Hide delay"
 				value={hideDelay}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 			hideDelay = Number((e.target as HTMLInputElement).value);
-		}} />
+			
+		}}
+				onblur={() => {
+					keys += 1;
+				}} />
 			<PropsChanger
 				boolean="Confirm"
 				value={confirm}
-				textInputHandler={(e: Event) => {
-			confirm = Boolean((e.target as HTMLInputElement).value);
-		}} />
+				oninput={(e: Event) => {
+			confirm = Boolean((e.target as HTMLInputElement).checked);
+		}}
+				onblur={() => {
+					keys += 1;
+				}} />
+
 			<PropsChanger
 				text="Confirm button label"
 				value={confirmButtonLabel}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 			confirmButtonLabel = (e.target as HTMLInputElement).value;
 		}} />
 			<PropsChanger
 				text="Cancel button label"
 				value={cancelButtonLabel}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 			cancelButtonLabel = (e.target as HTMLInputElement).value;
 		}} />
 			<PropsChanger
 				text="Challenge"
 				value={challenge}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 			challenge = (e.target as HTMLInputElement).value;
 		}} />
 			<PropsChanger
 				text="Content"
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 			content = (e.target as HTMLInputElement).value;
 		}} />
 		</PropsContainer>
@@ -113,11 +121,11 @@
 	<svelte:fragment slot="main">
 		{#key keys}
 			<Alert
-				on:open={openHandler}
-				on:in={inHandler}
-				on:close={closeHandler}
-				on:out={outHandler}
-				on:confirm={confirmHandler}
+				onopen={openHandler}
+				onin={inHandler}
+				onclose={closeHandler}
+				onout={outHandler}
+				onconfirm={confirmHandler}
 				{title}
 				{subtitle}
 				{type}

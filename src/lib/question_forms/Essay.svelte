@@ -1,25 +1,23 @@
 <script lang="ts">
 	import type { EssayValue, EssayProperties } from '@surveyplanet/types';
 	import { TextInput } from '../';
-	import { createEventDispatcher } from 'svelte';
 
-	const dispatchResponse = createEventDispatcher<{
+	let { id, min, max, single, response, essayResponse } = $props<{
+		id: string;
+		min: EssayProperties['min'];
+		max: EssayProperties['max'];
+		single: EssayProperties['single'];
 		response: EssayValue[];
+		essayResponse: (value: EssayValue[]) => void;
 	}>();
-
-	export let id: string;
-	export let min: EssayProperties['min'];
-	export let max: EssayProperties['max'];
-	export let single: EssayProperties['single'] = false;
-	export let response: EssayValue[];
 
 	const updateResponse = (value: string) => {
 		response = [value];
 	};
 
-	const inputKeyupHandler = ({ detail }: CustomEvent['detail']) => {
-		updateResponse(detail.target.value);
-		dispatchResponse('response', response);
+	const inputKeyupHandler = (event: Event) => {
+		updateResponse((event.target as HTMLInputElement)?.value);
+		essayResponse(response);
 	};
 </script>
 
@@ -30,7 +28,7 @@
 		id={`${id}-essay`}
 		multiline={!single}
 		value={response?.length ? response[0] : ''}
-		on:keyup={inputKeyupHandler} />
+		onkeyup={inputKeyupHandler} />
 
 	{#if min ?? max}
 		<div class="sp-survey--question--form--essay--counters">

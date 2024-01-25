@@ -2,8 +2,8 @@
 	lang="ts"
 	context="module">
 	import { Icon, type IconName } from './index';
-	export interface ListData {
-		name: string;
+	export interface SortListData {
+		label: string;
 		meta?: string;
 		image?: string;
 		icon?: IconName;
@@ -19,16 +19,15 @@
 	// on first load the list is not working properly
 	// works after browser window reset
 
-	import { createEventDispatcher } from 'svelte';
 	import { quintOut } from 'svelte/easing';
 	import { crossfade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
-	const dispatch = createEventDispatcher<{
-		sort: ListData[];
-	}>();
-	export let data: ListData[];
 
-	$: data = data;
+	let { data, sort } = $props<{
+		data: SortListData[];
+		sort: (data: SortListData[]) => void;
+	}>();
+	// $: data = data;
 
 	// FLIP ANIMATION
 	const [send, receive] = crossfade({
@@ -53,11 +52,10 @@
 		let newList = [...data];
 		newList[from] = [newList[to], (newList[to] = newList[from])][0];
 		data = newList;
-		console.log(data);
-		dispatch('sort', newList);
+		sort(newList);
 	};
 
-	let isOver: boolean | string = false;
+	let isOver: boolean | string = $state(false);
 	const getDraggedParent = (
 		node: CustomDragEventTarget
 	):
@@ -115,18 +113,20 @@
 				data-index={index}
 				data-id={JSON.stringify(item)}
 				draggable="true"
-				on:dragstart={listItemDragStartHandler}
-				on:dragover={listItemDragOverHandler}
-				on:dragleave={listItemDragLeaveHandler}
-				on:drop={listItemDragDropHandler}
-				in:receive|global={{ key: item.name }}
-				out:send|global={{ key: item.name }}
+				ondragstart={listItemDragStartHandler}
+				ondragover={listItemDragOverHandler}
+				ondragleave={listItemDragLeaveHandler}
+				ondrop={listItemDragDropHandler}
+				in:receive|global={{ key: item.label }}
+				out:send|global={{ key: item.label }}
 				animate:flip={{ duration: 300 }}
 				class:float={isOver}>
 				<slot
 					{item}
 					{index}>
-					<p class="sp-sortable-list--list-item-name">{item.name}</p>
+					<p class="sp-sortable-list--list-item-label">
+						{item.label}
+					</p>
 					{#if item.meta}
 						<span class="sp-sortable-list--list-item-meta">
 							{item.meta}
@@ -136,7 +136,7 @@
 						<img
 							class="sp-sortable-list--list-item-image"
 							src={item.image}
-							alt={item.name} />
+							alt={item.label} />
 					{/if}
 					{#if item.icon}
 						<Icon name={item.icon} />
@@ -147,17 +147,25 @@
 	{/if}
 </ul>
 
-<style>
+<style lang="scss">
 	ul {
 		list-style: none;
 		padding: 0;
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: column;
 	}
 	li {
 		border: 2px dotted transparent;
 		transition: border 0.1s linear;
-	}
-	.float {
-		border-color: rgba(48, 12, 200, 0.2);
-		box-shadow: 0 0 0 5px rgba(00, 00, 00, 0.1);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		.img {
+			width: 100%;
+			height: auto;
+			pointer-events: none;
+		}
 	}
 </style>

@@ -2,7 +2,6 @@
 	import type { ImageProperties, ImageValue } from '@surveyplanet/types';
 	import { Image } from '$lib';
 	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
-
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -10,7 +9,7 @@
 
 	// Component props
 	let id = $state('abc123');
-	let labels: ImageProperties['labels'] = [
+	let labels: ImageProperties['labels'] = $state([
 		{
 			image: 'https://media.surveyplanet.com/testing/default',
 			label: 'Image 1',
@@ -19,7 +18,7 @@
 			image: 'https://media.surveyplanet.com/testing/no-extension-jpg',
 			label: 'Image 2',
 		},
-	];
+	]);
 	let multi: ImageProperties['multi'] = $state(false);
 	let size: ImageProperties['size'] = $state('medium');
 	let hideCaptions: ImageProperties['hideCaptions'] = $state(false);
@@ -33,13 +32,14 @@
 			value: '',
 		},
 	]);
-	const imageResponseHandler = (event: CustomEvent) => {
-		events.push('response');
+	const imageResponseHandler = (response: ImageValue[]) => {
+		events.push(JSON.stringify(response, null, 2));
 	};
 </script>
 
 <Layout
 	component="Image"
+	{md}
 	example={source(
 		id,
 		labels,
@@ -52,53 +52,86 @@
 		random,
 		response
 	)}
-	{md}
 	{events}>
 	<svelte:fragment slot="controls">
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
-				value={id} />
+				value={id}
+				oninput={(e:Event) => {
+					id = (e.target as HTMLInputElement).value;
+				}} />
+
 			<PropsChanger
 				object="Labels"
-				value={labels.toString()} />
+				value={JSON.stringify(labels)}
+				oninput={(e:Event) => {
+					labels = JSON.parse((e.target as HTMLInputElement).value);
+					console.log(labels);
+				}} />
 			<PropsChanger
-				text="Multi"
-				value={multi} />
+				boolean="Multi"
+				value={multi}
+				oninput={(e:Event) => {
+					multi = (e.target as HTMLInputElement).checked;
+				}} />
 			<PropsChanger
-				text="Size"
-				value={size} />
+				select="Size"
+				value={size}
+				selectOptions={['small', 'medium', 'large']}
+				oninput={(e:Event) => {
+					size = (e.target as HTMLInputElement).value as ImageProperties['size'];
+				}} />
 			<PropsChanger
-				text="Hide Captions"
-				value={hideCaptions} />
+				boolean="Hide Captions"
+				value={hideCaptions}
+				oninput={(e:Event) => {
+					hideCaptions = (e.target as HTMLInputElement).checked;
+				}} />
 			<PropsChanger
-				text="Contain"
-				value={contain} />
+				boolean="Contain"
+				value={contain}
+				oninput={(e:Event) => {
+					contain = (e.target as HTMLInputElement).checked;
+				}} />
 			<PropsChanger
-				number="Min"
-				value={min} />
-			<PropsChanger
-				number="Max"
-				value={max} />
-			<PropsChanger
-				text="Random"
-				value={random} />
+				boolean="Random"
+				value={random}
+				oninput={(e:Event) => {
+					random = (e.target as HTMLInputElement).checked;
+				}} />
 			<PropsChanger
 				object="Response"
-				value={response.toString()} />
+				value={JSON.stringify(response)}
+				oninput={(e:Event) => {
+					response = JSON.parse((e.target as HTMLInputElement).value);
+				}} />
+			<PropsChanger
+				number="Min"
+				value={min}
+				oninput={(e:Event) => {
+					min = Number((e.target as HTMLInputElement).value);
+				}} />
+			<PropsChanger
+				number="Max"
+				value={max}
+				oninput={(e:Event) => {
+					max = Number((e.target as HTMLInputElement).value);
+				}} />
 		</PropsContainer>
 	</svelte:fragment>
 	<svelte:fragment slot="main">
 		<div class="wrapper">
 			<Image
-				{id}
-				{labels}
+				bind:labels
+				bind:id
 				{multi}
 				{size}
 				{hideCaptions}
 				{contain}
 				{random}
-				{response} />
+				{response}
+				imageResponse={imageResponseHandler} />
 		</div>
 	</svelte:fragment>
 </Layout>

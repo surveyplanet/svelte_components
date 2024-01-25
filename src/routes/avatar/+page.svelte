@@ -16,6 +16,7 @@
 	let disabled = $state(false);
 
 	const clickEventHandler = () => {
+		console.log('clicked');
 		events.push('click');
 	};
 </script>
@@ -29,23 +30,26 @@
 		<PropsContainer>
 			<PropsChanger
 				text="Profile Image"
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 			profileImage = (e.target as HTMLInputElement).value;
 		}} />
 			<PropsChanger
 				text="Id"
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 			id = (e.target as HTMLInputElement).value;
 		}} />
 			<PropsChanger
-				text="Size"
-				textInputHandler={(e: Event) => {
+				select="Size"
+				selectOptions={['small', 'medium', 'large']}
+				value={size}
+				oninput={(e: Event) => {
 			size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
 		}} />
 			<PropsChanger
-				text="Disabled"
-				textInputHandler={(e: Event) => {
-			disabled = (e.target as HTMLInputElement).value === 'true';
+				boolean="Disabled"
+				value={disabled}
+				oninput={(e: Event) => {
+			disabled = (e.target as HTMLInputElement).checked;
 		}} />
 		</PropsContainer>
 	</svelte:fragment>
@@ -55,7 +59,7 @@
 			{id}
 			{size}
 			{disabled}
-			on:click={clickEventHandler} />
+			onclick={clickEventHandler} />
 	</svelte:fragment>
 </Layout>
 

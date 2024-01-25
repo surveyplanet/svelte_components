@@ -9,7 +9,7 @@
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state([]) as string[];
+	let events = $state([]) as DateTimeValue[];
 	let keys = $state(0);
 
 	let id = $state('abc123');
@@ -24,9 +24,8 @@
 		new Date(1977, 3, 29, 12, 0, 0).toISOString(),
 	]);
 
-	const dateTimeResponseHandler = (event: CustomEvent) => {
-		console.log('DateTime: ', event.detail[0]);
-		events.push('response');
+	const dateTimeResponseHandler = (datetime: DateTimeValue[]) => {
+		events.push(datetime.toString());
 	};
 </script>
 
@@ -39,13 +38,22 @@
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
-				value={id} />
+				value={id}
+				oninput={(event: Event) => {
+					id = (event.target as HTMLInputElement).value;
+				}} />
 			<PropsChanger
-				text="Date"
-				value={date} />
+				boolean="Date"
+				value={date}
+				oninput={(event: Event) => {
+					date = (event.target as HTMLInputElement).checked;
+				}} />
 			<PropsChanger
-				text="Time"
-				value={time} />
+				boolean="Time"
+				value={time}
+				oninput={(event: Event) => {
+					time = (event.target as HTMLInputElement).checked;
+				}} />
 			<PropsChanger
 				object="Response"
 				value={response.toString()} />
@@ -58,7 +66,7 @@
 				{date}
 				{time}
 				{response}
-				on:response={dateTimeResponseHandler} />
+				dateResponse={dateTimeResponseHandler} />
 		</div>
 	</svelte:fragment>
 </Layout>

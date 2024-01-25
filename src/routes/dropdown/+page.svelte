@@ -51,15 +51,14 @@
 	let searchThreshold = $state(10);
 	let disabled = $state(false);
 	let required = $state(false);
-	let value = $state(options[3].id);
+	let value = $state<string | undefined>(undefined);
 	let placeholder = $state('Choose one');
 	let label = $state('Dropdown component');
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
-	const dropdownChangeHandler = (event: CustomEvent) => {
-		value = event.detail;
+	const dropdownChangeHandler = (value: string) => {
 		console.log('dropdownChangeHandler', value);
-		events.push('change');
+		events.push(value);
 	};
 </script>
 
@@ -81,47 +80,51 @@
 		<PropsContainer>
 			<PropsChanger
 				object="Options"
-				textInputHandler={(e: Event) => {
+				value={JSON.stringify(options, null, 2)}
+				oninput={(e: Event) => {
 					options = JSON.parse((e.target as HTMLInputElement).value);
-				}}
-				blurHandler={() => {
-					keys++;
-					console.log('keys', keys);
-				}}
-				value={JSON.stringify(options, null, 2)} />
+				}} />
 			<PropsChanger
 				number="Search threshold"
-				textInputHandler={(e: Event) => {
+				value={searchThreshold}
+				oninput={(e: Event) => {
 					searchThreshold = Number((e.target as HTMLInputElement).value);
 				}} />
 			<PropsChanger
 				boolean="Disabled"
-				booleanInputHandler={(e: Event) => {
+				value={disabled}
+				oninput={(e: Event) => {
 					disabled = (e.target as HTMLInputElement).checked;
 				}} />
 			<PropsChanger
 				boolean="Required"
-				booleanInputHandler={(e: Event) => {
+				value={required}
+				oninput={(e: Event) => {
 					required = (e.target as HTMLInputElement).checked;
 				}} />
 			<PropsChanger
 				text="Value"
-				textInputHandler={(e: Event) => {
-					value = (e.target as HTMLInputElement).value;
+				{value}
+				oninput={(e: Event) => {
+					value = (e.target as HTMLInputElement).value 
 				}} />
 			<PropsChanger
 				text="Placeholder"
-				textInputHandler={(e: Event) => {
+				value={placeholder}
+				oninput={(e: Event) => {
 					placeholder = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
 				text="Label"
-				textInputHandler={(e: Event) => {
+				value={label}
+				oninput={(e: Event) => {
 					label = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
-				text="Size"
-				textInputHandler={(e: Event) => {
+				select="Size"
+				selectOptions={['small', 'medium', 'large']}
+				value={size}
+				oninput={(e: Event) => {
 					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
 				}} />
 		</PropsContainer>
@@ -137,7 +140,7 @@
 				{placeholder}
 				{label}
 				{size}
-				on:change={dropdownChangeHandler} />
+				onchange={dropdownChangeHandler} />
 		{/key}
 	</svelte:fragment>
 </Layout>

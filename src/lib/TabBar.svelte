@@ -13,26 +13,19 @@
 </script>
 
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
-
-	const dispatchTabButton = createEventDispatcher<{
-		tabButton: TabBarData['id'];
+	let {
+		id = (Date.now() + Math.random()).toString(36),
+		grow = false,
+		data = [],
+		tabButton,
+	} = $props<{
+		id?: string;
+		grow?: boolean;
+		data?: TabBarData[];
+		tabButton: (id: string) => void;
 	}>();
 
-	export let id: string = (Date.now() + Math.random()).toString(36);
-	export let grow = false;
-	export let data: TabBarData[] = [];
-
-	let activeIndicator: HTMLDivElement;
-
-	onMount(() => {
-		const selected = data.find((item) => item.selected);
-		if (selected) {
-			selectTabButton(
-				document.getElementById(selected.id) as HTMLButtonElement
-			);
-		}
-	});
+	let activeIndicator: HTMLDivElement | null = $state(null);
 
 	const selectTabButton = (target: HTMLButtonElement) => {
 		const id = target.id;
@@ -43,13 +36,15 @@
 			return item;
 		});
 
-		activeIndicator.style.width = `${width}px`;
-		activeIndicator.style.left = `${left}px`;
-
-		dispatchTabButton('tabButton', id);
+		if (activeIndicator) {
+			activeIndicator.style.width = `${width}px`;
+			activeIndicator.style.left = `${left}px`;
+		}
+		tabButton(id);
 	};
 
 	const tabButtonHandler = (event: Event) => {
+		event.preventDefault();
 		const target = (event.target as HTMLElement).closest('button');
 		selectTabButton(target!);
 	};
@@ -71,7 +66,7 @@
 					class="sp-tab-bar--button"
 					class:sp-tab-bar--item--active={item.selected}
 					disabled={item.disabled}
-					on:click|preventDefault={tabButtonHandler}>
+					onclick={tabButtonHandler}>
 					{#if item.label}
 						<span class="sp-tab-bar--button--label">
 							{item.label}

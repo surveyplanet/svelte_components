@@ -12,8 +12,8 @@
 	let min: RangeProperties['min'] = $state(0);
 	let max: RangeProperties['max'] = $state(10);
 	let response: RangeValue[] = $state([]);
-	const rangeResponseHandler = (event: CustomEvent) => {
-		events.push('response');
+	const rangeResponseHandler = (response: RangeValue[]) => {
+		events.push(JSON.stringify(response));
 	};
 </script>
 
@@ -26,16 +26,28 @@
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
-				value={id} />
+				value={id}
+				oninput={(e: Event) => {
+						id = (e.target as HTMLInputElement).value;
+					}} />
 			<PropsChanger
-				text="Min"
-				value={min} />
+				number="Min"
+				value={min}
+				oninput={(e: Event) => {
+						min = parseInt((e.target as HTMLInputElement).value);
+					}} />
 			<PropsChanger
-				text="Max"
-				value={max} />
+				number="Max"
+				value={max}
+				oninput={(e: Event) => {
+						max = parseInt((e.target as HTMLInputElement).value);
+					}} />
 			<PropsChanger
 				object="Response"
-				value={JSON.stringify(response)} />
+				value={JSON.stringify(response)}
+				oninput={(e: Event) => {
+						response = JSON.parse((e.target as HTMLInputElement).value);
+					}} />
 		</PropsContainer>
 	</svelte:fragment>
 	<svelte:fragment slot="main">
@@ -45,7 +57,7 @@
 				{min}
 				{max}
 				{response}
-				on:response={rangeResponseHandler} />
+				rangeResponse={rangeResponseHandler} />
 		</div>
 	</svelte:fragment>
 </Layout>

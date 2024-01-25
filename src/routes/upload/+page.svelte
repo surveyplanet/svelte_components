@@ -11,18 +11,20 @@
 	let formats = $state(['.jpg', '.jpeg', '.png', '.gif', '.pdf']);
 	let maxSize = $state(10);
 
-	const imageUploadChangeHandler = (event: CustomEvent) => {
-		events.push('change');
-		setUpload(event.detail);
-	};
-
-	const setUpload = (event: {
-		upload: File;
+	const imageUploadChangeHandler = (uploadData: {
+		image: File;
 		data: string | ArrayBuffer | null;
 	}) => {
-		let data = event.data;
+		setUpload(uploadData);
+		events.push(JSON.stringify(uploadData));
+	};
+
+	const setUpload = (uploadData: {
+		image: File;
+		data: string | ArrayBuffer | null;
+	}) => {
 		let img = document.getElementById('upload') as HTMLImageElement;
-		img.src = data as string;
+		img.src = uploadData.data as string;
 		img.classList.remove('none');
 	};
 </script>
@@ -37,19 +39,19 @@
 			<PropsChanger
 				text="Label"
 				value={label}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 						label = (e.target as HTMLInputElement).value;
 					}} />
 			<PropsChanger
-				text="Formats"
+				object="Formats"
 				value={formats.toString()}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 						formats = JSON.parse((e.target as HTMLInputElement).value);
 					}} />
 			<PropsChanger
-				text="Max Size"
-				value={maxSize.toString()}
-				textInputHandler={(e: Event) => {
+				number="Max Size"
+				value={maxSize}
+				oninput={(e: Event) => {
 						maxSize = parseInt((e.target as HTMLInputElement).value);
 					}} />
 		</PropsContainer>
@@ -60,7 +62,7 @@
 				{label}
 				{formats}
 				{maxSize}
-				on:change={imageUploadChangeHandler} />
+				onchange={imageUploadChangeHandler} />
 		</div>
 
 		<embed

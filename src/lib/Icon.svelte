@@ -23,32 +23,21 @@
 
 	const DEFAULT_SIZE: IconSize = 24;
 
-	/**
-	 * The icon color. default: '#262b35'
-	 */
-	export let color: string = COLORS.black;
+	let {
+		color = COLORS.black,
+		size = DEFAULT_SIZE,
+		strokeWidth = 2,
+		name,
+		debug = false,
+	} = $props<{
+		color?: string;
+		size?: IconSize;
+		strokeWidth?: number;
+		name: IconName;
+		debug?: boolean;
+	}>();
 
-	/**
-	 * The icon width and height in pixes. default: 48
-	 */
-	export let size: IconSize = DEFAULT_SIZE;
-
-	/**
-	 * The icons stoke width, default 2
-	 */
-	export let strokeWidth = 2;
-
-	/**
-	 * The name of the icon used to display the vector path
-	 */
-	export let name: IconName;
-
-	/**
-	 * Display a red background behind the icon for debugging
-	 */
-	export let debug = false;
-
-	$: pathData = ICON_DATA[name];
+	let pathData = $derived(ICON_DATA[name]);
 </script>
 
 <svg

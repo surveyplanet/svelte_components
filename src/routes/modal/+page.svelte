@@ -39,49 +39,50 @@
 			<PropsChanger
 				text="Title"
 				value={title}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					title = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
 				text="Subtitle"
 				value={subtitle}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					subtitle = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
-				text="Fullscreen"
-				value={fullscreen.toString()}
-				textInputHandler={(e: Event) => {
-					fullscreen = (e.target as HTMLInputElement).value === 'true';
+				boolean="Fullscreen"
+				value={fullscreen}
+				oninput={(e: Event) => {
+					fullscreen = (e.target as HTMLInputElement).checked
 				}} />
 			<PropsChanger
-				text="Overlay"
-				value={overlay.toString()}
-				textInputHandler={(e: Event) => {
-					overlay = (e.target as HTMLInputElement).value === 'true';
+				boolean="Overlay"
+				value={overlay}
+				oninput={(e: Event) => {
+					overlay = (e.target as HTMLInputElement).checked
 				}} />
 			<PropsChanger
-				text="Visible"
-				value={visible.toString()}
-				textInputHandler={(e: Event) => {
-					visible = (e.target as HTMLInputElement).value === 'true';
+				boolean="Visible"
+				value={visible}
+				oninput={(e: Event) => {
+					visible = (e.target as HTMLInputElement).checked
 				}} />
 			<PropsChanger
-				text="Size"
+				select="Size"
 				value={size}
-				textInputHandler={(e: Event) => {
+				selectOptions={['small', 'medium', 'large']}
+				oninput={(e: Event) => {
 					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
 				}} />
 		</PropsContainer>
 	</svelte:fragment>
 	<svelte:fragment slot="main">
 		<Modal
-			bind:size
-			bind:visible
-			on:open={modalOpened}
-			on:in={modalIn}
-			on:out={modalOut}
-			on:close={close}
+			{visible}
+			{size}
+			onintrostart={modalOpened}
+			onintroend={modalIn}
+			onoutrostart={modalOut}
+			onoutroend={close}
 			{title}
 			{subtitle}
 			{fullscreen}
@@ -103,7 +104,10 @@
 			</svelte:fragment>
 		</Modal>
 		<div class="button-for-tests">
-			<Button on:click={() => (visible = true)}>Launch modal</Button>
+			<Button
+				onclick={() => {
+					visible = true;
+				}}>Launch modal</Button>
 		</div>
 	</svelte:fragment>
 </Layout>

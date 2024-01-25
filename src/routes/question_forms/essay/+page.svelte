@@ -4,7 +4,7 @@
 	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state([]) as string[];
+	let events = $state([]) as EssayValue[];
 	let keys = $state(0);
 
 	// Component props
@@ -13,8 +13,8 @@
 	let max: EssayProperties['max'] = $state(10);
 	let single: EssayProperties['single'] = $state(false);
 	let response: EssayValue[] = $state([]);
-	const essayResponseHandler = (event: CustomEvent) => {
-		events.push('response');
+	const essayResponseHandler = (response: EssayValue[]) => {
+		events.push(response.toString());
 	};
 </script>
 
@@ -27,19 +27,34 @@
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
-				value={id} />
+				value={id}
+				oninput={(e: Event) => {
+						id = (e.target as HTMLInputElement).value;
+					}} />
 			<PropsChanger
 				number="Min"
-				value={min} />
+				value={min}
+				oninput={(e: Event) => {
+						min = Number((e.target as HTMLInputElement).value);
+					}} />
 			<PropsChanger
 				number="Max"
-				value={max} />
+				value={max}
+				oninput={(e: Event) => {
+						max = Number((e.target as HTMLInputElement).value);
+					}} />
 			<PropsChanger
-				text="Single"
-				value={single} />
+				boolean="Single"
+				value={single}
+				oninput={(e: Event) => {
+						single = (e.target as HTMLInputElement).checked;
+					}} />
 			<PropsChanger
 				object="Response"
-				value={response.toString()} />
+				value={response.toString()}
+				oninput={(e: Event) => {
+						response = (e.target as HTMLInputElement).value.split(',');
+					}} />
 		</PropsContainer>
 	</svelte:fragment>
 	<svelte:fragment slot="main">
@@ -49,7 +64,8 @@
 				{min}
 				{max}
 				{single}
-				{response} />
+				{response}
+				essayResponse={essayResponseHandler} />
 		</div>
 	</svelte:fragment>
 </Layout>

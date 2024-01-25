@@ -15,8 +15,8 @@
 	let prependLabel = $state(false);
 	// let meridiemIndicator = false;
 
-	const changeEventHandler = (e: Event): void => {
-		events.push('change');
+	const changeEventHandler = (toggle: boolean): void => {
+		events.push(JSON.stringify(toggle));
 	};
 </script>
 
@@ -28,46 +28,47 @@
 	<svelte:fragment slot="controls">
 		<PropsContainer>
 			<PropsChanger
-				text="On"
-				value={on.toString()}
-				textInputHandler={(e: Event) => {
-					on = (e.target as HTMLInputElement).value === 'true';
-				}} />
-			<PropsChanger
-				text="Disabled"
-				value={disabled.toString()}
-				textInputHandler={(e: Event) => {
-					disabled = (e.target as HTMLInputElement).value === 'true';
-				}} />
-			<PropsChanger
-				text="Tall"
-				value={tall.toString()}
-				textInputHandler={(e: Event) => {
-					tall = (e.target as HTMLInputElement).value === 'true';
-				}} />
-			<PropsChanger
 				text="Name"
 				value={name}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					name = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
 				text="Label"
 				value={label}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					label = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
-				text="Prepend Label"
-				value={prependLabel.toString()}
-				textInputHandler={(e: Event) => {
-					prependLabel = (e.target as HTMLInputElement).value === 'true';
+				boolean="On"
+				value={on}
+				oninput={(e: Event) => {
+					on = (e.target as HTMLInputElement).checked
+				}} />
+			<PropsChanger
+				boolean="Disabled"
+				value={disabled}
+				oninput={(e: Event) => {
+					disabled = (e.target as HTMLInputElement).checked
+				}} />
+			<PropsChanger
+				boolean="Tall"
+				value={tall}
+				oninput={(e: Event) => {
+					tall = (e.target as HTMLInputElement).checked
+				}} />
+
+			<PropsChanger
+				boolean="Prepend Label"
+				value={prependLabel}
+				oninput={(e: Event) => {
+					prependLabel = (e.target as HTMLInputElement).checked
 				}} />
 		</PropsContainer>
 	</svelte:fragment>
 	<svelte:fragment slot="main">
 		<Toggle
-			on:change={changeEventHandler}
+			onchange={changeEventHandler}
 			{id}
 			{on}
 			{disabled}

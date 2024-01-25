@@ -11,11 +11,11 @@
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
 
-	let color: LogoColor = COLORS.black;
-	let size: LogoSize = 256;
-	let fill: LogoFillColor = 'blue';
+	let color: LogoColor = $state(COLORS.black);
+	let size: LogoSize = $state(256);
+	let fill: LogoFillColor = $state('blue');
 
-	let sizeAsString = size.toString();
+	// let sizeAsString = $derived(size.toString());
 </script>
 
 <Layout
@@ -28,19 +28,27 @@
 			<PropsChanger
 				text="Color"
 				value={color}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					color = (e.target as HTMLSelectElement).value as LogoColor;
 				}} />
 			<PropsChanger
-				text="Size"
-				value={sizeAsString}
-				textInputHandler={(e: Event) => {
-					sizeAsString = (e.target as HTMLInputElement).value;
+				select="Size"
+				value={size}
+				selectOptions={[8, 12, 16, 20, 24, 32, 48, 64, 128, 256, 512]}
+				oninput={(e: Event) => {
+					size = Number((e.target as HTMLInputElement).value) as LogoSize;
 				}} />
 			<PropsChanger
-				text="Fill"
+				select="Fill"
 				value={fill}
-				textInputHandler={(e: Event) => {
+				selectOptions={[
+					'blue',
+					'yellow',
+					'pink',
+					'green',
+					'transparent',
+				]}
+				oninput={(e: Event) => {
 					fill = (e.target as HTMLSelectElement).value as LogoFillColor;
 				}} />
 		</PropsContainer>

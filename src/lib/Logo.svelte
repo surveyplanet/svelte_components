@@ -29,21 +29,28 @@
 <script lang="ts">
 	const DEFAULT_SIZE: LogoSize = 24;
 
-	export let color: LogoColor = COLORS.black;
+	let {
+		color = COLORS.black,
+		fill = 'blue',
+		size = DEFAULT_SIZE,
+	} = $props<{
+		color?: LogoColor;
+		fill?: LogoFillColor;
+		size?: LogoSize;
+	}>();
 
-	export let fill: LogoFillColor = 'blue';
+	let gradient: string[] = $state([
+		COLORS.blueGradientStart,
+		COLORS.blueGradientEnd,
+	]);
 
-	export let size: LogoSize = DEFAULT_SIZE;
-
-	let gradient: string[] = [COLORS.blueGradientStart, COLORS.blueGradientEnd];
-
-	$: {
+	$effect(() => {
 		if (fill !== 'transparent') {
 			const startColor = COLORS[`${fill}GradientStart`];
 			const endColor = COLORS[`${fill}GradientEnd`];
 			gradient = [startColor, endColor];
 		}
-	}
+	});
 </script>
 
 <svg

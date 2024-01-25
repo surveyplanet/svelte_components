@@ -8,7 +8,7 @@
 </script>
 
 <script lang="ts">
-	export let footerData: FooterData[] = [];
+	let { footerData = [] } = $props<{ footerData: FooterData[] }>();
 </script>
 
 <nav class="sp-footer">

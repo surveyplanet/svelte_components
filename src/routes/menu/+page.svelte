@@ -5,52 +5,50 @@
 	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
+	import type { StatusCodes } from '@surveyplanet/types';
 	let events = $state([]) as string[];
 
-	let visible = $state(false);
-	let data: MenuData[] = menuData;
-	let size: 'small' | 'medium' | 'large' = 'small';
+	let menuVisible = $state(false);
+	let data: MenuData[] = $state(menuData);
+	let size: 'small' | 'medium' | 'large' = $state('small');
 
 	const buttonClickHandler = () => {
-		visible = !visible;
+		menuVisible = !menuVisible;
 	};
 
-	const menuClickHandler = (event: CustomEvent) => {
-		events.push('click');
+	const menuClickHandler = (id: string) => {
+		events.push('click: ', id);
 	};
 
-	const menuUpdateHandler = (event: CustomEvent) => {
-		events.push('update');
-	};
-
-	const menuBlurHandler = (event: CustomEvent) => {
-		events.push('blur');
+	const menuUpdateHandler = (id: string) => {
+		events.push('update: ', id);
 	};
 </script>
 
 <Layout
 	component="Menu"
-	example={source(visible, data, size)}
+	example={source(menuVisible, data, size)}
 	{md}
 	{events}>
 	<svelte:fragment slot="controls">
 		<PropsContainer>
 			<PropsChanger
 				text="Visible"
-				value={visible.toString()}
-				textInputHandler={(e: Event) => {
-					visible = (e.target as HTMLInputElement).value === 'true';
+				value={menuVisible.toString()}
+				oninput={(e: Event) => {
+					menuVisible = (e.target as HTMLInputElement).checked;
 				}} />
 			<PropsChanger
 				text="Data"
 				value={JSON.stringify(data)}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					data = JSON.parse((e.target as HTMLInputElement).value);
 				}} />
 			<PropsChanger
-				text="Size"
+				select="Size"
+				selectOptions={['small', 'medium', 'large']}
 				value={size}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
 				}} />
 		</PropsContainer>
@@ -59,20 +57,19 @@
 		<div class="wrapper">
 			<Button
 				action={true}
-				on:click={buttonClickHandler}>
+				onclick={buttonClickHandler}>
 				<Icon
 					name="plus"
 					color="white" />
 			</Button>
 			<br />
 			<br />
-			{#if visible}
+			{#if menuVisible}
 				<Menu
-					bind:data
+					{data}
 					{size}
-					on:update={menuUpdateHandler}
-					on:click={menuClickHandler}
-					on:blur={menuBlurHandler} />
+					menuUpdate={menuUpdateHandler}
+					menuClick={menuClickHandler} />
 			{/if}
 		</div>
 	</svelte:fragment>

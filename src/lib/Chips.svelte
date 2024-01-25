@@ -9,25 +9,32 @@
 </script>
 
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { Icon } from './index';
-
-	export let data: ChipData[] = [];
-	export let selectable = false;
-	export let multiSelect = false;
-	export let removable = false;
-
-	const dispatchClick = createEventDispatcher<{ click: ChipData[] }>();
-	const dispatchRemove = createEventDispatcher<{ remove: ChipData[] }>();
+	import { stopPropagation, preventDefault } from '../utils/event_modifiers';
+	let {
+		data = [],
+		selectable = false,
+		multiSelect = false,
+		removable = false,
+		click,
+		remove,
+	} = $props<{
+		data?: ChipData[];
+		selectable?: boolean;
+		multiSelect?: boolean;
+		removable?: boolean;
+		click?: (data: ChipData[]) => void;
+		remove?: (data: ChipData[]) => void;
+	}>();
 
 	const getChipId = (chipEl: HTMLButtonElement) => {
 		const parent = chipEl.closest('.sp-chips--chip')! as HTMLButtonElement;
 		return parent.id;
 	};
 
-	const remove = (id: string) => {
+	const removeHandler = (id: string) => {
 		data = data.filter((chip) => chip.id !== id);
-		dispatchRemove('remove', data);
+		if (remove) remove(data);
 	};
 
 	const toggle = (id: string) => {
@@ -40,7 +47,7 @@
 			return chip;
 		});
 
-		dispatchClick('click', data);
+		if (click) click(data);
 	};
 
 	const chipClickHandler = (e: MouseEvent) => {
@@ -52,10 +59,21 @@
 		toggle(id);
 	};
 
+	const chipKeyDownHandler = (e: KeyboardEvent) => {
+		if (!selectable) {
+			return e.preventDefault();
+		}
+		const target = e.target as HTMLButtonElement;
+		const id = getChipId(target);
+		if (e.key === 'Enter' || e.key === ' ') {
+			toggle(id);
+		}
+	};
+
 	const closeButtonClickHandler = (e: MouseEvent) => {
 		const target = e.target as HTMLButtonElement;
 		const id = getChipId(target);
-		remove(id);
+		removeHandler(id);
 	};
 </script>
 
@@ -65,23 +83,28 @@
 	class:sp-chips--multi={multiSelect}>
 	{#each data as chip}
 		<li>
-			<button
+			<div
 				id={chip.id}
 				class="sp-chips--chip"
 				class:sp-chips--chip--selected={chip.selected}
-				on:click|preventDefault={chipClickHandler}>
+				onclick={preventDefault(stopPropagation(chipClickHandler))}
+				onkeydown={preventDefault(stopPropagation(chipKeyDownHandler))}
+				tabindex="0"
+				role="button">
 				<span class="sp-chips--chip--label"> {chip.label} </span>
 				{#if removable}
 					<button
 						title="Remove"
 						class="sp-chips--chip--close-btn"
-						on:click|preventDefault|stopPropagation={closeButtonClickHandler}>
+						onclick={preventDefault(
+							stopPropagation(closeButtonClickHandler)
+						)}>
 						<Icon
 							name="x"
 							size={20} />
 					</button>
 				{/if}
-			</button>
+			</div>
 		</li>
 	{/each}
 </menu>

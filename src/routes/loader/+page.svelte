@@ -33,21 +33,21 @@
 	<svelte:fragment slot="controls">
 		<PropsContainer>
 			<PropsChanger
-				text="Colors"
+				object="Colors"
 				value={JSON.stringify(colors)}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					colors = JSON.parse((e.target as HTMLInputElement).value);
 				}} />
 			<PropsChanger
 				text="Size"
 				value={size.toString()}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					size = Number((e.target as HTMLInputElement).value);
 				}} />
 			<PropsChanger
 				text="Stroke Width"
 				value={strokeWidth.toString()}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					strokeWidth = Number((e.target as HTMLInputElement).value) as 1 | 2 | 3 | 4;
 				}} />
 		</PropsContainer>

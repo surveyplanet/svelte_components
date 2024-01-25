@@ -37,8 +37,8 @@
 	let response: FormValue[] = $state([]);
 	let requireAll: FormProperties['requireAll'] = $state();
 	let random: FormProperties['random'] = $state();
-	const formResponseHandler = (event: CustomEvent) => {
-		events.push('response');
+	const formResponseHandler = (response: FormValue[]) => {
+		events.push(JSON.stringify(response, null, 2));
 	};
 </script>
 
@@ -76,7 +76,7 @@
 				{labels}
 				{response}
 				{random}
-				on:response={formResponseHandler} />
+				formResponse={formResponseHandler} />
 		</div>
 	</svelte:fragment>
 </Layout>

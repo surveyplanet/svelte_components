@@ -11,97 +11,67 @@
 </script>
 
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { validate, type ValidatorError } from '@surveyplanet/utilities';
 	import Cleave from 'cleave.js';
 	import type { CleaveOptions } from 'cleave.js/options';
 
-	const dispatchChange = createEventDispatcher<{ change: Event }>();
-	const dispatchInput = createEventDispatcher<{ input: Event }>();
-	const dispatchKeyDown = createEventDispatcher<{ keydown: Event }>();
-	const dispatchKeyUp = createEventDispatcher<{ keyup: Event }>();
-	const dispatchFocus = createEventDispatcher<{ focus: FocusEvent }>();
-	const dispatchBlur = createEventDispatcher<{ blur: FocusEvent }>();
+	let {
+		id,
+		name,
+		type = 'text',
+		value,
+		label,
+		placeholder,
+		multiline = false,
+		readonly,
+		disabled,
+		cleaveOptions,
+		validationRules = [''],
+		validationMessage,
+		size = 'medium',
+		validationHideMessage,
+		oninput,
+		onblur,
+		onchange,
+		onfocus,
+		onkeydown,
+		onkeyup,
+	} = $props<{
+		id: string;
+		name: string;
+		type?: TextInputType;
+		value?: string;
+		label?: string;
+		placeholder?: string | null;
+		multiline?: boolean;
+		readonly?: boolean;
+		disabled?: boolean;
+		cleaveOptions?: CleaveOptions;
+		validationRules?: string[];
+		validationMessage?: string | null;
+		size?: 'small' | 'medium' | 'large';
+		validationHideMessage?: boolean | null;
+		oninput?: (e: Event) => void;
+		onblur?: (e: Event) => void;
+		onchange?: (e: Event) => void;
+		onfocus?: (e: Event) => void;
+		onkeydown?: (e: Event) => void;
+		onkeyup?: (e: Event) => void;
+	}>();
 
-	/**
-	 * The unique id of the input
-	 */
-	export let id: string;
+	let hasValidationErrors = $state(false);
 
-	/**
-	 * The name of the input
-	 */
-	export let name: string;
+	let validationDisplayMessage = $state('');
 
-	/**
-	 * The input type, default: 'text'
-	 */
-	export let type: TextInputType = 'text';
-
-	/**
-	 * The value of the input
-	 */
-	export let value = '';
-
-	/**
-	 * The input label
-	 */
-	export let label: string | null = null;
-
-	/**
-	 * The input placeholder
-	 */
-	export let placeholder: string | null = null;
-
-	/**
-	 * Whether the input should be a single or multi-line
-	 */
-	export let multiline = false;
-
-	/**
-	 * Whether the input should be read only. If you want the user to identify the input as in non-modified mode, use disabled instead.
-	 */
-	export let readonly = false;
-
-	/**
-	 * Whether the input should be disabled. If you want a non-modified element to appear like the rest of the form elements, use readonly instead.
-	 */
-	export let disabled = false;
-
-	/**
-	 * Cleave.js options for masked input. See: https://github.com/nosir/cleave.js
-	 */
-	export let cleaveOptions: CleaveOptions = {};
-
-	/**
-	 * A list of validation rules for the input. See: https://github.com/surveyplanet/utilities
-	 */
-	export let validationRules: string[] = [];
-
-	/**
-	 * A custom validation message to be used instead of the default
-	 */
-	export let validationMessage: string | null = null;
-
-	export let size: 'small' | 'medium' | 'large' = 'small';
-
-	/**
-	 * Whether to automatically show the validation error message or not.
-	 */
-	export let validationHideMessage: boolean | null = null;
-
-	let hasValidationErrors = false;
-
-	let validationDisplayMessage = '';
-
-	$: {
+	$effect(() => {
 		if (
+			cleaveOptions &&
 			Object.keys(cleaveOptions).length &&
 			Object.prototype.toString.call(cleaveOptions) === '[object Object]'
 		) {
 			new Cleave(`#${id}`, cleaveOptions);
 		}
-	}
+	});
 
 	const validateInput = (target: HTMLInputElement) => {
 		const errors: ValidatorError[] = validate(target);
@@ -115,32 +85,19 @@
 	const changeHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		validateInput(target);
-		if (!hasValidationErrors) {
-			dispatchChange('change', event);
+		if (!hasValidationErrors && typeof onchange === 'function') {
+			onchange(event);
 		}
 	};
-
 	const inputHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		validateInput(target);
-		if (!hasValidationErrors) {
-			dispatchInput('input', event);
+		if (!hasValidationErrors && typeof oninput === 'function') {
+			oninput(event);
 		}
 	};
 
-	const focusHandler = (event: FocusEvent) => {
-		dispatchFocus('focus', event);
-	};
-
-	const blurHandler = (event: FocusEvent) => {
-		dispatchBlur('blur', event);
-	};
-
-	const keydownHandler = (event: KeyboardEvent) => {
-		dispatchKeyDown('keydown', event);
-	};
-
-	const keyupHandler = (event: KeyboardEvent) => {
+	const onkeyupHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		// if the input has errors validate on keyup
 		if (hasValidationErrors) {
@@ -153,7 +110,7 @@
 				return;
 			}
 		}
-		dispatchKeyUp('keyup', event);
+		if (onkeyup) onkeyup(event);
 	};
 </script>
 
@@ -165,7 +122,7 @@
 			class="sp-text-input--label"
 			for={id}>
 			<span class="sp-text-input--label--text">{label}</span>
-			{#if validationRules.includes('require')}
+			{#if validationRules && validationRules.includes('require')}
 				<span class="sp-text-input--label--required">*</span>
 			{/if}
 		</label>
@@ -183,12 +140,12 @@
 				? validationRules.join(',')
 				: null}
 			data-validate-message={validationMessage}
-			on:input={inputHandler}
-			on:blur={blurHandler}
-			on:change={changeHandler}
-			on:focus={focusHandler}
-			on:keydown={keydownHandler}
-			on:keyup={keyupHandler}>{value}</textarea>
+			oninput={inputHandler}
+			{onblur}
+			onchange={changeHandler}
+			{onfocus}
+			{onkeydown}
+			onkeyup={onkeyupHandler}>{value}</textarea>
 	{:else}
 		<input
 			class="sp-text-input--input"
@@ -203,12 +160,12 @@
 				? validationRules.join(',')
 				: null}
 			data-validate-message={validationMessage}
-			on:blur={blurHandler}
-			on:input={inputHandler}
-			on:change={changeHandler}
-			on:focus={focusHandler}
-			on:keydown={keydownHandler}
-			on:keyup={keyupHandler} />
+			oninput={inputHandler}
+			{onblur}
+			onchange={changeHandler}
+			{onfocus}
+			{onkeydown}
+			{onkeyup} />
 	{/if}
 	{#if !validationHideMessage && hasValidationErrors && validationDisplayMessage.length}
 		<label

@@ -30,16 +30,16 @@
 	let navMenuData: MenuData[] = $state(menuData);
 	let vertical = $state(false);
 
-	const menuUpdateHandler = (e: CustomEvent) => {
-		events.push('update');
+	const menuUpdateHandler = (id: string) => {
+		events.push(id);
 	};
 
-	const menuClickHandler = (e: CustomEvent) => {
-		events.push('click');
+	const menuClickHandler = (id: string) => {
+		events.push(id);
 	};
 
-	const navLinkHandler = (e: CustomEvent) => {
-		events.push('navLink');
+	const navLinkHandler = (navLink: string) => {
+		events.push(navLink);
 	};
 </script>
 
@@ -51,22 +51,22 @@
 	<svelte:fragment slot="controls">
 		<PropsContainer>
 			<PropsChanger
-				text="Data"
+				object="Data"
 				value={JSON.stringify(data)}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					data = JSON.parse((e.target as HTMLInputElement).value);
 				}} />
 			<PropsChanger
-				text="Menu Data"
+				object="Menu Data"
 				value={JSON.stringify(navMenuData)}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					navMenuData = JSON.parse((e.target as HTMLInputElement).value);
 				}} />
 			<PropsChanger
-				text="Vertical"
+				boolean="Vertical"
 				value={vertical.toString()}
-				textInputHandler={(e: Event) => {
-					vertical = (e.target as HTMLInputElement).value === 'true';
+				oninput={(e: Event) => {
+					vertical = (e.target as HTMLInputElement).checked;
 				}} />
 		</PropsContainer>
 	</svelte:fragment>
@@ -77,34 +77,9 @@
 					{data}
 					{navMenuData}
 					{vertical}
-					on:navLink={navLinkHandler}
-					on:update={menuUpdateHandler}
-					on:click={menuClickHandler} />
-				<div class="spacer" />
-				<NavBar
-					{data}
-					{navMenuData}
-					{vertical}
-					on:navLink={navLinkHandler}
-					on:update={menuUpdateHandler}
-					on:click={menuClickHandler} />
-			</div>
-			<div class="wrapper">
-				<NavBar
-					{data}
-					{navMenuData}
-					{vertical}
-					on:navLink={navLinkHandler}
-					on:update={menuUpdateHandler}
-					on:click={menuClickHandler} />
-				<div class="spacer" />
-				<NavBar
-					{data}
-					{navMenuData}
-					{vertical}
-					on:navLink={navLinkHandler}
-					on:update={menuUpdateHandler}
-					on:click={menuClickHandler} />
+					onnavlink={navLinkHandler}
+					onupdate={menuUpdateHandler}
+					onclick={menuClickHandler} />
 			</div>
 		</div>
 	</svelte:fragment>

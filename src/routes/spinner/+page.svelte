@@ -43,81 +43,84 @@
 	)}
 	{md}
 	{events}>
-	<svelte:fragment slot="main">
+	<svelte:fragment slot="controls">
+		Events need to be fixed
 		<PropsContainer>
 			<PropsChanger
 				text="label"
 				value={label}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					label = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
 				number="step"
 				value={step}
-				numberInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					step = Number((e.target as HTMLInputElement).value);
 				}} />
 			<PropsChanger
 				number="min"
 				value={min}
-				numberInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					min = Number((e.target as HTMLInputElement).value);
 				}} />
 			<PropsChanger
 				number="max"
 				value={max}
-				numberInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					max = Number((e.target as HTMLInputElement).value);
 				}} />
 			<PropsChanger
 				number="value"
 				{value}
-				numberInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					value = Number((e.target as HTMLInputElement).value);
 				}} />
 			<PropsChanger
 				boolean="disabled"
 				value={disabled}
-				booleanInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					disabled = (e.target as HTMLInputElement).checked;
 				}} />
 			<PropsChanger
 				boolean="required"
 				value={required}
-				booleanInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					required = (e.target as HTMLInputElement).checked;
 				}} />
 			<PropsChanger
 				boolean="overflow"
 				value={overflow}
-				booleanInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					overflow = (e.target as HTMLInputElement).checked;
 				}} />
 			<PropsChanger
 				text="id"
 				value={id}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					id = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
 				text="placeholder"
 				value={placeholder}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					placeholder = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
 				number="dragSpeed"
 				value={dragSpeed}
-				numberInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					dragSpeed = Number((e.target as HTMLInputElement).value);
 				}} />
 			<PropsChanger
 				text="size"
 				value={size}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
 				}} />
 		</PropsContainer>
+	</svelte:fragment>
+	<svelte:fragment slot="main">
 		<Spinner
 			{label}
 			{step}

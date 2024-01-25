@@ -1,39 +1,41 @@
 <script lang="ts">
+	import Checkbox from '$lib/Checkbox.svelte';
+	import TextInput from '$lib/TextInput.svelte';
 	let {
 		text,
 		number,
 		boolean,
 		object,
-		textInputHandler,
-		numberInputHandler,
-		booleanInputHandler,
-		objectInputHandler,
-		blurHandler,
+		select,
+		oninput,
+		onblur,
+		selectOptions = [],
 		value = '',
 	} = $props<{
 		text?: string;
 		number?: string;
 		boolean?: string;
 		object?: string;
-		textInputHandler?: (e: Event) => void;
-		numberInputHandler?: (e: Event) => void;
-		booleanInputHandler?: (e: Event) => void;
-		objectInputHandler?: (e: Event) => void;
-		blurHandler?: () => void;
+		select?: string;
+		selectOptions?: string[] | number[];
+		oninput?: (e: Event) => void;
+		onblur?: (e: Event) => void;
 		value?: string | number | boolean | null | undefined;
 	}>();
 </script>
 
 <div class="props-changer">
-	{#if text}
+	{#if text && typeof value === 'string'}
 		<div class="props-changer--item">
-			<label for="text">{text}</label>
-			<input
+			<TextInput
+				id={`text-${text}`}
+				name="text"
+				label={text}
 				type="text"
-				id="text"
+				multiline={false}
 				{value}
-				oninput={textInputHandler}
-				onblur={blurHandler} />
+				{oninput}
+				{onblur} />
 		</div>
 	{/if}
 	{#if number}
@@ -43,29 +45,45 @@
 				type="number"
 				id="number"
 				{value}
-				oninput={numberInputHandler}
-				onblur={blurHandler} />
+				{oninput}
+				{onblur} />
 		</div>
 	{/if}
 	{#if (boolean && typeof value === 'boolean') || typeof value === 'undefined'}
 		<div class="props-changer--item">
 			<label for="boolean">{boolean}</label>
-			<input
-				type="checkbox"
-				id="boolean"
+			<Checkbox
+				id="boolean-{boolean}"
+				name="boolean-{boolean}s"
 				checked={value}
-				oninput={booleanInputHandler}
-				onblur={blurHandler} />
+				size="medium"
+				onchange={oninput} />
 		</div>
 	{/if}
 	{#if object && typeof value === 'string'}
 		<div class="props-changer--item">
-			<label for="object">{object}</label>
-			<textarea
-				id="object"
-				value={`${value}`}
-				oninput={objectInputHandler}
-				onblur={blurHandler} />
+			<TextInput
+				id={`object-${object}`}
+				name="object"
+				label={object}
+				type="text"
+				multiline={true}
+				{oninput}
+				{onblur}
+				{value} />
+		</div>
+	{/if}
+	{#if select}
+		<div class="props-changer--item">
+			<label for="select">{select}</label>
+			<select
+				id="select"
+				{oninput}
+				{onblur}>
+				{#each selectOptions as option}
+					<option value={option}>{option}</option>
+				{/each}
+			</select>
 		</div>
 	{/if}
 </div>
@@ -89,6 +107,9 @@
 			padding: 0.5rem;
 			border-radius: 4px;
 			border: 1px solid $color--beige;
+		}
+		input[type='checkbox'] {
+			appearance: unset;
 		}
 	}
 </style>

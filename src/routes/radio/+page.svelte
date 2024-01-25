@@ -6,13 +6,13 @@
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
 
-	let name = 'stooge';
-	let labelOne = 'Harry';
-	let labelTwo = 'Larry';
-	let labelThree = 'Moe';
-	let disabled = false;
-	let prependLabel = false;
-	let size: 'small' | 'medium' | 'large' = 'small';
+	let name = $state('stooge');
+	let labelOne = $state('Harry');
+	let labelTwo = $state('Larry');
+	let labelThree = $state('Moe');
+	let disabled = $state(false);
+	let prependLabel = $state(false);
+	let size: 'small' | 'medium' | 'large' = $state('small');
 
 	const changeEventHandler = (e: Event): void => {
 		events.push('change');
@@ -32,6 +32,55 @@
 	)}
 	{md}
 	{events}>
+	<svelte:fragment slot="controls">
+		doesn't work for text changes
+		<PropsContainer>
+			<PropsChanger
+				text="Name"
+				value={name}
+				oninput={(e: Event) => {
+					name = (e.target as HTMLInputElement).value;
+				}} />
+			<PropsChanger
+				text="Label One"
+				value={labelOne}
+				oninput={(e: Event) => {
+					labelOne = (e.target as HTMLInputElement).value;
+				}} />
+			<PropsChanger
+				text="Label Two"
+				value={labelTwo}
+				oninput={(e: Event) => {
+					labelTwo = (e.target as HTMLInputElement).value;
+					console.log(labelTwo);
+				}} />
+			<PropsChanger
+				text="Label Three"
+				value={labelThree}
+				oninput={(e: Event) => {
+					labelThree = (e.target as HTMLInputElement).value;
+				}} />
+			<PropsChanger
+				boolean="Disabled"
+				value={disabled}
+				oninput={(e: Event) => {
+					disabled = (e.target as HTMLInputElement).checked;
+				}} />
+			<PropsChanger
+				boolean="Prepend Label"
+				value={prependLabel}
+				oninput={(e: Event) => {
+					prependLabel = (e.target as HTMLInputElement).checked;
+				}} />
+			<PropsChanger
+				select="Size"
+				selectOptions={['small', 'medium', 'large']}
+				value={size}
+				oninput={(e: Event) => {
+					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
+				}} />
+		</PropsContainer>
+	</svelte:fragment>
 	<svelte:fragment slot="main">
 		<div id="wrapper">
 			<Radio

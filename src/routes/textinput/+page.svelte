@@ -9,7 +9,7 @@
 	let id = $state('basic-text');
 	let name = $state('basic-text');
 	let type: TextInputType = $state('text');
-	let value: string | undefined = $state();
+	let value: string = $state('');
 	let label = $state('Text input');
 	let placeholder = $state('Placeholder');
 	let multiline = $state(false);
@@ -17,7 +17,7 @@
 	let disabled = $state(false);
 	let cleaveOptions = $state({});
 	let validationRules: string[] = $state([]);
-	let validationMessage: string | undefined = $state();
+	let validationMessage: string = $state('');
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
 	const changeHandler = (e: Event): void => {
@@ -27,11 +27,6 @@
 	const focusHandler = (event: Event) => {
 		events.push('focus');
 	};
-
-	// ignore blur events
-	// const blurHandler = (event: Event) => {
-	// 	logEvent('blur', event);
-	// };
 
 	const keydownHandler = (event: Event) => {
 		events.push('keydown');
@@ -62,83 +57,85 @@
 	{md}
 	{events}>
 	<svelte:fragment slot="controls">
+		Events need to be fixed
 		<PropsContainer>
 			<PropsChanger
 				text="id"
 				value={id}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					id = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
 				text="name"
 				value={name}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					name = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
 				text="type"
 				value={type}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					type = (e.target as HTMLSelectElement).value as TextInputType;
 				}} />
 			<PropsChanger
 				text="value"
 				{value}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					value = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
 				text="label"
 				value={label}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					label = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
 				text="placeholder"
 				value={placeholder}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					placeholder = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
 				boolean="multiline"
 				value={multiline}
-				booleanInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					multiline = (e.target as HTMLInputElement).checked;
 				}} />
 			<PropsChanger
 				boolean="readonly"
 				value={readonly}
-				booleanInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					readonly = (e.target as HTMLInputElement).checked;
 				}} />
 			<PropsChanger
 				boolean="disabled"
 				value={disabled}
-				booleanInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					disabled = (e.target as HTMLInputElement).checked;
 				}} />
 			<PropsChanger
 				object="cleaveOptions"
 				value={JSON.stringify(cleaveOptions)}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					cleaveOptions = JSON.parse((e.target as HTMLInputElement).value);
 				}} />
 			<PropsChanger
 				object="validationRules"
 				value={JSON.stringify(validationRules)}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					validationRules = JSON.parse((e.target as HTMLInputElement).value);
 				}} />
 			<PropsChanger
 				text="validationMessage"
 				value={validationMessage}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					validationMessage = (e.target as HTMLInputElement).value;
 				}} />
 			<PropsChanger
-				number="size"
+				select="size"
+				selectOptions={['small', 'medium', 'large']}
 				value={size}
-				numberInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					size = (e.target as HTMLSelectElement).value as 'small' | 'medium' | 'large';
 				}} />
 		</PropsContainer>
@@ -158,10 +155,10 @@
 			{validationRules}
 			{validationMessage}
 			{size}
-			on:change={changeHandler}
-			on:focus={focusHandler}
-			on:keydown={keydownHandler}
-			on:keyup={keyupHandler} />
+			onchange={changeHandler}
+			onfocus={focusHandler}
+			onkeydown={keydownHandler}
+			onkeyup={keyupHandler} />
 	</svelte:fragment>
 </Layout>
 

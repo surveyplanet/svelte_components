@@ -5,8 +5,8 @@
 	import md from './docs.md?raw';
 
 	let color: 'yellow' | 'blue' | 'pink' | 'green' = $state('yellow');
-	let content: string = $state('Pro');
 	let flat: boolean = $state(false);
+	let content: string = $state('Pro');
 </script>
 
 <Layout
@@ -16,19 +16,21 @@
 	<svelte:fragment slot="controls">
 		<PropsContainer>
 			<PropsChanger
-				text="Color"
-				textInputHandler={(e: Event) => {
+				select="Color"
+				selectOptions={['yellow', 'blue', 'pink', 'green']}
+				oninput={(e: Event) => {
 			color = (e.target as HTMLInputElement).value as 'yellow' | 'blue' | 'pink' | 'green';
 		}} />
 			<PropsChanger
 				text="Content"
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 			content = (e.target as HTMLInputElement).value;
 		}} />
 			<PropsChanger
-				text="Flat"
-				textInputHandler={(e: Event) => {
-			flat = (e.target as HTMLInputElement).value === 'true';
+				boolean="Flat"
+				value={flat}
+				oninput={(e: Event) => {
+			flat = (e.target as HTMLInputElement).checked;
 		}} />
 		</PropsContainer>
 	</svelte:fragment>

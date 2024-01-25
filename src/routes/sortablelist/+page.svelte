@@ -1,30 +1,29 @@
 <script lang="ts">
-	import { SortableList, type ListData } from '../../lib/index';
+	import { SortableList, type SortListData } from '../../lib/index';
 	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
 
-	// Component props
-	let data: ListData[] = [
+	let data: SortListData[] = $state([
 		{
-			name: 'Orange',
-			meta: 'Subtitle',
+			label: 'Nice',
+			meta: 'image',
 			image: 'https://picsum.photos/200/100',
 		},
 		{
-			name: 'Apple',
-			meta: 'Surprise',
+			label: 'Nicer',
+			meta: 'image',
 			image: 'https://picsum.photos/200/200',
 		},
 		{
-			name: 'Banana',
-			meta: 'Subtitle',
+			label: 'Nicest ',
+			meta: 'image',
 			image: 'https://picsum.photos/200/300',
 		},
-	];
-	const sortableListSortHandler = (event: CustomEvent) => {
-		events.push('sort');
+	]);
+	const sortableListSortHandler = (sortData: SortListData[]) => {
+		events.push(JSON.stringify(sortData));
 	};
 </script>
 
@@ -35,10 +34,11 @@
 	{events}>
 	<svelte:fragment slot="controls">
 		<PropsContainer>
+			Needs events reworked!!!
 			<PropsChanger
-				text="Data"
+				object="Data"
 				value={JSON.stringify(data)}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					data = JSON.parse((e.target as HTMLInputElement).value);
 				}} />
 		</PropsContainer>
@@ -46,7 +46,7 @@
 	<svelte:fragment slot="main">
 		<div class="wrapper">
 			<SortableList
-				on:sort={sortableListSortHandler}
+				sort={sortableListSortHandler}
 				{data} />
 		</div>
 	</svelte:fragment>

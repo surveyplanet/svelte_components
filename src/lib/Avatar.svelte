@@ -17,10 +17,12 @@
 </script>
 
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-
-	const dispatchClick = createEventDispatcher<{
-		click: MouseEvent;
+	let { profileImage, id, size, disabled, onclick } = $props<{
+		profileImage: string;
+		id?: string;
+		size?: 'small' | 'medium' | 'large';
+		disabled?: boolean;
+		onclick?: (e: MouseEvent) => void;
 	}>();
 
 	// mascot should return a type that is a key of MASCOTS
@@ -30,17 +32,9 @@
 
 	const bgColors = ['yellow', 'blue', 'pink', 'green'] as const;
 
-	export let profileImage: string;
+	let bgColor: (typeof bgColors)[number] = $state(bgColors[0]);
 
-	export let id: string;
-
-	export let size: 'small' | 'medium' | 'large' = 'medium';
-
-	export let disabled = false;
-
-	let bgColor: (typeof bgColors)[number] = bgColors[0];
-
-	$: {
+	$effect(() => {
 		if (!/^https?:\/\//.test(profileImage)) {
 			profileImage = mascots[getPersistentIndex(mascots.length)];
 		}
@@ -48,7 +42,7 @@
 		if (id?.length) {
 			bgColor = bgColors[getPersistentIndex(bgColors.length)];
 		}
-	}
+	});
 
 	const getPersistentIndex = (length = 0): number => {
 		if (!id?.length) {
@@ -59,17 +53,16 @@
 		return idx;
 	};
 
-	const clickHandler = (e: MouseEvent): void => {
+	onclick = (): void => {
 		if (disabled) {
 			return;
 		}
-		dispatchClick('click', e);
 	};
 </script>
 
 <button
 	class="sp-avatar sp-avatar--{size} sp-avatar--background--{bgColor}"
-	on:click={clickHandler}
+	{onclick}
 	aria-label={disabled ? null : 'profile image'}
 	role={disabled ? 'presentation' : null}
 	{disabled}>

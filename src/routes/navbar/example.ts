@@ -8,7 +8,7 @@ export default (
 	return `<script>
 	import { NavBar } from 'components/NavBar';
 	let vertical = ${vertical};
-	let data = ${JSON.stringify(data, null, 2)};
+	let data = $state(${JSON.stringify(data, null, 2)});
 	let navMenuData = ${JSON.stringify(navMenuData, null, 2)};
 
 </script>

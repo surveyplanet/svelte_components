@@ -1,22 +1,25 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-
-	const dispatchChange = createEventDispatcher<{
-		change: Event;
+	let {
+		id = (Date.now() + Math.random()).toString(36),
+		name,
+		value = null,
+		label = '',
+		checked = false,
+		disabled = false,
+		prependLabel = false,
+		size = 'small',
+		onchange,
+	} = $props<{
+		id?: string;
+		name: string;
+		value?: string | null;
+		label?: string;
+		checked?: boolean;
+		disabled?: boolean;
+		prependLabel?: boolean;
+		size?: 'small' | 'medium' | 'large';
+		onchange?: (e: Event) => void;
 	}>();
-
-	export let id: string = (Date.now() + Math.random()).toString(36);
-	export let name: string;
-	export let value: string | null = null;
-	export let label = '';
-	export let checked = false;
-	export let disabled = false;
-	export let prependLabel = false;
-	export let size: 'small' | 'medium' | 'large' = 'small';
-
-	const changeEventHandler = (event: Event): void => {
-		dispatchChange('change', event);
-	};
 </script>
 
 <input
@@ -27,8 +30,7 @@
 	{value}
 	{checked}
 	{disabled}
-	{...$$restProps}
-	on:change={changeEventHandler} />
+	{onchange} />
 
 <label
 	class="sp-radio sp-radio--{size}"

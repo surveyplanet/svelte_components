@@ -1,37 +1,33 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	import { Icon } from './';
 
-	const dispatchOpen = createEventDispatcher<{ open: undefined }>();
-	const dispatchClose = createEventDispatcher<{ close: undefined }>();
-	const dispatchIn = createEventDispatcher<{ in: undefined }>();
-	const dispatchOut = createEventDispatcher<{ out: undefined }>();
-
-	export let title = 'Modal';
-	export let subtitle = 'Subtitle';
-	export let fullscreen = false;
-	export let overlay = true;
-	export let visible = false;
-	export let animationMilliseconds = 350;
-	export let size: 'small' | 'medium' | 'large' = 'medium';
-
-	const modalOpened = () => {
-		dispatchOpen('open');
-	};
-
-	const modalIn = () => {
-		dispatchIn('in');
-	};
-
-	const modalOut = () => {
-		dispatchOut('out');
-	};
-
-	const modalClosed = () => {
-		dispatchClose('close');
-	};
+	let {
+		title = 'Modal',
+		subtitle = 'Subtitle',
+		fullscreen = false,
+		overlay = true,
+		visible = false,
+		animationMilliseconds = 350,
+		size = 'medium',
+		onintrostart,
+		onintroend,
+		onoutrostart,
+		onoutroend,
+	} = $props<{
+		title?: string;
+		subtitle?: string;
+		fullscreen?: boolean;
+		overlay?: boolean;
+		visible?: boolean;
+		animationMilliseconds?: number;
+		size?: 'small' | 'medium' | 'large';
+		onintrostart?: (e: CustomEvent) => void;
+		onintroend?: (e: CustomEvent) => void;
+		onoutrostart?: (e: CustomEvent) => void;
+		onoutroend?: (e: CustomEvent) => void;
+	}>();
 
 	const overlayClickHandler = (e: KeyboardEvent) => {
 		if (e.key === 'Escape') {
@@ -44,7 +40,7 @@
 	};
 </script>
 
-<svelte:window on:keydown={overlayClickHandler} />
+<svelte:window onkeydown={overlayClickHandler} />
 
 {#if overlay && visible}
 	<div
@@ -52,8 +48,8 @@
 		tabindex="0"
 		class="sp-modal--overlay"
 		transition:fade
-		on:click={closeHandler}
-		on:keydown={overlayClickHandler} />
+		onclick={closeHandler}
+		onkeydown={overlayClickHandler} />
 {/if}
 {#if visible}
 	<div
@@ -63,13 +59,13 @@
 			easing: cubicOut,
 		}}
 		class="sp-modal sp-modal--{size}"
-		on:introstart={modalOpened}
-		on:introend={modalIn}
-		on:outrostart={modalOut}
-		on:outroend={modalClosed}
+		{onintrostart}
+		{onintroend}
+		{onoutrostart}
+		{onoutroend}
 		class:sp-modal--fullscreen={fullscreen}>
 		<button
-			on:click={closeHandler}
+			onclick={closeHandler}
 			class="sp-modal--header--close-btn">
 			<Icon
 				name="x"

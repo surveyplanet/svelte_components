@@ -34,7 +34,7 @@
 			<PropsChanger
 				text="Footer Data"
 				value={JSON.stringify(footerData)}
-				textInputHandler={(e: Event) => {
+				oninput={(e: Event) => {
 					footerData = JSON.parse((e.target as HTMLInputElement).value);
 				}} />
 		</PropsContainer>
