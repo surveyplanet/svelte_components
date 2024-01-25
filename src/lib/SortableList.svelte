@@ -103,6 +103,8 @@
 			reorder(from, to);
 		}
 	};
+
+	//TODO: add |global to transitions once it is fixed in svelte 5
 </script>
 
 <ul class="sp--sortable-list">
@@ -117,31 +119,27 @@
 				ondragover={listItemDragOverHandler}
 				ondragleave={listItemDragLeaveHandler}
 				ondrop={listItemDragDropHandler}
-				in:receive|global={{ key: item.label }}
-				out:send|global={{ key: item.label }}
+				in:receive={{ key: item.label }}
+				out:send={{ key: item.label }}
 				animate:flip={{ duration: 300 }}
 				class:float={isOver}>
-				<slot
-					{item}
-					{index}>
-					<p class="sp-sortable-list--list-item-label">
-						{item.label}
-					</p>
-					{#if item.meta}
-						<span class="sp-sortable-list--list-item-meta">
-							{item.meta}
-						</span>
-					{/if}
-					{#if item.image}
-						<img
-							class="sp-sortable-list--list-item-image"
-							src={item.image}
-							alt={item.label} />
-					{/if}
-					{#if item.icon}
-						<Icon name={item.icon} />
-					{/if}
-				</slot>
+				<p class="sp-sortable-list--list-item-label">
+					{item.label}
+				</p>
+				{#if item.meta}
+					<span class="sp-sortable-list--list-item-meta">
+						{item.meta}
+					</span>
+				{/if}
+				{#if item.image}
+					<img
+						class="sp-sortable-list--list-item-image"
+						src={item.image}
+						alt={item.label} />
+				{/if}
+				{#if item.icon}
+					<Icon name={item.icon} />
+				{/if}
 			</li>
 		{/each}
 	{/if}

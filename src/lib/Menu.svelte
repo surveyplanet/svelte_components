@@ -29,11 +29,15 @@
 		size = 'small',
 		menuUpdate,
 		menuClick,
+		header,
+		footer,
 	} = $props<{
 		data?: MenuData[];
 		size?: 'small' | 'medium' | 'large';
 		menuUpdate?: (id: string) => void;
 		menuClick?: (id: string) => void;
+		header?: Snippet;
+		footer?: Snippet;
 	}>();
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
@@ -174,7 +178,9 @@
 	class="sp-menu sp-menu--{size}"
 	{onblur}>
 	<li class="sp-menu--header">
-		<slot name="header" />
+		{#if header}
+			{@render header()}
+		{/if}
 	</li>
 
 	{#if location.length}
@@ -228,6 +234,8 @@
 	{/each}
 
 	<li class="sp-menu--footer">
-		<slot name="footer" />
+		{#if footer}
+			{@render footer()}
+		{/if}
 	</li>
 </menu>
