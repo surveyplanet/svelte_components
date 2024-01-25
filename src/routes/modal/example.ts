@@ -40,11 +40,11 @@ import {Modal} from '@surveyplanet/svelte_components';
 		heart charms een feeble. Had his flatterers yes nor, from from
 		cell soon once upon beyond so then, sore from dome condole was
 		favour departed friend from moths.
-	</svelte:fragment>
+	{/snippet}
 
 	<svelte:fragment slot="footer">
 		<p>&copy; Surveyplanet</p>
-	</svelte:fragment>
+	{/snippet}
 
 </Modal>
 `;

@@ -43,7 +43,7 @@
 	)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		Events need to be fixed
 		<PropsContainer>
 			<PropsChanger
@@ -119,8 +119,8 @@
 					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<Spinner
 			{label}
 			{step}
@@ -135,7 +135,7 @@
 			{dragSpeed}
 			{size}
 			on:change={spinnerEventHandler} />
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style>

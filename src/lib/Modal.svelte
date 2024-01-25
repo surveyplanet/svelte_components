@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { fly, fade } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	import { Icon } from './';
@@ -15,6 +16,9 @@
 		onintroend,
 		onoutrostart,
 		onoutroend,
+		footer,
+		header,
+		body,
 	} = $props<{
 		title?: string;
 		subtitle?: string;
@@ -27,6 +31,9 @@
 		onintroend?: (e: CustomEvent) => void;
 		onoutrostart?: (e: CustomEvent) => void;
 		onoutroend?: (e: CustomEvent) => void;
+		footer?: Snippet;
+		body?: Snippet;
+		header?: Snippet;
 	}>();
 
 	const overlayClickHandler = (e: KeyboardEvent) => {
@@ -79,15 +86,19 @@
 			{#if subtitle?.length}
 				<h4 class="sp-modal--header--subtitle">{subtitle}</h4>
 			{/if}
-			<slot name="header" />
+			{#if header}
+				{@render header()}
+			{/if}
 		</header>
 		<div class="sp-modal--body">
-			<slot
-				name="body"
-				class="hugo" />
+			{#if body}
+				{@render body()}
+			{/if}
 		</div>
 		<footer class="sp-modal--footer">
-			<slot name="footer" />
+			{#if footer}
+				{@render footer()}
+			{/if}
 		</footer>
 	</div>
 {/if}

@@ -53,7 +53,7 @@
 		response
 	)}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
@@ -119,8 +119,8 @@
 					max = Number((e.target as HTMLInputElement).value);
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<div class="wrapper">
 			<Image
 				bind:labels
@@ -133,5 +133,5 @@
 				{response}
 				imageResponse={imageResponseHandler} />
 		</div>
-	</svelte:fragment>
+	{/snippet}
 </Layout>

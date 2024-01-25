@@ -26,6 +26,15 @@
 	}>();
 
 	let activeIndicator: HTMLDivElement | null = $state(null);
+	const selected = $derived(data.find((item) => item.selected));
+	$effect(() => {
+		console.log('selected', selected);
+		if (selected) {
+			selectTabButton(
+				document.getElementById(selected.id) as HTMLButtonElement
+			);
+		}
+	});
 
 	const selectTabButton = (target: HTMLButtonElement) => {
 		const id = target.id;
@@ -40,6 +49,7 @@
 			activeIndicator.style.width = `${width}px`;
 			activeIndicator.style.left = `${left}px`;
 		}
+		console.log(id);
 		tabButton(id);
 	};
 

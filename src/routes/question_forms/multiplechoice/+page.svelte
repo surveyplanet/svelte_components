@@ -34,7 +34,7 @@
 	example={source(id, labels, multi, layout, random, min, max, response)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
@@ -81,8 +81,8 @@
 						other = (e.target as HTMLInputElement).value;
 					}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<MultipleChoice
 			{id}
 			{labels}
@@ -92,5 +92,5 @@
 			{response}
 			{other}
 			multipleChoiceResponse={multipleChoiceResponseHandler} />
-	</svelte:fragment>
+	{/snippet}
 </Layout>

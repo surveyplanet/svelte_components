@@ -23,7 +23,7 @@
 	example={source(id, min, max, single, response)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
@@ -56,8 +56,8 @@
 						response = (e.target as HTMLInputElement).value.split(',');
 					}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<div class="wrapper">
 			<Essay
 				{id}
@@ -67,5 +67,5 @@
 				{response}
 				essayResponse={essayResponseHandler} />
 		</div>
-	</svelte:fragment>
+	{/snippet}
 </Layout>

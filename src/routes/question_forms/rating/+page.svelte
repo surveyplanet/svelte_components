@@ -49,7 +49,7 @@
 	example={source(id, labels, order, layout, response)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
@@ -98,8 +98,8 @@
 				object="Response"
 				value={JSON.stringify(response)} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<div class="wrapper">
 			<Rating
 				{id}
@@ -109,7 +109,7 @@
 				{response}
 				ratingResponse={ratingResponseHandler} />
 		</div>
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style>

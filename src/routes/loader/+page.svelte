@@ -30,7 +30,7 @@
 	example={source(colors, size, strokeWidth)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				object="Colors"
@@ -51,11 +51,11 @@
 					strokeWidth = Number((e.target as HTMLInputElement).value) as 1 | 2 | 3 | 4;
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<Loader
 			{colors}
 			{size}
 			{strokeWidth} />
-	</svelte:fragment>
+	{/snippet}
 </Layout>

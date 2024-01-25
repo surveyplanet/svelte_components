@@ -22,7 +22,7 @@
 	example={source(color, size, name)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				select="Color"
@@ -51,12 +51,12 @@
 					debug = (e.target as HTMLInputElement).checked
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<Icon
 			{color}
 			{size}
 			{name}
 			{debug} />
-	</svelte:fragment>
+	{/snippet}
 </Layout>

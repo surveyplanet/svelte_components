@@ -8,7 +8,10 @@
 	example={source()}
 	component="Please choose your component"
 	{md}>
-	<svelte:fragment slot="main">
+	{#snippet main()}
 		<h1>Please select a component from the dropdown menu on the left</h1>
-	</svelte:fragment>
+	{/snippet}
+	{#snippet controls()}
+		<p>Controls will be displayed on a component route</p>
+	{/snippet}
 </Layout>

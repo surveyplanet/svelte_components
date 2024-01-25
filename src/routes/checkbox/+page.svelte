@@ -25,7 +25,7 @@
 	example={source(id, name, value, checked, disabled, prependLabel, size)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="id"
@@ -34,8 +34,8 @@
 					id = (e.target as HTMLInputElement).value;
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<Checkbox
 			{id}
 			{name}
@@ -46,5 +46,5 @@
 			{prependLabel}
 			{size}
 			onchange={changeEventHandler} />
-	</svelte:fragment>
+	{/snippet}
 </Layout>

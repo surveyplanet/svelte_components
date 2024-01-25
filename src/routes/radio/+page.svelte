@@ -32,7 +32,7 @@
 	)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		doesn't work for text changes
 		<PropsContainer>
 			<PropsChanger
@@ -80,8 +80,8 @@
 					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<div id="wrapper">
 			<Radio
 				id={labelOne.toLowerCase().replace(' ', '-')}
@@ -111,7 +111,7 @@
 				{size}
 				on:change={changeEventHandler} />
 		</div>
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style>

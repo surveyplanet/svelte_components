@@ -26,7 +26,7 @@
 	example={source(profileImage, id, size, disabled)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="Profile Image"
@@ -52,15 +52,15 @@
 			disabled = (e.target as HTMLInputElement).checked;
 		}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<Avatar
 			{profileImage}
 			{id}
 			{size}
 			{disabled}
 			onclick={clickEventHandler} />
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style>

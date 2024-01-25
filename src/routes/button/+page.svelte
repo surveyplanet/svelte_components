@@ -35,7 +35,7 @@
 	)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="Content"
@@ -95,8 +95,8 @@
 					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<Button
 			onclick={clickHandler}
 			{mode}
@@ -109,7 +109,7 @@
 			{size}>
 			Submit
 		</Button>
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style lang="scss">

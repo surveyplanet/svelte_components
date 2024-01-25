@@ -34,7 +34,7 @@
 	example={source(title, subtitle, fullscreen, overlay, visible, size)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="Title"
@@ -74,8 +74,8 @@
 					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<Modal
 			{visible}
 			{size}
@@ -87,21 +87,22 @@
 			{subtitle}
 			{fullscreen}
 			{overlay}>
-			<p slot="header">
-				Hall low lands den womans control the or. Might he which forgot
-				she he him, if below isle where brow.
-			</p>
-
-			<svelte:fragment slot="body">
+			{#snippet header()}
+				<p>
+					Hall low lands den womans control the or. Might he which
+					forgot she he him, if below isle where brow.
+				</p>
+			{/snippet}
+			{#snippet body()}
 				And visit not than sacred cell wins in not childe. Fabled most
 				heart charms een feeble. Had his flatterers yes nor, from from
 				cell soon once upon beyond so then, sore from dome condole was
 				favour departed friend from moths.
-			</svelte:fragment>
+			{/snippet}
 
-			<svelte:fragment slot="footer">
+			{#snippet footer()}
 				<p>&copy; Surveyplanet</p>
-			</svelte:fragment>
+			{/snippet}
 		</Modal>
 		<div class="button-for-tests">
 			<Button
@@ -109,7 +110,7 @@
 					visible = true;
 				}}>Launch modal</Button>
 		</div>
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style>

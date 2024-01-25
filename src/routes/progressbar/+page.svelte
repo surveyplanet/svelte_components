@@ -16,7 +16,7 @@
 	example={source(speed, max, value, displayValue)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				number="Speed"
@@ -43,8 +43,8 @@
 					displayValue = (e.target as HTMLInputElement).checked;
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<div class="wrapper">
 			<ProgressBar
 				{speed}
@@ -52,7 +52,7 @@
 				{value}
 				{displayValue} />
 		</div>
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style lang="scss">

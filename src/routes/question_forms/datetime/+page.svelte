@@ -34,7 +34,7 @@
 	example={source(id, date, time, definitions, response)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
@@ -58,8 +58,8 @@
 				object="Response"
 				value={response.toString()} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<div class="wrapper">
 			<DateTime
 				{id}
@@ -68,7 +68,7 @@
 				{response}
 				dateResponse={dateTimeResponseHandler} />
 		</div>
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style lang="scss">

@@ -49,7 +49,7 @@
 	)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="Title"
@@ -117,8 +117,8 @@
 			content = (e.target as HTMLInputElement).value;
 		}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		{#key keys}
 			<Alert
 				onopen={openHandler}
@@ -137,5 +137,5 @@
 				{@html content}
 			</Alert>
 		{/key}
-	</svelte:fragment>
+	{/snippet}
 </Layout>

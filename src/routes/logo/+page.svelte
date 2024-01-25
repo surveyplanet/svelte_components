@@ -23,7 +23,7 @@
 	example={source(size, fill, color)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="Color"
@@ -52,8 +52,8 @@
 					fill = (e.target as HTMLSelectElement).value as LogoFillColor;
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<Logo
 			on:click={(e) => {
 				events.push('click');
@@ -61,5 +61,5 @@
 			{color}
 			{size}
 			{fill} />
-	</svelte:fragment>
+	{/snippet}
 </Layout>

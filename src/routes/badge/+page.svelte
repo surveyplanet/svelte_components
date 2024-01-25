@@ -13,7 +13,7 @@
 	component="Badge"
 	example={source(color, content, flat)}
 	{md}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				select="Color"
@@ -33,13 +33,13 @@
 			flat = (e.target as HTMLInputElement).checked;
 		}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<Badge
 			{color}
 			{flat}>
 			{content}</Badge>
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style lang="scss">

@@ -25,7 +25,7 @@
 	example={source(id, on, disabled, tall, name, label, prependLabel)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="Name"
@@ -65,8 +65,8 @@
 					prependLabel = (e.target as HTMLInputElement).checked
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<Toggle
 			onchange={changeEventHandler}
 			{id}
@@ -76,7 +76,7 @@
 			{name}
 			{label}
 			{prependLabel} />
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style>

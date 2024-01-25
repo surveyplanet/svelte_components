@@ -41,7 +41,7 @@
 	example={source(data, grow, id)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				object="data"
@@ -62,12 +62,12 @@
 						id = (e.target as HTMLInputElement).value
 					}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<TabBar
 			tabButton={tabButtonClickHandler}
 			{data}
 			{grow}
 			{id} />
-	</svelte:fragment>
+	{/snippet}
 </Layout>

@@ -44,7 +44,7 @@
 	)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
@@ -102,8 +102,8 @@
 						response = JSON.parse((e.target as HTMLInputElement).value);
 					}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<Scoring
 			{id}
 			{definitions}
@@ -115,5 +115,5 @@
 			{requireUnique}
 			{response}
 			scoringResponse={scoringResponseHandler} />
-	</svelte:fragment>
+	{/snippet}
 </Layout>

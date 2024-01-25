@@ -76,7 +76,7 @@
 	)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				object="Options"
@@ -128,8 +128,8 @@
 					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		{#key keys}
 			<Dropdown
 				{options}
@@ -142,5 +142,5 @@
 				{size}
 				onchange={dropdownChangeHandler} />
 		{/key}
-	</svelte:fragment>
+	{/snippet}
 </Layout>

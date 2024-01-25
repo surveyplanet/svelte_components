@@ -48,7 +48,7 @@
 	example={source(data, navMenuData, vertical)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				object="Data"
@@ -69,8 +69,8 @@
 					vertical = (e.target as HTMLInputElement).checked;
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<div class="row-wrapper">
 			<div class="wrapper">
 				<NavBar
@@ -82,7 +82,7 @@
 					onclick={menuClickHandler} />
 			</div>
 		</div>
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style>

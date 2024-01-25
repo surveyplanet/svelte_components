@@ -32,7 +32,7 @@
 	example={source(data)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				object="Data"
@@ -48,10 +48,10 @@
 					console.log('blur', [...data]);
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<Breadcrumbs {data}></Breadcrumbs>
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style>

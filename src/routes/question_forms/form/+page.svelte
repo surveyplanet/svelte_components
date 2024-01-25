@@ -47,7 +47,7 @@
 	example={source(id, labels, requireAll, random, validations, response)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
@@ -68,8 +68,8 @@
 				boolean="Random"
 				value={random} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<div class="wrapper">
 			<Form
 				{id}
@@ -78,7 +78,7 @@
 				{random}
 				formResponse={formResponseHandler} />
 		</div>
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style lang="scss"></style>

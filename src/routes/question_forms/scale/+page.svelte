@@ -22,7 +22,7 @@
 	example={source(id, min, max, response)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="ID"
@@ -49,8 +49,8 @@
 					response = JSON.parse((e.target as HTMLInputElement).value);
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<div class="wrapper">
 			<Scale
 				{id}
@@ -58,7 +58,7 @@
 				{max}
 				{response}
 				scaleResponse={scaleResponseHandler} />
-		</div></svelte:fragment>
+		</div>{/snippet}
 </Layout>
 
 <style>

@@ -7,12 +7,15 @@
 	import Button from '$lib/Button.svelte';
 	// import { get } from 'svelte/store';
 	import { createComponentsStore } from './stores/components.store.svelte';
+	import type { Snippet } from 'svelte';
 
 	interface LayoutProps {
 		example: string;
 		md: string;
 		events?: string[] | string[][];
 		component: string;
+		main: Snippet;
+		controls: Snippet;
 	}
 
 	let {
@@ -20,6 +23,8 @@
 		md,
 		events,
 		component = 'Select a component',
+		main,
+		controls,
 	} = $props<LayoutProps>();
 
 	let mkd = $state(marked(md));
@@ -101,7 +106,7 @@
 		</header>
 		<div class="container">
 			{#key reload}
-				<slot name="main" />
+				{@render main()}
 			{/key}
 		</div>
 	</section>
@@ -131,7 +136,7 @@
 		<div class="container">
 			{#if tabSelected === 'controls'}
 				<div id="component-conrols">
-					<slot name="controls" />
+					{@render controls()}
 				</div>
 			{:else if tabSelected === 'docs'}
 				<div class="docs">

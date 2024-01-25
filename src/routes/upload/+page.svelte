@@ -34,7 +34,7 @@
 	example={source(label, formats, maxSize)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="Label"
@@ -55,8 +55,8 @@
 						maxSize = parseInt((e.target as HTMLInputElement).value);
 					}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<div class="wrapper">
 			<Upload
 				{label}
@@ -70,7 +70,7 @@
 			class="image-upload none"
 			width="1000"
 			height="1000" />
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style lang="scss">

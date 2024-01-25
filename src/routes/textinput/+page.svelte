@@ -56,7 +56,7 @@
 	)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		Events need to be fixed
 		<PropsContainer>
 			<PropsChanger
@@ -139,8 +139,8 @@
 					size = (e.target as HTMLSelectElement).value as 'small' | 'medium' | 'large';
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<TextInput
 			{id}
 			{name}
@@ -159,7 +159,7 @@
 			onfocus={focusHandler}
 			onkeydown={keydownHandler}
 			onkeyup={keyupHandler} />
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style>

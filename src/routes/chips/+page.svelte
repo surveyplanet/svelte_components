@@ -45,7 +45,7 @@
 	example={source(data, selectable, multiSelect, removable)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			<PropsChanger
 				text="data"
@@ -72,8 +72,8 @@
 					removable = (e.target as HTMLInputElement).checked;
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<Chips
 			{data}
 			{selectable}
@@ -81,5 +81,5 @@
 			{removable}
 			on:click={chipSelected}
 			on:remove={chipRemoved} />
-	</svelte:fragment>
+	{/snippet}
 </Layout>

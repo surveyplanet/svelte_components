@@ -32,7 +32,7 @@
 	example={source(data)}
 	{md}
 	{events}>
-	<svelte:fragment slot="controls">
+	{#snippet controls()}
 		<PropsContainer>
 			Needs events reworked!!!
 			<PropsChanger
@@ -42,14 +42,14 @@
 					data = JSON.parse((e.target as HTMLInputElement).value);
 				}} />
 		</PropsContainer>
-	</svelte:fragment>
-	<svelte:fragment slot="main">
+	{/snippet}
+	{#snippet main()}
 		<div class="wrapper">
 			<SortableList
 				sort={sortableListSortHandler}
 				{data} />
 		</div>
-	</svelte:fragment>
+	{/snippet}
 </Layout>
 
 <style lang="scss"></style>
