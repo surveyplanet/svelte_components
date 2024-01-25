@@ -39,7 +39,7 @@
 	let visible = $state(false);
 	let displayValue: DropdownOptions['label'] | '' = $state('');
 
-	let searchable = $derived(options.length >= searchThreshold);
+	let searchable = options.length >= searchThreshold;
 	let menuData = $state([...options]);
 
 	$effect(() => {
