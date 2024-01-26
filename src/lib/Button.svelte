@@ -10,6 +10,20 @@
 		accent_alt_3: 'accent-alt3',
 		outline: 'outline',
 	} as Record<string, string>;
+
+	export type ButtonProps = {
+		mode?: string;
+		disabled?: boolean;
+		loader?: boolean;
+		round?: boolean;
+		block?: boolean;
+		action?: boolean;
+		type?: 'button' | 'submit' | 'reset';
+		form?: string | null;
+		size?: 'small' | 'medium' | 'large';
+		onclick: (e: MouseEvent) => void;
+		children?: Snippet;
+	};
 </script>
 
 <script lang="ts">
@@ -26,19 +40,7 @@
 		size = 'medium',
 		onclick,
 		children,
-	} = $props<{
-		mode?: string;
-		disabled?: boolean;
-		loader?: boolean;
-		round?: boolean;
-		block?: boolean;
-		action?: boolean;
-		type?: 'button' | 'submit' | 'reset';
-		form?: string | null;
-		size?: 'small' | 'medium' | 'large';
-		onclick: (e: MouseEvent) => void;
-		children?: Snippet;
-	}>();
+	} = $props<ButtonProps>();
 </script>
 
 <button

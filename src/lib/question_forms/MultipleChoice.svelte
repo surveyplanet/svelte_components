@@ -1,3 +1,18 @@
+<script
+	lang="ts"
+	context="module">
+	export type MultipleChoiceProps = {
+		id: string;
+		labels: MultipleChoiceProperties['labels'];
+		multi: MultipleChoiceProperties['multi'];
+		layout?: MultipleChoiceProperties['layout'];
+		random?: MultipleChoiceProperties['random'];
+		other?: MultipleChoiceProperties['other'];
+		response?: MultipleChoiceValue[];
+		multipleChoiceResponse: (response: MultipleChoiceValue[]) => void;
+	};
+</script>
+
 <script lang="ts">
 	import type {
 		MultipleChoiceValue,
@@ -18,16 +33,7 @@
 		other = 'Other',
 		response = [],
 		multipleChoiceResponse,
-	} = $props<{
-		id: string;
-		labels: MultipleChoiceProperties['labels'];
-		multi: MultipleChoiceProperties['multi'];
-		layout: MultipleChoiceProperties['layout'];
-		random: MultipleChoiceProperties['random'];
-		other: MultipleChoiceProperties['other'];
-		response: MultipleChoiceValue[];
-		multipleChoiceResponse: (response: MultipleChoiceValue[]) => void;
-	}>();
+	} = $props<MultipleChoiceProps>();
 
 	$effect(() => {
 		if (random) {

@@ -15,6 +15,14 @@
 		| 128
 		| 256
 		| 512;
+
+	export type IconProps = {
+		name: IconName;
+		color?: string;
+		size?: IconSize;
+		strokeWidth?: number;
+		debug?: boolean;
+	};
 </script>
 
 <script lang="ts">
@@ -29,13 +37,7 @@
 		strokeWidth = 2,
 		name,
 		debug = false,
-	} = $props<{
-		color?: string;
-		size?: IconSize;
-		strokeWidth?: number;
-		name: IconName;
-		debug?: boolean;
-	}>();
+	} = $props<IconProps>();
 
 	let pathData = $derived(ICON_DATA[name]);
 </script>

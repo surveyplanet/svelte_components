@@ -1,3 +1,17 @@
+<script
+	lang="ts"
+	context="module">
+	export type UploadProps = {
+		label?: string;
+		formats?: string[];
+		maxSize?: number;
+		onchange: (data: {
+			image: File;
+			data: string | ArrayBuffer | null;
+		}) => void;
+	};
+</script>
+
 <script lang="ts">
 	import { Button, Icon } from '$lib/index';
 	import { COLORS } from '$lib/index';
@@ -7,15 +21,7 @@
 		formats = ['.jpg', '.jpeg', '.png', '.gif'],
 		maxSize = 10,
 		onchange,
-	} = $props<{
-		label?: string;
-		formats?: string[];
-		maxSize?: number;
-		onchange: (data: {
-			image: File;
-			data: string | ArrayBuffer | null;
-		}) => void;
-	}>();
+	} = $props<UploadProps>();
 
 	type FileEventTarget = (EventTarget & { files: FileList }) | DataTransfer;
 

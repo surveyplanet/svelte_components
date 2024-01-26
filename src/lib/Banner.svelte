@@ -1,3 +1,15 @@
+<script
+	lang="ts"
+	context="module">
+	export type BannerProps = {
+		title?: string;
+		type?: 'info' | 'warning' | 'error' | 'success';
+		visible?: boolean;
+		hideDelay?: number;
+		children?: Snippet;
+	};
+</script>
+
 <script lang="ts">
 	import { type IconName, Icon } from './index';
 	import type { Snippet } from 'svelte';
@@ -11,13 +23,7 @@
 		visible = false,
 		hideDelay = 0,
 		children,
-	} = $props<{
-		title?: string;
-		type?: 'info' | 'warning' | 'error' | 'success';
-		visible?: boolean;
-		hideDelay?: number;
-		children?: Snippet;
-	}>();
+	} = $props<BannerProps>();
 
 	const animParams = {
 		y: -250,

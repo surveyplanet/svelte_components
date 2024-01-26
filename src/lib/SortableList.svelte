@@ -13,6 +13,11 @@
 		dataset: DOMStringMap & { index: string; id: string };
 		index: string;
 	};
+
+	export type SortListProps = {
+		data: SortListData[];
+		sort: (data: SortListData[]) => void;
+	};
 </script>
 
 <script lang="ts">
@@ -23,10 +28,7 @@
 	import { crossfade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 
-	let { data, sort } = $props<{
-		data: SortListData[];
-		sort: (data: SortListData[]) => void;
-	}>();
+	let { data, sort } = $props<SortListProps>();
 	// $: data = data;
 
 	// FLIP ANIMATION

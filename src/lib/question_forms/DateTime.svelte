@@ -8,6 +8,13 @@
 		currentDate: Language['definitions']['currentDate'];
 		currentDatetime: Language['definitions']['currentDatetime'];
 	}
+	export type DateTimeProps = {
+		id: string;
+		date?: DateTimeProperties['date'];
+		time?: DateTimeProperties['time'];
+		response?: DateTimeValue[];
+		dateResponse: (response: DateTimeValue[]) => void;
+	};
 </script>
 
 <script lang="ts">
@@ -28,13 +35,7 @@
 		time = false,
 		response = [],
 		dateResponse,
-	} = $props<{
-		id: string;
-		date?: DateTimeProperties['date'];
-		time?: DateTimeProperties['time'];
-		response?: DateTimeValue[];
-		dateResponse: (response: DateTimeValue[]) => void;
-	}>();
+	} = $props<DateTimeProps>();
 
 	let type = $derived(
 		(function (d: boolean, t: boolean): DateTimeInputType {

@@ -8,6 +8,29 @@
 		| 'date'
 		| 'time'
 		| 'datetime-local';
+
+	export type TextInputProps = {
+		id: string;
+		name: string;
+		type?: TextInputType;
+		value?: string;
+		label?: string;
+		placeholder?: string | null;
+		multiline?: boolean;
+		readonly?: boolean;
+		disabled?: boolean;
+		cleaveOptions?: CleaveOptions;
+		validationRules?: string[];
+		validationMessage?: string | null;
+		size?: 'small' | 'medium' | 'large';
+		validationHideMessage?: boolean | null;
+		oninput?: (e: Event) => void;
+		onblur?: (e: Event) => void;
+		onchange?: (e: Event) => void;
+		onfocus?: (e: Event) => void;
+		onkeydown?: (e: Event) => void;
+		onkeyup?: (e: Event) => void;
+	};
 </script>
 
 <script lang="ts">
@@ -36,28 +59,7 @@
 		onfocus,
 		onkeydown,
 		onkeyup,
-	} = $props<{
-		id: string;
-		name: string;
-		type?: TextInputType;
-		value?: string;
-		label?: string;
-		placeholder?: string | null;
-		multiline?: boolean;
-		readonly?: boolean;
-		disabled?: boolean;
-		cleaveOptions?: CleaveOptions;
-		validationRules?: string[];
-		validationMessage?: string | null;
-		size?: 'small' | 'medium' | 'large';
-		validationHideMessage?: boolean | null;
-		oninput?: (e: Event) => void;
-		onblur?: (e: Event) => void;
-		onchange?: (e: Event) => void;
-		onfocus?: (e: Event) => void;
-		onkeydown?: (e: Event) => void;
-		onkeyup?: (e: Event) => void;
-	}>();
+	} = $props<TextInputProps>();
 
 	let hasValidationErrors = $state(false);
 

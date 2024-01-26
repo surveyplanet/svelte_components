@@ -1,3 +1,15 @@
+<script
+	lang="ts"
+	context="module">
+	export type FormProps = {
+		id: string;
+		labels: FormProperties['labels'];
+		random?: FormProperties['random'];
+		response?: FormValue[];
+		formResponse: (value: FormValue[]) => void;
+	};
+</script>
+
 <script lang="ts">
 	import type { FormValue, FormProperties } from '@surveyplanet/types';
 	import { TextInput } from '../';
@@ -11,13 +23,7 @@
 		random,
 		response = [],
 		formResponse,
-	} = $props<{
-		id: string;
-		labels: FormProperties['labels'];
-		random: FormProperties['random'];
-		response: FormValue[];
-		formResponse: (value: FormValue[]) => void;
-	}>();
+	} = $props<FormProps>();
 
 	if (random) {
 		labels = labels.sort(() => Math.random() - 0.5);

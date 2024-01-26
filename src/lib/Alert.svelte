@@ -1,3 +1,26 @@
+<script
+	lang="ts"
+	context="module">
+	export type AlertProps = {
+		title: string | null;
+		subtitle: string | null;
+		type: 'info' | 'warning' | 'error' | 'success';
+		hideDelay?: number;
+		confirm?: boolean;
+		confirmButtonLabel?: string;
+		cancelButtonLabel?: string;
+		challenge?: string;
+		challengeLabel?: string;
+		animationMilliseconds?: number;
+		onconfirm?: () => void;
+		onopen?: () => void;
+		onin?: () => void;
+		onclose?: () => void;
+		onout?: () => void;
+		children?: Snippet;
+	};
+</script>
+
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { fly } from 'svelte/transition';
@@ -26,24 +49,7 @@
 		onclose,
 		onout,
 		children,
-	} = $props<{
-		title: string | null;
-		subtitle: string | null;
-		type: 'info' | 'warning' | 'error' | 'success';
-		hideDelay?: number;
-		confirm?: boolean;
-		confirmButtonLabel?: string;
-		cancelButtonLabel?: string;
-		challenge?: string;
-		challengeLabel?: string;
-		animationMilliseconds?: number;
-		onconfirm?: () => void;
-		onopen?: () => void;
-		onin?: () => void;
-		onclose?: () => void;
-		onout?: () => void;
-		children?: Snippet;
-	}>();
+	} = $props<AlertProps>();
 
 	let visible = $state(false);
 	let icon = $state(successIcon);

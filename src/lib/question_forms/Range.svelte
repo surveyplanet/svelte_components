@@ -2,6 +2,7 @@
 	import type { RangeValue, RangeProperties } from '@surveyplanet/types';
 	import TextInput from '../TextInput.svelte';
 	import RangeSlider from 'svelte-range-slider-pips';
+	import { browser } from '$app/environment';
 
 	let {
 		id,
@@ -18,6 +19,9 @@
 	}>();
 
 	let rangeValues = $state([response[0] || min, response[1] || max]);
+	// onMount(() => {
+	// 	rangeValues = [response[0] || min, response[1] || max];
+	// });
 
 	const rangeSliderStopHandler = () => {
 		response = [rangeValues[0], rangeValues[1]];
@@ -61,43 +65,45 @@
 </script>
 
 <form class="sp-survey--question--form--range">
-	<RangeSlider
-		float
-		range
-		pips
-		hoverable
-		{id}
-		{min}
-		{max}
-		all="label"
-		bind:values
-		on:stop={rangeSliderStopHandler} />
+	{#if browser}
+		<RangeSlider
+			float
+			range
+			pips
+			hoverable
+			{id}
+			{min}
+			{max}
+			all="label"
+			bind:values
+			on:stop={rangeSliderStopHandler} />
 
-	<input
-		type="number"
-		bind:value={values[0]} />
-	<input
-		type="number"
-		bind:value={values[1]} />
+		<input
+			type="number"
+			bind:value={values[0]} />
+		<input
+			type="number"
+			bind:value={values[1]} />
 
-	<RangeSlider
-		range
-		pushy
-		float
-		min={Number(min)}
-		max={Number(max)}
-		all="label"
-		bind:values={rangeValues}
-		on:stop={rangeSliderStopHandler} />
+		<RangeSlider
+			range
+			pushy
+			float
+			min={Number(min)}
+			max={Number(max)}
+			all="label"
+			bind:values={rangeValues}
+			on:stop={rangeSliderStopHandler} />
 
-	<TextInput
-		name="Min"
-		id={`${id}-min`}
-		value={rangeValues[0].toString()}
-		onkeydown={minSliderInputHandler} />
-	<TextInput
-		name="Max"
-		id={`${id}-max`}
-		value={rangeValues[1].toString()}
-		onkeydown={maxSliderInputHandler} />
+		<TextInput
+			name="Min"
+			id={`${id}-min`}
+			value={rangeValues[0].toString()}
+			onkeydown={minSliderInputHandler} />
+		<TextInput
+			name="Max"
+			id={`${id}-max`}
+			value={rangeValues[1].toString()}
+			onkeydown={maxSliderInputHandler} />
+	{/if}
 </form>

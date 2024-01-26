@@ -24,6 +24,13 @@
 		| 'transparent';
 
 	export type LogoColor = typeof COLORS.black | typeof COLORS.white;
+
+	export type LogoProps = {
+		color?: LogoColor;
+		fill?: LogoFillColor;
+		size?: LogoSize;
+		symbolOnly?: boolean;
+	};
 </script>
 
 <script lang="ts">
@@ -37,23 +44,18 @@
 		fill = 'blue',
 		size = DEFAULT_SIZE,
 		symbolOnly = false,
-	} = $props<{
-		color?: LogoColor;
-		fill?: LogoFillColor;
-		size?: LogoSize;
-		symbolOnly?: boolean;
-	}>();
+	} = $props<LogoProps>();
 
 	let gradient: string[] = $state([
 		COLORS.blueGradientStart,
 		COLORS.blueGradientEnd,
 	]);
 
-	let width: number;
-	let height: number;
+	let width: number = $state(DEFAULT_SIZE);
+	let height: number = $state(DEFAULT_SIZE);
 
-	let viewboxWidth: number;
-	let viewboxHeight = ORIGINAL_HEIGHT;
+	let viewboxWidth: number = $state(ORIGINAL_WIDTH);
+	let viewboxHeight = $state(ORIGINAL_HEIGHT);
 	$effect(() => {
 		if (fill !== 'transparent') {
 			const startColor = COLORS[`${fill}GradientStart`];

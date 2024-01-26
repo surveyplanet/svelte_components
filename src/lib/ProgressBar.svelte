@@ -1,15 +1,21 @@
+<script
+	lang="ts"
+	context="module">
+	export type ProgressBarProps = {
+		max: number;
+		value: number;
+		speed: number;
+		displayValue?: boolean;
+	};
+</script>
+
 <script lang="ts">
 	let {
 		max = 0,
 		value = 0,
 		speed = 1000, // milliseconds
 		displayValue = true,
-	} = $props<{
-		max: number;
-		value: number;
-		speed: number;
-		displayValue: boolean;
-	}>();
+	} = $props<ProgressBarProps>();
 	let progress = $state(0);
 
 	$effect(() => {

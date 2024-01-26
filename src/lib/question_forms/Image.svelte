@@ -1,3 +1,19 @@
+<script
+	lang="ts"
+	context="module">
+	export type ImageProps = {
+		id: string;
+		labels: ImageProperties['labels'];
+		multi: ImageProperties['multi'];
+		size: ImageProperties['size'];
+		hideCaptions?: ImageProperties['hideCaptions'];
+		random?: ImageProperties['random'];
+		contain?: ImageProperties['contain'];
+		response?: ImageValue[];
+		imageResponse: (value: ImageValue[]) => void;
+	};
+</script>
+
 <script lang="ts">
 	import type { ImageValue, ImageProperties } from '@surveyplanet/types';
 	import {
@@ -19,17 +35,7 @@
 		contain = false,
 		response = [],
 		imageResponse,
-	} = $props<{
-		id: string;
-		labels: ImageProperties['labels'];
-		multi: ImageProperties['multi'];
-		size: ImageProperties['size'];
-		hideCaptions: ImageProperties['hideCaptions'];
-		random: ImageProperties['random'];
-		contain: ImageProperties['contain'];
-		response: ImageValue[];
-		imageResponse: (value: ImageValue[]) => void;
-	}>();
+	} = $props<ImageProps>();
 	//nopt working
 	$effect(() => {
 		if (random) {

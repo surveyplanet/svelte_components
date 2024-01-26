@@ -5,10 +5,14 @@
 		link?: string;
 		label: string;
 	}
+
+	export type FooterProps = {
+		footerData: FooterData[];
+	};
 </script>
 
 <script lang="ts">
-	let { footerData = [] } = $props<{ footerData: FooterData[] }>();
+	let { footerData = [] } = $props<FooterProps>();
 </script>
 
 <nav class="sp-footer">

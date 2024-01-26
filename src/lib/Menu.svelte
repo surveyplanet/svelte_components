@@ -13,6 +13,14 @@
 		selected?: boolean;
 		submenu?: MenuData[];
 	}
+	export type MenuProps = {
+		data?: MenuData[];
+		size?: 'small' | 'medium' | 'large';
+		menuUpdate?: (id: string) => void;
+		menuClick?: (id: string) => void;
+		header?: Snippet;
+		footer?: Snippet;
+	};
 </script>
 
 <script lang="ts">
@@ -31,14 +39,7 @@
 		menuClick,
 		header,
 		footer,
-	} = $props<{
-		data?: MenuData[];
-		size?: 'small' | 'medium' | 'large';
-		menuUpdate?: (id: string) => void;
-		menuClick?: (id: string) => void;
-		header?: Snippet;
-		footer?: Snippet;
-	}>();
+	} = $props<MenuProps>();
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
 		const allButtons = Array.from(

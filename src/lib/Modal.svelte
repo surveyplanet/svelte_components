@@ -1,3 +1,24 @@
+<script
+	lang="ts"
+	context="module">
+	export type ModalProps = {
+		title?: string;
+		subtitle?: string;
+		fullscreen?: boolean;
+		overlay?: boolean;
+		visible?: boolean;
+		animationMilliseconds?: number;
+		size?: 'small' | 'medium' | 'large';
+		onintrostart?: (e: CustomEvent) => void;
+		onintroend?: (e: CustomEvent) => void;
+		onoutrostart?: (e: CustomEvent) => void;
+		onoutroend?: (e: CustomEvent) => void;
+		footer?: Snippet;
+		body?: Snippet;
+		header?: Snippet;
+	};
+</script>
+
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { fly, fade } from 'svelte/transition';
@@ -19,22 +40,7 @@
 		footer,
 		header,
 		body,
-	} = $props<{
-		title?: string;
-		subtitle?: string;
-		fullscreen?: boolean;
-		overlay?: boolean;
-		visible?: boolean;
-		animationMilliseconds?: number;
-		size?: 'small' | 'medium' | 'large';
-		onintrostart?: (e: CustomEvent) => void;
-		onintroend?: (e: CustomEvent) => void;
-		onoutrostart?: (e: CustomEvent) => void;
-		onoutroend?: (e: CustomEvent) => void;
-		footer?: Snippet;
-		body?: Snippet;
-		header?: Snippet;
-	}>();
+	} = $props<ModalProps>();
 
 	const overlayClickHandler = (e: KeyboardEvent) => {
 		if (e.key === 'Escape') {

@@ -1,3 +1,18 @@
+<script
+	lang="ts"
+	context="module">
+	export type ToggleProps = {
+		id?: string;
+		name?: string;
+		disabled?: boolean;
+		on?: boolean;
+		tall?: boolean;
+		label?: string | null;
+		prependLabel?: boolean;
+		onchange: (on: boolean) => void;
+	};
+</script>
+
 <script lang="ts">
 	// export let meridiemIndicator = false;
 
@@ -10,16 +25,7 @@
 		label = null,
 		prependLabel = false,
 		onchange,
-	} = $props<{
-		id?: string;
-		name?: string;
-		disabled?: boolean;
-		on?: boolean;
-		tall?: boolean;
-		label?: string | null;
-		prependLabel?: boolean;
-		onchange: (on: boolean) => void;
-	}>();
+	} = $props<ToggleProps>();
 
 	const changeHandler = (event: Event): void => {
 		if (disabled) {

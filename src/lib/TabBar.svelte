@@ -10,6 +10,13 @@
 		selected?: boolean;
 		disabled?: boolean;
 	}
+
+	export type TabBarProps = {
+		id?: string;
+		grow?: boolean;
+		data?: TabBarData[];
+		tabButton: (id: string) => void;
+	};
 </script>
 
 <script lang="ts">
@@ -21,12 +28,7 @@
 		grow = false,
 		data = [],
 		tabButton,
-	} = $props<{
-		id?: string;
-		grow?: boolean;
-		data?: TabBarData[];
-		tabButton: (id: string) => void;
-	}>();
+	} = $props<TabBarProps>();
 
 	let activeIndicator: HTMLDivElement | null = $state(null);
 

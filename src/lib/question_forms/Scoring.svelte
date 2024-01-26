@@ -6,6 +6,19 @@
 	export interface ScoringDefinitions {
 		scoringResetButton: Language['definitions']['scoringResetButton'];
 	}
+
+	export type ScoringProps = {
+		id: string;
+		definitions: ScoringDefinitions;
+		values: ScoringProperties['values'];
+		labels: ScoringProperties['labels'];
+		maxLabel: ScoringProperties['maxLabel'];
+		minLabel: ScoringProperties['minLabel'];
+		requireAll?: ScoringProperties['requireAll'];
+		requireUnique?: ScoringProperties['requireUnique'];
+		response?: ScoringValue[];
+		scoringResponse: (value: ScoringValue[]) => void;
+	};
 </script>
 
 <script lang="ts">

@@ -1,3 +1,13 @@
+<script
+	lang="ts"
+	context="module">
+	export type LoaderProps = {
+		colors?: string[];
+		size?: number;
+		strokeWidth?: 1 | 2 | 3 | 4;
+	};
+</script>
+
 <script lang="ts">
 	import { COLORS } from './_definitions';
 
@@ -7,11 +17,7 @@
 		colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green],
 		size = 72,
 		strokeWidth = 4, // stroke width doesn't look good above 4
-	} = $props<{
-		colors?: string[];
-		size?: number;
-		strokeWidth?: 1 | 2 | 3 | 4;
-	}>();
+	} = $props<LoaderProps>();
 
 	// When updating the colors the animation can get out of sync since the
 	// speed is based on the number of colors. This should be fine as long as the

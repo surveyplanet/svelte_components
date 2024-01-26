@@ -1,3 +1,27 @@
+<script
+	lang="ts"
+	context="module">
+	export type SpinnerProps = {
+		label?: string;
+		id?: string;
+		step?: number;
+		min?: number;
+		max?: number;
+		value?: number;
+		disabled?: boolean;
+		required?: boolean;
+		overflow?: boolean;
+		dragSpeed?: number;
+		placeholder?: string;
+		size?: 'small' | 'medium' | 'large';
+		onupdate?: (value: number | undefined) => void;
+		oninput?: (value: number | undefined) => void;
+		onchange?: (value: number | undefined) => void;
+		onblur?: () => void;
+		onfocus?: () => void;
+	};
+</script>
+
 <script lang="ts">
 	let {
 		label = '',
@@ -17,25 +41,7 @@
 		onchange,
 		onblur,
 		onfocus,
-	} = $props<{
-		label?: string;
-		id?: string;
-		step?: number;
-		min?: number;
-		max?: number;
-		value?: number;
-		disabled?: boolean;
-		required?: boolean;
-		overflow?: boolean;
-		dragSpeed?: number;
-		placeholder?: string;
-		size?: 'small' | 'medium' | 'large';
-		onupdate?: (value: number | undefined) => void;
-		oninput?: (value: number | undefined) => void;
-		onchange?: (value: number | undefined) => void;
-		onblur?: () => void;
-		onfocus?: () => void;
-	}>();
+	} = $props<SpinnerProps>();
 
 	let input: HTMLInputElement | null = $state(null);
 

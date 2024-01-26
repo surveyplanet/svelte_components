@@ -39,7 +39,8 @@
 		"testid",
 		"textbox",
 		"textinput",
-		"valuenow"
+		"valuenow",
+		"viewbox"
 	],
 	"ignoreWords": [
 		"xsmall",

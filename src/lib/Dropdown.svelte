@@ -8,6 +8,18 @@
 		selected?: boolean;
 		submenu?: DropdownOptions[];
 	}
+
+	export type DropdownProps = {
+		options: DropdownOptions[];
+		placeholder?: string;
+		value?: DropdownOptions['id'];
+		label?: string;
+		searchThreshold?: number;
+		disabled?: boolean;
+		required?: boolean;
+		size?: 'small' | 'medium' | 'large';
+		onchange?: (value: DropdownOptions['id']) => void;
+	};
 </script>
 
 <script lang="ts">
@@ -23,17 +35,7 @@
 		required = false,
 		size = 'small',
 		onchange,
-	} = $props<{
-		options: DropdownOptions[];
-		placeholder?: string;
-		value?: DropdownOptions['id'];
-		label?: string;
-		searchThreshold?: number;
-		disabled?: boolean;
-		required?: boolean;
-		size?: 'small' | 'medium' | 'large';
-		onchange?: (value: DropdownOptions['id']) => void;
-	}>();
+	} = $props<DropdownProps>();
 
 	let input: HTMLInputElement | undefined = $state(undefined);
 	let visible = $state(false);

@@ -1,15 +1,22 @@
-<script lang="ts">
-	import type { EssayValue, EssayProperties } from '@surveyplanet/types';
-	import { TextInput } from '../';
-
-	let { id, min, max, single, response, essayResponse } = $props<{
+<script
+	lang="ts"
+	context="module">
+	export type EssayProps = {
 		id: string;
 		min: EssayProperties['min'];
 		max: EssayProperties['max'];
 		single: EssayProperties['single'];
 		response: EssayValue[];
-		essayResponse: (value: EssayValue[]) => void;
-	}>();
+		essayResponse: (response: EssayValue[]) => void;
+	};
+</script>
+
+<script lang="ts">
+	import type { EssayValue, EssayProperties } from '@surveyplanet/types';
+	import { TextInput } from '../';
+
+	let { id, min, max, single, response, essayResponse } =
+		$props<EssayProps>();
 
 	const updateResponse = (value: string) => {
 		response = [value];

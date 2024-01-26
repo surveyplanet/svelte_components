@@ -1,3 +1,16 @@
+<script
+	lang="ts"
+	context="module">
+	export type RatingProps = {
+		id: string;
+		labels: RatingProperties['labels'];
+		order?: RatingProperties['order'];
+		layout?: RatingProperties['layout'];
+		response?: RatingValue[];
+		ratingResponse: (value: RatingValue[]) => void;
+	};
+</script>
+
 <script lang="ts">
 	import type { RatingValue, RatingProperties } from '@surveyplanet/types';
 	import RangeSlider from 'svelte-range-slider-pips';
@@ -10,14 +23,7 @@
 		layout = '1',
 		response = [],
 		ratingResponse,
-	} = $props<{
-		id: string;
-		labels: RatingProperties['labels'];
-		order: RatingProperties['order'];
-		layout: RatingProperties['layout'];
-		response: RatingValue[];
-		ratingResponse: (value: RatingValue[]) => void;
-	}>();
+	} = $props<RatingProps>();
 
 	// TODO: THIS NEEDS TO BE TESTED
 	$effect(() => {

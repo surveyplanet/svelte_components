@@ -9,6 +9,15 @@
 		title: string;
 		id: string;
 	}
+
+	export type NavBarProps = {
+		data: NavBarData[];
+		navMenuData: MenuData[];
+		vertical?: boolean;
+		onnavlink?: (navLink: string) => void;
+		onclick?: (id: string) => void;
+		onupdate?: (id: string) => void;
+	};
 </script>
 
 <script lang="ts">
@@ -25,14 +34,7 @@
 		onnavlink,
 		onclick,
 		onupdate,
-	} = $props<{
-		data: NavBarData[];
-		navMenuData: MenuData[];
-		vertical: boolean;
-		onnavlink: (navLink: string) => void;
-		onclick: (id: string) => void;
-		onupdate: (id: string) => void;
-	}>();
+	} = $props<NavBarProps>();
 
 	let menuVisible = $state(false);
 
@@ -40,7 +42,7 @@
 		const target = e.target as HTMLLinkElement;
 		if (target.href) {
 			window.location.href = target.href;
-			onnavlink(target.id);
+			if (onnavlink) onnavlink(target.id);
 		}
 	};
 
@@ -61,11 +63,11 @@
 
 	const menuClickHandler = (id: string) => {
 		menuVisible = false;
-		onclick(id);
+		if (onclick) onclick(id);
 	};
 
 	const menuUpdateHandler = (id: string) => {
-		onupdate(id);
+		if (onupdate) onupdate(id);
 	};
 	const [floatingRef, floatingContent] = createFloatingActions({
 		strategy: 'fixed',

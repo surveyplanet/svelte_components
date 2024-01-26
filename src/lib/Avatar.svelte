@@ -14,16 +14,18 @@
 		tummi: tummi,
 		zummi: zummi,
 	} as Record<string, string>;
-</script>
 
-<script lang="ts">
-	let { profileImage, id, size, disabled, onclick } = $props<{
+	export type AvatarProps = {
 		profileImage: string;
 		id?: string;
 		size?: 'small' | 'medium' | 'large';
 		disabled?: boolean;
 		onclick?: (e: MouseEvent) => void;
-	}>();
+	};
+</script>
+
+<script lang="ts">
+	let { profileImage, id, size, disabled, onclick } = $props<AvatarProps>();
 
 	// mascot should return a type that is a key of MASCOTS
 	const mascots = Object.keys(MASCOTS).map((key) => {

@@ -6,6 +6,15 @@
 		label?: string;
 		selected?: boolean;
 	}
+
+	export type ChipsProps = {
+		data: ChipData[];
+		selectable?: boolean;
+		multiSelect?: boolean;
+		removable?: boolean;
+		onclick?: (data: ChipData[]) => void;
+		onremove?: (data: ChipData[]) => void;
+	};
 </script>
 
 <script lang="ts">
@@ -17,14 +26,7 @@
 		removable = false,
 		onclick,
 		onremove,
-	} = $props<{
-		data?: ChipData[];
-		selectable?: boolean;
-		multiSelect?: boolean;
-		removable?: boolean;
-		onclick?: (data: ChipData[]) => void;
-		onremove?: (data: ChipData[]) => void;
-	}>();
+	} = $props<ChipsProps>();
 
 	const getChipId = (chipEl: HTMLButtonElement) => {
 		const parent = chipEl.closest('.sp-chips--chip')! as HTMLButtonElement;

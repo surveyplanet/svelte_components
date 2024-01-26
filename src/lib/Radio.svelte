@@ -1,3 +1,19 @@
+<script
+	lang="ts"
+	context="module">
+	export type RadioProps = {
+		id?: string;
+		name: string;
+		value?: string | null;
+		label?: string;
+		checked?: boolean;
+		disabled?: boolean;
+		prependLabel?: boolean;
+		size?: 'small' | 'medium' | 'large';
+		onchange?: (e: Event) => void;
+	};
+</script>
+
 <script lang="ts">
 	let {
 		id = (Date.now() + Math.random()).toString(36),
@@ -9,17 +25,7 @@
 		prependLabel = false,
 		size = 'small',
 		onchange,
-	} = $props<{
-		id?: string;
-		name: string;
-		value?: string | null;
-		label?: string;
-		checked?: boolean;
-		disabled?: boolean;
-		prependLabel?: boolean;
-		size?: 'small' | 'medium' | 'large';
-		onchange?: (e: Event) => void;
-	}>();
+	} = $props<RadioProps>();
 </script>
 
 <input
