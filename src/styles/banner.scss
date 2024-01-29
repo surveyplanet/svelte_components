@@ -19,26 +19,31 @@
 	justify-content: flex-start;
 
 	background-color: $color--white;
+	border: 1px solid transparent;
 
 	&.sp-banner--info {
+		border-color: $color--blue;
 		.sp-banner--icon--wrapper {
 			background: $color--gradient--blue;
 		}
 	}
 
 	&.sp-banner--warning {
+		border-color: $color--yellow;
 		.sp-banner--icon--wrapper {
 			background: $color--gradient--yellow;
 		}
 	}
 
 	&.sp-banner--error {
+		border-color: $color--pink;
 		.sp-banner--icon--wrapper {
 			background: $color--gradient--pink;
 		}
 	}
 
 	&.sp-banner--success {
+		border-color: $color--green;
 		.sp-banner--icon--wrapper {
 			background: $color--gradient--green;
 		}
