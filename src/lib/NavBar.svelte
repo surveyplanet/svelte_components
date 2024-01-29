@@ -12,7 +12,7 @@
 
 	export type NavBarProps = {
 		data: NavBarData[];
-		navMenuData: MenuData[];
+		navMenuData?: MenuData[];
 		vertical?: boolean;
 		onnavlink?: (navLink: string) => void;
 		onclick?: (id: string) => void;

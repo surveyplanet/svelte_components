@@ -20,7 +20,7 @@
 		name,
 		value = null,
 		label = '',
-		checked = false,
+		checked,
 		disabled = false,
 		prependLabel = false,
 		size = 'small',
