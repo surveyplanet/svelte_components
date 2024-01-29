@@ -1,6 +1,8 @@
 @use '@surveyplanet/styles' as *;
+
 .sp-text-input {
 	font: $font--default;
+	position: relative;
 
 	&.sp-text-input--medium {
 		font-size: $font-size--14;
@@ -19,6 +21,20 @@
 		input,
 		textarea {
 			border-color: $color--pink;
+		}
+	}
+
+	& > input[type='search'] {
+		padding-left: $size--32;
+		& ~ .sp-text-input--search-icon {
+			// background-color: red;
+			display: block;
+			position: absolute;
+			top: 50%;
+			left: $size--10;
+			transform: translateY(-50%);
+			width: $size--16;
+			height: $size--16;
 		}
 	}
 

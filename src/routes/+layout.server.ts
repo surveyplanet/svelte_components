@@ -8,6 +8,7 @@ export const load = () => {
 	console.log('Loading components...');
 	return getComponentsList(directoryPath);
 };
+
 const getComponentsList = (dirPath: string, parentId = '') => {
 	const componentsList: DropdownOptions[] = [];
 

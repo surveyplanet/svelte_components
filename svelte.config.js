@@ -20,6 +20,7 @@ const config = {
 			$layout: './src/components/',
 		},
 	},
+
 };
 
 export default config;

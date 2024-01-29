@@ -19,10 +19,128 @@ body {
 	}
 }
 
-// section {
-// 	background-color: blue;
-// }
+table {
+	width: 100%;
+	border-collapse: collapse;
+	border-radius: 5px;
+}
+th,
+td {
+	border: 1px solid black;
+	padding: 0.5rem;
+}
 
-// header {
-// 	background-color: orange;
-// }
+tr:nth-child(even) {
+	background-color: #cff2fd;
+}
+
+th {
+	background-color: #7de3a2;
+	color: white;
+}
+li {
+	list-style-type: none;
+}
+
+pre {
+	font-family: monospace;
+	font-size: 15px;
+	word-wrap: break-word;
+}
+
+// Layout.svelte
+#main-container {
+	display: grid;
+	grid-template-rows: 1fr auto;
+	grid-template-columns: 1fr 5fr;
+	grid-template-areas:
+		'sidebar main'
+		'footer footer';
+	background-color: $color--beige;
+	width: 100vw;
+	height: 100vh;
+}
+
+#main-sidebar {
+	grid-area: sidebar;
+	border-right: 1px solid $color--beige-darker;
+	header {
+		padding: $size-space--m;
+		.sp-logo {
+			margin-bottom: $size-space--m;
+		}
+	}
+	.sp-menu {
+		width: 100%;
+		max-width: unset;
+		background-color: transparent;
+		box-shadow: none;
+		border-radius: 0;
+	}
+}
+
+#main-content {
+	grid-area: main;
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+	#component-preview {
+		background-color: $color--white;
+		#component-preview--header {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content: space-between;
+			background-color: $color--beige;
+			border-bottom: 1px solid $color--beige-darker;
+			padding: $size-space--s $size-space--m;
+		}
+	}
+	#component-details {
+		border-left: 1px solid $color--beige-darker;
+		padding: $size-space--m;
+	}
+}
+
+#main-footer {
+	grid-area: footer;
+	padding: 0;
+	margin: 0;
+	border-top: 1px solid $color--beige-darker;
+	background-color: $color--beige;
+	pre {
+		margin: 0;
+		padding: $size-space--m;
+		overflow: auto;
+		max-height: 200px;
+		// code {  }
+	}
+}
+
+body.dark {
+	#main-container {
+		background-color: $color--darker;
+	}
+	#main-sidebar {
+		border-color: $color--darkest;
+	}
+	#main-content {
+		#component-preview {
+			background-color: $color--darker;
+			#component-preview--header {
+				border-color: $color--darkest;
+				background-color: $color--darker;
+			}
+		}
+
+		#component-details {
+			border-color: $color--darkest;
+		}
+	}
+	#main-footer {
+		border-color: $color--darkest;
+		background-color: $color--darker;
+		pre {
+			color: $color--white;
+		}
+	}
+}

@@ -12,7 +12,7 @@
 
 	export type NavBarProps = {
 		data: NavBarData[];
-		navMenuData: MenuData[];
+		navMenuData?: MenuData[];
 		vertical?: boolean;
 		onnavlink?: (navLink: string) => void;
 		onclick?: (id: string) => void;
@@ -28,7 +28,7 @@
 	import { Menu, type MenuData } from './index';
 
 	let {
-		data = [],
+		data,
 		navMenuData = [],
 		vertical = false,
 		onnavlink,
@@ -76,6 +76,7 @@
 	});
 </script>
 
+<!-- TODO: this should only be if navMenuData.length -->
 <svelte:window onclick={hideMenuOnBodyClick} />
 
 <nav

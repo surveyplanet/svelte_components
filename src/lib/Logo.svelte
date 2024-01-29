@@ -56,7 +56,9 @@
 
 	let viewboxWidth: number = $state(ORIGINAL_WIDTH);
 	let viewboxHeight = $state(ORIGINAL_HEIGHT);
-	$effect(() => {
+
+	// TODO: this should update before he DOM is rendered
+	$effect.pre(() => {
 		if (fill !== 'transparent') {
 			const startColor = COLORS[`${fill}GradientStart`];
 			const endColor = COLORS[`${fill}GradientEnd`];

@@ -37,6 +37,7 @@
 	import { validate, type ValidatorError } from '@surveyplanet/utilities';
 	import Cleave from 'cleave.js';
 	import type { CleaveOptions } from 'cleave.js/options';
+	import { Icon } from './index';
 
 	let {
 		id,
@@ -168,6 +169,30 @@
 			{onfocus}
 			{onkeydown}
 			{onkeyup} />
+
+		{#if type === 'password'}
+			{#if value?.length}
+				<button
+					class="sp-text-input--password-toggle"
+					type="button"
+					onclick={() => {
+						const input = document.getElementById(id) as HTMLInputElement;
+						if (input) {
+							input.type = input.type === 'password' ? 'text' : 'password';
+						}
+					}}>
+					<Icon
+						name="eye"
+						size={16} />
+				</button>
+			{/if}
+		{:else if type === 'search'}
+			<span class="sp-text-input--search-icon">
+				<Icon
+					name="search"
+					size={16} />
+			</span>
+		{/if}
 	{/if}
 	{#if !validationHideMessage && hasValidationErrors && validationDisplayMessage.length}
 		<label
