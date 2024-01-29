@@ -17,7 +17,7 @@
 	interface LayoutProps {
 		example: string;
 		md: string;
-		events?: string[] | string[][];
+		events?: unknown[];
 		component: string;
 		main: Snippet;
 		controls: Snippet;
@@ -36,17 +36,17 @@
 	let mkd = $state(marked(md));
 	let reload = $state(0); //used to force reload the component
 	let componentsData = createComponentsStore.componentsStore;
-	let eventsLogs = $derived<typeof events>(events || []);
-
-	// TODO: lets make this a template with a nice UL of events
-	let logContent: HTMLElement | null = $state(null);
-	//should scroll to the bottom of the logContent
+	let logEvents: string[] = $state([]);
 
 	let tabSelected = $state('Example');
 	let dropdownValue = $state();
 
 	$effect(() => {
 		document.body.classList[isDarkMode ? 'add' : 'remove']('dark'); // add dark mode
+
+		if (events && events.length) {
+			logEvents = events.map((event) => JSON.stringify(event, null, 2));
+		}
 	});
 
 	const tabHandler = (id: string) => {
@@ -179,9 +179,15 @@
 
 	<footer id="main-footer">
 		<div id="component-console">
-			<pre bind:this={logContent}>
-				<code> {JSON.stringify(eventsLogs, null, 2)} </code>
-			</pre>
+			{#if events && events.length}
+				<ul>
+					{#each events as event}
+						<li class="component-events--event">
+							<code>{event}</code>
+						</li>
+					{/each}
+				</ul>
+			{/if}
 		</div>
 	</footer>
 </div>
