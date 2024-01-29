@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Avatar from '$lib/Avatar.svelte';
+	import { type AvatarProps, Avatar } from '$lib';
 	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
 
 	import { default as source } from './example';
@@ -11,7 +11,7 @@
 
 	let id: string = $state('');
 
-	let size: 'small' | 'medium' | 'large' = $state('medium');
+	let size: AvatarProps['size'] = $state('medium');
 
 	let disabled = $state(false);
 
@@ -43,7 +43,7 @@
 				selectOptions={['small', 'medium', 'large']}
 				value={size}
 				oninput={(e: Event) => {
-			size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
+			size = (e.target as HTMLInputElement).value as AvatarProps['size'];
 		}} />
 			<PropsChanger
 				boolean="Disabled"

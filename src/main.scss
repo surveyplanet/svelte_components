@@ -85,6 +85,9 @@ pre {
 	grid-template-columns: 3fr 1fr;
 	#component-preview {
 		background-color: $color--white;
+		#component-preview--window {
+			padding: $size-space--l;
+		}
 		#component-preview--header {
 			display: flex;
 			flex-direction: row;

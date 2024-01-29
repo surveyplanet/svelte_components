@@ -12,15 +12,20 @@
 	let events = $state([]) as string[];
 
 	let color: LogoColor = $state(COLORS.black);
-	let size: LogoSize = $state(256);
+	let size: LogoSize = $state(48);
 	let fill: LogoFillColor = $state('blue');
+	let symbolOnly: boolean = $state(true);
 
 	// let sizeAsString = $derived(size.toString());
+
+	const fillPropChangerHandler = (e: Event) => {
+		fill = (e.target as HTMLSelectElement).value as LogoFillColor;
+	};
 </script>
 
 <Layout
 	component="Logo"
-	example={source(size, fill, color)}
+	example={source(size, fill, color, symbolOnly)}
 	{md}
 	{events}>
 	{#snippet controls()}
@@ -48,18 +53,20 @@
 					'green',
 					'transparent',
 				]}
-				oninput={(e: Event) => {
-					fill = (e.target as HTMLSelectElement).value as LogoFillColor;
-				}} />
+				oninput={fillPropChangerHandler} />
+
+			<!-- type='boolean', label="Symbol only" -->
+			<PropsChanger
+				boolean="Symbol only"
+				value={symbolOnly}
+				oninput={(e: Event) => { symbolOnly = (e.target as HTMLInputElement).checked; console.log(symbolOnly) }} />
 		</PropsContainer>
 	{/snippet}
 	{#snippet main()}
 		<Logo
-			on:click={(e) => {
-				events.push('click');
-			}}
 			{color}
 			{size}
-			{fill} />
+			{fill}
+			{symbolOnly} />
 	{/snippet}
 </Layout>

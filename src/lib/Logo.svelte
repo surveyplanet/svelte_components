@@ -59,6 +59,14 @@
 
 	// TODO: this should update before he DOM is rendered
 	$effect.pre(() => {
+		console.log('-->', {
+			width,
+			height,
+			viewboxWidth,
+			viewboxHeight,
+			size,
+		});
+
 		if (fill !== 'transparent') {
 			const startColor = COLORS[`${fill}GradientStart`];
 			const endColor = COLORS[`${fill}GradientEnd`];
@@ -69,6 +77,13 @@
 		width = symbolOnly ? size : size * ASPECT_RATION;
 
 		viewboxWidth = symbolOnly ? DEFAULT_SIZE : ORIGINAL_WIDTH;
+		console.log('----->', {
+			width,
+			height,
+			viewboxWidth,
+			viewboxHeight,
+			size,
+		});
 	});
 </script>
 

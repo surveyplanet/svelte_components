@@ -77,9 +77,11 @@
 <div id="main-container">
 	<aside id="main-sidebar">
 		<header>
-			<Logo
-				color={isDarkMode ? COLORS.white : COLORS.black}
-				fill={isDarkMode ? 'transparent' : 'blue'} />
+			<a href="/">
+				<Logo
+					color={isDarkMode ? COLORS.white : COLORS.black}
+					fill={isDarkMode ? 'transparent' : 'blue'} />
+			</a>
 			<div id="main-sidebar--search">
 				<TextInput
 					id="search-components"
@@ -105,24 +107,12 @@
 							id: 'refresh',
 							title: 'Refresh',
 						},
-						{
-							icon: 'zoomIn',
-							link: '#',
-							id: 'zoom-in',
-							title: 'Zoom In',
-						},
-						{
-							icon: 'zoomOut',
-							link: '#',
-							id: 'zoom-out',
-							title: 'Zoom Out',
-						},
-						{
-							icon: 'share2',
-							link: '#',
-							id: 'share',
-							title: 'Share',
-						},
+						// {
+						// 	icon: 'share2',
+						// 	link: '#',
+						// 	id: 'share',
+						// 	title: 'Share',
+						// },
 					]}
 					onclick={navBarClickHandler} />
 
@@ -133,12 +123,14 @@
 						onchange={darkModeHandler} />
 				</div>
 			</header>
-			<div class="container">
+			<div id="component-preview--window">
 				{#key reload}
 					{@render main()}
 				{/key}
 			</div>
 		</section>
+
+		<!-- TODO: if not component is selected this should not render -->
 		<section id="component-details">
 			<header>
 				<TabBar

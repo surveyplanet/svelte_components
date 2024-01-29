@@ -20,7 +20,7 @@
 		selectOptions?: string[] | number[];
 		oninput?: (e: Event) => void;
 		onblur?: (e: Event) => void;
-		value?: string | number | boolean | null | undefined;
+		value?: string | number | boolean | null;
 	}>();
 </script>
 
