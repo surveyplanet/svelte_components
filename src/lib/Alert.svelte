@@ -36,7 +36,7 @@
 		title,
 		subtitle,
 		type,
-		hideDelay = 0, // in milliseconds
+		hideDelay, // in milliseconds
 		confirm = false,
 		confirmButtonLabel = 'Confirm',
 		cancelButtonLabel = 'Cancel',
@@ -56,7 +56,7 @@
 	let isChallenge = $derived(confirm && challenge.length > 0);
 	let disableConfirmButton: boolean = $state(false);
 	$effect(() => {
-		if (!confirm && hideDelay > 0) {
+		if (!confirm && hideDelay && hideDelay > 0) {
 			setTimeout(() => {
 				visible = false;
 			}, hideDelay);

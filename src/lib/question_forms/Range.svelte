@@ -1,22 +1,22 @@
+<script
+	lang="ts"
+	context="module">
+	export type RangeProps = {
+		id: string;
+		min: number;
+		max: number;
+		response?: RangeValue[];
+		rangeResponse?: (value: RangeValue[]) => void;
+	};
+</script>
+
 <script lang="ts">
-	import type { RangeValue, RangeProperties } from '@surveyplanet/types';
+	import type { RangeValue } from '@surveyplanet/types';
 	import TextInput from '../TextInput.svelte';
 	import RangeSlider from 'svelte-range-slider-pips';
 	import { browser } from '$app/environment';
 
-	let {
-		id,
-		min,
-		max,
-		response = [],
-		rangeResponse,
-	} = $props<{
-		id: string;
-		min: RangeProperties['min'];
-		max: RangeProperties['max'];
-		response: RangeValue[];
-		rangeResponse: (value: RangeValue[]) => void;
-	}>();
+	let { id, min, max, response = [], rangeResponse } = $props<RangeProps>();
 
 	let rangeValues = $state([response[0] || min, response[1] || max]);
 	// onMount(() => {
@@ -25,7 +25,7 @@
 
 	const rangeSliderStopHandler = () => {
 		response = [rangeValues[0], rangeValues[1]];
-		rangeResponse(response);
+		if (rangeResponse) rangeResponse(response);
 	};
 
 	// it would be better to do this on a keydown event but we are not dispatching

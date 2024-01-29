@@ -4,24 +4,28 @@
 	let {
 		text,
 		number,
-		boolean,
+		checkbox,
 		object,
 		select,
 		oninput,
 		onblur,
 		selectOptions = [],
-		value = '',
+		value,
+		label = '',
 	} = $props<{
-		text?: string;
-		number?: string;
-		boolean?: string;
-		object?: string;
-		select?: string;
+		text?: boolean;
+		number?: boolean;
+		checkbox?: boolean;
+		object?: boolean;
+		select?: boolean;
 		selectOptions?: string[] | number[];
 		oninput?: (e: Event) => void;
 		onblur?: (e: Event) => void;
 		value?: string | number | boolean | null;
+		label?: string;
 	}>();
+
+	// let valueState = $state(value);
 </script>
 
 <div class="props-changer">
@@ -30,32 +34,32 @@
 			<TextInput
 				id={`text-${text}`}
 				name="text"
-				label={text}
+				{label}
 				type="text"
 				multiline={false}
-				{value}
+				bind:value
 				{oninput}
 				{onblur} />
 		</div>
 	{/if}
 	{#if number}
 		<div class="props-changer--item">
-			<label for="number">{number}</label>
+			<label for="number">{label}</label>
 			<input
 				type="number"
 				id="number"
-				{value}
+				bind:value
 				{oninput}
 				{onblur} />
 		</div>
 	{/if}
-	{#if (boolean && typeof value === 'boolean') || typeof value === 'undefined'}
+	{#if (checkbox && typeof value === 'boolean') || typeof value === 'undefined'}
 		<div class="props-changer--item">
-			<label for="boolean">{boolean}</label>
+			<label for="boolean">{label}</label>
 			<Checkbox
-				id="boolean-{boolean}"
-				name="boolean-{boolean}s"
-				checked={value}
+				id="boolean-{label}"
+				name="boolean-{label}s"
+				bind:checked={value}
 				size="medium"
 				onchange={oninput} />
 		</div>
@@ -65,18 +69,19 @@
 			<TextInput
 				id={`object-${object}`}
 				name="object"
-				label={object}
+				{label}
 				type="text"
 				multiline={true}
 				{oninput}
 				{onblur}
-				{value} />
+				bind:value />
 		</div>
 	{/if}
 	{#if select}
 		<div class="props-changer--item">
-			<label for="select">{select}</label>
+			<label for="select">{label}</label>
 			<select
+				bind:value
 				id="select"
 				{oninput}
 				{onblur}>

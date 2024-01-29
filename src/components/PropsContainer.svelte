@@ -11,6 +11,3 @@
 		{@render children()}
 	{/if}
 </div>
-
-<style>
-</style>
