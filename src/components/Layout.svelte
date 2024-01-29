@@ -36,7 +36,9 @@
 	let mkd = $state(marked(md));
 	let reload = $state(0); //used to force reload the component
 	let componentsData = createComponentsStore.componentsStore;
-	let logEvents: string[] = $state([]);
+	let eventsLogs = $derived<typeof events>(events || []);
+	let logContent: HTMLElement | null = $state(null);
+	//should scroll to the bottom of the logContent
 
 	let tabSelected = $state('Example');
 	let dropdownValue = $state();
