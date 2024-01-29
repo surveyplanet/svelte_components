@@ -117,6 +117,12 @@
 							id: 'zoom-out',
 							title: 'Zoom Out',
 						},
+						{
+							icon: 'share2',
+							link: '#',
+							id: 'share',
+							title: 'Share',
+						},
 					]}
 					onclick={navBarClickHandler} />
 
