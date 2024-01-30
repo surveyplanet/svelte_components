@@ -4,10 +4,9 @@
 	position: relative;
 	z-index: 1000;
 	min-width: $size--256;
-	max-width: px-to-rem(375);
+	// max-width: px-to-rem(375);
 	margin: 0;
-	padding: $size-space--xs;
-	padding-left: 0;
+	padding: $size-space--s;
 	border-radius: $size-radius--large;
 	box-shadow: 0px 0px 25px 0px rgba(235, 231, 220, 0.8);
 	font: $font--default;
@@ -55,7 +54,7 @@
 	align-items: center;
 	justify-content: center;
 	flex-basis: $size--64;
-	padding: 0 $size-space--s;
+	padding: 0 $size-space--s 0 0;
 }
 .sp-banner--icon--wrapper {
 	display: flex;
