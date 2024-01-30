@@ -4,14 +4,12 @@
 	position: relative;
 	z-index: 1000;
 	min-width: $size--256;
-	// max-width: px-to-rem(375);
 	margin: 0;
 	padding: $size-space--s;
 	border-radius: $size-radius--large;
 	box-shadow: 0px 0px 25px 0px rgba(235, 231, 220, 0.8);
 	font: $font--default;
 	color: $color--beige-darkest;
-	// overflow: hidden;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
