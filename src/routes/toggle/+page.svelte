@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Toggle } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -26,45 +26,31 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="Name"
-				value={name}
-				oninput={(e: Event) => {
-					name = (e.target as HTMLInputElement).value;
-				}} />
-			<PropsChanger
-				text="Label"
-				value={label}
-				oninput={(e: Event) => {
-					label = (e.target as HTMLInputElement).value;
-				}} />
-			<PropsChanger
-				boolean="On"
-				value={on}
-				oninput={(e: Event) => {
-					on = (e.target as HTMLInputElement).checked
-				}} />
-			<PropsChanger
-				boolean="Disabled"
-				value={disabled}
-				oninput={(e: Event) => {
-					disabled = (e.target as HTMLInputElement).checked
-				}} />
-			<PropsChanger
-				boolean="Tall"
-				value={tall}
-				oninput={(e: Event) => {
-					tall = (e.target as HTMLInputElement).checked
-				}} />
+		<PropsChanger
+			label="Name"
+			text
+			bind:value={name} />
+		<PropsChanger
+			label="Label"
+			text
+			bind:value={label} />
+		<PropsChanger
+			label="On"
+			checkbox
+			bind:value={on} />
+		<PropsChanger
+			label="Disabled"
+			checkbox
+			bind:value={disabled} />
+		<PropsChanger
+			label="Tall"
+			checkbox
+			bind:value={tall} />
 
-			<PropsChanger
-				boolean="Prepend Label"
-				value={prependLabel}
-				oninput={(e: Event) => {
-					prependLabel = (e.target as HTMLInputElement).checked
-				}} />
-		</PropsContainer>
+		<PropsChanger
+			label="Prepend Label"
+			checkbox
+			bind:value={prependLabel} />
 	{/snippet}
 	{#snippet main()}
 		<Toggle

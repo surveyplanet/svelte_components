@@ -34,7 +34,7 @@
 	{id}
 	{name}
 	{value}
-	{checked}
+	bind:checked
 	{disabled}
 	{onchange} />
 <label

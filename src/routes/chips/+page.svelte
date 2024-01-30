@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { Chips, type ChipData } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ChipData[]>([]);
+	let events = $state<string[]>([]);
 
 	let data: ChipData[] = $state([
 		{
 			id: 'apple',
 			label: 'Apple',
-			selected: false,
+			selected: true,
 		},
 		{
 			id: 'peach',
@@ -33,11 +33,16 @@
 	let removable = $state(false);
 
 	const chipSelected = (data: ChipData[]): void => {
-		events.push(data);
+		events.push(JSON.stringify(data));
 	};
 	const chipRemoved = (data: ChipData[]): void => {
-		events.push(data);
+		events.push(JSON.stringify(data));
 	};
+
+	let stringData = $state(JSON.stringify(data));
+	$effect(() => {
+		data = JSON.parse(stringData);
+	});
 </script>
 
 <Layout
@@ -46,36 +51,26 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="data"
-				value={JSON.stringify(data)}
-				oninput={(e: Event) => {
-					data = JSON.parse((e.target as HTMLInputElement).value)
-				}} />
-			<PropsChanger
-				boolean="selectable"
-				value={selectable}
-				oninput={(e: Event) => {
-					selectable = (e.target as HTMLInputElement).checked;
-				}} />
-			<PropsChanger
-				boolean="multiSelect"
-				value={multiSelect}
-				oninput={(e: Event) => {
-					multiSelect = (e.target as HTMLInputElement).checked;
-				}} />
-			<PropsChanger
-				boolean="removable"
-				value={removable}
-				oninput={(e: Event) => {
-					removable = (e.target as HTMLInputElement).checked;
-				}} />
-		</PropsContainer>
+		<PropsChanger
+			label="data"
+			text
+			bind:value={stringData} />
+		<PropsChanger
+			label="selectable"
+			checkbox
+			bind:value={selectable} />
+		<PropsChanger
+			label="multiSelect"
+			checkbox
+			bind:value={multiSelect} />
+		<PropsChanger
+			label="removable"
+			checkbox
+			bind:value={removable} />
 	{/snippet}
 	{#snippet main()}
 		<Chips
-			{data}
+			bind:data
 			{selectable}
 			{multiSelect}
 			{removable}

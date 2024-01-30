@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Spinner } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -45,80 +45,79 @@
 	{events}>
 	{#snippet controls()}
 		Events need to be fixed
-		<PropsContainer>
-			<PropsChanger
-				text="label"
-				value={label}
-				oninput={(e: Event) => {
+
+		<PropsChanger
+			text="label"
+			value={label}
+			oninput={(e: Event) => {
 					label = (e.target as HTMLInputElement).value;
 				}} />
-			<PropsChanger
-				number="step"
-				value={step}
-				oninput={(e: Event) => {
+		<PropsChanger
+			number="step"
+			value={step}
+			oninput={(e: Event) => {
 					step = Number((e.target as HTMLInputElement).value);
 				}} />
-			<PropsChanger
-				number="min"
-				value={min}
-				oninput={(e: Event) => {
+		<PropsChanger
+			number="min"
+			value={min}
+			oninput={(e: Event) => {
 					min = Number((e.target as HTMLInputElement).value);
 				}} />
-			<PropsChanger
-				number="max"
-				value={max}
-				oninput={(e: Event) => {
+		<PropsChanger
+			number="max"
+			value={max}
+			oninput={(e: Event) => {
 					max = Number((e.target as HTMLInputElement).value);
 				}} />
-			<PropsChanger
-				number="value"
-				{value}
-				oninput={(e: Event) => {
+		<PropsChanger
+			number="value"
+			{value}
+			oninput={(e: Event) => {
 					value = Number((e.target as HTMLInputElement).value);
 				}} />
-			<PropsChanger
-				boolean="disabled"
-				value={disabled}
-				oninput={(e: Event) => {
+		<PropsChanger
+			boolean="disabled"
+			value={disabled}
+			oninput={(e: Event) => {
 					disabled = (e.target as HTMLInputElement).checked;
 				}} />
-			<PropsChanger
-				boolean="required"
-				value={required}
-				oninput={(e: Event) => {
+		<PropsChanger
+			boolean="required"
+			value={required}
+			oninput={(e: Event) => {
 					required = (e.target as HTMLInputElement).checked;
 				}} />
-			<PropsChanger
-				boolean="overflow"
-				value={overflow}
-				oninput={(e: Event) => {
+		<PropsChanger
+			boolean="overflow"
+			value={overflow}
+			oninput={(e: Event) => {
 					overflow = (e.target as HTMLInputElement).checked;
 				}} />
-			<PropsChanger
-				text="id"
-				value={id}
-				oninput={(e: Event) => {
+		<PropsChanger
+			text="id"
+			value={id}
+			oninput={(e: Event) => {
 					id = (e.target as HTMLInputElement).value;
 				}} />
-			<PropsChanger
-				text="placeholder"
-				value={placeholder}
-				oninput={(e: Event) => {
+		<PropsChanger
+			text="placeholder"
+			value={placeholder}
+			oninput={(e: Event) => {
 					placeholder = (e.target as HTMLInputElement).value;
 				}} />
-			<PropsChanger
-				number="dragSpeed"
-				value={dragSpeed}
-				oninput={(e: Event) => {
+		<PropsChanger
+			number="dragSpeed"
+			value={dragSpeed}
+			oninput={(e: Event) => {
 					dragSpeed = Number((e.target as HTMLInputElement).value);
 				}} />
-			<PropsChanger
-				text="size"
-				value={size}
-				oninput={(e: Event) => {
+		<PropsChanger
+			text="size"
+			value={size}
+			oninput={(e: Event) => {
 					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
 				}} />
-		</PropsContainer>
 	{/snippet}
 	{#snippet main()}
 		<Spinner

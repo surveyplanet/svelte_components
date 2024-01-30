@@ -6,7 +6,7 @@
 		type LogoColor,
 	} from '$lib';
 	import { COLORS } from '$lib/_definitions';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -17,10 +17,6 @@
 	let symbolOnly: boolean = $state(true);
 
 	// let sizeAsString = $derived(size.toString());
-
-	const fillPropChangerHandler = (e: Event) => {
-		fill = (e.target as HTMLSelectElement).value as LogoFillColor;
-	};
 </script>
 
 <Layout
@@ -29,38 +25,32 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="Color"
-				value={color}
-				oninput={(e: Event) => {
-					color = (e.target as HTMLSelectElement).value as LogoColor;
-				}} />
-			<PropsChanger
-				select="Size"
-				value={size}
-				selectOptions={[8, 12, 16, 20, 24, 32, 48, 64, 128, 256, 512]}
-				oninput={(e: Event) => {
-					size = Number((e.target as HTMLInputElement).value) as LogoSize;
-				}} />
-			<PropsChanger
-				select="Fill"
-				value={fill}
-				selectOptions={[
-					'blue',
-					'yellow',
-					'pink',
-					'green',
-					'transparent',
-				]}
-				oninput={fillPropChangerHandler} />
+		<PropsChanger
+			label="Color"
+			select
+			selectOptions={Object.keys(COLORS)}
+			bind:value={color} />
+		<PropsChanger
+			label="Size"
+			bind:value={size}
+			select
+			selectOptions={[8, 12, 16, 20, 24, 32, 48, 64, 128, 256, 512]} />
+		<PropsChanger
+			label="Fill"
+			bind:value={fill}
+			select
+			selectOptions={[
+				'blue',
+				'yellow',
+				'pink',
+				'green',
+				'transparent',
+			]} />
 
-			<!-- type='boolean', label="Symbol only" -->
-			<PropsChanger
-				boolean="Symbol only"
-				value={symbolOnly}
-				oninput={(e: Event) => { symbolOnly = (e.target as HTMLInputElement).checked; console.log(symbolOnly) }} />
-		</PropsContainer>
+		<PropsChanger
+			label="Symbol only"
+			checkbox
+			bind:value={symbolOnly} />
 	{/snippet}
 	{#snippet main()}
 		<Logo

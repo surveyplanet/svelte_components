@@ -5,7 +5,7 @@
 	} from '@surveyplanet/types';
 
 	import { DateTime, type DateTimeDefinitions } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -27,6 +27,11 @@
 	const dateTimeResponseHandler = (datetime: DateTimeValue[]) => {
 		events.push(datetime.toString());
 	};
+
+	// let responseString = $state(JSON.stringify(response));
+	// $effect(() => {
+	// 	response = JSON.parse(responseString);
+	// });
 </script>
 
 <Layout
@@ -35,29 +40,18 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="ID"
-				value={id}
-				oninput={(event: Event) => {
-					id = (event.target as HTMLInputElement).value;
-				}} />
-			<PropsChanger
-				boolean="Date"
-				value={date}
-				oninput={(event: Event) => {
-					date = (event.target as HTMLInputElement).checked;
-				}} />
-			<PropsChanger
-				boolean="Time"
-				value={time}
-				oninput={(event: Event) => {
-					time = (event.target as HTMLInputElement).checked;
-				}} />
-			<PropsChanger
-				object="Response"
-				value={response.toString()} />
-		</PropsContainer>
+		<PropsChanger
+			label="ID"
+			text
+			bind:value={id} />
+		<PropsChanger
+			label="Date"
+			checkbox
+			bind:value={date} />
+		<PropsChanger
+			label="Time"
+			checkbox
+			bind:value={time} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">

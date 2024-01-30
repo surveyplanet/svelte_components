@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Radio } from '$lib';
 
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -34,52 +34,51 @@
 	{events}>
 	{#snippet controls()}
 		doesn't work for text changes
-		<PropsContainer>
-			<PropsChanger
-				text="Name"
-				value={name}
-				oninput={(e: Event) => {
+
+		<PropsChanger
+			text="Name"
+			value={name}
+			oninput={(e: Event) => {
 					name = (e.target as HTMLInputElement).value;
 				}} />
-			<PropsChanger
-				text="Label One"
-				value={labelOne}
-				oninput={(e: Event) => {
+		<PropsChanger
+			text="Label One"
+			value={labelOne}
+			oninput={(e: Event) => {
 					labelOne = (e.target as HTMLInputElement).value;
 				}} />
-			<PropsChanger
-				text="Label Two"
-				value={labelTwo}
-				oninput={(e: Event) => {
+		<PropsChanger
+			text="Label Two"
+			value={labelTwo}
+			oninput={(e: Event) => {
 					labelTwo = (e.target as HTMLInputElement).value;
 					console.log(labelTwo);
 				}} />
-			<PropsChanger
-				text="Label Three"
-				value={labelThree}
-				oninput={(e: Event) => {
+		<PropsChanger
+			text="Label Three"
+			value={labelThree}
+			oninput={(e: Event) => {
 					labelThree = (e.target as HTMLInputElement).value;
 				}} />
-			<PropsChanger
-				boolean="Disabled"
-				value={disabled}
-				oninput={(e: Event) => {
+		<PropsChanger
+			boolean="Disabled"
+			value={disabled}
+			oninput={(e: Event) => {
 					disabled = (e.target as HTMLInputElement).checked;
 				}} />
-			<PropsChanger
-				boolean="Prepend Label"
-				value={prependLabel}
-				oninput={(e: Event) => {
+		<PropsChanger
+			boolean="Prepend Label"
+			value={prependLabel}
+			oninput={(e: Event) => {
 					prependLabel = (e.target as HTMLInputElement).checked;
 				}} />
-			<PropsChanger
-				select="Size"
-				selectOptions={['small', 'medium', 'large']}
-				value={size}
-				oninput={(e: Event) => {
+		<PropsChanger
+			select="Size"
+			selectOptions={['small', 'medium', 'large']}
+			value={size}
+			oninput={(e: Event) => {
 					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
 				}} />
-		</PropsContainer>
 	{/snippet}
 	{#snippet main()}
 		<div id="wrapper">

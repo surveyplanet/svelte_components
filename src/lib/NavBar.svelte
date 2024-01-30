@@ -23,13 +23,12 @@
 <script lang="ts">
 	import { offset, flip, shift } from 'svelte-floating-ui/dom';
 	import { createFloatingActions } from 'svelte-floating-ui';
-	import { preventDefault } from '../utils/event_modifiers';
 
 	import { Menu, type MenuData } from './index';
 
 	let {
-		data = [],
-		navMenuData = [],
+		data,
+		navMenuData,
 		vertical = false,
 		onnavlink,
 		onclick,
@@ -46,7 +45,10 @@
 		}
 	};
 
-	const navMenuTriggerClickHandler = () => {
+	const navMenuTriggerClickHandler = (e: Event) => {
+		e.preventDefault();
+		e.stopPropagation();
+		console.log('click', menuVisible);
 		menuVisible = !menuVisible;
 	};
 
@@ -100,7 +102,7 @@
 		<button
 			use:floatingRef
 			class="sp-nav--menu-trigger"
-			onclick={preventDefault(navMenuTriggerClickHandler)}>
+			onclick={navMenuTriggerClickHandler}>
 			<Icon
 				name="ellipsis"
 				size={16} />

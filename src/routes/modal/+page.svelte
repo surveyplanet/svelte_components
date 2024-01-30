@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Modal, Button } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -35,45 +35,31 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="Title"
-				value={title}
-				oninput={(e: Event) => {
-					title = (e.target as HTMLInputElement).value;
-				}} />
-			<PropsChanger
-				text="Subtitle"
-				value={subtitle}
-				oninput={(e: Event) => {
-					subtitle = (e.target as HTMLInputElement).value;
-				}} />
-			<PropsChanger
-				boolean="Fullscreen"
-				value={fullscreen}
-				oninput={(e: Event) => {
-					fullscreen = (e.target as HTMLInputElement).checked
-				}} />
-			<PropsChanger
-				boolean="Overlay"
-				value={overlay}
-				oninput={(e: Event) => {
-					overlay = (e.target as HTMLInputElement).checked
-				}} />
-			<PropsChanger
-				boolean="Visible"
-				value={visible}
-				oninput={(e: Event) => {
-					visible = (e.target as HTMLInputElement).checked
-				}} />
-			<PropsChanger
-				select="Size"
-				value={size}
-				selectOptions={['small', 'medium', 'large']}
-				oninput={(e: Event) => {
-					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
-				}} />
-		</PropsContainer>
+		<PropsChanger
+			label="Title"
+			text
+			bind:value={title} />
+		<PropsChanger
+			label="Subtitle"
+			text
+			bind:value={subtitle} />
+		<PropsChanger
+			label="Fullscreen"
+			checkbox
+			bind:value={fullscreen} />
+		<PropsChanger
+			label="Overlay"
+			bind:value={overlay}
+			checkbox />
+		<PropsChanger
+			label="Visible"
+			checkbox
+			bind:value={visible} />
+		<PropsChanger
+			label="Size"
+			select
+			selectOptions={['small', 'medium', 'large']}
+			bind:value={size} />
 	{/snippet}
 	{#snippet main()}
 		<Modal

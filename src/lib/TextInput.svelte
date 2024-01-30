@@ -1,6 +1,6 @@
 <script
-	lang="ts"
-	context="module">
+	context="module"
+	lang="ts">
 	export type TextInputType =
 		| 'password'
 		| 'search'
@@ -134,7 +134,6 @@
 	{#if multiline}
 		<textarea
 			class="sp-text-input--textarea"
-			bind:value
 			{name}
 			{id}
 			{placeholder}
@@ -153,12 +152,13 @@
 	{:else}
 		<input
 			class="sp-text-input--input"
-			bind:value
 			{name}
+			{type}
 			{id}
 			{placeholder}
 			{disabled}
 			{readonly}
+			{value}
 			data-validate-rules={validationRules.length
 				? validationRules.join(',')
 				: null}

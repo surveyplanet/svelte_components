@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { NavBar, type MenuData, type NavBarData } from '$lib/index';
 	import { menuData } from '../menu/menu_data';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -41,6 +41,13 @@
 	const navLinkHandler = (navLink: string) => {
 		events.push(navLink);
 	};
+	let dataString = $state(JSON.stringify(data));
+	let menuDataString = $state(JSON.stringify(navMenuData));
+
+	$effect(() => {
+		data = JSON.parse(dataString);
+		navMenuData = JSON.parse(menuDataString);
+	});
 </script>
 
 <Layout
@@ -49,33 +56,25 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				object="Data"
-				value={JSON.stringify(data)}
-				oninput={(e: Event) => {
-					data = JSON.parse((e.target as HTMLInputElement).value);
-				}} />
-			<PropsChanger
-				object="Menu Data"
-				value={JSON.stringify(navMenuData)}
-				oninput={(e: Event) => {
-					navMenuData = JSON.parse((e.target as HTMLInputElement).value);
-				}} />
-			<PropsChanger
-				boolean="Vertical"
-				value={vertical.toString()}
-				oninput={(e: Event) => {
-					vertical = (e.target as HTMLInputElement).checked;
-				}} />
-		</PropsContainer>
+		<PropsChanger
+			label="Data"
+			object
+			bind:value={dataString} />
+		<PropsChanger
+			label="Menu Data"
+			object
+			bind:value={menuDataString} />
+		<PropsChanger
+			label="Vertical"
+			checkbox
+			bind:value={vertical} />
 	{/snippet}
 	{#snippet main()}
 		<div class="row-wrapper">
 			<div class="wrapper">
 				<NavBar
-					{data}
-					{navMenuData}
+					bind:data
+					bind:navMenuData
 					{vertical}
 					onnavlink={navLinkHandler}
 					onupdate={menuUpdateHandler}

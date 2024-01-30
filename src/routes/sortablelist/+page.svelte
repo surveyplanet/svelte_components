@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { SortableList, type SortListData } from '../../lib/index';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -33,15 +33,13 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			Needs events reworked!!!
-			<PropsChanger
-				object="Data"
-				value={JSON.stringify(data)}
-				oninput={(e: Event) => {
+		Needs events reworked!!!
+		<PropsChanger
+			object="Data"
+			value={JSON.stringify(data)}
+			oninput={(e: Event) => {
 					data = JSON.parse((e.target as HTMLInputElement).value);
 				}} />
-		</PropsContainer>
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">

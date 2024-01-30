@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { FormProperties, FormValue } from '@surveyplanet/types';
 	import { Form } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -40,6 +40,14 @@
 	const formResponseHandler = (response: FormValue[]) => {
 		events.push(JSON.stringify(response, null, 2));
 	};
+
+	let labelsStringed = $state(JSON.stringify(labels));
+	let validationsString = $state(JSON.stringify(validations));
+
+	$effect(() => {
+		labels = JSON.parse(labelsStringed);
+		validations = JSON.parse(validationsString);
+	});
 </script>
 
 <Layout
@@ -48,32 +56,32 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="ID"
-				value={id} />
-			<PropsChanger
-				object="Labels"
-				value={JSON.stringify(labels)} />
-			<PropsChanger
-				object="Validations"
-				value={JSON.stringify(validations)} />
-			<PropsChanger
-				object="Response"
-				value={response.toString()} />
-			<PropsChanger
-				boolean="Require all"
-				value={requireAll} />
-			<PropsChanger
-				boolean="Random"
-				value={random} />
-		</PropsContainer>
+		<PropsChanger
+			label="ID"
+			text
+			bind:value={id} />
+		<PropsChanger
+			label="Labels"
+			object
+			bind:value={labelsStringed} />
+		<PropsChanger
+			label="Require all"
+			checkbox
+			bind:value={requireAll} />
+		<PropsChanger
+			label="Random"
+			checkbox
+			bind:value={random} />
+		<PropsChanger
+			label="Validations"
+			object
+			bind:value={validationsString} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">
 			<Form
 				{id}
-				{labels}
+				bind:labels
 				{response}
 				{random}
 				formResponse={formResponseHandler} />

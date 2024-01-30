@@ -8,6 +8,7 @@
 		currentDate: Language['definitions']['currentDate'];
 		currentDatetime: Language['definitions']['currentDatetime'];
 	}
+
 	export type DateTimeProps = {
 		id: string;
 		date?: DateTimeProperties['date'];
@@ -26,6 +27,9 @@
 	import { stringToDate } from '@surveyplanet/utilities';
 	import { dateToString } from '@surveyplanet/utilities';
 
+	// const dispatchResponse = createEventDispatcher<{
+	// 	response: DateTimeValue[];
+	// }>();
 	type DateTimeInputType = 'date' | 'time' | 'datetime-local';
 	// export let definitions: DateTimeDefinitions;
 
@@ -37,13 +41,14 @@
 		dateResponse,
 	} = $props<DateTimeProps>();
 
-	let type = $derived(
-		(function (d: boolean, t: boolean): DateTimeInputType {
+	let type: DateTimeInputType = $state('date');
+	$effect(() => {
+		type = (function (d: boolean, t: boolean): DateTimeInputType {
 			if (d && t) return 'datetime-local';
 			if (t) return 'time';
 			return 'date';
-		})(date, time)
-	);
+		})(date, time);
+	});
 
 	let inputType: TextInputType = $state('date');
 	$effect(() => {
@@ -75,7 +80,7 @@
 		name="date"
 		size="large"
 		label=""
-		type={inputType}
+		bind:type={inputType}
 		oninput={dateInputChangeHandler}
 		value={handle()} />
 </form>

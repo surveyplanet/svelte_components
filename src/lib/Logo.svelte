@@ -27,7 +27,7 @@
 
 	export type LogoProps = {
 		color?: LogoColor;
-		fill?: LogoFillColor;
+		fill: LogoFillColor;
 		size?: LogoSize;
 		symbolOnly?: boolean;
 	};
@@ -38,7 +38,7 @@
 	const ORIGINAL_HEIGHT = 24;
 	const ASPECT_RATION = ORIGINAL_WIDTH / ORIGINAL_HEIGHT;
 	const DEFAULT_SIZE: LogoSize = ORIGINAL_HEIGHT;
-
+	// fill is not working
 	let {
 		color = COLORS.black,
 		fill = 'blue',
@@ -65,6 +65,7 @@
 			viewboxWidth,
 			viewboxHeight,
 			size,
+			fill,
 		});
 
 		if (fill !== 'transparent') {
@@ -83,6 +84,7 @@
 			viewboxWidth,
 			viewboxHeight,
 			size,
+			fill,
 		});
 	});
 </script>

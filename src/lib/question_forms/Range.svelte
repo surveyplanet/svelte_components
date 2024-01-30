@@ -61,30 +61,10 @@
 			(event.target as HTMLInputElement).value = `${maxInputValue}`;
 		}
 	};
-	let values = $state([0, 8]);
 </script>
 
 <form class="sp-survey--question--form--range">
 	{#if browser}
-		<RangeSlider
-			float
-			range
-			pips
-			hoverable
-			{id}
-			{min}
-			{max}
-			all="label"
-			bind:values
-			on:stop={rangeSliderStopHandler} />
-
-		<input
-			type="number"
-			bind:value={values[0]} />
-		<input
-			type="number"
-			bind:value={values[1]} />
-
 		<RangeSlider
 			range
 			pushy

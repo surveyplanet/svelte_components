@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { type AvatarProps, Avatar } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -27,31 +27,23 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="Profile Image"
-				oninput={(e: Event) => {
-			profileImage = (e.target as HTMLInputElement).value;
-		}} />
-			<PropsChanger
-				text="Id"
-				oninput={(e: Event) => {
-			id = (e.target as HTMLInputElement).value;
-		}} />
-			<PropsChanger
-				select="Size"
-				selectOptions={['small', 'medium', 'large']}
-				value={size}
-				oninput={(e: Event) => {
-			size = (e.target as HTMLInputElement).value as AvatarProps['size'];
-		}} />
-			<PropsChanger
-				boolean="Disabled"
-				value={disabled}
-				oninput={(e: Event) => {
-			disabled = (e.target as HTMLInputElement).checked;
-		}} />
-		</PropsContainer>
+		<PropsChanger
+			label="Profile Image"
+			text={true}
+			bind:value={profileImage} />
+		<PropsChanger
+			label="Id"
+			text={true}
+			bind:value={id} />
+		<PropsChanger
+			label="Size"
+			select={true}
+			selectOptions={['small', 'medium', 'large']}
+			bind:value={size} />
+		<PropsChanger
+			label="Disabled"
+			checkbox={true}
+			bind:value={disabled} />
 	{/snippet}
 	{#snippet main()}
 		<Avatar

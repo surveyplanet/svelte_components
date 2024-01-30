@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { TabBar, type TabBarData } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -34,6 +34,12 @@
 		console.log(id);
 		events.push(id);
 	};
+
+	let dataStringed = $state(JSON.stringify(data));
+
+	$effect(() => {
+		data = JSON.parse(dataStringed);
+	});
 </script>
 
 <Layout
@@ -42,31 +48,23 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				object="data"
-				value={JSON.stringify(data)}
-				oninput={(e: Event) => {
-						data = JSON.parse((e.target as HTMLInputElement).value)
-					}} />
-			<PropsChanger
-				boolean="grow"
-				value={grow}
-				oninput={(e: Event) => {
-						grow = (e.target as HTMLInputElement).checked
-					}} />
-			<PropsChanger
-				text="id"
-				value={id}
-				oninput={(e: Event) => {
-						id = (e.target as HTMLInputElement).value
-					}} />
-		</PropsContainer>
+		<PropsChanger
+			label="data"
+			object
+			bind:value={dataStringed} />
+		<PropsChanger
+			label="grow"
+			checkbox
+			bind:value={grow} />
+		<PropsChanger
+			label="id"
+			text
+			bind:value={id} />
 	{/snippet}
 	{#snippet main()}
 		<TabBar
 			tabButton={tabButtonClickHandler}
-			{data}
+			bind:data
 			{grow}
 			{id} />
 	{/snippet}

@@ -25,13 +25,58 @@
 		label?: string;
 	}>();
 
-	// let valueState = $state(value);
+	/**
+	 * 
+	INFO: 
+	 when binding JSON.stringify(data) to the PropsChanger, instead make a new variable that is a stringified version of the data and use
+	 effect to parse it into the data variable. TAlso make sure to bind:data in the component. 
+	Example: 
+	 <script lang="ts">
+	 	let data: BreadcrumbData[] = $state([ .... ]);
+	
+	 	let dataString = $state(JSON.stringify(data)); // <--- this is the new variable
+	 	$effect(() => {
+	 		data = JSON.parse(dataString); // <--- this is the effect where the data is updated
+	 	});
+	 </script	
+	 	<Layout
+	 	component="Breadcrumbs"
+	 	example={source(data)}
+	 	{md}
+	 	{events}>
+	 	{#snippet controls()}
+	 		<PropsChanger
+	 			label="Data"
+	 			object
+	 			bind:value={dataString} /> // <--- this is the new variable
+	 	{/snippet}
+	 	{#snippet main()}
+	 		<Breadcrumbs
+				 bind:data > // <--- this is the bind
+			</Breadcrumbs> 
+	 	{/snippet}
+		 </Layout>
+
+	*/
 </script>
 
 <div class="props-changer">
 	{#if text && typeof value === 'string'}
 		<div class="props-changer--item">
-			<TextInput
+			<label for="text">{label}</label>
+			<input
+				type="text"
+				id="text"
+				bind:value
+				{oninput}
+				{onblur} />
+
+			<!-- 
+				can't use this  because if bind:value is used in the input,
+				{type} has to be static 
+
+				
+				<TextInput
 				id={`text-${text}`}
 				name="text"
 				{label}
@@ -39,7 +84,7 @@
 				multiline={false}
 				bind:value
 				{oninput}
-				{onblur} />
+				{onblur} /> -->
 		</div>
 	{/if}
 	{#if number}
@@ -65,16 +110,14 @@
 		</div>
 	{/if}
 	{#if object && typeof value === 'string'}
+		<label for="object">{label}</label>
 		<div class="props-changer--item">
-			<TextInput
-				id={`object-${object}`}
+			<textarea
+				id={`object-${label}`}
 				name="object"
-				{label}
-				type="text"
-				multiline={true}
 				{oninput}
 				{onblur}
-				bind:value />
+				bind:value></textarea>
 		</div>
 	{/if}
 	{#if select}

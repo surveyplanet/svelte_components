@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { Badge, Icon } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 
 	let color: 'yellow' | 'blue' | 'pink' | 'green' = $state('yellow');
-	let flat: boolean = $state(false);
+	let flat: boolean = $state(true);
 	let content: string = $state('Pro');
 </script>
 
@@ -14,25 +14,19 @@
 	example={source(color, content, flat)}
 	{md}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				select="Color"
-				selectOptions={['yellow', 'blue', 'pink', 'green']}
-				oninput={(e: Event) => {
-			color = (e.target as HTMLInputElement).value as 'yellow' | 'blue' | 'pink' | 'green';
-		}} />
-			<PropsChanger
-				text="Content"
-				oninput={(e: Event) => {
-			content = (e.target as HTMLInputElement).value;
-		}} />
-			<PropsChanger
-				boolean="Flat"
-				value={flat}
-				oninput={(e: Event) => {
-			flat = (e.target as HTMLInputElement).checked;
-		}} />
-		</PropsContainer>
+		<PropsChanger
+			label="Color"
+			select={true}
+			selectOptions={['yellow', 'blue', 'pink', 'green']}
+			bind:value={color} />
+		<PropsChanger
+			label="Content"
+			text={true}
+			bind:value={content} />
+		<PropsChanger
+			label="Flat"
+			checkbox={true}
+			bind:value={flat} />
 	{/snippet}
 	{#snippet main()}
 		<Badge

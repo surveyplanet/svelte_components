@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ScaleValue, ScaleProperties } from '@surveyplanet/types';
 	import { Scale } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -23,32 +23,18 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="ID"
-				value={id}
-				oninput={(e: Event) => {
-					id = (e.target as HTMLInputElement).value;
-				}} />
-			<PropsChanger
-				number="Min"
-				value={min}
-				oninput={(e: Event) => {
-					min = Number((e.target as HTMLInputElement).value);
-				}} />
-			<PropsChanger
-				number="Max"
-				value={max}
-				oninput={(e: Event) => {
-					max = Number((e.target as HTMLInputElement).value);
-				}} />
-			<PropsChanger
-				object="Response"
-				value={JSON.stringify(response)}
-				oninput={(e: Event) => {
-					response = JSON.parse((e.target as HTMLInputElement).value);
-				}} />
-		</PropsContainer>
+		<PropsChanger
+			label="ID"
+			text
+			bind:value={id} />
+		<PropsChanger
+			label="Min"
+			number
+			bind:value={min} />
+		<PropsChanger
+			label="Max"
+			number
+			bind:value={max} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">

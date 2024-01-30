@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Alert } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -57,67 +57,37 @@
 		<PropsChanger
 			label="Subtitle"
 			text={true}
-			value={subtitle}
-			oninput={(e: Event) => {
-			subtitle = (e.target as HTMLInputElement).value;
-		}} />
+			value={subtitle} />
 		<PropsChanger
 			select={true}
 			label="Type"
-			value={type}
-			selectOptions={['info', 'warning', 'error', 'success']}
-			oninput={(e: Event) => {
-			type = (e.target as HTMLInputElement).value as 'info' | 'warning' | 'error' | 'success';
-		}} />
+			bind:value={type}
+			selectOptions={['info', 'warning', 'error', 'success']} />
 		<PropsChanger
 			number={true}
 			label="Hide delay"
-			value={hideDelay}
-			oninput={(e: Event) => {
-			hideDelay = Number((e.target as HTMLInputElement).value);
-			
-		}}
-			onblur={() => {
-				keys += 1;
-			}} />
+			bind:value={hideDelay} />
 		<PropsChanger
 			checkbox={true}
 			label="Confirm"
-			value={confirm}
-			oninput={(e: Event) => {
-			confirm = Boolean((e.target as HTMLInputElement).checked);
-		}}
-			onblur={() => {
-				keys += 1;
-			}} />
+			bind:value={confirm} />
 
 		<PropsChanger
 			label="Confirm button label"
 			text={true}
-			value={confirmButtonLabel}
-			oninput={(e: Event) => {
-			confirmButtonLabel = (e.target as HTMLInputElement).value;
-		}} />
+			bind:value={confirmButtonLabel} />
 		<PropsChanger
 			label="Cancel button label"
 			text={true}
-			value={cancelButtonLabel}
-			oninput={(e: Event) => {
-			cancelButtonLabel = (e.target as HTMLInputElement).value;
-		}} />
+			bind:value={cancelButtonLabel} />
 		<PropsChanger
 			label="Challenge"
 			text={true}
-			value={challenge}
-			oninput={(e: Event) => {
-			challenge = (e.target as HTMLInputElement).value;
-		}} />
+			bind:value={challenge} />
 		<PropsChanger
 			label="Content"
 			text={true}
-			oninput={(e: Event) => {
-			content = (e.target as HTMLInputElement).value;
-		}} />
+			bind:value={content} />
 	{/snippet}
 	{#snippet main()}
 		{#key keys}

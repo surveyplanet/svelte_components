@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Upload } from '$lib';
 
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -27,6 +27,12 @@
 		img.src = uploadData.data as string;
 		img.classList.remove('none');
 	};
+
+	let formatsStringed = $state(JSON.stringify(formats));
+
+	$effect(() => {
+		formats = JSON.parse(formatsStringed);
+	});
 </script>
 
 <Layout
@@ -35,32 +41,24 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="Label"
-				value={label}
-				oninput={(e: Event) => {
-						label = (e.target as HTMLInputElement).value;
-					}} />
-			<PropsChanger
-				object="Formats"
-				value={formats.toString()}
-				oninput={(e: Event) => {
-						formats = JSON.parse((e.target as HTMLInputElement).value);
-					}} />
-			<PropsChanger
-				number="Max Size"
-				value={maxSize}
-				oninput={(e: Event) => {
-						maxSize = parseInt((e.target as HTMLInputElement).value);
-					}} />
-		</PropsContainer>
+		<PropsChanger
+			label="Label"
+			text
+			bind:value={label} />
+		<PropsChanger
+			label="Formats"
+			object
+			bind:value={formatsStringed} />
+		<PropsChanger
+			label="Max Size"
+			number
+			bind:value={maxSize} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">
 			<Upload
 				{label}
-				{formats}
+				bind:formats
 				{maxSize}
 				onchange={imageUploadChangeHandler} />
 		</div>

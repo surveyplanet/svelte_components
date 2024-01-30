@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { TextInput, type TextInputType } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -35,6 +35,14 @@
 	const keyupHandler = (event: Event) => {
 		events.push('keyup');
 	};
+
+	let cleaveOptionsStringed = $state(JSON.stringify(cleaveOptions));
+	let validationRulesStringed = $state(JSON.stringify(validationRules));
+
+	$effect(() => {
+		cleaveOptions = JSON.parse(cleaveOptionsStringed);
+		validationRules = JSON.parse(validationRulesStringed);
+	});
 </script>
 
 <Layout
@@ -57,88 +65,67 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		Events need to be fixed
-		<PropsContainer>
-			<PropsChanger
-				text="id"
-				value={id}
-				oninput={(e: Event) => {
-					id = (e.target as HTMLInputElement).value;
-				}} />
-			<PropsChanger
-				text="name"
-				value={name}
-				oninput={(e: Event) => {
-					name = (e.target as HTMLInputElement).value;
-				}} />
-			<PropsChanger
-				text="type"
-				value={type}
-				oninput={(e: Event) => {
-					type = (e.target as HTMLSelectElement).value as TextInputType;
-				}} />
-			<PropsChanger
-				text="value"
-				{value}
-				oninput={(e: Event) => {
-					value = (e.target as HTMLInputElement).value;
-				}} />
-			<PropsChanger
-				text="label"
-				value={label}
-				oninput={(e: Event) => {
-					label = (e.target as HTMLInputElement).value;
-				}} />
-			<PropsChanger
-				text="placeholder"
-				value={placeholder}
-				oninput={(e: Event) => {
-					placeholder = (e.target as HTMLInputElement).value;
-				}} />
-			<PropsChanger
-				boolean="multiline"
-				value={multiline}
-				oninput={(e: Event) => {
-					multiline = (e.target as HTMLInputElement).checked;
-				}} />
-			<PropsChanger
-				boolean="readonly"
-				value={readonly}
-				oninput={(e: Event) => {
-					readonly = (e.target as HTMLInputElement).checked;
-				}} />
-			<PropsChanger
-				boolean="disabled"
-				value={disabled}
-				oninput={(e: Event) => {
-					disabled = (e.target as HTMLInputElement).checked;
-				}} />
-			<PropsChanger
-				object="cleaveOptions"
-				value={JSON.stringify(cleaveOptions)}
-				oninput={(e: Event) => {
-					cleaveOptions = JSON.parse((e.target as HTMLInputElement).value);
-				}} />
-			<PropsChanger
-				object="validationRules"
-				value={JSON.stringify(validationRules)}
-				oninput={(e: Event) => {
-					validationRules = JSON.parse((e.target as HTMLInputElement).value);
-				}} />
-			<PropsChanger
-				text="validationMessage"
-				value={validationMessage}
-				oninput={(e: Event) => {
-					validationMessage = (e.target as HTMLInputElement).value;
-				}} />
-			<PropsChanger
-				select="size"
-				selectOptions={['small', 'medium', 'large']}
-				value={size}
-				oninput={(e: Event) => {
-					size = (e.target as HTMLSelectElement).value as 'small' | 'medium' | 'large';
-				}} />
-		</PropsContainer>
+		<PropsChanger
+			label="Id"
+			text
+			bind:value={id} />
+		<PropsChanger
+			label="Name"
+			text
+			bind:value={name} />
+		<PropsChanger
+			label="Type"
+			select
+			selectOptions={[
+				'password',
+				'search',
+				'text',
+				'date',
+				'time',
+				'datetime-local',
+			]}
+			bind:value={type} />
+		<PropsChanger
+			label="Value"
+			text
+			bind:value />
+		<PropsChanger
+			label="Label"
+			text
+			bind:value={label} />
+		<PropsChanger
+			label="Placeholder"
+			text
+			bind:value={placeholder} />
+		<PropsChanger
+			label="Multiline"
+			checkbox
+			bind:value={multiline} />
+		<PropsChanger
+			label="Readonly"
+			checkbox
+			bind:value={readonly} />
+		<PropsChanger
+			label="Disabled"
+			checkbox
+			bind:value={disabled} />
+		<PropsChanger
+			label="Cleave Options"
+			object
+			bind:value={cleaveOptionsStringed} />
+		<PropsChanger
+			label="Validation Rules"
+			object
+			bind:value={validationRulesStringed} />
+		<PropsChanger
+			label="Validation Message"
+			text
+			bind:value={validationMessage} />
+		<PropsChanger
+			label="size"
+			select
+			selectOptions={['small', 'medium', 'large']}
+			bind:value={size} />
 	{/snippet}
 	{#snippet main()}
 		<TextInput
@@ -165,5 +152,6 @@
 <style>
 	.wrapper {
 		padding: 1rem;
+		margin: 1rem;
 	}
 </style>

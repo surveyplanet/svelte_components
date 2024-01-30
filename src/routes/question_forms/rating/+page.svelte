@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { RatingValue, RatingProperties } from '@surveyplanet/types';
 	import { Rating } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -42,6 +42,11 @@
 	const ratingResponseHandler = (response: RatingValue[]) => {
 		events.push(JSON.stringify(response));
 	};
+	let labelStringed = $state(JSON.stringify(labels));
+
+	$effect(() => {
+		labels = JSON.parse(labelStringed);
+	});
 </script>
 
 <Layout
@@ -50,60 +55,47 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="ID"
-				value={id}
-				oninput={(e: Event) => {
-						id = (e.target as HTMLInputElement).value;
-					}} />
-			<PropsChanger
-				object="Labels"
-				value={JSON.stringify(labels)}
-				oninput={(e: Event) => {
-						labels = JSON.parse((e.target as HTMLInputElement).value);
-					}} />
-			<PropsChanger
-				select="Order"
-				value={order}
-				selectOptions={[
-					'default',
-					'random',
-					'asc_title',
-					'desc_title',
-					'asc_value',
-					'desc_value',
-				]}
-				oninput={(e: Event) => {
-						order = ((e.target as HTMLInputElement).value) as RatingProperties['order'];
-					}} />
-			<PropsChanger
-				select="Layout"
-				value={layout}
-				selectOptions={[
-					'1',
-					'2',
-					'3',
-					'4',
-					'slider',
-					'star',
-					'heart',
-					'smiley',
-					'thumbs',
-				]}
-				oninput={(e: Event) => {
-						layout = (e.target as HTMLInputElement).value as RatingProperties['layout'];
-					}} />
-			<PropsChanger
-				object="Response"
-				value={JSON.stringify(response)} />
-		</PropsContainer>
+		<PropsChanger
+			label="ID"
+			text
+			bind:value={id} />
+		<PropsChanger
+			label="Labels"
+			object
+			bind:value={labelStringed} />
+		<PropsChanger
+			label="Order"
+			select
+			bind:value={order}
+			selectOptions={[
+				'default',
+				'random',
+				'asc_title',
+				'desc_title',
+				'asc_value',
+				'desc_value',
+			]} />
+		<PropsChanger
+			label="Layout"
+			select
+			bind:value={layout}
+			selectOptions={[
+				'1',
+				'2',
+				'3',
+				'4',
+				'slider',
+				'star',
+				'heart',
+				'smiley',
+				'thumbs',
+			]} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">
 			<Rating
 				{id}
-				{labels}
+				bind:labels
 				{order}
 				{layout}
 				{response}

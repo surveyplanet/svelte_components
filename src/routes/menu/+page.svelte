@@ -2,10 +2,9 @@
 	import { Menu, Button, Icon, type MenuData } from '$lib';
 	import { menuData } from './menu_data';
 
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	import type { StatusCodes } from '@surveyplanet/types';
 	let events = $state([]) as string[];
 
 	let menuVisible = $state(false);
@@ -17,12 +16,18 @@
 	};
 
 	const menuClickHandler = (id: string) => {
-		events.push('click: ', id);
+		events.push(id);
 	};
 
 	const menuUpdateHandler = (id: string) => {
-		events.push('update: ', id);
+		events.push(id);
 	};
+
+	let dataStringed = $state(JSON.stringify(data));
+
+	$effect(() => {
+		data = JSON.parse(dataStringed);
+	});
 </script>
 
 <Layout
@@ -31,27 +36,19 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="Visible"
-				value={menuVisible.toString()}
-				oninput={(e: Event) => {
-					menuVisible = (e.target as HTMLInputElement).checked;
-				}} />
-			<PropsChanger
-				text="Data"
-				value={JSON.stringify(data)}
-				oninput={(e: Event) => {
-					data = JSON.parse((e.target as HTMLInputElement).value);
-				}} />
-			<PropsChanger
-				select="Size"
-				selectOptions={['small', 'medium', 'large']}
-				value={size}
-				oninput={(e: Event) => {
-					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
-				}} />
-		</PropsContainer>
+		<PropsChanger
+			label="Visible"
+			checkbox
+			bind:value={menuVisible} />
+		<PropsChanger
+			label="Data"
+			object
+			bind:value={dataStringed} />
+		<PropsChanger
+			label="Size"
+			select
+			selectOptions={['small', 'medium', 'large']}
+			bind:value={size} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">
@@ -66,7 +63,7 @@
 			<br />
 			{#if menuVisible}
 				<Menu
-					{data}
+					bind:data
 					{size}
 					menuUpdate={menuUpdateHandler}
 					menuClick={menuClickHandler} />

@@ -26,7 +26,7 @@
 	let {
 		id = (Date.now() + Math.random()).toString(36),
 		grow = false,
-		data = [],
+		data,
 		tabButton,
 	} = $props<TabBarProps>();
 
@@ -34,7 +34,7 @@
 
 	onMount(() => {
 		if (browser) {
-			const selected = data.find((item) => item.selected);
+			const selected = data?.find((item) => item.selected);
 			if (selected) {
 				selectTabButton(
 					document.getElementById(selected.id) as HTMLButtonElement
@@ -53,7 +53,7 @@
 		const id = target.id;
 		const { width, left } = target.getBoundingClientRect();
 
-		data = data.map((item) => {
+		data = (data ?? []).map((item) => {
 			item.selected = item.id === id;
 			return item;
 		});
@@ -81,7 +81,7 @@
 		bind:this={activeIndicator} />
 
 	<ul>
-		{#each data as item}
+		{#each data ?? [] as item}
 			<li>
 				<button
 					id={item.id}
