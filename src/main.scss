@@ -90,7 +90,8 @@ pre {
 	display: grid;
 	grid-template-columns: 3fr 1fr;
 	#component-preview {
-		background: white url('grid.svg') repeat;
+		background-color: $color--white;
+		// background: white url('grid.svg') repeat;
 		#component-preview--window {
 			padding: $size-space--l;
 		}

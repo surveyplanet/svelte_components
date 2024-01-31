@@ -16,7 +16,7 @@
 	interface LayoutProps {
 		example: string;
 		md: string;
-		events?: string[] | string[][];
+		events: string[] | string[][];
 		component: string;
 		value?: string;
 		main: Snippet;
@@ -37,9 +37,13 @@
 	let mkd = $state(marked(md));
 	let reload = $state(0); //used to force reload the component
 	let componentsData = $state(createComponentsStore.componentsStore);
-	let eventsLogs = $derived<typeof events>(events || []);
-	let logContent: HTMLElement | null = $state(null);
-	//should scroll to the bottom of the logContent
+
+	// let eventsLogs: unknown[] = $state([]);
+	let eventsLogs: unknown[] = $derived(
+		events?.length ? events.map((event) => JSON.stringify(event)) : []
+	);
+
+	$inspect(eventsLogs); // inspect the eventsLogs
 
 	let tabSelected = $state('Example');
 	let dropdownValue = $state();
@@ -133,7 +137,7 @@
 						onchange={darkModeHandler} />
 				</div>
 			</header>
-			<div class="container">
+			<div id="component-preview--window">
 				{#key reload}
 					{@render main()}
 				{/key}
@@ -186,10 +190,18 @@
 	</main>
 
 	<footer id="main-footer">
-		<div id="component-console">
-			<pre bind:this={logContent}>
+		<header>
+			<h3>Events</h3>
+		</header>
+		<div id="component-events">
+			<ul>
+				{#each eventsLogs as event}
+					<li class="component-event">{event}</li>
+				{/each}
+			</ul>
+			<!-- <pre bind:this={logContent}>
 				<code> {JSON.stringify(eventsLogs, null, 2)} </code>
-			</pre>
+			</pre> -->
 		</div>
 	</footer>
 </div>
