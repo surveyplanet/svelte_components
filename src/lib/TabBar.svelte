@@ -20,7 +20,6 @@
 </script>
 
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 
 	let {
@@ -33,13 +32,11 @@
 	let activeIndicator: HTMLDivElement | null = $state(null);
 
 	onMount(() => {
-		if (browser) {
-			const selected = data?.find((item) => item.selected);
-			if (selected) {
-				selectTabButton(
-					document.getElementById(selected.id) as HTMLButtonElement
-				);
-			}
+		const selected = data?.find((item) => item.selected);
+		if (selected) {
+			selectTabButton(
+				document.getElementById(selected.id) as HTMLButtonElement
+			);
 		}
 	});
 	// const selected = $derived(data.find((item) => item.selected));
