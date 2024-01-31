@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, BUTTON_MODES } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -36,65 +36,48 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="Content"
-				value={content}
-				oninput={(e: Event) => {
+		<PropsChanger
+			label="Content"
+			bind:value={content}
+			text
+			oninput={(e: Event) => {
 					content = (e.target as HTMLInputElement).value;
 				}} />
-			<PropsChanger
-				select="Mode"
-				value={mode}
-				selectOptions={Object.values(BUTTON_MODES)}
-				oninput={(e: Event) => {
-					mode = (e.target as HTMLInputElement).value as typeof BUTTON_MODES[keyof typeof BUTTON_MODES];
-				}} />
-			<PropsChanger
-				boolean="Disabled"
-				value={disabled}
-				oninput={(e: Event) => {
-					(e.target as HTMLInputElement).checked
-				}} />
-			<PropsChanger
-				boolean="Loader"
-				value={loader}
-				oninput={(e: Event) => {
-					loader = (e.target as HTMLInputElement).checked
-				}} />
-			<PropsChanger
-				boolean="Round"
-				value={round}
-				oninput={(e: Event) => {
-					round = (e.target as HTMLInputElement).checked
-				}} />
-			<PropsChanger
-				boolean="Block"
-				value={block}
-				oninput={(e: Event) => {
-					block = (e.target as HTMLInputElement).checked
-				}} />
-			<PropsChanger
-				boolean="Action"
-				value={action}
-				oninput={(e: Event) => {
-					action = (e.target as HTMLInputElement).checked
-				}} />
-			<PropsChanger
-				select="Type"
-				value={type}
-				selectOptions={['button', 'submit', 'reset']}
-				oninput={(e: Event) => {
-					type = (e.target as HTMLInputElement).value as 'button' | 'submit' | 'reset';
-				}} />
-			<PropsChanger
-				select="Size"
-				value={size}
-				selectOptions={['small', 'medium', 'large']}
-				oninput={(e: Event) => {
-					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
-				}} />
-		</PropsContainer>
+		<PropsChanger
+			label="Mode"
+			bind:value={mode}
+			select
+			selectOptions={Object.values(BUTTON_MODES)} />
+		<PropsChanger
+			label="Disabled"
+			checkbox
+			bind:value={disabled} />
+		<PropsChanger
+			label="Loader"
+			checkbox
+			bind:value={loader} />
+		<PropsChanger
+			label="Round"
+			checkbox
+			bind:value={round} />
+		<PropsChanger
+			label="Block"
+			checkbox
+			bind:value={block} />
+		<PropsChanger
+			label="Action"
+			checkbox
+			bind:value={action} />
+		<PropsChanger
+			label="Type"
+			bind:value={type}
+			select
+			selectOptions={['button', 'submit', 'reset']} />
+		<PropsChanger
+			label="Size"
+			bind:value={size}
+			select
+			selectOptions={['small', 'medium', 'large']} />
 	{/snippet}
 	{#snippet main()}
 		<Button
@@ -107,7 +90,7 @@
 			{action}
 			{type}
 			{size}>
-			Submit
+			{content}
 		</Button>
 	{/snippet}
 </Layout>

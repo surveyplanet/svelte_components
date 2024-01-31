@@ -4,7 +4,7 @@
 		MultipleChoiceProperties,
 	} from '@surveyplanet/types';
 	import { MultipleChoice } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as MultipleChoice['value'][];
@@ -23,10 +23,16 @@
 	let min: MultipleChoiceProperties['min'] = $state(null);
 	let max: MultipleChoiceProperties['max'] = $state(null);
 	let response: MultipleChoiceValue[] = $state([]);
-	let other: MultipleChoiceProperties['other'] = $state(undefined);
+	let other: MultipleChoiceProperties['other'] = $state('Other');
 	const multipleChoiceResponseHandler = (event: MultipleChoiceValue[]) => {
 		events.push(event);
 	};
+
+	let labelsString = $state(JSON.stringify(labels));
+
+	$effect(() => {
+		labels = JSON.parse(labelsString);
+	});
 </script>
 
 <Layout
@@ -35,57 +41,36 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="ID"
-				value={id}
-				oninput={(e: Event) => {
-						id = (e.target as HTMLInputElement).value;
-					}} />
-			<PropsChanger
-				object="Labels"
-				value={JSON.stringify(labels)}
-				oninput={(e: Event) => {
-						labels = JSON.parse((e.target as HTMLInputElement).value);
-					}} />
-			<PropsChanger
-				boolean="Multi"
-				value={multi}
-				oninput={(e: Event) => {
-						multi = (e.target as HTMLInputElement).checked;
-					}} />
-			<PropsChanger
-				select="Layout"
-				selectOptions={['1', '2', '3', '4', 'dropdown']}
-				value={layout}
-				oninput={(e: Event) => {
-						layout = ((e.target as HTMLInputElement).value) as MultipleChoiceProperties['layout'];
-					}} />
-			<PropsChanger
-				boolean="Random"
-				value={random}
-				oninput={(e: Event) => {
-						random = (e.target as HTMLInputElement).checked;
-					}} />
-
-			<PropsChanger
-				object="Response"
-				value={JSON.stringify(response)}
-				oninput={(e: Event) => {
-						response = JSON.parse((e.target as HTMLInputElement).value);
-					}} />
-			<PropsChanger
-				text="Other"
-				value={other}
-				oninput={(e: Event) => {
-						other = (e.target as HTMLInputElement).value;
-					}} />
-		</PropsContainer>
+		<PropsChanger
+			label="ID"
+			text
+			bind:value={id} />
+		<PropsChanger
+			label="Labels"
+			object
+			bind:value={labelsString} />
+		<PropsChanger
+			label="Multi"
+			checkbox
+			bind:value={multi} />
+		<PropsChanger
+			label="Layout"
+			select
+			selectOptions={['1', '2', '3', '4', 'dropdown']}
+			bind:value={layout} />
+		<PropsChanger
+			label="Other"
+			text
+			bind:value={other} />
+		<PropsChanger
+			label="Random"
+			checkbox
+			bind:value={random} />
 	{/snippet}
 	{#snippet main()}
 		<MultipleChoice
 			{id}
-			{labels}
+			bind:labels
 			{multi}
 			{layout}
 			{random}

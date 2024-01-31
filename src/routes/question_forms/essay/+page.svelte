@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { EssayProperties, EssayValue } from '@surveyplanet/types';
 	import { Essay } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as EssayValue[];
@@ -24,38 +24,22 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="ID"
-				value={id}
-				oninput={(e: Event) => {
-						id = (e.target as HTMLInputElement).value;
-					}} />
-			<PropsChanger
-				number="Min"
-				value={min}
-				oninput={(e: Event) => {
-						min = Number((e.target as HTMLInputElement).value);
-					}} />
-			<PropsChanger
-				number="Max"
-				value={max}
-				oninput={(e: Event) => {
-						max = Number((e.target as HTMLInputElement).value);
-					}} />
-			<PropsChanger
-				boolean="Single"
-				value={single}
-				oninput={(e: Event) => {
-						single = (e.target as HTMLInputElement).checked;
-					}} />
-			<PropsChanger
-				object="Response"
-				value={response.toString()}
-				oninput={(e: Event) => {
-						response = (e.target as HTMLInputElement).value.split(',');
-					}} />
-		</PropsContainer>
+		<PropsChanger
+			label="ID"
+			text
+			bind:value={id} />
+		<PropsChanger
+			label="Min"
+			number
+			bind:value={min} />
+		<PropsChanger
+			label="Max"
+			number
+			bind:value={max} />
+		<PropsChanger
+			label="Single"
+			checkbox
+			bind:value={single} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">

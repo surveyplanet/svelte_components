@@ -2,29 +2,32 @@
 	lang="ts"
 	context="module">
 	export type LoaderProps = {
-		colors?: string[];
+		colors: string[];
 		size?: number;
 		strokeWidth?: 1 | 2 | 3 | 4;
 	};
 </script>
 
 <script lang="ts">
-	import { COLORS } from './_definitions';
+	// import { COLORS } from './_definitions';
 
 	const strokeDashOffset = 63;
 
 	let {
-		colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green],
-		size = 72,
-		strokeWidth = 4, // stroke width doesn't look good above 4
+		colors,
+		size,
+		strokeWidth, // stroke width doesn't look good above 4
 	} = $props<LoaderProps>();
 
 	// When updating the colors the animation can get out of sync since the
 	// speed is based on the number of colors. This should be fine as long as the
 	// colors don't change after initialization. This could be an issue using it
 	// in a single page app.
-	let speed = $derived(colors.length);
 
+	// (colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green])(
+	// 	(size = 72)
+	// )((strokeWidth = 4));
+	let speed = $derived(colors.length);
 	// keyframes can not be applied to svg element directly so inject in to head
 	function injectKeyframes() {
 		const keyframeElId = 'sp-loader--animation-keyframes';

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Dropdown, type DropdownOptions } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -60,6 +60,12 @@
 		console.log('dropdownChangeHandler', value);
 		events.push(value);
 	};
+
+	let stringedOptions = $state(JSON.stringify(options));
+
+	$effect(() => {
+		options = JSON.parse(stringedOptions);
+	});
 </script>
 
 <Layout
@@ -77,62 +83,47 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				object="Options"
-				value={JSON.stringify(options, null, 2)}
-				oninput={(e: Event) => {
-					options = JSON.parse((e.target as HTMLInputElement).value);
-				}} />
-			<PropsChanger
-				number="Search threshold"
-				value={searchThreshold}
-				oninput={(e: Event) => {
-					searchThreshold = Number((e.target as HTMLInputElement).value);
-				}} />
-			<PropsChanger
-				boolean="Disabled"
-				value={disabled}
-				oninput={(e: Event) => {
-					disabled = (e.target as HTMLInputElement).checked;
-				}} />
-			<PropsChanger
-				boolean="Required"
-				value={required}
-				oninput={(e: Event) => {
-					required = (e.target as HTMLInputElement).checked;
-				}} />
-			<PropsChanger
-				text="Value"
-				{value}
-				oninput={(e: Event) => {
-					value = (e.target as HTMLInputElement).value 
-				}} />
-			<PropsChanger
-				text="Placeholder"
-				value={placeholder}
-				oninput={(e: Event) => {
-					placeholder = (e.target as HTMLInputElement).value;
-				}} />
-			<PropsChanger
-				text="Label"
-				value={label}
-				oninput={(e: Event) => {
-					label = (e.target as HTMLInputElement).value;
-				}} />
-			<PropsChanger
-				select="Size"
-				selectOptions={['small', 'medium', 'large']}
-				value={size}
-				oninput={(e: Event) => {
-					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
-				}} />
-		</PropsContainer>
+		<PropsChanger
+			label="Options"
+			object
+			bind:value={stringedOptions}
+			onblur={() => {
+				keys += 1;
+			}} />
+		<PropsChanger
+			label="Search threshold"
+			number
+			bind:value={searchThreshold} />
+		<PropsChanger
+			label="Disabled"
+			checkbox
+			bind:value={disabled} />
+		<PropsChanger
+			label="Required"
+			checkbox
+			bind:value={required} />
+		<PropsChanger
+			label="Value"
+			text
+			bind:value />
+		<PropsChanger
+			label="Placeholder"
+			text
+			bind:value={placeholder} />
+		<PropsChanger
+			label="Label"
+			text
+			bind:value={label} />
+		<PropsChanger
+			label="Size"
+			select
+			selectOptions={['small', 'medium', 'large']}
+			bind:value={size} />
 	{/snippet}
 	{#snippet main()}
 		{#key keys}
 			<Dropdown
-				{options}
+				bind:options
 				{searchThreshold}
 				{disabled}
 				{required}

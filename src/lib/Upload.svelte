@@ -3,7 +3,7 @@
 	context="module">
 	export type UploadProps = {
 		label?: string;
-		formats?: string[];
+		formats: string[];
 		maxSize?: number;
 		onchange: (data: {
 			image: File;
@@ -18,7 +18,7 @@
 
 	let {
 		label = 'Upload',
-		formats = ['.jpg', '.jpeg', '.png', '.gif'],
+		formats,
 		maxSize = 10,
 		onchange,
 	} = $props<UploadProps>();
@@ -27,10 +27,10 @@
 
 	let fileinput: HTMLInputElement | null = $state(null);
 	let note = $state(
-		` ${formats.join(', ').toUpperCase().replaceAll('.', '')}.` +
+		` ${formats?.join(', ').toUpperCase().replaceAll('.', '')}.` +
 			` Up to ${maxSize}MB`
 	);
-	const formatAccept = formats.join(',');
+	const formatAccept = formats?.join(',');
 
 	const fileSelected = (target: FileEventTarget) => {
 		let image = target.files[0];

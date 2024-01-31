@@ -1,7 +1,7 @@
 export default (
 	profileImage: string,
 	id: string,
-	size: 'small' | 'medium' | 'large',
+	size: 'small' | 'medium' | 'large' | undefined,
 	disabled: boolean
 ) => {
 	return `<

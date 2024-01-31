@@ -2,7 +2,7 @@
 	lang="ts"
 	context="module">
 	export interface ChipData {
-		id: string;
+		id?: string;
 		label?: string;
 		selected?: boolean;
 	}
@@ -20,7 +20,7 @@
 <script lang="ts">
 	import { Icon } from './index';
 	let {
-		data = [],
+		data,
 		selectable = false,
 		multiSelect = false,
 		removable = false,

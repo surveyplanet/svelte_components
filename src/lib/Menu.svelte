@@ -32,14 +32,8 @@
 	 * Menu data
 	 */
 
-	let {
-		data = [],
-		size = 'small',
-		menuUpdate,
-		menuClick,
-		header,
-		footer,
-	} = $props<MenuProps>();
+	let { data, size, menuUpdate, menuClick, header, footer } =
+		$props<MenuProps>();
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
 		const allButtons = Array.from(
@@ -90,7 +84,7 @@
 		easing: cubicOut,
 	};
 
-	let currentState = $state([...data]);
+	let currentState = $state([...(data || [])]);
 
 	let location: string[] = $state([]);
 
@@ -134,19 +128,20 @@
 		location.pop(); // remove the last location
 
 		if (id) {
-			const state = getState(data, id);
+			const state = getState(data || [], id);
 
 			if (state?.length) {
 				currentState = [...state];
 			}
 		} else {
-			currentState = [...data]; // go to root
+			currentState = [...(data || [])]; // go to root
 		}
 		if (menuUpdate) menuUpdate(id);
 	};
 
 	const itemClickHandler = (event: MouseEvent) => {
 		event.preventDefault();
+		event.stopPropagation();
 		let id = (event.target as HTMLElement).id;
 		if (!id?.length) {
 			const btn = (event.target as HTMLElement).closest('button');
@@ -155,7 +150,7 @@
 			}
 		}
 
-		const state = getState(data, id);
+		const state = getState(data || [], id);
 
 		if (state?.length) {
 			location = location.concat([id]);

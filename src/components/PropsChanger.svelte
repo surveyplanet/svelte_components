@@ -4,79 +4,127 @@
 	let {
 		text,
 		number,
-		boolean,
+		checkbox,
 		object,
 		select,
 		oninput,
 		onblur,
 		selectOptions = [],
-		value = '',
+		value,
+		label = '',
 	} = $props<{
-		text?: string;
-		number?: string;
-		boolean?: string;
-		object?: string;
-		select?: string;
+		text?: boolean;
+		number?: boolean;
+		checkbox?: boolean;
+		object?: boolean;
+		select?: boolean;
 		selectOptions?: string[] | number[];
 		oninput?: (e: Event) => void;
 		onblur?: (e: Event) => void;
 		value?: string | number | boolean | null;
+		label?: string;
 	}>();
+
+	/**
+	 * 
+	INFO: 
+	 when binding JSON.stringify(data) to the PropsChanger, instead make a new variable that is a stringified version of the data and use
+	 effect to parse it into the data variable. TAlso make sure to bind:data in the component. 
+	Example: 
+	 <script lang="ts">
+	 	let data: BreadcrumbData[] = $state([ .... ]);
+	
+	 	let dataString = $state(JSON.stringify(data)); // <--- this is the new variable
+	 	$effect(() => {
+	 		data = JSON.parse(dataString); // <--- this is the effect where the data is updated
+	 	});
+	 </script	
+	 	<Layout
+	 	component="Breadcrumbs"
+	 	example={source(data)}
+	 	{md}
+	 	{events}>
+	 	{#snippet controls()}
+	 		<PropsChanger
+	 			label="Data"
+	 			object
+	 			bind:value={dataString} /> // <--- this is the new variable
+	 	{/snippet}
+	 	{#snippet main()}
+	 		<Breadcrumbs
+				 bind:data > // <--- this is the bind
+			</Breadcrumbs> 
+	 	{/snippet}
+		 </Layout>
+
+	*/
 </script>
 
 <div class="props-changer">
 	{#if text && typeof value === 'string'}
 		<div class="props-changer--item">
-			<TextInput
-				id={`text-${text}`}
-				name="text"
-				label={text}
+			<label for="text">{label}</label>
+			<input
 				type="text"
-				multiline={false}
-				{value}
+				id="text"
+				bind:value
 				{oninput}
 				{onblur} />
+
+			<!-- 
+				can't use this  because if bind:value is used in the input,
+				{type} has to be static 
+
+				
+				<TextInput
+				id={`text-${text}`}
+				name="text"
+				{label}
+				type="text"
+				multiline={false}
+				bind:value
+				{oninput}
+				{onblur} /> -->
 		</div>
 	{/if}
 	{#if number}
 		<div class="props-changer--item">
-			<label for="number">{number}</label>
+			<label for="number">{label}</label>
 			<input
 				type="number"
 				id="number"
-				{value}
+				bind:value
 				{oninput}
 				{onblur} />
 		</div>
 	{/if}
-	{#if (boolean && typeof value === 'boolean') || typeof value === 'undefined'}
+	{#if (checkbox && typeof value === 'boolean') || typeof value === 'undefined'}
 		<div class="props-changer--item">
-			<label for="boolean">{boolean}</label>
+			<label for="boolean">{label}</label>
 			<Checkbox
-				id="boolean-{boolean}"
-				name="boolean-{boolean}s"
-				checked={value}
+				id="boolean-{label}"
+				name="boolean-{label}s"
+				bind:checked={value}
 				size="medium"
 				onchange={oninput} />
 		</div>
 	{/if}
 	{#if object && typeof value === 'string'}
+		<label for="object">{label}</label>
 		<div class="props-changer--item">
-			<TextInput
-				id={`object-${object}`}
+			<textarea
+				id={`object-${label}`}
 				name="object"
-				label={object}
-				type="text"
-				multiline={true}
 				{oninput}
 				{onblur}
-				{value} />
+				bind:value></textarea>
 		</div>
 	{/if}
 	{#if select}
 		<div class="props-changer--item">
-			<label for="select">{select}</label>
+			<label for="select">{label}</label>
 			<select
+				bind:value
 				id="select"
 				{oninput}
 				{onblur}>

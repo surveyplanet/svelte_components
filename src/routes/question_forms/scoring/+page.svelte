@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ScoringValue, ScoringProperties } from '@surveyplanet/types';
 	import { Scoring, type ScoringDefinitions } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -21,12 +21,22 @@
 	]);
 	let maxLabel: ScoringProperties['maxLabel'] = $state('Yummy');
 	let minLabel: ScoringProperties['minLabel'] = $state('Yucky');
-	let requireAll: ScoringProperties['requireAll'] = $state(true);
-	let requireUnique: ScoringProperties['requireUnique'] = $state(true);
+	let requireAll: ScoringProperties['requireAll'] = $state(false);
+	let requireUnique: ScoringProperties['requireUnique'] = $state(false);
 	let response: ScoringValue[] = $state([]);
 	const scoringResponseHandler = (response: ScoringValue[]) => {
 		events.push(JSON.stringify(response));
 	};
+
+	let definitionString = $state(JSON.stringify(definitions));
+	let valuesString = $state(JSON.stringify(values));
+	let labelsString = $state(JSON.stringify(labels));
+
+	$effect(() => {
+		definitions = JSON.parse(definitionString);
+		values = JSON.parse(valuesString);
+		labels = JSON.parse(labelsString);
+	});
 </script>
 
 <Layout
@@ -45,70 +55,45 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="ID"
-				value={id}
-				oninput={(e: Event) => {
-						id = (e.target as HTMLInputElement).value;
-					}} />
-
-			<PropsChanger
-				object="Definitions"
-				value={JSON.stringify(definitions)}
-				oninput={(e: Event) => {
-						definitions = JSON.parse((e.target as HTMLInputElement).value);
-					}} />
-			<PropsChanger
-				object="Values"
-				value={JSON.stringify(values)}
-				oninput={(e: Event) => {
-						values = JSON.parse((e.target as HTMLInputElement).value);
-					}} />
-			<PropsChanger
-				object="Labels"
-				value={JSON.stringify(labels)}
-				oninput={(e: Event) => {
-						labels = JSON.parse((e.target as HTMLInputElement).value);
-					}} />
-			<PropsChanger
-				text="Max Label"
-				value={maxLabel}
-				oninput={(e: Event) => {
-						maxLabel = (e.target as HTMLInputElement).value;
-					}} />
-			<PropsChanger
-				text="Min Label"
-				value={minLabel}
-				oninput={(e: Event) => {
-						minLabel = (e.target as HTMLInputElement).value;
-					}} />
-			<PropsChanger
-				boolean="Require All"
-				value={requireAll}
-				oninput={(e: Event) => {
-						requireAll = (e.target as HTMLInputElement).checked;
-					}} />
-			<PropsChanger
-				boolean="Require Unique"
-				value={requireUnique}
-				oninput={(e: Event) => {
-						requireUnique = (e.target as HTMLInputElement).checked;
-					}} />
-			<PropsChanger
-				object="Response"
-				value={JSON.stringify(response)}
-				oninput={(e: Event) => {
-						response = JSON.parse((e.target as HTMLInputElement).value);
-					}} />
-		</PropsContainer>
+		<PropsChanger
+			label="ID"
+			text
+			bind:value={id} />
+		<PropsChanger
+			label="Require All"
+			checkbox
+			bind:value={requireAll} />
+		<PropsChanger
+			label="Require Unique"
+			checkbox
+			bind:value={requireUnique} />
+		<PropsChanger
+			label="Definitions"
+			object
+			bind:value={definitionString} />
+		<PropsChanger
+			label="Values"
+			object
+			bind:value={valuesString} />
+		<PropsChanger
+			label="Labels"
+			object
+			bind:value={labelsString} />
+		<PropsChanger
+			label="Max Label"
+			text
+			bind:value={maxLabel} />
+		<PropsChanger
+			label="Min Label"
+			text
+			bind:value={minLabel} />
 	{/snippet}
 	{#snippet main()}
 		<Scoring
 			{id}
-			{definitions}
-			{values}
-			{labels}
+			bind:definitions
+			bind:values
+			bind:labels
 			{maxLabel}
 			{minLabel}
 			{requireAll}

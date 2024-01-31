@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Banner } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -20,39 +20,27 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="title"
-				value={title}
-				oninput={(e: Event) => {
-                    title = (e.target as HTMLInputElement).value;
-                }} />
-			<PropsChanger
-				select="type"
-				value={type}
-				selectOptions={['info', 'warning', 'error', 'success']}
-				oninput={(e: Event) => {
-                    type = (e.target as HTMLInputElement).value as 'info' | 'warning' | 'error' | 'success';
-                }} />
-			<PropsChanger
-				boolean="visible"
-				value={visible}
-				oninput={(e: Event) => {
-                    visible = (e.target as HTMLInputElement).checked;
-                }} />
-			<PropsChanger
-				number="hideDelay"
-				value={hideDelay}
-				oninput={(e: Event) => {
-                    hideDelay = Number((e.target as HTMLInputElement).value);
-                }} />
-			<PropsChanger
-				text="content"
-				value={content}
-				oninput={(e: Event) => {
-                    content = (e.target as HTMLInputElement).value;
-                }} />
-		</PropsContainer>
+		<PropsChanger
+			label="title"
+			text
+			bind:value={title} />
+		<PropsChanger
+			label="type"
+			bind:value={type}
+			select
+			selectOptions={['info', 'warning', 'error', 'success']} />
+		<PropsChanger
+			label="visible"
+			bind:value={visible}
+			checkbox />
+		<PropsChanger
+			label="hideDelay"
+			bind:value={hideDelay}
+			number />
+		<PropsChanger
+			label="content"
+			bind:value={content}
+			text />
 	{/snippet}
 	{#snippet main()}
 		<div class="banner-wrapper">

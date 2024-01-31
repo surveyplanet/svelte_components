@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ImageProperties, ImageValue } from '@surveyplanet/types';
 	import { Image } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -35,6 +35,12 @@
 	const imageResponseHandler = (response: ImageValue[]) => {
 		events.push(JSON.stringify(response, null, 2));
 	};
+
+	let labelsString = $state(JSON.stringify(labels));
+
+	$effect(() => {
+		labels = JSON.parse(labelsString);
+	});
 </script>
 
 <Layout
@@ -54,77 +60,53 @@
 	)}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="ID"
-				value={id}
-				oninput={(e:Event) => {
+		<PropsChanger
+			label="ID"
+			text
+			bind:value={id}
+			oninput={(e:Event) => {
 					id = (e.target as HTMLInputElement).value;
 				}} />
 
-			<PropsChanger
-				object="Labels"
-				value={JSON.stringify(labels)}
-				oninput={(e:Event) => {
-					labels = JSON.parse((e.target as HTMLInputElement).value);
-					console.log(labels);
-				}} />
-			<PropsChanger
-				boolean="Multi"
-				value={multi}
-				oninput={(e:Event) => {
-					multi = (e.target as HTMLInputElement).checked;
-				}} />
-			<PropsChanger
-				select="Size"
-				value={size}
-				selectOptions={['small', 'medium', 'large']}
-				oninput={(e:Event) => {
-					size = (e.target as HTMLInputElement).value as ImageProperties['size'];
-				}} />
-			<PropsChanger
-				boolean="Hide Captions"
-				value={hideCaptions}
-				oninput={(e:Event) => {
-					hideCaptions = (e.target as HTMLInputElement).checked;
-				}} />
-			<PropsChanger
-				boolean="Contain"
-				value={contain}
-				oninput={(e:Event) => {
-					contain = (e.target as HTMLInputElement).checked;
-				}} />
-			<PropsChanger
-				boolean="Random"
-				value={random}
-				oninput={(e:Event) => {
-					random = (e.target as HTMLInputElement).checked;
-				}} />
-			<PropsChanger
-				object="Response"
-				value={JSON.stringify(response)}
-				oninput={(e:Event) => {
-					response = JSON.parse((e.target as HTMLInputElement).value);
-				}} />
-			<PropsChanger
-				number="Min"
-				value={min}
-				oninput={(e:Event) => {
-					min = Number((e.target as HTMLInputElement).value);
-				}} />
-			<PropsChanger
-				number="Max"
-				value={max}
-				oninput={(e:Event) => {
-					max = Number((e.target as HTMLInputElement).value);
-				}} />
-		</PropsContainer>
+		<PropsChanger
+			label="Labels"
+			object
+			bind:value={labelsString} />
+		<PropsChanger
+			label="Multi"
+			checkbox
+			bind:value={multi} />
+		<PropsChanger
+			label="Size"
+			select
+			bind:value={size}
+			selectOptions={['small', 'medium', 'large']} />
+		<PropsChanger
+			label="Hide Captions"
+			checkbox
+			bind:value={hideCaptions} />
+		<PropsChanger
+			label="Contain"
+			checkbox
+			bind:value={contain} />
+		<PropsChanger
+			label="Random"
+			checkbox
+			bind:value={random} />
+		<PropsChanger
+			label="Min"
+			number
+			bind:value={min} />
+		<PropsChanger
+			label="Max"
+			number
+			bind:value={max} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">
 			<Image
 				bind:labels
-				bind:id
+				{id}
 				{multi}
 				{size}
 				{hideCaptions}

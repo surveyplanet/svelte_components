@@ -19,6 +19,12 @@ body {
 	}
 }
 
+.main-home {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -84,7 +90,7 @@ pre {
 	display: grid;
 	grid-template-columns: 3fr 1fr;
 	#component-preview {
-		background-color: $color--white;
+		background: white url('grid.svg') repeat;
 		#component-preview--window {
 			padding: $size-space--l;
 		}

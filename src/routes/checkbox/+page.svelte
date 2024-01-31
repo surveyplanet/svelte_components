@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Checkbox } from '$lib';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -26,14 +26,10 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				text="id"
-				value={id}
-				oninput={(e: Event) => {
-					id = (e.target as HTMLInputElement).value;
-				}} />
-		</PropsContainer>
+		<PropsChanger
+			label="id"
+			text
+			bind:value={id} />
 	{/snippet}
 	{#snippet main()}
 		<Checkbox

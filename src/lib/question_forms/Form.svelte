@@ -19,7 +19,7 @@
 
 	let {
 		id,
-		labels = [],
+		labels,
 		random,
 		response = [],
 		formResponse,

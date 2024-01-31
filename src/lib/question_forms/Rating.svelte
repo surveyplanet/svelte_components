@@ -18,7 +18,7 @@
 
 	let {
 		id,
-		labels = [],
+		labels,
 		order = 'default',
 		layout = '1',
 		response = [],

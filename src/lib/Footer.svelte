@@ -12,7 +12,7 @@
 </script>
 
 <script lang="ts">
-	let { footerData = [] } = $props<FooterProps>();
+	let { footerData } = $props<FooterProps>();
 </script>
 
 <nav class="sp-footer">

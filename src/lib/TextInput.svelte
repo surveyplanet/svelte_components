@@ -42,7 +42,7 @@
 	let {
 		id,
 		name,
-		type = 'text',
+		type,
 		value,
 		label,
 		placeholder,

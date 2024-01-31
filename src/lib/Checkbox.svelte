@@ -20,7 +20,7 @@
 		name,
 		value = null,
 		label = '',
-		checked = false,
+		checked,
 		disabled = false,
 		prependLabel = false,
 		size = 'small',
@@ -34,7 +34,7 @@
 	{id}
 	{name}
 	{value}
-	{checked}
+	bind:checked
 	{disabled}
 	{onchange} />
 <label

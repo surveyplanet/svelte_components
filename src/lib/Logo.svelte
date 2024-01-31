@@ -2,6 +2,7 @@
 	context="module"
 	lang="ts">
 	import { COLORS } from './_definitions';
+	import { onMount } from 'svelte';
 
 	export type LogoSize =
 		| 8
@@ -27,7 +28,7 @@
 
 	export type LogoProps = {
 		color?: LogoColor;
-		fill?: LogoFillColor;
+		fill: LogoFillColor;
 		size?: LogoSize;
 		symbolOnly?: boolean;
 	};
@@ -38,7 +39,7 @@
 	const ORIGINAL_HEIGHT = 24;
 	const ASPECT_RATION = ORIGINAL_WIDTH / ORIGINAL_HEIGHT;
 	const DEFAULT_SIZE: LogoSize = ORIGINAL_HEIGHT;
-
+	// fill is not working
 	let {
 		color = COLORS.black,
 		fill = 'blue',

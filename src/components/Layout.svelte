@@ -10,15 +10,15 @@
 		NavBar,
 		TextInput,
 	} from '$lib';
-	// import { get } from 'svelte/store';
 	import { createComponentsStore } from './stores/components.store.svelte';
 	import type { Snippet } from 'svelte';
 
 	interface LayoutProps {
 		example: string;
 		md: string;
-		events?: unknown[];
+		events?: string[] | string[][];
 		component: string;
+		value?: string;
 		main: Snippet;
 		controls: Snippet;
 	}
@@ -26,6 +26,7 @@
 	let {
 		example,
 		md,
+		value,
 		events,
 		component = 'Select a component',
 		main,
@@ -35,31 +36,27 @@
 	let isDarkMode = $state(false);
 	let mkd = $state(marked(md));
 	let reload = $state(0); //used to force reload the component
-	let componentsData = createComponentsStore.componentsStore;
-	let logEvents: string[] = $state([]);
+	let componentsData = $state(createComponentsStore.componentsStore);
+	let eventsLogs = $derived<typeof events>(events || []);
+	let logContent: HTMLElement | null = $state(null);
+	//should scroll to the bottom of the logContent
 
 	let tabSelected = $state('Example');
 	let dropdownValue = $state();
 
 	$effect(() => {
 		document.body.classList[isDarkMode ? 'add' : 'remove']('dark'); // add dark mode
-
-		if (events && events.length) {
-			logEvents = events.map((event) => JSON.stringify(event, null, 2));
-		}
 	});
 
 	const tabHandler = (id: string) => {
 		tabSelected = id;
 	};
 
-	const reloadComponent = () => {
-		reload++;
-		events = [];
-	};
-
 	const navBarClickHandler = (id: string) => {
-		console.log(id);
+		if (id === 'refresh') {
+			reload++;
+			events = [];
+		}
 	};
 
 	const menuClickHandler = (id: string) => {
@@ -72,28 +69,41 @@
 	const darkModeHandler = (selected: boolean) => {
 		isDarkMode = selected;
 	};
+
+	const searchComponents = (event: Event) => {
+		const searchValue = (event.target as HTMLInputElement).value;
+		componentsData = createComponentsStore.componentsStore.filter((item) =>
+			item.label.toLowerCase().includes(searchValue.toLowerCase())
+		);
+		reload++;
+	};
 </script>
 
 <div id="main-container">
 	<aside id="main-sidebar">
 		<header>
-			<a href="/">
+			<a
+				class="main-home"
+				href="./">
 				<Logo
 					color={isDarkMode ? COLORS.white : COLORS.black}
-					fill={isDarkMode ? 'transparent' : 'blue'} />
-			</a>
+					fill={isDarkMode ? 'transparent' : 'blue'} /></a>
+
 			<div id="main-sidebar--search">
 				<TextInput
 					id="search-components"
 					name="search-components"
 					type="search"
-					placeholder="Find components" />
+					placeholder="Find components"
+					oninput={searchComponents} />
 			</div>
 		</header>
-		<Menu
-			data={componentsData}
-			size="medium"
-			menuClick={menuClickHandler} />
+		{#key reload}
+			<Menu
+				data={componentsData}
+				size="medium"
+				menuClick={menuClickHandler} />
+		{/key}
 	</aside>
 
 	<main id="main-content">
@@ -107,14 +117,14 @@
 							id: 'refresh',
 							title: 'Refresh',
 						},
-						// {
-						// 	icon: 'share2',
-						// 	link: '#',
-						// 	id: 'share',
-						// 	title: 'Share',
-						// },
+						{
+							icon: 'share2',
+							link: '#',
+							id: 'share',
+							title: 'Share',
+						},
 					]}
-					onclick={navBarClickHandler} />
+					onnavlink={navBarClickHandler} />
 
 				<div class="dark-mode-toggle">
 					<Toggle
@@ -123,14 +133,12 @@
 						onchange={darkModeHandler} />
 				</div>
 			</header>
-			<div id="component-preview--window">
+			<div class="container">
 				{#key reload}
 					{@render main()}
 				{/key}
 			</div>
 		</section>
-
-		<!-- TODO: if not component is selected this should not render -->
 		<section id="component-details">
 			<header>
 				<TabBar
@@ -179,15 +187,9 @@
 
 	<footer id="main-footer">
 		<div id="component-console">
-			{#if events && events.length}
-				<ul>
-					{#each events as event}
-						<li class="component-events--event">
-							<code>{event}</code>
-						</li>
-					{/each}
-				</ul>
-			{/if}
+			<pre bind:this={logContent}>
+				<code> {JSON.stringify(eventsLogs, null, 2)} </code>
+			</pre>
 		</div>
 	</footer>
 </div>

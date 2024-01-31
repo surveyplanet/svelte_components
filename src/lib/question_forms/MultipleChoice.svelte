@@ -26,7 +26,7 @@
 
 	let {
 		id,
-		labels = [],
+		labels,
 		multi,
 		layout = '1',
 		random = false,

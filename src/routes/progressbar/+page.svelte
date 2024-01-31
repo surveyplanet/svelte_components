@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ProgressBar } from '$lib/index';
-	import { Layout, PropsContainer, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state([]) as string[];
@@ -17,32 +17,22 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		<PropsContainer>
-			<PropsChanger
-				number="Speed"
-				value={speed.toString()}
-				oninput={(e: Event) => {
-					speed = parseInt((e.target as HTMLInputElement).value);
-				}} />
-			<PropsChanger
-				number="Max"
-				value={max.toString()}
-				oninput={(e: Event) => {
-					max = parseInt((e.target as HTMLInputElement).value);
-				}} />
-			<PropsChanger
-				number="Value"
-				value={value.toString()}
-				oninput={(e: Event) => {
-					value = parseInt((e.target as HTMLInputElement).value);
-				}} />
-			<PropsChanger
-				boolean="Display Value"
-				value={displayValue}
-				oninput={(e: Event) => {
-					displayValue = (e.target as HTMLInputElement).checked;
-				}} />
-		</PropsContainer>
+		<PropsChanger
+			label="Speed"
+			number
+			bind:value={speed} />
+		<PropsChanger
+			label="Max"
+			number
+			bind:value={max} />
+		<PropsChanger
+			label="Value"
+			number
+			bind:value />
+		<PropsChanger
+			label="Display Value"
+			checkbox
+			bind:value={displayValue} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">
