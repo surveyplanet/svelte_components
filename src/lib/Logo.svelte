@@ -51,39 +51,24 @@
 		COLORS.blueGradientEnd,
 	]);
 
-	let width: number = $state(DEFAULT_SIZE);
-	let height: number = $state(DEFAULT_SIZE);
+	let width: number = $derived(symbolOnly ? size : size * ASPECT_RATION);
+	let height: number = $state(size);
 
-	let viewboxWidth: number = $state(ORIGINAL_WIDTH);
-	let viewboxHeight = $state(ORIGINAL_HEIGHT);
+	let viewboxWidth: number = $derived(
+		symbolOnly ? DEFAULT_SIZE : ORIGINAL_WIDTH
+	);
+	let viewboxHeight: number = ORIGINAL_HEIGHT;
 
-	// TODO: this should update before he DOM is rendered
 	$effect.pre(() => {
-		console.log('-->', {
-			width,
-			height,
-			viewboxWidth,
-			viewboxHeight,
-			size,
-		});
-
 		if (fill !== 'transparent') {
 			const startColor = COLORS[`${fill}GradientStart`];
 			const endColor = COLORS[`${fill}GradientEnd`];
 			gradient = [startColor, endColor];
 		}
 
-		height = size;
-		width = symbolOnly ? size : size * ASPECT_RATION;
-
-		viewboxWidth = symbolOnly ? DEFAULT_SIZE : ORIGINAL_WIDTH;
-		console.log('----->', {
-			width,
-			height,
-			viewboxWidth,
-			viewboxHeight,
-			size,
-		});
+		// height = size;
+		// width = symbolOnly ? size : size * ASPECT_RATION;
+		// viewboxWidth = symbolOnly ? DEFAULT_SIZE : ORIGINAL_WIDTH;
 	});
 </script>
 
