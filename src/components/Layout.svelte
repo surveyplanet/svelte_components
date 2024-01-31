@@ -86,9 +86,7 @@
 <div id="main-container">
 	<aside id="main-sidebar">
 		<header>
-			<a
-				class="main-home"
-				href="./">
+			<a href="./">
 				<Logo
 					color={isDarkMode ? COLORS.white : COLORS.black}
 					fill={isDarkMode ? 'transparent' : 'blue'} /></a>

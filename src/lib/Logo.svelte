@@ -5,7 +5,6 @@
 	import { onMount } from 'svelte';
 
 	export type LogoSize =
-		| 8
 		| 12
 		| 16
 		| 20
@@ -13,6 +12,7 @@
 		| 32
 		| 48
 		| 64
+		| 100
 		| 128
 		| 256
 		| 512;
@@ -53,12 +53,14 @@
 	]);
 
 	let width: number = $derived(symbolOnly ? size : size * ASPECT_RATION);
-	let height: number = $state(size);
+	let height: number = $derived(size);
 
 	let viewboxWidth: number = $derived(
 		symbolOnly ? DEFAULT_SIZE : ORIGINAL_WIDTH
 	);
 	let viewboxHeight: number = ORIGINAL_HEIGHT;
+
+	// $inspect({ width, height, viewboxWidth, viewboxHeight });
 
 	$effect.pre(() => {
 		if (fill !== 'transparent') {
@@ -66,10 +68,6 @@
 			const endColor = COLORS[`${fill}GradientEnd`];
 			gradient = [startColor, endColor];
 		}
-
-		// height = size;
-		// width = symbolOnly ? size : size * ASPECT_RATION;
-		// viewboxWidth = symbolOnly ? DEFAULT_SIZE : ORIGINAL_WIDTH;
 	});
 </script>
 
