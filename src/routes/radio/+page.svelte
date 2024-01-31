@@ -36,49 +36,34 @@
 		doesn't work for text changes
 
 		<PropsChanger
-			text="Name"
-			value={name}
-			oninput={(e: Event) => {
-					name = (e.target as HTMLInputElement).value;
-				}} />
+			label="Name"
+			text
+			bind:value={name} />
 		<PropsChanger
-			text="Label One"
-			value={labelOne}
-			oninput={(e: Event) => {
-					labelOne = (e.target as HTMLInputElement).value;
-				}} />
+			label="Label One"
+			text
+			bind:value={labelOne} />
 		<PropsChanger
-			text="Label Two"
-			value={labelTwo}
-			oninput={(e: Event) => {
-					labelTwo = (e.target as HTMLInputElement).value;
-					console.log(labelTwo);
-				}} />
+			label="Label Two"
+			text
+			bind:value={labelTwo} />
 		<PropsChanger
-			text="Label Three"
-			value={labelThree}
-			oninput={(e: Event) => {
-					labelThree = (e.target as HTMLInputElement).value;
-				}} />
+			label="Label Three"
+			text
+			bind:value={labelThree} />
 		<PropsChanger
-			boolean="Disabled"
-			value={disabled}
-			oninput={(e: Event) => {
-					disabled = (e.target as HTMLInputElement).checked;
-				}} />
+			label="Disabled"
+			checkbox
+			bind:value={disabled} />
 		<PropsChanger
-			boolean="Prepend Label"
-			value={prependLabel}
-			oninput={(e: Event) => {
-					prependLabel = (e.target as HTMLInputElement).checked;
-				}} />
+			label="Prepend Label"
+			checkbox
+			bind:value={prependLabel} />
 		<PropsChanger
-			select="Size"
+			label="Size"
+			select
 			selectOptions={['small', 'medium', 'large']}
-			value={size}
-			oninput={(e: Event) => {
-					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
-				}} />
+			bind:value={size} />
 	{/snippet}
 	{#snippet main()}
 		<div id="wrapper">
@@ -90,7 +75,7 @@
 				label={labelOne}
 				{prependLabel}
 				{size}
-				on:change={changeEventHandler} />
+				onchange={changeEventHandler} />
 			<Radio
 				id={labelTwo.toLowerCase().replace(' ', '-')}
 				{disabled}
@@ -99,7 +84,7 @@
 				label={labelTwo}
 				{prependLabel}
 				{size}
-				on:change={changeEventHandler} />
+				onchange={changeEventHandler} />
 			<Radio
 				id={labelThree.toLowerCase().replace(' ', '-')}
 				{disabled}
@@ -108,7 +93,7 @@
 				label={labelThree}
 				{prependLabel}
 				{size}
-				on:change={changeEventHandler} />
+				onchange={changeEventHandler} />
 		</div>
 	{/snippet}
 </Layout>

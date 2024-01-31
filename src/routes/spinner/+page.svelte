@@ -47,77 +47,54 @@
 		Events need to be fixed
 
 		<PropsChanger
-			text="label"
-			value={label}
-			oninput={(e: Event) => {
-					label = (e.target as HTMLInputElement).value;
-				}} />
+			label="label"
+			text
+			bind:value={label} />
 		<PropsChanger
-			number="step"
-			value={step}
-			oninput={(e: Event) => {
-					step = Number((e.target as HTMLInputElement).value);
-				}} />
+			label="step"
+			number
+			bind:value={step} />
 		<PropsChanger
-			number="min"
-			value={min}
-			oninput={(e: Event) => {
-					min = Number((e.target as HTMLInputElement).value);
-				}} />
+			label="min"
+			number
+			bind:value={min} />
 		<PropsChanger
-			number="max"
-			value={max}
-			oninput={(e: Event) => {
-					max = Number((e.target as HTMLInputElement).value);
-				}} />
+			label="max"
+			number
+			bind:value={max} />
 		<PropsChanger
-			number="value"
-			{value}
-			oninput={(e: Event) => {
-					value = Number((e.target as HTMLInputElement).value);
-				}} />
+			label="value"
+			number
+			bind:value />
 		<PropsChanger
-			boolean="disabled"
-			value={disabled}
-			oninput={(e: Event) => {
-					disabled = (e.target as HTMLInputElement).checked;
-				}} />
+			label="disabled"
+			checkbox
+			bind:value={disabled} />
 		<PropsChanger
-			boolean="required"
-			value={required}
-			oninput={(e: Event) => {
-					required = (e.target as HTMLInputElement).checked;
-				}} />
+			label="required"
+			checkbox
+			bind:value={required} />
 		<PropsChanger
-			boolean="overflow"
-			value={overflow}
-			oninput={(e: Event) => {
-					overflow = (e.target as HTMLInputElement).checked;
-				}} />
+			label="overflow"
+			checkbox
+			bind:value={overflow} />
 		<PropsChanger
-			text="id"
-			value={id}
-			oninput={(e: Event) => {
-					id = (e.target as HTMLInputElement).value;
-				}} />
+			label="id"
+			text
+			bind:value={id} />
 		<PropsChanger
-			text="placeholder"
-			value={placeholder}
-			oninput={(e: Event) => {
-					placeholder = (e.target as HTMLInputElement).value;
-				}} />
+			label="placeholder"
+			text
+			bind:value={placeholder} />
 		<PropsChanger
-			number="dragSpeed"
-			value={dragSpeed}
-			oninput={(e: Event) => {
-					dragSpeed = Number((e.target as HTMLInputElement).value);
-				}} />
+			label="dragSpeed"
+			number
+			bind:value={dragSpeed} />
 		<PropsChanger
-			text="size"
-			value={size}
-			oninput={(e: Event) => {
-					size = (e.target as HTMLInputElement).value as 'small' | 'medium' | 'large';
-				}} />
+			label="size"
+			select
+			selectOptions={['small', 'medium', 'large']}
+			bind:value={size} />
 	{/snippet}
 	{#snippet main()}
 		<Spinner
