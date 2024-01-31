@@ -52,6 +52,19 @@
 		toggle(id);
 	};
 
+	const chipKeyDownHandler = (e: KeyboardEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		if (!selectable) {
+			return e.preventDefault();
+		}
+		const target = e.target as HTMLButtonElement;
+		const id = getChipId(target);
+		if (e.key === 'Enter' || e.key === ' ') {
+			toggle(id);
+		}
+	};
+
 	const closeButtonClickHandler = (e: MouseEvent) => {
 		const target = e.target as HTMLButtonElement;
 		const id = getChipId(target);
@@ -65,11 +78,14 @@
 	class:sp-chips--multi={multiSelect}>
 	{#each data as chip}
 		<li>
-			<button
+			<div
 				id={chip.id}
 				class="sp-chips--chip"
 				class:sp-chips--chip--selected={chip.selected}
-				on:click|preventDefault={chipClickHandler}>
+				on:click={chipClickHandler}
+				on:keydown={chipKeyDownHandler}
+				tabindex="0"
+				role="button">
 				<span class="sp-chips--chip--label"> {chip.label} </span>
 				{#if removable}
 					<button
@@ -81,7 +97,7 @@
 							size={20} />
 					</button>
 				{/if}
-			</button>
+			</div>
 		</li>
 	{/each}
 </menu>
