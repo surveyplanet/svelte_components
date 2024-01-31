@@ -10,7 +10,6 @@
 		NavBar,
 		TextInput,
 	} from '$lib';
-	// import { get } from 'svelte/store';
 	import { createComponentsStore } from './stores/components.store.svelte';
 	import type { Snippet } from 'svelte';
 
@@ -37,7 +36,7 @@
 	let isDarkMode = $state(false);
 	let mkd = $state(marked(md));
 	let reload = $state(0); //used to force reload the component
-	let componentsData = createComponentsStore.componentsStore;
+	let componentsData = $state(createComponentsStore.componentsStore);
 	let eventsLogs = $derived<typeof events>(events || []);
 	let logContent: HTMLElement | null = $state(null);
 	//should scroll to the bottom of the logContent
@@ -70,26 +69,41 @@
 	const darkModeHandler = (selected: boolean) => {
 		isDarkMode = selected;
 	};
+
+	const searchComponents = (event: Event) => {
+		const searchValue = (event.target as HTMLInputElement).value;
+		componentsData = createComponentsStore.componentsStore.filter((item) =>
+			item.label.toLowerCase().includes(searchValue.toLowerCase())
+		);
+		reload++;
+	};
 </script>
 
 <div id="main-container">
 	<aside id="main-sidebar">
 		<header>
-			<Logo
-				color={isDarkMode ? COLORS.white : COLORS.black}
-				fill={isDarkMode ? 'transparent' : 'blue'} />
+			<a
+				class="main-home"
+				href="./">
+				<Logo
+					color={isDarkMode ? COLORS.white : COLORS.black}
+					fill={isDarkMode ? 'transparent' : 'blue'} /></a>
+
 			<div id="main-sidebar--search">
 				<TextInput
 					id="search-components"
 					name="search-components"
 					type="search"
-					placeholder="Find components" />
+					placeholder="Find components"
+					oninput={searchComponents} />
 			</div>
 		</header>
-		<Menu
-			data={componentsData}
-			size="medium"
-			menuClick={menuClickHandler} />
+		{#key reload}
+			<Menu
+				data={componentsData}
+				size="medium"
+				menuClick={menuClickHandler} />
+		{/key}
 	</aside>
 
 	<main id="main-content">

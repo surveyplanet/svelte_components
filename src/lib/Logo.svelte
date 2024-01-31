@@ -2,6 +2,7 @@
 	context="module"
 	lang="ts">
 	import { COLORS } from './_definitions';
+	import { onMount } from 'svelte';
 
 	export type LogoSize =
 		| 8
@@ -56,9 +57,9 @@
 
 	let viewboxWidth: number = $state(ORIGINAL_WIDTH);
 	let viewboxHeight = $state(ORIGINAL_HEIGHT);
-
+	let visible = $state(false);
 	// TODO: this should update before he DOM is rendered
-	$effect.pre(() => {
+	onMount(() => {
 		console.log('-->', {
 			width,
 			height,
@@ -78,6 +79,7 @@
 		width = symbolOnly ? size : size * ASPECT_RATION;
 
 		viewboxWidth = symbolOnly ? DEFAULT_SIZE : ORIGINAL_WIDTH;
+
 		console.log('----->', {
 			width,
 			height,
