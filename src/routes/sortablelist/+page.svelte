@@ -25,6 +25,12 @@
 	const sortableListSortHandler = (sortData: SortListData[]) => {
 		events.push(JSON.stringify(sortData));
 	};
+
+	let dataStringed = $state(JSON.stringify(data));
+
+	$effect(() => {
+		data = JSON.parse(dataStringed);
+	});
 </script>
 
 <Layout
@@ -33,19 +39,16 @@
 	{md}
 	{events}>
 	{#snippet controls()}
-		Needs events reworked!!!
 		<PropsChanger
-			object="Data"
-			value={JSON.stringify(data)}
-			oninput={(e: Event) => {
-					data = JSON.parse((e.target as HTMLInputElement).value);
-				}} />
+			label="Data"
+			object
+			bind:value={dataStringed} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">
 			<SortableList
 				sort={sortableListSortHandler}
-				{data} />
+				bind:data />
 		</div>
 	{/snippet}
 </Layout>
