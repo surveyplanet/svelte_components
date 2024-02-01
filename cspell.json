@@ -26,6 +26,8 @@
 		"onout",
 		"onoutroend",
 		"onoutrostart",
+		"onremove",
+		"onupdate",
 		"outro",
 		"outroend",
 		"outrostart",

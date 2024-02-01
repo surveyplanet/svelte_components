@@ -84,7 +84,7 @@
 				bind:labels
 				{response}
 				{random}
-				formResponse={formResponseHandler} />
+				onFormResponse={formResponseHandler} />
 		</div>
 	{/snippet}
 </Layout>

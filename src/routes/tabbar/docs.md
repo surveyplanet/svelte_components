@@ -1,48 +1,49 @@
 ![Image](https://user-images.githubusercontent.com/747587/209881571-b27372dd-7ae9-4702-ab34-a4ebb8fd2314.png)
 
+# TabBar Component
+
+The `TabBar` component displays a horizontal navigation bar with tabs. It allows the user to switch between different tabs.
+
 ### Properties
 
-| Property            | Type                        | Description                                             |
-| ------------------- | --------------------------- | ------------------------------------------------------- |
-| id                  | String (null)               | The unique id of the tab bar.                           |
-| grow                | Boolean                     | Whether the tab bar should consume all available space. |
-| data                | Array of tabBarData objects | The objects containing data to pass to the tab buttons. |
-| tabBarData.id       | String                      | The unique id of the tab button (required).             |
-| tabBarData.label    | String                      | The label text of the tab button.                       |
-| tabBarData.html     | String                      | The HTML to render inside the tab button.               |
-| tabBarData.icon     | IconName (from './index')   | The name of the icon to render inside the tab button.   |
-| tabBarData.selected | Boolean                     | Whether the tab button is selected or not.              |
-| tabBarData.disabled | Boolean                     | Whether the tab button should be disabled or not.       |
+#### `TabBarData`
 
-### Events
+| Property   | Type       | Description                            |
+| ---------- | ---------- | -------------------------------------- |
+| `id`       | `string`   | The unique identifier for the tab.     |
+| `label`    | `string`   | The label or title for the tab.        |
+| `html`     | `string`   | The HTML content for the tab.          |
+| `icon`     | `IconName` | The icon to be displayed on the tab.   |
+| `selected` | `boolean`  | Indicates whether the tab is selected. |
+| `disabled` | `boolean`  | Indicates whether the tab is disabled. |
 
-| Name      | Properties | Description                                                                                        |
-| --------- | ---------- | -------------------------------------------------------------------------------------------------- |
-| tabButton | id         | Dispatched when a tab button is clicked. Passes the id of the clicked button as the event payload. |
+#### `TabBarProps`
 
-tabButton id Dispatched when a tab button is clicked. Passes the id of the clicked button as the event payload.
-The sp-tab-bar component creates a tab bar with tab buttons, each of which can be clicked to select the corresponding tab. The selected tab button will be highlighted. The component is implemented using Svelte, and requires the Icon component from the ./index file.
+| Property    | Type                   | Description                                                    |
+| ----------- | ---------------------- | -------------------------------------------------------------- |
+| `id`        | `string`               | The unique identifier for the tab bar.                         |
+| `grow`      | `boolean`              | If `true`, allows the tab bar to grow to fill available space. |
+| `data`      | `TabBarData[]`         | An array of `TabBarData` objects representing each tab.        |
+| `tabButton` | `(id: string) => void` | Callback function triggered when a tab button is clicked.      |
 
-The following CSS classes can be used to customize the component:
+### Usage
 
-### CSS Classes
+```html
+<script lang="ts">
+	import { TabBarProps } from './path-to-tabbar-component';
 
-| Class                              | Description                                                  |
-| ---------------------------------- | ------------------------------------------------------------ |
-| sp-tab-bar                         | The main class of the tab bar.                               |
-| sp-tab-bar--grow                   | Adds flex-grow: 1 to the tab bar.                            |
-| sp-tab-bar--item                   | The class of each tab button item.                           |
-| sp-tab-bar--item--active           | The class applied to the selected tab button item.           |
-| sp-tab-bar--button                 | The class of the button inside each tab button item.         |
-| sp-tab-bar--button--disabled       | The class applied to disabled tab buttons.                   |
-| sp-tab-bar--label                  | The class of the label text inside each tab button item.     |
-| sp-tab-bar--html                   | The class of the HTML inside each tab button item.           |
-| sp-tab-bar--button--disabled:hover | The class applied to the disabled tab button on hover state. |
+	// Example usage
+	let tabBarProps: TabBarProps = {
+		id: 'myTabBar',
+		grow: false,
+		data: [
+			{ id: 'tab1', label: 'Tab 1', icon: 'icon1' },
+			{ id: 'tab2', label: 'Tab 2', icon: 'icon2', selected: true },
+			{ id: 'tab3', label: 'Tab 3', icon: 'icon3' },
+		],
+		tabButton: (id) => console.log('Tab button clicked:', id),
+	};
+</script>
 
-The following variables can be customized by importing them from the @surveyplanet/styles
-
-| Variable Name         |
-| --------------------- |
-| $font-family--default |
-| $color--blue          |
-| $color--beige-darker  |
+<TabBar {...tabBarProps} />
+```

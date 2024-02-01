@@ -1,13 +1,13 @@
 import { type BreadcrumbData } from '$lib';
 
 export default (data: BreadcrumbData[]) => {
-	return `<script>
-import { Breadcrumbs } from '@surveyplanet/svelte_components';
+	return `
+	<script>
 
-const data = ${JSON.stringify(data, null, 2)};
-</script>
+		import { Breadcrumbs } from '@surveyplanet/svelte_components';
 
+	</script>
 
-<Breadcrumbs {data} />
+	<Breadcrumbs data=${data} />
 `;
 };

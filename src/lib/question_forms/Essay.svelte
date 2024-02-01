@@ -7,7 +7,7 @@
 		max: EssayProperties['max'];
 		single: EssayProperties['single'];
 		response: EssayValue[];
-		essayResponse: (response: EssayValue[]) => void;
+		onEssayResponse: (response: EssayValue[]) => void;
 	};
 </script>
 
@@ -15,7 +15,7 @@
 	import type { EssayValue, EssayProperties } from '@surveyplanet/types';
 	import { TextInput } from '../';
 
-	let { id, min, max, single, response, essayResponse } =
+	let { id, min, max, single, response, onEssayResponse } =
 		$props<EssayProps>();
 
 	const updateResponse = (value: string) => {
@@ -24,7 +24,7 @@
 
 	const inputKeyupHandler = (event: Event) => {
 		updateResponse((event.target as HTMLInputElement)?.value);
-		essayResponse(response);
+		onEssayResponse(response);
 	};
 </script>
 

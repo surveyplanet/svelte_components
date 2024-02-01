@@ -1,13 +1,43 @@
-## Parameters
+# Button component
 
-| Name               | Type    | Description                                                                               |
-| ------------------ | ------- | ----------------------------------------------------------------------------------------- |
-| label              | string  | Button label.                                                                             |
-| disabled=false     | boolean | Whether the button is disabled or not.                                                    |
-| loader=false       | boolean | Whether the button should display a loader when it is disabled.                           |
-| size='medium'      | string  | The size of the button. Either: 'small', 'medium', 'large'.                               |
-| icon               | string  | The name of the icon to use. See Iconography.mdx                                          |
-| iconPosition='end' | string  | The position of the icon. Either 'start' or 'end'.                                        |
-| round              | string  | Whether the button should be pill shaped with fully rounded edges                         |
-| mode               | string  | The mode of the button. Either: 'primary', 'secondary', 'tertiary', 'quaternary', 'dark'. |
-| title              | string  | The button title.                                                                         |
+### Constants
+
+#### `BUTTON_MODES`
+
+The button modes include:
+
+-   `primary`
+-   `light`
+-   `accent`
+-   `accent_alt_1`
+-   `accent_alt_2`
+-   `accent_alt_3`
+-   `outline`
+
+### Properties
+
+| Property   | Type     | Description                                           |
+| ---------- | -------- | ----------------------------------------------------- |
+| `mode`     | String   | Button mode, one of the `BUTTON_MODES`.               |
+| `disabled` | Boolean  | Disables the button if `true`.                        |
+| `loader`   | Boolean  | Shows a loader if `true`.                             |
+| `round`    | Boolean  | Makes the button round if `true`.                     |
+| `block`    | Boolean  | Makes the button full width if `true`.                |
+| `action`   | Boolean  | Indicates an action button if `true`.                 |
+| `type`     | String   | Button type: `'button'`, `'submit'`, `'reset'`.       |
+| `form`     | String   | Form ID associated with the button.                   |
+| `size`     | String   | Size of the button: `'small'`, `'medium'`, `'large'`. |
+| `onclick`  | Function | Click event handler for the button.                   |
+| `children` | Snippet  | Optional content to be displayed inside the button.   |
+
+### Modes
+
+The button supports the following modes:
+
+-   `primary`
+-   `light`
+-   `accent`
+-   `accent_alt_1`
+-   `accent_alt_2`
+-   `accent_alt_3`
+-   `outline`

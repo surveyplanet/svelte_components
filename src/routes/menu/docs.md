@@ -1,35 +1,28 @@
-### Properties and Events
+# Menu component
 
-| Name     | Type                  | Description                                                                   |
-| -------- | --------------------- | ----------------------------------------------------------------------------- |
-| `data`   | `MenuData[]`          | Menu data                                                                     |
-| `update` | `CustomEvent<string>` | Dispatched when an item with submenu is clicked and it updates the menu state |
-| `click`  | `CustomEvent<string>` | Dispatched when an item without submenu is clicked                            |
+### Interfaces
 
-### Types
+#### `MenuData`
 
-| Name       | Description                          |
-| ---------- | ------------------------------------ |
-| `MenuData` | Interface for menu item data         |
-| `IconName` | Type for icon names used in the menu |
+| Property   | Type       | Description                                             |
+| ---------- | ---------- | ------------------------------------------------------- |
+| `id`       | String     | Unique identifier for the menu item.                    |
+| `label`    | String     | Label text for the menu item.                           |
+| `html`     | String     | HTML content for the menu item.                         |
+| `icon`     | IconName   | Name of the icon to display for the menu item.          |
+| `meta`     | String     | Additional information/meta for the menu item.          |
+| `divide`   | Boolean    | Whether to display a dividing line above the menu item. |
+| `inline`   | Boolean    | Whether the menu item should be displayed inline.       |
+| `selected` | Boolean    | Whether the menu item is selected.                      |
+| `submenu`  | MenuData[] | Submenu items for nested menus.                         |
 
-### MenuData
+### Properties
 
-| Property   | Type         | Description                             |
-| ---------- | ------------ | --------------------------------------- |
-| `id`       | `string`     | The id of the menu item                 |
-| `label`    | `string`     | The text label of the menu item         |
-| `html`     | `string`     | The html content of the menu item       |
-| `icon`     | `IconName`   | The name of the icon used in the menu   |
-| `meta`     | `string`     | The meta data associated with the item  |
-| `divide`   | `boolean`    | If true, the item should have a divider |
-| `inline`   | `boolean`    | If true, the item should be inline      |
-| `selected` | `boolean`    | If true, the item is currently selected |
-| `submenu`  | `MenuData[]` | An array of submenu items               |
-
-### Slots
-
-| Name     | description                                            |
-| -------- | ------------------------------------------------------ |
-| `header` | Additional content to prepend to the top of the menu   |
-| `footer` | Additional content to append to the bottom of the menu |
+| Property        | Type                 | Description                                                   |
+| --------------- | -------------------- | ------------------------------------------------------------- |
+| `data`          | MenuData[]           | Array of objects representing the menu items.                 |
+| `size='medium'` | String               | Size of the menu, one of `'small'`, `'medium'`, or `'large'`. |
+| `menuUpdate`    | (id: string) => void | Callback function triggered on menu update.                   |
+| `menuClick`     | (id: string) => void | Callback function triggered on menu item click.               |
+| `header`        | Snippet              | Custom content for the menu header.                           |
+| `footer`        | Snippet              | Custom content for the menu footer.                           |

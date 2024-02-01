@@ -1,17 +1,16 @@
-# Footer Component
+# Footer component
 
-This component renders a footer navigation bar. It accepts an array of `FooterData` objects, which represent links or labels to be displayed in the footer.
+### Interfaces
 
-## Interfaces
+#### `FooterData`
 
-| Name               | Type                | Description                                                                    |
-| ------------------ | ------------------- | ------------------------------------------------------------------------------ |
-| `FooterData`       | `object`            | An object containing data for a single footer item.                            |
-| `FooterData.link`  | `string` (optional) | The URL of the link. If not provided, the item will be rendered as plain text. |
-| `FooterData.label` | `string`            | The text to be displayed in the footer item.                                   |
+| Property | Type   | Description                     |
+| -------- | ------ | ------------------------------- |
+| `link`   | String | URL link for the footer item.   |
+| `label`  | String | Label text for the footer item. |
 
-## Exported Variables
+### Properties
 
-| Name         | Type           | Description                                                                              |
-| ------------ | -------------- | ---------------------------------------------------------------------------------------- |
-| `footerData` | `FooterData[]` | An array of `FooterData` objects that represent the items to be displayed in the footer. |
+| Property     | Type         | Description                                     |
+| ------------ | ------------ | ----------------------------------------------- |
+| `footerData` | FooterData[] | Array of objects representing the footer items. |

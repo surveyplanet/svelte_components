@@ -9,7 +9,7 @@
 		random?: MultipleChoiceProperties['random'];
 		other?: MultipleChoiceProperties['other'];
 		response?: MultipleChoiceValue[];
-		multipleChoiceResponse: (response: MultipleChoiceValue[]) => void;
+		onMultipleChoiceResponse: (response: MultipleChoiceValue[]) => void;
 	};
 </script>
 
@@ -32,7 +32,7 @@
 		random = false,
 		other = 'Other',
 		response = [],
-		multipleChoiceResponse,
+		onMultipleChoiceResponse,
 	} = $props<MultipleChoiceProps>();
 
 	$effect(() => {
@@ -67,7 +67,7 @@
 			value: true,
 		};
 		updateResponse(value, !target.checked);
-		multipleChoiceResponse(response);
+		onMultipleChoiceResponse(response);
 	};
 
 	const otherChangeHandler = (event: Event) => {
@@ -80,7 +80,7 @@
 			document.querySelector(`#${id + '-text-input'}`) as HTMLInputElement
 		)?.focus();
 		updateResponse(value, !target.checked);
-		multipleChoiceResponse(response);
+		onMultipleChoiceResponse(response);
 	};
 
 	const otherTextInputHandler = (event: Event) => {
@@ -95,7 +95,7 @@
 			} as MultipleChoiceValue,
 			!otherTextValue.length
 		);
-		multipleChoiceResponse(response);
+		onMultipleChoiceResponse(response);
 	};
 
 	const dropdownChangeHandler = (label: DropdownOptions['id']) => {
@@ -104,7 +104,7 @@
 			value: true,
 		} as MultipleChoiceValue;
 		updateResponse(value);
-		multipleChoiceResponse(response);
+		onMultipleChoiceResponse(response);
 	};
 
 	const getDropdownOption = (label: string) => {

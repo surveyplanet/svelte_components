@@ -1,43 +1,64 @@
-### Properties
+# Modal component
 
-| Property             | type    | description                                                                                                            |
-| -------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- | --- |
-| `title`              | String  | The title of the modal                                                                                                 |
-| `[subtitle]`         | String  | The subtitle of the modal                                                                                              |
-| `[fullscreen=false]` | Boolean | Whether the modal should be full screen or not.                                                                        |
-| `[overlay=true]`     | Boolean | Whether should should be a transparent background element which prevents interaction with other elements on the stage. |     |
-| `[size='medium']`    | String  | The size of the modal. Can be `small`, `medium` or `large`.                                                            |
+### Interface
 
-### Slots
+#### `ModalProps`
 
-| Name     | description                                               |
-| -------- | --------------------------------------------------------- |
-| `header` | Additional content to append to the header                |
-| `body`   | Main modal body                                           |
-| `footer` | Add footer content like disclaimer text or navigation bar |
+| Property                | Type                     | Description                                                    |
+| ----------------------- | ------------------------ | -------------------------------------------------------------- |
+| `title`                 | String                   | Title text for the modal.                                      |
+| `subtitle`              | String                   | Subtitle text for the modal.                                   |
+| `fullscreen`            | Boolean                  | Indicates if the modal should be displayed in fullscreen.      |
+| `overlay`               | Boolean                  | Indicates whether to display an overlay behind the modal.      |
+| `visible`               | Boolean                  | Indicates whether the modal is currently visible.              |
+| `animationMilliseconds` | Number                   | Duration of the intro/outro animation in milliseconds.         |
+| `size='medium'`         | String                   | Size of the modal, one of `'small'`, `'medium'`, or `'large'`. |
+| `onintrostart`          | (e: CustomEvent) => void | Event handler for the start of the intro animation.            |
+| `onintroend`            | (e: CustomEvent) => void | Event handler for the end of the intro animation.              |
+| `onoutrostart`          | (e: CustomEvent) => void | Event handler for the start of the outro animation.            |
+| `onoutroend`            | (e: CustomEvent) => void | Event handler for the end of the outro animation.              |
+| `footer`                | Snippet                  | Custom content for the modal footer.                           |
+| `body`                  | Snippet                  | Custom content for the modal body.                             |
+| `header`                | Snippet                  | Custom content for the modal header.                           |
 
-### Events
-
-| Name          | description                                                    |
-| ------------- | -------------------------------------------------------------- |
-| `modalOpened` | Modal has been instantiated.                                   |
-| `modalIn`     | Modal is full rendered on stage and int animation is complete. |
-| `modalClosed` | Modal has been closed.                                         |
-| `modalOut`    | Modal has been fully removed and out animation is complete.    |
-
-### Examples
+### Usage
 
 ```html
-<Modal
-	title="My new modal"
-	subtitle="...">
-	<p slot="header">Some header content</p>
-	<p slot="body">Body text should be here</p>
-	<nav slot="footer">
-		<ul>
-			<li><a href="/">Home</a></li>
-			<li><a href="/docs">Docs</a></li>
-		</ul>
-	</nav>
-</Modal>
+<script lang="ts">
+	import { ModalProps } from './path-to-modal-component';
+
+	// Example usage
+	let modalProps: ModalProps = {
+		title: 'Example Modal',
+		subtitle: 'Subtitle text',
+		fullscreen: false,
+		overlay: true,
+		visible: false,
+		animationMilliseconds: 350,
+		size: 'medium',
+		onintrostart: (e) => {
+			/* Intro start event handler */
+		},
+		onintroend: (e) => {
+			/* Intro end event handler */
+		},
+		onoutrostart: (e) => {
+			/* Outro start event handler */
+		},
+		onoutroend: (e) => {
+			/* Outro end event handler */
+		},
+		footer: () => {
+			/* Custom footer content */
+		},
+		body: () => {
+			/* Custom body content */
+		},
+		header: () => {
+			/* Custom header content */
+		},
+	};
+</script>
+
+<Modal {...modalProps} />
 ```

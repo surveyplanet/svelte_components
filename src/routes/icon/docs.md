@@ -1,8 +1,23 @@
-## Parameters
+# Icon component
 
-| Name      | Type    | Description                                                                                                    |
-| --------- | ------- | -------------------------------------------------------------------------------------------------------------- |
-| `name=''` | string  | The Icon name.                                                                                                 |
-| `color`   | string  | The Icon color.                                                                                                |
-| `size=24` | number  | The Icon size in pixels. Either: 8, 16, 20, 24, 32, 48, 64, 128, 256 or 512                                    |
-| `debug`   | boolean | Render a red background behind the icon to reveal its true edges. This can help with align the icon correctly. |
+### Interfaces
+
+#### `IconProps`
+
+| Property      | Type     | Description                                        |
+| ------------- | -------- | -------------------------------------------------- |
+| `name`        | IconName | Name of the icon.                                  |
+| `color`       | String   | Color of the icon. Defaults to `COLORS.black`.     |
+| `size`        | IconSize | Size of the icon. Defaults to 24.                  |
+| `strokeWidth` | Number   | Stroke width of the icon. Defaults to 2.           |
+| `debug`       | Boolean  | Enable debug mode for the icon. Defaults to false. |
+
+### Properties
+
+| Property      | Type     | Description                                        |
+| ------------- | -------- | -------------------------------------------------- |
+| `name`        | IconName | Name of the icon.                                  |
+| `color`       | String   | Color of the icon. Defaults to `COLORS.black`.     |
+| `size`        | IconSize | Size of the icon. Defaults to 24.                  |
+| `strokeWidth` | Number   | Stroke width of the icon. Defaults to 2.           |
+| `debug`       | Boolean  | Enable debug mode for the icon. Defaults to false. |

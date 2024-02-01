@@ -1,7 +1,16 @@
-## Options
+# Breadcrumbs component
 
-| Name      | Type   | Description                             |
-| --------- | ------ | --------------------------------------- |
-| data      | array  | List of objects containing name and URL |
-| data.name | string | Name of a breadcrumb                    |
-| data.url  | string | URL to visit when breadcrumb is clicked |
+### Interfaces
+
+#### `BreadcrumbData`
+
+| Property | Type   | Description                           |
+| -------- | ------ | ------------------------------------- |
+| `name`   | String | Name of the breadcrumb item.          |
+| `url`    | String | Optional URL for the breadcrumb item. |
+
+### Properties
+
+| Property | Type             | Description                                |
+| -------- | ---------------- | ------------------------------------------ |
+| `data`   | BreadcrumbData[] | Array of objects representing breadcrumbs. |

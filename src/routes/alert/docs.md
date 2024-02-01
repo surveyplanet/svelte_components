@@ -1,14 +1,5 @@
 # Alert component
 
-## Usage
-
-```ts
-<script lang="ts">
-  import {Alert} from '@surveyplanet/svelte-components';
-</script>
-<Alert title="You're settings has been saved."/>
-```
-
 ### Properties
 
 | Property                       | type    | description                                                                                       |
@@ -26,10 +17,10 @@
 
 ### Events
 
-| Name        | description                                                   |
-| ----------- | ------------------------------------------------------------- |
-| `open`      | Alert has been instantiated.                                  |
-| `in`        | Alert is full rendered on stage and in animation is complete. |
-| `close`     | Alert has been closed.                                        |
-| `out`       | Alert has been fully removed and out animation is complete.   |
-| `confirmed` | Confirmation alert has been confirmed.                        |
+| Name      | description                                                   |
+| --------- | ------------------------------------------------------------- |
+| `onopen`  | Alert has been instantiated.                                  |
+| `onin`    | Alert is full rendered on stage and in animation is complete. |
+| `onclose` | Alert has been closed.                                        |
+| `onout`   | Alert has been fully removed and out animation is complete.   |
+| `confirm` | Confirmation alert has been confirmed.                        |

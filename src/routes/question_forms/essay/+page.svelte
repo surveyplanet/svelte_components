@@ -49,7 +49,7 @@
 				{max}
 				{single}
 				{response}
-				essayResponse={essayResponseHandler} />
+				onEssayResponse={essayResponseHandler} />
 		</div>
 	{/snippet}
 </Layout>

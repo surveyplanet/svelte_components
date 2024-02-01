@@ -60,7 +60,7 @@
 				{date}
 				{time}
 				{response}
-				dateResponse={dateTimeResponseHandler} />
+				onDatetimeResponse={dateTimeResponseHandler} />
 		</div>
 	{/snippet}
 </Layout>

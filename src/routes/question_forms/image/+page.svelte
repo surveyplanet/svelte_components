@@ -113,7 +113,7 @@
 				{contain}
 				{random}
 				{response}
-				imageResponse={imageResponseHandler} />
+				onImageResponse={imageResponseHandler} />
 		</div>
 	{/snippet}
 </Layout>

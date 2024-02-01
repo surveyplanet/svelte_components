@@ -1,67 +1,43 @@
-# Chip Component Documentation
+# Chips component
 
-This component is a custom Svelte component for creating a set of chips/buttons. Each chip has an ID, label and selected state that can be toggled. When a chip is clicked, the selected state changes and the component dispatches a `click` event with the chip's ID as the detail. The `multiple` property is a boolean that determines whether multiple chips can be selected at once.
+### Interfaces
 
-## Props
+#### `ChipData`
 
-| Name          | Type       | Description                                                                        |
-| ------------- | ---------- | ---------------------------------------------------------------------------------- |
-| `data`        | ChipData[] | An array of `ChipData` objects that represent the chips.                           |
-| `selectable`  | Boolean    | Whether the chips can be selected or not.                                          |
-| `multiSelect` | Boolean    | Whether multiple chips can be selected at once. Only valid is selectable is `true` |
-| `removable`   | Boolean    | Whether chips can be removable or not.                                             |
+| Property   | Type    | Description                        |
+| ---------- | ------- | ---------------------------------- |
+| `id`       | String  | Identifier for the chip.           |
+| `label`    | String  | Label text for the chip.           |
+| `selected` | Boolean | Indicates if the chip is selected. |
 
-## Events
+### Properties
 
-| Name     | Description                                                               |
-| -------- | ------------------------------------------------------------------------- |
-| `click`  | An array of `ChipData` objects that represent the chips.                  |
-| `remove` | A boolean that determines whether multiple chips can be selected at once. |
+| Property      | Type       | Description                               |
+| ------------- | ---------- | ----------------------------------------- |
+| `data`        | ChipData[] | Array of objects representing the chips.  |
+| `selectable`  | Boolean    | Enables chip selection if `true`.         |
+| `multiSelect` | Boolean    | Allows multiple chip selection if `true`. |
+| `removable`   | Boolean    | Enables chip removal if `true`.           |
+| `onclick`     | Function   | Click event handler for the chips.        |
+| `onremove`    | Function   | Remove event handler for the chips.       |
 
-## Example Usage
+### Methods
 
-```svelte
-<script lang="ts">
-	import { Chips, type ChipData } from '@surveyplanet/svelte_components';
+#### `getChipId(chipEl: HTMLButtonElement): string`
 
-	const data = [
-		{
-			id: 'chip1',
-			label: 'Chip 1',
-			selected: true,
-		},
-		{
-			id: 'chip2',
-			label: 'Chip 2',
-			selected: false,
-		},
-		{
-			id: 'chip3',
-			label: 'Chip 3',
-			selected: false,
-		},
-	] as ChipData;
+Returns the ID of the chip based on the HTML element.
 
-	const chipClickHandler = (event: CustomEvent) => {
-		console.log('Clicked chip:', event.detail);
-	};
-</script>
+#### `removeHandler(id: string): void`
 
-<Chip
-	{data}
-	selectable={true}
-	multiSelect={false}
-	closeable={false}
-	on:click={chipClickHandler} />
-```
+Removes the chip with the specified ID.
 
-## Interfaces
+#### `toggle(id: string): void`
 
-### ChipData
+Toggles the selection state of the chip with the specified ID.
 
-| Name            | Type     | Description                                                                 |
-| --------------- | -------- | --------------------------------------------------------------------------- |
-| `data`          | ChipData | An object containing the properties `id`, `label`, `selected`, and `title`. |
-| `data.id`       | string   | A unique identifier for the chip.                                           |
-| `data.label`    | string   | An optional label to display on the chip.                                   |
-| `data.selected` | boolean  | A boolean that determines whether the chip is selected.                     |
+### Events
+
+| Name       | Description                       |
+| ---------- | --------------------------------- |
+| `onclick`  | Triggered when a chip is clicked. |
+| `onremove` | Triggered when a chip is removed. |

@@ -10,7 +10,7 @@
 		random?: ImageProperties['random'];
 		contain?: ImageProperties['contain'];
 		response?: ImageValue[];
-		imageResponse: (value: ImageValue[]) => void;
+		onImageResponse: (value: ImageValue[]) => void;
 	};
 </script>
 
@@ -34,7 +34,7 @@
 		random,
 		contain = false,
 		response = [],
-		imageResponse,
+		onImageResponse,
 	} = $props<ImageProps>();
 	//nopt working
 	$effect(() => {
@@ -91,7 +91,7 @@
 	const inputChangeHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		updateResponse(target.value, !target.checked);
-		imageResponse(response);
+		onImageResponse(response);
 	};
 </script>
 

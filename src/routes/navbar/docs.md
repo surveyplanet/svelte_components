@@ -1,24 +1,57 @@
-# NavBar Component
+# NavBar component
 
-The `NavBar` component displays a navigation bar with links and an optional menu.
+### Interfaces
 
-## Props
+#### `NavBarData`
 
-The following props can be passed to the `NavBar` component:
+| Property | Type       | Description                                |
+| -------- | ---------- | ------------------------------------------ |
+| `icon`   | `IconName` | Name of the icon to be displayed.          |
+| `link`   | `string`   | URL link for the navigation item.          |
+| `title`  | `string`   | Title of the navigation item.              |
+| `id`     | `string`   | Unique identifier for the navigation item. |
 
-| Prop name     | Type           | Default value | Description                                                                                           |
-| ------------- | -------------- | ------------- | ----------------------------------------------------------------------------------------------------- |
-| `data`        | `NavBarData[]` | `[]`          | An array of objects that represent links displayed in the navigation bar.                             |
-| `navMenuData` | `MenuData[]`   | `[]`          | An array of objects that represent the items displayed in the navigation menu. This prop is optional. |
-| `vertical`    | `boolean`      | `false`       | If `true`, the navigation bar is displayed vertically.                                                |
+#### `NavBarProps`
 
-## Interface
+| Property      | Type                        | Description                                          |
+| ------------- | --------------------------- | ---------------------------------------------------- |
+| `data`        | `NavBarData[]`              | Array of data for individual navigation items.       |
+| `navMenuData` | `MenuData[]`                | Array of data for the navigation menu (optional).    |
+| `vertical`    | `boolean`                   | Indicates if the NavBar is in vertical orientation.  |
+| `onnavlink`   | `(navLink: string) => void` | Event handler for navigation link click.             |
+| `onclick`     | `(id: string) => void`      | Event handler for individual navigation item click.  |
+| `onupdate`    | `(id: string) => void`      | Event handler for individual navigation item update. |
 
-The `NavBarData` interface is used to describe the objects in the `data` array.
+### Usage
 
-| Property name | Type       | Description                                                |
-| ------------- | ---------- | ---------------------------------------------------------- |
-| `icon`        | `IconName` | The name of the icon displayed next to the link.           |
-| `link`        | `string`   | The URL to navigate to when the link is clicked.           |
-| `title`       | `string`   | The text to display as the link's label. This is optional. |
-| `id`          | `string`   | The ID of the link.                                        |
+```html
+<script lang="ts">
+	import { NavBarProps } from './path-to-navbar-component';
+
+	// Example usage
+	let navBarProps: NavBarProps = {
+		data: [
+			{ icon: 'home', link: '/', title: 'Home', id: 'home' },
+			{ icon: 'user', link: '/profile', title: 'Profile', id: 'profile' },
+			// ... additional navigation items
+		],
+		navMenuData: [
+			{ id: 'settings', label: 'Settings', icon: 'gear' },
+			{ id: 'logout', label: 'Logout', icon: 'power' },
+			// ... additional menu items
+		],
+		vertical: false,
+		onnavlink: (navLink) => {
+			/* Handle navigation link click */
+		},
+		onclick: (id) => {
+			/* Handle navigation item click */
+		},
+		onupdate: (id) => {
+			/* Handle navigation item update */
+		},
+	};
+</script>
+
+<NavBar {...navBarProps} />
+```

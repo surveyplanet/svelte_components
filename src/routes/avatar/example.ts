@@ -7,18 +7,18 @@ export default (
 	return `<
 <script>
 	import {Avatar, SIZES} from '@surveyplanet/svelte-components';
+    clickHandler = (e) => {
+        console.log('click', e.detail);
+    }
 
-    const profileImage = '${profileImage}';
-    const id = '${id}';
-    const size = '${size}';
-    const disabled = ${disabled};
 
 </script>
 <Avatar
-    on:click={() => console.log('clicked')}
-    {id}
-    {size}
-    {disabled}
-    {profileImage} />
+    id=${profileImage}
+    size=${id}
+    disabled=${size}
+    profileImage=${disabled}
+    onclick={clickHandler}
+    </Avatar>
 `;
 };

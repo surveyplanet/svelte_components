@@ -11,6 +11,14 @@ export default (
 	return `
 <script lang="ts">
 	import { Alert } from '@surveyplanet/svelte-components';
+
+  const onconfirmHandler = (e) => {
+    console.log('onconfirm', e.detail);
+  };
+
+  const onopenHandler = (e) => {
+    console.log('onopen', e.detail);
+  };
 </script>
 
 <Alert 
@@ -21,7 +29,12 @@ export default (
   confirm={${confirm}}
   confirmButtonLabel='${confirmButtonLabel}'
   cancelButtonLabel='${cancelButtonLabel}'
-  challenge='${challenge}'>
+  challenge='${challenge}'
+  onconfirm={onconfirmHandler}
+  onopen={onopenHandler}
+  oninput={oninputHandler}
+  onclose={oncloseHandler}
+  onout={onoutHandler}>
   	Alert body
 </Alert>`;
 };

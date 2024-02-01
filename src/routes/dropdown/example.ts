@@ -5,35 +5,27 @@ export default (
 	searchThreshold: number,
 	disabled: boolean,
 	required: boolean,
-	value: string | undefined,
+	value: DropdownOptions['id'],
 	placeholder: string,
 	label: string,
 	size: 'small' | 'medium' | 'large'
 ) => {
-	return `<script>
-	import {Dropdown} from '@surveyplanet/svelte_components';
+	return `
+<script>
 
-	const options = ${JSON.stringify(options, null, 2)};
-	const searchThreshold = ${searchThreshold};
-	const disabled = ${disabled};
-	const required = ${required};
-	const value = '${value}';
-	const placeholder = '${placeholder}';
-	const label = '${label}';
-	const size = '${size}';
-
+	import {Dropdown, DropdownOptions} from '@surveyplanet/svelte_components';
 
 </script>
 
 <Dropdown
-	{options}
-	{searchThreshold}
-	{disabled}
-	{required}
-	{value}
-	{placeholder}
-	{label}
-	{size}
+	options=${JSON.stringify(options, null, 2)}
+	searchThreshold=${searchThreshold}
+	disabled=${disabled}
+	required=${required}
+	value=${value}
+	placeholder=${placeholder}
+	label=${label}
+	size=${size}
 />
 `;
 };

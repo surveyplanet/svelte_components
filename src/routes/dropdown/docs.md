@@ -1,48 +1,33 @@
-## Dropdown Component
-
-This component is a custom dropdown component that provides an input element that opens a menu on focus. The menu displays a list of selectable options. The dropdown can also be searchable if the number of options exceeds a certain threshold that is set when the component is initialized.
-
-Options will be passed down to the Menu component as a prop. The Menu component will then render the options as MenuItems.
+# Dropdown component
 
 ### Interfaces
 
-| Name                      | Type        | Description                               |
-| ------------------------- | ----------- | ----------------------------------------- |
-| **DropdownOptions**       | `interface` | An interface for dropdown option.         |
-| DropdownOptions.label     | `string`    | The label to display for the option.      |
-| DropdownOptions.id        | `string`    | The unique identifier for the option.     |
-| DropdownOptions.meta?     | `string`    | Optional metadata for the option.         |
-| DropdownOptions.selected? | `boolean`   | Whether the option is currently selected. |
+#### `DropdownOptions`
 
-### Exported Variables
+| Property   | Type              | Description                                       |
+| ---------- | ----------------- | ------------------------------------------------- |
+| `label`    | String            | Label for the dropdown option.                    |
+| `id`       | String            | Identifier for the dropdown option.               |
+| `meta`     | String            | Additional metadata for the dropdown option.      |
+| `selected` | Boolean           | Indicates if the dropdown option is selected.     |
+| `submenu`  | DropdownOptions[] | Array of submenu options for the dropdown option. |
 
-| Name            | Type                            | Description                                                 |
-| --------------- | ------------------------------- | ----------------------------------------------------------- |
-| options         | `DropdownOptions[]`             | An array of dropdown options to display in the dropdown.    |
-| value           | `DropdownOptions['id'] \| null` | The currently selected option's id.                         |
-| label           | `string` \| `null`              | The label to display above the dropdown.                    |
-| searchThreshold | `number`                        | The minimum number of options required to enable searching. |
-| disabled        | `boolean`                       | Whether the dropdown is disabled.                           |
-| required        | `boolean`                       | Whether the dropdown is required.                           |
+### Properties
 
-### Methods
-
-| Name                                       | Description                                                                                                                             |
-| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `reset()`                                  | Resets the dropdown to its initial state.                                                                                               |
-| `setValue(id: string, silent?: boolean)`   | Sets the value of the dropdown to the option with the specified id. The `silent` parameter determines whether to emit a `change` event. |
-| `search(query: string)`                    | Filters the dropdown options by the specified search query.                                                                             |
-| `blurOnBodyClick(event: MouseEvent)`       | Hides the dropdown menu when a click event is detected outside of the dropdown.                                                         |
-| `clear()`                                  | Clears the selected value and resets the dropdown to its initial state.                                                                 |
-| `menuClickHandler(event: CustomEvent)`     | Sets the selected value and hides the dropdown menu when an option is clicked.                                                          |
-| `searchFocusHandler()`                     | Shows the dropdown menu when the search input is focused.                                                                               |
-| `searchBlurHandler(event: FocusEvent)`     | Hides the dropdown menu when the search input is blurred.                                                                               |
-| `searchKeyupHandler(event: KeyboardEvent)` | Filters the dropdown options by the current search query when a keyup event is detected on the search input.                            |
-| `closeButtonHandler()`                     | Clears the selected value and resets the dropdown to its initial state when the close button is clicked.                                |
+| Property          | Type              | Description                                             |
+| ----------------- | ----------------- | ------------------------------------------------------- |
+| `options`         | DropdownOptions[] | Array of objects representing the dropdown options.     |
+| `placeholder`     | String            | Placeholder text for the dropdown input.                |
+| `value`           | String            | Selected value from the dropdown options.               |
+| `label`           | String            | Label for the dropdown.                                 |
+| `searchThreshold` | Number            | Number of options to enable search functionality.       |
+| `disabled`        | Boolean           | Disables the dropdown if `true`.                        |
+| `required`        | Boolean           | Indicates if the dropdown is required.                  |
+| `size`            | String            | Size of the dropdown: `'small'`, `'medium'`, `'large'`. |
+| `onchange`        | Function          | Change event handler for the dropdown.                  |
 
 ### Events
 
-| Event  | Description                                                                                                                 |
-| ------ | --------------------------------------------------------------------------------------------------------------------------- |
-| change | Triggered when the selected value of the dropdown changes. The event detail contains the `id` of the newly selected option. |
-| click  | Triggered when the dropdown button is clicked.                                                                              |
+| Name       | Description                                |
+| ---------- | ------------------------------------------ |
+| `onchange` | Triggered when the dropdown value changes. |

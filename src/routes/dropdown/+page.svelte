@@ -75,7 +75,7 @@
 		searchThreshold,
 		disabled,
 		required,
-		value,
+		value!,
 		placeholder,
 		label,
 		size

@@ -3,13 +3,17 @@ export default (
 	content: string,
 	flat: boolean
 ) => {
-	return `<script>
-	import {Badge} from '@surveyplanet/svelte-components';
+	return `
+	<script>
+	
+		import {Badge} from '@surveyplanet/svelte-components';
 
-	const color = '${color}';
-	const content = '${content}';
-	const flat = ${flat};
-</script>
-<Badge {color} {content} {flat} ">Pro</Badge>
+	</script>
+
+	<Badge
+	  color='${color}'
+	  content = '${content}' 
+	  flat = ${flat} 
+	  >Pro</Badge>
 `;
 };

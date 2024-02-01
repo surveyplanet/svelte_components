@@ -5,8 +5,18 @@ export default (
 	visible: boolean,
 	hideDelay: number
 ) => {
-	return `<Alert title="${title}" type="${type}" visible={${visible}} hideDelay={${hideDelay}}>
-	${content}
-</Alert>
+	return `
+	<script lang='ts>
+
+		import { Banner } from '@surveyplanet/svelte_components';
+
+	</script>
+	<Banner 
+		title="${title}" 
+		type="${type}"
+		visible={${visible}}
+		hideDelay={${hideDelay}}>
+		${content}
+	</Banner>
 `;
 };

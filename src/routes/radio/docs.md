@@ -1,18 +1,38 @@
+# Radio Component
+
+The `Radio` component allows users to make a single selection from a list of options.
+
 ### Properties
 
-| Property             | Type    | Description                                                     |
-| -------------------- | ------- | --------------------------------------------------------------- |
-| `id=null`            | String  | The unique id of the input (required).                          |
-| `name=null`          | String  | The unique name of the input (required).                        |
-| `value=null`         | String  | The input value (required).                                     |
-| `label=null`         | String  | The label text. If no value is given no label is rendered.      |
-| `checked=false`      | Boolean | Whether the input is checked or not.                            |
-| `attr={}`            | Object  | Any additional attributes that need to be applied to the input. |
-| `disabled`           | Boolean | Whether the input should be disabled or not.                    |
-| `prependLabel=false` | Boolean | Whether the label should be prepended.                          |
+#### `RadioProps`
 
-### Events
+| Property       | Type                             | Default                                             | Description                                             |
+| -------------- | -------------------------------- | --------------------------------------------------- | ------------------------------------------------------- |
+| `id`           | `string`                         | Auto-generated unique identifier based on timestamp | The unique identifier for the radio input.              |
+| `name`         | `string`                         | -                                                   | The name of the radio group to which the radio belongs. |
+| `value`        | `string`                         | `null`                                              | The value associated with the radio input.              |
+| `label`        | `string`                         | `''`                                                | The label displayed next to the radio input.            |
+| `checked`      | `boolean`                        | `false`                                             | Flag indicating whether the radio input is checked.     |
+| `disabled`     | `boolean`                        | `false`                                             | Flag indicating whether the radio input is disabled.    |
+| `prependLabel` | `boolean`                        | `false`                                             | Flag to prepend the label to the radio input.           |
+| `size`         | `'small' \| 'medium' \| 'large'` | `'small'`                                           | Size of the radio input.                                |
+| `onchange`     | `(e: Event) => void`             | -                                                   | Event handler for the change event of the radio input.  |
 
-| Name     | Properties | Description                                                   |
-| -------- | ---------- | ------------------------------------------------------------- |
-| `change` | event      | Dispatched after the component has been checked or unchecked. |
+### Usage
+
+```html
+<script lang="ts">
+	import { RadioProps } from './path-to-radio-component';
+
+	// Example usage
+	let radioProps: RadioProps = {
+		name: 'radioGroup',
+		label: 'Option 1',
+		checked: true,
+		disabled: false,
+		onchange: (e) => console.log('Radio changed:', e),
+	};
+</script>
+
+<Radio {...radioProps} />
+```

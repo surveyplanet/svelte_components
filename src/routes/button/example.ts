@@ -19,17 +19,16 @@ export default (
 
 
 <Button
-	onclick={clickHandler}
-	{${mode}}
-	{${disabled}}
-	{${loader}}
-	{${round}}
-	{${block}}
-	{${action}}
-	{${type}}
-	{${size}}
-	>
+	mode ={${mode}
+	disabled ={${disabled}
+	loader ={${loader}
+	round ={${round}
+	block ={${block}
+	action ={${action}
+	type ={${type}
+	size =${size}>
 	${content}
+	onclick={clickHandler}
 </Button>
 `;
 };

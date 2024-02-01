@@ -6,24 +6,25 @@ export default (
 	multiSelect: boolean,
 	removable: boolean
 ) => {
-	return `<script lang="ts">
+	return `
+<script lang="ts">
 	import { Chips, type ChipData } from '@surveyplanet/svelte_components';
-
-	const data = ${JSON.stringify(data, null, 2)};
-	const selectable = ${selectable};
-	const multiSelect = ${multiSelect};
-	const removable = ${removable};
-
 
 	const chipClickHandler = (event:CustomEvent) {
 		console.log('Clicked chip:', event.detail);
 	}
+
+	const chipRemoveHandler = (event:CustomEvent) {
+		console.log('Removed chip:', event.detail);
+	}
 </script>
 
 <Chip
-	{data}
-	{selectable}
-	{multiSelect}
-	{removable}
-	on:click={chipClickHandler} />`;
+	data=${JSON.stringify(data, null, 2)}
+	selectable=${selectable}
+	multiSelect=${multiSelect}
+	removable=${removable}
+	onclick={chipClickHandler}
+	onremove={chipRemoveHandler}
+	/>`;
 };

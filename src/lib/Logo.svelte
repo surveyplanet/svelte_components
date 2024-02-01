@@ -2,7 +2,6 @@
 	context="module"
 	lang="ts">
 	import { COLORS } from './_definitions';
-	import { onMount } from 'svelte';
 
 	export type LogoSize =
 		| 12

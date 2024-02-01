@@ -76,6 +76,6 @@
 			{random}
 			{response}
 			{other}
-			multipleChoiceResponse={multipleChoiceResponseHandler} />
+			onMultipleChoiceResponse={multipleChoiceResponseHandler} />
 	{/snippet}
 </Layout>

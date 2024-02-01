@@ -1,34 +1,58 @@
 # Spinner Component
 
-This module exports a Svelte component that provides an input field for entering numeric response with increment and decrement buttons as well as a drag option.
+The `Spinner` component provides a numeric input with increment and decrement buttons for easy value manipulation.
 
-## Exported Variables
+### Properties
 
-| Name        | Type                | Description                                                                                                                             |
-| ----------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| label       | string              | The label of the input                                                                                                                  |
-| id          | string              | The unique id of the input                                                                                                              |
-| step        | number              | The step of the input                                                                                                                   |
-| min         | number              | The minimum value of the input                                                                                                          |
-| max         | number              | The maximum value of the input                                                                                                          |
-| value       | number or undefined | The value of the input                                                                                                                  |
-| disabled    | boolean             | Whether the input is disabled                                                                                                           |
-| required    | boolean             | Whether the input is required                                                                                                           |
-| overflow    | boolean             | Whether the value will change to the min or max value when the user tries to increment or decrement the value over the min or max value |
-| placeholder | string              | The placeholder of the input                                                                                                            |
-| dragSpeed   | number              | The speed of the drag on the input                                                                                                      |
+#### `SpinnerProps`
 
-## Events
+| Property      | Type            | Description                                                                |
+| ------------- | --------------- | -------------------------------------------------------------------------- | -------------------------------------------- | -------------------- |
+| `label`       | `string`        | The label or title for the spinner.                                        |
+| `id`          | `string`        | The unique identifier for the spinner.                                     |
+| `step`        | `number`        | The step value for incrementing or decrementing.                           |
+| `min`         | `number`        | The minimum allowed value for the spinner.                                 |
+| `max`         | `number`        | The maximum allowed value for the spinner.                                 |
+| `value`       | `number         | undefined`                                                                 | The current value of the spinner.            |
+| `disabled`    | `boolean`       | Indicates whether the spinner is disabled.                                 |
+| `required`    | `boolean`       | Indicates whether the spinner is required.                                 |
+| `overflow`    | `boolean`       | If `true`, allows the value to overflow beyond the `min` and `max` limits. |
+| `dragSpeed`   | `number`        | The speed (in pixels) at which dragging the mouse should change the value. |
+| `placeholder` | `string`        | Placeholder text for the spinner input.                                    |
+| `size`        | `'small'        | 'medium'                                                                   | 'large'`                                     | Size of the spinner. |
+| `onupdate`    | `(value: number | undefined) => void`                                                        | Callback function triggered on value update. |
+| `oninput`     | `(value: number | undefined) => void`                                                        | Callback function triggered on input change. |
+| `onchange`    | `(value: number | undefined) => void`                                                        | Callback function triggered on value change. |
+| `onblur`      | `() => void`    | Callback function triggered on input blur.                                 |
+| `onfocus`     | `() => void`    | Callback function triggered on input focus.                                |
 
-| Event  | Description                                                                                        |
-| ------ | -------------------------------------------------------------------------------------------------- |
-| change | Triggered when the change from input happens. The event detail contains the `value` of the input.  |
-| blur   | Triggered when the input is blurred. The event detail contains the `value` of the input.           |
-| focus  | Triggered when the input is focused. The event detail contains the `value` of the input.           |
-| update | Triggered when the value of the input changes. The event detail contains the `value` of the input. |
+### Usage
 
-## Implementation Details
+```html
+<script lang="ts">
+	import { SpinnerProps } from './path-to-spinner-component';
 
-This module exports a Svelte component that provides an input field for entering numeric response with increment and decrement buttons. The component uses the Cleave.js library to format the input value as a number. It also provides event dispatchers for change and blur/focus events.
+	// Example usage
+	let spinnerProps: SpinnerProps = {
+		label: 'Quantity',
+		id: 'quantitySpinner',
+		step: 1,
+		min: 0,
+		max: 100,
+		value: 5,
+		disabled: false,
+		required: true,
+		overflow: false,
+		dragSpeed: 10,
+		placeholder: 'Enter quantity',
+		size: 'medium',
+		onupdate: (value) => console.log('Updated Value:', value),
+		oninput: (value) => console.log('Input Value:', value),
+		onchange: (value) => console.log('Changed Value:', value),
+		onblur: () => console.log('Input blurred'),
+		onfocus: () => console.log('Input focused'),
+	};
+</script>
 
-This component can be used for time inputs. To do so, set the step to 60 and the min to 0. Then, the value will be in minutes and the input will be formatted as a time. Use 2 separate time inputs to enter hours and minutes. You can use 12 as max for the first input if 12h time format is desired.
+<Spinner {...spinnerProps} />
+```

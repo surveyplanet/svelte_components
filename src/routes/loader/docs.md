@@ -1,12 +1,19 @@
-# Loader Component
+# Loader component
 
-The `Loader` component displays a loader based on the amount of colors provided
+### Interfaces
 
-## Props
+#### `LoaderProps`
 
-The following props can be passed to the `Loader` component:
+| Property      | Type             | Description                                    |
+| ------------- | ---------------- | ---------------------------------------------- |
+| `colors`      | String[]         | Array of color codes for the loader animation. |
+| `size`        | Number           | Size of the loader. Defaults to 72.            |
+| `strokeWidth` | 1 \| 2 \| 3 \| 4 | Stroke width of the loader. Defaults to 4.     |
 
-| Prop name | Type                            | Default value          | Description            |
-| --------- | ------------------------------- | ---------------------- | ---------------------- |
-| `colors`  | `string[]`                      | ['#e2bd60', '#79c5e5'] | An array of hex colors |
-| `size`    | `'small' \|'medium' \| 'large'` | 'medium'               | The size of the loader |
+### Properties
+
+| Property      | Type             | Description                                    |
+| ------------- | ---------------- | ---------------------------------------------- |
+| `colors`      | String[]         | Array of color codes for the loader animation. |
+| `size`        | Number           | Size of the loader. Defaults to 72.            |
+| `strokeWidth` | 1 \| 2 \| 3 \| 4 | Stroke width of the loader. Defaults to 4.     |

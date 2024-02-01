@@ -1,20 +1,33 @@
-# Upload component
+# Upload Component
 
-<DESCRIPTION HERE>
- 
-### Types
+The `Upload` component allows users to upload an image with specified formats and maximum size.
 
-| Name              | Type          | Description                        |
-| ----------------- | ------------- | ---------------------------------- |
-| 'FileEventTarget' | `EventTarget` | adds 'FileList' to the EventTarget |
+### Properties
 
-### Props
+#### `UploadProps`
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Property   | Type                                                                   | Description                                             |
+| ---------- | ---------------------------------------------------------------------- | ------------------------------------------------------- |
+| `label`    | `string`                                                               | The label or text associated with the upload button.    |
+| `formats`  | `string[]`                                                             | Array of allowed file formats (e.g., `['jpg', 'png']`). |
+| `maxSize`  | `number`                                                               | The maximum allowed file size in megabytes (MB).        |
+| `onchange` | `(data: { image: File; data: string \| ArrayBuffer \| null }) => void` | Callback triggered when a file is selected.             |
 
-### Events
+### Usage
 
-| Event  | Description                                           |
-| ------ | ----------------------------------------------------- |
-| Change | Dispatches the image and data to the parent component |
+```html
+<script lang="ts">
+	import { UploadProps } from './path-to-upload-component';
+
+	// Example usage
+	let uploadProps: UploadProps = {
+		label: 'Upload Image',
+		formats: ['jpg', 'png'],
+		maxSize: 10,
+		onchange: ({ image, data }) =>
+			console.log('File uploaded:', image, 'Data:', data),
+	};
+</script>
+
+<Upload {...uploadProps} />
+```

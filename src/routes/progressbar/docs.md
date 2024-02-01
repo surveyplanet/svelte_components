@@ -1,12 +1,30 @@
-# ProgressBar Component
+# ProgressBar component
 
-The `ProgressBar` component displays how much of a task has been completed.
+### Properties
 
-## Props
+#### `ProgressBarProps`
 
-The following props can be passed to the `ProgressBar` component:
+| Property       | Type      | Description                                              |
+| -------------- | --------- | -------------------------------------------------------- |
+| `max`          | `number`  | Maximum value for the progress bar.                      |
+| `value`        | `number`  | Current value for the progress bar.                      |
+| `speed`        | `number`  | Duration (in milliseconds) of the transition animation.  |
+| `displayValue` | `boolean` | Flag to determine whether to display the progress value. |
 
-| Prop name | Type     | Default value | Description                        |
-| --------- | -------- | ------------- | ---------------------------------- |
-| `max`     | `number` | 0             | The max value of the progress.     |
-| `value`   | `number` | 0             | The current value of the progress. |
+### Usage
+
+```html
+<script lang="ts">
+	import { ProgressBarProps } from './path-to-progressbar-component';
+
+	// Example usage
+	let progressBarProps: ProgressBarProps = {
+		max: 100,
+		value: 50,
+		speed: 1000,
+		displayValue: true,
+	};
+</script>
+
+<ProgressBar {...progressBarProps} />
+```

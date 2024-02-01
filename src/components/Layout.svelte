@@ -50,8 +50,6 @@
 		document.body.classList[isDarkMode ? 'add' : 'remove']('dark'); // add dark mode
 
 		if (eventsLogs) {
-			console.log('eventsLogs');
-			console.log(componentEvents);
 			componentEvents?.scrollTo({
 				top: componentEvents.scrollHeight,
 				behavior: 'smooth',
@@ -71,7 +69,6 @@
 	};
 
 	const menuClickHandler = (id: string) => {
-		console.log(id);
 		dropdownValue = id;
 
 		window.location.href = `/${id}`;
