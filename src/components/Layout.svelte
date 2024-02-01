@@ -202,15 +202,12 @@
 		</header>
 		<div id="component-events">
 			<ul>
-				{#each eventsLogs as event}
+				{#each eventsLogs as event (event)}
 					<li class="component-event">
 						<code>{event}</code>
 					</li>
 				{/each}
 			</ul>
-			<!-- <pre bind:this={logContent}>
-				<code> {JSON.stringify(eventsLogs, null, 2)} </code>
-			</pre> -->
 		</div>
 	</footer>
 </div>

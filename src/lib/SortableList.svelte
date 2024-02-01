@@ -26,7 +26,6 @@
 	import { flip } from 'svelte/animate';
 
 	let { data, sort } = $props<SortListProps>();
-	// $: data = data;
 
 	// FLIP ANIMATION
 	const [send, receive] = crossfade({
@@ -145,24 +144,4 @@
 </ul>
 
 <style lang="scss">
-	ul {
-		list-style: none;
-		padding: 0;
-		display: flex;
-		flex-wrap: nowrap;
-		flex-direction: column;
-	}
-	li {
-		border: 2px dotted transparent;
-		transition: border 0.1s linear;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		.img {
-			width: 100%;
-			height: auto;
-			pointer-events: none;
-		}
-	}
 </style>
