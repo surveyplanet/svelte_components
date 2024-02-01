@@ -36,10 +36,10 @@
 
 	const inputChangeHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
-		const value = {
+		const value: FormValue = {
 			label: target.name,
 			value: target.value,
-		} as FormValue;
+		};
 		updateResponse(value);
 		formResponse(response);
 	};

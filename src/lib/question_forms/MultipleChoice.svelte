@@ -62,20 +62,20 @@
 	const inputChangeHandler = (event: Event) => {
 		otherChecked = false;
 		const target = event.target as HTMLInputElement;
-		const value = {
+		const value: MultipleChoiceValue = {
 			label: target.value,
 			value: true,
-		} as MultipleChoiceValue;
+		};
 		updateResponse(value, !target.checked);
 		multipleChoiceResponse(response);
 	};
 
 	const otherChangeHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
-		const value = {
+		const value: MultipleChoiceValue = {
 			label: target.value,
 			value: otherTextValue,
-		} as MultipleChoiceValue;
+		};
 		(
 			document.querySelector(`#${id + '-text-input'}`) as HTMLInputElement
 		)?.focus();

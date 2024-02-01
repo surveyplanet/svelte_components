@@ -3,7 +3,7 @@
 	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ChipData[]>([]);
+	let events = $state<ChipData[][]>([]);
 
 	let data: ChipData[] = $state([
 		{
@@ -33,10 +33,11 @@
 	let removable = $state(false);
 
 	const chipSelected = (data: ChipData[]): void => {
-		data.forEach((chip) => events.push(chip));
+		// data.forEach((chip) => events.push(chip));
+		events.push(data);
 	};
 	const chipRemoved = (data: ChipData[]): void => {
-		data.forEach((chip) => events.push(chip));
+		events.push(data);
 	};
 
 	let stringData = $state(JSON.stringify(data));

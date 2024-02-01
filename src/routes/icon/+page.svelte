@@ -5,7 +5,7 @@
 	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state([]) as string[];
+	let events = $state<string[]>([]);
 
 	let color = $state(COLORS.dark);
 	let size: IconSize = $state(24);

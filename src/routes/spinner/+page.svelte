@@ -4,7 +4,7 @@
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state([]);
+	let events = $state<(number | undefined)[]>([]);
 	let keys = $state(0);
 
 	let label = $state('Number Spinner');

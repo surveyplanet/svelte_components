@@ -4,7 +4,7 @@
 	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state([]) as EssayValue[];
+	let events = $state<EssayValue[][]>([]);
 	let keys = $state(0);
 
 	// Component props

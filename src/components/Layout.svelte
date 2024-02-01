@@ -37,13 +37,11 @@
 	let mkd = $state(marked(md));
 	let reload = $state(0); //used to force reload the component
 	let componentsData = $state(createComponentsStore.componentsStore);
-	let componentEvents: HTMLDivElement | null = $state(null);
+	let componentEvents: HTMLElement | null = $state(null);
 	// let eventsLogs: unknown[] = $state([]);
 	let eventsLogs: unknown[] = $derived(
 		events?.length ? events.map((event) => JSON.stringify(event)) : []
 	);
-
-	$inspect(eventsLogs); // inspect the eventsLogs
 
 	let tabSelected = $state('Example');
 	let dropdownValue = $state();
@@ -52,6 +50,12 @@
 		document.body.classList[isDarkMode ? 'add' : 'remove']('dark'); // add dark mode
 
 		if (eventsLogs) {
+			console.log('eventsLogs');
+			console.log(componentEvents);
+			componentEvents?.scrollTo({
+				top: componentEvents.scrollHeight,
+				behavior: 'smooth',
+			});
 		}
 	});
 
@@ -190,13 +194,13 @@
 		</section>
 	</main>
 
-	<footer id="main-footer">
+	<footer
+		id="main-footer"
+		bind:this={componentEvents}>
 		<header>
 			<h3>Events</h3>
 		</header>
-		<div
-			id="component-events"
-			bind:this={componentEvents}>
+		<div id="component-events">
 			<ul>
 				{#each eventsLogs as event}
 					<li class="component-event">

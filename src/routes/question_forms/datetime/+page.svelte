@@ -9,7 +9,7 @@
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state([]) as DateTimeValue[];
+	let events = $state<DateTimeValue[][]>([]);
 	let keys = $state(0);
 
 	let id = $state('abc123');

@@ -68,10 +68,10 @@
 
 		if (!label) return; // don't do anything if label is not found. This should never happen.
 
-		const selected = {
+		const selected: ImageValue = {
 			label: label.label,
 			value: label.image,
-		} as ImageValue;
+		};
 
 		// remove value if already exits.
 		if (multi) {

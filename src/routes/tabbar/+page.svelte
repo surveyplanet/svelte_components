@@ -4,7 +4,8 @@
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state([]) as string[];
+	let events = $state<string[]>([]);
+
 	let keys = $state(0);
 	let data: TabBarData[] = $state([
 		{

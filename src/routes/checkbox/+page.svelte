@@ -3,7 +3,7 @@
 	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state([]) as Event[];
+	let events = $state<Event[]>([]);
 
 	let id: string = $state((Date.now() + Math.random()).toString(36));
 	let name = $state('checkbox');

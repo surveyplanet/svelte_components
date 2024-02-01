@@ -48,10 +48,10 @@
 	const inputChangeHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 
-		const value = {
+		const value: ScoringValue = {
 			label: target.name,
 			value: Number(target.value),
-		} as ScoringValue;
+		};
 
 		updateResponse(value);
 
@@ -73,7 +73,7 @@
 		response = [];
 		scoringResponse(response);
 	};
-	let sortedLabels = [] as { label: string }[];
+	let sortedLabels: { label: string }[] = [];
 	const listSorted = (labels: string[]): typeof sortedLabels => {
 		labels.forEach((label) => {
 			sortedLabels.push({
