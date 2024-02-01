@@ -12,7 +12,6 @@
 	let value: string = $state('');
 	let label = $state('Text input');
 	let placeholder = $state('Placeholder');
-	let multiline = $state(false);
 	let readonly = $state(false);
 	let disabled = $state(false);
 	let cleaveOptions = $state({});
@@ -54,7 +53,6 @@
 		value,
 		label,
 		placeholder,
-		multiline,
 		readonly,
 		disabled,
 		cleaveOptions,
@@ -63,7 +61,7 @@
 		size
 	)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Id"
@@ -83,6 +81,7 @@
 				'date',
 				'time',
 				'datetime-local',
+				'multiline',
 			]}
 			bind:value={type} />
 		<PropsChanger
@@ -97,10 +96,6 @@
 			label="Placeholder"
 			text
 			bind:value={placeholder} />
-		<PropsChanger
-			label="Multiline"
-			checkbox
-			bind:value={multiline} />
 		<PropsChanger
 			label="Readonly"
 			checkbox
@@ -135,7 +130,6 @@
 			{value}
 			{label}
 			{placeholder}
-			{multiline}
 			{readonly}
 			{disabled}
 			{cleaveOptions}

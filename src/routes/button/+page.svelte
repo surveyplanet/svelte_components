@@ -34,7 +34,7 @@
 		size
 	)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Content"

@@ -16,7 +16,6 @@
 	let disabled = $state(false);
 
 	const clickEventHandler = () => {
-		console.log('clicked');
 		events.push('click');
 	};
 </script>
@@ -25,7 +24,7 @@
 	component="Avatar"
 	example={source(profileImage, id, size, disabled)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Profile Image"

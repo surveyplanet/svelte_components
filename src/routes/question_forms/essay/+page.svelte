@@ -14,7 +14,7 @@
 	let single: EssayProperties['single'] = $state(false);
 	let response: EssayValue[] = $state([]);
 	const essayResponseHandler = (response: EssayValue[]) => {
-		events.push(response.toString());
+		events.push(response);
 	};
 </script>
 
@@ -22,7 +22,7 @@
 	component="Essay"
 	example={source(id, min, max, single, response)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"

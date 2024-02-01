@@ -5,7 +5,7 @@
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state([]) as string[];
+	let events = $state([]);
 	let keys = $state(0);
 
 	// Component props
@@ -40,7 +40,7 @@
 	let layout: RatingProperties['layout'] = $state('1');
 	let response: RatingValue[] = $state([]);
 	const ratingResponseHandler = (response: RatingValue[]) => {
-		events.push(JSON.stringify(response));
+		events.push(response);
 	};
 	let labelStringed = $state(JSON.stringify(labels));
 
@@ -53,7 +53,7 @@
 	component="Rating"
 	example={source(id, labels, order, layout, response)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"

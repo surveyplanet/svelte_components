@@ -23,7 +23,7 @@
 		},
 	]);
 	const sortableListSortHandler = (sortData: SortListData[]) => {
-		events.push(JSON.stringify(sortData));
+		events.push(sortData);
 	};
 
 	let dataStringed = $state(JSON.stringify(data));
@@ -37,7 +37,7 @@
 	component="SortableList"
 	example={source(data)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Data"

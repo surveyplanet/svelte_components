@@ -11,17 +11,13 @@
 	let size: IconSize = $state(24);
 	let name: IconName = $state('bell');
 	let debug = $state(false);
-
-	let sizeAsString = $derived(size.toString());
-
-	// size = Number(sizeAsString) as IconSize;
 </script>
 
 <Layout
 	component="Icon"
 	example={source(color, size, name)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Color"

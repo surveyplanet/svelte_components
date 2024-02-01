@@ -48,7 +48,7 @@
 		challenge
 	)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			text={true}

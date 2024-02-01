@@ -43,7 +43,7 @@
 	 	component="Breadcrumbs"
 	 	example={source(data)}
 	 	{md}
-	 	{events}>
+	 	bind:events>
 	 	{#snippet controls()}
 	 		<PropsChanger
 	 			label="Data"
@@ -63,28 +63,14 @@
 <div class="props-changer">
 	{#if text && typeof value === 'string'}
 		<div class="props-changer--item">
-			<label for="text">{label}</label>
-			<input
-				type="text"
-				id="text"
-				bind:value
-				{oninput}
-				{onblur} />
-
-			<!-- 
-				can't use this  because if bind:value is used in the input,
-				{type} has to be static 
-
-				
-				<TextInput
+			<TextInput
 				id={`text-${text}`}
 				name="text"
 				{label}
 				type="text"
-				multiline={false}
 				bind:value
 				{oninput}
-				{onblur} /> -->
+				{onblur} />
 		</div>
 	{/if}
 	{#if number}
@@ -112,12 +98,14 @@
 	{#if object && typeof value === 'string'}
 		<label for="object">{label}</label>
 		<div class="props-changer--item">
-			<textarea
-				id={`object-${label}`}
-				name="object"
+			<TextInput
+				id={`text-${text}`}
+				name="text"
+				{label}
+				type="multiline"
+				bind:value
 				{oninput}
-				{onblur}
-				bind:value></textarea>
+				{onblur} />
 		</div>
 	{/if}
 	{#if select}

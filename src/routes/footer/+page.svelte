@@ -33,7 +33,7 @@
 	component="Footer"
 	example={source(footerData)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Footer Data"

@@ -8,7 +8,6 @@ export default (
 	value: string,
 	label: string,
 	placeholder: string,
-	multiline: boolean,
 	readonly: boolean,
 	disabled: boolean,
 	cleaveOptions: object,
@@ -25,7 +24,6 @@ export default (
 	let value = '${value}';
 	let label = '${label}';
 	let placeholder = '${placeholder}';
-	let multiline = ${multiline};
 	let readonly =  ${readonly};
 	let disabled = ${disabled};
 	let cleaveOptions = ${cleaveOptions};

@@ -31,7 +31,6 @@
 	let id = $state((Date.now() + Math.random()).toString(36));
 
 	const tabButtonClickHandler = (id: string): void => {
-		console.log(id);
 		events.push(id);
 	};
 
@@ -46,7 +45,7 @@
 	component="TabBar"
 	example={source(data, grow, id)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="data"

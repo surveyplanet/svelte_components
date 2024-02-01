@@ -57,7 +57,6 @@
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
 	const dropdownChangeHandler = (value: string) => {
-		console.log('dropdownChangeHandler', value);
 		events.push(value);
 	};
 
@@ -81,15 +80,12 @@
 		size
 	)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Options"
 			object
-			bind:value={stringedOptions}
-			onblur={() => {
-				keys += 1;
-			}} />
+			bind:value={stringedOptions} />
 		<PropsChanger
 			label="Search threshold"
 			number

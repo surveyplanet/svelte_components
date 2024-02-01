@@ -31,9 +31,8 @@
 <form class="sp-survey--question--form--essay">
 	<TextInput
 		name="text-input"
-		type="text"
+		type={single ? 'text' : 'multiline'}
 		id={`${id}-essay`}
-		multiline={!single}
 		value={response?.length ? response[0] : ''}
 		onkeyup={inputKeyupHandler} />
 

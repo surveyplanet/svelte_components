@@ -7,7 +7,8 @@
 		| 'text'
 		| 'date'
 		| 'time'
-		| 'datetime-local';
+		| 'datetime-local'
+		| 'multiline';
 
 	export type TextInputProps = {
 		id: string;
@@ -16,7 +17,6 @@
 		value?: string;
 		label?: string;
 		placeholder?: string | null;
-		multiline?: boolean;
 		readonly?: boolean;
 		disabled?: boolean;
 		cleaveOptions?: CleaveOptions;
@@ -46,7 +46,6 @@
 		value,
 		label,
 		placeholder,
-		multiline = false,
 		readonly,
 		disabled,
 		cleaveOptions,
@@ -131,34 +130,16 @@
 		</label>
 	{/if}
 
-	{#if multiline}
-		<textarea
-			class="sp-text-input--textarea"
-			{name}
-			{id}
-			{placeholder}
-			{disabled}
-			{readonly}
-			data-validate-rules={validationRules.length
-				? validationRules.join(',')
-				: null}
-			data-validate-message={validationMessage}
-			oninput={inputHandler}
-			{onblur}
-			onchange={changeHandler}
-			{onfocus}
-			{onkeydown}
-			onkeyup={onkeyupHandler}>{value}</textarea>
-	{:else}
+	{#if type === 'text'}
 		<input
 			class="sp-text-input--input"
 			{name}
-			{type}
+			type="text"
 			{id}
 			{placeholder}
 			{disabled}
 			{readonly}
-			{value}
+			bind:value
 			data-validate-rules={validationRules.length
 				? validationRules.join(',')
 				: null}
@@ -169,30 +150,126 @@
 			{onfocus}
 			{onkeydown}
 			{onkeyup} />
-
-		{#if type === 'password'}
-			{#if value?.length}
-				<button
-					class="sp-text-input--password-toggle"
-					type="button"
-					onclick={() => {
+	{:else if type === 'password'}
+		<input
+			class="sp-text-input--input"
+			{name}
+			type="text"
+			{id}
+			{placeholder}
+			{disabled}
+			{readonly}
+			bind:value
+			data-validate-rules={validationRules.length
+				? validationRules.join(',')
+				: null}
+			data-validate-message={validationMessage}
+			oninput={inputHandler}
+			{onblur}
+			onchange={changeHandler}
+			{onfocus}
+			{onkeydown}
+			{onkeyup} />
+		{#if value?.length}
+			<button
+				class="sp-text-input--password-toggle"
+				type="button"
+				onclick={() => {
 						const input = document.getElementById(id) as HTMLInputElement;
 						if (input) {
 							input.type = input.type === 'password' ? 'text' : 'password';
 						}
 					}}>
-					<Icon
-						name="eye"
-						size={16} />
-				</button>
-			{/if}
-		{:else if type === 'search'}
-			<span class="sp-text-input--search-icon">
 				<Icon
-					name="search"
+					name="eye"
 					size={16} />
-			</span>
+			</button>
 		{/if}
+	{:else if type === 'search'}
+		<span class="sp-text-input--search-icon">
+			<Icon
+				name="search"
+				size={16} />
+		</span>
+	{:else if type === 'date'}
+		<input
+			class="sp-text-input--input"
+			{name}
+			type="date"
+			{id}
+			{placeholder}
+			{disabled}
+			{readonly}
+			bind:value
+			data-validate-rules={validationRules.length
+				? validationRules.join(',')
+				: null}
+			data-validate-message={validationMessage}
+			oninput={inputHandler}
+			{onblur}
+			onchange={changeHandler}
+			{onfocus}
+			{onkeydown}
+			{onkeyup} />
+	{:else if type === 'time'}
+		<input
+			class="sp-text-input--input"
+			{name}
+			type="time"
+			{id}
+			{placeholder}
+			{disabled}
+			{readonly}
+			bind:value
+			data-validate-rules={validationRules.length
+				? validationRules.join(',')
+				: null}
+			data-validate-message={validationMessage}
+			oninput={inputHandler}
+			{onblur}
+			onchange={changeHandler}
+			{onfocus}
+			{onkeydown}
+			{onkeyup} />
+	{:else if type === 'datetime-local'}
+		<input
+			class="sp-text-input--input"
+			{name}
+			type="datetime-local"
+			{id}
+			{placeholder}
+			{disabled}
+			{readonly}
+			bind:value
+			data-validate-rules={validationRules.length
+				? validationRules.join(',')
+				: null}
+			data-validate-message={validationMessage}
+			oninput={inputHandler}
+			{onblur}
+			onchange={changeHandler}
+			{onfocus}
+			{onkeydown}
+			{onkeyup} />
+	{:else if type === 'multiline'}
+		<textarea
+			class="sp-text-input--textarea"
+			{name}
+			{id}
+			{placeholder}
+			{disabled}
+			{readonly}
+			bind:value
+			data-validate-rules={validationRules.length
+				? validationRules.join(',')
+				: null}
+			data-validate-message={validationMessage}
+			oninput={inputHandler}
+			{onblur}
+			onchange={changeHandler}
+			{onfocus}
+			{onkeydown}
+			onkeyup={onkeyupHandler}>{value}</textarea>
 	{/if}
 	{#if !validationHideMessage && hasValidationErrors && validationDisplayMessage.length}
 		<label

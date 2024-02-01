@@ -3,7 +3,7 @@
 	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state([]) as string[];
+	let events = $state([]) as boolean[];
 	let keys = $state(0);
 
 	let id = $state((Date.now() + Math.random()).toString(36));
@@ -16,7 +16,7 @@
 	// let meridiemIndicator = false;
 
 	const changeEventHandler = (toggle: boolean): void => {
-		events.push(JSON.stringify(toggle));
+		events.push(toggle);
 	};
 </script>
 
@@ -24,7 +24,7 @@
 	component="Toggle"
 	example={source(id, on, disabled, tall, name, label, prependLabel)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Name"

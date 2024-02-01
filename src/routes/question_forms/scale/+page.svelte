@@ -13,7 +13,7 @@
 	let max: ScaleProperties['max'] = $state(10);
 	let response: ScaleValue[] = $state([]);
 	const scaleResponseHandler = (response: ScaleValue[]) => {
-		events.push(JSON.stringify(response));
+		events.push(response);
 	};
 </script>
 
@@ -21,7 +21,7 @@
 	component="Scale"
 	example={source(id, min, max, response)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"

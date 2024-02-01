@@ -13,7 +13,7 @@
 	let max: RangeProperties['max'] = $state(10);
 	let response: RangeValue[] = $state([]);
 	const rangeResponseHandler = (response: RangeValue[]) => {
-		events.push(JSON.stringify(response));
+		events.push(response);
 	};
 </script>
 
@@ -21,7 +21,7 @@
 	component="Range"
 	example={source(id, min, max, response)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"

@@ -18,7 +18,7 @@
 	component="Banner"
 	example={source(content, title, type, visible, hideDelay)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="title"

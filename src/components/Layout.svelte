@@ -16,7 +16,7 @@
 	interface LayoutProps {
 		example: string;
 		md: string;
-		events: string[] | string[][];
+		events?: unknown[];
 		component: string;
 		value?: string;
 		main: Snippet;

@@ -39,7 +39,7 @@
 	component="MultipleChoice"
 	example={source(id, labels, multi, layout, random, min, max, response)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"

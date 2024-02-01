@@ -33,7 +33,7 @@
 	component="Breadcrumbs"
 	example={source(data)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Data"

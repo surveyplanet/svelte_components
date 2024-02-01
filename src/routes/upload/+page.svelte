@@ -4,7 +4,7 @@
 	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state([]) as string[];
+	let events = $state([]) as object[];
 	let keys = $state(0);
 
 	let label = $state('Upload');
@@ -16,7 +16,7 @@
 		data: string | ArrayBuffer | null;
 	}) => {
 		setUpload(uploadData);
-		events.push(JSON.stringify(uploadData));
+		events.push(uploadData);
 	};
 
 	const setUpload = (uploadData: {
@@ -39,7 +39,7 @@
 	component="Upload"
 	example={source(label, formats, maxSize)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Label"

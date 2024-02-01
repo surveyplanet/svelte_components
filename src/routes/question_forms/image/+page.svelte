@@ -33,7 +33,7 @@
 		},
 	]);
 	const imageResponseHandler = (response: ImageValue[]) => {
-		events.push(JSON.stringify(response, null, 2));
+		events.push(response);
 	};
 
 	let labelsString = $state(JSON.stringify(labels));
@@ -58,7 +58,7 @@
 		random,
 		response
 	)}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"

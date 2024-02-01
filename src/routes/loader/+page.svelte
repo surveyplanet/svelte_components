@@ -33,7 +33,7 @@
 	component="Loader"
 	example={source(colors, size, strokeWidth)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Colors"

@@ -34,7 +34,7 @@
 	component="Menu"
 	example={source(menuVisible, data, size)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Visible"

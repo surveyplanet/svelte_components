@@ -54,7 +54,7 @@
 	component="NavBar"
 	example={source(data, navMenuData, vertical)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Data"

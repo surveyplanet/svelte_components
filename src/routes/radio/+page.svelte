@@ -14,7 +14,7 @@
 	let prependLabel = $state(false);
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
-	const changeEventHandler = (e: Event): void => {
+	const changeEventHandler = (): void => {
 		events.push('change');
 	};
 </script>
@@ -31,7 +31,7 @@
 		size
 	)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		doesn't work for text changes
 

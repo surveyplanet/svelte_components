@@ -12,19 +12,19 @@
 	let visible = $state(false);
 	let size: 'small' | 'medium' | 'large' = $state('medium');
 
-	const modalOpened = (e: Event): void => {
+	const modalOpened = (): void => {
 		events.push('open');
 	};
 
-	const modalIn = (e: Event): void => {
+	const modalIn = (): void => {
 		events.push('in');
 	};
 
-	const modalOut = (e: Event): void => {
+	const modalOut = (): void => {
 		events.push('out');
 	};
 
-	const close = (e: Event) => {
+	const close = () => {
 		events.push('close');
 	};
 </script>
@@ -33,7 +33,7 @@
 	component="Modal"
 	example={source(title, subtitle, fullscreen, overlay, visible, size)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Title"

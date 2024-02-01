@@ -4,7 +4,7 @@
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state([]) as string[];
+	let events = $state([]);
 	let keys = $state(0);
 
 	let label = $state('Number Spinner');
@@ -20,8 +20,8 @@
 	let dragSpeed = $state(10);
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
-	const spinnerEventHandler = (e: CustomEvent) => {
-		events.push(e.detail);
+	const spinnerEventHandler = (value: number | undefined) => {
+		events.push(value);
 	};
 </script>
 
@@ -42,7 +42,7 @@
 		size
 	)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		Events need to be fixed
 
@@ -110,7 +110,7 @@
 			{placeholder}
 			{dragSpeed}
 			{size}
-			on:change={spinnerEventHandler} />
+			onchange={spinnerEventHandler} />
 	{/snippet}
 </Layout>
 

@@ -23,7 +23,7 @@
 	component="Logo"
 	example={source(size, fill, color, symbolOnly)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Color"

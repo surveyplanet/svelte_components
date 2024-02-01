@@ -3,7 +3,7 @@
 	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<string[]>([]);
+	let events = $state<ChipData[]>([]);
 
 	let data: ChipData[] = $state([
 		{
@@ -33,10 +33,10 @@
 	let removable = $state(false);
 
 	const chipSelected = (data: ChipData[]): void => {
-		events.push(JSON.stringify(data));
+		data.forEach((chip) => events.push(chip));
 	};
 	const chipRemoved = (data: ChipData[]): void => {
-		events.push(JSON.stringify(data));
+		data.forEach((chip) => events.push(chip));
 	};
 
 	let stringData = $state(JSON.stringify(data));
@@ -49,7 +49,7 @@
 	component="Chips"
 	example={source(data, selectable, multiSelect, removable)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="data"

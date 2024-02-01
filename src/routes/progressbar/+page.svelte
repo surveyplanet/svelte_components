@@ -15,7 +15,7 @@
 	component="ProgressBar"
 	example={source(speed, max, value, displayValue)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Speed"

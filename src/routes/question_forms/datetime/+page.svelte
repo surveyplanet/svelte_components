@@ -25,7 +25,7 @@
 	]);
 
 	const dateTimeResponseHandler = (datetime: DateTimeValue[]) => {
-		events.push(datetime.toString());
+		events.push(datetime);
 	};
 
 	// let responseString = $state(JSON.stringify(response));
@@ -38,7 +38,7 @@
 	component="DateTime"
 	example={source(id, date, time, definitions, response)}
 	{md}
-	{events}>
+	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"
