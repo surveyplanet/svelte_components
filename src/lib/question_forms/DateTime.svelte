@@ -62,15 +62,13 @@
 
 	const dateInputChangeHandler = (event: Event) => {
 		const { value } = event.target as HTMLInputElement; // "1977-04-12T11:21"
+		// let valueString = dateToString(type, [value]);
+		// if (!valueString) return;
+		//TODO: it seems like it is working as it is, the above conversion using dateToString is messing up with the input value
 		const date = stringToDate(type, value);
 		if (date) {
 			updateResponse(date);
 		}
-	};
-
-	const handle = (): string | undefined => {
-		console.log('handle', response, type);
-		return dateToString(type, response);
 	};
 </script>
 
@@ -81,6 +79,5 @@
 		size="large"
 		label=""
 		bind:type={inputType}
-		oninput={dateInputChangeHandler}
-		value={handle()} />
+		oninput={dateInputChangeHandler} />
 </form>
