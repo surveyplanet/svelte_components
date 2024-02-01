@@ -1,8 +1,6 @@
 import type { SortListData } from '../../lib/index';
 export default (data: SortListData[]) => {
 	return `
-	import type { ListData } from './types';
-	<SortableList
-	data={${JSON.stringify(data)}}
-/>`;
+	import { SortableList } from '@surveyplanet/svelte-components';
+	<SortableList data={${JSON.stringify(data)}} />`;
 };

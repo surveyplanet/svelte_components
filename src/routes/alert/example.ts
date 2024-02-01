@@ -9,6 +9,10 @@ export default (
 	challenge: string
 ) => {
 	return `
+<script lang="ts">
+	import { Alert } from '@surveyplanet/svelte-components';
+</script>
+
 <Alert 
   title='${title}'
   subtitle='${subtitle}'
