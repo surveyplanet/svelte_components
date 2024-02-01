@@ -154,17 +154,17 @@
 					id="tab-bar"
 					data={[
 						{
+							id: 'controls',
+							label: 'Controls',
+							selected: true,
+						},
+						{
 							id: 'example',
 							label: 'Example',
 						},
 						{
 							id: 'docs',
 							label: 'Docs',
-						},
-						{
-							id: 'controls',
-							label: 'Controls',
-							selected: true,
 						},
 					]}
 					tabButton={tabHandler} />
@@ -186,8 +186,8 @@
 					<div class="help-content">
 						<h2>Examples</h2>
 						<pre>
-						<code> {example} </code>
-					</pre>
+							<code> {example} </code>
+						</pre>
 					</div>
 				{/if}
 			</div>
