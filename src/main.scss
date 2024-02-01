@@ -114,11 +114,13 @@ pre {
 	margin: 0;
 	border-top: 1px solid $color--beige-darker;
 	background-color: $color--beige;
-	pre {
+	min-height: 10rem;
+	overflow-y: auto;
+	.component-events {
 		margin: 0;
 		padding: $size-space--m;
 		overflow: auto;
-		max-height: 200px;
+		max-height: 50px;
 		// code {  }
 	}
 }

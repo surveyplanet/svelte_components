@@ -37,7 +37,7 @@
 	let mkd = $state(marked(md));
 	let reload = $state(0); //used to force reload the component
 	let componentsData = $state(createComponentsStore.componentsStore);
-
+	let componentEvents: HTMLDivElement | null = $state(null);
 	// let eventsLogs: unknown[] = $state([]);
 	let eventsLogs: unknown[] = $derived(
 		events?.length ? events.map((event) => JSON.stringify(event)) : []
@@ -50,6 +50,9 @@
 
 	$effect(() => {
 		document.body.classList[isDarkMode ? 'add' : 'remove']('dark'); // add dark mode
+
+		if (eventsLogs) {
+		}
 	});
 
 	const tabHandler = (id: string) => {
@@ -103,7 +106,7 @@
 		{#key reload}
 			<Menu
 				data={componentsData}
-				size="medium"
+				size="small"
 				menuClick={menuClickHandler} />
 		{/key}
 	</aside>
@@ -191,10 +194,14 @@
 		<header>
 			<h3>Events</h3>
 		</header>
-		<div id="component-events">
+		<div
+			id="component-events"
+			bind:this={componentEvents}>
 			<ul>
 				{#each eventsLogs as event}
-					<li class="component-event">{event}</li>
+					<li class="component-event">
+						<code>{event}</code>
+					</li>
 				{/each}
 			</ul>
 			<!-- <pre bind:this={logContent}>
