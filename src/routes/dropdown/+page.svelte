@@ -128,7 +128,7 @@
 				{placeholder}
 				{label}
 				{size}
-				onchange={dropdownChangeHandler} />
+				onChange={dropdownChangeHandler} />
 		{/key}
 	{/snippet}
 </Layout>

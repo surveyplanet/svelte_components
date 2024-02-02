@@ -12,11 +12,11 @@
 		challenge?: string;
 		challengeLabel?: string;
 		animationMilliseconds?: number;
-		onconfirm?: () => void;
-		onopen?: () => void;
-		onin?: () => void;
-		onclose?: () => void;
-		onout?: () => void;
+		onConfirm?: () => void;
+		onOpen?: () => void;
+		onIn?: () => void;
+		onClose?: () => void;
+		onOut?: () => void;
 		children?: Snippet;
 	};
 </script>
@@ -43,11 +43,11 @@
 		challenge = '', // challenge string to confirm action
 		challengeLabel = '',
 		animationMilliseconds = 350,
-		onconfirm,
-		onopen,
-		onin,
-		onclose,
-		onout,
+		onConfirm,
+		onOpen,
+		onIn,
+		onClose,
+		onOut,
 		children,
 	} = $props<AlertProps>();
 
@@ -97,7 +97,7 @@
 	const alertConfirmButtonClickHandler = () => {
 		const value = isChallenge ? !disableConfirmButton : true;
 		visible = false;
-		if (onconfirm) onconfirm();
+		if (onConfirm) onConfirm();
 	};
 </script>
 
@@ -113,10 +113,10 @@
 			duration: animationMilliseconds,
 			easing: cubicOut,
 		}}
-		onintrostart={onopen}
-		onintroend={onin}
-		onoutrostart={onclose}
-		onoutroend={onout}>
+		onIntroStart={onOpen}
+		onIntroEnd={onIn}
+		onOutroStart={onClose}
+		onOutroEnd={onOut}>
 		<div class="sp-alert--col-a">
 			<div class="sp-alert--sidebar">
 				<img
@@ -128,7 +128,7 @@
 			<header class="sp-alert--header">
 				{#if !confirm}
 					<button
-						onclick={closeButtonClickHandler}
+						onClick={closeButtonClickHandler}
 						class="sp-alert--header--close-btn">
 						<Icon
 							color={COLORS.dark}
@@ -161,21 +161,21 @@
 								name="challenge"
 								label={challengeLabel}
 								placeholder={challenge}
-								onkeyup={challengeKeyupHandler} />
+								onKeyup={challengeKeyupHandler} />
 						</div>
 					{/if}
 					<menu>
 						<li class="sp-alert--confirm-btn">
 							<Button
 								disabled={disableConfirmButton}
-								onclick={alertConfirmButtonClickHandler}
+								onClick={alertConfirmButtonClickHandler}
 								mode={BUTTON_MODES.primary}>
 								{confirmButtonLabel}
 							</Button>
 						</li>
 						<li class="sp-alert--close-btn">
 							<Button
-								onclick={closeButtonClickHandler}
+								onClick={closeButtonClickHandler}
 								mode={BUTTON_MODES.light}>
 								{cancelButtonLabel}
 							</Button>

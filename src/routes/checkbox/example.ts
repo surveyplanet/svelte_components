@@ -24,6 +24,6 @@ export default (
 	disabled = ${disabled}
 	prependLabel = ${prependLabel}
 	size = '${size}'
-	onchange={changeEventHandler}/>
+	onChange={changeEventHandler}/>
 `;
 };

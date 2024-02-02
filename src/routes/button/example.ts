@@ -28,7 +28,7 @@ export default (
 	type = '${type}'
 	size = '${size}' >
 	${content}
-	onclick={clickHandler}
+	onClick={clickHandler}
 </Button>
 `;
 };

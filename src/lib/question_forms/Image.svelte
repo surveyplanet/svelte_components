@@ -111,7 +111,7 @@
 				name={id}
 				value={item.image}
 				type={multi ? 'checkbox' : 'radio'}
-				oninput={inputChangeHandler} />
+				onInput={inputChangeHandler} />
 
 			{#if !hideCaptions}
 				<span class="sp-survey--question--form--image--item--label">

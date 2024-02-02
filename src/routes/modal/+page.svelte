@@ -65,10 +65,10 @@
 		<Modal
 			{visible}
 			{size}
-			onintrostart={modalOpened}
-			onintroend={modalIn}
-			onoutrostart={modalOut}
-			onoutroend={close}
+			onIntroStart={modalOpened}
+			onIntroEnd={modalIn}
+			onOutroStart={modalOut}
+			onOutroEnd={close}
 			{title}
 			{subtitle}
 			{fullscreen}
@@ -92,7 +92,7 @@
 		</Modal>
 		<div class="button-for-tests">
 			<Button
-				onclick={() => {
+				onClick={() => {
 					visible = true;
 				}}>Launch modal</Button>
 		</div>

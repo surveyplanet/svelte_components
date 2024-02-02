@@ -40,7 +40,7 @@
 			label="Content"
 			bind:value={content}
 			text
-			oninput={(e: Event) => {
+			onInput={(e: Event) => {
 					content = (e.target as HTMLInputElement).value;
 				}} />
 		<PropsChanger
@@ -81,7 +81,7 @@
 	{/snippet}
 	{#snippet main()}
 		<Button
-			onclick={clickHandler}
+			onClick={clickHandler}
 			{mode}
 			{disabled}
 			{loader}

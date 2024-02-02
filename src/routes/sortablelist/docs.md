@@ -19,26 +19,12 @@ A type that extends `HTMLElement` to include specific properties for handling dr
 
 #### `SortListProps`
 
-| Property | Type                             | Description                          |
-| -------- | -------------------------------- | ------------------------------------ |
-| `data`   | `SortListData[]`                 | The array of items to be sorted.     |
-| `sort`   | `(data: SortListData[]) => void` | Callback function to handle sorting. |
+| Property | Type             | Description                      |
+| -------- | ---------------- | -------------------------------- |
+| `data`   | `SortListData[]` | The array of items to be sorted. |
 
-### Usage
+### Callbacks
 
-```html
-<script lang="ts">
-	import { SortListProps } from './path-to-sortlist-component';
-
-	// Example usage
-	let sortListProps: SortListProps = {
-		data: [
-			{ label: 'Item 1', meta: 'Meta 1', image: 'url1', icon: 'icon1' },
-			// ... other items
-		],
-		sort: (sortedData) => console.log('Sorted Data:', sortedData),
-	};
-</script>
-
-<SortList {...sortListProps} />
-```
+| Name     | Description                          | Type                             |
+| -------- | ------------------------------------ | -------------------------------- |
+| `onSort` | Event handler for list item sorting. | `(data: SortListData[]) => void` |

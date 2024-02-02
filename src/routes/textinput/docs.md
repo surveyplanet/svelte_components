@@ -33,44 +33,14 @@ The `TextInputType` is a union type representing different types of text inputs:
 | `validationMessage`     | `string \| null`                 | Custom validation error message.                  |
 | `size`                  | `'small' \| 'medium' \| 'large'` | The size of the text input.                       |
 | `validationHideMessage` | `boolean \| null`                | If `true`, hides the validation error message.    |
-| `oninput`               | `(e: Event) => void`             | Callback triggered on input change.               |
-| `onblur`                | `(e: Event) => void`             | Callback triggered on input blur.                 |
-| `onchange`              | `(e: Event) => void`             | Callback triggered on input change.               |
-| `onfocus`               | `(e: Event) => void`             | Callback triggered on input focus.                |
-| `onkeydown`             | `(e: Event) => void`             | Callback triggered on keydown event.              |
-| `onkeyup`               | `(e: Event) => void`             | Callback triggered on keyup event.                |
 
-### Usage
+### Callbacks
 
-```html
-<script lang="ts">
-	import { TextInputProps } from './path-to-textinput-component';
-
-	// Example usage
-	let textInputProps: TextInputProps = {
-		id: 'myInput',
-		name: 'myInputName',
-		type: 'text',
-		value: '',
-		label: 'Enter your text',
-		placeholder: 'Type here...',
-		readonly: false,
-		disabled: false,
-		cleaveOptions: {
-			/* Cleave.js options */
-		},
-		validationRules: ['require', 'minLength:3'],
-		validationMessage: 'Please enter at least 3 characters.',
-		size: 'medium',
-		validationHideMessage: false,
-		oninput: (e) => console.log('Input changed:', e),
-		onblur: (e) => console.log('Input blurred:', e),
-		onchange: (e) => console.log('Input changed:', e),
-		onfocus: (e) => console.log('Input focused:', e),
-		onkeydown: (e) => console.log('Keydown event:', e),
-		onkeyup: (e) => console.log('Keyup event:', e),
-	};
-</script>
-
-<TextInput {...textInputProps} />
-```
+| Name        | Description                                   | Type                 |
+| ----------- | --------------------------------------------- | -------------------- |
+| `onInput`   | Callback function triggered on input change.  | `(e: Event) => void` |
+| `onBlur`    | Callback function triggered on input blur.    | `(e: Event) => void` |
+| `onChange`  | Callback function triggered on input change.  | `(e: Event) => void` |
+| `onFocus`   | Callback function triggered on input focus.   | `(e: Event) => void` |
+| `onKeydown` | Callback function triggered on keydown event. | `(e: Event) => void` |
+| `onKeyup`   | Callback function triggered on keyup event.   | `(e: Event) => void` |

@@ -74,7 +74,7 @@
 				label={labelOne}
 				{prependLabel}
 				{size}
-				onchange={changeEventHandler} />
+				onChange={changeEventHandler} />
 			<Radio
 				id={labelTwo.toLowerCase().replace(' ', '-')}
 				{disabled}
@@ -83,7 +83,7 @@
 				label={labelTwo}
 				{prependLabel}
 				{size}
-				onchange={changeEventHandler} />
+				onChange={changeEventHandler} />
 			<Radio
 				id={labelThree.toLowerCase().replace(' ', '-')}
 				{disabled}
@@ -92,7 +92,7 @@
 				label={labelThree}
 				{prependLabel}
 				{size}
-				onchange={changeEventHandler} />
+				onChange={changeEventHandler} />
 		</div>
 	{/snippet}
 </Layout>

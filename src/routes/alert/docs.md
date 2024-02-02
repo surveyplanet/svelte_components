@@ -15,12 +15,12 @@
 | `challengeLabel`               | String  | The label for the challenge input.                                                                |
 | `animationMilliseconds=1000`   | Number  | The total time in milliseconds for the alert to animate in or out.                                |
 
-### Events
+### Callbacks
 
-| Name      | description                                                   |
-| --------- | ------------------------------------------------------------- |
-| `onopen`  | Alert has been instantiated.                                  |
-| `onin`    | Alert is full rendered on stage and in animation is complete. |
-| `onclose` | Alert has been closed.                                        |
-| `onout`   | Alert has been fully removed and out animation is complete.   |
-| `confirm` | Confirmation alert has been confirmed.                        |
+| Name      | description                                                   | type         |
+| --------- | ------------------------------------------------------------- | ------------ |
+| `onOpen`  | Alert has been instantiated.                                  | `() => void` |
+| `onIn`    | Alert is full rendered on stage and in animation is complete. | `() => void` |
+| `onClose` | Alert has been closed.                                        | `() => void` |
+| `onOut`   | Alert has been fully removed and out animation is complete.   | `() => void` |
+| `confirm` | Confirmation alert has been confirmed.                        | `() => void` |

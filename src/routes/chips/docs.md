@@ -18,8 +18,13 @@
 | `selectable`  | Boolean    | Enables chip selection if `true`.         |
 | `multiSelect` | Boolean    | Allows multiple chip selection if `true`. |
 | `removable`   | Boolean    | Enables chip removal if `true`.           |
-| `onclick`     | Function   | Click event handler for the chips.        |
-| `onremove`    | Function   | Remove event handler for the chips.       |
+
+### Callbacks
+
+| Name       | Description                         | Type                         |
+| ---------- | ----------------------------------- | ---------------------------- |
+| `onClick`  | Click event handler for the chips.  | `(data: ChipData[]) => void` |
+| `onRemove` | Remove event handler for the chips. | `(data: ChipData[]) => void` |
 
 ### Methods
 
@@ -39,5 +44,5 @@ Toggles the selection state of the chip with the specified ID.
 
 | Name       | Description                       |
 | ---------- | --------------------------------- |
-| `onclick`  | Triggered when a chip is clicked. |
-| `onremove` | Triggered when a chip is removed. |
+| `onClick`  | Triggered when a chip is clicked. |
+| `onRemove` | Triggered when a chip is removed. |

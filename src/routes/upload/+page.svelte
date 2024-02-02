@@ -60,7 +60,7 @@
 				{label}
 				bind:formats
 				{maxSize}
-				onchange={imageUploadChangeHandler} />
+				onChange={imageUploadChangeHandler} />
 		</div>
 
 		<embed

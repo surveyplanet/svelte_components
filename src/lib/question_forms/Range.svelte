@@ -77,10 +77,10 @@
 		name="Min"
 		id={`${id}-min`}
 		value={rangeValues[0].toString()}
-		onkeydown={minSliderInputHandler} />
+		onKeydown={minSliderInputHandler} />
 	<TextInput
 		name="Max"
 		id={`${id}-max`}
 		value={rangeValues[1].toString()}
-		onkeydown={maxSliderInputHandler} />
+		onKeydown={maxSliderInputHandler} />
 </form>

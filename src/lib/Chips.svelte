@@ -12,8 +12,8 @@
 		selectable?: boolean;
 		multiSelect?: boolean;
 		removable?: boolean;
-		onclick?: (data: ChipData[]) => void;
-		onremove?: (data: ChipData[]) => void;
+		onClick?: (data: ChipData[]) => void;
+		onRemove?: (data: ChipData[]) => void;
 	};
 </script>
 
@@ -24,8 +24,8 @@
 		selectable = false,
 		multiSelect = false,
 		removable = false,
-		onclick,
-		onremove,
+		onClick,
+		onRemove,
 	} = $props<ChipsProps>();
 
 	const getChipId = (chipEl: HTMLButtonElement) => {
@@ -35,7 +35,7 @@
 
 	const removeHandler = (id: string) => {
 		data = data.filter((chip) => chip.id !== id);
-		if (onremove) onremove(data);
+		if (onRemove) onRemove(data);
 	};
 
 	const toggle = (id: string) => {
@@ -48,7 +48,7 @@
 			return chip;
 		});
 
-		if (onclick) onclick(data);
+		if (onClick) onClick(data);
 	};
 
 	const chipClickHandler = (e: MouseEvent) => {
@@ -94,7 +94,7 @@
 				id={chip.id}
 				class="sp-chips--chip"
 				class:sp-chips--chip--selected={chip.selected}
-				onclick={chipClickHandler}
+				onClick={chipClickHandler}
 				onkeydown={chipKeyDownHandler}
 				tabindex="0"
 				role="button">
@@ -103,7 +103,7 @@
 					<button
 						title="Remove"
 						class="sp-chips--chip--close-btn"
-						onclick={closeButtonClickHandler}>
+						onClick={closeButtonClickHandler}>
 						<Icon
 							name="x"
 							size={20} />

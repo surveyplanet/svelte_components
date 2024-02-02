@@ -50,7 +50,7 @@
 			{id}
 			{size}
 			{disabled}
-			onclick={clickEventHandler} />
+			onClick={clickEventHandler} />
 	{/snippet}
 </Layout>
 

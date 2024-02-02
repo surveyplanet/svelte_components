@@ -10,7 +10,7 @@
 		disabled?: boolean;
 		prependLabel?: boolean;
 		size?: 'small' | 'medium' | 'large';
-		onchange?: (e: Event) => void;
+		onChange?: (e: Event) => void;
 	};
 </script>
 
@@ -24,7 +24,7 @@
 		disabled = false,
 		prependLabel = false,
 		size = 'small',
-		onchange,
+		onChange,
 	} = $props<RadioProps>();
 </script>
 
@@ -36,7 +36,7 @@
 	{value}
 	{checked}
 	{disabled}
-	{onchange} />
+	onchange={onChange} />
 
 <label
 	class="sp-radio sp-radio--{size}"

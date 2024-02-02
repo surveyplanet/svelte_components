@@ -47,7 +47,7 @@
 	{#snippet main()}
 		<div class="wrapper">
 			<SortableList
-				sort={sortableListSortHandler}
+				onSort={sortableListSortHandler}
 				bind:data />
 		</div>
 	{/snippet}

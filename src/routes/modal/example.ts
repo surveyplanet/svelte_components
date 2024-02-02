@@ -20,10 +20,10 @@ import {Modal} from '@surveyplanet/svelte_components';
 	subtitle = ${subtitle}
 	fullscreen = ${fullscreen}
 	overlay = ${overlay}
-	onopen={openHandler}
-	onin={inHandler}
-	onout={outHandler}
-	onclose={closeHandler}>
+	onOpen={openHandler}
+	onIn={inHandler}
+	onOut={outHandler}
+	onClose={closeHandler}>
 	{#snippet header()}
 	<p>
 		Hall low lands den womans control the or. Might he which forgot

@@ -15,8 +15,8 @@
 		navMenuData?: MenuData[];
 		vertical?: boolean;
 		onnavlink?: (navLink: string) => void;
-		onclick?: (id: string) => void;
-		onupdate?: (id: string) => void;
+		onClick?: (id: string) => void;
+		onUpdate?: (id: string) => void;
 	};
 </script>
 
@@ -31,8 +31,8 @@
 		navMenuData,
 		vertical = false,
 		onnavlink,
-		onclick,
-		onupdate,
+		onClick,
+		onUpdate,
 	} = $props<NavBarProps>();
 
 	let menuVisible = $state(false);
@@ -65,11 +65,11 @@
 
 	const menuClickHandler = (id: string) => {
 		menuVisible = false;
-		if (onclick) onclick(id);
+		if (onClick) onClick(id);
 	};
 
 	const menuUpdateHandler = (id: string) => {
-		if (onupdate) onupdate(id);
+		if (onUpdate) onUpdate(id);
 	};
 	const [floatingRef, floatingContent] = createFloatingActions({
 		strategy: 'fixed',
@@ -89,7 +89,7 @@
 			href={item.link}
 			id={item.id}
 			title={item.title}
-			onclick={navLinkClickHandler}>
+			onClick={navLinkClickHandler}>
 			<div class="sp-nav--icon">
 				<Icon
 					name={item.icon}
@@ -102,7 +102,7 @@
 		<button
 			use:floatingRef
 			class="sp-nav--menu-trigger"
-			onclick={navMenuTriggerClickHandler}>
+			onClick={navMenuTriggerClickHandler}>
 			<Icon
 				name="ellipsis"
 				size={16} />
@@ -115,8 +115,8 @@
 		use:floatingContent>
 		<Menu
 			data={navMenuData}
-			menuClick={menuClickHandler}
-			menuUpdate={menuUpdateHandler} />
+			onMenuClick={menuClickHandler}
+			onMenuUpdate={menuUpdateHandler} />
 	</div>
 {/if}
 

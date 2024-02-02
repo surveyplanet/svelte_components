@@ -54,7 +54,7 @@
 		<div class="wrapper">
 			<Button
 				action={true}
-				onclick={buttonClickHandler}>
+				onClick={buttonClickHandler}>
 				<Icon
 					name="plus"
 					color="white" />
@@ -65,8 +65,8 @@
 				<Menu
 					bind:data
 					{size}
-					menuUpdate={menuUpdateHandler}
-					menuClick={menuClickHandler} />
+					onMenuUpdate={menuUpdateHandler}
+					onMenuClick={menuClickHandler} />
 			{/if}
 		</div>
 	{/snippet}

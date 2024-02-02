@@ -64,7 +64,7 @@
 			label="ID"
 			text
 			bind:value={id}
-			oninput={(e:Event) => {
+			onInput={(e:Event) => {
 					id = (e.target as HTMLInputElement).value;
 				}} />
 

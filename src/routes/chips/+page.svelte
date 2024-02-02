@@ -75,7 +75,7 @@
 			{selectable}
 			{multiSelect}
 			{removable}
-			onclick={chipSelected}
-			onremove={chipRemoved} />
+			onClick={chipSelected}
+			onRemove={chipRemoved} />
 	{/snippet}
 </Layout>

@@ -14,11 +14,11 @@
 		dragSpeed?: number;
 		placeholder?: string;
 		size?: 'small' | 'medium' | 'large';
-		onupdate?: (value: number | undefined) => void;
-		oninput?: (value: number | undefined) => void;
-		onchange?: (value: number | undefined) => void;
-		onblur?: () => void;
-		onfocus?: () => void;
+		onUpdate?: (value: number | undefined) => void;
+		onInput?: (value: number | undefined) => void;
+		onChange?: (value: number | undefined) => void;
+		onBlur?: () => void;
+		onFocus?: () => void;
 	};
 </script>
 
@@ -36,11 +36,11 @@
 		dragSpeed = 10,
 		placeholder = null,
 		size = 'small',
-		onupdate,
-		oninput,
-		onchange,
-		onblur,
-		onfocus,
+		onUpdate,
+		onInput,
+		onChange,
+		onBlur,
+		onFocus,
 	} = $props<SpinnerProps>();
 
 	let input: HTMLInputElement | null = $state(null);
@@ -88,7 +88,7 @@
 
 		if (newValue !== value && newValue !== undefined) {
 			value = checkOverflow(newValue);
-			if (onupdate) onupdate(value);
+			if (onUpdate) onUpdate(value);
 		}
 		if (currentValue === undefined) {
 			if (increment) {
@@ -101,7 +101,7 @@
 
 	const reset = () => {
 		value = undefined;
-		if (onupdate) onupdate(value);
+		if (onUpdate) onUpdate(value);
 	};
 
 	const increment = () => {
@@ -123,7 +123,7 @@
 		} else {
 			value = checkOverflow(value);
 		}
-		if (onupdate) onupdate(value);
+		if (onUpdate) onUpdate(value);
 	};
 	// Mouse dragging
 
@@ -146,7 +146,7 @@
 
 	const checkForValueChange = () => {
 		if (value !== controlValue) {
-			if (oninput) oninput(value);
+			if (onInput) onInput(value);
 		}
 		controlValue = value;
 	};
@@ -180,7 +180,7 @@
 		}, 500);
 	};
 	const changeHandler = () => {
-		if (onchange) onchange(value);
+		if (onChange) onChange(value);
 	};
 
 	const inputHandler = () => {
@@ -193,13 +193,13 @@
 
 	const blurHandler = () => {
 		checkForValueChange();
-		if (onblur) onblur();
+		if (onBlur) onBlur();
 		visibleButtons = false;
 	};
 
 	const focusHandler = () => {
 		visibleButtons = true;
-		if (onfocus) onfocus();
+		if (onFocus) onFocus();
 	};
 	const inputClickHandler = () => {
 		if (input) input.focus();
@@ -223,8 +223,8 @@
 
 <div
 	class="sp-spinner sp-spinner--{size}"
-	onfocus={spinnerFocusHandler}
-	onblur={spinnerBlurHandler}>
+	onFocus={spinnerFocusHandler}
+	onBlur={spinnerBlurHandler}>
 	<label
 		for="sp-spinner"
 		class="sp-spinner--label"
@@ -261,9 +261,9 @@
 			{disabled}
 			onmousedown={upMouseDownHandler}
 			onmouseup={mouseUpHandler}
-			onchange={changeHandler}
-			onblur={blurHandler}
-			onfocus={focusHandler}>
+			onChange={changeHandler}
+			onBlur={blurHandler}
+			onFocus={focusHandler}>
 			<svg
 				width="7"
 				height="4"

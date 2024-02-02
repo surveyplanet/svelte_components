@@ -79,5 +79,5 @@
 		size="large"
 		label=""
 		bind:type={inputType}
-		oninput={dateInputChangeHandler} />
+		onInput={dateInputChangeHandler} />
 </form>

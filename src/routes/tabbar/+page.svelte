@@ -63,7 +63,7 @@
 	{/snippet}
 	{#snippet main()}
 		<TabBar
-			tabButton={tabButtonClickHandler}
+			onTabClick={tabButtonClickHandler}
 			bind:data
 			{grow}
 			{id} />

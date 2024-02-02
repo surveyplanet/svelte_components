@@ -18,9 +18,9 @@ export default (data: MenuData[], size: 'small' | 'medium' | 'large') => {
 				<Menu
 					data = ${data}
 					size = ${size}
-					onupdate={menuUpdateHandler}
-					onclick={menuClickHandler}
-					onblur={menuBlurHandler} >
+					onUpdate={menuUpdateHandler}
+					onClick={menuClickHandler}
+					onBlur={menuBlurHandler} >
 
                     {#snippet footer()}
                     ...

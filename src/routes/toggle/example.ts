@@ -28,7 +28,7 @@ export default (
 	name = '${name}'
 	label = '${label}'
 	prependLabel = ${prependLabel}
-	onchange={changeEventHandler}
+	onChange={changeEventHandler}
 	/>
 `;
 };

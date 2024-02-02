@@ -27,10 +27,10 @@ export default (
 </script>
 
 <TextInput
-	onchange={changeHandler}
-	onfocus={focusHandler}
+	onChange={changeHandler}
+	onFocus={focusHandler}
 	onkeydown={keydownHandler}
-	onkeyup={keyupHandler}
+	onKeyup={keyupHandler}
 	id = '${id}'
 	name = '${name}'
 	type: TextInputType = '${type}'

@@ -9,10 +9,10 @@
 		visible?: boolean;
 		animationMilliseconds?: number;
 		size?: 'small' | 'medium' | 'large';
-		onintrostart?: (e: CustomEvent) => void;
-		onintroend?: (e: CustomEvent) => void;
-		onoutrostart?: (e: CustomEvent) => void;
-		onoutroend?: (e: CustomEvent) => void;
+		onIntroStart?: (e: CustomEvent) => void;
+		onIntroEnd?: (e: CustomEvent) => void;
+		onOutroStart?: (e: CustomEvent) => void;
+		onOutroEnd?: (e: CustomEvent) => void;
 		footer?: Snippet;
 		body?: Snippet;
 		header?: Snippet;
@@ -33,10 +33,10 @@
 		visible = false,
 		animationMilliseconds = 350,
 		size = 'medium',
-		onintrostart,
-		onintroend,
-		onoutrostart,
-		onoutroend,
+		onIntroStart,
+		onIntroEnd,
+		onOutroStart,
+		onOutroEnd,
 		footer,
 		header,
 		body,
@@ -61,7 +61,7 @@
 		tabindex="0"
 		class="sp-modal--overlay"
 		transition:fade
-		onclick={closeHandler}
+		onClick={closeHandler}
 		onkeydown={overlayClickHandler} />
 {/if}
 {#if visible}
@@ -72,13 +72,13 @@
 			easing: cubicOut,
 		}}
 		class="sp-modal sp-modal--{size}"
-		{onintrostart}
-		{onintroend}
-		{onoutrostart}
-		{onoutroend}
+		onintrostart={onIntroStart}
+		onintroend={onIntroEnd}
+		onoutrostart={onOutroStart}
+		onoutroend={onOutroEnd}
 		class:sp-modal--fullscreen={fullscreen}>
 		<button
-			onclick={closeHandler}
+			onClick={closeHandler}
 			class="sp-modal--header--close-btn">
 			<Icon
 				name="x"

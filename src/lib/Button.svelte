@@ -21,7 +21,7 @@
 		type?: 'button' | 'submit' | 'reset';
 		form?: string | null;
 		size?: 'small' | 'medium' | 'large';
-		onclick: (e: MouseEvent) => void;
+		onClick: (e: MouseEvent) => void;
 		children?: Snippet;
 	};
 </script>
@@ -38,7 +38,7 @@
 		type = 'button',
 		form = null,
 		size = 'medium',
-		onclick,
+		onClick,
 		children,
 	} = $props<ButtonProps>();
 </script>
@@ -52,7 +52,7 @@
 	class:sp-button--loader={loader}
 	class:sp-button--block={block}
 	class:sp-button--action={action}
-	{onclick}>
+	onclick={onClick}>
 	<span class="sp-button--label">
 		{#if children}
 			{@render children()}

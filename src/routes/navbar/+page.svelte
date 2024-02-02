@@ -77,8 +77,8 @@
 					bind:navMenuData
 					{vertical}
 					onnavlink={navLinkHandler}
-					onupdate={menuUpdateHandler}
-					onclick={menuClickHandler} />
+					onUpdate={menuUpdateHandler}
+					onClick={menuClickHandler} />
 			</div>
 		</div>
 	{/snippet}

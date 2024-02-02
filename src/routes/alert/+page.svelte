@@ -92,11 +92,11 @@
 	{#snippet main()}
 		{#key keys}
 			<Alert
-				onopen={openHandler}
-				onin={inHandler}
-				onclose={closeHandler}
-				onout={outHandler}
-				onconfirm={confirmHandler}
+				onOpen={openHandler}
+				onIn={inHandler}
+				onClose={closeHandler}
+				onOut={outHandler}
+				onConfirm={confirmHandler}
 				{title}
 				{subtitle}
 				{type}

@@ -11,6 +11,6 @@ export default (label: string, formats: string[], maxSize: number) => {
 		label='${label}'
 		formats=${formats}
 		maxSize=${maxSize}
-		onchange={imageUploadHandler}
+		onChange={imageUploadHandler}
 	/>`;
 };

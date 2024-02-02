@@ -24,7 +24,7 @@ export default (
 	selectable = ${selectable}
 	multiSelect = ${multiSelect}
 	removable = ${removable}
-	onclick={chipClickHandler}
-	onremove={chipRemoveHandler}
+	onClick={chipClickHandler}
+	onRemove={chipRemoveHandler}
 	/>`;
 };

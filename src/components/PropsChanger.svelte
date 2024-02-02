@@ -7,8 +7,8 @@
 		checkbox,
 		object,
 		select,
-		oninput,
-		onblur,
+		onInput,
+		onBlur,
 		selectOptions = [],
 		value,
 		label = '',
@@ -19,8 +19,8 @@
 		object?: boolean;
 		select?: boolean;
 		selectOptions?: string[] | number[];
-		oninput?: (e: Event) => void;
-		onblur?: (e: Event) => void;
+		onInput?: (e: Event) => void;
+		onBlur?: (e: Event) => void;
 		value?: string | number | boolean | null;
 		label?: string;
 	}>();
@@ -69,8 +69,8 @@
 				{label}
 				type="text"
 				bind:value
-				{oninput}
-				{onblur} />
+				{onInput}
+				{onBlur} />
 		</div>
 	{/if}
 	{#if number}
@@ -80,8 +80,8 @@
 				type="number"
 				id="number"
 				bind:value
-				{oninput}
-				{onblur} />
+				oninput={onInput}
+				onblur={onBlur} />
 		</div>
 	{/if}
 	{#if (checkbox && typeof value === 'boolean') || typeof value === 'undefined'}
@@ -92,7 +92,7 @@
 				name="boolean-{label}s"
 				bind:checked={value}
 				size="medium"
-				onchange={oninput} />
+				onChange={onInput} />
 		</div>
 	{/if}
 	{#if object && typeof value === 'string'}
@@ -104,8 +104,8 @@
 				{label}
 				type="multiline"
 				bind:value
-				{oninput}
-				{onblur} />
+				{onInput}
+				{onBlur} />
 		</div>
 	{/if}
 	{#if select}
@@ -114,8 +114,8 @@
 			<select
 				bind:value
 				id="select"
-				{oninput}
-				{onblur}>
+				oninput={onInput}
+				onblur={onBlur}>
 				{#each selectOptions as option}
 					<option value={option}>{option}</option>
 				{/each}

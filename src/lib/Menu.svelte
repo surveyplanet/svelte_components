@@ -16,8 +16,9 @@
 	export type MenuProps = {
 		data?: MenuData[];
 		size?: 'small' | 'medium' | 'large';
-		menuUpdate?: (id: string) => void;
-		menuClick?: (id: string) => void;
+		onMenuUpdate?: (id: string) => void;
+		onMenuClick?: (id: string) => void;
+		onBlur?: (event: FocusEvent) => void;
 		header?: Snippet;
 		footer?: Snippet;
 	};
@@ -32,7 +33,7 @@
 	 * Menu data
 	 */
 
-	let { data, size, menuUpdate, menuClick, header, footer } =
+	let { data, size, onMenuUpdate, onMenuClick, onBlur, header, footer } =
 		$props<MenuProps>();
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
@@ -136,7 +137,7 @@
 		} else {
 			currentState = [...(data || [])]; // go to root
 		}
-		if (menuUpdate) menuUpdate(id);
+		if (onMenuUpdate) onMenuUpdate(id);
 	};
 
 	const itemClickHandler = (event: MouseEvent) => {
@@ -160,9 +161,9 @@
 		// if clicked and item doesn't have a submenu dispatch 'click'
 		// otherwise dispatch 'update'
 		if (!state) {
-			if (menuClick) menuClick(id);
+			if (onMenuClick) onMenuClick(id);
 		} else {
-			if (menuUpdate) menuUpdate(id);
+			if (onMenuUpdate) onMenuUpdate(id);
 		}
 	};
 
@@ -172,7 +173,7 @@
 <svelte:window onkeydown={arrowClickHandler} />
 <menu
 	class="sp-menu sp-menu--{size}"
-	{onblur}>
+	onblur={onBlur}>
 	<li class="sp-menu--header">
 		{#if header}
 			{@render header()}
@@ -185,7 +186,7 @@
 			class="sp-menu--back">
 			<button
 				class="sp-menu--back-btn"
-				onclick={backClickHandler}>
+				onClick={backClickHandler}>
 				<Icon
 					name="arrowLeft"
 					size={16} />
@@ -205,7 +206,7 @@
 			<button
 				class="sp-menu--item--btn"
 				id={item.id}
-				onclick={itemClickHandler}>
+				onClick={itemClickHandler}>
 				{#if item.label}
 					<span class="sp-menu--item--label">
 						{item.label}

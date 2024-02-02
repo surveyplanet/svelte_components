@@ -19,31 +19,14 @@ The `TabBar` component displays a horizontal navigation bar with tabs. It allows
 
 #### `TabBarProps`
 
-| Property    | Type                   | Description                                                    |
-| ----------- | ---------------------- | -------------------------------------------------------------- |
-| `id`        | `string`               | The unique identifier for the tab bar.                         |
-| `grow`      | `boolean`              | If `true`, allows the tab bar to grow to fill available space. |
-| `data`      | `TabBarData[]`         | An array of `TabBarData` objects representing each tab.        |
-| `tabButton` | `(id: string) => void` | Callback function triggered when a tab button is clicked.      |
+| Property | Type           | Description                                                    |
+| -------- | -------------- | -------------------------------------------------------------- |
+| `id`     | `string`       | The unique identifier for the tab bar.                         |
+| `grow`   | `boolean`      | If `true`, allows the tab bar to grow to fill available space. |
+| `data`   | `TabBarData[]` | An array of `TabBarData` objects representing each tab.        |
 
-### Usage
+### Callbacks
 
-```html
-<script lang="ts">
-	import { TabBarProps } from './path-to-tabbar-component';
-
-	// Example usage
-	let tabBarProps: TabBarProps = {
-		id: 'myTabBar',
-		grow: false,
-		data: [
-			{ id: 'tab1', label: 'Tab 1', icon: 'icon1' },
-			{ id: 'tab2', label: 'Tab 2', icon: 'icon2', selected: true },
-			{ id: 'tab3', label: 'Tab 3', icon: 'icon3' },
-		],
-		tabButton: (id) => console.log('Tab button clicked:', id),
-	};
-</script>
-
-<TabBar {...tabBarProps} />
-```
+| Name         | Description                         | Type                   |
+| ------------ | ----------------------------------- | ---------------------- |
+| `onTabClick` | Event handler for tab button click. | `(id: string) => void` |

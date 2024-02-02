@@ -20,12 +20,12 @@
 		id?: string;
 		size?: 'small' | 'medium' | 'large';
 		disabled?: boolean;
-		onclick?: (e: MouseEvent) => void;
+		onClick?: (e: MouseEvent) => void;
 	};
 </script>
 
 <script lang="ts">
-	let { profileImage, id, size, disabled, onclick } = $props<AvatarProps>();
+	let { profileImage, id, size, disabled, onClick } = $props<AvatarProps>();
 
 	// mascot should return a type that is a key of MASCOTS
 	const mascots = Object.keys(MASCOTS).map((key) => {
@@ -55,7 +55,7 @@
 		return idx;
 	};
 
-	onclick = (): void => {
+	onClick = (): void => {
 		if (disabled) {
 			return;
 		}
@@ -64,7 +64,7 @@
 
 <button
 	class="sp-avatar sp-avatar--{size} sp-avatar--background--{bgColor}"
-	{onclick}
+	onclick={onClick}
 	aria-label={disabled ? null : 'profile image'}
 	role={disabled ? 'presentation' : null}
 	{disabled}>

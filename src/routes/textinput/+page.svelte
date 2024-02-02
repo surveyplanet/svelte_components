@@ -137,10 +137,10 @@
 			{validationRules}
 			{validationMessage}
 			{size}
-			onchange={changeHandler}
-			onfocus={focusHandler}
-			onkeydown={keydownHandler}
-			onkeyup={keyupHandler} />
+			onChange={changeHandler}
+			onFocus={focusHandler}
+			onKeydown={keydownHandler}
+			onKeyup={keyupHandler} />
 	{/snippet}
 </Layout>
 

@@ -30,6 +30,6 @@ export default (
 	label='${labelOne}'
 	prependLabel='${prependLabel}'
 	size='${size}'
-	onchange={changeEventHandler} />
+	onChange={changeEventHandler} />
 ;`;
 };

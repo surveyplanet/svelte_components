@@ -101,14 +101,14 @@
 					name="search-components"
 					type="search"
 					placeholder="Find components"
-					oninput={searchComponents} />
+					onInput={searchComponents} />
 			</div>
 		</header>
 		{#key reload}
 			<Menu
 				data={componentsData}
 				size="small"
-				menuClick={menuClickHandler} />
+				onMenuClick={menuClickHandler} />
 		{/key}
 	</aside>
 
@@ -136,7 +136,7 @@
 					<Toggle
 						id="dark-mode-toggle"
 						name="dark-mode-toggle"
-						onchange={darkModeHandler} />
+						onChange={darkModeHandler} />
 				</div>
 			</header>
 			<div id="component-preview--window">
@@ -164,7 +164,7 @@
 							label: 'Docs',
 						},
 					]}
-					tabButton={tabHandler} />
+					onTabClick={tabHandler} />
 			</header>
 
 			<div class="component-details--content">

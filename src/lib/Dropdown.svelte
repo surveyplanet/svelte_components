@@ -18,7 +18,7 @@
 		disabled?: boolean;
 		required?: boolean;
 		size?: 'small' | 'medium' | 'large';
-		onchange?: (value: DropdownOptions['id']) => void;
+		onChange?: (value: DropdownOptions['id']) => void;
 	};
 </script>
 
@@ -34,7 +34,7 @@
 		disabled = false,
 		required = false,
 		size = 'small',
-		onchange,
+		onChange,
 	} = $props<DropdownProps>();
 
 	let input: HTMLInputElement | undefined = $state(undefined);
@@ -67,8 +67,8 @@
 				displayValue = item.label;
 			}
 		}
-		if (!silent && onchange) {
-			onchange(value);
+		if (!silent && onChange) {
+			onChange(value);
 		}
 	};
 	// const change = new Event('change');
@@ -197,6 +197,6 @@
 		<Menu
 			data={menuData}
 			{size}
-			menuClick={menuClickHandler} />
+			onMenuClick={menuClickHandler} />
 	{/if}
 </div>

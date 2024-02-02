@@ -29,7 +29,7 @@ export default (
 	placeholder = '${placeholder}'
 	label = '${label}'
 	size = '${size}'
-	onchange = {dropdownChangeHandler}
+	onChange = {dropdownChangeHandler}
 />
 `;
 };

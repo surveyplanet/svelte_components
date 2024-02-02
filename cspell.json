@@ -19,15 +19,15 @@
 		"manzano",
 		"msedge",
 		"multiplechoice",
-		"onin",
-		"onintroend",
-		"onintrostart",
+		"onIn",
+		"onIntroEnd",
+		"onIntroStart",
 		"onnavlink",
-		"onout",
-		"onoutroend",
-		"onoutrostart",
-		"onremove",
-		"onupdate",
+		"onOut",
+		"onOutroEnd",
+		"onOutroStart",
+		"onRemove",
+		"onUpdate",
 		"outro",
 		"outroend",
 		"outrostart",
@@ -44,21 +44,9 @@
 		"valuenow",
 		"viewbox"
 	],
-	"ignoreWords": [
-		"xsmall",
-		"cubbi",
-		"gruffi",
-		"sunni",
-		"tummi",
-		"zummi"
-	],
-	"flagWords": [
-		"hte",
-		"survey planet"
-	],
-	"files": [
-		"./**/*.{txt,md,js,ts,yaml,json,svelte}"
-	],
+	"ignoreWords": ["xsmall", "cubbi", "gruffi", "sunni", "tummi", "zummi"],
+	"flagWords": ["hte", "survey planet"],
+	"files": ["./**/*.{txt,md,js,ts,yaml,json,svelte}"],
 	"useGitignore": true,
 	"ignorePaths": [
 		"cspell.json",

@@ -54,7 +54,7 @@
 	{/snippet}
 	{#snippet main()}
 		<Toggle
-			onchange={changeEventHandler}
+			onChange={changeEventHandler}
 			{id}
 			{on}
 			{disabled}

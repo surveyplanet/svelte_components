@@ -18,11 +18,16 @@
 
 ### Properties
 
-| Property        | Type                 | Description                                                   |
-| --------------- | -------------------- | ------------------------------------------------------------- |
-| `data`          | MenuData[]           | Array of objects representing the menu items.                 |
-| `size='medium'` | String               | Size of the menu, one of `'small'`, `'medium'`, or `'large'`. |
-| `menuUpdate`    | (id: string) => void | Callback function triggered on menu update.                   |
-| `menuClick`     | (id: string) => void | Callback function triggered on menu item click.               |
-| `header`        | Snippet              | Custom content for the menu header.                           |
-| `footer`        | Snippet              | Custom content for the menu footer.                           |
+| Property        | Type       | Description                                                   |
+| --------------- | ---------- | ------------------------------------------------------------- |
+| `data`          | MenuData[] | Array of objects representing the menu items.                 |
+| `size='medium'` | String     | Size of the menu, one of `'small'`, `'medium'`, or `'large'`. |
+| `header`        | Snippet    | Custom content for the menu header.                           |
+| `footer`        | Snippet    | Custom content for the menu footer.                           |
+
+### Callbacks
+
+| Name           | Description                                     | Type                   |
+| -------------- | ----------------------------------------------- | ---------------------- |
+| `onMenuUpdate` | Callback function triggered on menu update.     | `(id: string) => void` |
+| `onMenuClick`  | Callback function triggered on menu item click. | `(id: string) => void` |

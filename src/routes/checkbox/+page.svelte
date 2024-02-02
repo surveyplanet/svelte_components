@@ -41,6 +41,6 @@
 			{disabled}
 			{prependLabel}
 			{size}
-			onchange={changeEventHandler} />
+			onChange={changeEventHandler} />
 	{/snippet}
 </Layout>

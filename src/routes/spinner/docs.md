@@ -6,53 +6,27 @@ The `Spinner` component provides a numeric input with increment and decrement bu
 
 #### `SpinnerProps`
 
-| Property      | Type            | Description                                                                |
-| ------------- | --------------- | -------------------------------------------------------------------------- | -------------------------------------------- | -------------------- |
-| `label`       | `string`        | The label or title for the spinner.                                        |
-| `id`          | `string`        | The unique identifier for the spinner.                                     |
-| `step`        | `number`        | The step value for incrementing or decrementing.                           |
-| `min`         | `number`        | The minimum allowed value for the spinner.                                 |
-| `max`         | `number`        | The maximum allowed value for the spinner.                                 |
-| `value`       | `number         | undefined`                                                                 | The current value of the spinner.            |
-| `disabled`    | `boolean`       | Indicates whether the spinner is disabled.                                 |
-| `required`    | `boolean`       | Indicates whether the spinner is required.                                 |
-| `overflow`    | `boolean`       | If `true`, allows the value to overflow beyond the `min` and `max` limits. |
-| `dragSpeed`   | `number`        | The speed (in pixels) at which dragging the mouse should change the value. |
-| `placeholder` | `string`        | Placeholder text for the spinner input.                                    |
-| `size`        | `'small'        | 'medium'                                                                   | 'large'`                                     | Size of the spinner. |
-| `onupdate`    | `(value: number | undefined) => void`                                                        | Callback function triggered on value update. |
-| `oninput`     | `(value: number | undefined) => void`                                                        | Callback function triggered on input change. |
-| `onchange`    | `(value: number | undefined) => void`                                                        | Callback function triggered on value change. |
-| `onblur`      | `() => void`    | Callback function triggered on input blur.                                 |
-| `onfocus`     | `() => void`    | Callback function triggered on input focus.                                |
+| Property      | Type                             | Description                                                       |
+| ------------- | -------------------------------- | ----------------------------------------------------------------- |
+| `label`       | `string`                         | The label displayed next to the spinner input.                    |
+| `id`          | `string`                         | The unique identifier for the spinner input.                      |
+| `step`        | `number`                         | The step value for the spinner input.                             |
+| `min`         | `number`                         | The minimum value for the spinner input.                          |
+| `max`         | `number`                         | The maximum value for the spinner input.                          |
+| `value`       | `number`                         | The value of the spinner input.                                   |
+| `disabled`    | `boolean`                        | Flag indicating whether the spinner input is disabled.            |
+| `required`    | `boolean`                        | Flag indicating whether the spinner input is required.            |
+| `overflow`    | `boolean`                        | Flag indicating whether the spinner input should overflow.        |
+| `dragSpeed`   | `number`                         | The speed at which the spinner input value changes when dragging. |
+| `placeholder` | `string`                         | The placeholder text for the spinner input.                       |
+| `size`        | `'small' \| 'medium' \| 'large'` | Size of the spinner input.                                        |
 
-### Usage
+### Callbacks
 
-```html
-<script lang="ts">
-	import { SpinnerProps } from './path-to-spinner-component';
-
-	// Example usage
-	let spinnerProps: SpinnerProps = {
-		label: 'Quantity',
-		id: 'quantitySpinner',
-		step: 1,
-		min: 0,
-		max: 100,
-		value: 5,
-		disabled: false,
-		required: true,
-		overflow: false,
-		dragSpeed: 10,
-		placeholder: 'Enter quantity',
-		size: 'medium',
-		onupdate: (value) => console.log('Updated Value:', value),
-		oninput: (value) => console.log('Input Value:', value),
-		onchange: (value) => console.log('Changed Value:', value),
-		onblur: () => console.log('Input blurred'),
-		onfocus: () => console.log('Input focused'),
-	};
-</script>
-
-<Spinner {...spinnerProps} />
-```
+| Name       | Description                                  | Type                                   |
+| ---------- | -------------------------------------------- | -------------------------------------- |
+| `onUpdate` | Callback function triggered on value update. | `(value: number \| undefined) => void` |
+| `onInput`  | Callback function triggered on input change. | `(value: number \| undefined) => void` |
+| `onChange` | Callback function triggered on value change. | `(value: number \| undefined) => void` |
+| `onBlur`   | Callback function triggered on input blur.   | `() => void`                           |
+| `onFocus`  | Callback function triggered on input focus.  | `() => void`                           |

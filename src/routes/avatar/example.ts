@@ -20,7 +20,7 @@ export default (
     size = '${size}'
     disabled = ${disabled}
     profileImage = '${profileImage}'
-    onclick={clickHandler}
+    onClick={clickHandler}
 </Avatar>
 `;
 };

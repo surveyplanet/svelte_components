@@ -9,7 +9,7 @@
 		tall?: boolean;
 		label?: string | null;
 		prependLabel?: boolean;
-		onchange: (on: boolean) => void;
+		onChange: (on: boolean) => void;
 	};
 </script>
 
@@ -24,7 +24,7 @@
 		tall = false,
 		label = null,
 		prependLabel = false,
-		onchange,
+		onChange,
 	} = $props<ToggleProps>();
 
 	const changeHandler = (event: Event): void => {
@@ -33,7 +33,7 @@
 			return event.preventDefault();
 		}
 
-		onchange(on);
+		onChange(on);
 	};
 </script>
 
@@ -56,7 +56,7 @@
 		{id}
 		{name}
 		{disabled}
-		onchange={changeHandler} />
+		onChange={changeHandler} />
 
 	<div class="sp-toggle--track" />
 </div>

@@ -24,10 +24,10 @@
 | `disabled`        | Boolean           | Disables the dropdown if `true`.                        |
 | `required`        | Boolean           | Indicates if the dropdown is required.                  |
 | `size`            | String            | Size of the dropdown: `'small'`, `'medium'`, `'large'`. |
-| `onchange`        | Function          | Change event handler for the dropdown.                  |
+| `onChange`        | Function          | Change event handler for the dropdown.                  |
 
-### Events
+### Callbacks
 
-| Name       | Description                                |
-| ---------- | ------------------------------------------ |
-| `onchange` | Triggered when the dropdown value changes. |
+| Name       | Description                                | Type                                      |
+| ---------- | ------------------------------------------ | ----------------------------------------- |
+| `onChange` | Triggered when the dropdown value changes. | `(value: DropdownOptions['id']) => void ` |

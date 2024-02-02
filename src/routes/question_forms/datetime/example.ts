@@ -20,10 +20,10 @@ export default (
 </script>
 	
 <DateTime
-	id={${id}}
-	date={${date}}
-	time={${time}}
-	definitions={${JSON.stringify(definitions)}}
-	onDateTimeResponse={${JSON.stringify(response)}}
+	id= '${id}'
+	date= ${date}
+	time= ${time}
+	definitions= ${JSON.stringify(definitions)}
+	onDateTimeResponse= ${JSON.stringify(response)}
 />`;
 };

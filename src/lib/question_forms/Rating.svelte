@@ -85,7 +85,7 @@
 					value={item.value.toString()}
 					label={item.label}
 					size="large"
-					onchange={inputChangeHandler} />
+					onChange={inputChangeHandler} />
 			</div>
 		{/each}
 	{/if}

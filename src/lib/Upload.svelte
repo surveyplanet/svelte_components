@@ -5,7 +5,7 @@
 		label?: string;
 		formats: string[];
 		maxSize?: number;
-		onchange: (data: {
+		onChange: (data: {
 			image: File;
 			data: string | ArrayBuffer | null;
 		}) => void;
@@ -20,7 +20,7 @@
 		label = 'Upload',
 		formats,
 		maxSize = 10,
-		onchange,
+		onChange,
 	} = $props<UploadProps>();
 
 	type FileEventTarget = (EventTarget & { files: FileList }) | DataTransfer;
@@ -38,7 +38,7 @@
 		reader.readAsDataURL(image);
 		reader.onloadend = () => {
 			let data = reader.result;
-			onchange({ image, data });
+			onChange({ image, data });
 		};
 	};
 	const fileInputHandler = (event: Event) => {
@@ -71,7 +71,7 @@
 	on:drop={dropHandler}
 	on:dragover={dragOverHandler}>
 	<Button
-		onclick={() => {
+		onClick={() => {
 			if (fileinput) {
 				fileinput.click();
 			}
@@ -89,7 +89,7 @@
 		class="sp-image-upload--input"
 		type="file"
 		accept={formatAccept}
-		onchange={fileInputHandler} />
+		onChange={fileInputHandler} />
 
 	{#if note?.length}
 		<p class="sp-image-upload--note">{note}</p>

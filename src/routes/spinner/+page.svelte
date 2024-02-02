@@ -110,7 +110,7 @@
 			{placeholder}
 			{dragSpeed}
 			{size}
-			onchange={spinnerEventHandler} />
+			onChange={spinnerEventHandler} />
 	{/snippet}
 </Layout>
 

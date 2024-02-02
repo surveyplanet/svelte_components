@@ -10,7 +10,7 @@
 		disabled?: boolean;
 		prependLabel?: boolean;
 		size: 'small' | 'medium' | 'large';
-		onchange?: (e: Event) => void;
+		onChange?: (e: Event) => void;
 	};
 </script>
 
@@ -24,7 +24,7 @@
 		disabled = false,
 		prependLabel = false,
 		size = 'small',
-		onchange,
+		onChange,
 	} = $props<CheckboxProps>();
 </script>
 
@@ -36,7 +36,7 @@
 	{value}
 	bind:checked
 	{disabled}
-	{onchange} />
+	onchange={onChange} />
 <label
 	class="sp-checkbox sp-checkbox--{size}"
 	class:sp-checkbox--prepend={prependLabel}

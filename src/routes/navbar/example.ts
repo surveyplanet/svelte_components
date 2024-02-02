@@ -25,8 +25,8 @@ export default (
 	navMenuData = ${JSON.stringify(navMenuData, null, 2)}
 	vertical= ${vertical}
 	onnavlink = {linkHandler}
-	onclick = {clickHandler}
-	onupdate = {updateHandler}
+	onClick = {clickHandler}
+	onUpdate = {updateHandler}
 	
 	/>
 `;

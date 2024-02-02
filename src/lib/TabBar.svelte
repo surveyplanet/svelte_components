@@ -15,7 +15,7 @@
 		id?: string;
 		grow?: boolean;
 		data?: TabBarData[];
-		tabButton: (id: string) => void;
+		onTabClick: (id: string) => void;
 	};
 </script>
 
@@ -26,7 +26,7 @@
 		id = (Date.now() + Math.random()).toString(36),
 		grow = false,
 		data,
-		tabButton,
+		onTabClick,
 	} = $props<TabBarProps>();
 
 	let activeIndicator: HTMLDivElement | null = $state(null);
@@ -59,7 +59,7 @@
 			activeIndicator.style.width = `${width}px`;
 			activeIndicator.style.left = `${left}px`;
 		}
-		tabButton(id);
+		onTabClick(id);
 	};
 
 	const tabButtonHandler = (event: Event) => {

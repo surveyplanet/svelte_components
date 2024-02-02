@@ -94,7 +94,7 @@
 
 		<SortableList
 			data={listSorted(labels)}
-			sort={sortableEventHandler} />
+			onSort={sortableEventHandler} />
 		{#if maxLabel}
 			<p class="sp-survey--question--form--scoring--max-label">
 				{maxLabel}
@@ -131,7 +131,7 @@
 									name={label}
 									value={value.toString()}
 									id="{id}-{rowIndex}-{cellIndex}"
-									onchange={inputChangeHandler} />
+									onChange={inputChangeHandler} />
 							</td>
 						{/each}
 					</tr>
@@ -141,7 +141,7 @@
 				<Button
 					size={'small'}
 					type="reset"
-					onclick={clearButtonClickHandler}>
+					onClick={clearButtonClickHandler}>
 					{definitions.scoringResetButton}
 				</Button>
 			</tfoot>

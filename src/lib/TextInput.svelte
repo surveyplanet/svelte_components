@@ -24,12 +24,12 @@
 		validationMessage?: string | null;
 		size?: 'small' | 'medium' | 'large';
 		validationHideMessage?: boolean | null;
-		oninput?: (e: Event) => void;
-		onblur?: (e: Event) => void;
-		onchange?: (e: Event) => void;
-		onfocus?: (e: Event) => void;
-		onkeydown?: (e: Event) => void;
-		onkeyup?: (e: Event) => void;
+		onInput?: (e: Event) => void;
+		onBlur?: (e: Event) => void;
+		onChange?: (e: Event) => void;
+		onFocus?: (e: Event) => void;
+		onKeydown?: (e: Event) => void;
+		onKeyup?: (e: Event) => void;
 	};
 </script>
 
@@ -53,12 +53,12 @@
 		validationMessage,
 		size = 'medium',
 		validationHideMessage,
-		oninput,
-		onblur,
-		onchange,
-		onfocus,
-		onkeydown,
-		onkeyup,
+		onInput,
+		onBlur,
+		onChange,
+		onFocus,
+		onKeydown,
+		onKeyup,
 	} = $props<TextInputProps>();
 
 	let hasValidationErrors = $state(false);
@@ -87,15 +87,15 @@
 	const changeHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		validateInput(target);
-		if (!hasValidationErrors && typeof onchange === 'function') {
-			onchange(event);
+		if (!hasValidationErrors && typeof onChange === 'function') {
+			onChange(event);
 		}
 	};
 	const inputHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		validateInput(target);
-		if (!hasValidationErrors && typeof oninput === 'function') {
-			oninput(event);
+		if (!hasValidationErrors && typeof onInput === 'function') {
+			onInput(event);
 		}
 	};
 
@@ -112,7 +112,7 @@
 				return;
 			}
 		}
-		if (onkeyup) onkeyup(event);
+		if (onKeyup) onKeyup(event);
 	};
 </script>
 
@@ -145,11 +145,11 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			{onblur}
+			onblur={onBlur}
 			onchange={changeHandler}
-			{onfocus}
-			{onkeydown}
-			{onkeyup} />
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onKeyup} />
 	{:else if type === 'password'}
 		<input
 			class="sp-text-input--input"
@@ -165,16 +165,16 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			{onblur}
+			onblur={onBlur}
 			onchange={changeHandler}
-			{onfocus}
-			{onkeydown}
-			{onkeyup} />
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onKeyup} />
 		{#if value?.length}
 			<button
 				class="sp-text-input--password-toggle"
 				type="button"
-				onclick={() => {
+				onClick={() => {
 						const input = document.getElementById(id) as HTMLInputElement;
 						if (input) {
 							input.type = input.type === 'password' ? 'text' : 'password';
@@ -206,11 +206,11 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			{onblur}
+			onblur={onBlur}
 			onchange={changeHandler}
-			{onfocus}
-			{onkeydown}
-			{onkeyup} />
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onKeyup} />
 	{:else if type === 'time'}
 		<input
 			class="sp-text-input--input"
@@ -226,11 +226,11 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			{onblur}
+			onblur={onBlur}
 			onchange={changeHandler}
-			{onfocus}
-			{onkeydown}
-			{onkeyup} />
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onKeyup} />
 	{:else if type === 'datetime-local'}
 		<input
 			class="sp-text-input--input"
@@ -246,11 +246,11 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			{onblur}
+			onblur={onBlur}
 			onchange={changeHandler}
-			{onfocus}
-			{onkeydown}
-			{onkeyup} />
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onKeyup} />
 	{:else if type === 'multiline'}
 		<textarea
 			class="sp-text-input--textarea"
@@ -265,11 +265,11 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			{onblur}
+			onblur={onBlur}
 			onchange={changeHandler}
-			{onfocus}
-			{onkeydown}
-			onkeyup={onkeyupHandler}>{value}</textarea>
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onKeyup}>{value}</textarea>
 	{/if}
 	{#if !validationHideMessage && hasValidationErrors && validationDisplayMessage.length}
 		<label
