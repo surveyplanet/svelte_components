@@ -89,7 +89,7 @@
 			href={item.link}
 			id={item.id}
 			title={item.title}
-			onClick={navLinkClickHandler}>
+			onclick={navLinkClickHandler}>
 			<div class="sp-nav--icon">
 				<Icon
 					name={item.icon}
@@ -102,7 +102,7 @@
 		<button
 			use:floatingRef
 			class="sp-nav--menu-trigger"
-			onClick={navMenuTriggerClickHandler}>
+			onclick={navMenuTriggerClickHandler}>
 			<Icon
 				name="ellipsis"
 				size={16} />

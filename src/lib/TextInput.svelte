@@ -149,7 +149,7 @@
 			onchange={changeHandler}
 			onfocus={onFocus}
 			onkeydown={onKeydown}
-			onkeyup={onKeyup} />
+			onkeyup={onkeyupHandler} />
 	{:else if type === 'password'}
 		<input
 			class="sp-text-input--input"
@@ -169,7 +169,7 @@
 			onchange={changeHandler}
 			onfocus={onFocus}
 			onkeydown={onKeydown}
-			onkeyup={onKeyup} />
+			onkeyup={onkeyupHandler} />
 		{#if value?.length}
 			<button
 				class="sp-text-input--password-toggle"
@@ -210,7 +210,7 @@
 			onchange={changeHandler}
 			onfocus={onFocus}
 			onkeydown={onKeydown}
-			onkeyup={onKeyup} />
+			onkeyup={onkeyupHandler} />
 	{:else if type === 'time'}
 		<input
 			class="sp-text-input--input"
@@ -230,7 +230,7 @@
 			onchange={changeHandler}
 			onfocus={onFocus}
 			onkeydown={onKeydown}
-			onkeyup={onKeyup} />
+			onkeyup={onkeyupHandler} />
 	{:else if type === 'datetime-local'}
 		<input
 			class="sp-text-input--input"
@@ -250,7 +250,7 @@
 			onchange={changeHandler}
 			onfocus={onFocus}
 			onkeydown={onKeydown}
-			onkeyup={onKeyup} />
+			onkeyup={onkeyupHandler} />
 	{:else if type === 'multiline'}
 		<textarea
 			class="sp-text-input--textarea"
@@ -269,7 +269,7 @@
 			onchange={changeHandler}
 			onfocus={onFocus}
 			onkeydown={onKeydown}
-			onkeyup={onKeyup}>{value}</textarea>
+			onkeyup={onkeyupHandler}>{value}</textarea>
 	{/if}
 	{#if !validationHideMessage && hasValidationErrors && validationDisplayMessage.length}
 		<label

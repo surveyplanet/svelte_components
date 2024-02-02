@@ -94,7 +94,7 @@
 				id={chip.id}
 				class="sp-chips--chip"
 				class:sp-chips--chip--selected={chip.selected}
-				onClick={chipClickHandler}
+				onclick={chipClickHandler}
 				onkeydown={chipKeyDownHandler}
 				tabindex="0"
 				role="button">
@@ -103,7 +103,7 @@
 					<button
 						title="Remove"
 						class="sp-chips--chip--close-btn"
-						onClick={closeButtonClickHandler}>
+						onclick={closeButtonClickHandler}>
 						<Icon
 							name="x"
 							size={20} />

@@ -61,7 +61,7 @@
 		tabindex="0"
 		class="sp-modal--overlay"
 		transition:fade
-		onClick={closeHandler}
+		onclick={closeHandler}
 		onkeydown={overlayClickHandler} />
 {/if}
 {#if visible}

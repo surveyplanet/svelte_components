@@ -128,7 +128,7 @@
 			<header class="sp-alert--header">
 				{#if !confirm}
 					<button
-						onClick={closeButtonClickHandler}
+						onclick={closeButtonClickHandler}
 						class="sp-alert--header--close-btn">
 						<Icon
 							color={COLORS.dark}

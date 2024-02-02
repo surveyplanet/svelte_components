@@ -56,7 +56,7 @@
 		{id}
 		{name}
 		{disabled}
-		onChange={changeHandler} />
+		onchange={changeHandler} />
 
 	<div class="sp-toggle--track" />
 </div>

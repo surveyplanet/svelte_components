@@ -186,7 +186,7 @@
 			class="sp-menu--back">
 			<button
 				class="sp-menu--back-btn"
-				onClick={backClickHandler}>
+				onclick={backClickHandler}>
 				<Icon
 					name="arrowLeft"
 					size={16} />
@@ -206,7 +206,7 @@
 			<button
 				class="sp-menu--item--btn"
 				id={item.id}
-				onClick={itemClickHandler}>
+				onclick={itemClickHandler}>
 				{#if item.label}
 					<span class="sp-menu--item--label">
 						{item.label}

@@ -89,7 +89,7 @@
 		class="sp-image-upload--input"
 		type="file"
 		accept={formatAccept}
-		onChange={fileInputHandler} />
+		onchange={fileInputHandler} />
 
 	{#if note?.length}
 		<p class="sp-image-upload--note">{note}</p>
