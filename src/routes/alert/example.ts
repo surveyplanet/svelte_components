@@ -22,14 +22,14 @@ export default (
 </script>
 
 <Alert 
-  title='${title}'
-  subtitle='${subtitle}'
-  type='${type}'
-  hideDelay={${hideDelay}}
-  confirm={${confirm}}
-  confirmButtonLabel='${confirmButtonLabel}'
-  cancelButtonLabel='${cancelButtonLabel}'
-  challenge='${challenge}'
+  title = '${title}'
+  subtitle = '${subtitle}'
+  type = '${type}'
+  hideDelay = ${hideDelay}
+  confirm = ${confirm}
+  confirmButtonLabel = '${confirmButtonLabel}'
+  cancelButtonLabel = '${cancelButtonLabel}'
+  challenge = '${challenge}'
   onconfirm={onconfirmHandler}
   onopen={onopenHandler}
   oninput={oninputHandler}

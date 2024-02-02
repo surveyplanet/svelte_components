@@ -15,17 +15,21 @@ export default (
 
 	import {Dropdown, DropdownOptions} from '@surveyplanet/svelte_components';
 
+	const dropdownChangeHandler = (e) => {
+		console.log('change', e);
+	}
 </script>
 
 <Dropdown
-	options=${JSON.stringify(options, null, 2)}
-	searchThreshold=${searchThreshold}
-	disabled=${disabled}
-	required=${required}
-	value=${value}
-	placeholder=${placeholder}
-	label=${label}
-	size=${size}
+	options = ${JSON.stringify(options, null, 2)}
+	searchThreshold = ${searchThreshold}
+	disabled = ${disabled}
+	required = ${required}
+	value = ${value}
+	placeholder = '${placeholder}'
+	label = '${label}'
+	size = '${size}'
+	onchange = {dropdownChangeHandler}
 />
 `;
 };

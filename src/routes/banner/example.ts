@@ -11,11 +11,12 @@ export default (
 		import { Banner } from '@surveyplanet/svelte_components';
 
 	</script>
+
 	<Banner 
-		title="${title}" 
-		type="${type}"
-		visible={${visible}}
-		hideDelay={${hideDelay}}>
+		title = '${title}'
+		type = '${type}'
+		visible = ${visible}
+		hideDelay = ${hideDelay}>
 		${content}
 	</Banner>
 `;

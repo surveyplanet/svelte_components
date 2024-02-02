@@ -20,10 +20,10 @@ export default (
 </script>
 
 <Chip
-	data=${JSON.stringify(data, null, 2)}
-	selectable=${selectable}
-	multiSelect=${multiSelect}
-	removable=${removable}
+	data = ${JSON.stringify(data, null, 2)}
+	selectable = ${selectable}
+	multiSelect = ${multiSelect}
+	removable = ${removable}
 	onclick={chipClickHandler}
 	onremove={chipRemoveHandler}
 	/>`;

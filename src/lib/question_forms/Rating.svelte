@@ -7,7 +7,7 @@
 		order?: RatingProperties['order'];
 		layout?: RatingProperties['layout'];
 		response?: RatingValue[];
-		ratingResponse: (value: RatingValue[]) => void;
+		onRatingResponse: (value: RatingValue[]) => void;
 	};
 </script>
 
@@ -22,7 +22,7 @@
 		order = 'default',
 		layout = '1',
 		response = [],
-		ratingResponse,
+		onRatingResponse,
 	} = $props<RatingProps>();
 
 	// TODO: THIS NEEDS TO BE TESTED
@@ -61,7 +61,7 @@
 
 		const target = event.target as HTMLInputElement;
 		updateResponse(Number(target.value));
-		ratingResponse(response);
+		onRatingResponse(response);
 	};
 </script>
 

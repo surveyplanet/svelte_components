@@ -1,4 +1,5 @@
 export default (
+	id: string,
 	name: string,
 	labelOne: string,
 	labelTwo: string,
@@ -22,31 +23,13 @@ export default (
 </script>
 
 <Radio
-	id={labelOne.toLowerCase().replace(' ', '-')}
-	{disabled}
-	{name}
-	value={labelOne}
-	label={labelOne}
-	{prependLabel}
-	{size}
-	on:change={changeEventHandler} />
-<Radio
-	id={labelTwo.toLowerCase().replace(' ', '-')}
-	{disabled}
-	{name}
-	value={labelTwo}
-	label={labelTwo}
-	{prependLabel}
-	{size}
-	on:change={changeEventHandler} />
-<Radio
-	id={labelThree.toLowerCase().replace(' ', '-')}
-	{disabled}
-	{name}
-	value={labelThree}
-	label={labelThree}
-	{prependLabel}
-	{size}
-	on:change={changeEventHandler} />		
-`;
+	id='${id}'
+	disabled=${disabled}
+	name='${name}'
+	value='${labelOne}'
+	label='${labelOne}'
+	prependLabel='${prependLabel}'
+	size='${size}'
+	onchange={changeEventHandler} />
+;`;
 };

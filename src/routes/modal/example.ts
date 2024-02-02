@@ -9,40 +9,36 @@ export default (
 	return `
 <script>
 import {Modal} from '@surveyplanet/svelte_components';
-    let title = '${title}';
-    let subtitle = '${subtitle}';
-    let fullscreen = ${fullscreen};
-    let overlay = ${overlay};
-    let visible = ${visible};
-    let size = '${size}';
+
 
 </script>
 
 <Modal
-	bind:size
-	bind:visible
-	on:open={modalOpened}
-	on:in={modalIn}
-	on:out={modalOut}
-	on:close={close}
-	{title}
-	{subtitle}
-	{fullscreen}
-	{overlay}>
-
-	<p slot="header">
+	size = ${size}
+	visible = ${visible}
+	title = ${title}
+	subtitle = ${subtitle}
+	fullscreen = ${fullscreen}
+	overlay = ${overlay}
+	onopen={openHandler}
+	onin={inHandler}
+	onout={outHandler}
+	onclose={closeHandler}>
+	{#snippet header()}
+	<p>
 		Hall low lands den womans control the or. Might he which forgot
 		she he him, if below isle where brow.
 	</p>
+	{/snippet}
 
-	<svelte:fragment slot="body">
+	{#snippet header()}
 		And visit not than sacred cell wins in not childe. Fabled most
 		heart charms een feeble. Had his flatterers yes nor, from from
 		cell soon once upon beyond so then, sore from dome condole was
 		favour departed friend from moths.
 	{/snippet}
 
-	<svelte:fragment slot="footer">
+	{#snippet header()}
 		<p>&copy; Surveyplanet</p>
 	{/snippet}
 

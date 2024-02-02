@@ -4,6 +4,7 @@
 	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
+	let id = 'radio';
 	let events = $state<string[]>([]);
 	let name = $state('stooge');
 	let labelOne = $state('Harry');
@@ -21,6 +22,7 @@
 <Layout
 	component="Radio"
 	example={source(
+		id,
 		name,
 		labelOne,
 		labelTwo,
@@ -32,8 +34,6 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		doesn't work for text changes
-
 		<PropsChanger
 			label="Name"
 			text

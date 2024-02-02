@@ -43,7 +43,7 @@
 				{min}
 				{max}
 				{response}
-				rangeResponse={rangeResponseHandler} />
+				onRangeResponse={rangeResponseHandler} />
 		</div>
 	{/snippet}
 </Layout>

@@ -12,16 +12,26 @@ export default (
 	random: ImageProperties['random'],
 	response: ImageValue[]
 ) => {
-	return `<Image
-	id={${id}}
-	labels={${JSON.stringify(labels)}}
-	multi={${multi}}
-	size={${size}}
-	hideCaptions={${hideCaptions}}
-	contain={${contain}}
-	min={${min}}
-	max={${max}}
-	random={${random}}
-	response={${JSON.stringify(response)}}
+	return `
+<script lang ='ts'>
+	import {Image} from '@surveyplanet/svelte-components';
+	import type {ImageValue} from '@surveyplanet/types';
+
+	const responseHandler = (response: ImageValue[]) => {
+		console.log(response);
+	}
+</script>
+	
+<Image
+	id ='${id}'
+	labels =${JSON.stringify(labels)}
+	multi = ${multi}
+	size = ${size}
+	hideCaptions = ${hideCaptions}
+	contain = ${contain}
+	min = ${min}
+	max = ${max}
+	random = ${random}
+	onImageResponse = ${JSON.stringify(response)}
 />`;
 };

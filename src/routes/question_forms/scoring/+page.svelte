@@ -99,6 +99,6 @@
 			{requireAll}
 			{requireUnique}
 			{response}
-			scoringResponse={scoringResponseHandler} />
+			onScoringResponse={scoringResponseHandler} />
 	{/snippet}
 </Layout>

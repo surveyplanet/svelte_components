@@ -6,9 +6,16 @@ export default (
 	color: string,
 	symbolOnly: boolean
 ) => {
-	return `<script lang="ts">
+	return `
+<script lang="ts">
+
 	import { Logo, type LogoSize } from '@surveyplanet/svelte_components';
+
 </script>
 
-<Logo size={${size}} fill={${fill}} color={${color}} {${symbolOnly}} />`;
+<Logo 
+	size= ${size}
+	fill= '${fill}'
+	color= '${color}'
+	symbolOnly=	${symbolOnly} />`;
 };

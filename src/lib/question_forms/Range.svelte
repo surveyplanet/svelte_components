@@ -6,7 +6,7 @@
 		min: number;
 		max: number;
 		response?: RangeValue[];
-		rangeResponse?: (value: RangeValue[]) => void;
+		onRangeResponse?: (value: RangeValue[]) => void;
 	};
 </script>
 
@@ -15,7 +15,7 @@
 	import TextInput from '../TextInput.svelte';
 	import RangeSlider from 'svelte-range-slider-pips';
 
-	let { id, min, max, response = [], rangeResponse } = $props<RangeProps>();
+	let { id, min, max, response = [], onRangeResponse } = $props<RangeProps>();
 
 	let rangeValues = $state([response[0] || min, response[1] || max]);
 	// onMount(() => {
@@ -24,7 +24,7 @@
 
 	const rangeSliderStopHandler = () => {
 		response = [rangeValues[0], rangeValues[1]];
-		if (rangeResponse) rangeResponse(response);
+		if (onRangeResponse) onRangeResponse(response);
 	};
 
 	// it would be better to do this on a keydown event but we are not dispatching

@@ -11,19 +11,19 @@ export default (
 <script>
 	import Checkbox from '@surveyplanet/svelte_components';
 	const changeEventHandler = (event) => {
-		console.log("Option $event.value was selected");
+		console.log(event);
 	};
 	
 </script>
 
 <Checkbox
-	id=${id}
-	name=${name}
-	value=${value}
-	checked=${checked}
-	disabled=${disabled}
-	prependLabel=${prependLabel}
-	size=${size}
+	id = '${id}'
+	name = '${name}'
+	value = '${value}'
+	checked = ${checked}
+	disabled = ${disabled}
+	prependLabel = ${prependLabel}
+	size = '${size}'
 	onchange={changeEventHandler}/>
 `;
 };

@@ -99,7 +99,7 @@
 				{order}
 				{layout}
 				{response}
-				ratingResponse={ratingResponseHandler} />
+				onRatingResponse={ratingResponseHandler} />
 		</div>
 	{/snippet}
 </Layout>

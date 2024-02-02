@@ -4,16 +4,16 @@ export default (
 	flat: boolean
 ) => {
 	return `
-	<script>
+<script>
+
+	import {Badge} from '@surveyplanet/svelte-components';
 	
-		import {Badge} from '@surveyplanet/svelte-components';
+</script>
 
-	</script>
-
-	<Badge
-	  color='${color}'
-	  content = '${content}' 
-	  flat = ${flat} 
-	  >Pro</Badge>
+<Badge
+  color='${color}'
+  content = '${content}' 
+  flat = ${flat} 
+  >Pro</Badge>
 `;
 };

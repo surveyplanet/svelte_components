@@ -6,7 +6,7 @@
 		min: ScaleProperties['min'];
 		max: ScaleProperties['max'];
 		response?: ScaleValue[];
-		scaleResponse: (response: ScaleValue[]) => void;
+		onScaleResponse: (response: ScaleValue[]) => void;
 	};
 </script>
 
@@ -14,13 +14,13 @@
 	import type { ScaleValue, ScaleProperties } from '@surveyplanet/types';
 	import RangeSlider from 'svelte-range-slider-pips';
 
-	let { id, min, max, response = [], scaleResponse } = $props<ScaleProps>();
+	let { id, min, max, response = [], onScaleResponse } = $props<ScaleProps>();
 
 	let rangeValues: number[] = $state([response[0]] || [min]);
 
 	const sliderStopHandler = () => {
 		response = [rangeValues[0]];
-		scaleResponse(response);
+		onScaleResponse(response);
 	};
 </script>
 

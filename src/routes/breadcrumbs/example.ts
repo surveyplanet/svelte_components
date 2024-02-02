@@ -8,6 +8,6 @@ export default (data: BreadcrumbData[]) => {
 
 	</script>
 
-	<Breadcrumbs data=${data} />
+	<Breadcrumbs data= ${data} />
 `;
 };

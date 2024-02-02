@@ -43,7 +43,7 @@
 				{min}
 				{max}
 				{response}
-				scaleResponse={scaleResponseHandler} />
+				onScaleResponse={scaleResponseHandler} />
 		</div>{/snippet}
 </Layout>
 

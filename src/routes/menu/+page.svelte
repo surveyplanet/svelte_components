@@ -32,7 +32,7 @@
 
 <Layout
 	component="Menu"
-	example={source(menuVisible, data, size)}
+	example={source(data, size)}
 	{md}
 	bind:events>
 	{#snippet controls()}

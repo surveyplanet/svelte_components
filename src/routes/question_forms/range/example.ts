@@ -6,10 +6,20 @@ export default (
 	max: RangeProperties['max'],
 	response: RangeValue[]
 ) => {
-	return `<Range
-	id={${id}}
-	min={${min}}
-	max={${max}}
-	response={${JSON.stringify(response)}}
+	return `
+<script lang ='ts'>
+	import {Range} from '@surveyplanet/svelte-components';
+	import type {RangeValue} from '@surveyplanet/types';
+
+	const responseHandler = (response: RangeValue[]) => {
+		console.log(response);
+	}
+</script>
+
+<Range
+	id = '${id}'
+	min = ${min}
+	max = ${max} 
+	onRangeResponse = ${JSON.stringify(response)}
 />`;
 };

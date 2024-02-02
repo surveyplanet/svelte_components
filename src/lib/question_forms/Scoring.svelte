@@ -17,7 +17,7 @@
 		requireAll?: ScoringProperties['requireAll'];
 		requireUnique?: ScoringProperties['requireUnique'];
 		response?: ScoringValue[];
-		scoringResponse: (value: ScoringValue[]) => void;
+		onScoringResponse: (value: ScoringValue[]) => void;
 	};
 </script>
 
@@ -36,7 +36,7 @@
 		requireAll = false,
 		requireUnique = false,
 		response = [],
-		scoringResponse,
+		onScoringResponse,
 	} = $props<ScoringProps>();
 
 	const updateResponse = (value: ScoringValue) => {
@@ -55,7 +55,7 @@
 
 		updateResponse(value);
 
-		scoringResponse(response);
+		onScoringResponse(response);
 	};
 
 	const sortableEventHandler = (list: { label: string }[]) => {
@@ -66,12 +66,12 @@
 				value: values[i],
 			});
 		}
-		scoringResponse(response);
+		onScoringResponse(response);
 	};
 
 	const clearButtonClickHandler = () => {
 		response = [];
-		scoringResponse(response);
+		onScoringResponse(response);
 	};
 	let sortedLabels: { label: string }[] = [];
 	const listSorted = (labels: string[]): typeof sortedLabels => {

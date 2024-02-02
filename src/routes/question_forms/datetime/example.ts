@@ -9,11 +9,21 @@ export default (
 	definitions: DateTimeDefinitions,
 	response: DateTimeValue[]
 ) => {
-	return `<DateTime
+	return `
+<script lang ='ts'>
+	import {DateTime} from '@surveyplanet/svelte-components';
+	import type {DateTimeValue} from '@surveyplanet/types';
+
+	const responseHandler = (response: DateTimeValue[]) => {
+		console.log(response);
+	}
+</script>
+	
+<DateTime
 	id={${id}}
 	date={${date}}
 	time={${time}}
 	definitions={${JSON.stringify(definitions)}}
-	response={${JSON.stringify(response)}}
+	onDateTimeResponse={${JSON.stringify(response)}}
 />`;
 };

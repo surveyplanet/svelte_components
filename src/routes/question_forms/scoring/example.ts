@@ -12,15 +12,26 @@ export default (
 	requireUnique: ScoringProperties['requireUnique'],
 	response: ScoringValue[]
 ) => {
-	return `<Scoring
-	id={${id}}
-	definitions={${JSON.stringify(definitions)}}
-	values={${JSON.stringify(values)}}
-	labels={${JSON.stringify(labels)}}
-	maxLabel={${maxLabel}}
-	minLabel={${minLabel}}
-	requireAll={${requireAll}}
-	requireUnique={${requireUnique}}
-	response={${JSON.stringify(response)}}
+	return `
+	<script lang ='ts'>
+		import {Scoring} from '@surveyplanet/svelte-components';
+		import type {ScoringValue} from '@surveyplanet/types';
+
+		const responseHandler = (response: ScoringValue[]) => {
+			console.log(response);
+		}
+	</script>
+
+	<Scoring
+	id='${id}'
+	definitions=${JSON.stringify(definitions, null, 2)}
+	values=${JSON.stringify(values, null, 2)}
+	labels=${JSON.stringify(labels, null, 2)}
+	maxLabel='${maxLabel}'
+	minLabel='${minLabel}'
+	requireAll=${requireAll}
+	requireUnique=${requireUnique}
+	response=${JSON.stringify(response, null, 2)}
+	onScoringResponse = {responseHandler}
 />`;
 };

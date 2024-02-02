@@ -15,44 +15,34 @@ export default (
 	validationMessage: string,
 	size: 'small' | 'medium' | 'large'
 ) => {
-	return `<script>
-	import { TextInput } from '@surveyplanet/svelte_components';
+	return `
+<script lang='ts'>
 
-    let id = '${id}';
-	let name = '${name}';
-	let type: TextInputType = '${type}';
-	let value = '${value}';
-	let label = '${label}';
-	let placeholder = '${placeholder}';
-	let readonly =  ${readonly};
-	let disabled = ${disabled};
-	let cleaveOptions = ${cleaveOptions};
-	let validationRules: string[] = ${JSON.stringify(validationRules)};
-	let validationMessage = '${validationMessage}';
-	let size = '${size}';
+	import { TextInput } from '@surveyplanet/svelte_components';
 
 	const keyupHandler = (event) => {
 		console.log(event.key);
 	};
+
 </script>
 
 <TextInput
-	on:change={changeHandler}
-	on:focus={focusHandler}
-	on:keydown={keydownHandler}
-	on:keyup={keyupHandler}
-	{disabled}
-	{readonly}
-	{multiline}
-	{label}
-	{placeholder}
-	{type}
-	{value}
-	{name}
-	{id}
-	{size}
-	{validationRules}
-	{validationMessage}
-	{cleaveOptions} />
+	onchange={changeHandler}
+	onfocus={focusHandler}
+	onkeydown={keydownHandler}
+	onkeyup={keyupHandler}
+	id = '${id}'
+	name = '${name}'
+	type: TextInputType = '${type}'
+	value = '${value}'
+	label = '${label}'
+	placeholder = '${placeholder}'
+	readonly =  ${readonly}
+	disabled = ${disabled}
+	cleaveOptions = ${cleaveOptions}
+	validationRules: string[] = ${JSON.stringify(validationRules)}
+	validationMessage = '${validationMessage}'
+	size = '${size}'
+/>
 `;
 };

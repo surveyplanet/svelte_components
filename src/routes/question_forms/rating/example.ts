@@ -6,11 +6,23 @@ export default (
 	layout: RatingProperties['layout'],
 	response: RatingValue[]
 ) => {
-	return `<Rating
-	id={${id}}
-	labels={${JSON.stringify(labels)}}
-	order={${order}}
-	layout={${layout}}
-	response={${JSON.stringify(response)}}
+	return `
+<script lang ='ts'>
+
+	import {Rating} from '@surveyplanet/svelte-components';
+	import type {RatingValue} from '@surveyplanet/types';
+	
+	const responseHandler = (response: RatingValue[]) => {
+		console.log(response);
+	}
+
+</script>
+
+<Rating
+	id='${id}'
+	labels='${JSON.stringify(labels)}'
+	order='${order}'
+	layout='${layout}'
+	onRatingResponse=${JSON.stringify(response)}
 />`;
 };

@@ -5,13 +5,29 @@ export default (
 	navMenuData: MenuData[],
 	vertical: boolean
 ) => {
-	return `<script>
-	import { NavBar } from 'components/NavBar';
-	let vertical = ${vertical};
-	let data = $state(${JSON.stringify(data, null, 2)});
-	let navMenuData = ${JSON.stringify(navMenuData, null, 2)};
+	return `
+<script>
+
+	import { NavBar, NavBarData } from 'components/NavBar';
+
+	const linkHandler = (event) => {
+		console.log(event.detail);
+	}
+	
+	const clickHandler = (event) => {
+		console.log(event.detail);
+	}
 
 </script>
-<NavBar {data} {navMenuData} {vertical} />
+
+<NavBar 
+	data = ${JSON.stringify(data, null, 2)}
+	navMenuData = ${JSON.stringify(navMenuData, null, 2)}
+	vertical= ${vertical}
+	onnavlink = {linkHandler}
+	onclick = {clickHandler}
+	onupdate = {updateHandler}
+	
+	/>
 `;
 };

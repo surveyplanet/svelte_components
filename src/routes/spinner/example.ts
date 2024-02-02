@@ -12,36 +12,26 @@ export default (
 	dragSpeed: number,
 	size: 'small' | 'medium' | 'large'
 ) => {
-	return `<script>
-	import Spinner from './Spinner.svelte';
+	return `
+<script>
 
-	let label = '${label}';
-	let step = ${step};
-	let min = ${min};
-	let max = ${max};
-	let value = ${value};
-	let disabled = ${disabled};
-	let required = ${required};
-	let overflow = ${overflow};
-	let id = '${id}';
-	let placeholder = '${placeholder}';
-	let dragSpeed = ${dragSpeed};
-	let size = ${size};
+	import { Spinner } from '@surveyplanet/svelte-components';
+
 </script>
 
 <Spinner
-	{label}
-	{step}
-	{min}
-	{max}
-	{value}
-	{disabled}
-	{required}
-	{overflow}
-	{id}
-	{placeholder}
-	{dragSpeed}
-	{size}	
+	label= '${label}'
+	step= ${step}
+	min= ${min}
+	max= ${max}
+	value= ${value}
+	disabled= ${disabled}
+	required= ${required}
+	overflow= ${overflow}
+	id= '${id}'
+	placeholder= '${placeholder}'
+	dragSpeed= ${dragSpeed}
+	size= '${size}	'
 />
 `;
 };
