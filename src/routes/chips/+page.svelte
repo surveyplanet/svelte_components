@@ -53,19 +53,19 @@
 	bind:events>
 	{#snippet controls()}
 		<PropsChanger
-			label="data"
+			label="Data"
 			text
 			bind:value={stringData} />
 		<PropsChanger
-			label="selectable"
+			label="Selectable"
 			checkbox
 			bind:value={selectable} />
 		<PropsChanger
-			label="multiSelect"
+			label="MultiSelect"
 			checkbox
 			bind:value={multiSelect} />
 		<PropsChanger
-			label="removable"
+			label="Removable"
 			checkbox
 			bind:value={removable} />
 	{/snippet}

@@ -21,28 +21,7 @@
 
 ### Callbacks
 
-| Name       | Description                         | Type                         |
-| ---------- | ----------------------------------- | ---------------------------- |
-| `onClick`  | Click event handler for the chips.  | `(data: ChipData[]) => void` |
-| `onRemove` | Remove event handler for the chips. | `(data: ChipData[]) => void` |
-
-### Methods
-
-#### `getChipId(chipEl: HTMLButtonElement): string`
-
-Returns the ID of the chip based on the HTML element.
-
-#### `removeHandler(id: string): void`
-
-Removes the chip with the specified ID.
-
-#### `toggle(id: string): void`
-
-Toggles the selection state of the chip with the specified ID.
-
-### Events
-
-| Name       | Description                       |
-| ---------- | --------------------------------- |
-| `onClick`  | Triggered when a chip is clicked. |
-| `onRemove` | Triggered when a chip is removed. |
+| Name       | Description                         | Arguments          |
+| ---------- | ----------------------------------- | ------------------ |
+| `onClick`  | Click event handler for the chips.  | `data: ChipData[]` |
+| `onRemove` | Remove event handler for the chips. | `data: ChipData[]` |

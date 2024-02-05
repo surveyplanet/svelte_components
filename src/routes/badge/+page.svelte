@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge, Icon } from '$lib';
+	import { Badge } from '$lib';
 	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -16,16 +16,18 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Color"
-			select={true}
-			selectOptions={['yellow', 'blue', 'pink', 'green']}
+			selectOptions={[
+				{ label: 'Yellow', value: 'yellow' },
+				{ label: 'Blue', value: 'blue' },
+				{ label: 'Pink', value: 'pink' },
+				{ label: 'Green', value: 'green' },
+			]}
 			bind:value={color} />
 		<PropsChanger
 			label="Content"
-			text={true}
 			bind:value={content} />
 		<PropsChanger
 			label="Flat"
-			checkbox={true}
 			bind:value={flat} />
 	{/snippet}
 	{#snippet main()}

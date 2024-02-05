@@ -1,127 +1,107 @@
 <script lang="ts">
 	import Checkbox from '$lib/Checkbox.svelte';
 	import TextInput from '$lib/TextInput.svelte';
-	let {
-		text,
-		number,
-		checkbox,
-		object,
-		select,
-		onInput,
-		onBlur,
-		selectOptions = [],
-		value,
-		label = '',
-	} = $props<{
-		text?: boolean;
-		number?: boolean;
-		checkbox?: boolean;
-		object?: boolean;
-		select?: boolean;
-		selectOptions?: string[] | number[];
+	import { dasherize } from '@surveyplanet/utilities';
+	import JsonEditor from './JsonEditor.svelte';
+
+	type ValueTypes = string | number | boolean | object;
+
+	interface PropsChangerProps<T> {
+		value: T;
+		label: string;
+		selectOptions?: string[] | { label: string; value: string }[];
 		onInput?: (e: Event) => void;
 		onBlur?: (e: Event) => void;
-		value?: string | number | boolean | null;
-		label?: string;
-	}>();
+	}
 
-	/**
-	 * 
-	INFO: 
-	 when binding JSON.stringify(data) to the PropsChanger, instead make a new variable that is a stringified version of the data and use
-	 effect to parse it into the data variable. TAlso make sure to bind:data in the component. 
-	Example: 
-	 <script lang="ts">
-	 	let data: BreadcrumbData[] = $state([ .... ]);
-	
-	 	let dataString = $state(JSON.stringify(data)); // <--- this is the new variable
-	 	$effect(() => {
-	 		data = JSON.parse(dataString); // <--- this is the effect where the data is updated
-	 	});
-	 </script	
-	 	<Layout
-	 	component="Breadcrumbs"
-	 	example={source(data)}
-	 	{md}
-	 	bind:events>
-	 	{#snippet controls()}
-	 		<PropsChanger
-	 			label="Data"
-	 			object
-	 			bind:value={dataString} /> // <--- this is the new variable
-	 	{/snippet}
-	 	{#snippet main()}
-	 		<Breadcrumbs
-				 bind:data > // <--- this is the bind
-			</Breadcrumbs> 
-	 	{/snippet}
-		 </Layout>
+	let {
+		value,
+		label,
+		selectOptions = [],
+		onInput,
+		onBlur,
+	} = $props<PropsChangerProps<ValueTypes>>();
 
-	*/
+	let type = $state('string');
+
+	$effect(() => {
+		if (typeof value === 'string') {
+			type = 'string';
+		} else if (typeof value === 'number') {
+			type = 'number';
+		} else if (typeof value === 'boolean') {
+			type = 'boolean';
+		} else if (selectOptions?.length) {
+			type = 'select';
+		} else {
+			type = 'json';
+		}
+	});
+
+	let className = $derived(`prop-changer-item--${type}--${dasherize(label)}`);
+
+	// const jsonInputHandler = (e: Event) => {
+	// 	const target = e.target as HTMLInputElement;
+	// 	const value = target.value;
+	// 	try {
+	// 		value = JSON.parse(value);
+	// 	} catch (e) {
+	// 		console.error(e);
+	// 	}
+	// };
 </script>
 
 <div class="props-changer">
-	{#if text && typeof value === 'string'}
-		<div class="props-changer--item">
-			<TextInput
-				id={`text-${text}`}
-				name="text"
-				{label}
-				type="text"
-				bind:value
-				{onInput}
-				{onBlur} />
-		</div>
-	{/if}
-	{#if number}
-		<div class="props-changer--item">
+	<div class="props-changer--item {className}">
+		{#if type === 'number'}
 			<label for="number">{label}</label>
+			<!-- TODO: use Spinner -->
 			<input
 				type="number"
 				id="number"
 				bind:value
 				oninput={onInput}
 				onblur={onBlur} />
-		</div>
-	{/if}
-	{#if (checkbox && typeof value === 'boolean') || typeof value === 'undefined'}
-		<div class="props-changer--item">
+		{:else if type === 'boolean'}
 			<label for="boolean">{label}</label>
 			<Checkbox
-				id="boolean-{label}"
+				id="boolean-{new Date().getTime()}"
 				name="boolean-{label}s"
 				bind:checked={value}
 				size="medium"
 				onChange={onInput} />
-		</div>
-	{/if}
-	{#if object && typeof value === 'string'}
-		<label for="object">{label}</label>
-		<div class="props-changer--item">
-			<TextInput
-				id={`text-${text}`}
-				name="text"
-				{label}
-				type="multiline"
-				bind:value
-				{onInput}
-				{onBlur} />
-		</div>
-	{/if}
-	{#if select}
-		<div class="props-changer--item">
+		{:else if type === 'json'}
+			<JsonEditor />
+		{:else if type === 'select'}
 			<label for="select">{label}</label>
+			<!-- TODO: replace with DropDown component -->
 			<select
 				bind:value
 				id="select"
 				oninput={onInput}
 				onblur={onBlur}>
 				{#each selectOptions as option}
-					<option value={option}>{option}</option>
+					<option
+						value={typeof option !== 'string' && 'value' in option
+							? option.value
+							: option}>
+						{typeof option !== 'string' && 'label' in option
+							? option.label
+							: option}
+					</option>
 				{/each}
 			</select>
-		</div>
-	{/if}
+		{:else}
+			<TextInput
+				id={`text-${label}`}
+				name="text"
+				{label}
+				type="text"
+				bind:value
+				{onInput}
+				{onBlur} />
+		{/if}
+	</div>
 </div>
 
 <style lang="scss">

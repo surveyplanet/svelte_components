@@ -11,7 +11,7 @@ export default (
 ) => {
 	return `
 <script>
-	import { Button, type BUTTON_MODES } from '@surveyplanet/svelte-components';
+	import { Button, BUTTON_MODES } from '@surveyplanet/svelte-components';
 	const clickHandler = () => {
 		console.log('Button clicked');
 	};
@@ -19,16 +19,16 @@ export default (
 
 
 <Button
-	mode = ${mode}
-	disabled = ${disabled}
-	loader = ${loader}
-	round = ${round}
-	block = ${block}
-	action = ${action}
-	type = '${type}'
-	size = '${size}' >
+	mode={BUTTON_MODES['${mode}']}
+	disabled=${disabled}
+	loader=${loader}
+	round=${round}
+	block=${block}
+	action=${action}
+	type='${type}'
+	size='${size}' 
+	onClick={clickHandler}>
 	${content}
-	onClick={clickHandler}
 </Button>
 `;
 };

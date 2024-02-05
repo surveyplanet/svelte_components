@@ -9,13 +9,13 @@
 </script>
 
 <script lang="ts">
-	// import { COLORS } from './_definitions';
+	import { COLORS } from '$lib/_definitions';
 
 	const strokeDashOffset = 63;
 
 	let {
-		colors,
-		size,
+		colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green],
+		size = 20,
 		strokeWidth, // stroke width doesn't look good above 4
 	} = $props<LoaderProps>();
 
@@ -24,9 +24,6 @@
 	// colors don't change after initialization. This could be an issue using it
 	// in a single page app.
 
-	// (colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green])(
-	// 	(size = 72)
-	// )((strokeWidth = 4));
 	let speed = $derived(colors.length);
 	// keyframes can not be applied to svg element directly so inject in to head
 	function injectKeyframes() {

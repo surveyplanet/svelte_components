@@ -9,7 +9,7 @@
 
 	export type ChipsProps = {
 		data: ChipData[];
-		selectable?: boolean;
+		selectable: boolean;
 		multiSelect?: boolean;
 		removable?: boolean;
 		onClick?: (data: ChipData[]) => void;

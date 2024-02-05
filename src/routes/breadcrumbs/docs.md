@@ -1,4 +1,8 @@
-# Breadcrumbs component
+### Properties
+
+| Property | Type             | Description                                |
+| -------- | ---------------- | ------------------------------------------ |
+| `data`   | BreadcrumbData[] | Array of objects representing breadcrumbs. |
 
 ### Interfaces
 
@@ -6,11 +10,5 @@
 
 | Property | Type   | Description                           |
 | -------- | ------ | ------------------------------------- |
-| `name`   | String | Name of the breadcrumb item.          |
-| `url`    | String | Optional URL for the breadcrumb item. |
-
-### Properties
-
-| Property | Type             | Description                                |
-| -------- | ---------------- | ------------------------------------------ |
-| `data`   | BreadcrumbData[] | Array of objects representing breadcrumbs. |
+| `name`   | string | Name of the breadcrumb item.          |
+| `url`    | string | Optional URL for the breadcrumb item. |

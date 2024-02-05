@@ -6,18 +6,16 @@ export default (
 	hideDelay: number
 ) => {
 	return `
-	<script lang='ts>
+<script lang='ts>
+	import { Banner } from '@surveyplanet/svelte_components';
+</script>
 
-		import { Banner } from '@surveyplanet/svelte_components';
-
-	</script>
-
-	<Banner 
-		title = '${title}'
-		type = '${type}'
-		visible = ${visible}
-		hideDelay = ${hideDelay}>
-		${content}
-	</Banner>
+<Banner 
+	title='${title}'
+	type='${type}'
+	visible={${visible}}
+	hideDelay={${hideDelay}}>
+	${content}
+</Banner>
 `;
 };

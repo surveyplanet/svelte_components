@@ -175,14 +175,12 @@
 					</div>
 				{:else if tabSelected === 'docs'}
 					<div class="docs">
-						<h2>Docs</h2>
 						<div id="help-content--docs">
 							{@html mkd}
 						</div>
 					</div>
 				{:else if tabSelected === 'example'}
 					<div class="help-content">
-						<h2>Examples</h2>
 						<pre>
 							<code> {example} </code>
 						</pre>

@@ -2,12 +2,10 @@ import { type BreadcrumbData } from '$lib';
 
 export default (data: BreadcrumbData[]) => {
 	return `
-	<script>
+<script lang="ts">
+	import { Breadcrumbs } from '@surveyplanet/svelte_components';
+</script>
 
-		import { Breadcrumbs } from '@surveyplanet/svelte_components';
-
-	</script>
-
-	<Breadcrumbs data= ${data} />
+<Breadcrumbs data=${data} />
 `;
 };

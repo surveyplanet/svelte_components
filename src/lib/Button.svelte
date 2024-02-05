@@ -11,8 +11,10 @@
 		outline: 'outline',
 	} as Record<string, string>;
 
+	export type ButtonMode = keyof typeof BUTTON_MODES;
+
 	export type ButtonProps = {
-		mode?: string;
+		mode?: ButtonMode;
 		disabled?: boolean;
 		loader?: boolean;
 		round?: boolean;

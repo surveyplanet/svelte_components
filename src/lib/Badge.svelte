@@ -2,10 +2,12 @@
 	lang="ts"
 	context="module">
 	export type BadgeProps = {
-		color: 'yellow' | 'blue' | 'pink' | 'green';
+		color: BadgeColors;
 		flat: boolean;
 		children?: Snippet;
 	};
+	// TODO: make colors type
+	export type BadgeColors = 'yellow' | 'blue' | 'pink' | 'green';
 </script>
 
 <script lang="ts">

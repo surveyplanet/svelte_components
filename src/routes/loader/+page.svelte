@@ -4,16 +4,17 @@
 	import { Layout, PropsChanger } from '$layout/layout_index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
+	import { COLORS } from '$lib/_definitions';
+
 	let events = $state<string[]>([]);
 
 	let colors: string[] = $state([
-		'#FF0000',
-		'#FF7F00',
-		'#FFFF00',
-		'#4B0082',
-		'#9400D3',
+		COLORS.yellow,
+		COLORS.blue,
+		COLORS.pink,
+		COLORS.green,
 	]);
-	let size = $state(60);
+	let size = $state(20);
 	let strokeWidth: 1 | 2 | 3 | 4 = $state(4);
 
 	// function getRandomColors(min = 4, max = 20) {
@@ -38,21 +39,18 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Colors"
-			object
-			bind:value={colorsStringed} />
+			value={colors} />
 		<PropsChanger
 			label="Size"
-			number
 			bind:value={size} />
 		<PropsChanger
 			label="Stroke Width"
-			select
 			selectOptions={[1, 2, 3, 4]}
 			bind:value={strokeWidth} />
 	{/snippet}
 	{#snippet main()}
 		<Loader
-			bind:colors
+			{colors}
 			{size}
 			{strokeWidth} />
 	{/snippet}

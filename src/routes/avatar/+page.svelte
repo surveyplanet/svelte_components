@@ -22,7 +22,7 @@
 
 <Layout
 	component="Avatar"
-	example={source(profileImage, id, size, disabled)}
+	example={source(id, profileImage, size, disabled)}
 	{md}
 	bind:events>
 	{#snippet controls()}

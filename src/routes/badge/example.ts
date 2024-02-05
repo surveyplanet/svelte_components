@@ -4,16 +4,15 @@ export default (
 	flat: boolean
 ) => {
 	return `
-<script>
-
+<script lang="ts">
 	import {Badge} from '@surveyplanet/svelte-components';
-	
 </script>
 
 <Badge
   color='${color}'
-  content = '${content}' 
-  flat = ${flat} 
-  >Pro</Badge>
+  content='${content}' 
+  flat={${flat}}>
+  Pro
+</Badge>
 `;
 };

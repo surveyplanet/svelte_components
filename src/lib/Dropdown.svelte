@@ -193,6 +193,7 @@
 			onblur={searchBlurHandler}
 			onkeyup={searchKeyupHandler} />
 	</div>
+
 	{#if visible}
 		<Menu
 			data={menuData}

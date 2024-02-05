@@ -57,7 +57,7 @@
 		<PropsChanger
 			label="Subtitle"
 			text={true}
-			value={subtitle} />
+			bind:value={subtitle} />
 		<PropsChanger
 			select={true}
 			label="Type"
@@ -71,7 +71,6 @@
 			checkbox={true}
 			label="Confirm"
 			bind:value={confirm} />
-
 		<PropsChanger
 			label="Confirm button label"
 			text={true}
