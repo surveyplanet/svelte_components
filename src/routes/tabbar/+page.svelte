@@ -27,7 +27,7 @@
 		},
 	]);
 
-	let grow = $state(false);
+	let block = $state(false);
 
 	let id = $state((Date.now() + Math.random()).toString(36));
 
@@ -44,7 +44,7 @@
 
 <Layout
 	component="TabBar"
-	example={source(data, grow, id)}
+	example={source(data, block, id)}
 	{md}
 	bind:events>
 	{#snippet controls()}
@@ -53,9 +53,9 @@
 			object
 			bind:value={dataStringed} />
 		<PropsChanger
-			label="grow"
+			label="block"
 			checkbox
-			bind:value={grow} />
+			bind:value={block} />
 		<PropsChanger
 			label="id"
 			text
@@ -65,7 +65,7 @@
 		<TabBar
 			onTabClick={tabButtonClickHandler}
 			bind:data
-			{grow}
+			{block}
 			{id} />
 	{/snippet}
 </Layout>

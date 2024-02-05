@@ -19,11 +19,11 @@ The `TabBar` component displays a horizontal navigation bar with tabs. It allows
 
 #### `TabBarProps`
 
-| Property | Type           | Description                                                    |
-| -------- | -------------- | -------------------------------------------------------------- |
-| `id`     | `string`       | The unique identifier for the tab bar.                         |
-| `grow`   | `boolean`      | If `true`, allows the tab bar to grow to fill available space. |
-| `data`   | `TabBarData[]` | An array of `TabBarData` objects representing each tab.        |
+| Property | Type           | Description                                                                                      |
+| -------- | -------------- | ------------------------------------------------------------------------------------------------ |
+| `id`     | `string`       | The unique identifier for the tab bar.                                                           |
+| `block`  | `boolean`      | If `true`, allows the tab bar becomes a block level element and expands to fill available space. |
+| `data`   | `TabBarData[]` | An array of `TabBarData` objects representing each tab.                                          |
 
 ### Callbacks
 

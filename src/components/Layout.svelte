@@ -149,6 +149,7 @@
 			<header>
 				<TabBar
 					id="tab-bar"
+					block={true}
 					data={[
 						{
 							id: 'controls',

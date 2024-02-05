@@ -22,34 +22,34 @@ body {
 .main-home {
 	cursor: pointer;
 }
-table {
-	width: 100%;
-	border-collapse: collapse;
-	border-radius: 5px;
-}
-th,
-td {
-	border: 1px solid black;
-	padding: 0.5rem;
-}
+// table {
+// 	width: 100%;
+// 	border-collapse: collapse;
+// 	border-radius: 5px;
+// }
+// th,
+// td {
+// 	border: 1px solid black;
+// 	padding: 0.5rem;
+// }
 
-tr:nth-child(even) {
-	background-color: #cff2fd;
-}
+// tr:nth-child(even) {
+// 	background-color: #cff2fd;
+// }
 
-th {
-	background-color: #7de3a2;
-	color: white;
-}
-li {
-	list-style-type: none;
-}
+// th {
+// 	background-color: #7de3a2;
+// 	color: white;
+// }
+// li {
+// 	list-style-type: none;
+// }
 
-pre {
-	font-family: monospace;
-	font-size: 15px;
-	word-wrap: break-word;
-}
+// pre {
+// 	font-family: monospace;
+// 	font-size: 15px;
+// 	word-wrap: break-word;
+// }
 
 // Layout.svelte
 #main-container {
@@ -105,6 +105,7 @@ pre {
 	#component-details {
 		border-left: 1px solid $color--beige-darker;
 		padding: $size-space--m;
+		width: px-to-rem(400);
 	}
 }
 

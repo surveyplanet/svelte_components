@@ -1,19 +1,19 @@
-ul {
-	list-style: none;
-	padding: 0;
-	display: flex;
-	flex-wrap: nowrap;
-	flex-direction: column;
-}
-li {
-	border: 2px dotted transparent;
-	transition: border 0.1s linear;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	.sp-sortable-list--list-item-image {
-		height: auto;
-		pointer-events: none;
-	}
-}
+// ul {
+// 	list-style: none;
+// 	padding: 0;
+// 	display: flex;
+// 	flex-wrap: nowrap;
+// 	flex-direction: column;
+// }
+// li {
+// 	border: 2px dotted transparent;
+// 	transition: border 0.1s linear;
+// 	display: flex;
+// 	flex-direction: column;
+// 	align-items: center;
+// 	justify-content: center;
+// 	.sp-sortable-list--list-item-image {
+// 		height: auto;
+// 		pointer-events: none;
+// 	}
+// }

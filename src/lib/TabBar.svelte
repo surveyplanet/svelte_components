@@ -13,7 +13,7 @@
 
 	export type TabBarProps = {
 		id?: string;
-		grow?: boolean;
+		block?: boolean;
 		data?: TabBarData[];
 		onTabClick: (id: string) => void;
 	};
@@ -24,7 +24,7 @@
 
 	let {
 		id = (Date.now() + Math.random()).toString(36),
-		grow = false,
+		block = false,
 		data,
 		onTabClick,
 	} = $props<TabBarProps>();
@@ -46,19 +46,25 @@
 	// 	);
 	// }
 
+	const moveIndicator = (target: HTMLButtonElement) => {
+		const left = target.offsetLeft;
+		const width = target.offsetWidth;
+
+		if (activeIndicator) {
+			activeIndicator.style.width = `${width}px`;
+			activeIndicator.style.left = `${left}px`;
+		}
+	};
+
 	const selectTabButton = (target: HTMLButtonElement) => {
 		const id = target.id;
-		const { width, left } = target.getBoundingClientRect();
+		moveIndicator(target);
 
 		data = (data ?? []).map((item) => {
 			item.selected = item.id === id;
 			return item;
 		});
 
-		if (activeIndicator) {
-			activeIndicator.style.width = `${width}px`;
-			activeIndicator.style.left = `${left}px`;
-		}
 		onTabClick(id);
 	};
 
@@ -67,11 +73,22 @@
 		const target = (event.target as HTMLElement).closest('button');
 		selectTabButton(target!);
 	};
+
+	const windowResizeHandler = () => {
+		const selected = data?.find((item) => item.selected);
+		if (selected) {
+			selectTabButton(
+				document.getElementById(selected.id) as HTMLButtonElement
+			);
+		}
+	};
 </script>
+
+<svelte:window on:resize={windowResizeHandler} />
 
 <nav
 	class="sp-tab-bar"
-	class:sp-tab-bar--grow={grow}
+	class:sp-tab-bar--block={block}
 	{id}>
 	<div
 		class="sp-tab-bar--active-indicator"
