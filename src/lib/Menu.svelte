@@ -183,7 +183,7 @@
 
 	{#if location.length}
 		<li
-			transition:slide|global={transitionProps}
+			transition:slide={transitionProps}
 			class="sp-menu--back">
 			<button
 				class="sp-menu--back-btn"
@@ -203,7 +203,7 @@
 			class:sp-menu--item--inline={item.inline}
 			class:sp-menu--item--selected={item.selected}
 			class:sp-menu--item--submenu={item?.submenu?.length}
-			transition:slide|global={transitionProps}>
+			transition:slide={transitionProps}>
 			<button
 				class="sp-menu--item--btn"
 				id={item.id}
