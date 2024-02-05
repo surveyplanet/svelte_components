@@ -174,7 +174,7 @@
 			<button
 				class="sp-text-input--password-toggle"
 				type="button"
-				onClick={() => {
+				onclick={() => {
 						const input = document.getElementById(id) as HTMLInputElement;
 						if (input) {
 							input.type = input.type === 'password' ? 'text' : 'password';
