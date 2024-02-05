@@ -261,9 +261,9 @@
 			{disabled}
 			onmousedown={upMouseDownHandler}
 			onmouseup={mouseUpHandler}
-			onChange={changeHandler}
-			onBlur={blurHandler}
-			onFocus={focusHandler}>
+			onchange={changeHandler}
+			onblur={blurHandler}
+			onfocus={focusHandler}>
 			<svg
 				width="7"
 				height="4"

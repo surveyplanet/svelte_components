@@ -78,7 +78,7 @@
 		onoutroend={onOutroEnd}
 		class:sp-modal--fullscreen={fullscreen}>
 		<button
-			onClick={closeHandler}
+			onclick={closeHandler}
 			class="sp-modal--header--close-btn">
 			<Icon
 				name="x"
