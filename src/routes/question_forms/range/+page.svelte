@@ -5,7 +5,7 @@
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<RangeValue[][]>([]);
-	let keys = $state(0);
+	// let keys = $state(0);
 
 	// Component props
 	let id = $state('abc123');

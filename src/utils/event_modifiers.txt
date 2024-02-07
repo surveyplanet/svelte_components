@@ -30,10 +30,10 @@ export function stopImmediatePropagation(fn: Function) {
 // The self function is a higher-order function that takes a function (fn) as an argument.
 // It returns a new function that, when called, will first check if the target of the event is the same as the currentTarget.
 // If it is, it will call the original function (fn).
-export function self(fn: Function) {
+export function self(fn: (event: Event) => void) {
 	return (event: Event) => {
 		if (event.target === event.currentTarget) {
-			fn.call(event);
+			fn.call(event, event); // Pass the event as an additional argument
 		}
 	};
 }

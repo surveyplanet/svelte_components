@@ -5,7 +5,7 @@
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<ScoringValue[][]>([]);
-	let keys = $state(0);
+	// let keys = $state(0);
 
 	// Component props
 	let id = $state('abc123');
@@ -28,15 +28,15 @@
 		events.push(response);
 	};
 
-	let definitionString = $state(JSON.stringify(definitions));
-	let valuesString = $state(JSON.stringify(values));
-	let labelsString = $state(JSON.stringify(labels));
+	// let definitionString = $state(JSON.stringify(definitions));
+	// let valuesString = $state(JSON.stringify(values));
+	// let labelsString = $state(JSON.stringify(labels));
 
-	$effect(() => {
-		definitions = JSON.parse(definitionString);
-		values = JSON.parse(valuesString);
-		labels = JSON.parse(labelsString);
-	});
+	// $effect(() => {
+	// 	definitions = JSON.parse(definitionString);
+	// 	values = JSON.parse(valuesString);
+	// 	labels = JSON.parse(labelsString);
+	// });
 </script>
 
 <Layout
@@ -64,7 +64,7 @@
 		<PropsChanger
 			label="Require Unique"
 			bind:value={requireUnique} />
-		<PropsChanger
+		<!-- <PropsChanger
 			label="Definitions"
 			bind:value={definitionString} />
 		<PropsChanger
@@ -72,7 +72,7 @@
 			bind:value={valuesString} />
 		<PropsChanger
 			label="Labels"
-			bind:value={labelsString} />
+			bind:value={labelsString} /> -->
 		<PropsChanger
 			label="Max Label"
 			bind:value={maxLabel} />

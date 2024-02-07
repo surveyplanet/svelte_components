@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { SortableList, type SortListData } from '../../lib/index';
-	import { Layout, PropsChanger } from '$layout/index';
+	import {
+		Layout,
+		//  PropsChanger
+	} from '$layout/index';
+	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<SortListData[][]>([]);
 
@@ -25,11 +29,11 @@
 		events.push(sortData);
 	};
 
-	let dataStringed = $state(JSON.stringify(data));
+	// let dataStringed = $state(JSON.stringify(data));
 
-	$effect(() => {
-		data = JSON.parse(dataStringed);
-	});
+	// $effect(() => {
+	// 	data = JSON.parse(dataStringed);
+	// });
 </script>
 
 <Layout
@@ -38,9 +42,9 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<PropsChanger
+		<!-- <PropsChanger
 			label="Data"
-			bind:value={dataStringed} />
+			bind:value={dataStringed} /> -->
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">

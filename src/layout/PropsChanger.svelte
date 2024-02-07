@@ -3,7 +3,7 @@
 	import TextInput from '$lib/TextInput.svelte';
 	import Spinner from '$lib/Spinner.svelte';
 	import Dropdown from '$lib/Dropdown.svelte';
-	import type { DropdownOptions } from '$lib/Dropdown.svelte';
+	// import type { DropdownOptions } from '$lib/Dropdown.svelte';
 	import { dasherize } from '@surveyplanet/utilities';
 	import JsonEditor from './JsonEditor.svelte';
 

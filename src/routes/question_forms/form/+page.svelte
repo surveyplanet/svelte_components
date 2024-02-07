@@ -6,7 +6,7 @@
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<FormValue[][]>([]);
-	let keys = $state(0);
+	// let keys = $state(0);
 
 	// Component props
 	let id = $state('abc123');
@@ -41,13 +41,13 @@
 		events.push(response);
 	};
 
-	let labelsStringed = $state(JSON.stringify(labels));
-	let validationsString = $state(JSON.stringify(validations));
+	// let labelsStringed = $state(JSON.stringify(labels));
+	// let validationsString = $state(JSON.stringify(validations));
 
-	$effect(() => {
-		labels = JSON.parse(labelsStringed);
-		validations = JSON.parse(validationsString);
-	});
+	// $effect(() => {
+	// 	labels = JSON.parse(labelsStringed);
+	// 	validations = JSON.parse(validationsString);
+	// });
 </script>
 
 <Layout
@@ -59,19 +59,18 @@
 		<PropsChanger
 			label="ID"
 			bind:value={id} />
-		<PropsChanger
+		<!-- <PropsChanger
 			label="Labels"
-			bind:value={labelsStringed} />
+			bind:value={labelsStringed} /> -->
 		<PropsChanger
 			label="Require all"
-			checkbox
 			bind:value={requireAll} />
 		<PropsChanger
 			label="Random"
 			bind:value={random} />
-		<PropsChanger
+		<!-- <PropsChanger
 			label="Validations"
-			bind:value={validationsString} />
+			bind:value={validationsString} /> -->
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">

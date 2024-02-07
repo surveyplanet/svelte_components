@@ -3,7 +3,8 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	let events = $state<(number | undefined)[]>([]);
-	let keys = $state(0);
+	import { default as source } from './example';
+	// let keys = $state(0);
 
 	let label = $state('Number Spinner');
 	let step = $state(1);
@@ -58,7 +59,6 @@
 			bind:value={max} />
 		<PropsChanger
 			label="value"
-			number
 			bind:value />
 		<PropsChanger
 			label="disabled"

@@ -3,6 +3,7 @@
 
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
+	import { default as source } from './example';
 	let id = 'radio';
 	let events = $state<string[]>([]);
 	let name = $state('stooge');

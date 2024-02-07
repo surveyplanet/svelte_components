@@ -40,10 +40,10 @@
 		events.push(data);
 	};
 
-	let stringData = $state(JSON.stringify(data));
-	$effect(() => {
-		data = JSON.parse(stringData);
-	});
+	// let stringData = $state(JSON.stringify(data));
+	// $effect(() => {
+	// 	data = JSON.parse(stringData);
+	// });
 </script>
 
 <Layout
@@ -52,9 +52,9 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<PropsChanger
+		<!-- <PropsChanger
 			label="Data"
-			bind:value={stringData} />
+			bind:value={stringData} /> -->
 		<PropsChanger
 			label="Selectable"
 			bind:value={selectable} />

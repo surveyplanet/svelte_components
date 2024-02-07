@@ -38,10 +38,7 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Content"
-			bind:value={content}
-			onInput={(e: Event) => {
-					content = (e.target as HTMLInputElement).value;
-				}} />
+			bind:value={content} />
 		<PropsChanger
 			label="Mode"
 			bind:value={mode}
