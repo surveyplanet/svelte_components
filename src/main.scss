@@ -79,6 +79,7 @@ body {
 		background-color: transparent;
 		box-shadow: none;
 		border-radius: 0;
+		font-size: $font-step--1;
 	}
 }
 
@@ -106,6 +107,72 @@ body {
 		border-left: 1px solid $color--beige-darker;
 		padding: $size-space--m;
 		width: px-to-rem(400);
+		header {
+			margin-bottom: $size-space--m;
+			padding-bottom: $size-space--m;
+			border-bottom: 1px solid $color--beige-darker;
+		}
+	}
+}
+#component-details--controls,
+#component-details--docs,
+#component-details--example {
+	overflow: auto;
+	// padding: $size-space--l;
+}
+
+#component-details--controls {
+}
+
+#component-details--example {
+	background-color: $color--white;
+	border-radius: $size-radius--small;
+	pre {
+		margin: 0;
+		padding: 0 $size-space--m;
+	}
+}
+
+#component-details--docs {
+	// padding: 0;
+	h2,
+	h3,
+	h4,
+	h5 {
+		background-color: $color--beige-darker;
+		margin: 0 0 $size-space--m 0;
+		padding: $size-space--s;
+		border-bottom: 1px solid $color--beige-darkest;
+	}
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 0 0 $size-space--m 0;
+
+		th,
+		td {
+			padding: 10px;
+			text-align: left;
+			border-bottom: 1px solid $color--beige-darker;
+		}
+
+		th {
+			// background-color: white;
+			// color: $color--black;
+		}
+
+		// tr:nth-child(even) {
+		// 	background-color: red;
+		// }
+		code {
+			font-family: monospace;
+			font-size: 15px;
+			word-wrap: break-word;
+			padding: $size-space--3xs $size-space--2xs;
+			background-color: white;
+			border-radius: $size-radius--small;
+			border: 1px solid $color--beige-darker;
+		}
 	}
 }
 

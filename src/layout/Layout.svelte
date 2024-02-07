@@ -43,7 +43,7 @@
 		events?.length ? events.map((event) => JSON.stringify(event)) : []
 	);
 
-	let tabSelected = $state('Example');
+	let tabSelected = $state();
 	let dropdownValue = $state();
 
 	$effect(() => {
@@ -154,7 +154,6 @@
 						{
 							id: 'controls',
 							label: 'Controls',
-							selected: true,
 						},
 						{
 							id: 'example',
@@ -163,6 +162,7 @@
 						{
 							id: 'docs',
 							label: 'Docs',
+							selected: true,
 						},
 					]}
 					onTabClick={tabHandler} />
@@ -170,20 +170,20 @@
 
 			<div class="component-details--content">
 				{#if tabSelected === 'controls'}
-					<div id="component-controls">
+					<div id="component-details--controls">
 						{@render controls()}
 					</div>
-				{:else if tabSelected === 'docs'}
-					<div class="docs">
-						<div id="help-content--docs">
-							{@html mkd}
-						</div>
-					</div>
 				{:else if tabSelected === 'example'}
-					<div class="help-content">
+					<div id="component-details--example">
 						<pre>
 							<code> {example} </code>
 						</pre>
+					</div>
+				{:else if tabSelected === 'docs'}
+					<div class="docs">
+						<div id="component-details--docs">
+							{@html mkd}
+						</div>
 					</div>
 				{/if}
 			</div>
