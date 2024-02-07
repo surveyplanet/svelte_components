@@ -16,12 +16,7 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Color"
-			selectOptions={[
-				{ label: 'Yellow', value: 'yellow' },
-				{ label: 'Blue', value: 'blue' },
-				{ label: 'Pink', value: 'pink' },
-				{ label: 'Green', value: 'green' },
-			]}
+			selectOptions={['yellow', 'blue', 'pink', 'green']}
 			bind:value={color} />
 		<PropsChanger
 			label="Content"

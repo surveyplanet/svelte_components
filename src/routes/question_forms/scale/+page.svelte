@@ -3,8 +3,9 @@
 	import { Scale } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
+	import { default as source } from './example';
 	let events = $state<ScaleValue[][]>([]);
-	let keys = $state(0);
+	// let keys = $state(0);
 
 	// Component props
 	let id = $state('abc123');

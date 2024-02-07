@@ -25,10 +25,10 @@
 	// 	);
 	// }
 
-	let colorsStringed = $state(JSON.stringify(colors));
-	$effect(() => {
-		colors = JSON.parse(colorsStringed);
-	});
+	// let colorsStringed = $state(JSON.stringify(colors));
+	// $effect(() => {
+	// 	colors = JSON.parse(colorsStringed);
+	// });
 </script>
 
 <Layout
@@ -37,9 +37,9 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<PropsChanger
+		<!-- <PropsChanger
 			label="Colors"
-			value={colors} />
+			value={colors} /> -->
 		<PropsChanger
 			label="Size"
 			bind:value={size} />

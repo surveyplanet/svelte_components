@@ -4,7 +4,8 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	let events = $state([]) as object[];
-	let keys = $state(0);
+	import { default as source } from './example';
+	// let keys = $state(0);
 
 	let label = $state('Upload');
 	let formats = $state(['.jpg', '.jpeg', '.png', '.gif', '.pdf']);
@@ -27,11 +28,11 @@
 		img.classList.remove('none');
 	};
 
-	let formatsStringed = $state(JSON.stringify(formats));
+	// let formatsStringed = $state(JSON.stringify(formats));
 
-	$effect(() => {
-		formats = JSON.parse(formatsStringed);
-	});
+	// $effect(() => {
+	// 	formats = JSON.parse(formatsStringed);
+	// });
 </script>
 
 <Layout
@@ -43,9 +44,9 @@
 		<PropsChanger
 			label="Label"
 			bind:value={label} />
-		<PropsChanger
+		<!-- <PropsChanger
 			label="Formats"
-			bind:value={formatsStringed} />
+			bind:value={formatsStringed} /> -->
 		<PropsChanger
 			label="Max Size"
 			bind:value={maxSize} />

@@ -5,7 +5,7 @@
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
 
-	let keys = $state(0);
+	// let keys = $state(0);
 
 	let id = $state('basic-text');
 	let name = $state('basic-text');
@@ -20,29 +20,29 @@
 	let validationMessage: string = $state('');
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
-	const changeHandler = (e: Event): void => {
+	const changeHandler = (): void => {
 		events.push('change');
 	};
 
-	const focusHandler = (event: Event) => {
+	const focusHandler = () => {
 		events.push('focus');
 	};
 
-	const keydownHandler = (event: Event) => {
+	const keydownHandler = () => {
 		events.push('keydown');
 	};
 
-	const keyupHandler = (event: Event) => {
+	const keyupHandler = () => {
 		events.push('keyup');
 	};
 
-	let cleaveOptionsStringed = $state(JSON.stringify(cleaveOptions));
-	let validationRulesStringed = $state(JSON.stringify(validationRules));
+	// let cleaveOptionsStringed = $state(JSON.stringify(cleaveOptions));
+	// let validationRulesStringed = $state(JSON.stringify(validationRules));
 
-	$effect(() => {
-		cleaveOptions = JSON.parse(cleaveOptionsStringed);
-		validationRules = JSON.parse(validationRulesStringed);
-	});
+	// $effect(() => {
+	// 	cleaveOptions = JSON.parse(cleaveOptionsStringed);
+	// 	validationRules = JSON.parse(validationRulesStringed);
+	// });
 </script>
 
 <Layout
@@ -97,12 +97,12 @@
 		<PropsChanger
 			label="Disabled"
 			bind:value={disabled} />
-		<PropsChanger
+		<!-- <PropsChanger
 			label="Cleave Options"
 			bind:value={cleaveOptionsStringed} />
 		<PropsChanger
 			label="Validation Rules"
-			bind:value={validationRulesStringed} />
+			bind:value={validationRulesStringed} /> -->
 		<PropsChanger
 			label="Validation Message"
 			bind:value={validationMessage} />

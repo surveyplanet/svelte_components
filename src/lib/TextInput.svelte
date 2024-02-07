@@ -118,6 +118,7 @@
 	};
 </script>
 
+<!-- eslint-disable svelte/no-at-html-tags -->
 <div
 	class="sp-text-input sp-text-input--{size}"
 	class:validation-error={hasValidationErrors}>

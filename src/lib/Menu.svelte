@@ -29,7 +29,7 @@
 
 	import { slide, type SlideParams } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	import { onMount } from 'svelte'; // use to set focus on mount
+	// import { onMount } from 'svelte'; // use to set focus on mount
 
 	let { data, size, onMenuUpdate, onMenuClick, onBlur, header, footer } =
 		$props<MenuProps>();
@@ -169,6 +169,7 @@
 	//TODO: add |global to transitions once it is fixed in svelte 5
 </script>
 
+<!-- eslint-disable svelte/no-at-html-tags -->
 <menu
 	class="sp-menu sp-menu--{size}"
 	onkeydown={arrowClickHandler}

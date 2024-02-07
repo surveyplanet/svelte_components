@@ -2,9 +2,10 @@
 	import { TabBar, type TabBarData } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
+	import { default as source } from './example';
 	let events = $state<string[]>([]);
 
-	let keys = $state(0);
+	// let keys = $state(0);
 	let data: TabBarData[] = $state([
 		{
 			id: 'edit',
@@ -33,11 +34,11 @@
 		events.push(id);
 	};
 
-	let dataStringed = $state(JSON.stringify(data));
+	// let dataStringed = $state(JSON.stringify(data));
 
-	$effect(() => {
-		data = JSON.parse(dataStringed);
-	});
+	// $effect(() => {
+	// 	data = JSON.parse(dataStringed);
+	// });
 </script>
 
 <Layout
@@ -46,9 +47,9 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<PropsChanger
+		<!-- <PropsChanger
 			label="data"
-			bind:value={dataStringed} />
+			bind:value={dataStringed} /> -->
 		<PropsChanger
 			label="block"
 			bind:value={block} />

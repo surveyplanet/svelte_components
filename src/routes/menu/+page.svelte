@@ -23,11 +23,11 @@
 		events.push(id);
 	};
 
-	let dataStringed = $state(JSON.stringify(data));
+	// let dataStringed = $state(JSON.stringify(data));
 
-	$effect(() => {
-		data = JSON.parse(dataStringed);
-	});
+	// $effect(() => {
+	// 	data = JSON.parse(dataStringed);
+	// });
 </script>
 
 <Layout
@@ -39,9 +39,9 @@
 		<PropsChanger
 			label="Visible"
 			bind:value={menuVisible} />
-		<PropsChanger
+		<!-- <PropsChanger
 			label="Data"
-			bind:value={dataStringed} />
+			bind:value={dataStringed} /> -->
 		<PropsChanger
 			label="Size"
 			selectOptions={['small', 'medium', 'large']}

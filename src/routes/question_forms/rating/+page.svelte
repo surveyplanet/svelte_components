@@ -6,7 +6,7 @@
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<RatingValue[][]>([]);
-	let keys = $state(0);
+	// let keys = $state(0);
 
 	// Component props
 	let id = $state('abc123');
@@ -42,11 +42,11 @@
 	const ratingResponseHandler = (response: RatingValue[]) => {
 		events.push(response);
 	};
-	let labelStringed = $state(JSON.stringify(labels));
+	// let labelStringed = $state(JSON.stringify(labels));
 
-	$effect(() => {
-		labels = JSON.parse(labelStringed);
-	});
+	// $effect(() => {
+	// 	labels = JSON.parse(labelStringed);
+	// });
 </script>
 
 <Layout
@@ -58,9 +58,9 @@
 		<PropsChanger
 			label="ID"
 			bind:value={id} />
-		<PropsChanger
+		<!-- <PropsChanger
 			label="Labels"
-			bind:value={labelStringed} />
+			bind:value={labelStringed} /> -->
 		<PropsChanger
 			label="Order"
 			bind:value={order}

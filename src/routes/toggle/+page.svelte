@@ -2,8 +2,9 @@
 	import { Toggle } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
+	import { default as source } from './example';
 	let events = $state([]) as boolean[];
-	let keys = $state(0);
+	// let keys = $state(0);
 
 	let id = $state((Date.now() + Math.random()).toString(36));
 	let on = $state(false);

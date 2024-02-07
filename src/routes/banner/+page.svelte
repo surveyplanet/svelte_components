@@ -14,6 +14,7 @@
 	);
 </script>
 
+<!-- eslint-disable svelte/no-at-html-tags -->
 <Layout
 	component="Banner"
 	example={source(content, title, type, visible, hideDelay)}
@@ -37,6 +38,7 @@
 			label="content"
 			bind:value={content} />
 	{/snippet}
+
 	{#snippet main()}
 		<div class="banner-wrapper">
 			<Banner

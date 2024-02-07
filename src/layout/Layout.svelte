@@ -23,15 +23,7 @@
 		controls: Snippet;
 	}
 
-	let {
-		example,
-		md,
-		value,
-		events,
-		component = 'Select a component',
-		main,
-		controls,
-	} = $props<LayoutProps>();
+	let { example, md, events, main, controls } = $props<LayoutProps>();
 
 	let isDarkMode = $state(false);
 	let mkd = $state(marked(md));
@@ -44,7 +36,7 @@
 	);
 
 	let tabSelected = $state();
-	let dropdownValue = $state();
+	// let dropdownValue = $state();
 
 	$effect(() => {
 		document.body.classList[isDarkMode ? 'add' : 'remove']('dark'); // add dark mode
@@ -69,7 +61,7 @@
 	};
 
 	const menuClickHandler = (id: string) => {
-		dropdownValue = id;
+		// dropdownValue = id;
 
 		window.location.href = `/${id}`;
 	};
@@ -87,6 +79,7 @@
 	};
 </script>
 
+<!-- eslint-disable svelte/no-at-html-tags -->
 <div id="main-container">
 	<aside id="main-sidebar">
 		<header>

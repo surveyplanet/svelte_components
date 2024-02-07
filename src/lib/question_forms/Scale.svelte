@@ -26,6 +26,7 @@
 
 <form class="sp-survey--question--form--scale">
 	<RangeSlider
+		{id}
 		pushy
 		float
 		min={Number(min)}

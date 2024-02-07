@@ -6,8 +6,9 @@
 	import { MultipleChoice } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
+	import { default as source } from './example';
 	let events = $state([]) as MultipleChoice['value'][];
-	let keys = $state(0);
+	// let keys = $state(0);
 
 	// Component props
 	let id = $state('abc123');
@@ -27,11 +28,11 @@
 		events.push(event);
 	};
 
-	let labelsString = $state(JSON.stringify(labels));
+	// let labelsString = $state(JSON.stringify(labels));
 
-	$effect(() => {
-		labels = JSON.parse(labelsString);
-	});
+	// $effect(() => {
+	// 	labels = JSON.parse(labelsString);
+	// });
 </script>
 
 <Layout
@@ -43,9 +44,9 @@
 		<PropsChanger
 			label="ID"
 			bind:value={id} />
-		<PropsChanger
+		<!-- <PropsChanger
 			label="Labels"
-			bind:value={labelsString} />
+			bind:value={labelsString} /> -->
 		<PropsChanger
 			label="Multi"
 			bind:value={multi} />
