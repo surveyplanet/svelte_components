@@ -73,6 +73,8 @@
 		) {
 			new Cleave(`#${id}`, cleaveOptions);
 		}
+
+		console.log('--->', value);
 	});
 
 	const validateInput = (target: HTMLInputElement) => {
@@ -130,31 +132,11 @@
 		</label>
 	{/if}
 
-	{#if type === 'text'}
+	{#if type === 'password'}
 		<input
 			class="sp-text-input--input"
 			{name}
-			type="text"
-			{id}
-			{placeholder}
-			{disabled}
-			{readonly}
-			bind:value
-			data-validate-rules={validationRules.length
-				? validationRules.join(',')
-				: null}
-			data-validate-message={validationMessage}
-			oninput={inputHandler}
-			onblur={onBlur}
-			onchange={changeHandler}
-			onfocus={onFocus}
-			onkeydown={onKeydown}
-			onkeyup={onkeyupHandler} />
-	{:else if type === 'password'}
-		<input
-			class="sp-text-input--input"
-			{name}
-			type="text"
+			type="password"
 			{id}
 			{placeholder}
 			{disabled}
@@ -186,6 +168,22 @@
 			</button>
 		{/if}
 	{:else if type === 'search'}
+		<input
+			class="sp-text-input--input"
+			{name}
+			type="search"
+			{id}
+			{placeholder}
+			{disabled}
+			{readonly}
+			bind:value
+			oninput={inputHandler}
+			onblur={onBlur}
+			onchange={changeHandler}
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onkeyupHandler} />
+
 		<span class="sp-text-input--search-icon">
 			<Icon
 				name="search"
@@ -270,6 +268,26 @@
 			onfocus={onFocus}
 			onkeydown={onKeydown}
 			onkeyup={onkeyupHandler}>{value}</textarea>
+	{:else}
+		<input
+			class="sp-text-input--input"
+			{name}
+			type="text"
+			{id}
+			{placeholder}
+			{disabled}
+			{readonly}
+			bind:value
+			data-validate-rules={validationRules.length
+				? validationRules.join(',')
+				: null}
+			data-validate-message={validationMessage}
+			oninput={inputHandler}
+			onblur={onBlur}
+			onchange={changeHandler}
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onkeyupHandler} />
 	{/if}
 	{#if !validationHideMessage && hasValidationErrors && validationDisplayMessage.length}
 		<label

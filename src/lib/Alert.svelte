@@ -99,6 +99,8 @@
 		if (value) visible = false;
 		if (onConfirm) onConfirm();
 	};
+
+	$inspect({ visible, confirm, challenge, isChallenge });
 </script>
 
 <!-- TODO: 'sp-alert--confirm' class is used in the nav and in the base component -->
@@ -159,7 +161,7 @@
 					{#if isChallenge}
 						<div class="sp-alert--challenge">
 							<TextInput
-								id={`challenge-${new Date().getTime()}`}
+								id={`challenge-${(Date.now() + Math.random()).toString(36)}`}
 								name="challenge"
 								label={challengeLabel}
 								placeholder={challenge}

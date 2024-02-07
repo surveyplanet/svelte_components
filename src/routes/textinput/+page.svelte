@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { TextInput, type TextInputType } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
+	import source from './example';
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
 

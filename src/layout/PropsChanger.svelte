@@ -27,10 +27,9 @@
 		onBlur,
 	} = $props<PropsChangerProps<ValueTypes>>();
 
-	// type = $state('string');
-
 	$effect(() => {
-		if (type) return;
+		if (type?.length) return;
+
 		if (selectOptions?.length) {
 			type = 'select';
 		} else if (typeof value === 'number') {
