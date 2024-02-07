@@ -7,13 +7,13 @@
 	import { dasherize } from '@surveyplanet/utilities';
 	import JsonEditor from './JsonEditor.svelte';
 
-	type ValueTypes = string | number | boolean | object;
+	type ValueTypes = string | number | boolean | object | undefined | null;
 
 	interface PropsChangerProps<T> {
 		value: T;
 		label: string;
 		type?: 'string' | 'number' | 'boolean' | 'json' | 'select';
-		selectOptions?: string[] | { label: string; id: string }[];
+		selectOptions?: string[] | number[] | { label: string; id: string }[];
 		onInput?: () => void;
 		onBlur?: () => void;
 	}
@@ -52,15 +52,17 @@
 				if (typeof option === 'string') {
 					return { label: option, id: option };
 				}
+				if (typeof option === 'number') {
+					return { label: option.toString(), id: option.toString() };
+				}
 				return option;
 			});
 		}
 		return [];
 	};
 
-	const dropdownChangeHandler = (value: string) => {
-		console.log(value);
-		value = value;
+	const dropdownChangeHandler = (dropdownValue2: string) => {
+		value = dropdownValue2;
 	};
 
 	const options = optionsParsed();
@@ -88,9 +90,10 @@
 		{:else if type === 'json'}
 			<JsonEditor />
 		{:else if type === 'select'}
-			<label for="select">{label}</label>
 			<Dropdown
 				{options}
+				{label}
+				placeholder={value?.toString() || 'Select an option'}
 				value={dropdownValue}
 				onChange={dropdownChangeHandler} />
 		{:else if type === 'string' && typeof value === 'string'}
