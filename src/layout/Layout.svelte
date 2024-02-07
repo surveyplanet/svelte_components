@@ -197,13 +197,13 @@
 			<h3>Events</h3>
 		</header>
 		<div id="component-events">
-			<ul>
+			<ol>
 				{#each eventsLogs as event (event)}
 					<li class="component-event">
 						<code>{event}</code>
 					</li>
 				{/each}
-			</ul>
+			</ol>
 		</div>
 	</footer>
 </div>

@@ -22,34 +22,6 @@ body {
 .main-home {
 	cursor: pointer;
 }
-// table {
-// 	width: 100%;
-// 	border-collapse: collapse;
-// 	border-radius: 5px;
-// }
-// th,
-// td {
-// 	border: 1px solid black;
-// 	padding: 0.5rem;
-// }
-
-// tr:nth-child(even) {
-// 	background-color: #cff2fd;
-// }
-
-// th {
-// 	background-color: #7de3a2;
-// 	color: white;
-// }
-// li {
-// 	list-style-type: none;
-// }
-
-// pre {
-// 	font-family: monospace;
-// 	font-size: 15px;
-// 	word-wrap: break-word;
-// }
 
 // Layout.svelte
 #main-container {
@@ -180,6 +152,7 @@ body {
 }
 
 #main-footer {
+	position: relative;
 	grid-area: footer;
 	padding: 0;
 	margin: 0;
@@ -187,12 +160,45 @@ body {
 	background-color: $color--beige;
 	min-height: 10rem;
 	overflow-y: auto;
-	.component-events {
+	header {
+		position: sticky;
+		top: 0;
+		padding: $size-space--s;
+		border-bottom: 1px solid $color--beige-darker;
+		background-color: white;
+		h3 {
+			font-size: $font-step--1;
+			margin: 0;
+		}
+	}
+	#component-events {
 		margin: 0;
 		padding: $size-space--m;
 		// overflow: auto;
-		max-height: 50px;
-		// code {  }
+		max-height: 300px;
+		ol {
+			list-style: none;
+			counter-reset: li;
+			padding-left: 0;
+			li {
+				counter-increment: li;
+				border-bottom: 1px solid $color--beige-darker;
+				&::before {
+					display: inline-block;
+					content: counter(li);
+					margin-right: $size-space--s;
+					background-color: $color--white;
+					// background-color: $color--pink;
+					color: $color--black;
+					min-width: $size--36;
+					height: $size--36;
+					text-align: center;
+					line-height: $size--36;
+					font-size: $font-step--0;
+					// padding: $size-space--s;
+				}
+			}
+		}
 	}
 }
 
@@ -219,8 +225,25 @@ body.dark {
 	#main-footer {
 		border-color: $color--darkest;
 		background-color: $color--darker;
-		pre {
-			color: $color--white;
+
+		header {
+			border-color: $color--darkest;
+			background-color: $color--darker;
+			h3 {
+				color: $color--white;
+			}
+		}
+		#component-events {
+			ol {
+				li {
+					border-color: $color--darkest;
+					color: white;
+					&::before {
+						background-color: $color--darkest;
+						color: $color--white;
+					}
+				}
+			}
 		}
 	}
 }

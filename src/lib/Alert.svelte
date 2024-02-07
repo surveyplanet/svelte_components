@@ -99,8 +99,6 @@
 		if (value) visible = false;
 		if (onConfirm) onConfirm();
 	};
-
-	$inspect({ visible, confirm, challenge, isChallenge });
 </script>
 
 <!-- TODO: 'sp-alert--confirm' class is used in the nav and in the base component -->

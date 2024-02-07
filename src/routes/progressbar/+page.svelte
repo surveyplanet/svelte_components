@@ -31,23 +31,21 @@
 			bind:value={displayValue} />
 	{/snippet}
 	{#snippet main()}
-		<div class="wrapper">
-			<ProgressBar
-				{speed}
-				{max}
-				{value}
-				{displayValue} />
-		</div>
+		<!-- <div class="wrapper"> -->
+		<ProgressBar
+			{speed}
+			{max}
+			{value}
+			{displayValue} />
+		<!-- </div> -->
 	{/snippet}
 </Layout>
 
 <style lang="scss">
 	.wrapper {
-		width: 300px;
+		width: 100%;
+		padding: 20px;
 		height: 50px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 		background-color: whitesmoke;
 	}
 </style>

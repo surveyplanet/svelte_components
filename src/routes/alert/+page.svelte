@@ -18,8 +18,6 @@
 		'Instructions on how to reset your password have been sent to: <strong style="color:black;">diego@studiovoila.com</strong>. If the email doesn’t arrive in the next 5 minutes check your spam folder.'
 	);
 
-	$inspect({ type });
-
 	const openHandler = () => {
 		console.log('open');
 		events.push('open');
