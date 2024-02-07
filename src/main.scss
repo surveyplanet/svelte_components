@@ -122,6 +122,9 @@ body {
 }
 
 #component-details--controls {
+	.props-changer--item--boolean {
+		padding-left: $size-space--m;
+	}
 }
 
 #component-details--example {

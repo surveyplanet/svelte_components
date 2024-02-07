@@ -44,7 +44,9 @@
 		}
 	});
 
-	let className = $derived(`prop-changer-item--${type}--${dasherize(label)}`);
+	let className = $derived(
+		`props-changer--item--${type} props-changer--item--${dasherize(label)}`
+	);
 
 	const optionsParsed = () => {
 		if (selectOptions?.length && Array.isArray(selectOptions)) {
@@ -73,14 +75,14 @@
 	<div class="props-changer--item {className}">
 		{#if type === 'number' && typeof value === 'number'}
 			<Spinner
+				id="number-{(Date.now() + Math.random()).toString(36)}"
 				{label}
-				id="number-{new Date().getTime()}"
 				bind:value
 				{onInput}
 				{onBlur} />
 		{:else if type === 'boolean' && typeof value === 'boolean'}
 			<Checkbox
-				id="boolean-{`${new Date().getTime()}-${label}`}"
+				id="boolean-{(Date.now() + Math.random()).toString(36)}"
 				{label}
 				prependLabel
 				name="boolean-{label}s"
