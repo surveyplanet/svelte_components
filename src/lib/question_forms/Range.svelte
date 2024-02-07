@@ -13,7 +13,7 @@
 <script lang="ts">
 	import type { RangeValue } from '@surveyplanet/types';
 	import TextInput from '../TextInput.svelte';
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { RangeSlider } from 'svelte-range-slider-pips';
 
 	let { id, min, max, response = [], onRangeResponse } = $props<RangeProps>();
 

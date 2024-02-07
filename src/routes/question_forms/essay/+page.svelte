@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { EssayProperties, EssayValue } from '@surveyplanet/types';
 	import { Essay } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<EssayValue[][]>([]);
@@ -26,19 +26,15 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"
-			text
 			bind:value={id} />
 		<PropsChanger
 			label="Min"
-			number
 			bind:value={min} />
 		<PropsChanger
 			label="Max"
-			number
 			bind:value={max} />
 		<PropsChanger
 			label="Single"
-			checkbox
 			bind:value={single} />
 	{/snippet}
 	{#snippet main()}

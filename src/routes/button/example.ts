@@ -20,11 +20,11 @@ export default (
 
 <Button
 	mode={BUTTON_MODES['${mode}']}
-	disabled=${disabled}
-	loader=${loader}
-	round=${round}
-	block=${block}
-	action=${action}
+	disabled={${disabled}}
+	loader={${loader}}
+	round={${round}}
+	block={${block}}
+	action={${action}}
 	type='${type}'
 	size='${size}' 
 	onClick={clickHandler}>

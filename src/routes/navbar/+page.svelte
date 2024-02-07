@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { NavBar, type MenuData, type NavBarData } from '$lib/index';
 	import { menuData } from '../menu/menu_data';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
@@ -58,15 +58,12 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Data"
-			object
 			bind:value={dataString} />
 		<PropsChanger
 			label="Menu Data"
-			object
 			bind:value={menuDataString} />
 		<PropsChanger
 			label="Vertical"
-			checkbox
 			bind:value={vertical} />
 	{/snippet}
 	{#snippet main()}

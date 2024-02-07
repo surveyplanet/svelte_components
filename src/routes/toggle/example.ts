@@ -19,15 +19,14 @@ export default (
 	}
 </script>
 
-<Toggle
-	
+<Toggle	
 	id = '${id}'
-	on = ${on}
-	disabled = ${disabled}
-	tall = ${tall}
+	on = {${on}}
+	disabled = {${disabled}}
+	tall = {${tall}}
 	name = '${name}'
 	label = '${label}'
-	prependLabel = ${prependLabel}
+	prependLabel = {${prependLabel}}
 	onChange={changeEventHandler}
 	/>
 `;

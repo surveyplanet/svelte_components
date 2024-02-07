@@ -1,19 +1,17 @@
-# Avatar component
+#### Properties
 
-### Properties
+| Property       | Type    | Description                                           | Default |
+| -------------- | ------- | ----------------------------------------------------- | ------- |
+| `profileImage` | String  | URL or key representing the profile image.            |         |
+| `id`           | String  | Optional identifier for additional customization.     |         |
+| `size`         | String  | Size of the avatar: `'small'`, `'medium'`, `'large'`. |         |
+| `disabled`     | Boolean | Disable the avatar interaction if `true`.             |         |
 
-| Property       | Type    | Description                                           |
-| -------------- | ------- | ----------------------------------------------------- |
-| `profileImage` | String  | URL or key representing the profile image.            |
-| `id`           | String  | Optional identifier for additional customization.     |
-| `size`         | String  | Size of the avatar: `'small'`, `'medium'`, `'large'`. |
-| `disabled`     | Boolean | Disable the avatar interaction if `true`.             |
+#### Callbacks
 
-### Callbacks
-
-| Name      | Description                           | Type                      |
-| --------- | ------------------------------------- | ------------------------- |
-| `onClick` | Triggered when the avatar is clicked. | `(e: MouseEvent) => void` |
+| Name      | Description                           | Argument        |
+| --------- | ------------------------------------- | --------------- |
+| `onClick` | Triggered when the avatar is clicked. | `e: MouseEvent` |
 
 ### Mascots
 

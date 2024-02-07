@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Dropdown, type DropdownOptions } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
@@ -52,7 +52,7 @@
 	let searchThreshold = $state(10);
 	let disabled = $state(false);
 	let required = $state(false);
-	let value = $state<string | undefined>(undefined);
+	let value = $state('');
 	let placeholder = $state('Choose one');
 	let label = $state('Dropdown component');
 	let size: 'small' | 'medium' | 'large' = $state('small');
@@ -85,35 +85,27 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Options"
-			object
 			bind:value={stringedOptions} />
 		<PropsChanger
 			label="Search threshold"
-			number
 			bind:value={searchThreshold} />
 		<PropsChanger
 			label="Disabled"
-			checkbox
 			bind:value={disabled} />
 		<PropsChanger
 			label="Required"
-			checkbox
 			bind:value={required} />
 		<PropsChanger
 			label="Value"
-			text
 			bind:value />
 		<PropsChanger
 			label="Placeholder"
-			text
 			bind:value={placeholder} />
 		<PropsChanger
 			label="Label"
-			text
 			bind:value={label} />
 		<PropsChanger
 			label="Size"
-			select
 			selectOptions={['small', 'medium', 'large']}
 			bind:value={size} />
 	{/snippet}

@@ -1,23 +1,17 @@
-# Toggle Component
+#### Properties
 
-The `Toggle` component represents a simple on/off switch. It provides a visual indicator and allows users to toggle between two states.
+| Property       | Type             | Description                                                 | Default                                     |
+| -------------- | ---------------- | ----------------------------------------------------------- | ------------------------------------------- |
+| `id`           | `string`         | The unique identifier for the toggle.                       | `(Date.now() + Math.random()).toString(36)` |
+| `name`         | `string`         | The name attribute of the toggle.                           |                                             |
+| `disabled`     | `boolean`        | If `true`, the toggle is disabled.                          | `false`                                     |
+| `on`           | `boolean`        | The current state of the toggle (on/off).                   | `false`                                     |
+| `tall`         | `boolean`        | If `true`, the toggle is tall, providing a larger hit area. | `false`                                     |
+| `label`        | `string \| null` | The label or text associated with the toggle.               | `null`                                      |
+| `prependLabel` | `boolean`        | If `true`, the label is prepended to the toggle.            | `false`                                     |
 
-### Properties
+#### Callbacks
 
-#### `ToggleProps`
-
-| Property       | Type             | Description                                                 |
-| -------------- | ---------------- | ----------------------------------------------------------- |
-| `id`           | `string`         | The unique identifier for the toggle.                       |
-| `name`         | `string`         | The name attribute of the toggle.                           |
-| `disabled`     | `boolean`        | If `true`, the toggle is disabled.                          |
-| `on`           | `boolean`        | The current state of the toggle (on/off).                   |
-| `tall`         | `boolean`        | If `true`, the toggle is tall, providing a larger hit area. |
-| `label`        | `string \| null` | The label or text associated with the toggle.               |
-| `prependLabel` | `boolean`        | If `true`, the label is prepended to the toggle.            |
-
-### Callbacks
-
-| Name       | Description                                  | Type                    |
-| ---------- | -------------------------------------------- | ----------------------- |
-| `onChange` | Callback function triggered on state change. | `(on: boolean) => void` |
+| Name       | Description                                  | Type          |
+| ---------- | -------------------------------------------- | ------------- |
+| `onChange` | Callback function triggered on state change. | `on: boolean` |

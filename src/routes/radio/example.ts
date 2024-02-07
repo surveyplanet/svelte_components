@@ -2,8 +2,6 @@ export default (
 	id: string,
 	name: string,
 	labelOne: string,
-	labelTwo: string,
-	labelThree: string,
 	disabled: boolean,
 	prependLabel: boolean,
 	size: 'small' | 'medium' | 'large'
@@ -11,25 +9,20 @@ export default (
 	return `
 	<script>
 	import Radio from '@surveyplanet/svelte_components';
-	let name = '${name}';
-	let labelOne = '${labelOne}';
-	let labelTwo = '${labelTwo}';
-	let labelThree = '${labelThree}';
-	let disabled = ${disabled};
-	let prependLabel = ${prependLabel};
-	let size = '${size}';
+
 	let changeEventHandler = (event) => {
 		console.log(event.detail);
 </script>
 
 <Radio
 	id='${id}'
-	disabled=${disabled}
+	disabled={${disabled}}
 	name='${name}'
-	value='${labelOne}'
 	label='${labelOne}'
-	prependLabel='${prependLabel}'
+	prependLabel={${prependLabel}}
 	size='${size}'
 	onChange={changeEventHandler} />
-;`;
+;
+
+`;
 };

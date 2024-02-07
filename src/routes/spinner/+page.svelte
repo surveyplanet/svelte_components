@@ -48,19 +48,15 @@
 
 		<PropsChanger
 			label="label"
-			text
 			bind:value={label} />
 		<PropsChanger
 			label="step"
-			number
 			bind:value={step} />
 		<PropsChanger
 			label="min"
-			number
 			bind:value={min} />
 		<PropsChanger
 			label="max"
-			number
 			bind:value={max} />
 		<PropsChanger
 			label="value"
@@ -68,31 +64,24 @@
 			bind:value />
 		<PropsChanger
 			label="disabled"
-			checkbox
 			bind:value={disabled} />
 		<PropsChanger
 			label="required"
-			checkbox
 			bind:value={required} />
 		<PropsChanger
 			label="overflow"
-			checkbox
 			bind:value={overflow} />
 		<PropsChanger
 			label="id"
-			text
 			bind:value={id} />
 		<PropsChanger
 			label="placeholder"
-			text
 			bind:value={placeholder} />
 		<PropsChanger
 			label="dragSpeed"
-			number
 			bind:value={dragSpeed} />
 		<PropsChanger
 			label="size"
-			select
 			selectOptions={['small', 'medium', 'large']}
 			bind:value={size} />
 	{/snippet}

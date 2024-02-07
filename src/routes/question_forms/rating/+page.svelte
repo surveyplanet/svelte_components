@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { RatingValue, RatingProperties } from '@surveyplanet/types';
 	import { Rating } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -57,15 +57,12 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"
-			text
 			bind:value={id} />
 		<PropsChanger
 			label="Labels"
-			object
 			bind:value={labelStringed} />
 		<PropsChanger
 			label="Order"
-			select
 			bind:value={order}
 			selectOptions={[
 				'default',
@@ -77,7 +74,6 @@
 			]} />
 		<PropsChanger
 			label="Layout"
-			select
 			bind:value={layout}
 			selectOptions={[
 				'1',

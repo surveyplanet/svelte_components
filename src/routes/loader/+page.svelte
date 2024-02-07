@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Loader } from '$lib';
 
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	import { COLORS } from '$lib/_definitions';

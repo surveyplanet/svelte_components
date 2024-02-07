@@ -19,6 +19,14 @@ export default (
   const onOpenHandler = (e) => {
     console.log('onOpen', e.detail);
   };
+
+  const onInputHandler = (e) => {
+    console.log('onInput', e.detail);
+  };
+
+  const onCloseHandler = (e) => {
+    console.log('onClose', e.detail);
+  };
 </script>
 
 <Alert 

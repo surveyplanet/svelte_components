@@ -96,12 +96,14 @@
 	};
 	const alertConfirmButtonClickHandler = () => {
 		const value = isChallenge ? !disableConfirmButton : true;
-		visible = false;
+		if (value) visible = false;
 		if (onConfirm) onConfirm();
 	};
 </script>
 
 <!-- TODO: 'sp-alert--confirm' class is used in the nav and in the base component -->
+
+<!-- TODO: Challenge is not showing -->
 {#if visible}
 	<div
 		role="alert"
@@ -157,7 +159,7 @@
 					{#if isChallenge}
 						<div class="sp-alert--challenge">
 							<TextInput
-								id="defaultId"
+								id={`challenge-${new Date().getTime()}`}
 								name="challenge"
 								label={challengeLabel}
 								placeholder={challenge}

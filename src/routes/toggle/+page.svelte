@@ -28,28 +28,22 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Name"
-			text
 			bind:value={name} />
 		<PropsChanger
 			label="Label"
-			text
 			bind:value={label} />
 		<PropsChanger
 			label="On"
-			checkbox
 			bind:value={on} />
 		<PropsChanger
 			label="Disabled"
-			checkbox
 			bind:value={disabled} />
 		<PropsChanger
 			label="Tall"
-			checkbox
 			bind:value={tall} />
 
 		<PropsChanger
 			label="Prepend Label"
-			checkbox
 			bind:value={prependLabel} />
 	{/snippet}
 	{#snippet main()}

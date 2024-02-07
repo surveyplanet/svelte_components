@@ -21,9 +21,9 @@ export default (
 	
 <DateTime
 	id= '${id}'
-	date= ${date}
-	time= ${time}
-	definitions= ${JSON.stringify(definitions)}
-	onDateTimeResponse= ${JSON.stringify(response)}
+	date= {${date}}
+	time= {${time}}
+	definitions= {${JSON.stringify(definitions)}}
+	onDateTimeResponse= {${JSON.stringify(response)}}
 />`;
 };

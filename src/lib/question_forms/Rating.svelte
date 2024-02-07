@@ -13,8 +13,8 @@
 
 <script lang="ts">
 	import type { RatingValue, RatingProperties } from '@surveyplanet/types';
-	import RangeSlider from 'svelte-range-slider-pips';
-	import { Radio } from '../';
+	import { RangeSlider } from 'svelte-range-slider-pips';
+	import { Radio } from '$lib/index';
 
 	let {
 		id,

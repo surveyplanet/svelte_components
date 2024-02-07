@@ -21,11 +21,11 @@ export default (
 </script>
 
 <Dropdown
-	options = ${JSON.stringify(options, null, 2)}
-	searchThreshold = ${searchThreshold}
+	options = {${JSON.stringify(options, null, 2)}}
+	searchThreshold = {${searchThreshold}}
 	disabled = ${disabled}
 	required = ${required}
-	value = ${value}
+	value = {${value}}
 	placeholder = '${placeholder}'
 	label = '${label}'
 	size = '${size}'

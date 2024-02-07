@@ -2,7 +2,21 @@
 
 The `SortList` component allows users to interactively sort a list of items through drag-and-drop functionality.
 
-### Properties
+#### Properties
+
+#### `SortListProps`
+
+| Property | Type             | Description                      | Default |
+| -------- | ---------------- | -------------------------------- | ------- |
+| `data`   | `SortListData[]` | The array of items to be sorted. |         |
+
+#### Callbacks
+
+| Name     | Description                          | Arguments              |
+| -------- | ------------------------------------ | ---------------------- |
+| `onSort` | Event handler for list item sorting. | `data: SortListData[]` |
+
+#### Interfaces
 
 #### `SortListData`
 
@@ -12,19 +26,3 @@ The `SortList` component allows users to interactively sort a list of items thro
 | `meta`   | `string`   | Additional meta information for the item.  |
 | `image`  | `string`   | URL of an image associated with the item.  |
 | `icon`   | `IconName` | Name of the icon associated with the item. |
-
-#### `CustomDragEventTarget`
-
-A type that extends `HTMLElement` to include specific properties for handling drag events.
-
-#### `SortListProps`
-
-| Property | Type             | Description                      |
-| -------- | ---------------- | -------------------------------- |
-| `data`   | `SortListData[]` | The array of items to be sorted. |
-
-### Callbacks
-
-| Name     | Description                          | Type                             |
-| -------- | ------------------------------------ | -------------------------------- |
-| `onSort` | Event handler for list item sorting. | `(data: SortListData[]) => void` |

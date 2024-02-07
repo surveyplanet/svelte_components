@@ -10,8 +10,9 @@ export default (data: TabBarData[], grow: boolean, id: string) => {
 
 <TabBar 
 	grow = '${id}' 
-	id = ${grow} 
-	data = ${JSON.stringify(data, null, 2)}/>
+	id = {${grow}} 
+	data = {${JSON.stringify(data, null, 2)}}
+/>
 
 `;
 };

@@ -5,7 +5,7 @@
 	} from '@surveyplanet/types';
 
 	import { DateTime, type DateTimeDefinitions } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -42,15 +42,12 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"
-			text
 			bind:value={id} />
 		<PropsChanger
 			label="Date"
-			checkbox
 			bind:value={date} />
 		<PropsChanger
 			label="Time"
-			checkbox
 			bind:value={time} />
 	{/snippet}
 	{#snippet main()}

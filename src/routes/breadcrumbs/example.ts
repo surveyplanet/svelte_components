@@ -6,6 +6,6 @@ export default (data: BreadcrumbData[]) => {
 	import { Breadcrumbs } from '@surveyplanet/svelte_components';
 </script>
 
-<Breadcrumbs data=${data} />
+<Breadcrumbs data={${data}} />
 `;
 };

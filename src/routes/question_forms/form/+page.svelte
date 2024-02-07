@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { FormProperties, FormValue } from '@surveyplanet/types';
 	import { Form } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -58,11 +58,9 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"
-			text
 			bind:value={id} />
 		<PropsChanger
 			label="Labels"
-			object
 			bind:value={labelsStringed} />
 		<PropsChanger
 			label="Require all"
@@ -70,11 +68,9 @@
 			bind:value={requireAll} />
 		<PropsChanger
 			label="Random"
-			checkbox
 			bind:value={random} />
 		<PropsChanger
 			label="Validations"
-			object
 			bind:value={validationsString} />
 	{/snippet}
 	{#snippet main()}

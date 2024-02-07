@@ -37,10 +37,10 @@ export default (
 	value = '${value}'
 	label = '${label}'
 	placeholder = '${placeholder}'
-	readonly =  ${readonly}
-	disabled = ${disabled}
-	cleaveOptions = ${cleaveOptions}
-	validationRules: string[] = ${JSON.stringify(validationRules)}
+	readonly =  {${readonly}}
+	disabled = {${disabled}}
+	cleaveOptions = {${cleaveOptions}}
+	validationRules: string[] = {${JSON.stringify(validationRules)}}
 	validationMessage = '${validationMessage}'
 	size = '${size}'
 />

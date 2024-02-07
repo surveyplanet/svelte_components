@@ -8,7 +8,7 @@ export default (data: SortListData[]) => {
 </script>
 	
 <SortableList 
-	data=${JSON.stringify(data, null, 2)}
+	data={${JSON.stringify(data, null, 2)}}
 	
 	/>`;
 };

@@ -9,7 +9,7 @@ export default (
 	import {Avatar, SIZES} from '@surveyplanet/svelte-components';
     
     clickHandler = (e) => {
-        console.log('click', e.detail);
+        console.log(e);
     }
 </script>
 

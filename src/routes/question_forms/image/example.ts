@@ -24,14 +24,14 @@ export default (
 	
 <Image
 	id ='${id}'
-	labels =${JSON.stringify(labels)}
-	multi = ${multi}
-	size = ${size}
-	hideCaptions = ${hideCaptions}
-	contain = ${contain}
-	min = ${min}
-	max = ${max}
-	random = ${random}
-	onImageResponse = ${JSON.stringify(response)}
+	labels ={${JSON.stringify(labels)}}
+	multi = {${multi}}
+	size = {${size}}
+	hideCaptions = {${hideCaptions}}
+	contain = {${contain}}
+	min = {${min}}
+	max = {${max}}
+	random = {${random}}
+	onImageResponse = {${JSON.stringify(response)}}
 />`;
 };

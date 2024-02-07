@@ -9,6 +9,6 @@ export default (footerData: FooterData[]) => {
 </script>
 
 <Footer 
-	footerData = ${footerData} />
+	footerData = {${footerData}} />
 `;
 };

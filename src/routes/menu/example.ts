@@ -9,6 +9,14 @@ export default (data: MenuData[], size: 'small' | 'medium' | 'large') => {
         const menuClickHandler = (event:CustomEvent) {
             console.log('Clicked menu item:', event.detail);
         }
+
+        const menuBlurHandler = (event:CustomEvent) {
+            console.log('Menu blurred:', event.detail);
+        }
+
+        const menuUpdateHandler = (event:CustomEvent) {
+            console.log('Menu updated:', event.detail);
+        }
     </script>
     
 
@@ -16,8 +24,8 @@ export default (data: MenuData[], size: 'small' | 'medium' | 'large') => {
 
     {#if visible}
 				<Menu
-					data = ${data}
-					size = ${size}
+					data = {${data}}
+					size = {${size}}
 					onUpdate={menuUpdateHandler}
 					onClick={menuClickHandler}
 					onBlur={menuBlurHandler} >

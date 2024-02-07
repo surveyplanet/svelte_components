@@ -43,15 +43,12 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Label"
-			text
 			bind:value={label} />
 		<PropsChanger
 			label="Formats"
-			object
 			bind:value={formatsStringed} />
 		<PropsChanger
 			label="Max Size"
-			number
 			bind:value={maxSize} />
 	{/snippet}
 	{#snippet main()}

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, BUTTON_MODES } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
@@ -39,44 +39,35 @@
 		<PropsChanger
 			label="Content"
 			bind:value={content}
-			text
 			onInput={(e: Event) => {
 					content = (e.target as HTMLInputElement).value;
 				}} />
 		<PropsChanger
 			label="Mode"
 			bind:value={mode}
-			select
 			selectOptions={Object.values(BUTTON_MODES)} />
 		<PropsChanger
 			label="Disabled"
-			checkbox
 			bind:value={disabled} />
 		<PropsChanger
 			label="Loader"
-			checkbox
 			bind:value={loader} />
 		<PropsChanger
 			label="Round"
-			checkbox
 			bind:value={round} />
 		<PropsChanger
 			label="Block"
-			checkbox
 			bind:value={block} />
 		<PropsChanger
 			label="Action"
-			checkbox
 			bind:value={action} />
 		<PropsChanger
 			label="Type"
 			bind:value={type}
-			select
 			selectOptions={['button', 'submit', 'reset']} />
 		<PropsChanger
 			label="Size"
 			bind:value={size}
-			select
 			selectOptions={['small', 'medium', 'large']} />
 	{/snippet}
 	{#snippet main()}

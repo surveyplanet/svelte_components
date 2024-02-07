@@ -21,46 +21,30 @@
 
 <Layout
 	component="Radio"
-	example={source(
-		id,
-		name,
-		labelOne,
-		labelTwo,
-		labelThree,
-		disabled,
-		prependLabel,
-		size
-	)}
+	example={source(id, name, labelOne, disabled, prependLabel, size)}
 	{md}
 	bind:events>
 	{#snippet controls()}
 		<PropsChanger
 			label="Name"
-			text
 			bind:value={name} />
 		<PropsChanger
 			label="Label One"
-			text
 			bind:value={labelOne} />
 		<PropsChanger
 			label="Label Two"
-			text
 			bind:value={labelTwo} />
 		<PropsChanger
 			label="Label Three"
-			text
 			bind:value={labelThree} />
 		<PropsChanger
 			label="Disabled"
-			checkbox
 			bind:value={disabled} />
 		<PropsChanger
 			label="Prepend Label"
-			checkbox
 			bind:value={prependLabel} />
 		<PropsChanger
 			label="Size"
-			select
 			selectOptions={['small', 'medium', 'large']}
 			bind:value={size} />
 	{/snippet}

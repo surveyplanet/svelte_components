@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Alert } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '../../layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
@@ -51,41 +51,32 @@
 	bind:events>
 	{#snippet controls()}
 		<PropsChanger
-			text={true}
 			label="Title"
 			bind:value={title} />
 		<PropsChanger
 			label="Subtitle"
-			text={true}
 			bind:value={subtitle} />
 		<PropsChanger
-			select={true}
 			label="Type"
 			bind:value={type}
 			selectOptions={['info', 'warning', 'error', 'success']} />
 		<PropsChanger
-			number={true}
 			label="Hide delay"
 			bind:value={hideDelay} />
 		<PropsChanger
-			checkbox={true}
 			label="Confirm"
 			bind:value={confirm} />
 		<PropsChanger
 			label="Confirm button label"
-			text={true}
 			bind:value={confirmButtonLabel} />
 		<PropsChanger
 			label="Cancel button label"
-			text={true}
 			bind:value={cancelButtonLabel} />
 		<PropsChanger
 			label="Challenge"
-			text={true}
 			bind:value={challenge} />
 		<PropsChanger
 			label="Content"
-			text={true}
 			bind:value={content} />
 	{/snippet}
 	{#snippet main()}

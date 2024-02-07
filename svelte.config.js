@@ -17,10 +17,9 @@ const config = {
 			$views: './src/views',
 			$utils: './src/lib/utilities',
 			$types: './src/views/questions_types',
-			$layout: './src/components/',
+			$layout: './src/layout/',
 		},
 	},
-
 };
 
 export default config;

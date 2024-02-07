@@ -66,15 +66,12 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Id"
-			text
 			bind:value={id} />
 		<PropsChanger
 			label="Name"
-			text
 			bind:value={name} />
 		<PropsChanger
 			label="Type"
-			select
 			selectOptions={[
 				'password',
 				'search',
@@ -87,39 +84,30 @@
 			bind:value={type} />
 		<PropsChanger
 			label="Value"
-			text
 			bind:value />
 		<PropsChanger
 			label="Label"
-			text
 			bind:value={label} />
 		<PropsChanger
 			label="Placeholder"
-			text
 			bind:value={placeholder} />
 		<PropsChanger
 			label="Readonly"
-			checkbox
 			bind:value={readonly} />
 		<PropsChanger
 			label="Disabled"
-			checkbox
 			bind:value={disabled} />
 		<PropsChanger
 			label="Cleave Options"
-			object
 			bind:value={cleaveOptionsStringed} />
 		<PropsChanger
 			label="Validation Rules"
-			object
 			bind:value={validationRulesStringed} />
 		<PropsChanger
 			label="Validation Message"
-			text
 			bind:value={validationMessage} />
 		<PropsChanger
 			label="size"
-			select
 			selectOptions={['small', 'medium', 'large']}
 			bind:value={size} />
 	{/snippet}

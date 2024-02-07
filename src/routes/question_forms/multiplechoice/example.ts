@@ -26,12 +26,12 @@ export default (
 
 <MultipleChoice
 	id = '${id}'
-	labels = ${JSON.stringify(labels)}
-	multi = ${multi}
+	labels = {${JSON.stringify(labels)}}
+	multi = {${multi}}
 	layout = '${layout}'
-	random = ${random}
-	min = ${min ?? ''}
-	max = ${max ?? ''}
-	onMultipleChoiceResponse = ${JSON.stringify(response)}
+	random = {${random}}
+	min = {${min ?? ''}}
+	max = {${max ?? ''}}
+	onMultipleChoiceResponse = {${JSON.stringify(response)}}
 />`;
 };

@@ -15,8 +15,14 @@
 	import type { EssayValue, EssayProperties } from '@surveyplanet/types';
 	import { TextInput } from '../';
 
-	let { id, min, max, single, response, onEssayResponse } =
-		$props<EssayProps>();
+	let {
+		id,
+		min,
+		max,
+		single,
+		response = [],
+		onEssayResponse,
+	} = $props<EssayProps>();
 
 	const updateResponse = (value: string) => {
 		response = [value];

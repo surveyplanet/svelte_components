@@ -50,15 +50,12 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="data"
-			object
 			bind:value={dataStringed} />
 		<PropsChanger
 			label="block"
-			checkbox
 			bind:value={block} />
 		<PropsChanger
 			label="id"
-			text
 			bind:value={id} />
 	{/snippet}
 	{#snippet main()}

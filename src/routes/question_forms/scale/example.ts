@@ -18,8 +18,8 @@ export default (
 	
 <Scale
 	id = '${id}'
-	min = ${min}
-	max = ${max}
-	onScaleResponse = ${JSON.stringify(response)}
+	min = {${min}}
+	max = {${max}}
+	onScaleResponse = {${JSON.stringify(response)}}
 />`;
 };

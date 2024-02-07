@@ -29,9 +29,7 @@
 
 	import { slide, type SlideParams } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	/**
-	 * Menu data
-	 */
+	import { onMount } from 'svelte'; // use to set focus on mount
 
 	let { data, size, onMenuUpdate, onMenuClick, onBlur, header, footer } =
 		$props<MenuProps>();
@@ -108,7 +106,8 @@
 	};
 
 	const arrowClickHandler = (event: KeyboardEvent) => {
-		// user correct arrow keys when MenuData.inline is true;
+		// check mouse is over the menu
+
 		if (event.key === 'ArrowDown') {
 			event.preventDefault();
 			scrollMenu('down');
@@ -170,10 +169,12 @@
 	//TODO: add |global to transitions once it is fixed in svelte 5
 </script>
 
-<svelte:window onkeydown={arrowClickHandler} />
 <menu
 	class="sp-menu sp-menu--{size}"
-	onblur={onBlur}>
+	onkeydown={arrowClickHandler}
+	onblur={onBlur}
+	role="menu"
+	tabindex="0">
 	<li class="sp-menu--header">
 		{#if header}
 			{@render header()}

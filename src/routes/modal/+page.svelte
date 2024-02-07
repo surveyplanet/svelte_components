@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Modal, Button } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
@@ -37,27 +37,21 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Title"
-			text
 			bind:value={title} />
 		<PropsChanger
 			label="Subtitle"
-			text
 			bind:value={subtitle} />
 		<PropsChanger
 			label="Fullscreen"
-			checkbox
 			bind:value={fullscreen} />
 		<PropsChanger
 			label="Overlay"
-			bind:value={overlay}
-			checkbox />
+			bind:value={overlay} />
 		<PropsChanger
 			label="Visible"
-			checkbox
 			bind:value={visible} />
 		<PropsChanger
 			label="Size"
-			select
 			selectOptions={['small', 'medium', 'large']}
 			bind:value={size} />
 	{/snippet}

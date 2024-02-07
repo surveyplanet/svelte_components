@@ -41,7 +41,6 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Data"
-			object
 			bind:value={dataStringed} />
 	{/snippet}
 	{#snippet main()}

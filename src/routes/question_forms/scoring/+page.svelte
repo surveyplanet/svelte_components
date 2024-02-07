@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ScoringValue, ScoringProperties } from '@surveyplanet/types';
 	import { Scoring, type ScoringDefinitions } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<ScoringValue[][]>([]);
@@ -57,35 +57,27 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"
-			text
 			bind:value={id} />
 		<PropsChanger
 			label="Require All"
-			checkbox
 			bind:value={requireAll} />
 		<PropsChanger
 			label="Require Unique"
-			checkbox
 			bind:value={requireUnique} />
 		<PropsChanger
 			label="Definitions"
-			object
 			bind:value={definitionString} />
 		<PropsChanger
 			label="Values"
-			object
 			bind:value={valuesString} />
 		<PropsChanger
 			label="Labels"
-			object
 			bind:value={labelsString} />
 		<PropsChanger
 			label="Max Label"
-			text
 			bind:value={maxLabel} />
 		<PropsChanger
 			label="Min Label"
-			text
 			bind:value={minLabel} />
 	{/snippet}
 	{#snippet main()}

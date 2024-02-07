@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ProgressBar } from '$lib/index';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
@@ -19,19 +19,15 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Speed"
-			number
 			bind:value={speed} />
 		<PropsChanger
 			label="Max"
-			number
 			bind:value={max} />
 		<PropsChanger
 			label="Value"
-			number
 			bind:value />
 		<PropsChanger
 			label="Display Value"
-			checkbox
 			bind:value={displayValue} />
 	{/snippet}
 	{#snippet main()}

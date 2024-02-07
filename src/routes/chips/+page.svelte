@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Chips, type ChipData } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<ChipData[][]>([]);
@@ -54,19 +54,15 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Data"
-			text
 			bind:value={stringData} />
 		<PropsChanger
 			label="Selectable"
-			checkbox
 			bind:value={selectable} />
 		<PropsChanger
 			label="MultiSelect"
-			checkbox
 			bind:value={multiSelect} />
 		<PropsChanger
 			label="Removable"
-			checkbox
 			bind:value={removable} />
 	{/snippet}
 	{#snippet main()}

@@ -11,15 +11,32 @@ export default (
 import {Modal} from '@surveyplanet/svelte_components';
 
 
+const openHandler = (event:CustomEvent) {
+	console.log('Modal opened:', event.detail);
+}
+
+const inHandler = (event:CustomEvent) {
+	console.log('Modal in:', event.detail);
+}
+
+const outHandler = (event:CustomEvent) {
+	console.log('Modal out:', event.detail);
+}
+
+const closeHandler = (event:CustomEvent) {
+	console.log('Modal closed:', event.detail);
+}
+
+
 </script>
 
 <Modal
-	size = ${size}
-	visible = ${visible}
-	title = ${title}
-	subtitle = ${subtitle}
-	fullscreen = ${fullscreen}
-	overlay = ${overlay}
+	size = '${size}'
+	visible = {${visible}}
+	title =' ${title}'
+	subtitle = '${subtitle}'
+	fullscreen = {${fullscreen}}
+	overlay = {${overlay}}
 	onOpen={openHandler}
 	onIn={inHandler}
 	onOut={outHandler}

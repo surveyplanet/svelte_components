@@ -1,6 +1,9 @@
 <script lang="ts">
 	import Checkbox from '$lib/Checkbox.svelte';
 	import TextInput from '$lib/TextInput.svelte';
+	import Spinner from '$lib/Spinner.svelte';
+	import Dropdown from '$lib/Dropdown.svelte';
+	import type { DropdownOptions } from '$lib/Dropdown.svelte';
 	import { dasherize } from '@surveyplanet/utilities';
 	import JsonEditor from './JsonEditor.svelte';
 
@@ -9,30 +12,33 @@
 	interface PropsChangerProps<T> {
 		value: T;
 		label: string;
-		selectOptions?: string[] | { label: string; value: string }[];
-		onInput?: (e: Event) => void;
-		onBlur?: (e: Event) => void;
+		type?: 'string' | 'number' | 'boolean' | 'json' | 'select';
+		selectOptions?: string[] | { label: string; id: string }[];
+		onInput?: () => void;
+		onBlur?: () => void;
 	}
 
 	let {
 		value,
 		label,
 		selectOptions = [],
+		type,
 		onInput,
 		onBlur,
 	} = $props<PropsChangerProps<ValueTypes>>();
 
-	let type = $state('string');
+	// type = $state('string');
 
 	$effect(() => {
-		if (typeof value === 'string') {
-			type = 'string';
+		if (type) return;
+		if (selectOptions?.length) {
+			type = 'select';
 		} else if (typeof value === 'number') {
 			type = 'number';
 		} else if (typeof value === 'boolean') {
 			type = 'boolean';
-		} else if (selectOptions?.length) {
-			type = 'select';
+		} else if (typeof value === 'string') {
+			type = 'string';
 		} else {
 			type = 'json';
 		}
@@ -40,32 +46,41 @@
 
 	let className = $derived(`prop-changer-item--${type}--${dasherize(label)}`);
 
-	// const jsonInputHandler = (e: Event) => {
-	// 	const target = e.target as HTMLInputElement;
-	// 	const value = target.value;
-	// 	try {
-	// 		value = JSON.parse(value);
-	// 	} catch (e) {
-	// 		console.error(e);
-	// 	}
-	// };
+	const optionsParsed = () => {
+		if (selectOptions?.length && Array.isArray(selectOptions)) {
+			return selectOptions.map((option) => {
+				if (typeof option === 'string') {
+					return { label: option, id: option };
+				}
+				return option;
+			});
+		}
+		return [];
+	};
+
+	const dropdownChangeHandler = (value: string) => {
+		console.log(value);
+		value = value;
+	};
+
+	const options = optionsParsed();
+	let dropdownValue = $state<string>();
 </script>
 
 <div class="props-changer">
 	<div class="props-changer--item {className}">
-		{#if type === 'number'}
-			<label for="number">{label}</label>
-			<!-- TODO: use Spinner -->
-			<input
-				type="number"
-				id="number"
+		{#if type === 'number' && typeof value === 'number'}
+			<Spinner
+				{label}
+				id="number-{new Date().getTime()}"
 				bind:value
-				oninput={onInput}
-				onblur={onBlur} />
-		{:else if type === 'boolean'}
-			<label for="boolean">{label}</label>
+				{onInput}
+				{onBlur} />
+		{:else if type === 'boolean' && typeof value === 'boolean'}
 			<Checkbox
-				id="boolean-{new Date().getTime()}"
+				id="boolean-{`${new Date().getTime()}-${label}`}"
+				{label}
+				prependLabel
 				name="boolean-{label}s"
 				bind:checked={value}
 				size="medium"
@@ -74,24 +89,11 @@
 			<JsonEditor />
 		{:else if type === 'select'}
 			<label for="select">{label}</label>
-			<!-- TODO: replace with DropDown component -->
-			<select
-				bind:value
-				id="select"
-				oninput={onInput}
-				onblur={onBlur}>
-				{#each selectOptions as option}
-					<option
-						value={typeof option !== 'string' && 'value' in option
-							? option.value
-							: option}>
-						{typeof option !== 'string' && 'label' in option
-							? option.label
-							: option}
-					</option>
-				{/each}
-			</select>
-		{:else}
+			<Dropdown
+				{options}
+				value={dropdownValue}
+				onChange={dropdownChangeHandler} />
+		{:else if type === 'string' && typeof value === 'string'}
 			<TextInput
 				id={`text-${label}`}
 				name="text"

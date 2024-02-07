@@ -65,7 +65,7 @@
 		"prettier-plugin-svelte": "^3.1.2",
 		"publint": "^0.1.9",
 		"sass": "^1.69.7",
-		"svelte": "^5.0.0-next.40",
+		"svelte": "^5.0.0-next.50",
 		"svelte-check": "^3.6.3",
 		"tslib": "^2.4.1",
 		"typescript": "^5.0.0",
@@ -76,7 +76,8 @@
 		"@surveyplanet/styles": "^0.1.17",
 		"@surveyplanet/utilities": "^2.3.1",
 		"cleave.js": "^1.6.0",
+		"monaco-editor": "^0.45.0",
 		"svelte-floating-ui": "^1.5.3",
-		"svelte-range-slider-pips": "^2.3.1"
+		"svelte-range-slider-pips": "^3.0.0-beta.3"
 	}
 }

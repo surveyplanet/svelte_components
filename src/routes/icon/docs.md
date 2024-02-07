@@ -1,16 +1,14 @@
-# Icon component
+#### Properties
 
-### Properties
+| Property      | Type     | Description                                        | Default         |
+| ------------- | -------- | -------------------------------------------------- | --------------- |
+| `name`        | IconName | Name of the icon.                                  |                 |
+| `color`       | String   | Color of the icon.                                 | `COLORS.black,` |
+| `size`        | IconSize | Size of the icon. Defaults to 24.                  | `DEFAULT_SIZE`  |
+| `strokeWidth` | Number   | Stroke width of the icon. Defaults to 2.           | `2`             |
+| `debug`       | Boolean  | Enable debug mode for the icon. Defaults to false. | `false`         |
 
-| Property      | Type     | Description                                        |
-| ------------- | -------- | -------------------------------------------------- |
-| `name`        | IconName | Name of the icon.                                  |
-| `color`       | String   | Color of the icon. Defaults to `COLORS.black`.     |
-| `size`        | IconSize | Size of the icon. Defaults to 24.                  |
-| `strokeWidth` | Number   | Stroke width of the icon. Defaults to 2.           |
-| `debug`       | Boolean  | Enable debug mode for the icon. Defaults to false. |
-
-### Interfaces
+#### Interfaces
 
 #### `IconSize`
 

@@ -12,7 +12,7 @@
 
 <script lang="ts">
 	import type { ScaleValue, ScaleProperties } from '@surveyplanet/types';
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { RangeSlider } from 'svelte-range-slider-pips';
 
 	let { id, min, max, response = [], onScaleResponse } = $props<ScaleProps>();
 

@@ -20,7 +20,7 @@ export default (
 </script>
 
 <Chip
-	data = ${JSON.stringify(data, null, 2)}
+	data = {${JSON.stringify(data, null, 2)}}
 	selectable = ${selectable}
 	multiSelect = ${multiSelect}
 	removable = ${removable}

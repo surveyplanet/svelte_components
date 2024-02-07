@@ -9,8 +9,8 @@ export default (label: string, formats: string[], maxSize: number) => {
 	
 	<Upload
 		label='${label}'
-		formats=${formats}
-		maxSize=${maxSize}
+		formats={${formats}}
+		maxSize={${maxSize}}
 		onChange={imageUploadHandler}
 	/>`;
 };

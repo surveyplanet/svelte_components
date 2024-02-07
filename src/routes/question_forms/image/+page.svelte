@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ImageProperties, ImageValue } from '@surveyplanet/types';
 	import { Image } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<ImageValue[][]>([]);
@@ -62,44 +62,31 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"
-			text
-			bind:value={id}
-			onInput={(e:Event) => {
-					id = (e.target as HTMLInputElement).value;
-				}} />
-
+			bind:value={id} />
 		<PropsChanger
 			label="Labels"
-			object
 			bind:value={labelsString} />
 		<PropsChanger
 			label="Multi"
-			checkbox
 			bind:value={multi} />
 		<PropsChanger
 			label="Size"
-			select
 			bind:value={size}
 			selectOptions={['small', 'medium', 'large']} />
 		<PropsChanger
 			label="Hide Captions"
-			checkbox
 			bind:value={hideCaptions} />
 		<PropsChanger
 			label="Contain"
-			checkbox
 			bind:value={contain} />
 		<PropsChanger
 			label="Random"
-			checkbox
 			bind:value={random} />
 		<PropsChanger
 			label="Min"
-			number
 			bind:value={min} />
 		<PropsChanger
 			label="Max"
-			number
 			bind:value={max} />
 	{/snippet}
 	{#snippet main()}

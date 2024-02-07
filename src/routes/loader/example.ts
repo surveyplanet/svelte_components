@@ -8,7 +8,7 @@ export default (colors: string[], size: number, strokeWidth: 1 | 2 | 3 | 4) => {
 
 <Loader 
 	colors = '${colors}'
-	size = ${size}
-	strokeWidth = ${strokeWidth} />
+	size = {${size}}
+	strokeWidth = {${strokeWidth}} />
 `;
 };

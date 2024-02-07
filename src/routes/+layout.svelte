@@ -4,7 +4,7 @@
 	import type { Snippet } from 'svelte';
 	import type { PageData } from './$types';
 
-	import { createComponentsStore } from '../components/stores/components.store.svelte';
+	import { createComponentsStore } from '../layout/stores/components.store.svelte';
 
 	let { data, children } = $props<{
 		data: PageData;

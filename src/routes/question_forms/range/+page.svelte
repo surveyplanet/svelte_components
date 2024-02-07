@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { RangeValue, RangeProperties } from '@surveyplanet/types';
 	import { Range } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<RangeValue[][]>([]);
@@ -25,15 +25,12 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"
-			text
 			bind:value={id} />
 		<PropsChanger
 			label="Min"
-			number
 			bind:value={min} />
 		<PropsChanger
 			label="Max"
-			number
 			bind:value={max} />
 	{/snippet}
 	{#snippet main()}

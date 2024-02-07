@@ -2,7 +2,7 @@
 	import { Menu, Button, Icon, type MenuData } from '$lib';
 	import { menuData } from './menu_data';
 
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
@@ -38,15 +38,12 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Visible"
-			checkbox
 			bind:value={menuVisible} />
 		<PropsChanger
 			label="Data"
-			object
 			bind:value={dataStringed} />
 		<PropsChanger
 			label="Size"
-			select
 			selectOptions={['small', 'medium', 'large']}
 			bind:value={size} />
 	{/snippet}

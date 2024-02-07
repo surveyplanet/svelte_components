@@ -20,9 +20,9 @@ export default (
 
 <Rating
 	id='${id}'
-	labels='${JSON.stringify(labels)}'
+	labels={${JSON.stringify(labels)}}
 	order='${order}'
 	layout='${layout}'
-	onRatingResponse=${JSON.stringify(response)}
+	onRatingResponse={${JSON.stringify(response)}}
 />`;
 };

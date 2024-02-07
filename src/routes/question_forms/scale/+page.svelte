@@ -25,15 +25,12 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"
-			text
 			bind:value={id} />
 		<PropsChanger
 			label="Min"
-			number
 			bind:value={min} />
 		<PropsChanger
 			label="Max"
-			number
 			bind:value={max} />
 	{/snippet}
 	{#snippet main()}

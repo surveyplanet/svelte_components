@@ -43,28 +43,22 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="ID"
-			text
 			bind:value={id} />
 		<PropsChanger
 			label="Labels"
-			object
 			bind:value={labelsString} />
 		<PropsChanger
 			label="Multi"
-			checkbox
 			bind:value={multi} />
 		<PropsChanger
 			label="Layout"
-			select
 			selectOptions={['1', '2', '3', '4', 'dropdown']}
 			bind:value={layout} />
 		<PropsChanger
 			label="Other"
-			text
 			bind:value={other} />
 		<PropsChanger
 			label="Random"
-			checkbox
 			bind:value={random} />
 	{/snippet}
 	{#snippet main()}

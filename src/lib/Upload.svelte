@@ -5,10 +5,12 @@
 		label?: string;
 		formats: string[];
 		maxSize?: number;
-		onChange: (data: {
-			image: File;
-			data: string | ArrayBuffer | null;
-		}) => void;
+		onChange: (data: UploadData) => void;
+	};
+
+	export type UploadData = {
+		image: File;
+		data: string | ArrayBuffer | null;
 	};
 </script>
 

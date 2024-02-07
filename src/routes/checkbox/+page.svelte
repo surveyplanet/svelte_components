@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { Checkbox } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<Event[]>([]);
 
 	let id: string = $state((Date.now() + Math.random()).toString(36));
 	let name = $state('checkbox');
-	let value: string;
+	let value: string = $state('checkbox');
 	let label = $state('Checkbox');
 
 	let checked = $state(false);
@@ -28,8 +28,35 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="id"
-			text
 			bind:value={id} />
+
+		<PropsChanger
+			label="name"
+			bind:value={name} />
+
+		<PropsChanger
+			label="value"
+			bind:value />
+
+		<PropsChanger
+			label="label"
+			bind:value={label} />
+
+		<PropsChanger
+			label="checked"
+			bind:value={checked} />
+
+		<PropsChanger
+			label="disabled"
+			bind:value={disabled} />
+
+		<PropsChanger
+			label="prependLabel"
+			bind:value={prependLabel} />
+		<PropsChanger
+			label="size"
+			bind:value={size}
+			selectOptions={['small', 'medium', 'large']} />
 	{/snippet}
 	{#snippet main()}
 		<Checkbox

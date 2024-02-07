@@ -11,10 +11,10 @@ export default (
 
 </script>
 <ProgressBar
-	speed = ${speed}
-	max = ${max}
-	value = ${value}
-	displayValue = ${displayValue}
+	speed = {${speed}}
+	max = {${max}}
+	value = {${value}}
+	displayValue = {${displayValue}}
 	/>
 `;
 };

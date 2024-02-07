@@ -11,7 +11,7 @@
 
 <script lang="ts">
 	let {
-		max = 0,
+		max = 100,
 		value = 0,
 		speed = 1000, // milliseconds
 		displayValue = true,

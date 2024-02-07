@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Banner } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
@@ -22,25 +22,20 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="title"
-			text
 			bind:value={title} />
 		<PropsChanger
 			label="type"
 			bind:value={type}
-			select
 			selectOptions={['info', 'warning', 'error', 'success']} />
 		<PropsChanger
 			label="visible"
-			bind:value={visible}
-			checkbox />
+			bind:value={visible} />
 		<PropsChanger
 			label="hideDelay"
-			bind:value={hideDelay}
-			number />
+			bind:value={hideDelay} />
 		<PropsChanger
 			label="content"
-			bind:value={content}
-			text />
+			bind:value={content} />
 	{/snippet}
 	{#snippet main()}
 		<div class="banner-wrapper">
