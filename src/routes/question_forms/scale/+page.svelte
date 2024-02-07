@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { ScaleValue, ScaleProperties } from '@surveyplanet/types';
 	import { Scale } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
-	import { default as source } from './example';
+	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	let events = $state<ScaleValue[][]>([]);
 	let keys = $state(0);

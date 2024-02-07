@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { Spinner } from '$lib';
-	import { Layout, PropsChanger } from '$layout/layout_index';
-
-	import { default as source } from './example';
+	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	let events = $state<(number | undefined)[]>([]);
 	let keys = $state(0);
