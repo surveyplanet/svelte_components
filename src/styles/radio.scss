@@ -20,7 +20,13 @@
 		border-color: $color--beige-darker-mid;
 	}
 	&.sp-radio--prepend {
-		flex-direction: row-reverse;
+		// flex-direction: row-reverse;
+		.sp-radio--dot {
+			order: 2;
+		}
+		.sp-radio--label {
+			order: 1;
+		}
 	}
 
 	&.sp-radio--medium {

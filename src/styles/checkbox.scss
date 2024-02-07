@@ -21,7 +21,13 @@
 		border-color: $color--beige-darkest;
 	}
 	&.sp-checkbox--prepend {
-		flex-direction: row-reverse;
+		// flex-direction: row-reverse;
+		.sp-checkbox--check {
+			order: 2;
+		}
+		.sp-checkbox--label {
+			order: 1;
+		}
 	}
 	&.sp-checkbox--medium {
 		font-size: $font-size--14;
