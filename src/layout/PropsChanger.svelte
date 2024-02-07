@@ -61,8 +61,8 @@
 		return [];
 	};
 
-	const dropdownChangeHandler = (dropdownValue2: string) => {
-		value = dropdownValue2;
+	const dropdownChangeHandler = (dropdownValueMutated: string) => {
+		value = dropdownValueMutated;
 	};
 
 	const options = optionsParsed();
