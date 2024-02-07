@@ -116,7 +116,7 @@
 			{id}
 			{name}
 			{type}
-			{value}
+			bind:value
 			{label}
 			{placeholder}
 			{readonly}

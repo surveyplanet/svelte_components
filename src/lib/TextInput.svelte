@@ -74,7 +74,7 @@
 			new Cleave(`#${id}`, cleaveOptions);
 		}
 
-		console.log('--->', value);
+		// console.log('--->', value);
 	});
 
 	const validateInput = (target: HTMLInputElement) => {
@@ -268,7 +268,7 @@
 			onchange={changeHandler}
 			onfocus={onFocus}
 			onkeydown={onKeydown}
-			onkeyup={onkeyupHandler}>{value}</textarea>
+			onkeyup={onkeyupHandler}></textarea>
 	{:else}
 		<input
 			class="sp-text-input--input"
