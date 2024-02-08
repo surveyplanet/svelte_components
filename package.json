@@ -1,49 +1,73 @@
 {
-	"name": "svelte-components",
-	"version": "0.0.1",
-	"scripts": {
-		"build": "svelte-kit sync && svelte-package && cp -r src/assets ./ && cp -r src/styles ./",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"check:all": "npm run check && npm run lint:check && npm run spell",
-		"clean": "rm -rf assets dist coverage node_modules dist .svelte-kit && npm i",
-		"clean:hard": "rm package-lock.json && npm run clean",
-		"dev": "vite dev",
-		"format": "prettier --plugin-search-dir . --write .",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"lint:check": "eslint .",
-		"package": "npm run build",
-		"release": "semantic-release",
-		"spell": "cspell",
-		"test": "playwright test",
-		"test:dev": "npm test -- --project=chromium",
-		"test:timeout": "npm test -- --project=chromium --global-timeout 50000",
-		"test:ch": "npm test -- --headed --project=chromium",
-		"test:ff": "npm test -- --headed --project=firefox",
-		"test:wk": "npm test -- --headed --project=webkit",
-		"test:edge": "npm test -- --headed --project=msedge",
-		"test:all": "npm test -- --headed",
-		"test:debug": "npm test -- --debug --headed --project=chromium",
-		"test:ci": "npm test -- --project=chromium --reporter=github",
-		"proof": "npm run check && npm run lint && npm run spell && npm run test"
+	"name": "@surveyplanet/svelte-components",
+	"version": "0.0.0",
+	"description": "A collection of Svelte UI components",
+	"keywords": [
+		"svelte",
+		"component",
+		"avatar",
+		"badge",
+		"breadcrumbs",
+		"button",
+		"checkbox",
+		"icon",
+		"radio",
+		"toggle",
+		"form control"
+	],
+	"homepage": "https://ui.surveyplanet.com",
+	"license": "MIT",
+	"author": "Jonah Werre <jonahwerre@gmail.com> (https://github.com/jwerre)",
+	"contributors": [
+		"Ognjen Ugljenovic <ognjen@surveyplanet.com>"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:surveyplanet/svelte_components.git"
 	},
+	"main": "dist/index.js",
+	"type": "module",
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
 			"svelte": "./dist/index.js"
-		}
+		},
+		"./styles": "./styles/main.scss"
 	},
 	"files": [
+		"assets",
 		"dist",
-		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*"
+		"styles"
 	],
 	"peerDependencies": {
 		"svelte": "^5.0.0-next.36"
 	},
-	"svelte": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"type": "module",
+	"scripts": {
+		"build": "svelte-kit sync && svelte-package && cp -r src/assets ./ && cp -r src/styles ./",
+		"check:all": "npm run check && npm run lint:check && npm run spell",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"clean:hard": "rm package-lock.json && npm run clean",
+		"clean": "rm -rf assets dist coverage node_modules dist .svelte-kit && npm --force i",
+		"dev": "vite dev",
+		"format": "prettier --plugin-search-dir . --write .",
+		"lint:check": "eslint .",
+		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"package": "npm run build",
+		"proof": "npm run check && npm run lint && npm run spell && npm run test",
+		"release": "semantic-release",
+		"spell": "cspell",
+		"test:all": "npm test -- --headed",
+		"test:ch": "npm test -- --headed --project=chromium",
+		"test:ci": "npm test -- --project=chromium --reporter=github",
+		"test:debug": "npm test -- --debug --headed --project=chromium",
+		"test:dev": "npm test -- --project=chromium",
+		"test:edge": "npm test -- --headed --project=msedge",
+		"test:ff": "npm test -- --headed --project=firefox",
+		"test:timeout": "npm test -- --project=chromium --global-timeout 50000",
+		"test:wk": "npm test -- --headed --project=webkit",
+		"test": "playwright test"
+	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^3.1.1",
@@ -77,7 +101,6 @@
 		"@surveyplanet/styles": "^0.1.17",
 		"@surveyplanet/utilities": "^2.3.1",
 		"cleave.js": "^1.6.0",
-		"monaco-editor": "^0.45.0",
 		"svelte-floating-ui": "^1.5.3",
 		"svelte-range-slider-pips": "^3.0.0-beta.3"
 	}
