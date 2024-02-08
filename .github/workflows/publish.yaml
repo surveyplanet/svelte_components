@@ -18,12 +18,12 @@ jobs:
               with:
                   node-version: 21
             - name : Install svelte-pip-slider
-              run: npm i svelte-range-slider-pips@3.0.0-beta.3
+              run: npm i svelte-range-slider-pips@3.0.0-beta.3 --force
 
             - name: Install dependencies
               run: |
-                  npm install --force -D  esbuild
-                  npm install --ignore-scripts
+                  npm install -D  esbuild --force 
+                  # npm install --ignore-scripts
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
