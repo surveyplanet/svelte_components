@@ -6,68 +6,78 @@
 	export interface ScoringDefinitions {
 		scoringResetButton: Language['definitions']['scoringResetButton'];
 	}
+
+	export type ScoringProps = {
+		id: string;
+		definitions: ScoringDefinitions;
+		values: ScoringProperties['values'];
+		labels: ScoringProperties['labels'];
+		maxLabel: ScoringProperties['maxLabel'];
+		minLabel: ScoringProperties['minLabel'];
+		requireAll?: ScoringProperties['requireAll'];
+		requireUnique?: ScoringProperties['requireUnique'];
+		response?: ScoringValue[];
+		onScoringResponse: (value: ScoringValue[]) => void;
+	};
 </script>
 
 <script lang="ts">
 	import type { ScoringValue, ScoringProperties } from '@surveyplanet/types';
-	import { createEventDispatcher } from 'svelte';
 	import { Button, Radio } from '../';
 	import SortableList from '$lib/SortableList.svelte';
 
-	const dispatchResponse = createEventDispatcher<{
-		response: ScoringValue[];
-	}>();
-
-	export let id: string;
-	export let definitions: ScoringDefinitions;
-	export let values: ScoringProperties['values'] = [];
-	export let labels: ScoringProperties['labels'] = [];
-	export let maxLabel: ScoringProperties['maxLabel'];
-	export let minLabel: ScoringProperties['minLabel'];
-	export let requireAll: ScoringProperties['requireAll'] = false;
-	export let requireUnique: ScoringProperties['requireUnique'] = false;
-	export let response: ScoringValue[] = [];
+	let {
+		id,
+		definitions,
+		values,
+		labels,
+		maxLabel,
+		minLabel,
+		requireAll = false,
+		requireUnique = false,
+		response = [],
+		onScoringResponse,
+	} = $props<ScoringProps>();
 
 	const updateResponse = (value: ScoringValue) => {
 		// remove value if already exits.
 		response = response?.filter((val) => val.label !== value.label);
 		response.push(value);
-		console.log('response', response);
 	};
 
-	const inputChangeHandler = (event: CustomEvent) => {
-		const target = event.detail.target as HTMLInputElement;
+	const inputChangeHandler = (event: Event) => {
+		const target = event.target as HTMLInputElement;
 
-		const value = {
+		const value: ScoringValue = {
 			label: target.name,
 			value: Number(target.value),
-		} as ScoringValue;
+		};
 
 		updateResponse(value);
 
-		dispatchResponse('response', response);
+		onScoringResponse(response);
 	};
 
-	const sortableEventHandler = (event: CustomEvent) => {
-		const list: string[] = event.detail;
+	const sortableEventHandler = (list: { label: string }[]) => {
 		for (let i = 0; i < list.length; i++) {
-			response = response?.filter((val) => val.label !== list[i]);
+			response = response?.filter((val) => val.label !== list[i].label);
 			response.push({
-				label: list[i],
+				label: list[i].label,
 				value: values[i],
 			});
 		}
+		onScoringResponse(response);
 	};
 
 	const clearButtonClickHandler = () => {
 		response = [];
-		dispatchResponse('response', response);
+		onScoringResponse(response);
 	};
-	let sortedLabels = [] as { name: string }[];
+	let sortedLabels: { label: string }[] = [];
 	const listSorted = (labels: string[]): typeof sortedLabels => {
 		labels.forEach((label) => {
 			sortedLabels.push({
-				name: label,
+				label: label,
 			});
 		});
 		return sortedLabels;
@@ -84,7 +94,7 @@
 
 		<SortableList
 			data={listSorted(labels)}
-			on:sort={sortableEventHandler} />
+			onSort={sortableEventHandler} />
 		{#if maxLabel}
 			<p class="sp-survey--question--form--scoring--max-label">
 				{maxLabel}
@@ -121,7 +131,7 @@
 									name={label}
 									value={value.toString()}
 									id="{id}-{rowIndex}-{cellIndex}"
-									on:change={inputChangeHandler} />
+									onChange={inputChangeHandler} />
 							</td>
 						{/each}
 					</tr>
@@ -131,7 +141,7 @@
 				<Button
 					size={'small'}
 					type="reset"
-					on:click={clearButtonClickHandler}>
+					onClick={clearButtonClickHandler}>
 					{definitions.scoringResetButton}
 				</Button>
 			</tfoot>

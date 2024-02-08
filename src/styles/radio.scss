@@ -20,7 +20,13 @@
 		border-color: $color--beige-darker-mid;
 	}
 	&.sp-radio--prepend {
-		flex-direction: row-reverse;
+		// flex-direction: row-reverse;
+		.sp-radio--dot {
+			order: 2;
+		}
+		.sp-radio--label {
+			order: 1;
+		}
 	}
 
 	&.sp-radio--medium {
@@ -114,7 +120,8 @@
 	@include set-focus {
 		& + .sp-radio {
 			.sp-radio--dot {
-				box-shadow: 0px 0px 0px 1px $color--white,
+				box-shadow:
+					0px 0px 0px 1px $color--white,
 					0px 0px 0px 2px $color--beige-darker;
 			}
 		}

@@ -24,6 +24,13 @@
 		| 'transparent';
 
 	export type LogoColor = typeof COLORS.black | typeof COLORS.white;
+
+	export type LogoProps = {
+		color?: LogoColor;
+		fill: LogoFillColor;
+		size?: LogoSize;
+		symbolOnly?: boolean;
+	};
 </script>
 
 <script lang="ts">
@@ -31,35 +38,36 @@
 	const ORIGINAL_HEIGHT = 24;
 	const ASPECT_RATION = ORIGINAL_WIDTH / ORIGINAL_HEIGHT;
 	const DEFAULT_SIZE: LogoSize = ORIGINAL_HEIGHT;
+	// fill is not working
+	let {
+		color = COLORS.black,
+		fill = 'blue',
+		size = DEFAULT_SIZE,
+		symbolOnly = false,
+	} = $props<LogoProps>();
 
-	export let color: LogoColor = COLORS.black;
+	let gradient: string[] = $state([
+		COLORS.blueGradientStart,
+		COLORS.blueGradientEnd,
+	]);
 
-	export let fill: LogoFillColor = 'blue';
+	let width: number = $derived(symbolOnly ? size : size * ASPECT_RATION);
+	let height: number = $derived(size);
 
-	export let size: LogoSize = DEFAULT_SIZE;
+	let viewboxWidth: number = $derived(
+		symbolOnly ? DEFAULT_SIZE : ORIGINAL_WIDTH
+	);
+	let viewboxHeight: number = ORIGINAL_HEIGHT;
 
-	export let symbolOnly = false;
+	// $inspect({ width, height, viewboxWidth, viewboxHeight });
 
-	let gradient: string[] = [COLORS.blueGradientStart, COLORS.blueGradientEnd];
-
-	let width: number;
-	let height: number;
-
-	let viewboxWidth: number;
-	let viewboxHeight = ORIGINAL_HEIGHT;
-
-	$: {
+	$effect.pre(() => {
 		if (fill !== 'transparent') {
 			const startColor = COLORS[`${fill}GradientStart`];
 			const endColor = COLORS[`${fill}GradientEnd`];
 			gradient = [startColor, endColor];
 		}
-
-		height = size;
-		width = symbolOnly ? size : size * ASPECT_RATION;
-
-		viewboxWidth = symbolOnly ? DEFAULT_SIZE : ORIGINAL_WIDTH;
-	}
+	});
 </script>
 
 <div

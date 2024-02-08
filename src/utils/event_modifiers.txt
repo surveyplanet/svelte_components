@@ -1,0 +1,71 @@
+// The preventDefault function is a higher-order function that takes a function (fn) as an argument.
+// It returns a new function that, when called, will first call the preventDefault method on the event object,
+// preventing the default action of the event, and then call the original function (fn).
+export function preventDefault(fn: Function) {
+	return function (event: Event) {
+		event.preventDefault();
+		fn.call(event);
+	};
+}
+
+// The stopPropagation function is a higher-order function that takes a function (fn) as an argument.
+// It returns a new function that, when called, will first call the stopPropagation method on the event object,
+// preventing the event from bubbling up the DOM tree, and then call the original function (fn).
+export function stopPropagation(fn: Function) {
+	return function (event: Event) {
+		event.stopPropagation();
+		fn.call(event);
+	};
+}
+// The stopImmediatePropagation function is a higher-order function that takes a function (fn) as an argument.
+// It returns a new function that, when called, will first call the stopImmediatePropagation method on the event object,
+// preventing the event from bubbling up the DOM tree and preventing any other event handlers from being called,
+// and then call the original function (fn).
+export function stopImmediatePropagation(fn: Function) {
+	return function (event: Event) {
+		event.stopImmediatePropagation();
+		fn.call(event);
+	};
+}
+// The self function is a higher-order function that takes a function (fn) as an argument.
+// It returns a new function that, when called, will first check if the target of the event is the same as the currentTarget.
+// If it is, it will call the original function (fn).
+export function self(fn: (event: Event) => void) {
+	return (event: Event) => {
+		if (event.target === event.currentTarget) {
+			fn.call(event, event); // Pass the event as an additional argument
+		}
+	};
+}
+// The debounce function is a higher-order function that takes a function (fn) as an argument.
+// It returns a new function that, when called, will first call the clearTimeout method on the event object,
+// preventing the event from bubbling up the DOM tree, and then call the original function (fn).
+export function debounce(fn: Function) {
+	let timeout: NodeJS.Timeout;
+	return function (event: Event) {
+		clearTimeout(timeout);
+		timeout = setTimeout(() => fn.call(event), 100);
+	};
+}
+// The throttle function is a higher-order function that takes a function (fn) as an argument.
+// It returns a new function that, when called, will first call the clearTimeout method on the event object,
+// preventing the event from bubbling up the DOM tree, and then call the original function (fn).
+export function throttle(fn: Function) {
+	let wait = false;
+	return function (event: Event) {
+		if (!wait) {
+			fn.call(event);
+			wait = true;
+			setTimeout(() => (wait = false), 300);
+		}
+	};
+}
+// The once function is a higher-order function that takes a function (fn) as an argument.
+// It returns a new function that, when called, will first call the original function (fn),
+// and then assign an empty function to fn, preventing it from being called again.
+export function once(fn: Function) {
+	return function (event: Event) {
+		fn.call(event);
+		fn = function () {}; // Assign an empty function to fn
+	};
+}

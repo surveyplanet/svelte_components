@@ -7,101 +7,75 @@
 		| 'text'
 		| 'date'
 		| 'time'
-		| 'datetime-local';
+		| 'datetime-local'
+		| 'multiline';
+
+	export type TextInputProps = {
+		id: string;
+		name: string;
+		type?: TextInputType;
+		value?: string;
+		label?: string;
+		placeholder?: string | null;
+		readonly?: boolean;
+		disabled?: boolean;
+		cleaveOptions?: CleaveOptions;
+		validationRules?: string[];
+		validationMessage?: string | null;
+		size?: 'small' | 'medium' | 'large';
+		validationHideMessage?: boolean | null;
+		onInput?: (e: Event) => void;
+		onBlur?: (e: Event) => void;
+		onChange?: (e: Event) => void;
+		onFocus?: (e: Event) => void;
+		onKeydown?: (e: Event) => void;
+		onKeyup?: (e: Event) => void;
+	};
 </script>
 
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { validate, type ValidatorError } from '@surveyplanet/utilities';
 	import Cleave from 'cleave.js';
 	import type { CleaveOptions } from 'cleave.js/options';
+	import { Icon } from './index';
 
-	const dispatchChange = createEventDispatcher<{ change: Event }>();
-	const dispatchInput = createEventDispatcher<{ input: Event }>();
-	const dispatchKeyDown = createEventDispatcher<{ keydown: Event }>();
-	const dispatchKeyUp = createEventDispatcher<{ keyup: Event }>();
-	const dispatchFocus = createEventDispatcher<{ focus: FocusEvent }>();
-	const dispatchBlur = createEventDispatcher<{ blur: FocusEvent }>();
+	let {
+		id,
+		name,
+		type,
+		value,
+		label,
+		placeholder,
+		readonly = false,
+		disabled = false,
+		cleaveOptions,
+		validationRules = [''],
+		validationMessage,
+		size = 'medium',
+		validationHideMessage,
+		onInput,
+		onBlur,
+		onChange,
+		onFocus,
+		onKeydown,
+		onKeyup,
+	} = $props<TextInputProps>();
 
-	/**
-	 * The unique id of the input
-	 */
-	export let id: string;
+	let hasValidationErrors = $state(false);
 
-	/**
-	 * The name of the input
-	 */
-	export let name: string;
+	let validationDisplayMessage = $state('');
 
-	/**
-	 * The input type, default: 'text'
-	 */
-	export let type: TextInputType = 'text';
-
-	/**
-	 * The value of the input
-	 */
-	export let value = '';
-
-	/**
-	 * The input label
-	 */
-	export let label: string | null = null;
-
-	/**
-	 * The input placeholder
-	 */
-	export let placeholder: string | null = null;
-
-	/**
-	 * Whether the input should be a single or multi-line
-	 */
-	export let multiline = false;
-
-	/**
-	 * Whether the input should be read only. If you want the user to identify the input as in non-modified mode, use disabled instead.
-	 */
-	export let readonly = false;
-
-	/**
-	 * Whether the input should be disabled. If you want a non-modified element to appear like the rest of the form elements, use readonly instead.
-	 */
-	export let disabled = false;
-
-	/**
-	 * Cleave.js options for masked input. See: https://github.com/nosir/cleave.js
-	 */
-	export let cleaveOptions: CleaveOptions = {};
-
-	/**
-	 * A list of validation rules for the input. See: https://github.com/surveyplanet/utilities
-	 */
-	export let validationRules: string[] = [];
-
-	/**
-	 * A custom validation message to be used instead of the default
-	 */
-	export let validationMessage: string | null = null;
-
-	export let size: 'small' | 'medium' | 'large' = 'small';
-
-	/**
-	 * Whether to automatically show the validation error message or not.
-	 */
-	export let validationHideMessage: boolean | null = null;
-
-	let hasValidationErrors = false;
-
-	let validationDisplayMessage = '';
-
-	$: {
+	$effect(() => {
 		if (
+			cleaveOptions &&
 			Object.keys(cleaveOptions).length &&
 			Object.prototype.toString.call(cleaveOptions) === '[object Object]'
 		) {
 			new Cleave(`#${id}`, cleaveOptions);
 		}
-	}
+
+		// console.log('--->', value);
+	});
 
 	const validateInput = (target: HTMLInputElement) => {
 		const errors: ValidatorError[] = validate(target);
@@ -115,32 +89,19 @@
 	const changeHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		validateInput(target);
-		if (!hasValidationErrors) {
-			dispatchChange('change', event);
+		if (!hasValidationErrors && typeof onChange === 'function') {
+			onChange(event);
 		}
 	};
-
 	const inputHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		validateInput(target);
-		if (!hasValidationErrors) {
-			dispatchInput('input', event);
+		if (!hasValidationErrors && typeof onInput === 'function') {
+			onInput(event);
 		}
 	};
 
-	const focusHandler = (event: FocusEvent) => {
-		dispatchFocus('focus', event);
-	};
-
-	const blurHandler = (event: FocusEvent) => {
-		dispatchBlur('blur', event);
-	};
-
-	const keydownHandler = (event: KeyboardEvent) => {
-		dispatchKeyDown('keydown', event);
-	};
-
-	const keyupHandler = (event: KeyboardEvent) => {
+	const onkeyupHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		// if the input has errors validate on keyup
 		if (hasValidationErrors) {
@@ -153,10 +114,11 @@
 				return;
 			}
 		}
-		dispatchKeyUp('keyup', event);
+		if (onKeyup) onKeyup(event);
 	};
 </script>
 
+<!-- eslint-disable svelte/no-at-html-tags -->
 <div
 	class="sp-form-control sp-text-input sp-text-input--{size}"
 	class:validation-error={hasValidationErrors}>
@@ -165,13 +127,130 @@
 			class="sp-text-input--label"
 			for={id}>
 			<span class="sp-text-input--label--text">{label}</span>
-			{#if validationRules.includes('require')}
+			{#if validationRules && validationRules.includes('require')}
 				<span class="sp-text-input--label--required">*</span>
 			{/if}
 		</label>
 	{/if}
 
-	{#if multiline}
+	{#if type === 'password'}
+		<input
+			class="sp-text-input--input"
+			{name}
+			type="password"
+			{id}
+			{placeholder}
+			{disabled}
+			{readonly}
+			bind:value
+			data-validate-rules={validationRules.length
+				? validationRules.join(',')
+				: null}
+			data-validate-message={validationMessage}
+			oninput={inputHandler}
+			onblur={onBlur}
+			onchange={changeHandler}
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onkeyupHandler} />
+		{#if value?.length}
+			<button
+				class="sp-text-input--password-toggle"
+				type="button"
+				onclick={() => {
+						const input = document.getElementById(id) as HTMLInputElement;
+						if (input) {
+							input.type = input.type === 'password' ? 'text' : 'password';
+						}
+					}}>
+				<Icon
+					name="eye"
+					size={16} />
+			</button>
+		{/if}
+	{:else if type === 'search'}
+		<input
+			class="sp-text-input--input"
+			{name}
+			type="search"
+			{id}
+			{placeholder}
+			{disabled}
+			{readonly}
+			bind:value
+			oninput={inputHandler}
+			onblur={onBlur}
+			onchange={changeHandler}
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onkeyupHandler} />
+
+		<span class="sp-text-input--search-icon">
+			<Icon
+				name="search"
+				size={16} />
+		</span>
+	{:else if type === 'date'}
+		<input
+			class="sp-text-input--input"
+			{name}
+			type="date"
+			{id}
+			{placeholder}
+			{disabled}
+			{readonly}
+			bind:value
+			data-validate-rules={validationRules.length
+				? validationRules.join(',')
+				: null}
+			data-validate-message={validationMessage}
+			oninput={inputHandler}
+			onblur={onBlur}
+			onchange={changeHandler}
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onkeyupHandler} />
+	{:else if type === 'time'}
+		<input
+			class="sp-text-input--input"
+			{name}
+			type="time"
+			{id}
+			{placeholder}
+			{disabled}
+			{readonly}
+			bind:value
+			data-validate-rules={validationRules.length
+				? validationRules.join(',')
+				: null}
+			data-validate-message={validationMessage}
+			oninput={inputHandler}
+			onblur={onBlur}
+			onchange={changeHandler}
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onkeyupHandler} />
+	{:else if type === 'datetime-local'}
+		<input
+			class="sp-text-input--input"
+			{name}
+			type="datetime-local"
+			{id}
+			{placeholder}
+			{disabled}
+			{readonly}
+			bind:value
+			data-validate-rules={validationRules.length
+				? validationRules.join(',')
+				: null}
+			data-validate-message={validationMessage}
+			oninput={inputHandler}
+			onblur={onBlur}
+			onchange={changeHandler}
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onkeyupHandler} />
+	{:else if type === 'multiline'}
 		<textarea
 			class="sp-text-input--textarea"
 			{name}
@@ -179,36 +258,37 @@
 			{placeholder}
 			{disabled}
 			{readonly}
+			bind:value
 			data-validate-rules={validationRules.length
 				? validationRules.join(',')
 				: null}
 			data-validate-message={validationMessage}
-			on:input={inputHandler}
-			on:blur={blurHandler}
-			on:change={changeHandler}
-			on:focus={focusHandler}
-			on:keydown={keydownHandler}
-			on:keyup={keyupHandler}>{value}</textarea>
+			oninput={inputHandler}
+			onblur={onBlur}
+			onchange={changeHandler}
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onkeyupHandler}></textarea>
 	{:else}
 		<input
 			class="sp-text-input--input"
 			{name}
-			{type}
+			type="text"
 			{id}
 			{placeholder}
 			{disabled}
 			{readonly}
-			{value}
+			bind:value
 			data-validate-rules={validationRules.length
 				? validationRules.join(',')
 				: null}
 			data-validate-message={validationMessage}
-			on:blur={blurHandler}
-			on:input={inputHandler}
-			on:change={changeHandler}
-			on:focus={focusHandler}
-			on:keydown={keydownHandler}
-			on:keyup={keyupHandler} />
+			oninput={inputHandler}
+			onblur={onBlur}
+			onchange={changeHandler}
+			onfocus={onFocus}
+			onkeydown={onKeydown}
+			onkeyup={onkeyupHandler} />
 	{/if}
 	{#if !validationHideMessage && hasValidationErrors && validationDisplayMessage.length}
 		<label

@@ -21,7 +21,13 @@
 		border-color: $color--beige-darkest;
 	}
 	&.sp-checkbox--prepend {
-		flex-direction: row-reverse;
+		// flex-direction: row-reverse;
+		.sp-checkbox--check {
+			order: 2;
+		}
+		.sp-checkbox--label {
+			order: 1;
+		}
 	}
 	&.sp-checkbox--medium {
 		font-size: $font-size--14;
@@ -109,7 +115,8 @@ input[type='checkbox'] {
 	@include set-focus {
 		& + .sp-checkbox {
 			.sp-checkbox--check {
-				box-shadow: 0px 0px 0px 2px $color--beige,
+				box-shadow:
+					0px 0px 0px 2px $color--beige,
 					0px 0px 0px 3px $color--beige-darkest;
 			}
 		}

@@ -1,77 +1,69 @@
+<script
+	lang="ts"
+	context="module">
+	export type AlertProps = {
+		title: string | null;
+		subtitle: string | null;
+		type: 'info' | 'warning' | 'error' | 'success';
+		hideDelay?: number;
+		confirm?: boolean;
+		confirmButtonLabel?: string;
+		cancelButtonLabel?: string;
+		challenge?: string;
+		challengeLabel?: string;
+		animationMilliseconds?: number;
+		onConfirm?: () => void;
+		onOpen?: () => void;
+		onIn?: () => void;
+		onClose?: () => void;
+		onOut?: () => void;
+		children?: Snippet;
+	};
+</script>
+
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
+	import type { Snippet } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	import { COLORS, BUTTON_MODES, Button, Icon, TextInput } from './';
-
 	// import '../assets/styles/alert.scss';
 	import successIcon from '../assets/mascots/tummi_3.svg';
 	import infoIcon from '../assets/mascots/cubbi_3.svg';
 	import warningIcon from '../assets/mascots/zummi_3.svg';
 	import errorIcon from '../assets/mascots/sunni_3.svg';
 
-	const dispatch = createEventDispatcher();
-	const dispatchConfirm = createEventDispatcher<{ confirm: boolean }>();
+	let {
+		title,
+		subtitle,
+		type,
+		hideDelay, // in milliseconds
+		confirm = false,
+		confirmButtonLabel = 'Confirm',
+		cancelButtonLabel = 'Cancel',
+		challenge = '', // challenge string to confirm action
+		challengeLabel = '',
+		animationMilliseconds = 350,
+		onConfirm,
+		onOpen,
+		onIn,
+		onClose,
+		onOut,
+		children,
+	} = $props<AlertProps>();
 
-	/**
-	 * Main alert title.
-	 */
-	export let title: string | null;
-
-	/**
-	 * Optional alert subtitle.
-	 */
-	export let subtitle: string | null;
-
-	/**
-	 * The type of alert.
-	 */
-	export let type: 'info' | 'warning' | 'error' | 'success' = 'success';
-
-	/**
-	 * Automatically hide alert after X milliseconds. A value of 0 means don't hide.
-	 */
-	export let hideDelay = 0;
-
-	/**
-	 * Whether the alert needs to be confirmed before it is closed.
-	 */
-	export let confirm = false;
-
-	/**
-	 * Text label for the confirm button.
-	 */
-	export let confirmButtonLabel = 'Confirm';
-
-	/**
-	 * Text label for the cancel confirm button.
-	 */
-	export let cancelButtonLabel = 'Cancel';
-
-	/**
-	 * If provided alert displays a text input which must be valid before confirm button can be clicked.
-	 */
-	export let challenge = '';
-
-	/**
-	 * The label for the challenge input
-	 */
-	export let challengeLabel = '';
-
-	/**
-	 * The total time in milliseconds for the alert to animate in or out.
-	 */
-	export let animationMilliseconds = 350;
-
-	let visible = false;
-	let icon = successIcon;
-	$: isChallenge = confirm && challenge.length > 0;
-	$: disableConfirmButton = isChallenge;
-	$: {
-		if (!confirm && hideDelay > 0) {
+	let visible = $state(false);
+	let icon = $state(successIcon);
+	let isChallenge = $derived(confirm && challenge.length > 0);
+	let disableConfirmButton: boolean = $state(false);
+	$effect(() => {
+		if (!confirm && hideDelay && hideDelay > 0) {
 			setTimeout(() => {
 				visible = false;
 			}, hideDelay);
+		}
+
+		if (isChallenge) {
+			disableConfirmButton = true;
 		}
 
 		switch (type) {
@@ -88,10 +80,9 @@
 				icon = successIcon;
 				break;
 		}
-	}
+	});
 
-	// handlers
-	onMount(() => {
+	$effect(() => {
 		visible = true;
 	});
 
@@ -100,34 +91,19 @@
 		disableConfirmButton = input.value !== challenge;
 	};
 
-	const alertConfirmButtonClickHandler = () => {
-		const value = isChallenge ? !disableConfirmButton : true;
-		dispatchConfirm('confirm', value);
-		visible = false;
-	};
-
 	const closeButtonClickHandler = () => {
 		visible = false;
 	};
-
-	const introStartHandler = () => {
-		dispatch('open');
-	};
-
-	const introEndHandler = () => {
-		dispatch('in');
-	};
-
-	const outroStartHandler = () => {
-		dispatch('close');
-	};
-
-	const outroEndHandler = () => {
-		dispatch('out');
+	const alertConfirmButtonClickHandler = () => {
+		const value = isChallenge ? !disableConfirmButton : true;
+		if (value) visible = false;
+		if (onConfirm) onConfirm();
 	};
 </script>
 
 <!-- TODO: 'sp-alert--confirm' class is used in the nav and in the base component -->
+
+<!-- TODO: Challenge is not showing -->
 {#if visible}
 	<div
 		role="alert"
@@ -139,10 +115,10 @@
 			duration: animationMilliseconds,
 			easing: cubicOut,
 		}}
-		on:introstart={introStartHandler}
-		on:introend={introEndHandler}
-		on:outrostart={outroStartHandler}
-		on:outroend={outroEndHandler}>
+		onIntroStart={onOpen}
+		onIntroEnd={onIn}
+		onOutroStart={onClose}
+		onOutroEnd={onOut}>
 		<div class="sp-alert--col-a">
 			<div class="sp-alert--sidebar">
 				<img
@@ -154,7 +130,7 @@
 			<header class="sp-alert--header">
 				{#if !confirm}
 					<button
-						on:click={closeButtonClickHandler}
+						onclick={closeButtonClickHandler}
 						class="sp-alert--header--close-btn">
 						<Icon
 							color={COLORS.dark}
@@ -173,7 +149,9 @@
 			</header>
 
 			<div class="sp-alert--body">
-				<slot />
+				{#if children}
+					{@render children()}
+				{/if}
 			</div>
 
 			{#if confirm}
@@ -181,25 +159,25 @@
 					{#if isChallenge}
 						<div class="sp-alert--challenge">
 							<TextInput
-								id="defaultId"
+								id={`challenge-${(Date.now() + Math.random()).toString(36)}`}
 								name="challenge"
 								label={challengeLabel}
 								placeholder={challenge}
-								on:keyup={challengeKeyupHandler} />
+								onKeyup={challengeKeyupHandler} />
 						</div>
 					{/if}
 					<menu>
 						<li class="sp-alert--confirm-btn">
 							<Button
 								disabled={disableConfirmButton}
-								on:click={alertConfirmButtonClickHandler}
+								onClick={alertConfirmButtonClickHandler}
 								mode={BUTTON_MODES.primary}>
 								{confirmButtonLabel}
 							</Button>
 						</li>
 						<li class="sp-alert--close-btn">
 							<Button
-								on:click={closeButtonClickHandler}
+								onClick={closeButtonClickHandler}
 								mode={BUTTON_MODES.light}>
 								{cancelButtonLabel}
 							</Button>

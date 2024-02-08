@@ -1,32 +1,49 @@
+<script
+	lang="ts"
+	context="module">
+	export type SpinnerProps = {
+		label?: string;
+		id?: string;
+		step?: number;
+		min?: number;
+		max?: number;
+		value?: number;
+		disabled?: boolean;
+		required?: boolean;
+		overflow?: boolean;
+		dragSpeed?: number;
+		placeholder?: string;
+		size?: 'small' | 'medium' | 'large';
+		onUpdate?: (value: number | undefined) => void;
+		onInput?: (value: number | undefined) => void;
+		onChange?: (value: number | undefined) => void;
+		onBlur?: () => void;
+		onFocus?: () => void;
+	};
+</script>
+
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	let {
+		label = '',
+		id = (Date.now() + Math.random()).toString(36),
+		step = 1,
+		min = 0,
+		max = 100,
+		value,
+		disabled = false,
+		required = false,
+		overflow = false,
+		dragSpeed = 10,
+		placeholder = null,
+		size = 'small',
+		onUpdate,
+		onInput,
+		onChange,
+		onBlur,
+		onFocus,
+	} = $props<SpinnerProps>();
 
-	export let label = '';
-	export let id = (Date.now() + Math.random()).toString(36);
-	export let step = 1;
-	export let min = 0;
-	export let max = 100;
-	export let value: number | undefined = undefined;
-	export let disabled = false;
-	export let required = false;
-	export let overflow = false;
-	export let dragSpeed = 10;
-	export let placeholder: string | null = null;
-	export let size: 'small' | 'medium' | 'large' = 'small';
-
-	const dispatchFocus = createEventDispatcher();
-	const dispatchBlur = createEventDispatcher();
-	const dispatchChange = createEventDispatcher<{
-		change: number | undefined;
-	}>();
-	const dispatchInput = createEventDispatcher<{
-		input: number | undefined;
-	}>();
-	const dispatchUpdate = createEventDispatcher<{
-		update: number | undefined;
-	}>();
-
-	let input: HTMLInputElement;
+	let input: HTMLInputElement | null = $state(null);
 
 	let spinnerTimeout: ReturnType<typeof setTimeout>;
 
@@ -37,8 +54,8 @@
 	let controlValue: number | undefined = value;
 
 	let startX: number;
-	// let isDragging = false;
-	let visibleButtons = false;
+
+	let visibleButtons = $state(false);
 
 	const checkOverflow = (newValue: number | undefined): number => {
 		if (newValue === undefined) {
@@ -71,7 +88,7 @@
 
 		if (newValue !== value && newValue !== undefined) {
 			value = checkOverflow(newValue);
-			dispatchUpdate('update', value);
+			if (onUpdate) onUpdate(value);
 		}
 		if (currentValue === undefined) {
 			if (increment) {
@@ -84,7 +101,7 @@
 
 	const reset = () => {
 		value = undefined;
-		dispatchUpdate('update', value);
+		if (onUpdate) onUpdate(value);
 	};
 
 	const increment = () => {
@@ -106,7 +123,7 @@
 		} else {
 			value = checkOverflow(value);
 		}
-		dispatchUpdate('update', value);
+		if (onUpdate) onUpdate(value);
 	};
 	// Mouse dragging
 
@@ -129,7 +146,7 @@
 
 	const checkForValueChange = () => {
 		if (value !== controlValue) {
-			dispatchInput('input', value);
+			if (onInput) onInput(value);
 		}
 		controlValue = value;
 	};
@@ -163,7 +180,7 @@
 		}, 500);
 	};
 	const changeHandler = () => {
-		dispatchChange('change', value);
+		if (onChange) onChange(value);
 	};
 
 	const inputHandler = () => {
@@ -176,16 +193,16 @@
 
 	const blurHandler = () => {
 		checkForValueChange();
-		dispatchBlur('blur');
+		if (onBlur) onBlur();
 		visibleButtons = false;
 	};
 
 	const focusHandler = () => {
-		dispatchFocus('focus');
 		visibleButtons = true;
+		if (onFocus) onFocus();
 	};
 	const inputClickHandler = () => {
-		input.focus();
+		if (input) input.focus();
 	};
 	const keydownHandler = (event: KeyboardEvent) => {
 		if (event.key === 'ArrowUp') {
@@ -197,17 +214,17 @@
 		}
 	};
 	const spinnerFocusHandler = () => {
-		input.focus();
+		if (input) input.focus();
 	};
 	const spinnerBlurHandler = () => {
-		input.blur();
+		if (input) input.blur();
 	};
 </script>
 
 <div
-	class="sp-form-control sp-spinner sp-spinner--{size}"
-	on:focus={spinnerFocusHandler}
-	on:blur={spinnerBlurHandler}>
+	class="sp-spinner sp-spinner--{size}"
+	onFocus={spinnerFocusHandler}
+	onBlur={spinnerBlurHandler}>
 	<label
 		for="sp-spinner"
 		class="sp-spinner--label"
@@ -222,13 +239,13 @@
 		type="number"
 		bind:value
 		bind:this={input}
-		on:blur={blurHandler}
-		on:change={changeHandler}
-		on:focus={focusHandler}
-		on:input={inputHandler}
-		on:click={inputClickHandler}
-		on:mousedown={mouseDragDownHandler}
-		on:keydown={keydownHandler}
+		onblur={blurHandler}
+		onchange={changeHandler}
+		onfocus={focusHandler}
+		oninput={inputHandler}
+		onclick={inputClickHandler}
+		onmousedown={mouseDragDownHandler}
+		onkeydown={keydownHandler}
 		{min}
 		{max}
 		{placeholder}
@@ -242,11 +259,11 @@
 		<button
 			class="sp-spinner--button sp-spinner--button--up"
 			{disabled}
-			on:mousedown={upMouseDownHandler}
-			on:mouseup={mouseUpHandler}
-			on:change={changeHandler}
-			on:blur={blurHandler}
-			on:focus={focusHandler}>
+			onmousedown={upMouseDownHandler}
+			onmouseup={mouseUpHandler}
+			onchange={changeHandler}
+			onblur={blurHandler}
+			onfocus={focusHandler}>
 			<svg
 				width="7"
 				height="4"
@@ -263,10 +280,10 @@
 		<button
 			class="sp-spinner--button sp-spinner--button--down"
 			{disabled}
-			on:mousedown={downMouseDownHandler}
-			on:mouseup={mouseUpHandler}
-			on:blur={blurHandler}
-			on:focus={focusHandler}>
+			onmousedown={downMouseDownHandler}
+			onmouseup={mouseUpHandler}
+			onblur={blurHandler}
+			onfocus={focusHandler}>
 			<svg
 				width="7"
 				height="4"

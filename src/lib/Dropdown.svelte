@@ -6,34 +6,45 @@
 		id: string;
 		meta?: string;
 		selected?: boolean;
+		submenu?: DropdownOptions[];
 	}
+
+	export type DropdownProps = {
+		options: DropdownOptions[];
+		placeholder?: string;
+		value?: DropdownOptions['id'];
+		label?: string;
+		searchThreshold?: number;
+		disabled?: boolean;
+		required?: boolean;
+		size?: 'small' | 'medium' | 'large';
+		onChange?: (value: DropdownOptions['id']) => void;
+	};
 </script>
 
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
 	import { Menu, Icon } from './index';
 
-	const dispatchChange = createEventDispatcher<{
-		change: DropdownOptions['id'];
-	}>();
+	let {
+		options,
+		placeholder = null,
+		value = null,
+		label = null,
+		searchThreshold = 15,
+		disabled = false,
+		required = false,
+		size = 'small',
+		onChange,
+	} = $props<DropdownProps>();
 
-	export let options: DropdownOptions[];
-	export let placeholder: string | null = null;
-	export let value: DropdownOptions['id'] | null = null;
-	export let label: string | null = null;
-	export let searchThreshold = 15;
-	export let disabled = false;
-	export let required = false;
-	export let size: 'small' | 'medium' | 'large' = 'small';
+	let input: HTMLInputElement | undefined = $state(undefined);
+	let visible = $state(false);
+	let displayValue: DropdownOptions['label'] | '' = $state('');
 
-	let input: HTMLInputElement;
-	let visible = false;
-	let displayValue: DropdownOptions['label'] | '' = '';
+	let searchable = options.length >= searchThreshold;
+	let menuData = $state([...options]);
 
-	$: searchable = options.length >= searchThreshold;
-	$: menuData = [...options];
-
-	onMount(() => {
+	$effect(() => {
 		if (value?.length) {
 			setValue(value, true);
 		}
@@ -56,10 +67,11 @@
 				displayValue = item.label;
 			}
 		}
-		if (!silent) {
-			dispatchChange('change', value);
+		if (!silent && onChange) {
+			onChange(value);
 		}
 	};
+	// const change = new Event('change');
 
 	const search = (query: string) => {
 		query = query.toLowerCase().trim();
@@ -78,11 +90,13 @@
 	const clear = () => {
 		reset();
 		setValue(''); // unset value
-		input.focus(); // setting focus will open menu
+		if (input) {
+			input.focus();
+		} // setting focus will open menu
 	};
 
-	const menuClickHandler = (event: CustomEvent) => {
-		setValue(event.detail);
+	const menuClickHandler = (id: string) => {
+		setValue(id);
 		visible = false; // blur handler hides the menu
 	};
 
@@ -91,7 +105,6 @@
 	};
 
 	const searchBlurHandler = (event: FocusEvent) => {
-		console.log('searchBlurHandler');
 		const newFocusEl = (event.relatedTarget as HTMLElement) || null;
 
 		// let menu click handler hide itself after value has been set
@@ -109,11 +122,15 @@
 		search(target.value);
 	};
 
-	const closeButtonHandler = () => {
+	const closeButtonHandler = (event: Event) => {
+		event.preventDefault();
+		event.stopPropagation();
 		clear();
 	};
 
-	const toggleIconClickHandler = () => {
+	const toggleIconClickHandler = (event: Event) => {
+		event.preventDefault();
+		event.stopPropagation();
 		visible = !visible;
 	};
 </script>
@@ -137,7 +154,7 @@
 			<button
 				class="sp-dropdown--close-btn"
 				{disabled}
-				on:click|stopPropagation|preventDefault={closeButtonHandler}>
+				onclick={closeButtonHandler}>
 				<Icon
 					name="x"
 					size={16} />
@@ -146,7 +163,7 @@
 			<button
 				class="sp-dropdown--toggle-btn"
 				{disabled}
-				on:click|stopPropagation|preventDefault={toggleIconClickHandler}>
+				onclick={toggleIconClickHandler}>
 				<svg
 					class="sp-dropdown--toggle-btn--icon"
 					width="7"
@@ -172,14 +189,15 @@
 			{disabled}
 			value={displayValue}
 			readonly={!searchable}
-			on:click={searchClickHandler}
-			on:blur={searchBlurHandler}
-			on:keyup={searchKeyupHandler} />
+			onclick={searchClickHandler}
+			onblur={searchBlurHandler}
+			onkeyup={searchKeyupHandler} />
 	</div>
+
 	{#if visible}
 		<Menu
 			data={menuData}
 			{size}
-			on:click={menuClickHandler} />
+			onMenuClick={menuClickHandler} />
 	{/if}
 </div>

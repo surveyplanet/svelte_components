@@ -1,56 +1,63 @@
+<script
+	lang="ts"
+	context="module">
+	export type RangeProps = {
+		id: string;
+		min: number;
+		max: number;
+		response?: RangeValue[];
+		onRangeResponse?: (value: RangeValue[]) => void;
+	};
+</script>
+
 <script lang="ts">
-	import type { RangeValue, RangeProperties } from '@surveyplanet/types';
-	import { createEventDispatcher } from 'svelte';
+	import type { RangeValue } from '@surveyplanet/types';
 	import TextInput from '../TextInput.svelte';
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { RangeSlider } from 'svelte-range-slider-pips';
 
-	const dispatchResponse = createEventDispatcher<{
-		response: RangeValue[];
-	}>();
+	let { id, min, max, response = [], onRangeResponse } = $props<RangeProps>();
 
-	export let id: string;
-	export let min: RangeProperties['min'];
-	export let max: RangeProperties['max'];
-	export let response: RangeValue[] = [];
-
-	let rangeValues = [response[0] || min, response[1] || max];
+	let rangeValues = $state([response[0] || min, response[1] || max]);
+	// onMount(() => {
+	// 	rangeValues = [response[0] || min, response[1] || max];
+	// });
 
 	const rangeSliderStopHandler = () => {
 		response = [rangeValues[0], rangeValues[1]];
-		dispatchResponse('response', response);
+		if (onRangeResponse) onRangeResponse(response);
 	};
 
-	//it would be better to do this on a keydown event but we are not dispatching
-	//'value' on keydown or input but rather events themselves.
-	const minSliderInputHandler = (event: CustomEvent) => {
-		let minInputValue = parseInt(event.detail.target.value);
+	// it would be better to do this on a keydown event but we are not dispatching
+	// 'value' on keydown or input but rather events themselves.
+	const minSliderInputHandler = (event: Event) => {
+		let minInputValue = parseInt((event.target as HTMLInputElement).value);
 		if (isNaN(minInputValue)) {
 			minInputValue = min;
 		}
 		if (minInputValue >= rangeValues[1]) {
 			rangeValues[0] = rangeValues[1] - 1;
-			event.detail.target.value = `${rangeValues[1] - 1}`;
+			(event.target as HTMLInputElement).value = `${rangeValues[1] - 1}`;
 		} else if (minInputValue <= min) {
 			rangeValues[0] = min;
-			event.detail.target.value = `${min}`;
+			(event.target as HTMLInputElement).value = `${min}`;
 		} else {
 			rangeValues[0] = minInputValue;
-			event.detail.target.value = `${minInputValue}`;
+			(event.target as HTMLInputElement).value = `${minInputValue}`;
 		}
 	};
 
-	const maxSliderInputHandler = (event: CustomEvent) => {
-		let maxInputValue = parseInt(event.detail.target.value);
+	const maxSliderInputHandler = (event: Event) => {
+		let maxInputValue = parseInt((event.target as HTMLInputElement).value);
 
 		if (maxInputValue <= rangeValues[0]) {
 			rangeValues[1] = rangeValues[0] + 1;
-			event.detail.target.value = `${rangeValues[0] + 1}`;
+			(event.target as HTMLInputElement).value = `${rangeValues[0] + 1}`;
 		} else if (maxInputValue >= max) {
 			rangeValues[1] = max;
-			event.detail.target.value = `${max}`;
+			(event.target as HTMLInputElement).value = `${max}`;
 		} else {
 			rangeValues[1] = maxInputValue;
-			event.detail.target.value = `${maxInputValue}`;
+			(event.target as HTMLInputElement).value = `${maxInputValue}`;
 		}
 	};
 </script>
@@ -60,7 +67,6 @@
 		range
 		pushy
 		float
-		{id}
 		min={Number(min)}
 		max={Number(max)}
 		all="label"
@@ -71,10 +77,10 @@
 		name="Min"
 		id={`${id}-min`}
 		value={rangeValues[0].toString()}
-		on:change={minSliderInputHandler} />
+		onKeydown={minSliderInputHandler} />
 	<TextInput
 		name="Max"
 		id={`${id}-max`}
 		value={rangeValues[1].toString()}
-		on:change={maxSliderInputHandler} />
+		onKeydown={maxSliderInputHandler} />
 </form>

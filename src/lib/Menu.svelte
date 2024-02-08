@@ -13,30 +13,26 @@
 		selected?: boolean;
 		submenu?: MenuData[];
 	}
+	export type MenuProps = {
+		data?: MenuData[];
+		size?: 'small' | 'medium' | 'large';
+		onMenuUpdate?: (id: string) => void;
+		onMenuClick?: (id: string) => void;
+		onBlur?: (event: FocusEvent) => void;
+		header?: Snippet;
+		footer?: Snippet;
+	};
 </script>
 
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import type { Snippet } from 'svelte';
+
 	import { slide, type SlideParams } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
+	// import { onMount } from 'svelte'; // use to set focus on mount
 
-	const dispatchClick = createEventDispatcher<{
-		click: HTMLElement['id'];
-	}>();
-
-	const dispatchUpdate = createEventDispatcher<{
-		update: HTMLElement['id'];
-	}>();
-
-	const dispatchBlur = createEventDispatcher<{
-		blur: HTMLElement['id'];
-	}>();
-
-	/**
-	 * Menu data
-	 */
-	export let data: MenuData[] = [];
-	export let size: 'small' | 'medium' | 'large' = 'small';
+	let { data, size, onMenuUpdate, onMenuClick, onBlur, header, footer } =
+		$props<MenuProps>();
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
 		const allButtons = Array.from(
@@ -87,9 +83,9 @@
 		easing: cubicOut,
 	};
 
-	$: currentState = [...data];
+	let currentState = $state([...(data || [])]);
 
-	let location: string[] = [];
+	let location: string[] = $state([]);
 
 	const getState = (
 		data: MenuData[],
@@ -110,7 +106,8 @@
 	};
 
 	const arrowClickHandler = (event: KeyboardEvent) => {
-		// user correct arrow keys when MenuData.inline is true;
+		// check mouse is over the menu
+
 		if (event.key === 'ArrowDown') {
 			event.preventDefault();
 			scrollMenu('down');
@@ -125,26 +122,27 @@
 		}
 	};
 
-	const backClickHandler = () => {
+	const backClickHandler = (event?: Event) => {
+		if (event) event.preventDefault();
 		const id = location[location.length - 2];
 		location.pop(); // remove the last location
 
 		if (id) {
-			const state = getState(data, id);
+			const state = getState(data || [], id);
 
 			if (state?.length) {
 				currentState = [...state];
 			}
 		} else {
-			currentState = [...data]; // go to root
+			currentState = [...(data || [])]; // go to root
 		}
-		dispatchUpdate('update', id);
+		if (onMenuUpdate) onMenuUpdate(id);
 	};
 
 	const itemClickHandler = (event: MouseEvent) => {
+		event.preventDefault();
+		event.stopPropagation();
 		let id = (event.target as HTMLElement).id;
-		// console.log('itemClickHandler', id);
-
 		if (!id?.length) {
 			const btn = (event.target as HTMLElement).closest('button');
 			if (btn) {
@@ -152,7 +150,7 @@
 			}
 		}
 
-		const state = getState(data, id);
+		const state = getState(data || [], id);
 
 		if (state?.length) {
 			location = location.concat([id]);
@@ -162,23 +160,26 @@
 		// if clicked and item doesn't have a submenu dispatch 'click'
 		// otherwise dispatch 'update'
 		if (!state) {
-			dispatchClick('click', id);
+			if (onMenuClick) onMenuClick(id);
 		} else {
-			dispatchUpdate('update', id);
+			if (onMenuUpdate) onMenuUpdate(id);
 		}
 	};
 
-	const menuBlurHandler = (event: FocusEvent) => {
-		dispatchBlur('blur', (event.target as HTMLElement).id);
-	};
+	//TODO: add |global to transitions once it is fixed in svelte 5
 </script>
 
-<svelte:window on:keydown={arrowClickHandler} />
+<!-- eslint-disable svelte/no-at-html-tags -->
+<!-- eslint-disable svelte/valid-compile -->
+<!-- eslint-disable a11y-no-noninteractive-element-to-interactive-role -->
 <menu
 	class="sp-menu sp-menu--{size}"
-	on:blur={menuBlurHandler}>
+	onkeydown={arrowClickHandler}
+	onblur={onBlur}>
 	<li class="sp-menu--header">
-		<slot name="header" />
+		{#if header}
+			{@render header()}
+		{/if}
 	</li>
 
 	{#if location.length}
@@ -187,7 +188,7 @@
 			class="sp-menu--back">
 			<button
 				class="sp-menu--back-btn"
-				on:click|preventDefault={backClickHandler}>
+				onclick={backClickHandler}>
 				<Icon
 					name="arrowLeft"
 					size={16} />
@@ -207,7 +208,7 @@
 			<button
 				class="sp-menu--item--btn"
 				id={item.id}
-				on:click|preventDefault={itemClickHandler}>
+				onclick={itemClickHandler}>
 				{#if item.label}
 					<span class="sp-menu--item--label">
 						{item.label}
@@ -232,6 +233,8 @@
 	{/each}
 
 	<li class="sp-menu--footer">
-		<slot name="footer" />
+		{#if footer}
+			{@render footer()}
+		{/if}
 	</li>
 </menu>

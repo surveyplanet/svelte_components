@@ -10,68 +10,99 @@
 		selected?: boolean;
 		disabled?: boolean;
 	}
+
+	export type TabBarProps = {
+		id?: string;
+		block?: boolean;
+		data?: TabBarData[];
+		onTabClick: (id: string) => void;
+	};
 </script>
 
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
-	const dispatchTabButton = createEventDispatcher<{
-		tabButton: TabBarData['id'];
-	}>();
+	let {
+		id = (Date.now() + Math.random()).toString(36),
+		block = false,
+		data,
+		onTabClick,
+	} = $props<TabBarProps>();
 
-	export let id: string = (Date.now() + Math.random()).toString(36);
-	export let grow = false;
-	export let data: TabBarData[] = [];
-
-	let activeIndicator: HTMLDivElement;
+	let activeIndicator: HTMLDivElement | null = $state(null);
 
 	onMount(() => {
-		const selected = data.find((item) => item.selected);
+		const selected = data?.find((item) => item.selected);
 		if (selected) {
 			selectTabButton(
 				document.getElementById(selected.id) as HTMLButtonElement
 			);
 		}
 	});
+	// const selected = $derived(data.find((item) => item.selected));
+	// if ( selected) {
+	// 	selectTabButton(
+	// 		document.getElementById(selected.id) as HTMLButtonElement
+	// 	);
+	// }
+
+	const moveIndicator = (target: HTMLButtonElement) => {
+		const left = target.offsetLeft;
+		const width = target.offsetWidth;
+
+		if (activeIndicator) {
+			activeIndicator.style.width = `${width}px`;
+			activeIndicator.style.left = `${left}px`;
+		}
+	};
 
 	const selectTabButton = (target: HTMLButtonElement) => {
 		const id = target.id;
-		const { width, left } = target.getBoundingClientRect();
+		moveIndicator(target);
 
-		data = data.map((item) => {
+		data = (data ?? []).map((item) => {
 			item.selected = item.id === id;
 			return item;
 		});
 
-		activeIndicator.style.width = `${width}px`;
-		activeIndicator.style.left = `${left}px`;
-
-		dispatchTabButton('tabButton', id);
+		onTabClick(id);
 	};
 
 	const tabButtonHandler = (event: Event) => {
+		event.preventDefault();
 		const target = (event.target as HTMLElement).closest('button');
 		selectTabButton(target!);
 	};
+
+	const windowResizeHandler = () => {
+		const selected = data?.find((item) => item.selected);
+		if (selected) {
+			selectTabButton(
+				document.getElementById(selected.id) as HTMLButtonElement
+			);
+		}
+	};
 </script>
+
+<svelte:window on:resize={windowResizeHandler} />
 
 <nav
 	class="sp-tab-bar"
-	class:sp-tab-bar--grow={grow}
+	class:sp-tab-bar--block={block}
 	{id}>
 	<div
 		class="sp-tab-bar--active-indicator"
 		bind:this={activeIndicator} />
 
 	<ul>
-		{#each data as item}
+		{#each data ?? [] as item}
 			<li>
 				<button
 					id={item.id}
 					class="sp-tab-bar--button"
 					class:sp-tab-bar--item--active={item.selected}
 					disabled={item.disabled}
-					on:click|preventDefault={tabButtonHandler}>
+					onclick={tabButtonHandler}>
 					{#if item.label}
 						<span class="sp-tab-bar--button--label">
 							{item.label}

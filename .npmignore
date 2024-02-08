@@ -1,8 +1,0 @@
-.eslint*
-.github
-.prettier*
-.svelte-kit
-.vscode
-src
-tsconfig.json
-vite.config.js

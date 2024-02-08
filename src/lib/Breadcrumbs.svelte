@@ -5,10 +5,14 @@
 		name: string;
 		url?: string;
 	}
+
+	export type BreadcrumbsProps = {
+		data: BreadcrumbData[];
+	};
 </script>
 
 <script lang="ts">
-	export let data: BreadcrumbData[] = [];
+	let { data } = $props<BreadcrumbsProps>();
 </script>
 
 <nav class="sp-breadcrumbs">

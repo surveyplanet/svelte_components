@@ -8,5 +8,12 @@
 		"editor.insertSpaces": true,
 		"editor.tabSize": 2,
 		"editor.autoIndent": "keep"
-	}
+	},
+	"[svelte]": {
+		"editor.defaultFormatter": "svelte.svelte-vscode"
+	},
+
+	// "svelte.plugin.svelte.diagnostics.enable": {
+    // 	"a11y": false
+	// }
 }

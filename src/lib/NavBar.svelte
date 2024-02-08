@@ -9,6 +9,15 @@
 		title: string;
 		id: string;
 	}
+
+	export type NavBarProps = {
+		data: NavBarData[];
+		navMenuData?: MenuData[];
+		vertical?: boolean;
+		onnavlink?: (navLink: string) => void;
+		onClick?: (id: string) => void;
+		onUpdate?: (id: string) => void;
+	};
 </script>
 
 <script lang="ts">
@@ -16,35 +25,30 @@
 	import { createFloatingActions } from 'svelte-floating-ui';
 
 	import { Menu, type MenuData } from './index';
-	import { createEventDispatcher } from 'svelte';
 
-	export let data: NavBarData[] = [];
-	export let navMenuData: MenuData[] = [];
-	export let vertical = false;
-	$: menuVisible = false;
+	let {
+		data,
+		navMenuData,
+		vertical = false,
+		onnavlink,
+		onClick,
+		onUpdate,
+	} = $props<NavBarProps>();
 
-	const dispatchLink = createEventDispatcher<{
-		navLink: string;
-	}>();
-
-	const dispatchClick = createEventDispatcher<{
-		click: CustomEvent['detail'];
-	}>();
-
-	const dispatchUpdate = createEventDispatcher<{
-		update: CustomEvent['detail'];
-	}>();
+	let menuVisible = $state(false);
 
 	const navLinkClickHandler = (e: MouseEvent) => {
 		const target = e.target as HTMLLinkElement;
 		if (target.href) {
 			window.location.href = target.href;
-		} else {
-			dispatchLink('navLink', target.id);
+			if (onnavlink) onnavlink(target.id);
 		}
 	};
 
-	const navMenuTriggerClickHandler = () => {
+	const navMenuTriggerClickHandler = (e: Event) => {
+		e.preventDefault();
+		e.stopPropagation();
+		console.log('click', menuVisible);
 		menuVisible = !menuVisible;
 	};
 
@@ -59,13 +63,13 @@
 		menuVisible = false;
 	};
 
-	const menuClickHandler = (e: CustomEvent) => {
+	const menuClickHandler = (id: string) => {
 		menuVisible = false;
-		dispatchClick('click', e.detail);
+		if (onClick) onClick(id);
 	};
 
-	const menuUpdateHandler = (e: CustomEvent) => {
-		dispatchUpdate('update', e.detail);
+	const menuUpdateHandler = (id: string) => {
+		if (onUpdate) onUpdate(id);
 	};
 	const [floatingRef, floatingContent] = createFloatingActions({
 		strategy: 'fixed',
@@ -74,7 +78,7 @@
 	});
 </script>
 
-<svelte:window on:click={hideMenuOnBodyClick} />
+<svelte:window onclick={hideMenuOnBodyClick} />
 
 <nav
 	class="sp-nav"
@@ -85,10 +89,12 @@
 			href={item.link}
 			id={item.id}
 			title={item.title}
-			on:click|preventDefault={navLinkClickHandler}>
-			<Icon
-				name={item.icon}
-				size={16} />
+			onclick={navLinkClickHandler}>
+			<div class="sp-nav--icon">
+				<Icon
+					name={item.icon}
+					size={16} />
+			</div>
 		</a>
 	{/each}
 
@@ -96,7 +102,7 @@
 		<button
 			use:floatingRef
 			class="sp-nav--menu-trigger"
-			on:click|preventDefault={navMenuTriggerClickHandler}>
+			onclick={navMenuTriggerClickHandler}>
 			<Icon
 				name="ellipsis"
 				size={16} />
@@ -109,7 +115,13 @@
 		use:floatingContent>
 		<Menu
 			data={navMenuData}
-			on:click={menuClickHandler}
-			on:update={menuUpdateHandler} />
+			onMenuClick={menuClickHandler}
+			onMenuUpdate={menuUpdateHandler} />
 	</div>
 {/if}
+
+<style>
+	.sp-nav--icon {
+		pointer-events: none;
+	}
+</style>

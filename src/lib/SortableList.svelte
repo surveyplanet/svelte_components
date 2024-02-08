@@ -2,8 +2,8 @@
 	lang="ts"
 	context="module">
 	import { Icon, type IconName } from './index';
-	export interface ListData {
-		name: string;
+	export interface SortListData {
+		label: string;
 		meta?: string;
 		image?: string;
 		icon?: IconName;
@@ -13,22 +13,19 @@
 		dataset: DOMStringMap & { index: string; id: string };
 		index: string;
 	};
+
+	export type SortListProps = {
+		data: SortListData[];
+		onSort: (data: SortListData[]) => void;
+	};
 </script>
 
 <script lang="ts">
-	// on first load the list is not working properly
-	// works after browser window reset
-
-	import { createEventDispatcher } from 'svelte';
 	import { quintOut } from 'svelte/easing';
 	import { crossfade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
-	const dispatch = createEventDispatcher<{
-		sort: ListData[];
-	}>();
-	export let data: ListData[];
 
-	$: data = data;
+	let { data, onSort } = $props<SortListProps>();
 
 	// FLIP ANIMATION
 	const [send, receive] = crossfade({
@@ -53,11 +50,10 @@
 		let newList = [...data];
 		newList[from] = [newList[to], (newList[to] = newList[from])][0];
 		data = newList;
-		console.log(data);
-		dispatch('sort', newList);
+		onSort(newList);
 	};
 
-	let isOver: boolean | string = false;
+	let isOver: boolean | string = $state(false);
 	const getDraggedParent = (
 		node: CustomDragEventTarget
 	):
@@ -105,6 +101,8 @@
 			reorder(from, to);
 		}
 	};
+
+	//TODO: add |global to transitions once it is fixed in svelte 5
 </script>
 
 <ul class="sp--sortable-list">
@@ -115,49 +113,35 @@
 				data-index={index}
 				data-id={JSON.stringify(item)}
 				draggable="true"
-				on:dragstart={listItemDragStartHandler}
-				on:dragover={listItemDragOverHandler}
-				on:dragleave={listItemDragLeaveHandler}
-				on:drop={listItemDragDropHandler}
-				in:receive|global={{ key: item.name }}
-				out:send|global={{ key: item.name }}
+				ondragstart={listItemDragStartHandler}
+				ondragover={listItemDragOverHandler}
+				ondragleave={listItemDragLeaveHandler}
+				ondrop={listItemDragDropHandler}
+				in:receive={{ key: item.label }}
+				out:send={{ key: item.label }}
 				animate:flip={{ duration: 300 }}
 				class:float={isOver}>
-				<slot
-					{item}
-					{index}>
-					<p class="sp-sortable-list--list-item-name">{item.name}</p>
-					{#if item.meta}
-						<span class="sp-sortable-list--list-item-meta">
-							{item.meta}
-						</span>
-					{/if}
-					{#if item.image}
-						<img
-							class="sp-sortable-list--list-item-image"
-							src={item.image}
-							alt={item.name} />
-					{/if}
-					{#if item.icon}
-						<Icon name={item.icon} />
-					{/if}
-				</slot>
+				<p class="sp-sortable-list--list-item-label">
+					{item.label}
+				</p>
+				{#if item.meta}
+					<span class="sp-sortable-list--list-item-meta">
+						{item.meta}
+					</span>
+				{/if}
+				{#if item.image}
+					<img
+						class="sp-sortable-list--list-item-image"
+						src={item.image}
+						alt={item.label} />
+				{/if}
+				{#if item.icon}
+					<Icon name={item.icon} />
+				{/if}
 			</li>
 		{/each}
 	{/if}
 </ul>
 
-<style>
-	ul {
-		list-style: none;
-		padding: 0;
-	}
-	li {
-		border: 2px dotted transparent;
-		transition: border 0.1s linear;
-	}
-	.float {
-		border-color: rgba(48, 12, 200, 0.2);
-		box-shadow: 0 0 0 5px rgba(00, 00, 00, 0.1);
-	}
+<style lang="scss">
 </style>

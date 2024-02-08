@@ -22,7 +22,8 @@
 	// :global(svg path) {stroke: $color--dark;}
 
 	@include set-focus {
-		box-shadow: 0px 0px 0px 2px $color--beige,
+		box-shadow:
+			0px 0px 0px 2px $color--beige,
 			0px 0px 0px 3px $color--darkest;
 	}
 
@@ -75,7 +76,8 @@
 		}
 
 		@include set-focus {
-			box-shadow: 0px 0px 0px 2px $color--beige,
+			box-shadow:
+				0px 0px 0px 2px $color--beige,
 				0px 0px 0px 3px $color--beige-darker;
 		}
 	}
@@ -183,7 +185,8 @@
 		}
 
 		@include set-focus {
-			box-shadow: 0px 0px 0px 1px $color--beige-darker,
+			box-shadow:
+				0px 0px 0px 1px $color--beige-darker,
 				0px 0px 0px 3px $color--beige,
 				0px 0px 0px 4px $color--beige-darkest;
 		}

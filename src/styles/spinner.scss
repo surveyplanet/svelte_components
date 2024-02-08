@@ -57,7 +57,8 @@
 	}
 
 	&:active {
-		box-shadow: 0px 0px 0px 1px $color--white,
+		box-shadow:
+			0px 0px 0px 1px $color--white,
 			0px 0px 0px 2px $color--beige-darkest;
 	}
 

@@ -39,6 +39,6 @@ test.describe('TabBar component', () => {
 		await expect(tabbarButtonsLabel.nth(2)).toHaveText('Results');
 
 		const tabButtonEvent = await getLastEvent(page);
-		expect(tabButtonEvent.name).toBe('tabButton');
+		expect(tabButtonEvent.name).toBe('onTabClick');
 	});
 });

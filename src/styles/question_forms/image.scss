@@ -86,6 +86,7 @@ $select-animation-speed: 200ms;
 	position: absolute;
 	bottom: 0;
 	right: $size-gutter--half;
-	transition: bottom $select-animation-speed ease-out,
+	transition:
+		bottom $select-animation-speed ease-out,
 		opacity $select-animation-speed ease-out;
 }

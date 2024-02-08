@@ -3,6 +3,7 @@
 $indicator--speed: 0.5s;
 
 .sp-tab-bar {
+	position: relative;
 	display: inline-block;
 	height: $size--40;
 	width: auto;
@@ -10,16 +11,17 @@ $indicator--speed: 0.5s;
 	font: $font--default;
 	font-family: $font-family--sans-medium;
 	font-size: $size--14;
-	background-color: $color--beige-dark;
+	background-color: $color--beige-darker;
 	border-radius: $size--40;
 	clip-path: inset(0px 0px);
-	&.sp-tab-bar--grow {
+	&.sp-tab-bar--block {
 		display: block;
 		ul {
 			justify-content: space-between;
 		}
 	}
 	ul {
+		// position: relative;
 		display: inline-flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
@@ -33,6 +35,7 @@ $indicator--speed: 0.5s;
 		height: 100%;
 		width: 100%;
 		z-index: 1;
+		border-radius: $size--20;
 	}
 
 	li {
@@ -84,12 +87,14 @@ $indicator--speed: 0.5s;
 .sp-tab-bar--active-indicator {
 	display: block;
 	position: absolute;
-	z-index: 0;
+	z-index: -1;
 	left: 50%;
 	height: px-to-rem(32);
 	width: 0; // start off with no width
 	border-radius: $size--36;
 	background-color: $color--white;
-	transition: left 0.2s ease-out, width 0.2s ease-out;
+	transition:
+		left 0.2s ease-out,
+		width 0.2s ease-out;
 	transform-origin: center;
 }

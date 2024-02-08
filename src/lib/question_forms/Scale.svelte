@@ -1,35 +1,37 @@
+<script
+	lang="ts"
+	context="module">
+	export type ScaleProps = {
+		id: string;
+		min: ScaleProperties['min'];
+		max: ScaleProperties['max'];
+		response?: ScaleValue[];
+		onScaleResponse: (response: ScaleValue[]) => void;
+	};
+</script>
+
 <script lang="ts">
 	import type { ScaleValue, ScaleProperties } from '@surveyplanet/types';
-	import { createEventDispatcher } from 'svelte';
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { RangeSlider } from 'svelte-range-slider-pips';
 
-	const dispatchResponse = createEventDispatcher<{
-		response: ScaleValue[];
-	}>();
+	let { id, min, max, response = [], onScaleResponse } = $props<ScaleProps>();
 
-	export let id: string;
-	export let min: ScaleProperties['min'];
-	export let max: ScaleProperties['max'];
-	export let response: ScaleValue[] = [];
-
-	let rangeValues: number[] = [response[0] || min];
+	let rangeValues: number[] = $state([response[0]] || [min]);
 
 	const sliderStopHandler = () => {
 		response = [rangeValues[0]];
-		dispatchResponse('response', response);
+		onScaleResponse(response);
 	};
 </script>
 
 <form class="sp-survey--question--form--scale">
 	<RangeSlider
-		range
+		{id}
 		pushy
 		float
-		{id}
 		min={Number(min)}
 		max={Number(max)}
 		all="label"
 		bind:values={rangeValues}
 		on:stop={sliderStopHandler} />
-	<!-- needs min/max inputs -->
 </form>
