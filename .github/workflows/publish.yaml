@@ -17,8 +17,8 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: 21
-            - name : Install svelte-pip-slider
-              run: npm install svelte-range-slider-pips@3.0.0-beta.3  esbuild --force
+            # - name : Install svelte-pip-slider
+            #   run: npm install svelte-range-slider-pips@3.0.0-beta.3  esbuild --force
 
             - name: Install dependencies
               run: |
