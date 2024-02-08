@@ -20,18 +20,18 @@ export default (
 </script>
 
 <Spinner
-	label= '${label}'
-	step= {${step}}
-	min= {${min}}
-	max= {${max}}
-	value= {${value}}
-	disabled= {${disabled}}
-	required= {${required}}
-	overflow= {${overflow}}
-	id= '${id}'
-	placeholder= '${placeholder}'
-	dragSpeed= {${dragSpeed}}
-	size= '${size}'
+	label='${label}'
+	step={${step}}
+	min={${min}}
+	max={${max}}
+	value={${value}}
+	disabled={${disabled}}
+	required={${required}}
+	overflow={${overflow}}
+	id='${id}'
+	placeholder='${placeholder}'
+	dragSpeed={${dragSpeed}}
+	size='${size}'
 />
 `;
 };

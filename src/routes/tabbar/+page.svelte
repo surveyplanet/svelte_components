@@ -48,13 +48,13 @@
 	bind:events>
 	{#snippet controls()}
 		<!-- <PropsChanger
-			label="data"
+			label="Data"
 			bind:value={dataStringed} /> -->
 		<PropsChanger
-			label="block"
+			label="Block"
 			bind:value={block} />
 		<PropsChanger
-			label="id"
+			label="Id"
 			bind:value={id} />
 	{/snippet}
 	{#snippet main()}

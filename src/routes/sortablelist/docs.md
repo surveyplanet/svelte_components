@@ -1,7 +1,3 @@
-# SortList Component
-
-The `SortList` component allows users to interactively sort a list of items through drag-and-drop functionality.
-
 #### Properties
 
 #### `SortListProps`

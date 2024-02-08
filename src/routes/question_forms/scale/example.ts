@@ -17,9 +17,9 @@ export default (
 </script>	
 	
 <Scale
-	id = '${id}'
-	min = {${min}}
-	max = {${max}}
-	onScaleResponse = {${JSON.stringify(response)}}
+	id='${id}'
+	min={${min}}
+	max={${max}}
+	onScaleResponse={${JSON.stringify(response)}}
 />`;
 };

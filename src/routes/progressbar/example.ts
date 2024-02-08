@@ -6,15 +6,13 @@ export default (
 ) => {
 	return `
 <script>
-
 	import { ProgressBar } from '@surveyplanet/svelte_components';
-
 </script>
 <ProgressBar
-	speed = {${speed}}
-	max = {${max}}
-	value = {${value}}
-	displayValue = {${displayValue}}
+	speed={${speed}}
+	max={${max}}
+	value={${value}}
+	displayValue={${displayValue}}
 	/>
 `;
 };

@@ -15,6 +15,6 @@
 
 #### Callbacks
 
-| Name       | Description                           | Type       |
+| Name       | Description                           | Arguments  |
 | ---------- | ------------------------------------- | ---------- |
 | `onChange` | Event handler for radio input change. | `e: Event` |

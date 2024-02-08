@@ -22,20 +22,20 @@
 	bind:events>
 	{#snippet controls()}
 		<PropsChanger
-			label="title"
+			label="Title"
 			bind:value={title} />
 		<PropsChanger
-			label="type"
+			label="Type"
 			bind:value={type}
 			selectOptions={['info', 'warning', 'error', 'success']} />
 		<PropsChanger
-			label="visible"
+			label="Visible"
 			bind:value={visible} />
 		<PropsChanger
-			label="hideDelay"
+			label="HideDelay"
 			bind:value={hideDelay} />
 		<PropsChanger
-			label="content"
+			label="Content"
 			bind:value={content} />
 	{/snippet}
 

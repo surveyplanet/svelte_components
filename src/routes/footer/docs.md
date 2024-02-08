@@ -1,5 +1,3 @@
-# Footer component
-
 #### Interfaces
 
 #### `FooterData`

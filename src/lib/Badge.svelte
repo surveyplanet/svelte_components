@@ -6,7 +6,6 @@
 		flat: boolean;
 		children?: Snippet;
 	};
-	// TODO: make colors type
 	export type BadgeColors = 'yellow' | 'blue' | 'pink' | 'green';
 </script>
 

@@ -1,5 +1,3 @@
-# Modal component
-
 ##### Interfaces
 
 #### `ModalProps`
@@ -19,7 +17,7 @@
 
 #### Callbacks
 
-| Name           | Description                                         | Type             |
+| Name           | Description                                         | Arguments        |
 | -------------- | --------------------------------------------------- | ---------------- |
 | `onIntroStart` | Event handler for the start of the intro animation. | `e: CustomEvent` |
 | `onIntroEnd`   | Event handler for the end of the intro animation.   | `e: CustomEvent` |

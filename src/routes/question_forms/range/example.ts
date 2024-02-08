@@ -17,9 +17,9 @@ export default (
 </script>
 
 <Range
-	id = '${id}'
-	min = {${min}}
-	max = {${max} }
-	onRangeResponse = {${JSON.stringify(response)}}
+	id='${id}'
+	min={${min}}
+	max={${max}}
+	onRangeResponse={${JSON.stringify(response)}}
 />`;
 };

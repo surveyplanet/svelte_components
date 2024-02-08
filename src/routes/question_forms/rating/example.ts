@@ -8,14 +8,11 @@ export default (
 ) => {
 	return `
 <script lang ='ts'>
-
 	import {Rating} from '@surveyplanet/svelte-components';
 	import type {RatingValue} from '@surveyplanet/types';
-	
 	const responseHandler = (response: RatingValue[]) => {
 		console.log(response);
 	}
-
 </script>
 
 <Rating

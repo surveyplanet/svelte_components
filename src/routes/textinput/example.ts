@@ -31,18 +31,18 @@ export default (
 	onFocus={focusHandler}
 	onkeydown={keydownHandler}
 	onKeyup={keyupHandler}
-	id = '${id}'
-	name = '${name}'
-	type: TextInputType = '${type}'
-	value = '${value}'
-	label = '${label}'
-	placeholder = '${placeholder}'
-	readonly =  {${readonly}}
-	disabled = {${disabled}}
-	cleaveOptions = {${cleaveOptions}}
-	validationRules: string[] = {${JSON.stringify(validationRules)}}
-	validationMessage = '${validationMessage}'
-	size = '${size}'
+	id='${id}'
+	name='${name}'
+	type='${type}'
+	value='${value}'
+	label='${label}'
+	placeholder='${placeholder}'
+	readonly={${readonly}}
+	disabled={${disabled}}
+	cleaveOptions={${cleaveOptions}}
+	validationRules={${JSON.stringify(validationRules)}}
+	validationMessage='${validationMessage}'
+	size='${size}'
 />
 `;
 };

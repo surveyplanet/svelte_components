@@ -1,7 +1,3 @@
-# Upload Component
-
-The `Upload` component allows users to upload an image with specified formats and maximum size.
-
 #### Properties
 
 #### `UploadProps`
@@ -14,7 +10,7 @@ The `Upload` component allows users to upload an image with specified formats an
 
 #### Callbacks
 
-| Name       | Description                                 | Type               |
+| Name       | Description                                 | Arguments          |
 | ---------- | ------------------------------------------- | ------------------ |
 | `onChange` | Callback triggered when a file is selected. | `data: UploadData` |
 

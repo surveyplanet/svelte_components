@@ -17,12 +17,12 @@ export default (
 </script>
 
 <Checkbox
-	id = '${id}'
-	name = '${name}'
-	value = '${value}'
-	checked = ${checked}
-	disabled = ${disabled}
-	prependLabel = ${prependLabel}
+	id='${id}'
+	name='${name}'
+	value='${value}'
+	checked={${checked}}
+	disabled={${disabled}}
+	prependLabel={${prependLabel}}
 	size = '${size}'
 	onChange={changeEventHandler}/>
 `;

@@ -1,7 +1,3 @@
-# Image Component
-
-The `Image` component allows users to select images from a list of choices.
-
 #### Properties
 
 #### `ImageProps`

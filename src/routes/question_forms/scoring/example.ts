@@ -30,6 +30,6 @@ export default (
 	requireAll={${requireAll}}
 	requireUnique={${requireUnique}}
 	response={${JSON.stringify(response, null, 2)}}
-	onScoringResponse = {responseHandler}
+	onScoringResponse={responseHandler}
 />`;
 };

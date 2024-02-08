@@ -170,12 +170,12 @@
 </script>
 
 <!-- eslint-disable svelte/no-at-html-tags -->
+<!-- eslint-disable svelte/valid-compile -->
+<!-- eslint-disable a11y-no-noninteractive-element-to-interactive-role -->
 <menu
 	class="sp-menu sp-menu--{size}"
 	onkeydown={arrowClickHandler}
-	onblur={onBlur}
-	role="menu"
-	tabindex="0">
+	onblur={onBlur}>
 	<li class="sp-menu--header">
 		{#if header}
 			{@render header()}

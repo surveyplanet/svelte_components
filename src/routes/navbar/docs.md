@@ -8,7 +8,7 @@
 
 #### Callbacks
 
-| Name       | Description                                          | Type         |
+| Name       | Description                                          | Arguments    |
 | ---------- | ---------------------------------------------------- | ------------ |
 | `onClick`  | Event handler for individual navigation item click.  | `id: string` |
 | `onUpdate` | Event handler for individual navigation item update. | `id: string` |

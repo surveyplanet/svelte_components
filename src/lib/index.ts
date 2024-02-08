@@ -2,7 +2,11 @@ export * from './_definitions';
 
 export { default as Alert, type AlertProps } from './Alert.svelte';
 export { default as Avatar, type AvatarProps, MASCOTS } from './Avatar.svelte';
-export { default as Badge, type BadgeProps } from './Badge.svelte';
+export {
+	default as Badge,
+	type BadgeProps,
+	type BadgeColors,
+} from './Badge.svelte';
 export {
 	default as Breadcrumbs,
 	type BreadcrumbData,

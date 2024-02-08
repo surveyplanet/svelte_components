@@ -9,8 +9,8 @@ import { Icon, type IconName, type IconSize } from '@surveyplanet/svelte_compone
 </script>
 
 <Icon 
-	color ='${color}' 
-	size = '${size}' 
-	name = '${name}' />
+	color='${color}' 
+	size='${size}' 
+	name='${name}' />
 `;
 };

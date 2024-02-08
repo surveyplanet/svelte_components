@@ -21,15 +21,15 @@ export default (
 </script>
 
 <Dropdown
-	options = {${JSON.stringify(options, null, 2)}}
-	searchThreshold = {${searchThreshold}}
-	disabled = ${disabled}
-	required = ${required}
-	value = {${value}}
-	placeholder = '${placeholder}'
-	label = '${label}'
-	size = '${size}'
-	onChange = {dropdownChangeHandler}
+	options={${JSON.stringify(options, null, 2)}}
+	searchThreshold={${searchThreshold}}
+	disabled={${disabled}}
+	required={${required}}
+	value={${value}}
+	placeholder='${placeholder}'
+	label='${label}'
+	size='${size}'
+	onChange={dropdownChangeHandler}
 />
 `;
 };

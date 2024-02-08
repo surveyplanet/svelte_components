@@ -7,9 +7,8 @@ export default (
 	size: 'small' | 'medium' | 'large'
 ) => {
 	return `
-	<script>
+<script>
 	import Radio from '@surveyplanet/svelte_components';
-
 	let changeEventHandler = (event) => {
 		console.log(event.detail);
 </script>

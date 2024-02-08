@@ -107,7 +107,7 @@
 			label="Validation Message"
 			bind:value={validationMessage} />
 		<PropsChanger
-			label="size"
+			label="Size"
 			selectOptions={['small', 'medium', 'large']}
 			bind:value={size} />
 	{/snippet}

@@ -14,8 +14,8 @@ export default (
 </script>
 
 <Logo 
-	size= {${size}}
-	fill= '${fill}'
-	color= '${color}'
-	symbolOnly=	{${symbolOnly}} />`;
+	size={${size}}
+	fill='${fill}'
+	color='${color}'
+	symbolOnly={${symbolOnly}} />`;
 };

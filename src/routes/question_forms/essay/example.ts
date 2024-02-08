@@ -19,10 +19,10 @@ export default (
 
 
 <Essay
-	id = '${id}'
-	min = {${min}}
-	max = {${max}}
-	single = {${single}}
-	response = {${JSON.stringify(response)}}
+	id='${id}'
+	min={${min}}
+	max={${max}}
+	single={${single}}
+	response={${JSON.stringify(response)}}
 />`;
 };

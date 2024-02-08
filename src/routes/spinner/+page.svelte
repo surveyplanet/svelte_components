@@ -46,40 +46,40 @@
 		Events need to be fixed
 
 		<PropsChanger
-			label="label"
+			label="Label"
 			bind:value={label} />
 		<PropsChanger
-			label="step"
+			label="Step"
 			bind:value={step} />
 		<PropsChanger
-			label="min"
+			label="Min"
 			bind:value={min} />
 		<PropsChanger
-			label="max"
+			label="Max"
 			bind:value={max} />
 		<PropsChanger
-			label="value"
+			label="Value"
 			bind:value />
 		<PropsChanger
-			label="disabled"
+			label="Disabled"
 			bind:value={disabled} />
 		<PropsChanger
-			label="required"
+			label="Required"
 			bind:value={required} />
 		<PropsChanger
-			label="overflow"
+			label="Overflow"
 			bind:value={overflow} />
 		<PropsChanger
-			label="id"
+			label="Id"
 			bind:value={id} />
 		<PropsChanger
-			label="placeholder"
+			label="Placeholder"
 			bind:value={placeholder} />
 		<PropsChanger
-			label="dragSpeed"
+			label="DragSpeed"
 			bind:value={dragSpeed} />
 		<PropsChanger
-			label="size"
+			label="Size"
 			selectOptions={['small', 'medium', 'large']}
 			bind:value={size} />
 	{/snippet}

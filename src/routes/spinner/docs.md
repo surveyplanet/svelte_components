@@ -1,7 +1,3 @@
-# Spinner Component
-
-The `Spinner` component provides a numeric input with increment and decrement buttons for easy value manipulation.
-
 #### Properties
 
 #### `SpinnerProps`

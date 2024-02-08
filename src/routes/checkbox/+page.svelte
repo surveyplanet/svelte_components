@@ -27,34 +27,34 @@
 	bind:events>
 	{#snippet controls()}
 		<PropsChanger
-			label="id"
+			label="Id"
 			bind:value={id} />
 
 		<PropsChanger
-			label="name"
+			label="Name"
 			bind:value={name} />
 
 		<PropsChanger
-			label="value"
+			label="Value"
 			bind:value />
 
 		<PropsChanger
-			label="label"
+			label="Label"
 			bind:value={label} />
 
 		<PropsChanger
-			label="checked"
+			label="Checked"
 			bind:value={checked} />
 
 		<PropsChanger
-			label="disabled"
+			label="Disabled"
 			bind:value={disabled} />
 
 		<PropsChanger
-			label="prependLabel"
+			label="Prepend Label"
 			bind:value={prependLabel} />
 		<PropsChanger
-			label="size"
+			label="Size"
 			bind:value={size}
 			selectOptions={['small', 'medium', 'large']} />
 	{/snippet}
