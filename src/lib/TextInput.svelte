@@ -119,7 +119,7 @@
 	};
 
 	const passwordButtonClickHandler = () => {
-		if (document) {
+		if (document && id?.length) {
 			const input = document.getElementById(id) as HTMLInputElement;
 			if (input) {
 				input.type = input.type === 'password' ? 'text' : 'password';
