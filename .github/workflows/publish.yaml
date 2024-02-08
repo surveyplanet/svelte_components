@@ -20,13 +20,13 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  npm install --force -D esbuild
+                  npm install -D --force esbuild
                   npm ci --ignore-scripts
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
             - name: Security audit
-              run: npm audit --audit-level=moderate --omit=dev
+              run: npm audit --audit-level=moderate --omit=dev --force
 
             # - name: Check Lint errors
             #   run: npm run lint
