@@ -30,7 +30,7 @@
 		subtitle = 'Subtitle',
 		fullscreen = false,
 		overlay = true,
-		visible = false,
+		visible,
 		animationMilliseconds = 350,
 		size = 'medium',
 		onIntroStart,
