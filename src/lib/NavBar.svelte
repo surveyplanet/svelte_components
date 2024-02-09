@@ -14,9 +14,7 @@
 		data: NavBarData[];
 		navMenuData?: MenuData[];
 		vertical?: boolean;
-		onnavlink?: (navLink: string) => void;
 		onClick?: (id: string) => void;
-		onUpdate?: (id: string) => void;
 	};
 </script>
 
@@ -30,29 +28,31 @@
 		data,
 		navMenuData,
 		vertical = false,
-		onnavlink,
 		onClick,
-		onUpdate,
 	} = $props<NavBarProps>();
 
 	let menuVisible = $state(false);
 
-	const navLinkClickHandler = (e: MouseEvent) => {
+	const navButtonClickHandler = (e: MouseEvent) => {
 		const target = e.target as HTMLLinkElement;
-		if (target.href) {
+		if (target.href?.length) {
 			window.location.href = target.href;
-			if (onnavlink) onnavlink(target.id);
+		} else {
+			e.preventDefault();
+			e.stopPropagation();
+			if (typeof onClick === 'function') {
+				onClick(target.id);
+			}
 		}
 	};
 
 	const navMenuTriggerClickHandler = (e: Event) => {
 		e.preventDefault();
 		e.stopPropagation();
-		console.log('click', menuVisible);
 		menuVisible = !menuVisible;
 	};
 
-	const hideMenuOnBodyClick = (e: MouseEvent) => {
+	const windowClickHandler = (e: MouseEvent) => {
 		const target = e.target as HTMLLinkElement;
 		if (
 			target.closest('.sp-nav--menu-trigger') ||
@@ -68,9 +68,6 @@
 		if (onClick) onClick(id);
 	};
 
-	const menuUpdateHandler = (id: string) => {
-		if (onUpdate) onUpdate(id);
-	};
 	const [floatingRef, floatingContent] = createFloatingActions({
 		strategy: 'fixed',
 		placement: 'top-start',
@@ -78,7 +75,7 @@
 	});
 </script>
 
-<svelte:window onclick={hideMenuOnBodyClick} />
+<svelte:window onclick={windowClickHandler} />
 
 <nav
 	class="sp-nav"
@@ -89,7 +86,7 @@
 			href={item.link}
 			id={item.id}
 			title={item.title}
-			onclick={navLinkClickHandler}>
+			onclick={navButtonClickHandler}>
 			<div class="sp-nav--icon">
 				<Icon
 					name={item.icon}
@@ -109,14 +106,14 @@
 		</button>
 	{/if}
 </nav>
+
 {#if menuVisible}
 	<div
 		class="sp-nav--menu"
 		use:floatingContent>
 		<Menu
 			data={navMenuData}
-			onMenuClick={menuClickHandler}
-			onMenuUpdate={menuUpdateHandler} />
+			onMenuClick={menuClickHandler} />
 	</div>
 {/if}
 

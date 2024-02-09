@@ -9,38 +9,30 @@
 	let data: NavBarData[] = $state([
 		{
 			icon: 'edit',
-			link: '#',
+			link: '#edit',
 			id: 'edit',
 			title: 'Edit',
 		},
 		{
-			icon: 'chartColumn',
-			link: '#12',
-			id: 'chart',
-			title: 'Chart',
-		},
-		{
 			icon: 'share',
-			link: '#42',
 			id: 'share',
 			title: 'Share',
+		},
+		{
+			icon: 'chartColumn',
+			link: '#charts',
+			id: 'chart',
+			title: 'Chart',
 		},
 	]);
 
 	let navMenuData: MenuData[] = $state(menuData);
 	let vertical = $state(false);
 
-	const menuUpdateHandler = (id: string) => {
-		events.push(id);
-	};
-
 	const menuClickHandler = (id: string) => {
 		events.push(id);
 	};
 
-	const navLinkHandler = (navLink: string) => {
-		events.push(navLink);
-	};
 	// let dataString = $state(JSON.stringify(data));
 	// let menuDataString = $state(JSON.stringify(navMenuData));
 
@@ -67,32 +59,13 @@
 			bind:value={vertical} />
 	{/snippet}
 	{#snippet main()}
-		<div class="row-wrapper">
-			<div class="wrapper">
-				<NavBar
-					bind:data
-					bind:navMenuData
-					{vertical}
-					onnavlink={navLinkHandler}
-					onUpdate={menuUpdateHandler}
-					onClick={menuClickHandler} />
-			</div>
-		</div>
+		<NavBar
+			bind:data
+			bind:navMenuData
+			{vertical}
+			onClick={menuClickHandler} />
 	{/snippet}
 </Layout>
 
 <style>
-	.wrapper {
-		display: flex;
-		flex-direction: column;
-		margin-right: 70px;
-	}
-	.spacer {
-		height: 250px;
-		width: 50px;
-	}
-	.row-wrapper {
-		display: flex;
-		flex-direction: row;
-	}
 </style>
