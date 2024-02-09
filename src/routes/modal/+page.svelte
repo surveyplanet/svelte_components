@@ -49,6 +49,7 @@
 			bind:value={overlay} />
 		<PropsChanger
 			label="Visible"
+			type="boolean"
 			bind:value={visible} />
 		<PropsChanger
 			label="Size"
@@ -57,7 +58,7 @@
 	{/snippet}
 	{#snippet main()}
 		<Modal
-			{visible}
+			bind:visible
 			{size}
 			onIntroStart={modalOpened}
 			onIntroEnd={modalIn}

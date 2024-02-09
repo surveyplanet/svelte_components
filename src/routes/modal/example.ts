@@ -3,7 +3,7 @@ export default (
 	subtitle: string,
 	fullscreen: boolean,
 	overlay: boolean,
-	visible: boolean,
+	visible: boolean | undefined,
 	size: 'small' | 'medium' | 'large' = 'medium'
 ) => {
 	return `
@@ -34,6 +34,7 @@ const closeHandler = (event:CustomEvent) {
 	onIn={inHandler}
 	onOut={outHandler}
 	onClose={closeHandler}>
+
 	{#snippet header()}
 	<p>
 		Hall low lands den womans control the or. Might he which forgot
@@ -41,14 +42,14 @@ const closeHandler = (event:CustomEvent) {
 	</p>
 	{/snippet}
 
-	{#snippet header()}
+	{#snippet body()}
 		And visit not than sacred cell wins in not childe. Fabled most
 		heart charms een feeble. Had his flatterers yes nor, from from
 		cell soon once upon beyond so then, sore from dome condole was
 		favour departed friend from moths.
 	{/snippet}
 
-	{#snippet header()}
+	{#snippet footer()}
 		<p>&copy; Surveyplanet</p>
 	{/snippet}
 

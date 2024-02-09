@@ -38,6 +38,7 @@
 	import Cleave from 'cleave.js';
 	import type { CleaveOptions } from 'cleave.js/options';
 	import { Icon } from './index';
+	import { onMount } from 'svelte';
 
 	let {
 		id,
@@ -65,7 +66,7 @@
 
 	let validationDisplayMessage = $state('');
 
-	$effect(() => {
+	onMount(() => {
 		if (
 			cleaveOptions &&
 			Object.keys(cleaveOptions).length &&
@@ -116,6 +117,15 @@
 		}
 		if (onKeyup) onKeyup(event);
 	};
+
+	const passwordButtonClickHandler = () => {
+		if (document && id?.length) {
+			const input = document.getElementById(id) as HTMLInputElement;
+			if (input) {
+				input.type = input.type === 'password' ? 'text' : 'password';
+			}
+		}
+	};
 </script>
 
 <!-- eslint-disable svelte/no-at-html-tags -->
@@ -157,12 +167,7 @@
 			<button
 				class="sp-text-input--password-toggle"
 				type="button"
-				onclick={() => {
-						const input = document.getElementById(id) as HTMLInputElement;
-						if (input) {
-							input.type = input.type === 'password' ? 'text' : 'password';
-						}
-					}}>
+				onclick={passwordButtonClickHandler}>
 				<Icon
 					name="eye"
 					size={16} />
