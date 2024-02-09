@@ -54,6 +54,8 @@
 	};
 
 	const navBarClickHandler = (id: string) => {
+		console.log('navBarClickHandler' + id);
+
 		if (id === 'refresh') {
 			reload++;
 			events = [];
@@ -123,7 +125,7 @@
 							title: 'Share',
 						},
 					]}
-					onnavlink={navBarClickHandler} />
+					onClick={navBarClickHandler} />
 
 				<div class="dark-mode-toggle">
 					<Toggle

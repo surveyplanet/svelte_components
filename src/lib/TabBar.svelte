@@ -49,10 +49,16 @@
 	const moveIndicator = (target: HTMLButtonElement) => {
 		const left = target.offsetLeft;
 		const width = target.offsetWidth;
+		const parent = target.closest('.sp-tab-bar') as HTMLElement;
+		const offset = Number(
+			getComputedStyle(parent)
+				.getPropertyValue('padding-left')
+				.replace('px', '')
+		);
 
 		if (activeIndicator) {
 			activeIndicator.style.width = `${width}px`;
-			activeIndicator.style.left = `${left}px`;
+			activeIndicator.style.left = `${left + offset}px`;
 		}
 	};
 

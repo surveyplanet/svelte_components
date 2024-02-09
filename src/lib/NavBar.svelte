@@ -21,7 +21,6 @@
 <script lang="ts">
 	import { offset, flip, shift } from 'svelte-floating-ui/dom';
 	import { createFloatingActions } from 'svelte-floating-ui';
-
 	import { Menu, type MenuData } from './index';
 
 	let {
@@ -119,6 +118,7 @@
 
 <style>
 	.sp-nav--icon {
+		/* don't allow icons to receive target */
 		pointer-events: none;
 	}
 </style>
