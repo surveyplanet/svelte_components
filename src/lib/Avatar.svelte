@@ -55,16 +55,22 @@
 		return idx;
 	};
 
-	onClick = (): void => {
+	function avatarClickHandler(e: MouseEvent): void {
+		e.preventDefault();
+
 		if (disabled) {
 			return;
 		}
-	};
+
+		if (typeof onClick === 'function') {
+			onClick(e);
+		}
+	}
 </script>
 
 <button
 	class="sp-avatar sp-avatar--{size} sp-avatar--background--{bgColor}"
-	onclick={onClick}
+	onclick={avatarClickHandler}
 	aria-label={disabled ? null : 'profile image'}
 	role={disabled ? 'presentation' : null}
 	{disabled}>
