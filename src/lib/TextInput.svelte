@@ -52,7 +52,7 @@
 		cleaveOptions,
 		validationRules = [''],
 		validationMessage,
-		size = 'medium',
+		size = 'small',
 		validationHideMessage,
 		onInput,
 		onBlur,

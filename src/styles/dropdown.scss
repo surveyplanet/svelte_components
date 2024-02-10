@@ -2,7 +2,7 @@
 
 .sp-dropdown {
 	font: $font--default;
-	font-size: $font-size--default;
+	// font-size: $font-size--default;
 	&.sp-dropdown--open {
 		.sp-dropdown--toggle-btn svg {
 			rotate: (180deg);

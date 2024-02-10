@@ -1,4 +1,4 @@
-##### Properties
+### Properties
 
 | Property                | Type    | Description                                                                                       | Default     |
 | ----------------------- | ------- | ------------------------------------------------------------------------------------------------- | ----------- |
@@ -13,7 +13,7 @@
 | `challengeLabel`        | string  | The label for the challenge input.                                                                | `''`        |
 | `animationMilliseconds` | number  | The total time in milliseconds for the alert to animate in or out.                                | `350`       |
 
-##### Callbacks
+### Callbacks
 
 | Name        | Description                                                   | Argument    |
 | ----------- | ------------------------------------------------------------- | ----------- |

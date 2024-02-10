@@ -1,11 +1,14 @@
 <script lang="ts">
 	import Checkbox from '$lib/Checkbox.svelte';
 	import TextInput from '$lib/TextInput.svelte';
+	import type { TextInputProps } from '$lib/TextInput.svelte';
 	import Spinner from '$lib/Spinner.svelte';
 	import Dropdown from '$lib/Dropdown.svelte';
 	// import type { DropdownOptions } from '$lib/Dropdown.svelte';
 	import { dasherize } from '@surveyplanet/utilities';
 	import JsonEditor from './JsonEditor.svelte';
+
+	const FORM_CONTROL_SIZE: TextInputProps['size'] = 'medium';
 
 	type ValueTypes = string | number | boolean | object | undefined | null;
 
@@ -77,6 +80,7 @@
 				id="number-{(Date.now() + Math.random()).toString(36)}"
 				{label}
 				bind:value
+				size={FORM_CONTROL_SIZE}
 				{onInput}
 				{onBlur} />
 		{:else if type === 'boolean' && typeof value === 'boolean'}
@@ -86,7 +90,7 @@
 				prependLabel
 				name="boolean-{label}s"
 				bind:checked={value}
-				size="medium"
+				size={FORM_CONTROL_SIZE}
 				onChange={onInput} />
 		{:else if type === 'json'}
 			<JsonEditor />
@@ -94,6 +98,7 @@
 			<Dropdown
 				{options}
 				{label}
+				size={FORM_CONTROL_SIZE}
 				placeholder={value?.toString() || 'Select an option'}
 				value={dropdownValue}
 				onChange={dropdownChangeHandler} />
@@ -103,6 +108,7 @@
 				name="text"
 				{label}
 				type="text"
+				size={FORM_CONTROL_SIZE}
 				bind:value
 				{onInput}
 				{onBlur} />
@@ -122,16 +128,5 @@
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 1rem;
-		label {
-			margin-bottom: 0.5rem;
-		}
-		input {
-			padding: 0.5rem;
-			border-radius: 4px;
-			border: 1px solid $color--beige;
-		}
-		input[type='checkbox'] {
-			appearance: unset;
-		}
 	}
 </style>

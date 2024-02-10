@@ -1,7 +1,9 @@
+import type { AlertProps } from '../../src/lib/Alert.svelte';
+
 export default (
 	title: string,
 	subtitle: string,
-	type: 'info' | 'warning' | 'error' | 'success',
+	type: AlertProps['type'],
 	hideDelay: number,
 	confirm: boolean,
 	confirmButtonLabel: string,
@@ -12,20 +14,20 @@ export default (
 <script lang="ts">
 	import { Alert } from '@surveyplanet/svelte-components';
 
-  const onConfirmHandler = (e) => {
-    console.log('onConfirm', e.detail);
+  const alertConfirmHandler = (e) => {
+    console.log('alertConfirmHandler', e.detail);
   };
 
-  const onOpenHandler = (e) => {
-    console.log('onOpen', e.detail);
+  const alertOpenHandler = (e) => {
+    console.log('alertOpenHandler', e.detail);
   };
 
-  const onInputHandler = (e) => {
-    console.log('onInput', e.detail);
+  const alertInputHandler = (e) => {
+    console.log('alertInputHandler', e.detail);
   };
 
-  const onCloseHandler = (e) => {
-    console.log('onClose', e.detail);
+  const alertCloseHandler = (e) => {
+    console.log('alertCloseHandler', e.detail);
   };
 </script>
 
@@ -38,11 +40,11 @@ export default (
   confirmButtonLabel='${confirmButtonLabel}'
   cancelButtonLabel='${cancelButtonLabel}'
   challenge='${challenge}'
-  onConfirm={onConfirmHandler}
-  onOpen={onOpenHandler}
-  onInput={onInputHandler}
-  onClose={onCloseHandler}
-  onOut={onOutHandler}>
+  onConfirm={alertConfirmHandler}
+  onOpen={alertOpenHandler}
+  onInput={alertInputHandler}
+  onClose={alertCloseHandler}
+  onOut={alertOutHandler}>
   	Alert body
 </Alert>`;
 };
