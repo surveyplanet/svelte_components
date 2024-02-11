@@ -27,25 +27,25 @@
 }
 
 .sp-badge--yellow {
-	background: $color--gradient--yellow;
+	background: $color--yellow-gradient;
 	&.sp-badge--flat {
 		background: $color--yellow;
 	}
 }
 .sp-badge--blue {
-	background: $color--gradient--blue;
+	background: $color--blue-gradient;
 	&.sp-badge--flat {
 		background: $color--blue;
 	}
 }
 .sp-badge--green {
-	background: $color--gradient--green;
+	background: $color--green-gradient;
 	&.sp-badge--flat {
 		background: $color--green;
 	}
 }
 .sp-badge--pink {
-	background: $color--gradient--pink;
+	background: $color--pink-gradient;
 	&.sp-badge--flat {
 		background: $color--pink;
 	}

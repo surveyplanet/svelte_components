@@ -169,72 +169,73 @@
 	//TODO: add |global to transitions once it is fixed in svelte 5
 </script>
 
-<!-- eslint-disable svelte/no-at-html-tags -->
-<!-- eslint-disable svelte/valid-compile -->
-<!-- eslint-disable a11y-no-noninteractive-element-to-interactive-role -->
-<menu
+<div
 	class="sp-menu sp-menu--{size}"
+	role="menu"
+	tabindex="0"
 	onkeydown={arrowClickHandler}
 	onblur={onBlur}>
-	<li class="sp-menu--header">
-		{#if header}
-			{@render header()}
-		{/if}
-	</li>
-
-	{#if location.length}
-		<li
-			transition:slide={transitionProps}
-			class="sp-menu--back">
-			<button
-				class="sp-menu--back-btn"
-				onclick={backClickHandler}>
-				<Icon
-					name="arrowLeft"
-					size={16} />
-				<span class="sp-menu--back-btn--label">Back</span>
-			</button>
+	<ul>
+		<li class="sp-menu--header">
+			{#if header}
+				{@render header()}
+			{/if}
 		</li>
-	{/if}
 
-	{#each currentState as item}
-		<li
-			class="sp-menu--item"
-			class:sp-menu--item--divide={item.divide}
-			class:sp-menu--item--inline={item.inline}
-			class:sp-menu--item--selected={item.selected}
-			class:sp-menu--item--submenu={item?.submenu?.length}
-			transition:slide={transitionProps}>
-			<button
-				class="sp-menu--item--btn"
-				id={item.id}
-				onclick={itemClickHandler}>
-				{#if item.label}
-					<span class="sp-menu--item--label">
-						{item.label}
-					</span>
-				{/if}
-
-				{#if item.html}
-					{@html item.html}
-				{/if}
-
-				{#if item.icon}
+		{#if location.length}
+			<li
+				transition:slide={transitionProps}
+				class="sp-menu--back">
+				<button
+					class="sp-menu--back-btn"
+					onclick={backClickHandler}>
 					<Icon
-						name={item.icon}
+						name="arrowLeft"
 						size={16} />
-				{/if}
-
-				{#if item.meta}
-					<span class="sp-menu--item--meta">{item.meta}</span>
-				{/if}
-			</button>
-		</li>
-	{/each}
-
-	<li class="sp-menu--footer">
-		{#if footer}
-			{@render footer()}
+					<span class="sp-menu--back-btn--label">Back</span>
+				</button>
+			</li>
 		{/if}
-	</li>
-</menu>
+
+		{#each currentState as item}
+			<li
+				class="sp-menu--item"
+				class:sp-menu--item--divide={item.divide}
+				class:sp-menu--item--inline={item.inline}
+				class:sp-menu--item--selected={item.selected}
+				class:sp-menu--item--submenu={item?.submenu?.length}
+				transition:slide={transitionProps}>
+				<button
+					class="sp-menu--item--btn"
+					id={item.id}
+					onclick={itemClickHandler}>
+					{#if item.label}
+						<span class="sp-menu--item--label">
+							{item.label}
+						</span>
+					{/if}
+
+					{#if item.html}
+						{@html item.html}
+					{/if}
+
+					{#if item.icon}
+						<Icon
+							name={item.icon}
+							size={16} />
+					{/if}
+
+					{#if item.meta}
+						<span class="sp-menu--item--meta">{item.meta}</span>
+					{/if}
+				</button>
+			</li>
+		{/each}
+
+		<li class="sp-menu--footer">
+			{#if footer}
+				{@render footer()}
+			{/if}
+		</li>
+	</ul>
+</div>

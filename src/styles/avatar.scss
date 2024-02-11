@@ -12,7 +12,7 @@
 	border-radius: 100%;
 	border: 0;
 	overflow: hidden;
-	background: $color--gradient--yellow;
+	background: $color--yellow-gradient;
 
 	&:hover {
 		cursor: pointer;
@@ -23,19 +23,19 @@
 	}
 
 	&.sp-avatar--background--yellow {
-		background: $color--gradient--yellow;
+		background: $color--yellow-gradient;
 	}
 
 	&.sp-avatar--background--blue {
-		background: $color--gradient--blue;
+		background: $color--blue-gradient;
 	}
 
 	&.sp-avatar--background--pink {
-		background: $color--gradient--pink;
+		background: $color--pink-gradient;
 	}
 
 	&.sp-avatar--background--green {
-		background: $color--gradient--green;
+		background: $color--green-gradient;
 	}
 }
 .sp-avatar--medium {

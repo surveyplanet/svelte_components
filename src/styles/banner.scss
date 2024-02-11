@@ -21,28 +21,28 @@
 	&.sp-banner--info {
 		border-color: $color--blue;
 		.sp-banner--icon--wrapper {
-			background: $color--gradient--blue;
+			background: $color--blue-gradient;
 		}
 	}
 
 	&.sp-banner--warning {
 		border-color: $color--yellow;
 		.sp-banner--icon--wrapper {
-			background: $color--gradient--yellow;
+			background: $color--yellow-gradient;
 		}
 	}
 
 	&.sp-banner--error {
 		border-color: $color--pink;
 		.sp-banner--icon--wrapper {
-			background: $color--gradient--pink;
+			background: $color--pink-gradient;
 		}
 	}
 
 	&.sp-banner--success {
 		border-color: $color--green;
 		.sp-banner--icon--wrapper {
-			background: $color--gradient--green;
+			background: $color--green-gradient;
 		}
 	}
 }

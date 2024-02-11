@@ -84,7 +84,7 @@
 	// yellow gradient
 	&.sp-button--accent {
 		background-color: $color--yellow;
-		background-image: $color--gradient--yellow;
+		background-image: $color--yellow-gradient;
 		color: $color--darkest;
 		.sp-button--label {
 			color: $color--darkest;
@@ -106,7 +106,7 @@
 	// blue gradient
 	&.sp-button--accent-alt1 {
 		background-color: $color--blue;
-		background-image: $color--gradient--blue;
+		background-image: $color--blue-gradient;
 		color: $color--darkest;
 		.sp-button--label {
 			color: $color--darkest;
@@ -128,7 +128,7 @@
 	// green gradient
 	&.sp-button--accent-alt2 {
 		background-color: $color--green;
-		background-image: $color--gradient--green;
+		background-image: $color--green-gradient;
 		color: $color--darkest;
 		.sp-button--label {
 			color: $color--darkest;
@@ -150,7 +150,7 @@
 	// pink gradient
 	&.sp-button--accent-alt3 {
 		background-color: $color--pink;
-		background-image: $color--gradient--pink;
+		background-image: $color--pink-gradient;
 		color: $color--darkest;
 		.sp-button--label {
 			color: $color--darkest;

@@ -22,25 +22,25 @@
 
 	&.sp-alert--info {
 		.sp-alert--sidebar {
-			background: $color--gradient--blue;
+			background: $color--blue-gradient;
 		}
 	}
 
 	&.sp-alert--warning {
 		.sp-alert--sidebar {
-			background: $color--gradient--yellow;
+			background: $color--yellow-gradient;
 		}
 	}
 
 	&.sp-alert--error {
 		.sp-alert--sidebar {
-			background: $color--gradient--pink;
+			background: $color--pink-gradient;
 		}
 	}
 
 	&.sp-alert--success {
 		.sp-alert--sidebar {
-			background: $color--gradient--green;
+			background: $color--green-gradient;
 		}
 	}
 }
