@@ -1,4 +1,4 @@
-##### Properties
+### Properties
 
 | Property      | Type           | Description                                         | Default |
 | ------------- | -------------- | --------------------------------------------------- | ------- |
@@ -6,13 +6,13 @@
 | `navMenuData` | `MenuData[]`   | Array of data for the navigation menu (optional).   |         |
 | `vertical`    | `boolean`      | Indicates if the NavBar is in vertical orientation. | `false` |
 
-#### Callbacks
+### Callbacks
 
 | Name      | Description                                         | Arguments    |
 | --------- | --------------------------------------------------- | ------------ |
 | `onClick` | Event handler for individual navigation item click. | `id: string` |
 
-#### `NavBarData`
+### `NavBarData`
 
 | Property | Type       | Description                                |
 | -------- | ---------- | ------------------------------------------ |

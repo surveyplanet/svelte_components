@@ -9,8 +9,8 @@ export default (
 ) => {
 	return `
 <script>
-	import Checkbox from '@surveyplanet/svelte_components';
-	const changeEventHandler = (event) => {
+	import {Checkbox} from '@surveyplanet/svelte_components';
+	const checkboxChangeEvent = (event) => {
 		console.log(event);
 	};
 	
@@ -23,7 +23,7 @@ export default (
 	checked={${checked}}
 	disabled={${disabled}}
 	prependLabel={${prependLabel}}
-	size = '${size}'
-	onChange={changeEventHandler}/>
+	size='${size}'
+	onChange={checkboxChangeEvent}/>
 `;
 };

@@ -1,6 +1,6 @@
-##### Interfaces
+### Interfaces
 
-#### `ModalProps`
+### `ModalProps`
 
 | Property                | Type    | Description                                                    | Default      |
 | ----------------------- | ------- | -------------------------------------------------------------- | ------------ |
@@ -15,7 +15,7 @@
 | `body`                  | Snippet | Custom content for the modal body.                             |
 | `header`                | Snippet | Custom content for the modal header.                           |
 
-#### Callbacks
+### Callbacks
 
 | Name           | Description                                         | Arguments        |
 | -------------- | --------------------------------------------------- | ---------------- |

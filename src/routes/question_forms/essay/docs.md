@@ -1,6 +1,6 @@
-#### Properties
+### Properties
 
-#### `EssayProps`
+### `EssayProps`
 
 | Property   | Type           | Description                                                        | Default Value |
 | ---------- | -------------- | ------------------------------------------------------------------ | ------------- |
@@ -10,7 +10,7 @@
 | `single`   | `boolean`      | Flag to determine whether the essay is a single-line or multiline. |               |
 | `response` | `EssayValue[]` | Array of essay values.                                             | `[]`          |
 
-#### Callbacks
+### Callbacks
 
 | Name              | Description                                            | Arguments                |
 | ----------------- | ------------------------------------------------------ | ------------------------ |

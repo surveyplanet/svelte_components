@@ -1,4 +1,4 @@
-#### Properties
+### Properties
 
 | Property      | Type       | Description                               | Default |
 | ------------- | ---------- | ----------------------------------------- | ------- |
@@ -7,16 +7,16 @@
 | `multiSelect` | Boolean    | Allows multiple chip selection if `true`. | `false` |
 | `removable`   | Boolean    | Enables chip removal if `true`.           | `false` |
 
-#### Callbacks
+### Callbacks
 
 | Name       | Description                         | Arguments          |
 | ---------- | ----------------------------------- | ------------------ |
 | `onClick`  | Click event handler for the chips.  | `data: ChipData[]` |
 | `onRemove` | Remove event handler for the chips. | `data: ChipData[]` |
 
-#### Interfaces
+### Interfaces
 
-#### `ChipData`
+### `ChipData`
 
 | Property   | Type    | Description                        |
 | ---------- | ------- | ---------------------------------- |

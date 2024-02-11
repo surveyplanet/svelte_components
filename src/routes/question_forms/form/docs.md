@@ -1,6 +1,6 @@
-#### Properties
+### Properties
 
-#### `FormProps`
+### `FormProps`
 
 | Property   | Type                       | Description                                                       | Default |
 | ---------- | -------------------------- | ----------------------------------------------------------------- | ------- |
@@ -9,7 +9,7 @@
 | `random`   | `FormProperties['random']` | If set to `true`, the labels will be displayed in a random order. |         |
 | `response` | `FormValue[]`              | Array of form values containing label-value pairs.                | `[]`    |
 
-#### Callbacks
+### Callbacks
 
 | Name             | Description                                           | Arguments               |
 | ---------------- | ----------------------------------------------------- | ----------------------- |

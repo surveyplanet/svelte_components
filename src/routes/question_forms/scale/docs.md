@@ -1,6 +1,6 @@
-#### Properties
+### Properties
 
-#### `ScaleProps`
+### `ScaleProps`
 
 | Property   | Type                     | Description                                 | Default |
 | ---------- | ------------------------ | ------------------------------------------- | ------- |
@@ -9,7 +9,7 @@
 | `max`      | `ScaleProperties['max']` | The maximum value of the scale.             |         |
 | `response` | `ScaleValue[]`           | Array containing the selected scale values. | `[]`    |
 
-#### Callbacks
+### Callbacks
 
 | Name              | Description                                            | Type                     |
 | ----------------- | ------------------------------------------------------ | ------------------------ |

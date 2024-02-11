@@ -1,20 +1,20 @@
-#### Properties
+### Properties
 
-#### `SortListProps`
+### `SortListProps`
 
 | Property | Type             | Description                      | Default |
 | -------- | ---------------- | -------------------------------- | ------- |
 | `data`   | `SortListData[]` | The array of items to be sorted. |         |
 
-#### Callbacks
+### Callbacks
 
 | Name     | Description                          | Arguments              |
 | -------- | ------------------------------------ | ---------------------- |
 | `onSort` | Event handler for list item sorting. | `data: SortListData[]` |
 
-#### Interfaces
+### Interfaces
 
-#### `SortListData`
+### `SortListData`
 
 | Property | Type       | Description                                |
 | -------- | ---------- | ------------------------------------------ |

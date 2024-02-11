@@ -1,6 +1,6 @@
-#### Properties
+### Properties
 
-#### `UploadProps`
+### `UploadProps`
 
 | Property  | Type       | Description                                             | Default    |
 | --------- | ---------- | ------------------------------------------------------- | ---------- |
@@ -8,13 +8,13 @@
 | `formats` | `string[]` | Array of allowed file formats (e.g., `['jpg', 'png']`). |            |
 | `maxSize` | `number`   | The maximum allowed file size in megabytes (MB).        | `10`       |
 
-#### Callbacks
+### Callbacks
 
 | Name       | Description                                 | Arguments          |
 | ---------- | ------------------------------------------- | ------------------ |
 | `onChange` | Callback triggered when a file is selected. | `data: UploadData` |
 
-##### Interfaces
+### Interfaces
 
 | Name       | Description                                  | Type                                                 |
 | ---------- | -------------------------------------------- | ---------------------------------------------------- |

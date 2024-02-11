@@ -1,6 +1,6 @@
-#### Properties
+### Properties
 
-#### `ImageProps`
+### `ImageProps`
 
 | Property       | Type                              | Description                                                              | Default |
 | -------------- | --------------------------------- | ------------------------------------------------------------------------ | ------- |
@@ -13,7 +13,7 @@
 | `contain`      | `ImageProperties['contain']`      | If set to `true`, contains the entire image within the specified size.   | `false` |
 | `response`     | `ImageValue[]`                    | Array of image values containing label-value pairs.                      | `[]`    |
 
-#### Callbacks
+### Callbacks
 
 | Name              | Description                                            | Type                     |
 | ----------------- | ------------------------------------------------------ | ------------------------ |

@@ -3,9 +3,11 @@ import { type BreadcrumbData } from '$lib';
 export default (data: BreadcrumbData[]) => {
 	return `
 <script lang="ts">
-	import { Breadcrumbs } from '@surveyplanet/svelte_components';
+	import { type BreadcrumbData, Breadcrumbs } from '@surveyplanet/svelte_components';
+
+	export let data: BreadcrumbData[] = ${JSON.stringify(data, null, 4)};
 </script>
 
-<Breadcrumbs data={${data}} />
+<Breadcrumbs {data} />
 `;
 };

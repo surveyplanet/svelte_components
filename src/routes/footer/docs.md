@@ -1,13 +1,13 @@
-#### Interfaces
+### Interfaces
 
-#### `FooterData`
+### `FooterData`
 
 | Property | Type   | Description                     |
 | -------- | ------ | ------------------------------- |
 | `link`   | String | URL link for the footer item.   |
 | `label`  | String | Label text for the footer item. |
 
-#### Properties
+### Properties
 
 | Property     | Type         | Description                                     | Default |
 | ------------ | ------------ | ----------------------------------------------- | ------- |

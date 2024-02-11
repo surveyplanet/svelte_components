@@ -1,6 +1,6 @@
-#### Properties
+### Properties
 
-#### `ScoringProps`
+### `ScoringProps`
 
 | Property        | Type                                 | Description                                                        | Default |
 | --------------- | ------------------------------------ | ------------------------------------------------------------------ | ------- |
@@ -14,13 +14,13 @@
 | `requireUnique` | `ScoringProperties['requireUnique']` | Indicates if each label must have a unique score.                  | `false` |
 | `response`      | `ScoringValue[]`                     | Array containing the selected scoring values.                      | `[]`    |
 
-##### Callbacks
+### Callbacks
 
 | Name                | Description                                              | Arguments                  |
 | ------------------- | -------------------------------------------------------- | -------------------------- |
 | `onScoringResponse` | Callback triggered when the scoring response is changed. | `response: ScoringValue[]` |
 
-#### `ScoringDefinitions`
+### `ScoringDefinitions`
 
 | Property             | Type                                            | Description                                   |
 | -------------------- | ----------------------------------------------- | --------------------------------------------- |

@@ -1,4 +1,4 @@
-#### Properties
+### Properties
 
 | Property | Type       | Description                                                   | Default |
 | -------- | ---------- | ------------------------------------------------------------- | ------- |
@@ -7,16 +7,16 @@
 | `header` | Snippet    | Custom content for the menu header.                           |         |
 | `footer` | Snippet    | Custom content for the menu footer.                           |         |
 
-#### Callbacks
+### Callbacks
 
 | Name           | Description                                     | Arguments    |
 | -------------- | ----------------------------------------------- | ------------ |
 | `onMenuUpdate` | Callback function triggered on menu update.     | `id: string` |
 | `onMenuClick`  | Callback function triggered on menu item click. | `id: string` |
 
-#### Interfaces
+### Interfaces
 
-#### `MenuData`
+### `MenuData`
 
 | Property   | Type       | Description                                             |
 | ---------- | ---------- | ------------------------------------------------------- |

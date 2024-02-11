@@ -1,6 +1,6 @@
-#### Properties
+### Properties
 
-#### `RatingProps`
+### `RatingProps`
 
 | Property   | Type                         | Description                                                             | Default |
 | ---------- | ---------------------------- | ----------------------------------------------------------------------- | ------- |
@@ -10,7 +10,7 @@
 | `layout`   | `RatingProperties['layout']` | The layout of the rating component. Options: '1' (default) or 'slider'. |         |
 | `response` | `RatingValue[]`              | Array containing the selected rating options.                           | `[]`    |
 
-#### Callbacks
+### Callbacks
 
 | Name               | Description                                             | Type                      |
 | ------------------ | ------------------------------------------------------- | ------------------------- |

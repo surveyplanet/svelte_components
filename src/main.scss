@@ -110,10 +110,7 @@ body {
 
 #component-details--docs {
 	// padding: 0;
-	h2,
-	h3,
-	h4,
-	h5 {
+	h3 {
 		background-color: $color--beige-darker;
 		margin: 0 0 $size-space--m 0;
 		padding: $size-space--s;
@@ -132,13 +129,9 @@ body {
 		}
 
 		th {
-			// background-color: white;
-			// color: $color--black;
+			font-family: $font-family--sans-medium;
 		}
 
-		// tr:nth-child(even) {
-		// 	background-color: red;
-		// }
 		code {
 			font-family: monospace;
 			font-size: 15px;

@@ -12,14 +12,14 @@ export default (
 	return `
 <script>
 	import { Button, BUTTON_MODES } from '@surveyplanet/svelte-components';
-	const clickHandler = () => {
+	const buttonClickHandler = () => {
 		console.log('Button clicked');
 	};
 </script>
 
 
 <Button
-	mode={BUTTON_MODES['${mode}']}
+	mode={BUTTON_MODES.${mode}}
 	disabled={${disabled}}
 	loader={${loader}}
 	round={${round}}
@@ -27,7 +27,7 @@ export default (
 	action={${action}}
 	type='${type}'
 	size='${size}' 
-	onClick={clickHandler}>
+	onClick={buttonClickHandler}>
 	${content}
 </Button>
 `;

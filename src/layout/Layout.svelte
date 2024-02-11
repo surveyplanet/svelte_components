@@ -149,7 +149,6 @@
 						{
 							id: 'controls',
 							label: 'Controls',
-							selected: true,
 						},
 						{
 							id: 'example',
@@ -158,6 +157,7 @@
 						{
 							id: 'docs',
 							label: 'Docs',
+							selected: true,
 						},
 					]}
 					onTabClick={tabHandler} />

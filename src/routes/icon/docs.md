@@ -1,4 +1,4 @@
-#### Properties
+### Properties
 
 | Property      | Type     | Description                                        | Default         |
 | ------------- | -------- | -------------------------------------------------- | --------------- |
@@ -8,9 +8,9 @@
 | `strokeWidth` | Number   | Stroke width of the icon. Defaults to 2.           | `2`             |
 | `debug`       | Boolean  | Enable debug mode for the icon. Defaults to false. | `false`         |
 
-#### Interfaces
+### Interfaces
 
-#### `IconSize`
+### `IconSize`
 
 -   8
 -   12
@@ -24,7 +24,7 @@
 -   256
 -   512;
 
-#### `IconName`
+### `IconName`
 
 The icon name includes:
 

@@ -1,6 +1,6 @@
-#### Properties
+### Properties
 
-#### `RangeProps`
+### `RangeProps`
 
 | Property   | Type           | Description                                 | Default |
 | ---------- | -------------- | ------------------------------------------- | ------- |
@@ -9,7 +9,7 @@
 | `max`      | `number`       | The maximum value of the range.             |         |
 | `response` | `RangeValue[]` | Array containing the selected range values. | `[]`    |
 
-#### Callbacks
+### Callbacks
 
 | Name              | Description                                            | Arguments                |
 | ----------------- | ------------------------------------------------------ | ------------------------ |

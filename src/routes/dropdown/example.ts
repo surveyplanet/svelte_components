@@ -13,7 +13,9 @@ export default (
 	return `
 <script>
 
-	import {Dropdown, DropdownOptions} from '@surveyplanet/svelte_components';
+	import {type DropdownOptions, Dropdown} from '@surveyplanet/svelte_components';
+
+	options: DropdownOptions[] = ${JSON.stringify(options, null, 4)};
 
 	const dropdownChangeHandler = (e) => {
 		console.log('change', e);
@@ -21,7 +23,7 @@ export default (
 </script>
 
 <Dropdown
-	options={${JSON.stringify(options, null, 2)}}
+	{options}
 	searchThreshold={${searchThreshold}}
 	disabled={${disabled}}
 	required={${required}}

@@ -1,6 +1,7 @@
 <script
 	lang="ts"
 	context="module">
+	// TODO: This was probably a mistake; over-coding. Maybe it would be better to just have a union type.
 	export const BUTTON_MODES = {
 		primary: 'primary',
 		light: 'light',

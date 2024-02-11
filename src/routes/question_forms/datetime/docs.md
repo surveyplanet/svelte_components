@@ -1,6 +1,6 @@
-#### Properties
+### Properties
 
-#### `DateTimeProps`
+### `DateTimeProps`
 
 | Property   | Type              | Description                               | Default |
 | ---------- | ----------------- | ----------------------------------------- | ------- |
@@ -9,15 +9,15 @@
 | `time`     | `boolean`         | Flag to include time input.               | `false` |
 | `response` | `DateTimeValue[]` | Array of date-time values as ISO strings. | `[]`    |
 
-##### Callbacks
+### Callbacks
 
 | Name                 | Description                                                   | Arguments                   |
 | -------------------- | ------------------------------------------------------------- | --------------------------- |
 | `onDatetimeResponse` | Callback triggered when the date-time input value is changed. | `response: DateTimeValue[]` |
 
-##### Interfaces
+### Interfaces
 
-#### `DateTimeDefinitions`
+### `DateTimeDefinitions`
 
 | Name              | Type                                         |
 | ----------------- | -------------------------------------------- |

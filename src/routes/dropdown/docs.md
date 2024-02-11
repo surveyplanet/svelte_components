@@ -1,30 +1,30 @@
-#### Properties
+### Properties
 
-| Property          | Type              | Description                                             | Default   |
-| ----------------- | ----------------- | ------------------------------------------------------- | --------- |
-| `options`         | DropdownOptions[] | Array of objects representing the dropdown options.     |           |
-| `placeholder`     | String            | Placeholder text for the dropdown input.                | `null`    |
-| `value`           | String            | Selected value from the dropdown options.               | `null`    |
-| `label`           | String            | Label for the dropdown.                                 | `null`    |
-| `searchThreshold` | Number            | Number of options to enable search functionality.       | `15`      |
-| `disabled`        | Boolean           | Disables the dropdown if `true`.                        | `false`   |
-| `required`        | Boolean           | Indicates if the dropdown is required.                  | `false`   |
-| `size`            | String            | Size of the dropdown: `'small'`, `'medium'`, `'large'`. | `'small'` |
+| Property             | Type              | Description                                             |
+| -------------------- | ----------------- | ------------------------------------------------------- |
+| `options`            | DropdownOptions[] | Array of objects representing the dropdown options.     |
+| `placeholder=null`   | string            | Placeholder text for the dropdown input.                |
+| `value=null`         | string            | Selected value from the dropdown options.               |
+| `label=null`         | string            | Label for the dropdown.                                 |
+| `searchThreshold=15` | number            | Number of options to enable search functionality.       |
+| `disabled=false`     | boolean           | Disables the dropdown if `true`.                        |
+| `required=false`     | boolean           | Indicates if the dropdown is required.                  |
+| `size='small'`       | string            | Size of the dropdown: `'small'`, `'medium'`, `'large'`. |
 
-#### Callbacks
+### Callbacks
 
 | Name       | Description                                | Arguments                       |
 | ---------- | ------------------------------------------ | ------------------------------- |
 | `onChange` | Triggered when the dropdown value changes. | `value: DropdownOptions['id'] ` |
 
-#### Interfaces
+### Interfaces
 
 #### `DropdownOptions`
 
 | Property   | Type              | Description                                       |
 | ---------- | ----------------- | ------------------------------------------------- |
-| `label`    | String            | Label for the dropdown option.                    |
-| `id`       | String            | Identifier for the dropdown option.               |
-| `meta`     | String            | Additional metadata for the dropdown option.      |
-| `selected` | Boolean           | Indicates if the dropdown option is selected.     |
+| `label`    | string            | Label for the dropdown option.                    |
+| `id`       | string            | Identifier for the dropdown option.               |
+| `meta`     | string            | Additional metadata for the dropdown option.      |
+| `selected` | boolean           | Indicates if the dropdown option is selected.     |
 | `submenu`  | DropdownOptions[] | Array of submenu options for the dropdown option. |

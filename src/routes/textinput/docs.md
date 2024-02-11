@@ -1,4 +1,4 @@
-#### Properties
+### Properties
 
 | Property                | Type                             | Description                                       | Default  |
 | ----------------------- | -------------------------------- | ------------------------------------------------- | -------- |
@@ -16,7 +16,7 @@
 | `size`                  | `'small' \| 'medium' \| 'large'` | The size of the text input.                       | `medium` |
 | `validationHideMessage` | `boolean \| null`                | If `true`, hides the validation error message.    |          |
 
-#### Callbacks
+### Callbacks
 
 | Name        | Description                                   | Arguments  |
 | ----------- | --------------------------------------------- | ---------- |
@@ -27,9 +27,9 @@
 | `onKeydown` | Callback function triggered on keydown event. | `e: Event` |
 | `onKeyup`   | Callback function triggered on keyup event.   | `e: Event` |
 
-#### Interfaces
+### Interfaces
 
-#### `TextInputType`
+### `TextInputType`
 
 The `TextInputType` is a union type representing different types of text inputs:
 

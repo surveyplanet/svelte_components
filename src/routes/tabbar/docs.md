@@ -1,4 +1,4 @@
-#### Properties
+### Properties
 
 | Property | Type           | Description                                                                                        | Default                                     |
 | -------- | -------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------- |
@@ -6,15 +6,15 @@
 | `block`  | `boolean`      | If `true`, allows the tab bar to become a block level element and expands to fill available space. | `false`                                     |
 | `data`   | `TabBarData[]` | An array of `TabBarData` objects representing each tab.                                            |                                             |
 
-#### Callbacks
+### Callbacks
 
 | Name         | Description                         | Arguments    |
 | ------------ | ----------------------------------- | ------------ |
 | `onTabClick` | Event handler for tab button click. | `id: string` |
 
-#### Interfaces
+### Interfaces
 
-#### `TabBarData`
+### `TabBarData`
 
 | Property   | Type       | Description                            |
 | ---------- | ---------- | -------------------------------------- |

@@ -1,6 +1,6 @@
-#### Properties
+### Properties
 
-#### `SpinnerProps`
+### `SpinnerProps`
 
 | Property      | Type                             | Description                                                       | Default                                     |
 | ------------- | -------------------------------- | ----------------------------------------------------------------- | ------------------------------------------- |
@@ -17,7 +17,7 @@
 | `placeholder` | `string`                         | The placeholder text for the spinner input.                       | `null`                                      |
 | `size`        | `'small' \| 'medium' \| 'large'` | Size of the spinner input.                                        | `'small'`                                   |
 
-#### Callbacks
+### Callbacks
 
 | Name       | Description                                  | Arguments                    |
 | ---------- | -------------------------------------------- | ---------------------------- |

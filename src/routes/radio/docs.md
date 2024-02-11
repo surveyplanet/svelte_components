@@ -1,6 +1,6 @@
-#### Properties
+### Properties
 
-#### `RadioProps`
+### `RadioProps`
 
 | Property       | Type                             | Description                                             | Default                                     |
 | -------------- | -------------------------------- | ------------------------------------------------------- | ------------------------------------------- |
@@ -13,7 +13,7 @@
 | `prependLabel` | `boolean`                        | Flag to prepend the label to the radio input.           | `false`                                     |
 | `size`         | `'small' \| 'medium' \| 'large'` | Size of the radio input.                                | `'small'`                                   |
 
-#### Callbacks
+### Callbacks
 
 | Name       | Description                           | Arguments  |
 | ---------- | ------------------------------------- | ---------- |

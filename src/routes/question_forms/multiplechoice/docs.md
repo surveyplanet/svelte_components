@@ -1,6 +1,6 @@
-#### Properties
+### Properties
 
-#### `MultipleChoiceProps`
+### `MultipleChoiceProps`
 
 | Property   | Type                                 | Description                                                                                                     | Default   |
 | ---------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------- | --------- |
@@ -12,7 +12,7 @@
 | `other`    | `MultipleChoiceProperties['other']`  | Text representing an 'Other' option. If present, users can input custom text.                                   | `'Other'` |
 | `response` | `MultipleChoiceValue[]`              | Array of multiple choice values containing label-value pairs.                                                   | `[]`      |
 
-#### Callbacks
+### Callbacks
 
 | Name                       | Description                                                      | Arguments                         |
 | -------------------------- | ---------------------------------------------------------------- | --------------------------------- |

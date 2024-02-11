@@ -1,4 +1,4 @@
-#### Properties
+### Properties
 
 | Property       | Type             | Description                                                 | Default                                     |
 | -------------- | ---------------- | ----------------------------------------------------------- | ------------------------------------------- |
@@ -10,7 +10,7 @@
 | `label`        | `string \| null` | The label or text associated with the toggle.               | `null`                                      |
 | `prependLabel` | `boolean`        | If `true`, the label is prepended to the toggle.            | `false`                                     |
 
-#### Callbacks
+### Callbacks
 
 | Name       | Description                                  | Type          |
 | ---------- | -------------------------------------------- | ------------- |

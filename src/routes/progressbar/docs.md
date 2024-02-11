@@ -1,6 +1,6 @@
-#### Properties
+### Properties
 
-#### `ProgressBarProps`
+### `ProgressBarProps`
 
 | Property       | Type      | Description                                              | Default |
 | -------------- | --------- | -------------------------------------------------------- | ------- |
