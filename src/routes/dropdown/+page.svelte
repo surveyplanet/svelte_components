@@ -57,7 +57,7 @@
 	let label = $state('Dropdown component');
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
-	const dropdownChangeHandler = (value: string) => {
+	const onDropdownChange = (value: string) => {
 		events.push(value);
 	};
 
@@ -120,7 +120,7 @@
 				{placeholder}
 				{label}
 				{size}
-				onChange={dropdownChangeHandler} />
+				{onDropdownChange} />
 		{/key}
 	{/snippet}
 </Layout>

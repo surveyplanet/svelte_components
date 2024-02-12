@@ -12,11 +12,11 @@
 		challenge?: string;
 		challengeLabel?: string;
 		animationMilliseconds?: number;
-		onConfirm?: () => void;
-		onOpen?: () => void;
-		onIn?: () => void;
-		onClose?: () => void;
-		onOut?: () => void;
+		onAlertConfirm?: () => void;
+		onAlertOpen?: () => void;
+		onAlertIn?: () => void;
+		onAlertClose?: () => void;
+		onAlertOut?: () => void;
 		children?: Snippet;
 	};
 </script>
@@ -25,7 +25,7 @@
 	import type { Snippet } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	import { COLORS, BUTTON_MODES, Button, Icon, TextInput } from './';
+	import { COLORS, Button, Icon, TextInput } from './';
 	// import '../assets/styles/alert.scss';
 	import successIcon from '../assets/mascots/tummi_3.svg';
 	import infoIcon from '../assets/mascots/cubbi_3.svg';
@@ -43,11 +43,11 @@
 		challenge = '', // challenge string to confirm action
 		challengeLabel = '',
 		animationMilliseconds = 350,
-		onConfirm,
-		onOpen,
-		onIn,
-		onClose,
-		onOut,
+		onAlertConfirm,
+		onAlertOpen,
+		onAlertIn,
+		onAlertClose,
+		onAlertOut,
 		children,
 	} = $props<AlertProps>();
 
@@ -97,13 +97,12 @@
 	const alertConfirmButtonClickHandler = () => {
 		const value = isChallenge ? !disableConfirmButton : true;
 		if (value) visible = false;
-		if (onConfirm) onConfirm();
+		if (onAlertConfirm) onAlertConfirm();
 	};
 </script>
 
 <!-- TODO: 'sp-alert--confirm' class is used in the nav and in the base component -->
 
-<!-- TODO: Challenge is not showing -->
 {#if visible}
 	<div
 		role="alert"
@@ -115,10 +114,10 @@
 			duration: animationMilliseconds,
 			easing: cubicOut,
 		}}
-		onIntroStart={onOpen}
-		onIntroEnd={onIn}
-		onOutroStart={onClose}
-		onOutroEnd={onOut}>
+		onIntroStart={onAlertOpen}
+		onIntroEnd={onAlertIn}
+		onOutroStart={onAlertClose}
+		onOutroEnd={onAlertOut}>
 		<div class="sp-alert--col-a">
 			<div class="sp-alert--sidebar">
 				<img
@@ -163,22 +162,22 @@
 								name="challenge"
 								label={challengeLabel}
 								placeholder={challenge}
-								onKeyup={challengeKeyupHandler} />
+								onTextInputKeyup={challengeKeyupHandler} />
 						</div>
 					{/if}
 					<menu>
 						<li class="sp-alert--confirm-btn">
 							<Button
 								disabled={disableConfirmButton}
-								onClick={alertConfirmButtonClickHandler}
-								mode={BUTTON_MODES.primary}>
+								onButtonClick={alertConfirmButtonClickHandler}
+								mode={'primary'}>
 								{confirmButtonLabel}
 							</Button>
 						</li>
 						<li class="sp-alert--close-btn">
 							<Button
-								onClick={closeButtonClickHandler}
-								mode={BUTTON_MODES.light}>
+								onButtonClick={closeButtonClickHandler}
+								mode={'light'}>
 								{cancelButtonLabel}
 							</Button>
 						</li>

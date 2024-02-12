@@ -14,7 +14,7 @@ export {
 export { default as Banner, type BannerProps } from './Banner.svelte';
 export {
 	default as Button,
-	BUTTON_MODES,
+	type ButtonMode,
 	type ButtonProps,
 } from './Button.svelte';
 export { default as Checkbox, type CheckboxProps } from './Checkbox.svelte';

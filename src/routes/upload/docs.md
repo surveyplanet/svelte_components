@@ -2,17 +2,17 @@
 
 ### `UploadProps`
 
-| Property  | Type       | Description                                             | Default    |
-| --------- | ---------- | ------------------------------------------------------- | ---------- |
-| `label`   | `string`   | The label or text associated with the upload button.    | `'Upload'` |
-| `formats` | `string[]` | Array of allowed file formats (e.g., `['jpg', 'png']`). |            |
-| `maxSize` | `number`   | The maximum allowed file size in megabytes (MB).        | `10`       |
+| Property         | Type       | Description                                             |
+| ---------------- | ---------- | ------------------------------------------------------- |
+| `label='Upload'` | `string`   | The label or text associated with the upload button.    |
+| `formats`        | `string[]` | Array of allowed file formats (e.g., `['jpg', 'png']`). |
+| `maxSize={10}`   | `number`   | The maximum allowed file size in megabytes (MB).        |
 
 ### Callbacks
 
 | Name       | Description                                 | Arguments          |
 | ---------- | ------------------------------------------- | ------------------ |
-| `onChange` | Callback triggered when a file is selected. | `data: UploadData` |
+| `onUpload` | Callback triggered when a file is selected. | `data: UploadData` |
 
 ### Interfaces
 

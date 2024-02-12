@@ -1,18 +1,14 @@
 <script
 	lang="ts"
 	context="module">
-	// TODO: This was probably a mistake; over-coding. Maybe it would be better to just have a union type.
-	export const BUTTON_MODES = {
-		primary: 'primary',
-		light: 'light',
-		accent: 'accent',
-		accent_alt_1: 'accent-alt1',
-		accent_alt_2: 'accent-alt2',
-		accent_alt_3: 'accent-alt3',
-		outline: 'outline',
-	} as Record<string, string>;
-
-	export type ButtonMode = keyof typeof BUTTON_MODES;
+	export type ButtonMode =
+		| 'primary'
+		| 'light'
+		| 'accent'
+		| 'accent-alt1'
+		| 'accent-alt2'
+		| 'accent-alt3'
+		| 'outline';
 
 	export type ButtonProps = {
 		mode?: ButtonMode;
@@ -24,7 +20,7 @@
 		type?: 'button' | 'submit' | 'reset';
 		form?: string | null;
 		size?: 'small' | 'medium' | 'large';
-		onClick: (e: MouseEvent) => void;
+		onButtonClick: (e: MouseEvent) => void;
 		children?: Snippet;
 	};
 </script>
@@ -32,7 +28,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	let {
-		mode = BUTTON_MODES.primary,
+		mode = 'primary',
 		disabled = false,
 		loader = false,
 		round = true,
@@ -41,7 +37,7 @@
 		type = 'button',
 		form = null,
 		size = 'medium',
-		onClick,
+		onButtonClick,
 		children,
 	} = $props<ButtonProps>();
 </script>
@@ -55,7 +51,7 @@
 	class:sp-button--loader={loader}
 	class:sp-button--block={block}
 	class:sp-button--action={action}
-	onclick={onClick}>
+	onclick={onButtonClick}>
 	<span class="sp-button--label">
 		{#if children}
 			{@render children()}

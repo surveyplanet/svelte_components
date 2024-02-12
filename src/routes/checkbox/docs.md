@@ -13,6 +13,6 @@
 
 ### Callbacks
 
-| Name       | Description                            |
-| ---------- | -------------------------------------- |
-| `onChange` | Change event handler for the checkbox. |
+| Name               | Description                            |
+| ------------------ | -------------------------------------- |
+| `onCheckboxChange` | Change event handler for the checkbox. |

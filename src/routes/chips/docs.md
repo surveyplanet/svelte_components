@@ -1,22 +1,22 @@
 ### Properties
 
-| Property      | Type       | Description                               | Default |
-| ------------- | ---------- | ----------------------------------------- | ------- |
-| `data`        | ChipData[] | Array of objects representing the chips.  |         |
-| `selectable`  | Boolean    | Enables chip selection if `true`.         | `false` |
-| `multiSelect` | Boolean    | Allows multiple chip selection if `true`. | `false` |
-| `removable`   | Boolean    | Enables chip removal if `true`.           | `false` |
+| Property                | Type       | Description                               |
+| ----------------------- | ---------- | ----------------------------------------- |
+| `data`                  | ChipData[] | Array of objects representing the chips.  |
+| `selectable = {false}`  | Boolean    | Enables chip selection if `true`.         |
+| `multiSelect = {false}` | Boolean    | Allows multiple chip selection if `true`. |
+| `removable = {false} `  | Boolean    | Enables chip removal if `true`.           |
 
 ### Callbacks
 
-| Name       | Description                         | Arguments          |
-| ---------- | ----------------------------------- | ------------------ |
-| `onClick`  | Click event handler for the chips.  | `data: ChipData[]` |
-| `onRemove` | Remove event handler for the chips. | `data: ChipData[]` |
+| Name            | Description                         | Arguments          |
+| --------------- | ----------------------------------- | ------------------ |
+| `onChipsClick`  | Click event handler for the chips.  | `data: ChipData[]` |
+| `onChipsRemove` | Remove event handler for the chips. | `data: ChipData[]` |
 
 ### Interfaces
 
-### `ChipData`
+#### `ChipData`
 
 | Property   | Type    | Description                        |
 | ---------- | ------- | ---------------------------------- |

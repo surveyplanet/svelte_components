@@ -9,7 +9,7 @@ export default (
 	return `
 <script>
 	import Radio from '@surveyplanet/svelte_components';
-	let changeEventHandler = (event) => {
+	let onRadioChange = (event) => {
 		console.log(event.detail);
 </script>
 
@@ -20,7 +20,7 @@ export default (
 	label='${labelOne}'
 	prependLabel={${prependLabel}}
 	size='${size}'
-	onChange={changeEventHandler} />
+	{onRadioChange} />
 ;
 
 `;

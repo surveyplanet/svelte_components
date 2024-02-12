@@ -15,7 +15,7 @@
 
 	let disabled = $state(false);
 
-	const clickEventHandler = () => {
+	const onAvatarClick = () => {
 		events.push('click');
 	};
 </script>
@@ -46,7 +46,7 @@
 			{id}
 			{size}
 			{disabled}
-			onClick={clickEventHandler} />
+			{onAvatarClick} />
 	{/snippet}
 </Layout>
 

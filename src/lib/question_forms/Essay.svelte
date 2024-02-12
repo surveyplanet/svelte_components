@@ -40,7 +40,7 @@
 		type={single ? 'text' : 'multiline'}
 		id={`${id}-essay`}
 		value={response?.length ? response[0] : ''}
-		onKeyup={inputKeyupHandler} />
+		onTextInputKeyup={inputKeyupHandler} />
 
 	{#if min ?? max}
 		<div class="sp-survey--question--form--essay--counters">

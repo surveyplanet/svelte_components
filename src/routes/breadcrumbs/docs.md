@@ -1,9 +1,8 @@
 ### Properties
 
-| Property | Type             | Description                                | Default |
-| -------- | ---------------- | ------------------------------------------ | ------- |
-| `data`   | BreadcrumbData[] | Array of objects representing breadcrumbs. |         |
-
+| Property | Type             | Description                                |
+| -------- | ---------------- | ------------------------------------------ |
+| `data`   | BreadcrumbData[] | Array of objects representing breadcrumbs. |
 ### Interfaces
 
 #### `BreadcrumbData`

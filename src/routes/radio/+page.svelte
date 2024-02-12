@@ -14,7 +14,7 @@
 	let prependLabel = $state(false);
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
-	const changeEventHandler = (): void => {
+	const onRadioChange = (): void => {
 		events.push('change');
 	};
 </script>
@@ -58,7 +58,7 @@
 				label={labelOne}
 				{prependLabel}
 				{size}
-				onChange={changeEventHandler} />
+				{onRadioChange} />
 			<Radio
 				id={labelTwo.toLowerCase().replace(' ', '-')}
 				{disabled}
@@ -67,7 +67,7 @@
 				label={labelTwo}
 				{prependLabel}
 				{size}
-				onChange={changeEventHandler} />
+				{onRadioChange} />
 			<Radio
 				id={labelThree.toLowerCase().replace(' ', '-')}
 				{disabled}
@@ -76,7 +76,7 @@
 				label={labelThree}
 				{prependLabel}
 				{size}
-				onChange={changeEventHandler} />
+				{onRadioChange} />
 		</div>
 	{/snippet}
 </Layout>

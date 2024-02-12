@@ -9,7 +9,7 @@ export default (
 <script>
 	import { NavBar, NavBarData } from 'components/NavBar';
 
-	const clickHandler = (event) => {
+	const onNavClick = (event) => {
 		console.log(event.detail);
 	}
 </script>
@@ -18,7 +18,7 @@ export default (
 	data={${JSON.stringify(data, null, 2)}}
 	navMenuData={${JSON.stringify(navMenuData, null, 2)}}
 	vertical={${vertical}}
-	onClick={clickHandler}
+	{onNavClick}
 
 	/>
 `;

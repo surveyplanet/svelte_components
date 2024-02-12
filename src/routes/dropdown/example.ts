@@ -17,7 +17,7 @@ export default (
 
 	options: DropdownOptions[] = ${JSON.stringify(options, null, 4)};
 
-	const dropdownChangeHandler = (e) => {
+	const onDropdownChange = (e) => {
 		console.log('change', e);
 	}
 </script>
@@ -31,7 +31,7 @@ export default (
 	placeholder='${placeholder}'
 	label='${label}'
 	size='${size}'
-	onChange={dropdownChangeHandler}
+	{onDropdownChange}
 />
 `;
 };

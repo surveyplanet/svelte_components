@@ -15,7 +15,7 @@
 	let prependLabel = $state(false);
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
-	const changeEventHandler = (e: Event): void => {
+	const onCheckboxChange = (e: Event): void => {
 		events.push(e);
 	};
 </script>
@@ -68,6 +68,6 @@
 			{disabled}
 			{prependLabel}
 			{size}
-			onChange={changeEventHandler} />
+			{onCheckboxChange} />
 	{/snippet}
 </Layout>

@@ -96,7 +96,7 @@
 					name="search-components"
 					type="search"
 					placeholder="Find components"
-					onInput={searchComponents} />
+					onTextInputInput={searchComponents} />
 			</div>
 		</header>
 		{#key reload}
@@ -125,13 +125,13 @@
 							title: 'Share',
 						},
 					]}
-					onClick={navBarClickHandler} />
+					onNavClick={navBarClickHandler} />
 
 				<div class="dark-mode-toggle">
 					<Toggle
 						id="dark-mode-toggle"
 						name="dark-mode-toggle"
-						onChange={darkModeHandler} />
+						onToggle={darkModeHandler} />
 				</div>
 			</header>
 			<div id="component-preview--window">

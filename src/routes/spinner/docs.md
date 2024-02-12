@@ -2,27 +2,27 @@
 
 ### `SpinnerProps`
 
-| Property      | Type                             | Description                                                       | Default                                     |
-| ------------- | -------------------------------- | ----------------------------------------------------------------- | ------------------------------------------- |
-| `label`       | `string`                         | The label displayed next to the spinner input.                    | `''`                                        |
-| `id`          | `string`                         | The unique identifier for the spinner input.                      | `(Date.now() + Math.random()).toString(36)` |
-| `step`        | `number`                         | The step value for the spinner input.                             | `1`                                         |
-| `min`         | `number`                         | The minimum value for the spinner input.                          | `0`                                         |
-| `max`         | `number`                         | The maximum value for the spinner input.                          | `100`                                       |
-| `value`       | `number`                         | The value of the spinner input.                                   |                                             |
-| `disabled`    | `boolean`                        | Flag indicating whether the spinner input is disabled.            | `false`                                     |
-| `required`    | `boolean`                        | Flag indicating whether the spinner input is required.            | `false`                                     |
-| `overflow`    | `boolean`                        | Flag indicating whether the spinner input should overflow.        | `false`                                     |
-| `dragSpeed`   | `number`                         | The speed at which the spinner input value changes when dragging. | `10`                                        |
-| `placeholder` | `string`                         | The placeholder text for the spinner input.                       | `null`                                      |
-| `size`        | `'small' \| 'medium' \| 'large'` | Size of the spinner input.                                        | `'small'`                                   |
+| Property                                         | Type                             | Description                                                       |
+| ------------------------------------------------ | -------------------------------- | ----------------------------------------------------------------- |
+| `label={''}`                                     | `string`                         | The label displayed next to the spinner input.                    |
+| `id={(Date.now() + Math.random()).toString(36)}` | `string`                         | The unique identifier for the spinner input.                      |
+| `step={1}`                                       | `number`                         | The step value for the spinner input.                             |
+| `min={0}`                                        | `number`                         | The minimum value for the spinner input.                          |
+| `max={100}`                                      | `number`                         | The maximum value for the spinner input.                          |
+| `value`                                          | `number`                         | The value of the spinner input.                                   |
+| `disabled={false}`                               | `boolean`                        | Flag indicating whether the spinner input is disabled.            |
+| `required={false}`                               | `boolean`                        | Flag indicating whether the spinner input is required.            |
+| `overflow={false}`                               | `boolean`                        | Flag indicating whether the spinner input should overflow.        |
+| `dragSpeed={10}`                                 | `number`                         | The speed at which the spinner input value changes when dragging. |
+| `placeholder={null}`                             | `string`                         | The placeholder text for the spinner input.                       |
+| `size={'small'}`                                 | `'small' \| 'medium' \| 'large'` | Size of the spinner input.                                        |
 
 ### Callbacks
 
-| Name       | Description                                  | Arguments                    |
-| ---------- | -------------------------------------------- | ---------------------------- |
-| `onUpdate` | Callback function triggered on value update. | `value: number \| undefined` |
-| `onInput`  | Callback function triggered on input change. | `value: number \| undefined` |
-| `onChange` | Callback function triggered on value change. | `value: number \| undefined` |
-| `onBlur`   | Callback function triggered on input blur.   | `undefined`                  |
-| `onFocus`  | Callback function triggered on input focus.  | `undefined`                  |
+| Name              | Description                                  | Arguments                    |
+| ----------------- | -------------------------------------------- | ---------------------------- |
+| `onSpinnerUpdate` | Callback function triggered on value update. | `value: number \| undefined` |
+| `onSpinnerInput`  | Callback function triggered on input change. | `value: number \| undefined` |
+| `onSpinnerChange` | Callback function triggered on value change. | `value: number \| undefined` |
+| `onSpinnerBlur`   | Callback function triggered on input blur.   | `undefined`                  |
+| `onSpinnerFocus`  | Callback function triggered on input focus.  | `undefined`                  |

@@ -14,11 +14,11 @@
 		dragSpeed?: number;
 		placeholder?: string;
 		size?: 'small' | 'medium' | 'large';
-		onUpdate?: (value: number | undefined) => void;
-		onInput?: (value: number | undefined) => void;
-		onChange?: (value: number | undefined) => void;
-		onBlur?: () => void;
-		onFocus?: () => void;
+		onSpinnerUpdate?: (value: number | undefined) => void;
+		onSpinnerInput?: (value: number | undefined) => void;
+		onSpinnerChange?: (value: number | undefined) => void;
+		onSpinnerBlur?: () => void;
+		onSpinnerFocus?: () => void;
 	};
 </script>
 
@@ -36,11 +36,11 @@
 		dragSpeed = 10,
 		placeholder = null,
 		size = 'small',
-		onUpdate,
-		onInput,
-		onChange,
-		onBlur,
-		onFocus,
+		onSpinnerUpdate,
+		onSpinnerInput,
+		onSpinnerChange,
+		onSpinnerBlur,
+		onSpinnerFocus,
 	} = $props<SpinnerProps>();
 
 	let input: HTMLInputElement | null = $state(null);
@@ -88,7 +88,7 @@
 
 		if (newValue !== value && newValue !== undefined) {
 			value = checkOverflow(newValue);
-			if (onUpdate) onUpdate(value);
+			if (onSpinnerUpdate) onSpinnerUpdate(value);
 		}
 		if (currentValue === undefined) {
 			if (increment) {
@@ -101,7 +101,7 @@
 
 	const reset = () => {
 		value = undefined;
-		if (onUpdate) onUpdate(value);
+		if (onSpinnerUpdate) onSpinnerUpdate(value);
 	};
 
 	const increment = () => {
@@ -123,7 +123,7 @@
 		} else {
 			value = checkOverflow(value);
 		}
-		if (onUpdate) onUpdate(value);
+		if (onSpinnerUpdate) onSpinnerUpdate(value);
 	};
 	// Mouse dragging
 
@@ -146,7 +146,7 @@
 
 	const checkForValueChange = () => {
 		if (value !== controlValue) {
-			if (onInput) onInput(value);
+			if (onSpinnerInput) onSpinnerInput(value);
 		}
 		controlValue = value;
 	};
@@ -180,7 +180,7 @@
 		}, 500);
 	};
 	const changeHandler = () => {
-		if (onChange) onChange(value);
+		if (onSpinnerChange) onSpinnerChange(value);
 	};
 
 	const inputHandler = () => {
@@ -193,13 +193,13 @@
 
 	const blurHandler = () => {
 		checkForValueChange();
-		if (onBlur) onBlur();
+		if (onSpinnerBlur) onSpinnerBlur();
 		visibleButtons = false;
 	};
 
 	const focusHandler = () => {
 		visibleButtons = true;
-		if (onFocus) onFocus();
+		if (onSpinnerFocus) onSpinnerFocus();
 	};
 	const inputClickHandler = () => {
 		if (input) input.focus();

@@ -10,13 +10,12 @@ export default (
 <script lang="ts">
 	import { Chips, type ChipData } from '@surveyplanet/svelte_components';
 
-	const chipClickHandler = (event:CustomEvent) {
-		console.log('Clicked chip:', event.detail);
-	}
-
-	const chipRemoveHandler = (event:CustomEvent) {
-		console.log('Removed chip:', event.detail);
-	}
+	const onChipsClick = (data: ChipData[]): void => {
+		console.log(data);
+	};
+	const onChipsRemove = (data: ChipData[]): void => {
+		console.log(data);
+	};
 </script>
 
 <Chip
@@ -24,7 +23,7 @@ export default (
 	selectable={${selectable}}
 	multiSelect={${multiSelect}}
 	removable={${removable}}
-	onClick={chipClickHandler}
-	onRemove={chipRemoveHandler}
+	{onChipsClick}
+	{onChipsRemove}
 	/>`;
 };

@@ -55,7 +55,7 @@
 			type="text"
 			id={`${id}-${label.toLocaleLowerCase()}`}
 			size="large"
-			onChange={inputChangeHandler}
-			onKeyup={inputKeyupHandler} />
+			onTextInputChange={inputChangeHandler}
+			onTextInputKeyup={inputKeyupHandler} />
 	{/each}
 </form>

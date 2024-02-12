@@ -9,10 +9,10 @@
 		visible?: boolean;
 		animationMilliseconds?: number;
 		size?: 'small' | 'medium' | 'large';
-		onIntroStart?: (e: CustomEvent) => void;
-		onIntroEnd?: (e: CustomEvent) => void;
-		onOutroStart?: (e: CustomEvent) => void;
-		onOutroEnd?: (e: CustomEvent) => void;
+		onModalIntroStart?: (e: CustomEvent) => void;
+		onModalIntroEnd?: (e: CustomEvent) => void;
+		onModalOutroStart?: (e: CustomEvent) => void;
+		onModalOutroEnd?: (e: CustomEvent) => void;
 		footer?: Snippet;
 		body?: Snippet;
 		header?: Snippet;
@@ -33,10 +33,10 @@
 		visible,
 		animationMilliseconds = 350,
 		size = 'medium',
-		onIntroStart,
-		onIntroEnd,
-		onOutroStart,
-		onOutroEnd,
+		onModalIntroStart,
+		onModalIntroEnd,
+		onModalOutroStart,
+		onModalOutroEnd,
 		footer,
 		header,
 		body,
@@ -72,10 +72,10 @@
 			easing: cubicOut,
 		}}
 		class="sp-modal sp-modal--{size}"
-		onintrostart={onIntroStart}
-		onintroend={onIntroEnd}
-		onoutrostart={onOutroStart}
-		onoutroend={onOutroEnd}
+		onintrostart={onModalIntroStart}
+		onintroend={onModalIntroEnd}
+		onoutrostart={onModalOutroStart}
+		onoutroend={onModalOutroEnd}
 		class:sp-modal--fullscreen={fullscreen}>
 		<button
 			onclick={closeHandler}

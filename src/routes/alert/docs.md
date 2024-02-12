@@ -15,10 +15,10 @@
 
 ### Callbacks
 
-| Name        | Description                                                   |
-| ----------- | ------------------------------------------------------------- |
-| `onOpen`    | Alert has been instantiated.                                  |
-| `onIn`      | Alert is full rendered on stage and in animation is complete. |
-| `onClose`   | Alert has been closed.                                        |
-| `onOut`     | Alert has been fully removed and out animation is complete.   |
-| `onConfirm` | Confirmation alert has been confirmed.                        |
+| Name             | Description                                                   |
+| ---------------- | ------------------------------------------------------------- |
+| `onAlertOpen`    | Alert has been instantiated.                                  |
+| `onAlertIn`      | Alert is full rendered on stage and in animation is complete. |
+| `onAlertClose`   | Alert has been closed.                                        |
+| `onAlertOut`     | Alert has been fully removed and out animation is complete.   |
+| `onAlertConfirm` | Confirmation alert has been confirmed.                        |

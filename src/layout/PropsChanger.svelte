@@ -81,8 +81,8 @@
 				{label}
 				bind:value
 				size={FORM_CONTROL_SIZE}
-				{onInput}
-				{onBlur} />
+				onSpinnerInput={onInput}
+				onSpinnerBlur={onBlur} />
 		{:else if type === 'boolean' && typeof value === 'boolean'}
 			<Checkbox
 				id="boolean-{(Date.now() + Math.random()).toString(36)}"
@@ -91,7 +91,7 @@
 				name="boolean-{label}s"
 				bind:checked={value}
 				size={FORM_CONTROL_SIZE}
-				onChange={onInput} />
+				onCheckboxChange={onInput} />
 		{:else if type === 'json'}
 			<JsonEditor />
 		{:else if type === 'select'}
@@ -101,7 +101,7 @@
 				size={FORM_CONTROL_SIZE}
 				placeholder={value?.toString() || 'Select an option'}
 				value={dropdownValue}
-				onChange={dropdownChangeHandler} />
+				onDropdownChange={dropdownChangeHandler} />
 		{:else if type === 'string' && typeof value === 'string'}
 			<TextInput
 				id={`text-${label}`}
@@ -110,8 +110,8 @@
 				type="text"
 				size={FORM_CONTROL_SIZE}
 				bind:value
-				{onInput}
-				{onBlur} />
+				onTextInputInput={onInput}
+				onTextInputBlur={onBlur} />
 		{/if}
 	</div>
 </div>

@@ -13,10 +13,25 @@ export default (
 	size: 'small' | 'medium' | 'large'
 ) => {
 	return `
-<script>
+<script lang='ts'>
 
 	import { Spinner } from '@surveyplanet/svelte-components';
 
+	const onSpinnerChange = (value: number) => {
+		console.log(value);
+	}
+	const onSpinnerUpdate = (value: number) => {
+		console.log(value);
+	}
+	const onSpinnerInput = (value: number) => {
+		console.log(value);
+	}
+	const onSpinnerBlur = () => {
+		console.log('blur');
+	}
+	const onSpinnerFocus = () => {
+		console.log('focus');
+	}
 </script>
 
 <Spinner
@@ -32,6 +47,11 @@ export default (
 	placeholder='${placeholder}'
 	dragSpeed={${dragSpeed}}
 	size='${size}'
+	{onSpinnerChange}
+	{onSpinnerUpdate}
+	{onSpinnerInput}
+	{onSpinnerBlur}
+	{onSpinnerFocus}
 />
 `;
 };

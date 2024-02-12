@@ -131,7 +131,7 @@
 									name={label}
 									value={value.toString()}
 									id="{id}-{rowIndex}-{cellIndex}"
-									onChange={inputChangeHandler} />
+									onRadioChange={inputChangeHandler} />
 							</td>
 						{/each}
 					</tr>
@@ -141,7 +141,7 @@
 				<Button
 					size={'small'}
 					type="reset"
-					onClick={clearButtonClickHandler}>
+					onButtonClick={clearButtonClickHandler}>
 					{definitions.scoringResetButton}
 				</Button>
 			</tfoot>

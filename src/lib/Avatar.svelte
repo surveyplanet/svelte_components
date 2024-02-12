@@ -20,12 +20,13 @@
 		id?: string;
 		size?: 'small' | 'medium' | 'large';
 		disabled?: boolean;
-		onClick?: (e: MouseEvent) => void;
+		onAvatarClick?: (e: MouseEvent) => void;
 	};
 </script>
 
 <script lang="ts">
-	let { profileImage, id, size, disabled, onClick } = $props<AvatarProps>();
+	let { profileImage, id, size, disabled, onAvatarClick } =
+		$props<AvatarProps>();
 
 	// mascot should return a type that is a key of MASCOTS
 	const mascots = Object.keys(MASCOTS).map((key) => {
@@ -62,8 +63,8 @@
 			return;
 		}
 
-		if (typeof onClick === 'function') {
-			onClick(e);
+		if (typeof onAvatarClick === 'function') {
+			onAvatarClick(e);
 		}
 	}
 </script>

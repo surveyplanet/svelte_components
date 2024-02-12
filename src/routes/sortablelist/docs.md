@@ -1,11 +1,9 @@
 ### Properties
 
-### `SortListProps`
 
-| Property | Type             | Description                      | Default |
-| -------- | ---------------- | -------------------------------- | ------- |
-| `data`   | `SortListData[]` | The array of items to be sorted. |         |
-
+| Property | Type             | Description                      |
+| -------- | ---------------- | -------------------------------- |
+| `data`   | `SortListData[]` | The array of items to be sorted. |
 ### Callbacks
 
 | Name     | Description                          | Arguments              |
@@ -14,7 +12,7 @@
 
 ### Interfaces
 
-### `SortListData`
+##### `SortListData`
 
 | Property | Type       | Description                                |
 | -------- | ---------- | ------------------------------------------ |

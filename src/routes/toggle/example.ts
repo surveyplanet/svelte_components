@@ -10,7 +10,7 @@ export default (
 	return `<script>
 	import { Toggle } from '@surveyplanet/svelte-components';
 
-	function changeEventHandler(on) {
+	function onToggle(on) {
 		if (on) {
 			console.log('Toggle ON 🎉');
 		} else {
@@ -27,7 +27,7 @@ export default (
 	name='${name}'
 	label='${label}'
 	prependLabel={${prependLabel}}
-	onChange={changeEventHandler}
+	{onToggle}
 	/>
 `;
 };

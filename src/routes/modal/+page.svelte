@@ -12,19 +12,19 @@
 	let visible = $state(false);
 	let size: 'small' | 'medium' | 'large' = $state('medium');
 
-	const modalOpened = (): void => {
+	const onModalIntroStart = (): void => {
 		events.push('open');
 	};
 
-	const modalIn = (): void => {
+	const onModalIntroEnd = (): void => {
 		events.push('in');
 	};
 
-	const modalOut = (): void => {
+	const onModalOutroStart = (): void => {
 		events.push('out');
 	};
 
-	const close = () => {
+	const onModalOutroEnd = () => {
 		events.push('close');
 	};
 </script>
@@ -60,10 +60,10 @@
 		<Modal
 			bind:visible
 			{size}
-			onIntroStart={modalOpened}
-			onIntroEnd={modalIn}
-			onOutroStart={modalOut}
-			onOutroEnd={close}
+			{onModalIntroStart}
+			{onModalIntroEnd}
+			{onModalOutroStart}
+			{onModalOutroEnd}
 			{title}
 			{subtitle}
 			{fullscreen}
@@ -87,7 +87,7 @@
 		</Modal>
 		<div class="button-for-tests">
 			<Button
-				onClick={() => {
+				onButtonClick={() => {
 					visible = true;
 				}}>Launch modal</Button>
 		</div>

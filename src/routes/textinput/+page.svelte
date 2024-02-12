@@ -20,19 +20,27 @@
 	let validationMessage: string = $state('');
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
-	const changeHandler = (): void => {
+	const onTextInputChange = (): void => {
 		events.push('change');
 	};
 
-	const focusHandler = () => {
+	const onTextInputInput = (): void => {
+		events.push('input');
+	};
+
+	const onTextInputBlur = (): void => {
+		events.push('Blur');
+	};
+
+	const onTextInputFocus = () => {
 		events.push('focus');
 	};
 
-	const keydownHandler = () => {
+	const onTextInputKeydown = () => {
 		events.push('keydown');
 	};
 
-	const keyupHandler = () => {
+	const onTextInputKeyup = () => {
 		events.push('keyup');
 	};
 
@@ -125,10 +133,12 @@
 			{validationRules}
 			{validationMessage}
 			{size}
-			onChange={changeHandler}
-			onFocus={focusHandler}
-			onKeydown={keydownHandler}
-			onKeyup={keyupHandler} />
+			{onTextInputChange}
+			{onTextInputFocus}
+			{onTextInputKeydown}
+			{onTextInputKeyup}
+			{onTextInputBlur}
+			{onTextInputInput} />
 	{/snippet}
 </Layout>
 

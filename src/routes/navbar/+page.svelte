@@ -29,7 +29,7 @@
 	let navMenuData: MenuData[] = $state(menuData);
 	let vertical = $state(false);
 
-	const menuClickHandler = (id: string) => {
+	const onNavClick = (id: string) => {
 		events.push(id);
 	};
 
@@ -63,7 +63,7 @@
 			bind:data
 			bind:navMenuData
 			{vertical}
-			onClick={menuClickHandler} />
+			{onNavClick} />
 	{/snippet}
 </Layout>
 

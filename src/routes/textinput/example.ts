@@ -17,20 +17,34 @@ export default (
 ) => {
 	return `
 <script lang='ts'>
-
 	import { TextInput } from '@surveyplanet/svelte_components';
-
-	const keyupHandler = (event) => {
-		console.log(event.key);
-	};
-
+	const onTextInputInput = (value: string) => {
+		console.log(value);
+	}
+	const onTextInputBlur = () => {
+		console.log('blur');
+	}
+	const onTextInputChange = (value: string) => {
+		console.log(value);
+	}
+	const onTextInputFocus = () => {
+		console.log('focus');
+	}
+	const onTextInputKeydown = (event: KeyboardEvent) => {
+		console.log(event);
+	}
+	const onTextInputKeyup = (event: KeyboardEvent) => {
+		console.log(event);
+	}
 </script>
 
 <TextInput
-	onChange={changeHandler}
-	onFocus={focusHandler}
-	onkeydown={keydownHandler}
-	onKeyup={keyupHandler}
+	{onTextInputInput}
+	{onTextInputBlur}
+	{onTextInputChange}
+	{onTextInputFocus}
+	{onTextInputKeydown}
+	{onTextInputKeyup}
 	id='${id}'
 	name='${name}'
 	type='${type}'

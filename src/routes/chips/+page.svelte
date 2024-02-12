@@ -32,11 +32,10 @@
 	let multiSelect = $state(false);
 	let removable = $state(false);
 
-	const chipSelected = (data: ChipData[]): void => {
-		// data.forEach((chip) => events.push(chip));
+	const onChipsClick = (data: ChipData[]): void => {
 		events.push(data);
 	};
-	const chipRemoved = (data: ChipData[]): void => {
+	const onChipsRemove = (data: ChipData[]): void => {
 		events.push(data);
 	};
 
@@ -71,7 +70,7 @@
 			{selectable}
 			{multiSelect}
 			{removable}
-			onClick={chipSelected}
-			onRemove={chipRemoved} />
+			{onChipsClick}
+			{onChipsRemove} />
 	{/snippet}
 </Layout>

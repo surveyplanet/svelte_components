@@ -2,7 +2,7 @@ export default (label: string, formats: string[], maxSize: number) => {
 	return `
 <script lang = 'ts'>
 
-	const imageUploadHandler = (event) => {
+	const onUpload = (event) => {
 		console.log(event.detail);
 	};
 </script>
@@ -11,6 +11,6 @@ export default (label: string, formats: string[], maxSize: number) => {
 		label='${label}'
 		formats={${formats}}
 		maxSize={${maxSize}}
-		onChange={imageUploadHandler}
+		{onUpload}
 	/>`;
 };

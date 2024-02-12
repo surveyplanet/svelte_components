@@ -124,7 +124,7 @@
 	{#if layout === 'dropdown'}
 		<Dropdown
 			options={labels.map(getDropdownOption)}
-			onChange={dropdownChangeHandler} />
+			onDropdownChange={dropdownChangeHandler} />
 	{:else}
 		{#each labels as label}
 			<div>
@@ -134,7 +134,8 @@
 					value={label}
 					{label}
 					size="large"
-					onChange={inputChangeHandler} />
+					onRadioChange={inputChangeHandler}
+					onCheckboxChange={inputChangeHandler} />
 			</div>
 		{/each}
 		{#if other}
@@ -146,14 +147,15 @@
 					label={other}
 					checked={otherChecked}
 					size="large"
-					onChange={otherChangeHandler} />
+					onRadioChange={otherChangeHandler}
+					onCheckboxChange={otherChangeHandler} />
 				<TextInput
 					name={id}
 					id={id + '-text-input'}
 					placeholder={other}
 					size="large"
-					onInput={otherTextInputHandler}
-					onBlur={otherTextInputHandler} />
+					onTextInputInput={otherTextInputHandler}
+					onTextInputBlur={otherTextInputHandler} />
 			</div>
 		{/if}
 	{/if}

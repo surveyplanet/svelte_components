@@ -7,15 +7,15 @@
 | `value=null`         | string            | Selected value from the dropdown options.               |
 | `label=null`         | string            | Label for the dropdown.                                 |
 | `searchThreshold=15` | number            | Number of options to enable search functionality.       |
-| `disabled=false`     | boolean           | Disables the dropdown if `true`.                        |
-| `required=false`     | boolean           | Indicates if the dropdown is required.                  |
+| `disabled={false}`   | boolean           | Disables the dropdown if `true`.                        |
+| `required={false}`   | boolean           | Indicates if the dropdown is required.                  |
 | `size='small'`       | string            | Size of the dropdown: `'small'`, `'medium'`, `'large'`. |
 
 ### Callbacks
 
-| Name       | Description                                | Arguments                       |
-| ---------- | ------------------------------------------ | ------------------------------- |
-| `onChange` | Triggered when the dropdown value changes. | `value: DropdownOptions['id'] ` |
+| Name               | Description                                | Arguments                       |
+| ------------------ | ------------------------------------------ | ------------------------------- |
+| `onDropdownChange` | Triggered when the dropdown value changes. | `value: DropdownOptions['id'] ` |
 
 ### Interfaces
 

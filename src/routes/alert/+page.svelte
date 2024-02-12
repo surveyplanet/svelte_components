@@ -18,20 +18,19 @@
 		'Instructions on how to reset your password have been sent to: <strong style="color:black;">diego@studiovoila.com</strong>. If the email doesn’t arrive in the next 5 minutes check your spam folder.'
 	);
 
-	const openHandler = () => {
-		console.log('open');
+	const onAlertOpen = () => {
 		events.push('open');
 	};
-	const inHandler = () => {
+	const onAlertIn = () => {
 		events = ['in'];
 	};
-	const closeHandler = () => {
+	const onAlertClose = () => {
 		events = ['close'];
 	};
-	const outHandler = () => {
+	const onAlertOut = () => {
 		events = ['out'];
 	};
-	const confirmHandler = () => {
+	const onAlertConfirm = () => {
 		events = ['confirm'];
 	};
 </script>
@@ -84,11 +83,11 @@
 	{#snippet main()}
 		{#key keys}
 			<Alert
-				onOpen={openHandler}
-				onIn={inHandler}
-				onClose={closeHandler}
-				onOut={outHandler}
-				onConfirm={confirmHandler}
+				{onAlertOpen}
+				{onAlertIn}
+				{onAlertClose}
+				{onAlertOut}
+				{onAlertConfirm}
 				{title}
 				{subtitle}
 				{type}

@@ -18,7 +18,7 @@
 		size?: 'small' | 'medium' | 'large';
 		onMenuUpdate?: (id: string) => void;
 		onMenuClick?: (id: string) => void;
-		onBlur?: (event: FocusEvent) => void;
+		onMenuBlur?: (event: FocusEvent) => void;
 		header?: Snippet;
 		footer?: Snippet;
 	};
@@ -31,7 +31,7 @@
 	import { cubicOut } from 'svelte/easing';
 	// import { onMount } from 'svelte'; // use to set focus on mount
 
-	let { data, size, onMenuUpdate, onMenuClick, onBlur, header, footer } =
+	let { data, size, onMenuUpdate, onMenuClick, onMenuBlur, header, footer } =
 		$props<MenuProps>();
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
@@ -174,7 +174,7 @@
 	role="menu"
 	tabindex="0"
 	onkeydown={arrowClickHandler}
-	onblur={onBlur}>
+	onblur={onMenuBlur}>
 	<ul>
 		<li class="sp-menu--header">
 			{#if header}

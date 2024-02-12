@@ -1,4 +1,4 @@
-import type { AlertProps } from '../../src/lib/Alert.svelte';
+import type { AlertProps } from '$lib';
 
 export default (
 	title: string,
@@ -14,21 +14,21 @@ export default (
 <script lang="ts">
 	import { Alert } from '@surveyplanet/svelte-components';
 
-  const alertConfirmHandler = (e) => {
-    console.log('alertConfirmHandler', e.detail);
-  };
-
-  const alertOpenHandler = (e) => {
-    console.log('alertOpenHandler', e.detail);
-  };
-
-  const alertInputHandler = (e) => {
-    console.log('alertInputHandler', e.detail);
-  };
-
-  const alertCloseHandler = (e) => {
-    console.log('alertCloseHandler', e.detail);
-  };
+  const onAlertOpen = () => {
+		console.log('alert opened');
+	};
+	const onAlertIn = () => {
+		console.log('alert in');
+	};
+	const onAlertClose = () => {
+		console.log('alert closed');
+	};
+	const onAlertOut = () => {
+		console.log('alert out');
+	};
+	const onAlertConfirm = () => {
+		console.log('alert confirmed');
+	};
 </script>
 
 <Alert 
@@ -40,11 +40,11 @@ export default (
   confirmButtonLabel='${confirmButtonLabel}'
   cancelButtonLabel='${cancelButtonLabel}'
   challenge='${challenge}'
-  onConfirm={alertConfirmHandler}
-  onOpen={alertOpenHandler}
-  onInput={alertInputHandler}
-  onClose={alertCloseHandler}
-  onOut={alertOutHandler}>
-  	Alert body
+  {onAlertOpen}
+  {onAlertIn}
+  {onAlertClose}
+  {onAlertOut}
+  {onAlertConfirm}>
+   Alert body
 </Alert>`;
 };

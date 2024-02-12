@@ -18,7 +18,7 @@
 		disabled?: boolean;
 		required?: boolean;
 		size?: 'small' | 'medium' | 'large';
-		onChange?: (value: DropdownOptions['id']) => void;
+		onDropdownChange?: (value: DropdownOptions['id']) => void;
 	};
 </script>
 
@@ -34,7 +34,7 @@
 		disabled = false,
 		required = false,
 		size = 'small',
-		onChange,
+		onDropdownChange,
 	} = $props<DropdownProps>();
 
 	let input: HTMLInputElement | undefined = $state(undefined);
@@ -67,8 +67,8 @@
 				displayValue = item.label;
 			}
 		}
-		if (!silent && onChange) {
-			onChange(value);
+		if (!silent && onDropdownChange) {
+			onDropdownChange(value);
 		}
 	};
 	// const change = new Event('change');

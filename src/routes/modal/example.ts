@@ -9,16 +9,16 @@ export default (
 	return `
 <script>
 import {Modal} from '@surveyplanet/svelte_components';
-const openHandler = (event:CustomEvent) {
+const onModalIntroStart = (event:CustomEvent) {
 	console.log('Modal opened:', event.detail);
 }
-const inHandler = (event:CustomEvent) {
+const onModalIntroEnd = (event:CustomEvent) {
 	console.log('Modal in:', event.detail);
 }
-const outHandler = (event:CustomEvent) {
+const onModalOutroStart = (event:CustomEvent) {
 	console.log('Modal out:', event.detail);
 }
-const closeHandler = (event:CustomEvent) {
+const onModalOutroEnd = (event:CustomEvent) {
 	console.log('Modal closed:', event.detail);
 }
 </script>
@@ -30,10 +30,10 @@ const closeHandler = (event:CustomEvent) {
 	subtitle='${subtitle}'
 	fullscreen={${fullscreen}}
 	overlay={${overlay}}
-	onOpen={openHandler}
-	onIn={inHandler}
-	onOut={outHandler}
-	onClose={closeHandler}>
+	{onModalIntroStart}
+	{onModalIntroEnd}
+	{onModalOutroStart}
+	{onModalOutroEnd}>
 
 	{#snippet header()}
 	<p>

@@ -24,12 +24,12 @@
 		validationMessage?: string | null;
 		size?: 'small' | 'medium' | 'large';
 		validationHideMessage?: boolean | null;
-		onInput?: (e: Event) => void;
-		onBlur?: (e: Event) => void;
-		onChange?: (e: Event) => void;
-		onFocus?: (e: Event) => void;
-		onKeydown?: (e: Event) => void;
-		onKeyup?: (e: Event) => void;
+		onTextInputInput?: (e: Event) => void;
+		onTextInputBlur?: (e: Event) => void;
+		onTextInputChange?: (e: Event) => void;
+		onTextInputFocus?: (e: Event) => void;
+		onTextInputKeydown?: (e: Event) => void;
+		onTextInputKeyup?: (e: Event) => void;
 	};
 </script>
 
@@ -54,12 +54,12 @@
 		validationMessage,
 		size = 'small',
 		validationHideMessage,
-		onInput,
-		onBlur,
-		onChange,
-		onFocus,
-		onKeydown,
-		onKeyup,
+		onTextInputInput,
+		onTextInputBlur,
+		onTextInputChange,
+		onTextInputFocus,
+		onTextInputKeydown,
+		onTextInputKeyup,
 	} = $props<TextInputProps>();
 
 	let hasValidationErrors = $state(false);
@@ -90,15 +90,15 @@
 	const changeHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		validateInput(target);
-		if (!hasValidationErrors && typeof onChange === 'function') {
-			onChange(event);
+		if (!hasValidationErrors && typeof onTextInputChange === 'function') {
+			onTextInputChange(event);
 		}
 	};
 	const inputHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		validateInput(target);
-		if (!hasValidationErrors && typeof onInput === 'function') {
-			onInput(event);
+		if (!hasValidationErrors && typeof onTextInputInput === 'function') {
+			onTextInputInput(event);
 		}
 	};
 
@@ -115,7 +115,7 @@
 				return;
 			}
 		}
-		if (onKeyup) onKeyup(event);
+		if (onTextInputKeyup) onTextInputKeyup(event);
 	};
 
 	const passwordButtonClickHandler = () => {
@@ -158,10 +158,10 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			onblur={onBlur}
+			onblur={onTextInputBlur}
 			onchange={changeHandler}
-			onfocus={onFocus}
-			onkeydown={onKeydown}
+			onfocus={onTextInputFocus}
+			onkeydown={onTextInputKeydown}
 			onkeyup={onkeyupHandler} />
 		{#if value?.length}
 			<button
@@ -184,10 +184,10 @@
 			{readonly}
 			bind:value
 			oninput={inputHandler}
-			onblur={onBlur}
+			onblur={onTextInputBlur}
 			onchange={changeHandler}
-			onfocus={onFocus}
-			onkeydown={onKeydown}
+			onfocus={onTextInputFocus}
+			onkeydown={onTextInputKeydown}
 			onkeyup={onkeyupHandler} />
 
 		<span class="sp-text-input--search-icon">
@@ -210,10 +210,10 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			onblur={onBlur}
+			onblur={onTextInputBlur}
 			onchange={changeHandler}
-			onfocus={onFocus}
-			onkeydown={onKeydown}
+			onfocus={onTextInputFocus}
+			onkeydown={onTextInputKeydown}
 			onkeyup={onkeyupHandler} />
 	{:else if type === 'time'}
 		<input
@@ -230,10 +230,10 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			onblur={onBlur}
+			onblur={onTextInputBlur}
 			onchange={changeHandler}
-			onfocus={onFocus}
-			onkeydown={onKeydown}
+			onfocus={onTextInputFocus}
+			onkeydown={onTextInputKeydown}
 			onkeyup={onkeyupHandler} />
 	{:else if type === 'datetime-local'}
 		<input
@@ -250,10 +250,10 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			onblur={onBlur}
+			onblur={onTextInputBlur}
 			onchange={changeHandler}
-			onfocus={onFocus}
-			onkeydown={onKeydown}
+			onfocus={onTextInputFocus}
+			onkeydown={onTextInputKeydown}
 			onkeyup={onkeyupHandler} />
 	{:else if type === 'multiline'}
 		<textarea
@@ -269,10 +269,10 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			onblur={onBlur}
+			onblur={onTextInputBlur}
 			onchange={changeHandler}
-			onfocus={onFocus}
-			onkeydown={onKeydown}
+			onfocus={onTextInputFocus}
+			onkeydown={onTextInputKeydown}
 			onkeyup={onkeyupHandler}></textarea>
 	{:else}
 		<input
@@ -289,10 +289,10 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			onblur={onBlur}
+			onblur={onTextInputBlur}
 			onchange={changeHandler}
-			onfocus={onFocus}
-			onkeydown={onKeydown}
+			onfocus={onTextInputFocus}
+			onkeydown={onTextInputKeydown}
 			onkeyup={onkeyupHandler} />
 	{/if}
 	{#if !validationHideMessage && hasValidationErrors && validationDisplayMessage.length}

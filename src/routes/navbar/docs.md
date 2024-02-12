@@ -1,18 +1,20 @@
 ### Properties
 
-| Property      | Type           | Description                                         | Default |
-| ------------- | -------------- | --------------------------------------------------- | ------- |
-| `data`        | `NavBarData[]` | Array of data for individual navigation items.      |         |
-| `navMenuData` | `MenuData[]`   | Array of data for the navigation menu (optional).   |         |
-| `vertical`    | `boolean`      | Indicates if the NavBar is in vertical orientation. | `false` |
+| Property           | Type           | Description                                         |
+| ------------------ | -------------- | --------------------------------------------------- |
+| `data`             | `NavBarData[]` | Array of data for individual navigation items.      |
+| `navMenuData`      | `MenuData[]`   | Array of data for the navigation menu (optional).   |
+| `vertical={false}` | `boolean`      | Indicates if the NavBar is in vertical orientation. |
 
 ### Callbacks
 
-| Name      | Description                                         | Arguments    |
-| --------- | --------------------------------------------------- | ------------ |
-| `onClick` | Event handler for individual navigation item click. | `id: string` |
+| Name         | Description                                         | Arguments    |
+| ------------ | --------------------------------------------------- | ------------ |
+| `onNavClick` | Event handler for individual navigation item click. | `id: string` |
 
-### `NavBarData`
+### Interfaces
+
+#### `NavBarData`
 
 | Property | Type       | Description                                |
 | -------- | ---------- | ------------------------------------------ |

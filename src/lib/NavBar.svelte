@@ -14,7 +14,7 @@
 		data: NavBarData[];
 		navMenuData?: MenuData[];
 		vertical?: boolean;
-		onClick?: (id: string) => void;
+		onNavClick?: (id: string) => void;
 	};
 </script>
 
@@ -27,7 +27,7 @@
 		data,
 		navMenuData,
 		vertical = false,
-		onClick,
+		onNavClick,
 	} = $props<NavBarProps>();
 
 	let menuVisible = $state(false);
@@ -39,8 +39,8 @@
 		} else {
 			e.preventDefault();
 			e.stopPropagation();
-			if (typeof onClick === 'function') {
-				onClick(target.id);
+			if (typeof onNavClick === 'function') {
+				onNavClick(target.id);
 			}
 		}
 	};
@@ -64,7 +64,7 @@
 
 	const menuClickHandler = (id: string) => {
 		menuVisible = false;
-		if (onClick) onClick(id);
+		if (onNavClick) onNavClick(id);
 	};
 
 	const [floatingRef, floatingContent] = createFloatingActions({

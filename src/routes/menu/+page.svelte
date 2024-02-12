@@ -51,7 +51,7 @@
 		<div class="wrapper">
 			<Button
 				action={true}
-				onClick={buttonClickHandler}>
+				onButtonClick={buttonClickHandler}>
 				<Icon
 					name="plus"
 					color="white" />

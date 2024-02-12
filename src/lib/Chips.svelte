@@ -12,8 +12,8 @@
 		selectable: boolean;
 		multiSelect?: boolean;
 		removable?: boolean;
-		onClick?: (data: ChipData[]) => void;
-		onRemove?: (data: ChipData[]) => void;
+		onChipsClick?: (data: ChipData[]) => void;
+		onChipsRemove?: (data: ChipData[]) => void;
 	};
 </script>
 
@@ -24,8 +24,8 @@
 		selectable = false,
 		multiSelect = false,
 		removable = false,
-		onClick,
-		onRemove,
+		onChipsClick,
+		onChipsRemove,
 	} = $props<ChipsProps>();
 
 	const getChipId = (chipEl: HTMLButtonElement) => {
@@ -35,7 +35,7 @@
 
 	const removeHandler = (id: string) => {
 		data = data.filter((chip) => chip.id !== id);
-		if (onRemove) onRemove(data);
+		if (onChipsRemove) onChipsRemove(data);
 	};
 
 	const toggle = (id: string) => {
@@ -48,7 +48,7 @@
 			return chip;
 		});
 
-		if (onClick) onClick(data);
+		if (onChipsClick) onChipsClick(data);
 	};
 
 	const chipClickHandler = (e: MouseEvent) => {

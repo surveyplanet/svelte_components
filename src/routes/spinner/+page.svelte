@@ -19,8 +19,24 @@
 	let dragSpeed = $state(10);
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
-	const spinnerEventHandler = (value: number | undefined) => {
+	const onSpinnerChange = (value: number | undefined) => {
 		events.push(value);
+	};
+
+	const onSpinnerUpdate = (value: number | undefined) => {
+		events.push(value);
+	};
+
+	const onSpinnerInput = (value: number | undefined) => {
+		events.push(value);
+	};
+
+	const onSpinnerBlur = () => {
+		events.push('blur');
+	};
+
+	const onSpinnerFocus = () => {
+		events.push('focus');
 	};
 </script>
 
@@ -97,7 +113,11 @@
 			{placeholder}
 			{dragSpeed}
 			{size}
-			onChange={spinnerEventHandler} />
+			{onSpinnerChange}
+			{onSpinnerUpdate}
+			{onSpinnerInput}
+			{onSpinnerBlur}
+			{onSpinnerFocus} />
 	{/snippet}
 </Layout>
 
