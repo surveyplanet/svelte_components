@@ -1,24 +1,24 @@
 <script
 	lang="ts"
 	context="module">
-	export interface DropdownOptions {
+	export interface DropdownOption {
 		label: string;
 		id: string;
 		meta?: string;
 		selected?: boolean;
-		submenu?: DropdownOptions[];
+		submenu?: DropdownOption[];
 	}
 
 	export type DropdownProps = {
-		options: DropdownOptions[];
+		options: DropdownOption[];
 		placeholder?: string;
-		value?: DropdownOptions['id'];
+		value?: DropdownOption['id'];
 		label?: string;
 		searchThreshold?: number;
 		disabled?: boolean;
 		required?: boolean;
 		size?: 'small' | 'medium' | 'large';
-		onDropdownChange?: (value: DropdownOptions['id']) => void;
+		onDropdownChange?: (value: DropdownOption['id']) => void;
 	};
 </script>
 
@@ -39,7 +39,7 @@
 
 	let input: HTMLInputElement | undefined = $state(undefined);
 	let visible = $state(false);
-	let displayValue: DropdownOptions['label'] | '' = $state('');
+	let displayValue: DropdownOption['label'] | '' = $state('');
 
 	let searchable = options.length >= searchThreshold;
 	let menuData = $state([...options]);

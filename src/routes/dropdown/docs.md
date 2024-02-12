@@ -13,18 +13,18 @@
 
 ### Callbacks
 
-| Name               | Description                                | Arguments                       |
-| ------------------ | ------------------------------------------ | ------------------------------- |
-| `onDropdownChange` | Triggered when the dropdown value changes. | `value: DropdownOptions['id'] ` |
+| Name               | Description                                | Arguments                      |
+| ------------------ | ------------------------------------------ | ------------------------------ |
+| `onDropdownChange` | Triggered when the dropdown value changes. | `value: DropdownOption['id'] ` |
 
 ### Interfaces
 
-#### `DropdownOptions`
+#### `DropdownOption`
 
-| Property   | Type              | Description                                       |
-| ---------- | ----------------- | ------------------------------------------------- |
-| `label`    | string            | Label for the dropdown option.                    |
-| `id`       | string            | Identifier for the dropdown option.               |
-| `meta`     | string            | Additional metadata for the dropdown option.      |
-| `selected` | boolean           | Indicates if the dropdown option is selected.     |
-| `submenu`  | DropdownOptions[] | Array of submenu options for the dropdown option. |
+| Property   | Type             | Description                                       |
+| ---------- | ---------------- | ------------------------------------------------- |
+| `label`    | string           | Label for the dropdown option.                    |
+| `id`       | string           | Identifier for the dropdown option.               |
+| `meta`     | string           | Additional metadata for the dropdown option.      |
+| `selected` | boolean          | Indicates if the dropdown option is selected.     |
+| `submenu`  | DropdownOption[] | Array of submenu options for the dropdown option. |

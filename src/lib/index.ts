@@ -25,7 +25,7 @@ export {
 } from './Chips.svelte';
 export {
 	default as Dropdown,
-	type DropdownOptions,
+	type DropdownOption,
 	type DropdownProps,
 } from './Dropdown.svelte';
 export {

@@ -1,11 +1,11 @@
-import type { DropdownOptions } from '$lib';
+import type { DropdownOption } from '$lib';
 
 export default (
-	options: DropdownOptions[],
+	options: DropdownOption[],
 	searchThreshold: number,
 	disabled: boolean,
 	required: boolean,
-	value: DropdownOptions['id'],
+	value: DropdownOption['id'],
 	placeholder: string,
 	label: string,
 	size: 'small' | 'medium' | 'large'

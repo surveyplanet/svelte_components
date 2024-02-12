@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Dropdown, type DropdownOptions } from '$lib';
+	import { Dropdown, type DropdownOption } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -7,7 +7,7 @@
 
 	let keys = $state(0);
 
-	let options: DropdownOptions[] = $state([
+	let options: DropdownOption[] = $state([
 		// {
 		// 	label: 'None',
 		// 	id: '',
