@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import type { DropdownOptions } from '$lib/Dropdown.svelte';
+import type { DropdownOption } from '$lib/Dropdown.svelte';
 
 const directoryPath = './src/lib'; // specify the path to the directory here
 
@@ -10,7 +10,7 @@ export const load = () => {
 };
 
 const getComponentsList = (dirPath: string, parentId = '') => {
-	const componentsList: DropdownOptions[] = [];
+	const componentsList: DropdownOption[] = [];
 
 	const items = fs.readdirSync(dirPath);
 

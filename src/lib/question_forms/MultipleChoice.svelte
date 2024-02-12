@@ -18,7 +18,7 @@
 		MultipleChoiceValue,
 		MultipleChoiceProperties,
 	} from '@surveyplanet/types';
-	import type { DropdownOptions } from '$lib/Dropdown.svelte';
+	import type { DropdownOption } from '$lib/Dropdown.svelte';
 	import { Checkbox, Radio, Dropdown, TextInput } from '../';
 
 	// export let min: MultipleChoiceProperties['min'];
@@ -98,7 +98,7 @@
 		onMultipleChoiceResponse(response);
 	};
 
-	const dropdownChangeHandler = (label: DropdownOptions['id']) => {
+	const dropdownChangeHandler = (label: DropdownOption['id']) => {
 		const value = {
 			label: label,
 			value: true,

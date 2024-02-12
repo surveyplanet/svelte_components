@@ -1,6 +1,6 @@
 // import { writable } from 'svelte/store';
-import type { DropdownOptions } from '$lib';
-let componentsStore = $state<DropdownOptions[]>();
+import type { DropdownOption } from '$lib';
+let componentsStore = $state<DropdownOption[]>();
 export const createComponentsStore = {
 	get componentsStore() {
 		if (componentsStore === undefined) {
@@ -8,7 +8,7 @@ export const createComponentsStore = {
 		}
 		return componentsStore;
 	},
-	set componentsStore(componentsData: DropdownOptions[]) {
+	set componentsStore(componentsData: DropdownOption[]) {
 		componentsStore = componentsData;
 	},
 };
