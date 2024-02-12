@@ -1,4 +1,4 @@
-import type { AlertProps } from '../../src/lib/Alert.svelte';
+import type { AlertProps } from '$lib';
 
 export default (
 	title: string,
