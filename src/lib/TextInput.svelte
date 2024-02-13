@@ -24,13 +24,12 @@
 		validationMessage?: string | null;
 		size?: 'small' | 'medium' | 'large';
 		validationHideMessage?: boolean | null;
-		focus?: boolean;
 		onTextInputInput?: (e: Event) => void;
-		onTextInputBlur?: (e: FocusEvent) => void;
+		onTextInputBlur?: (e: Event) => void;
 		onTextInputChange?: (e: Event) => void;
-		onTextInputFocus?: (e: FocusEvent) => void;
-		onTextInputKeydown?: (e: KeyboardEvent) => void;
-		onTextInputKeyup?: (e: KeyboardEvent) => void;
+		onTextInputFocus?: (e: Event) => void;
+		onTextInputKeydown?: (e: Event) => void;
+		onTextInputKeyup?: (e: Event) => void;
 	};
 </script>
 
@@ -55,7 +54,6 @@
 		validationMessage,
 		size = 'small',
 		validationHideMessage,
-		focus,
 		onTextInputInput,
 		onTextInputBlur,
 		onTextInputChange,
@@ -67,10 +65,6 @@
 	let hasValidationErrors = $state(false);
 
 	let validationDisplayMessage = $state('');
-
-	let input = $state<undefined | HTMLInputElement | HTMLTextAreaElement>(
-		undefined
-	);
 
 	onMount(() => {
 		if (
@@ -84,14 +78,6 @@
 		// console.log('--->', value);
 	});
 
-	$effect(() => {
-		if (focus) {
-			if (input) {
-				input.focus();
-			}
-		}
-	});
-
 	const validateInput = (target: HTMLInputElement) => {
 		const errors: ValidatorError[] = validate(target);
 
@@ -101,9 +87,6 @@
 		}
 	};
 
-	const blurHandler = (event: FocusEvent) => {
-		if (onTextInputFocus) onTextInputFocus(event);
-	};
 	const changeHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		validateInput(target);
@@ -119,7 +102,7 @@
 		}
 	};
 
-	const onkeyupHandler = (event: KeyboardEvent) => {
+	const onkeyupHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		// if the input has errors validate on keyup
 		if (hasValidationErrors) {
@@ -162,7 +145,6 @@
 
 	{#if type === 'password'}
 		<input
-			bind:this={input}
 			class="sp-text-input--input"
 			{name}
 			type="password"
@@ -193,7 +175,6 @@
 		{/if}
 	{:else if type === 'search'}
 		<input
-			bind:this={input}
 			class="sp-text-input--input"
 			{name}
 			type="search"
@@ -203,7 +184,7 @@
 			{readonly}
 			bind:value
 			oninput={inputHandler}
-			onblur={blurHandler}
+			onblur={onTextInputBlur}
 			onchange={changeHandler}
 			onfocus={onTextInputFocus}
 			onkeydown={onTextInputKeydown}
@@ -216,7 +197,6 @@
 		</span>
 	{:else if type === 'date'}
 		<input
-			bind:this={input}
 			class="sp-text-input--input"
 			{name}
 			type="date"
@@ -230,14 +210,13 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			onblur={blurHandler}
+			onblur={onTextInputBlur}
 			onchange={changeHandler}
 			onfocus={onTextInputFocus}
 			onkeydown={onTextInputKeydown}
 			onkeyup={onkeyupHandler} />
 	{:else if type === 'time'}
 		<input
-			bind:this={input}
 			class="sp-text-input--input"
 			{name}
 			type="time"
@@ -251,14 +230,13 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			onblur={blurHandler}
+			onblur={onTextInputBlur}
 			onchange={changeHandler}
 			onfocus={onTextInputFocus}
 			onkeydown={onTextInputKeydown}
 			onkeyup={onkeyupHandler} />
 	{:else if type === 'datetime-local'}
 		<input
-			bind:this={input}
 			class="sp-text-input--input"
 			{name}
 			type="datetime-local"
@@ -272,14 +250,13 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			onblur={blurHandler}
+			onblur={onTextInputBlur}
 			onchange={changeHandler}
 			onfocus={onTextInputFocus}
 			onkeydown={onTextInputKeydown}
 			onkeyup={onkeyupHandler} />
 	{:else if type === 'multiline'}
 		<textarea
-			bind:this={input}
 			class="sp-text-input--textarea"
 			{name}
 			{id}
@@ -292,14 +269,13 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			onblur={blurHandler}
+			onblur={onTextInputBlur}
 			onchange={changeHandler}
 			onfocus={onTextInputFocus}
 			onkeydown={onTextInputKeydown}
 			onkeyup={onkeyupHandler}></textarea>
 	{:else}
 		<input
-			bind:this={input}
 			class="sp-text-input--input"
 			{name}
 			type="text"
@@ -313,7 +289,7 @@
 				: null}
 			data-validate-message={validationMessage}
 			oninput={inputHandler}
-			onblur={blurHandler}
+			onblur={onTextInputBlur}
 			onchange={changeHandler}
 			onfocus={onTextInputFocus}
 			onkeydown={onTextInputKeydown}
