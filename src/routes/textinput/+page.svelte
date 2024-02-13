@@ -55,7 +55,7 @@
 
 <Layout
 	component="TextInput"
-	example={source(
+	example={source({
 		id,
 		name,
 		type,
@@ -67,8 +67,8 @@
 		cleaveOptions,
 		validationRules,
 		validationMessage,
-		size
-	)}
+		size,
+	})}
 	{md}
 	bind:events>
 	{#snippet controls()}

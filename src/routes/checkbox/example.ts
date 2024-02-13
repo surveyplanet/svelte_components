@@ -1,11 +1,7 @@
+import type { CheckboxProps } from "$lib";
+
 export default (
-	id: string,
-	name: string,
-	value: string,
-	checked: boolean,
-	disabled: boolean,
-	prependLabel: boolean,
-	size: 'small' | 'medium' | 'large'
+ data: CheckboxProps
 ) => {
 	return `
 <script>
@@ -17,13 +13,13 @@ export default (
 </script>
 
 <Checkbox
-	id='${id}'
-	name='${name}'
-	value='${value}'
-	checked={${checked}}
-	disabled={${disabled}}
-	prependLabel={${prependLabel}}
-	size='${size}'
+	id='${data.id}'
+	name='${data.name}'
+	value='${data.value}'
+	checked={${data.checked}}
+	disabled={${data.disabled}}
+	prependLabel={${data.prependLabel}}
+	size='${data.size}'
 	{onCheckboxChange}/>
 `;
 };

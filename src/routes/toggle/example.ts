@@ -1,11 +1,7 @@
+import type { ToggleProps } from "$lib";
+
 export default (
-	id: string,
-	on: boolean,
-	disabled: boolean,
-	tall: boolean,
-	name: string,
-	label: string,
-	prependLabel: boolean
+	data: ToggleProps
 ) => {
 	return `<script>
 	import { Toggle } from '@surveyplanet/svelte-components';
@@ -20,13 +16,13 @@ export default (
 </script>
 
 <Toggle	
-	id='${id}'
-	on={${on}}
-	disabled={${disabled}}
-	tall={${tall}}
-	name='${name}'
-	label='${label}'
-	prependLabel={${prependLabel}}
+	id='${data.id}'
+	on={${data.on}}
+	disabled={${data.disabled}}
+	tall={${data.tall}}
+	name='${data.name}'
+	label='${data.label}'
+	prependLabel={${data.prependLabel}}
 	{onToggle}
 	/>
 `;

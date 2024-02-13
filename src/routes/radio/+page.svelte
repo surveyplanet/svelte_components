@@ -7,7 +7,7 @@
 	let id = 'radio';
 	let events = $state<string[]>([]);
 	let name = $state('stooge');
-	let labelOne = $state('Harry');
+	let label = $state('Harry');
 	let labelTwo = $state('Larry');
 	let labelThree = $state('Moe');
 	let disabled = $state(false);
@@ -21,7 +21,7 @@
 
 <Layout
 	component="Radio"
-	example={source(id, name, labelOne, disabled, prependLabel, size)}
+	example={source({ id, name, label, disabled, prependLabel, size })}
 	{md}
 	bind:events>
 	{#snippet controls()}
@@ -30,7 +30,7 @@
 			bind:value={name} />
 		<PropsChanger
 			label="Label One"
-			bind:value={labelOne} />
+			bind:value={label} />
 		<PropsChanger
 			label="Label Two"
 			bind:value={labelTwo} />
@@ -51,11 +51,11 @@
 	{#snippet main()}
 		<div id="wrapper">
 			<Radio
-				id={labelOne.toLowerCase().replace(' ', '-')}
+				id={label.toLowerCase().replace(' ', '-')}
 				{disabled}
 				{name}
-				value={labelOne}
-				label={labelOne}
+				value={label}
+				{label}
 				{prependLabel}
 				{size}
 				{onRadioChange} />

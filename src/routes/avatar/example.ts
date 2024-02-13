@@ -1,8 +1,6 @@
+import { type AvatarProps } from "$lib";
 export default (
-	id: string,
-	profileImage: string,
-	size: 'small' | 'medium' | 'large' | undefined,
-	disabled: boolean
+	data: AvatarProps 
 ) => {
 	return `
 <script lang="ts">
@@ -14,10 +12,10 @@ export default (
 </script>
 
 <Avatar
-    id='${id}'
-    size='${size}'
-    disabled={${disabled}}
-    profileImage='${profileImage}'
+    id='${data.id}'
+    size='${data.size}'
+    disabled={${data.disabled}}
+    profileImage='${data.profileImage}'
     {onAvatarClick}
 </Avatar>
 `;

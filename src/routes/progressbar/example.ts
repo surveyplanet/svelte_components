@@ -1,18 +1,17 @@
+import type { ProgressBarProps } from "$lib";
+
 export default (
-	speed: number,
-	max: number,
-	value: number,
-	displayValue: boolean
+	data: ProgressBarProps
 ) => {
 	return `
 <script>
 	import { ProgressBar } from '@surveyplanet/svelte_components';
 </script>
 <ProgressBar
-	speed={${speed}}
-	max={${max}}
-	value={${value}}
-	displayValue={${displayValue}}
+	speed={${data.speed}}
+	max={${data.max}}
+	value={${data.value}}
+	displayValue={${data.displayValue}}
 	/>
 `;
 };

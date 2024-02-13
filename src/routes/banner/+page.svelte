@@ -17,7 +17,7 @@
 <!-- eslint-disable svelte/no-at-html-tags -->
 <Layout
 	component="Banner"
-	example={source(content, title, type, visible, hideDelay)}
+	example={source({ content, title, type, visible, hideDelay })}
 	{md}
 	bind:events>
 	{#snippet controls()}

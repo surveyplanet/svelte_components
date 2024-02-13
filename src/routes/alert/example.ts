@@ -1,14 +1,7 @@
 import type { AlertProps } from '$lib';
 
 export default (
-	title: string,
-	subtitle: string,
-	type: AlertProps['type'],
-	hideDelay: number,
-	confirm: boolean,
-	confirmButtonLabel: string,
-	cancelButtonLabel: string,
-	challenge: string
+	data: AlertProps 
 ) => {
 	return `
 <script lang="ts">
@@ -32,14 +25,14 @@ export default (
 </script>
 
 <Alert 
-  title='${title}'
-  subtitle='${subtitle}'
-  type='${type}'
-  hideDelay={${hideDelay}}
-  confirm={${confirm}}
-  confirmButtonLabel='${confirmButtonLabel}'
-  cancelButtonLabel='${cancelButtonLabel}'
-  challenge='${challenge}'
+  title='${data.title}'
+  subtitle='${data.subtitle}'
+  type='${data.type}'
+  hideDelay={${data.hideDelay}}
+  confirm={${data.confirm}}
+  confirmButtonLabel='${data.confirmButtonLabel}'
+  cancelButtonLabel='${data.cancelButtonLabel}'
+  challenge='${data.challenge}'
   {onAlertOpen}
   {onAlertIn}
   {onAlertClose}

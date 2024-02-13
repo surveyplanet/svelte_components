@@ -13,7 +13,7 @@
 
 <Layout
 	component="ProgressBar"
-	example={source(speed, max, value, displayValue)}
+	example={source({ speed, max, value, displayValue })}
 	{md}
 	bind:events>
 	{#snippet controls()}

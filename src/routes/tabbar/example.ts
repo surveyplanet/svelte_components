@@ -1,15 +1,18 @@
-import type { TabBarData } from '$lib';
+import type { TabBarProps } from '$lib';
 
-export default (data: TabBarData[], grow: boolean, id: string) => {
+export default (
+	data: TabBarProps
+
+) => {
 	return `
 <script>
 	import {type TabBarData, TabBar} from '@surveyplanet/svelte_components';
 </script>
 
 <TabBar 
-	grow='${id}' 
-	id={${grow}} 
-	data={${JSON.stringify(data, null, 2)}}
+	grow='${data.id}' 
+	id={${data.block}} 
+	data={${JSON.stringify(data.data, null, 2)}}
 />
 
 `;

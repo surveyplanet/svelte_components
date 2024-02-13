@@ -20,7 +20,7 @@
 
 <Layout
 	component="Essay"
-	example={source(id, min, max, single, response)}
+	example={source({ id, min, max, single, response })}
 	{md}
 	bind:events>
 	{#snippet controls()}

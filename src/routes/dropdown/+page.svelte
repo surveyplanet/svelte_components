@@ -70,16 +70,16 @@
 
 <Layout
 	component="Dropdown"
-	example={source(
+	example={source({
 		options,
 		searchThreshold,
 		disabled,
 		required,
-		value!,
+		value,
 		placeholder,
 		label,
-		size
-	)}
+		size,
+	})}
 	{md}
 	bind:events>
 	{#snippet controls()}

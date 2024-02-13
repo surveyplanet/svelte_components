@@ -9,7 +9,7 @@
 		random?: MultipleChoiceProperties['random'];
 		other?: MultipleChoiceProperties['other'];
 		response?: MultipleChoiceValue[];
-		onMultipleChoiceResponse: (response: MultipleChoiceValue[]) => void;
+		onMultipleChoiceResponse?: (response: MultipleChoiceValue[]) => void;
 	};
 </script>
 
@@ -67,7 +67,7 @@
 			value: true,
 		};
 		updateResponse(value, !target.checked);
-		onMultipleChoiceResponse(response);
+		if (onMultipleChoiceResponse) onMultipleChoiceResponse(response);
 	};
 
 	const otherChangeHandler = (event: Event) => {
@@ -80,7 +80,7 @@
 			document.querySelector(`#${id + '-text-input'}`) as HTMLInputElement
 		)?.focus();
 		updateResponse(value, !target.checked);
-		onMultipleChoiceResponse(response);
+		if (onMultipleChoiceResponse) onMultipleChoiceResponse(response);
 	};
 
 	const otherTextInputHandler = (event: Event) => {
@@ -95,7 +95,7 @@
 			} as MultipleChoiceValue,
 			!otherTextValue.length
 		);
-		onMultipleChoiceResponse(response);
+		if (onMultipleChoiceResponse) onMultipleChoiceResponse(response);
 	};
 
 	const dropdownChangeHandler = (label: DropdownOption['id']) => {
@@ -104,7 +104,7 @@
 			value: true,
 		} as MultipleChoiceValue;
 		updateResponse(value);
-		onMultipleChoiceResponse(response);
+		if (onMultipleChoiceResponse) onMultipleChoiceResponse(response);
 	};
 
 	const getDropdownOption = (label: string) => {

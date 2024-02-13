@@ -47,7 +47,7 @@
 
 <Layout
 	component="Chips"
-	example={source(data, selectable, multiSelect, removable)}
+	example={source({ data, selectable, multiSelect, removable })}
 	{md}
 	bind:events>
 	{#snippet controls()}

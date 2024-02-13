@@ -1,6 +1,9 @@
-import { type IconName, type IconSize } from '$lib';
+import { type IconProps } from '$lib';
 
-export default (color: string, size: IconSize, name: IconName) => {
+export default (
+	data: IconProps
+
+) => {
 	return `
 <script lang ='ts'>
 
@@ -9,8 +12,8 @@ import { Icon, type IconName, type IconSize } from '@surveyplanet/svelte_compone
 </script>
 
 <Icon 
-	color='${color}' 
-	size='${size}' 
-	name='${name}' />
+	color='${data.color}' 
+	size='${data.size}' 
+	name='${data.name}' />
 `;
 };

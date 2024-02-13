@@ -46,18 +46,16 @@
 <Layout
 	component="Image"
 	{md}
-	example={source(
+	example={source({
 		id,
 		labels,
 		multi,
 		size,
 		hideCaptions,
 		contain,
-		min,
-		max,
 		random,
-		response
-	)}
+		response,
+	})}
 	bind:events>
 	{#snippet controls()}
 		<PropsChanger

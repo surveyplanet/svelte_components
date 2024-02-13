@@ -1,4 +1,6 @@
-export default (label: string, formats: string[], maxSize: number) => {
+import type { UploadProps } from "$lib";
+
+export default (data: UploadProps) => {
 	return `
 <script lang = 'ts'>
 
@@ -8,9 +10,9 @@ export default (label: string, formats: string[], maxSize: number) => {
 </script>
 	
 	<Upload
-		label='${label}'
-		formats={${formats}}
-		maxSize={${maxSize}}
+		label='${data.label}'
+		formats={${data.formats}}
+		maxSize={${data.maxSize}}
 		{onUpload}
 	/>`;
 };

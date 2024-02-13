@@ -1,16 +1,7 @@
+import type { SpinnerProps } from "$lib";
+
 export default (
-	label: string,
-	step: number,
-	min: number,
-	max: number,
-	value: number | undefined,
-	disabled: boolean,
-	required: boolean,
-	overflow: boolean,
-	id: string,
-	placeholder: string,
-	dragSpeed: number,
-	size: 'small' | 'medium' | 'large'
+data: SpinnerProps
 ) => {
 	return `
 <script lang='ts'>
@@ -35,18 +26,18 @@ export default (
 </script>
 
 <Spinner
-	label='${label}'
-	step={${step}}
-	min={${min}}
-	max={${max}}
-	value={${value}}
-	disabled={${disabled}}
-	required={${required}}
-	overflow={${overflow}}
-	id='${id}'
-	placeholder='${placeholder}'
-	dragSpeed={${dragSpeed}}
-	size='${size}'
+	label='${data.label}'
+	step={${data.step}}
+	min={${data.min}}
+	max={${data.max}}
+	value={${data.value}}
+	disabled={${data.disabled}}
+	required={${data.required}}
+	overflow={${data.overflow}}
+	id='${data.id}'
+	placeholder='${data.placeholder}'
+	dragSpeed={${data.dragSpeed}}
+	size='${data.size}'
 	{onSpinnerChange}
 	{onSpinnerUpdate}
 	{onSpinnerInput}

@@ -22,7 +22,7 @@
 
 <Layout
 	component="Toggle"
-	example={source(id, on, disabled, tall, name, label, prependLabel)}
+	example={source({ id, on, disabled, tall, name, label, prependLabel })}
 	{md}
 	bind:events>
 	{#snippet controls()}

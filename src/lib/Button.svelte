@@ -20,7 +20,7 @@
 		type?: 'button' | 'submit' | 'reset';
 		form?: string | null;
 		size?: 'small' | 'medium' | 'large';
-		onButtonClick: (e: MouseEvent) => void;
+		onButtonClick?: (e: MouseEvent) => void;
 		children?: Snippet;
 	};
 </script>

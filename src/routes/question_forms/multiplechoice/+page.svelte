@@ -20,8 +20,8 @@
 	let multi: MultipleChoiceProperties['multi'] = $state(false);
 	let layout: MultipleChoiceProperties['layout'] = $state('1');
 	let random: MultipleChoiceProperties['random'] = $state(false);
-	let min: MultipleChoiceProperties['min'] = $state(null);
-	let max: MultipleChoiceProperties['max'] = $state(null);
+	// let min: MultipleChoiceProperties['min'] = $state(null);
+	// let max: MultipleChoiceProperties['max'] = $state(null);
 	let response: MultipleChoiceValue[] = $state([]);
 	let other: MultipleChoiceProperties['other'] = $state('Other');
 	const multipleChoiceResponseHandler = (event: MultipleChoiceValue[]) => {
@@ -37,7 +37,7 @@
 
 <Layout
 	component="MultipleChoice"
-	example={source(id, labels, multi, layout, random, min, max, response)}
+	example={source({ id, labels, multi, layout, random, response })}
 	{md}
 	bind:events>
 	{#snippet controls()}

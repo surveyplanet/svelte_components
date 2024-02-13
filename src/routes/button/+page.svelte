@@ -22,7 +22,7 @@
 
 <Layout
 	component="Button"
-	example={source(
+	example={source({
 		content,
 		mode,
 		disabled,
@@ -31,8 +31,8 @@
 		block,
 		action,
 		type,
-		size
-	)}
+		size,
+	})}
 	{md}
 	bind:events>
 	{#snippet controls()}

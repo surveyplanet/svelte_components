@@ -6,7 +6,7 @@
 		min: ScaleProperties['min'];
 		max: ScaleProperties['max'];
 		response?: ScaleValue[];
-		onScaleResponse: (response: ScaleValue[]) => void;
+		onScaleResponse?: (response: ScaleValue[]) => void;
 	};
 </script>
 
@@ -20,7 +20,7 @@
 
 	const sliderStopHandler = () => {
 		response = [rangeValues[0]];
-		onScaleResponse(response);
+		if (onScaleResponse) onScaleResponse(response);
 	};
 </script>
 

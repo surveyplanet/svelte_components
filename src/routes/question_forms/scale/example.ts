@@ -1,10 +1,7 @@
-import type { ScaleValue, ScaleProperties } from '@surveyplanet/types';
+import type { ScaleProps } from '$lib';
 
 export default (
-	id: string,
-	min: ScaleProperties['min'],
-	max: ScaleProperties['max'],
-	response: ScaleValue[]
+	data: ScaleProps
 ) => {
 	return `
 <script lang ='ts'>
@@ -17,9 +14,9 @@ export default (
 </script>	
 	
 <Scale
-	id='${id}'
-	min={${min}}
-	max={${max}}
-	onScaleResponse={${JSON.stringify(response)}}
+	id='${data.id}'
+	min={${data.min}}
+	max={${data.max}}
+	onScaleResponse={${JSON.stringify(data.response)}}
 />`;
 };

@@ -1,7 +1,7 @@
+import {type BadgeProps} from '$lib';
+
 export default (
-	color: 'yellow' | 'blue' | 'pink' | 'green',
-	content: string,
-	flat: boolean
+	data: BadgeProps & {content: string}
 ) => {
 	return `
 <script lang="ts">
@@ -9,9 +9,9 @@ export default (
 </script>
 
 <Badge
-  color='${color}'
-  content='${content}' 
-  flat={${flat}}>
+  color='${data.color}'
+  content='${data.content}' 
+  flat={${data.flat}}>
   Pro
 </Badge>
 `;

@@ -1,13 +1,7 @@
-import type { DateTimeProperties, DateTimeValue } from '@surveyplanet/types';
-import type { DateTimeDefinitions } from '$lib';
+import type {  DateTimeProps } from '$lib';
 
 export default (
-	id: string,
-	date: DateTimeProperties['date'],
-	time: DateTimeProperties['time'],
-
-	definitions: DateTimeDefinitions,
-	response: DateTimeValue[]
+	data: DateTimeProps
 ) => {
 	return `
 <script lang ='ts'>
@@ -19,10 +13,9 @@ export default (
 </script>
 	
 <DateTime
-	id='${id}'
-	date={${date}}
-	time={${time}}
-	definitions={${JSON.stringify(definitions)}}
-	onDateTimeResponse={${JSON.stringify(response)}}
+	id='${data.id}'
+	date={${data.date}}
+	time={${data.time}}
+	onDateTimeResponse={${JSON.stringify(data.response)}}
 />`;
 };

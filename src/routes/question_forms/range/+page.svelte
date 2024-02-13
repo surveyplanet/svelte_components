@@ -19,7 +19,7 @@
 
 <Layout
 	component="Range"
-	example={source(id, min, max, response)}
+	example={source({ id, min, max, response })}
 	{md}
 	bind:events>
 	{#snippet controls()}

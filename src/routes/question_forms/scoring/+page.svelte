@@ -41,7 +41,7 @@
 
 <Layout
 	component="Scoring"
-	example={source(
+	example={source({
 		id,
 		definitions,
 		values,
@@ -50,8 +50,8 @@
 		minLabel,
 		requireAll,
 		requireUnique,
-		response
-	)}
+		response,
+	})}
 	{md}
 	bind:events>
 	{#snippet controls()}

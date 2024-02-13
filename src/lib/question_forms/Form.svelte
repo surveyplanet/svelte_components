@@ -6,7 +6,7 @@
 		labels: FormProperties['labels'];
 		random?: FormProperties['random'];
 		response?: FormValue[];
-		onFormResponse: (value: FormValue[]) => void;
+		onFormResponse?: (value: FormValue[]) => void;
 	};
 </script>
 
@@ -41,7 +41,7 @@
 			value: target.value,
 		};
 		updateResponse(value);
-		onFormResponse(response);
+		if (onFormResponse) onFormResponse(response);
 	};
 
 	const inputKeyupHandler = inputChangeHandler;

@@ -1,21 +1,14 @@
-import type { DropdownOption } from '$lib';
+import type { DropdownProps } from '$lib';
 
 export default (
-	options: DropdownOption[],
-	searchThreshold: number,
-	disabled: boolean,
-	required: boolean,
-	value: DropdownOption['id'],
-	placeholder: string,
-	label: string,
-	size: 'small' | 'medium' | 'large'
+	data: DropdownProps
 ) => {
 	return `
 <script>
 
 	import {type DropdownOptions, Dropdown} from '@surveyplanet/svelte_components';
 
-	options: DropdownOptions[] = ${JSON.stringify(options, null, 4)};
+	options: DropdownOptions[] = ${JSON.stringify(data.options, null, 4)};
 
 	const onDropdownChange = (e) => {
 		console.log('change', e);
@@ -24,13 +17,13 @@ export default (
 
 <Dropdown
 	{options}
-	searchThreshold={${searchThreshold}}
-	disabled={${disabled}}
-	required={${required}}
-	value={${value}}
-	placeholder='${placeholder}'
-	label='${label}'
-	size='${size}'
+	searchThreshold={${data.searchThreshold}}
+	disabled={${data.disabled}}
+	required={${data.required}}
+	value={${data.value}}
+	placeholder='${data.placeholder}'
+	label='${data.label}'
+	size='${data.size}'
 	{onDropdownChange}
 />
 `;

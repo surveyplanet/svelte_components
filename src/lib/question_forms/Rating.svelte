@@ -7,7 +7,7 @@
 		order?: RatingProperties['order'];
 		layout?: RatingProperties['layout'];
 		response?: RatingValue[];
-		onRatingResponse: (value: RatingValue[]) => void;
+		onRatingResponse?: (value: RatingValue[]) => void;
 	};
 </script>
 
@@ -61,7 +61,7 @@
 
 		const target = event.target as HTMLInputElement;
 		updateResponse(Number(target.value));
-		onRatingResponse(response);
+		if (onRatingResponse) onRatingResponse(response);
 	};
 </script>
 

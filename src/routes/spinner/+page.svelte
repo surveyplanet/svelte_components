@@ -2,7 +2,7 @@
 	import { Spinner } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
-	let events = $state<(number | undefined)[]>([]);
+	let events = $state<(number | undefined | string)[]>([]);
 	import { default as source } from './example';
 	// let keys = $state(0);
 
@@ -42,7 +42,7 @@
 
 <Layout
 	component="Spinner"
-	example={source(
+	example={source({
 		label,
 		step,
 		min,
@@ -54,8 +54,8 @@
 		id,
 		placeholder,
 		dragSpeed,
-		size
-	)}
+		size,
+	})}
 	{md}
 	bind:events>
 	{#snippet controls()}

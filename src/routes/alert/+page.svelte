@@ -38,7 +38,7 @@
 <!-- eslint-disable svelte/no-at-html-tags -->
 <Layout
 	component="Alert"
-	example={source(
+	example={source({
 		title,
 		subtitle,
 		type,
@@ -46,8 +46,8 @@
 		confirm,
 		confirmButtonLabel,
 		cancelButtonLabel,
-		challenge
-	)}
+		challenge,
+	})}
 	{md}
 	bind:events>
 	{#snippet controls()}

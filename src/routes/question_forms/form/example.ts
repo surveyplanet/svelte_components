@@ -1,12 +1,7 @@
-import type { FormProperties, FormValue } from '@surveyplanet/types';
+import type { FormProps } from '$lib';
 
 export default (
-	id: string,
-	labels: FormProperties['labels'],
-	requireAll: FormProperties['requireAll'],
-	random: FormProperties['random'],
-	validations: FormProperties['validations'],
-	response: FormValue[]
+data: FormProps
 ) => {
 	return `
 <script lang ='ts'>
@@ -20,11 +15,9 @@ export default (
 	
 	
 <Form
-	id='${id}'
-	labels={${JSON.stringify(labels)}}
-	requireAll={${requireAll}}
-	random={${random}}
-	validations={${JSON.stringify(validations)}}
-	response={${JSON.stringify(response)}}
+	id='${data.id}'
+	labels={${JSON.stringify(data.labels)}}
+	random={${data.random}}
+	response={${JSON.stringify(data.response)}}
 />`;
 };

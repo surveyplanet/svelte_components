@@ -14,7 +14,7 @@
 		date?: DateTimeProperties['date'];
 		time?: DateTimeProperties['time'];
 		response?: DateTimeValue[];
-		onDatetimeResponse: (response: DateTimeValue[]) => void;
+		onDatetimeResponse?: (response: DateTimeValue[]) => void;
 	};
 </script>
 
@@ -57,7 +57,7 @@
 
 	const updateResponse = (value: Date) => {
 		response = [value.toISOString()];
-		onDatetimeResponse(response);
+		if (onDatetimeResponse) onDatetimeResponse(response);
 	};
 
 	const dateInputChangeHandler = (event: Event) => {

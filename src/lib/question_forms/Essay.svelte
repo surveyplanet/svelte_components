@@ -7,7 +7,7 @@
 		max: EssayProperties['max'];
 		single: EssayProperties['single'];
 		response: EssayValue[];
-		onEssayResponse: (response: EssayValue[]) => void;
+		onEssayResponse?: (response: EssayValue[]) => void;
 	};
 </script>
 
@@ -30,7 +30,7 @@
 
 	const inputKeyupHandler = (event: Event) => {
 		updateResponse((event.target as HTMLInputElement)?.value);
-		onEssayResponse(response);
+		if (onEssayResponse) onEssayResponse(response);
 	};
 </script>
 

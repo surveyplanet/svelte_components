@@ -1,10 +1,7 @@
+import type { RadioProps } from "$lib";
+
 export default (
-	id: string,
-	name: string,
-	labelOne: string,
-	disabled: boolean,
-	prependLabel: boolean,
-	size: 'small' | 'medium' | 'large'
+	data: RadioProps 
 ) => {
 	return `
 <script>
@@ -14,14 +11,12 @@ export default (
 </script>
 
 <Radio
-	id='${id}'
-	disabled={${disabled}}
-	name='${name}'
-	label='${labelOne}'
-	prependLabel={${prependLabel}}
-	size='${size}'
+	id='${data.id}'
+	disabled={${data.disabled}}
+	name='${data.name}'
+	label='${data.label}'
+	prependLabel={${data.prependLabel}}
+	size='${data.size}'
 	{onRadioChange} />
-;
-
 `;
 };

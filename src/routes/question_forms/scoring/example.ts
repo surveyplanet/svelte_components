@@ -1,16 +1,7 @@
-import type { ScoringValue, ScoringProperties } from '@surveyplanet/types';
-import type { ScoringDefinitions } from '$lib';
+import type { ScoringProps } from '$lib';
 
 export default (
-	id: string,
-	definitions: ScoringDefinitions,
-	values: ScoringProperties['values'],
-	labels: ScoringProperties['labels'],
-	maxLabel: ScoringProperties['maxLabel'],
-	minLabel: ScoringProperties['minLabel'],
-	requireAll: ScoringProperties['requireAll'],
-	requireUnique: ScoringProperties['requireUnique'],
-	response: ScoringValue[]
+	data: ScoringProps
 ) => {
 	return `
 <script lang ='ts'>
@@ -21,15 +12,14 @@ export default (
 	}
 </script>
 <Scoring
-	id='${id}'
-	definitions={${JSON.stringify(definitions, null, 2)}}
-	values={${JSON.stringify(values, null, 2)}}
-	labels={${JSON.stringify(labels, null, 2)}}
-	maxLabel='${maxLabel}'
-	minLabel='${minLabel}'
-	requireAll={${requireAll}}
-	requireUnique={${requireUnique}}
-	response={${JSON.stringify(response, null, 2)}}
+	id='${data.id}'
+	definitions={${JSON.stringify(data.definitions, null, 2)}}
+	values={${JSON.stringify(data.values, null, 2)}}
+	labels={${JSON.stringify(data.maxLabel)}'
+	minLabel='${data.minLabel}'
+	requireAll={${data.requireAll}}
+	requireUnique={${data.requireUnique}}
+	response={${JSON.stringify(data.response, null, 2)}}
 	onScoringResponse={responseHandler}
 />`;
 };

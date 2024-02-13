@@ -1,19 +1,8 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/no-base-to-string */
-import type { TextInputType } from '$lib';
+import type { TextInputProps } from '$lib';
 export default (
-	id: string,
-	name: string,
-	type: TextInputType,
-	value: string,
-	label: string,
-	placeholder: string,
-	readonly: boolean,
-	disabled: boolean,
-	cleaveOptions: object,
-	validationRules: string[],
-	validationMessage: string,
-	size: 'small' | 'medium' | 'large'
+	data: TextInputProps
 ) => {
 	return `
 <script lang='ts'>
@@ -45,18 +34,18 @@ export default (
 	{onTextInputFocus}
 	{onTextInputKeydown}
 	{onTextInputKeyup}
-	id='${id}'
-	name='${name}'
-	type='${type}'
-	value='${value}'
-	label='${label}'
-	placeholder='${placeholder}'
-	readonly={${readonly}}
-	disabled={${disabled}}
-	cleaveOptions={${cleaveOptions}}
-	validationRules={${JSON.stringify(validationRules)}}
-	validationMessage='${validationMessage}'
-	size='${size}'
+	id='${data.id}'
+	name='${data.name}'
+	type='${data.type}'
+	value='${data.value}'
+	label='${data.label}'
+	placeholder='${data.placeholder}'
+	readonly={${data.readonly}}
+	disabled={${data.disabled}}
+	cleaveOptions={${data.cleaveOptions}}
+	validationRules={${JSON.stringify(data.validationRules)}}
+	validationMessage='${data.validationMessage}'
+	size='${data.size}'
 />
 `;
 };

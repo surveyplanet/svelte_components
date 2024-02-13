@@ -17,7 +17,7 @@
 		requireAll?: ScoringProperties['requireAll'];
 		requireUnique?: ScoringProperties['requireUnique'];
 		response?: ScoringValue[];
-		onScoringResponse: (value: ScoringValue[]) => void;
+		onScoringResponse?: (value: ScoringValue[]) => void;
 	};
 </script>
 
@@ -55,7 +55,7 @@
 
 		updateResponse(value);
 
-		onScoringResponse(response);
+		if (onScoringResponse) onScoringResponse(response);
 	};
 
 	const sortableEventHandler = (list: { label: string }[]) => {
@@ -66,12 +66,12 @@
 				value: values[i],
 			});
 		}
-		onScoringResponse(response);
+		if (onScoringResponse) onScoringResponse(response);
 	};
 
 	const clearButtonClickHandler = () => {
 		response = [];
-		onScoringResponse(response);
+		if (onScoringResponse) onScoringResponse(response);
 	};
 	let sortedLabels: { label: string }[] = [];
 	const listSorted = (labels: string[]): typeof sortedLabels => {

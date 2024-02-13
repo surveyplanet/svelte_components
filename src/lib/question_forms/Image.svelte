@@ -10,7 +10,7 @@
 		random?: ImageProperties['random'];
 		contain?: ImageProperties['contain'];
 		response?: ImageValue[];
-		onImageResponse: (value: ImageValue[]) => void;
+		onImageResponse?: (value: ImageValue[]) => void;
 	};
 </script>
 
@@ -91,7 +91,7 @@
 	const inputChangeHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		updateResponse(target.value, !target.checked);
-		onImageResponse(response);
+		if (onImageResponse) onImageResponse(response);
 	};
 </script>
 

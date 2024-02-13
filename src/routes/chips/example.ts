@@ -1,10 +1,7 @@
-import type { ChipData } from '$lib';
+import type {  ChipsProps } from '$lib';
 
 export default (
-	data: ChipData[],
-	selectable: boolean,
-	multiSelect: boolean,
-	removable: boolean
+	data: ChipsProps ,
 ) => {
 	return `
 <script lang="ts">
@@ -19,10 +16,10 @@ export default (
 </script>
 
 <Chip
-	data={${JSON.stringify(data, null, 2)}}
-	selectable={${selectable}}
-	multiSelect={${multiSelect}}
-	removable={${removable}}
+	data={${JSON.stringify(data.data, null, 2)}}
+	selectable={${data.selectable}}
+	multiSelect={${data.multiSelect}}
+	removable={${data.removable}}
 	{onChipsClick}
 	{onChipsRemove}
 	/>`;

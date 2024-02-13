@@ -37,7 +37,7 @@
 
 <Layout
 	component="Upload"
-	example={source(label, formats, maxSize)}
+	example={source({ label, formats, maxSize })}
 	{md}
 	bind:events>
 	{#snippet controls()}

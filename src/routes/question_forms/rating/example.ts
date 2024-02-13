@@ -1,10 +1,7 @@
-import type { RatingValue, RatingProperties } from '@surveyplanet/types';
+import type { RatingProps } from '$lib';
+
 export default (
-	id: string,
-	labels: RatingProperties['labels'],
-	order: RatingProperties['order'],
-	layout: RatingProperties['layout'],
-	response: RatingValue[]
+	data: RatingProps
 ) => {
 	return `
 <script lang ='ts'>
@@ -16,10 +13,10 @@ export default (
 </script>
 
 <Rating
-	id='${id}'
-	labels={${JSON.stringify(labels)}}
-	order='${order}'
-	layout='${layout}'
-	onRatingResponse={${JSON.stringify(response)}}
+	id='${data.id}'
+	labels={${JSON.stringify(data.labels)}}
+	order='${data.order}'
+	layout='${data.layout}'
+	onRatingResponse={${JSON.stringify(data.response)}}
 />`;
 };

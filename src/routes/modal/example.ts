@@ -1,11 +1,8 @@
+import { ModalProps } from '$lib';
+
 export default (
-	title: string,
-	subtitle: string,
-	fullscreen: boolean,
-	overlay: boolean,
-	visible: boolean | undefined,
-	size: 'small' | 'medium' | 'large' = 'medium'
-) => {
+	data: ModalProps
+	) => {
 	return `
 <script>
 import {Modal} from '@surveyplanet/svelte_components';
@@ -24,12 +21,12 @@ const onModalOutroEnd = (event:CustomEvent) {
 </script>
 
 <Modal
-	size='${size}'
-	visible={${visible}}
-	title='${title}'
-	subtitle='${subtitle}'
-	fullscreen={${fullscreen}}
-	overlay={${overlay}}
+	size='${data.size}'
+	visible={${data.visible}}
+	title='${data.title}'
+	subtitle='${data.subtitle}'
+	fullscreen={${data.fullscreen}}
+	overlay={${data.overlay}}
 	{onModalIntroStart}
 	{onModalIntroEnd}
 	{onModalOutroStart}

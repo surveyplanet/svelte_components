@@ -1,10 +1,7 @@
-import type { LogoSize } from '$lib';
+import type { LogoProps } from '$lib';
 
 export default (
-	size: LogoSize,
-	fill: string,
-	color: string,
-	symbolOnly: boolean
+data: LogoProps
 ) => {
 	return `
 <script lang="ts">
@@ -14,8 +11,8 @@ export default (
 </script>
 
 <Logo 
-	size={${size}}
-	fill='${fill}'
-	color='${color}'
-	symbolOnly={${symbolOnly}} />`;
+	size={${data.size}}
+	fill='${data.fill}'
+	color='${data.color}'
+	symbolOnly={${data.symbolOnly}} />`;
 };

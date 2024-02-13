@@ -33,7 +33,7 @@
 
 <Layout
 	component="Loader"
-	example={source(colors, size, strokeWidth)}
+	example={source({ colors, size, strokeWidth })}
 	{md}
 	bind:events>
 	{#snippet controls()}

@@ -51,7 +51,7 @@
 
 <Layout
 	component="Rating"
-	example={source(id, labels, order, layout, response)}
+	example={source({ id, labels, order, layout, response })}
 	{md}
 	bind:events>
 	{#snippet controls()}

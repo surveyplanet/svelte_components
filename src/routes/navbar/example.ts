@@ -1,9 +1,8 @@
-import type { MenuData, NavBarData } from '$lib';
+import type { NavBarProps} from '$lib';
 
 export default (
-	data: NavBarData[],
-	navMenuData: MenuData[],
-	vertical: boolean
+	data: NavBarProps,
+
 ) => {
 	return `
 <script>
@@ -15,9 +14,9 @@ export default (
 </script>
 
 <NavBar 
-	data={${JSON.stringify(data, null, 2)}}
-	navMenuData={${JSON.stringify(navMenuData, null, 2)}}
-	vertical={${vertical}}
+	data={${JSON.stringify(data.data, null, 2)}}
+	navMenuData={${JSON.stringify(data.navMenuData, null, 2)}}
+	vertical={${data.vertical}}
 	{onNavClick}
 
 	/>

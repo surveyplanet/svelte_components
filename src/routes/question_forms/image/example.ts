@@ -1,16 +1,7 @@
-import type { ImageProperties, ImageValue } from '@surveyplanet/types';
+import type { ImageProps } from '$lib';
 
 export default (
-	id: string,
-	labels: ImageProperties['labels'],
-	multi: ImageProperties['multi'],
-	size: ImageProperties['size'],
-	hideCaptions: ImageProperties['hideCaptions'],
-	contain: ImageProperties['contain'],
-	min: ImageProperties['min'],
-	max: ImageProperties['max'],
-	random: ImageProperties['random'],
-	response: ImageValue[]
+ data: ImageProps
 ) => {
 	return `
 <script lang ='ts'>
@@ -23,15 +14,14 @@ export default (
 </script>
 	
 <Image
-	id='${id}'
-	labels={${JSON.stringify(labels)}}
-	multi={${multi}}
-	size={${size}}
-	hideCaptions={${hideCaptions}}
-	contain={${contain}}
-	min={${min}}
-	max={${max}}
-	random={${random}}
-	onImageResponse={${JSON.stringify(response)}}
+	id='${data.id}'
+	labels={${JSON.stringify(data.labels)}}
+	multi={${data.multi}}
+	size={${data.size}}
+	hideCaptions={${data.hideCaptions}}
+	contain={${data.contain}}
+
+	random={${data.random}}
+	onImageResponse={${JSON.stringify(data.response)}}
 />`;
 };

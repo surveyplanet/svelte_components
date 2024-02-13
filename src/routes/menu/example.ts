@@ -1,6 +1,6 @@
-import type { MenuData } from '$lib';
+import type { MenuProps} from '$lib';
 
-export default (data: MenuData[], size: 'small' | 'medium' | 'large') => {
+export default (data: MenuProps) => {
 	return `
 <script lang="ts">
     import { Menu, type MenuData } from '@surveyplanet/svelte_components';
@@ -16,8 +16,8 @@ export default (data: MenuData[], size: 'small' | 'medium' | 'large') => {
 </script>
 {#if visible}
     <Menu
-	    data = {${data}}
-	    size = {${size}}
+	    data = {${data.data}}
+	    size = {${data.size}}
 	    {onMenuUpdate}
 	    {onMenuClick}
 	    {onMenuBlur} >

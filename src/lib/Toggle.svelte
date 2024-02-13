@@ -9,7 +9,7 @@
 		tall?: boolean;
 		label?: string | null;
 		prependLabel?: boolean;
-		onToggle: (on: boolean) => void;
+		onToggle?: (on: boolean) => void;
 	};
 </script>
 
@@ -33,7 +33,7 @@
 			return event.preventDefault();
 		}
 
-		onToggle(on);
+		if (onToggle) onToggle(on);
 	};
 </script>
 

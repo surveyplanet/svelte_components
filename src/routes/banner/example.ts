@@ -1,9 +1,7 @@
+import { type BannerProps } from "$lib"
+
 export default (
-	content: string,
-	title: string,
-	type: 'info' | 'warning' | 'error' | 'success',
-	visible: boolean,
-	hideDelay: number
+	data: BannerProps & { content: string }
 ) => {
 	return `
 <script lang='ts>
@@ -11,11 +9,11 @@ export default (
 </script>
 
 <Banner 
-	title='${title}'
-	type='${type}'
-	visible={${visible}}
-	hideDelay={${hideDelay}}>
-	${content}
+	title='${data.title}'
+	type='${data.type}'
+	visible={${data.visible}}
+	hideDelay={${data.hideDelay}}>
+	${data.content}
 </Banner>
 `;
 };

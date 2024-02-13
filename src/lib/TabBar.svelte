@@ -15,7 +15,7 @@
 		id?: string;
 		block?: boolean;
 		data?: TabBarData[];
-		onTabClick: (id: string) => void;
+		onTabClick?: (id: string) => void;
 	};
 </script>
 
@@ -71,7 +71,7 @@
 			return item;
 		});
 
-		onTabClick(id);
+		if (onTabClick) onTabClick(id);
 	};
 
 	const tabButtonHandler = (event: Event) => {

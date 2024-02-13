@@ -1,4 +1,6 @@
-export default (colors: string[], size: number, strokeWidth: 1 | 2 | 3 | 4) => {
+import type { LoaderProps } from "$lib";
+
+export default ( data: LoaderProps) => {
 	return `
 <script>
 	import { Loader } from 'components/Loader';
@@ -7,8 +9,8 @@ export default (colors: string[], size: number, strokeWidth: 1 | 2 | 3 | 4) => {
 
 
 <Loader 
-	colors='${colors}'
-	size={${size}}
-	strokeWidth={${strokeWidth}} />
+	colors='${data.colors}'
+	size={${data.size}}
+	strokeWidth={${data.strokeWidth}} />
 `;
 };

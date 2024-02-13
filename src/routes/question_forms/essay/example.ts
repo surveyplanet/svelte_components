@@ -1,11 +1,7 @@
-import type { EssayProperties, EssayValue } from '@surveyplanet/types';
+import type { EssayProps } from '$lib';
 
 export default (
-	id: string,
-	min: EssayProperties['min'],
-	max: EssayProperties['max'],
-	single: EssayProperties['single'],
-	response: EssayValue[]
+	data: EssayProps
 ) => {
 	return `
 <script lang ='ts'>
@@ -19,10 +15,10 @@ export default (
 
 
 <Essay
-	id='${id}'
-	min={${min}}
-	max={${max}}
-	single={${single}}
-	response={${JSON.stringify(response)}}
+	id='${data.id}'
+	min={${data.min}}
+	max={${data.max}}
+	single={${data.single}}
+	response={${JSON.stringify(data.response)}}
 />`;
 };

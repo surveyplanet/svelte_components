@@ -44,7 +44,7 @@
 
 <Layout
 	component="NavBar"
-	example={source(data, navMenuData, vertical)}
+	example={source({ data, navMenuData, vertical })}
 	{md}
 	bind:events>
 	{#snippet controls()}

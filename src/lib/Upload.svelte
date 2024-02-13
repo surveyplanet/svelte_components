@@ -5,7 +5,7 @@
 		label?: string;
 		formats: string[];
 		maxSize?: number;
-		onUpload: (data: UploadData) => void;
+		onUpload?: (data: UploadData) => void;
 	};
 
 	export type UploadData = {
@@ -40,7 +40,7 @@
 		reader.readAsDataURL(image);
 		reader.onloadend = () => {
 			let data = reader.result;
-			onUpload({ image, data });
+			if (onUpload) onUpload({ image, data });
 		};
 	};
 	const fileInputHandler = (event: Event) => {

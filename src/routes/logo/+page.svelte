@@ -21,7 +21,7 @@
 
 <Layout
 	component="Logo"
-	example={source(size, fill, color, symbolOnly)}
+	example={source({ size, fill, color, symbolOnly })}
 	{md}
 	bind:events>
 	{#snippet controls()}

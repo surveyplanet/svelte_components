@@ -31,7 +31,7 @@
 
 <Layout
 	component="Modal"
-	example={source(title, subtitle, fullscreen, overlay, visible, size)}
+	example={source({ title, subtitle, fullscreen, overlay, visible, size })}
 	{md}
 	bind:events>
 	{#snippet controls()}

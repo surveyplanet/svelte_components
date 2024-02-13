@@ -1,10 +1,7 @@
-import type { RangeValue, RangeProperties } from '@surveyplanet/types';
+import type { RangeProps } from '$lib';
 
 export default (
-	id: string,
-	min: RangeProperties['min'],
-	max: RangeProperties['max'],
-	response: RangeValue[]
+	data: RangeProps
 ) => {
 	return `
 <script lang ='ts'>
@@ -17,9 +14,9 @@ export default (
 </script>
 
 <Range
-	id='${id}'
-	min={${min}}
-	max={${max}}
-	onRangeResponse={${JSON.stringify(response)}}
+	id='${data.id}'
+	min={${data.min}}
+	max={${data.max}}
+	onRangeResponse={${JSON.stringify(data.response)}}
 />`;
 };

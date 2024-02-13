@@ -43,7 +43,7 @@
 
 <Layout
 	component="TabBar"
-	example={source(data, block, id)}
+	example={source({ data, block, id })}
 	{md}
 	bind:events>
 	{#snippet controls()}

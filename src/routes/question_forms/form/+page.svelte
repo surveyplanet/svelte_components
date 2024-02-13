@@ -16,24 +16,24 @@
 		'Email',
 		'Phone number',
 	]);
-	let validations: FormProperties['validations'] = $state([
-		{
-			label: 'First name',
-			rule: 'required',
-		},
-		{
-			label: 'Last name',
-			rule: 'required',
-		},
-		{
-			label: 'Email',
-			rule: 'email',
-		},
-		{
-			label: 'Phone number',
-			rule: 'phone',
-		},
-	]);
+	// let validations: FormProperties['validations'] = $state([
+	// 	{
+	// 		label: 'First name',
+	// 		rule: 'required',
+	// 	},
+	// 	{
+	// 		label: 'Last name',
+	// 		rule: 'required',
+	// 	},
+	// 	{
+	// 		label: 'Email',
+	// 		rule: 'email',
+	// 	},
+	// 	{
+	// 		label: 'Phone number',
+	// 		rule: 'phone',
+	// 	},
+	// ]);
 	let response: FormValue[] = $state([]);
 	let requireAll: FormProperties['requireAll'] = $state();
 	let random: FormProperties['random'] = $state();
@@ -52,7 +52,7 @@
 
 <Layout
 	component="Form"
-	example={source(id, labels, requireAll, random, validations, response)}
+	example={source({ id, labels, random, response })}
 	{md}
 	bind:events>
 	{#snippet controls()}

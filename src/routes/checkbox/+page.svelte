@@ -22,7 +22,7 @@
 
 <Layout
 	component="Checkbox"
-	example={source(id, name, value, checked, disabled, prependLabel, size)}
+	example={source({ id, name, value, checked, disabled, prependLabel, size })}
 	{md}
 	bind:events>
 	{#snippet controls()}

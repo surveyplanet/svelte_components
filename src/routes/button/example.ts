@@ -1,13 +1,7 @@
+import type { ButtonProps } from '$lib';
+
 export default (
-	content: string,
-	mode: string,
-	disabled: boolean,
-	loader: boolean,
-	round: boolean,
-	block: boolean,
-	action: boolean,
-	type: 'button' | 'submit' | 'reset',
-	size: 'small' | 'medium' | 'large'
+	data: ButtonProps & { content: string }
 ) => {
 	return `
 <script>
@@ -19,16 +13,16 @@ export default (
 
 
 <Button
-	mode={BUTTON_MODES.${mode}}
-	disabled={${disabled}}
-	loader={${loader}}
-	round={${round}}
-	block={${block}}
-	action={${action}}
-	type='${type}'
-	size='${size}' 
+	mode={BUTTON_MODES.${data.mode}}
+	disabled={${data.disabled}}
+	loader={${data.loader}}
+	round={${data.round}}
+	block={${data.block}}
+	action={${data.action}}
+	type='${data.type}'
+	size='${data.size}' 
 	{onButtonClick}>
-	${content}
+	${data.content}
 </Button>
 `;
 };

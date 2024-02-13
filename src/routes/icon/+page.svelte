@@ -15,7 +15,7 @@
 
 <Layout
 	component="Icon"
-	example={source(color, size, name)}
+	example={source({ color, size, name })}
 	{md}
 	bind:events>
 	{#snippet controls()}

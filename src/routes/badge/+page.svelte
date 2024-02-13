@@ -11,7 +11,7 @@
 
 <Layout
 	component="Badge"
-	example={source(color, content, flat)}
+	example={source({ color, content, flat })}
 	{md}>
 	{#snippet controls()}
 		<PropsChanger

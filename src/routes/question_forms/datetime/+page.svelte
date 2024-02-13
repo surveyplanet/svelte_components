@@ -4,7 +4,10 @@
 		DateTimeValue,
 	} from '@surveyplanet/types';
 
-	import { DateTime, type DateTimeDefinitions } from '$lib';
+	import {
+		DateTime,
+		// type DateTimeDefinitions
+	} from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 
 	import { default as source } from './example';
@@ -13,11 +16,11 @@
 	// let keys = $state(0);
 
 	let id = $state('abc123');
-	let definitions: DateTimeDefinitions = $state({
-		currentTime: 'Set current time',
-		currentDate: 'Set current date',
-		currentDatetime: 'Set current date and time',
-	});
+	// let definitions: DateTimeDefinitions = $state({
+	// 	currentTime: 'Set current time',
+	// 	currentDate: 'Set current date',
+	// 	currentDatetime: 'Set current date and time',
+	// });
 	let date: DateTimeProperties['date'] = $state(true);
 	let time: DateTimeProperties['time'] = $state(true);
 	let response: DateTimeValue[] = $state([
@@ -36,7 +39,7 @@
 
 <Layout
 	component="DateTime"
-	example={source(id, date, time, definitions, response)}
+	example={source({ id, date, time, response })}
 	{md}
 	bind:events>
 	{#snippet controls()}
