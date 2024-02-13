@@ -1,22 +1,15 @@
 <script lang="ts">
-	import {
-		Logo,
-		type LogoSize,
-		type LogoFillColor,
-		type LogoColor,
-	} from '$lib';
+	import { Logo, type LogoProps } from '$lib';
 	import { COLORS } from '$lib/_definitions';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
 
-	let color: LogoColor = $state(COLORS.black);
-	let size: LogoSize = $state(48);
-	let fill: LogoFillColor = $state('blue');
-	let symbolOnly: boolean = $state(true);
-
-	// let sizeAsString = $derived(size.toString());
+	let color: LogoProps['color'] = $state(COLORS.black);
+	let size: LogoProps['size'] = $state(48);
+	let fill: LogoProps['fill'] = $state('blue');
+	let symbolOnly: LogoProps['symbolOnly'] = $state(true);
 </script>
 
 <Layout
@@ -27,7 +20,7 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Color"
-			selectOptions={Object.keys(COLORS)}
+			selectOptions={['white', 'black']}
 			bind:value={color} />
 		<PropsChanger
 			label="Size"

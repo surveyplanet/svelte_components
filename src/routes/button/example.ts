@@ -1,11 +1,9 @@
 import type { ButtonProps } from '$lib';
 
-export default (
-	data: ButtonProps & { content: string }
-) => {
+export default (data: ButtonProps & { content: string }) => {
 	return `
 <script>
-	import { Button, BUTTON_MODES } from '@surveyplanet/svelte-components';
+	import { Button } from '@surveyplanet/svelte-components';
 	const onButtonClick = (): void => {
 		console.log('button clicked');
 	};
@@ -13,7 +11,7 @@ export default (
 
 
 <Button
-	mode={BUTTON_MODES.${data.mode}}
+	mode='${data.mode}'
 	disabled={${data.disabled}}
 	loader={${data.loader}}
 	round={${data.round}}
