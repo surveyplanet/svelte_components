@@ -1,8 +1,6 @@
 import { type ModalProps } from '$lib';
 
-export default (
-	data: ModalProps
-	) => {
+export default (data: ModalProps) => {
 	return `
 <script>
 import {Modal} from '@surveyplanet/svelte_components';

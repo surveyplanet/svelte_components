@@ -46,11 +46,6 @@
 		symbolOnly = false,
 	} = $props<LogoProps>();
 
-	let gradient: string[] = $state([
-		COLORS.blueGradientStart,
-		COLORS.blueGradientEnd,
-	]);
-
 	let width: number = $derived(symbolOnly ? size : size * ASPECT_RATION);
 	let height: number = $derived(size);
 
@@ -59,20 +54,12 @@
 	);
 	let viewboxHeight: number = ORIGINAL_HEIGHT;
 
-	// $inspect({ width, height, viewboxWidth, viewboxHeight });
-
-	$effect.pre(() => {
-		if (fill !== 'transparent') {
-			const startColor = COLORS[`${fill}GradientStart`];
-			const endColor = COLORS[`${fill}GradientEnd`];
-			gradient = [startColor, endColor];
-		}
-	});
+	const svgGradientId = `sp-logo--gradient-${(Date.now() + Math.random()).toString(36)}`;
 </script>
 
 <div
-	class="sp-logo"
-	style="height:{height}px; width: {width}px;">
+	class="sp-logo sp-logo--fill-{fill}"
+	style="height:{height}px; width: {width}px; ">
 	<svg
 		width="100%"
 		height="100%"
@@ -81,27 +68,27 @@
 		xmlns="http://www.w3.org/2000/svg">
 		<defs>
 			<linearGradient
-				id="fill-gradient"
+				id={svgGradientId}
 				x1="12"
 				y1="3"
 				x2="12"
 				y2="21"
 				gradientUnits="userSpaceOnUse">
-				<stop stop-color={gradient[0]} />
+				<stop class="fill-color-start" />
 				<stop
-					offset="1"
-					stop-color={gradient[1]} />
+					class="fill-color-end"
+					offset="1" />
 			</linearGradient>
 		</defs>
 
 		<g>
-			{#if fill !== 'transparent'}
-				<circle
-					cx="12"
-					cy="12"
-					r="9"
-					fill="url(#fill-gradient)" />
-			{/if}
+			<!-- {#if fill !== 'transparent'} -->
+			<circle
+				cx="12"
+				cy="12"
+				r="9"
+				fill="url(#{svgGradientId})" />
+			<!-- {/if} -->
 			<path
 				fill-rule="evenodd"
 				clip-rule="evenodd"
@@ -118,3 +105,47 @@
 		</g>
 	</svg>
 </div>
+
+<style lang="scss">
+	@use '@surveyplanet/styles/src/colors.scss' as *;
+
+	.fill-color-start {
+		stop-color: transparent;
+	}
+	.fill-color-end {
+		stop-color: transparent;
+	}
+
+	.sp-logo--fill-blue {
+		.fill-color-start {
+			stop-color: $color--blue-gradient-start;
+		}
+		.fill-color-end {
+			stop-color: $color--blue-gradient-end;
+		}
+	}
+	.sp-logo--fill-yellow {
+		.fill-color-start {
+			stop-color: $color--yellow-gradient-start;
+		}
+		.fill-color-end {
+			stop-color: $color--yellow-gradient-end;
+		}
+	}
+	.sp-logo--fill-pink {
+		.fill-color-start {
+			stop-color: $color--pink-gradient-start;
+		}
+		.fill-color-end {
+			stop-color: $color--pink-gradient-end;
+		}
+	}
+	.sp-logo--fill-green {
+		.fill-color-start {
+			stop-color: $color--green-gradient-start;
+		}
+		.fill-color-end {
+			stop-color: $color--green-gradient-end;
+		}
+	}
+</style>
