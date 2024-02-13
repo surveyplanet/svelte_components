@@ -10,16 +10,20 @@ export default (
 	const responseHandler = (response: ScoringValue[]) => {
 		console.log(response);
 	}
+	let labels : ScoringProps['labels'] = ${JSON.stringify(data.labels)};
+	let values: ScoringProps['values'] = ${JSON.stringify(data.values, null, 2)};
+	let definitions: ScoringProps['definitions'] = ${JSON.stringify(data.definitions, null, 2)};
+	let response: ScoringValue[] = ${JSON.stringify(data.response, null, 2)};
 </script>
 <Scoring
 	id='${data.id}'
-	definitions={${JSON.stringify(data.definitions, null, 2)}}
-	values={${JSON.stringify(data.values, null, 2)}}
-	labels={${JSON.stringify(data.maxLabel)}'
+	{definitions}
+	{values}
+	{labels}
 	minLabel='${data.minLabel}'
 	requireAll={${data.requireAll}}
 	requireUnique={${data.requireUnique}}
-	response={${JSON.stringify(data.response, null, 2)}}
-	onScoringResponse={responseHandler}
+	{response}
+	{onScoringResponse}
 />`;
 };

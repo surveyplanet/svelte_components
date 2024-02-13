@@ -5,9 +5,7 @@ data: SpinnerProps
 ) => {
 	return `
 <script lang="ts">
-
 	import { Spinner } from '@surveyplanet/svelte-components';
-
 	const onSpinnerChange = (value: number) => {
 		console.log(value);
 	}

@@ -6,7 +6,6 @@ export default (
 	return `
 <script="ts">
 	import { Toggle } from '@surveyplanet/svelte-components';
-
 	function onToggleChange(on) {
 		if (on) {
 			console.log('Toggle ON 🎉');

@@ -14,7 +14,7 @@ export default (data: MenuProps) => {
             console.log('Menu updated:', event.detail);
     }
 
-    let data: MenuProps = ${JSON.stringify(data.data, null, 4)};
+    let data: MenuData[] = ${JSON.stringify(data.data, null, 4)};
 </script>
 
     <Menu

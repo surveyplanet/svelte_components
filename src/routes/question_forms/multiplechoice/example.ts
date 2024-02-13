@@ -4,13 +4,17 @@ export default (
 	data: MultipleChoiceProps
 ) => {
 	return `
-<script lang ="ts">
-	import {MultipleChoice} from '@surveyplanet/svelte-components';
+<script lang="ts">
+	import {MultipleChoice, MultipleChoiceProps} from '@surveyplanet/svelte-components';
 	import type {MultipleChoiceValue} from '@surveyplanet/types';
 	
-	const responseHandler = (response: MultipleChoiceValue[]) => {
+	const onMultipleChoiceResponse = (response: MultipleChoiceValue[]) => {
 		console.log(response);
 	}
+
+	let labels : MultipleChoiceProps['labels'] = ${JSON.stringify(data.labels)};
+	let response: MultipleChoiceValue[] = ${JSON.stringify(data.response, null, 2)};
+
 </script>
 
 
@@ -20,6 +24,7 @@ export default (
 	multi={${data.multi}}
 	layout='${data.layout}'
 	random={${data.random}}
-	onMultipleChoiceResponse={${JSON.stringify(data.response)}}
+	{response}
+	{onMultipleChoiceResponse}
 />`;
 };

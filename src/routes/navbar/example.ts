@@ -11,11 +11,14 @@ export default (
 	const onNavClick = (event) => {
 		console.log(event.detail);
 	}
+
+	let data: NavBarData = {${JSON.stringify(data.data, null, 2)})
+	let navMenuData = ${JSON.stringify(data.navMenuData, null, 2)};
 </script>
 
 <NavBar 
-	data={${JSON.stringify(data.data, null, 2)}}
-	navMenuData={${JSON.stringify(data.navMenuData, null, 2)}}
+	{data}
+	{navMenuData}
 	vertical={${data.vertical}}
 	{onNavClick} />
 `;
