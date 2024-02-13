@@ -29,14 +29,27 @@
 
 	import { slide, type SlideParams } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	// import { onMount } from 'svelte'; // use to set focus on mount
+	import { onMount } from 'svelte';
 
 	let { data, size, onMenuUpdate, onMenuClick, onMenuBlur, header, footer } =
 		$props<MenuProps>();
 
+	onMount(() => {
+		// focus the first button
+		const menus = document.querySelectorAll('.sp-menu');
+		const mostRecentMenu = menus[menus.length - 1];
+		const firstButton = mostRecentMenu.querySelector(
+			'.sp-menu--item button'
+		);
+		console.log('mounted');
+		if (firstButton instanceof HTMLButtonElement) firstButton.focus();
+	});
+
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
+		const menus = document.querySelectorAll('.sp-menu');
+		const mostRecentMenu = menus[menus.length - 1];
 		const allButtons = Array.from(
-			document.querySelectorAll('.sp-menu--item button')
+			mostRecentMenu.querySelectorAll('.sp-menu--item button')
 		) as HTMLButtonElement[];
 		const activeButton = document.activeElement as HTMLButtonElement;
 		const activeButtonIndex = allButtons.indexOf(activeButton);

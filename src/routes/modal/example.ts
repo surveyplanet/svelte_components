@@ -1,4 +1,4 @@
-import { ModalProps } from '$lib';
+import { type ModalProps } from '$lib';
 
 export default (
 	data: ModalProps

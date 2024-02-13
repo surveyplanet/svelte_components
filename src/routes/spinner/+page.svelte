@@ -59,8 +59,6 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		Events need to be fixed
-
 		<PropsChanger
 			label="Label"
 			bind:value={label} />

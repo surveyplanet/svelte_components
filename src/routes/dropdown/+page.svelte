@@ -49,7 +49,7 @@
 		},
 	]);
 
-	let searchThreshold = $state(10);
+	let searchThreshold = $state(2);
 	let disabled = $state(false);
 	let required = $state(false);
 	let value = $state('');
@@ -60,6 +60,8 @@
 	const onDropdownChange = (value: string) => {
 		events.push(value);
 	};
+
+	// $inspect(searchThreshold);
 
 	// let stringedOptions = $state(JSON.stringify(options));
 
@@ -116,7 +118,7 @@
 				{searchThreshold}
 				{disabled}
 				{required}
-				{value}
+				bind:value
 				{placeholder}
 				{label}
 				{size}

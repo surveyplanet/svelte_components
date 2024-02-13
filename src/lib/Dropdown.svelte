@@ -23,12 +23,12 @@
 </script>
 
 <script lang="ts">
-	import { Menu, Icon } from './index';
+	import { Menu, Icon, TextInput } from './index';
 
 	let {
 		options,
 		placeholder = null,
-		value = null,
+		value,
 		label = null,
 		searchThreshold = 15,
 		disabled = false,
@@ -37,16 +37,21 @@
 		onDropdownChange,
 	} = $props<DropdownProps>();
 
-	let input: HTMLInputElement | undefined = $state(undefined);
+	// let input = $state<undefined | typeof TextInput>(undefined);
+	let hasFocus = $state(false);
 	let visible = $state(false);
 	let displayValue: DropdownOption['label'] | '' = $state('');
 
-	let searchable = options.length >= searchThreshold;
+	let searchable = $derived(options.length >= searchThreshold);
 	let menuData = $state([...options]);
 
 	$effect(() => {
 		if (value?.length) {
 			setValue(value, true);
+		}
+
+		if (visible) {
+			hasFocus = true;
 		}
 	});
 
@@ -85,14 +90,16 @@
 		} else {
 			reset();
 		}
+
+		hasFocus = true;
+		// setting focus will open menu
 	};
 
 	const clear = () => {
 		reset();
 		setValue(''); // unset value
-		if (input) {
-			input.focus();
-		} // setting focus will open menu
+		hasFocus = true;
+		// setting focus will open menu
 	};
 
 	const menuClickHandler = (id: string) => {
@@ -117,7 +124,27 @@
 		visible = false;
 	};
 
+	const menuBlurHandler = () => {
+		// visible = false;
+	};
+
 	const searchKeyupHandler = (event: KeyboardEvent) => {
+		const menus = document.querySelectorAll('.sp-menu');
+		const mostRecentMenu = menus[menus.length - 1];
+
+		if (event.key === 'ArrowDown') {
+			const firstButton = mostRecentMenu.querySelector(
+				'.sp-menu--item button'
+			);
+			if (firstButton instanceof HTMLButtonElement) firstButton.focus();
+		} else if (event.key === 'ArrowUp') {
+			const lastButton = mostRecentMenu.querySelector(
+				'.sp-menu--item button:last-child'
+			);
+			if (lastButton instanceof HTMLButtonElement) lastButton.focus();
+		} else if (event.key === 'Escape') {
+			visible = false;
+		}
 		const target = event.target as HTMLInputElement;
 		search(target.value);
 	};
@@ -181,23 +208,50 @@
 			</button>
 		{/if}
 
-		<input
+		<!-- <input
+			bind:this={input}
 			type="text"
 			class="sp-dropdown--search"
-			bind:this={input}
 			{placeholder}
 			{disabled}
 			value={displayValue}
 			readonly={!searchable}
 			onclick={searchClickHandler}
 			onblur={searchBlurHandler}
-			onkeyup={searchKeyupHandler} />
+			onkeyup={searchKeyupHandler} /> -->
+		{#if searchable}
+			<TextInput
+				id={(Date.now() + Math.random()).toString(36)}
+				name="sp-dropdown-search"
+				bind:focus={hasFocus}
+				{placeholder}
+				{disabled}
+				type="search"
+				value={displayValue}
+				readonly={!searchable}
+				onTextInputFocus={searchClickHandler}
+				onTextInputBlur={searchBlurHandler}
+				onTextInputKeyup={searchKeyupHandler} />
+		{:else}
+			<TextInput
+				id={(Date.now() + Math.random()).toString(36)}
+				name="sp-dropdown-selector"
+				bind:focus={hasFocus}
+				{placeholder}
+				{disabled}
+				type="text"
+				value={displayValue}
+				readonly
+				onTextInputBlur={searchBlurHandler}
+				onTextInputKeyup={searchKeyupHandler} />
+		{/if}
 	</div>
 
 	{#if visible}
 		<Menu
 			data={menuData}
 			{size}
-			onMenuClick={menuClickHandler} />
+			onMenuClick={menuClickHandler}
+			onMenuBlur={menuBlurHandler} />
 	{/if}
 </div>
