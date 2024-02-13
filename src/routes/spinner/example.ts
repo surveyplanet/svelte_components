@@ -4,7 +4,7 @@ export default (
 data: SpinnerProps
 ) => {
 	return `
-<script lang='ts'>
+<script lang="ts">
 
 	import { Spinner } from '@surveyplanet/svelte-components';
 

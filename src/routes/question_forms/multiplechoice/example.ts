@@ -4,7 +4,7 @@ export default (
 	data: MultipleChoiceProps
 ) => {
 	return `
-<script lang ='ts'>
+<script lang ="ts">
 	import {MultipleChoice} from '@surveyplanet/svelte-components';
 	import type {MultipleChoiceValue} from '@surveyplanet/types';
 	

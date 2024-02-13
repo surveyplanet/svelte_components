@@ -11,7 +11,7 @@
 	let formats = $state(['.jpg', '.jpeg', '.png', '.gif', '.pdf']);
 	let maxSize = $state(10);
 
-	const onUpload = (uploadData: {
+	const onUploadUpload = (uploadData: {
 		image: File;
 		data: string | ArrayBuffer | null;
 	}) => {
@@ -57,7 +57,7 @@
 				{label}
 				bind:formats
 				{maxSize}
-				{onUpload} />
+				{onUploadUpload} />
 		</div>
 
 		<embed

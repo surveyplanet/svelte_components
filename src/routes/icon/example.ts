@@ -5,7 +5,7 @@ export default (
 
 ) => {
 	return `
-<script lang ='ts'>
+<script lang="ts">
 
 import { Icon, type IconName, type IconSize } from '@surveyplanet/svelte_components';
 

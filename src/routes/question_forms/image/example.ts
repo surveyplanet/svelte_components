@@ -4,7 +4,7 @@ export default (
  data: ImageProps
 ) => {
 	return `
-<script lang ='ts'>
+<script lang ="ts">
 	import {Image} from '@surveyplanet/svelte-components';
 	import type {ImageValue} from '@surveyplanet/types';
 

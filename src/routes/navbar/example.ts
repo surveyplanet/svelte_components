@@ -5,7 +5,7 @@ export default (
 
 ) => {
 	return `
-<script>
+<script lang="ts">
 	import { NavBar, NavBarData } from 'components/NavBar';
 
 	const onNavClick = (event) => {
@@ -17,8 +17,6 @@ export default (
 	data={${JSON.stringify(data.data, null, 2)}}
 	navMenuData={${JSON.stringify(data.navMenuData, null, 2)}}
 	vertical={${data.vertical}}
-	{onNavClick}
-
-	/>
+	{onNavClick} />
 `;
 };

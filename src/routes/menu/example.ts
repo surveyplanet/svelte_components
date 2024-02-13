@@ -13,10 +13,12 @@ export default (data: MenuProps) => {
     const onMenuUpdate = (event:CustomEvent) {
             console.log('Menu updated:', event.detail);
     }
+
+    let data: MenuProps = ${JSON.stringify(data.data, null, 4)};
 </script>
-{#if visible}
+
     <Menu
-	    data = {${data.data}}
+	    {data}
 	    size = {${data.size}}
 	    {onMenuUpdate}
 	    {onMenuClick}
@@ -31,6 +33,5 @@ export default (data: MenuProps) => {
         {/snippet}
 
     </Menu>
-{/if};
-    `;
+`;
 };

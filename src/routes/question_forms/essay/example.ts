@@ -4,7 +4,7 @@ export default (
 	data: EssayProps
 ) => {
 	return `
-<script lang ='ts'>
+<script lang ="ts">
 	import {Scoring} from '@surveyplanet/svelte-components';
 	import type {ScoringValue} from '@surveyplanet/types';
 

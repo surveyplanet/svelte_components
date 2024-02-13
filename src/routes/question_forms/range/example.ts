@@ -4,7 +4,7 @@ export default (
 	data: RangeProps
 ) => {
 	return `
-<script lang ='ts'>
+<script lang ="ts">
 	import {Range} from '@surveyplanet/svelte-components';
 	import type {RangeValue} from '@surveyplanet/types';
 

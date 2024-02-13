@@ -2,7 +2,7 @@ import { type ModalProps } from '$lib';
 
 export default (data: ModalProps) => {
 	return `
-<script>
+<script lang ="ts" >
 import {Modal} from '@surveyplanet/svelte_components';
 const onModalIntroStart = (event:CustomEvent) {
 	console.log('Modal opened:', event.detail);

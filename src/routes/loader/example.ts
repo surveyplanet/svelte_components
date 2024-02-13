@@ -2,7 +2,7 @@ import type { LoaderProps } from "$lib";
 
 export default ( data: LoaderProps) => {
 	return `
-<script>
+<script lang="ts">
 	import { Loader } from 'components/Loader';
 	
 </script>

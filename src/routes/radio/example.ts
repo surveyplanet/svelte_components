@@ -4,7 +4,7 @@ export default (
 	data: RadioProps 
 ) => {
 	return `
-<script>
+<script lang="ts">
 	import Radio from '@surveyplanet/svelte_components';
 	let onRadioChange = (event) => {
 		console.log(event.detail);

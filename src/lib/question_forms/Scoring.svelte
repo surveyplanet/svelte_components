@@ -94,7 +94,7 @@
 
 		<SortableList
 			data={listSorted(labels)}
-			onSort={sortableEventHandler} />
+			onSortSort={sortableEventHandler} />
 		{#if maxLabel}
 			<p class="sp-survey--question--form--scoring--max-label">
 				{maxLabel}

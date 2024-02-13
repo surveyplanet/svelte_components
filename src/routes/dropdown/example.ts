@@ -2,7 +2,7 @@ import type { DropdownProps } from '$lib';
 
 export default (data: DropdownProps) => {
 	return `
-<script>
+<script lang="ts">
 
 	import {type DropdownOption, Dropdown} from '@surveyplanet/svelte_components';
 

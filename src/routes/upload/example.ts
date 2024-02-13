@@ -2,9 +2,9 @@ import type { UploadProps } from "$lib";
 
 export default (data: UploadProps) => {
 	return `
-<script lang = 'ts'>
+<script lang = "ts">
 
-	const onUpload = (event) => {
+	const onUploadUpload = (event) => {
 		console.log(event.detail);
 	};
 </script>
@@ -13,6 +13,6 @@ export default (data: UploadProps) => {
 		label='${data.label}'
 		formats={${data.formats}}
 		maxSize={${data.maxSize}}
-		{onUpload}
+		{onUploadUpload}
 	/>`;
 };

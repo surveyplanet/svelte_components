@@ -4,7 +4,7 @@ export default (
 	data: ScoringProps
 ) => {
 	return `
-<script lang ='ts'>
+<script lang ="ts">
 	import {Scoring} from '@surveyplanet/svelte-components';
 	import type {ScoringValue} from '@surveyplanet/types';
 	const responseHandler = (response: ScoringValue[]) => {

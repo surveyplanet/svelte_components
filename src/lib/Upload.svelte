@@ -5,7 +5,7 @@
 		label?: string;
 		formats: string[];
 		maxSize?: number;
-		onUpload?: (data: UploadData) => void;
+		onUploadUpload?: (data: UploadData) => void;
 	};
 
 	export type UploadData = {
@@ -22,7 +22,7 @@
 		label = 'Upload',
 		formats,
 		maxSize = 10,
-		onUpload,
+		onUploadUpload,
 	} = $props<UploadProps>();
 
 	type FileEventTarget = (EventTarget & { files: FileList }) | DataTransfer;
@@ -40,7 +40,7 @@
 		reader.readAsDataURL(image);
 		reader.onloadend = () => {
 			let data = reader.result;
-			if (onUpload) onUpload({ image, data });
+			if (onUploadUpload) onUploadUpload({ image, data });
 		};
 	};
 	const fileInputHandler = (event: Event) => {

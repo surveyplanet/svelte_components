@@ -11,6 +11,6 @@
 
 ### Callbacks
 
-| Name       | Description                                  | Type          |
-| ---------- | -------------------------------------------- | ------------- |
-| `onToggle` | Callback function triggered on state change. | `on: boolean` |
+| Name             | Description                                  | Type          |
+| ---------------- | -------------------------------------------- | ------------- |
+| `onToggleChange` | Callback function triggered on state change. | `on: boolean` |

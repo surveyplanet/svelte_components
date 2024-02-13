@@ -5,7 +5,7 @@ export default (
 	data: TextInputProps
 ) => {
 	return `
-<script lang='ts'>
+<script lang="ts">
 	import { TextInput } from '@surveyplanet/svelte_components';
 	const onTextInputInput = (value: string) => {
 		console.log(value);

@@ -5,7 +5,7 @@ export default (
 
 ) => {
 	return `
-<script>
+<script lang="ts">
 	import {type TabBarData, TabBar} from '@surveyplanet/svelte_components';
 </script>
 

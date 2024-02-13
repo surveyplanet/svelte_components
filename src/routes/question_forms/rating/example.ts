@@ -4,7 +4,7 @@ export default (
 	data: RatingProps
 ) => {
 	return `
-<script lang ='ts'>
+<script lang ="ts">
 	import {Rating} from '@surveyplanet/svelte-components';
 	import type {RatingValue} from '@surveyplanet/types';
 	const responseHandler = (response: RatingValue[]) => {

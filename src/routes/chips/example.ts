@@ -13,10 +13,12 @@ export default (
 	const onChipsRemove = (data: ChipData[]): void => {
 		console.log(data);
 	};
+
+	let data: ChipsProps = ${JSON.stringify(data, null, 4)};
 </script>
 
 <Chip
-	data={${JSON.stringify(data.data, null, 2)}}
+	data={data}
 	selectable={${data.selectable}}
 	multiSelect={${data.multiSelect}}
 	removable={${data.removable}}

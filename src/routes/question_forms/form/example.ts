@@ -4,7 +4,7 @@ export default (
 data: FormProps
 ) => {
 	return `
-<script lang ='ts'>
+<script lang ="ts">
 	import {Form} from '@surveyplanet/svelte-components';
 	import type {FormValue} from '@surveyplanet/types';
 	

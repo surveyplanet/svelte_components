@@ -4,7 +4,7 @@ export default (
 	data: DateTimeProps
 ) => {
 	return `
-<script lang ='ts'>
+<script lang ="ts">
 	import {DateTime} from '@surveyplanet/svelte-components';
 	import type {DateTimeValue} from '@surveyplanet/types';
 	const responseHandler = (response: DateTimeValue[]) => {
