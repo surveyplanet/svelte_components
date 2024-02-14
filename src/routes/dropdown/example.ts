@@ -6,7 +6,7 @@ export default (data: DropdownProps) => {
 
 	import {type DropdownOption, Dropdown} from '@surveyplanet/svelte_components';
 
-	options: DropdownOption[] = ${JSON.stringify(data.options, null, 4)};
+	let options: DropdownOption[] = ${JSON.stringify(data.options, null, 4)};
 
 	const onDropdownChange = (e) => {
 		console.log('change', e);

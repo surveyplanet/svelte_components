@@ -1,4 +1,5 @@
 import { type AvatarProps } from "$lib";
+
 export default (
 	data: AvatarProps 
 ) => {

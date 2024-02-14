@@ -3,19 +3,19 @@ import { type ModalProps } from '$lib';
 export default (data: ModalProps) => {
 	return `
 <script lang ="ts" >
-import {Modal} from '@surveyplanet/svelte_components';
-const onModalIntroStart = (event:CustomEvent) {
-	console.log('Modal opened:', event.detail);
-}
-const onModalIntroEnd = (event:CustomEvent) {
-	console.log('Modal in:', event.detail);
-}
-const onModalOutroStart = (event:CustomEvent) {
-	console.log('Modal out:', event.detail);
-}
-const onModalOutroEnd = (event:CustomEvent) {
-	console.log('Modal closed:', event.detail);
-}
+	import {Modal} from '@surveyplanet/svelte_components';
+	const onModalIntroStart = (event:CustomEvent) {
+		console.log('Modal opened:', event.detail);
+	}
+	const onModalIntroEnd = (event:CustomEvent) {
+		console.log('Modal in:', event.detail);
+	}
+	const onModalOutroStart = (event:CustomEvent) {
+		console.log('Modal out:', event.detail);
+	}
+	const onModalOutroEnd = (event:CustomEvent) {
+		console.log('Modal closed:', event.detail);
+	}
 </script>
 
 <Modal
