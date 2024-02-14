@@ -7,11 +7,7 @@ export default (
 <script="ts">
 	import { Toggle } from '@surveyplanet/svelte-components';
 	function onToggleChange(on) {
-		if (on) {
-			console.log('Toggle ON 🎉');
-		} else {
-			console.log('Toggle OFF 😤');
-		}
+		console.log(on);
 	}
 </script>
 
