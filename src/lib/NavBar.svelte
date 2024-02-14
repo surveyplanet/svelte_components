@@ -19,6 +19,7 @@
 </script>
 
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { offset, flip, shift } from 'svelte-floating-ui/dom';
 	import { createFloatingActions } from 'svelte-floating-ui';
 	import { Menu, type MenuData } from './index';
@@ -31,6 +32,19 @@
 	} = $props<NavBarProps>();
 
 	let menuVisible = $state(false);
+
+	let navBarEl: HTMLElement | undefined = $state();
+	let navBarMenuEl: HTMLElement | undefined = $state();
+
+	// onMount(() => {
+	// 	// I think we only need this if we have a menu
+	// 	// if (navMenuData?.length) {
+	// 	document.addEventListener('click', documentClickHandler);
+	// 	// }
+	// 	return () => {
+	// 		document.removeEventListener('click', documentClickHandler);
+	// 	};
+	// });
 
 	const navButtonClickHandler = (e: MouseEvent) => {
 		const target = e.target as HTMLLinkElement;
@@ -47,19 +61,24 @@
 
 	const navMenuTriggerClickHandler = (e: Event) => {
 		e.preventDefault();
-		e.stopPropagation();
+		// e.stopPropagation();
 		menuVisible = !menuVisible;
 	};
 
-	const windowClickHandler = (e: MouseEvent) => {
-		const target = e.target as HTMLLinkElement;
-		if (
-			target.closest('.sp-nav--menu-trigger') ||
-			target.closest('.sp-menu')
-		) {
-			return;
+	const documentClickHandler = (event: MouseEvent) => {
+		const compPath = event.composedPath();
+		const insideNav =
+			compPath.includes(navBarEl as EventTarget) ||
+			compPath.includes(navBarMenuEl as EventTarget);
+
+		console.log(compPath);
+		console.log(
+			`Click was${insideNav ? '' : ' **NOT**'} inside NavBar component`
+		);
+
+		if (!insideNav) {
+			menuVisible = false;
 		}
-		menuVisible = false;
 	};
 
 	const menuClickHandler = (id: string) => {
@@ -74,9 +93,11 @@
 	});
 </script>
 
-<svelte:window onclick={windowClickHandler} />
+<!-- This is not good since it triggers for each instance of the nav bar -->
+<svelte:document onclick={documentClickHandler} />
 
 <nav
+	bind:this={navBarEl}
 	class="sp-nav"
 	class:sp-nav--vertical={vertical}>
 	{#each data as item}
@@ -108,6 +129,7 @@
 
 {#if menuVisible}
 	<div
+		bind:this={navBarMenuEl}
 		class="sp-nav--menu"
 		use:floatingContent>
 		<Menu
@@ -120,5 +142,9 @@
 	.sp-nav--icon {
 		/* don't allow icons to receive target */
 		pointer-events: none;
+	}
+
+	button {
+		background-color: red;
 	}
 </style>
