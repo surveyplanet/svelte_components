@@ -26,13 +26,13 @@
 	import { Icon } from './';
 
 	let {
-		title = 'Modal',
-		subtitle = 'Subtitle',
-		fullscreen = false,
-		overlay = true,
+		title,
+		subtitle,
+		fullscreen,
+		overlay,
 		visible,
-		animationMilliseconds = 350,
-		size = 'medium',
+		animationMilliseconds = 350, // speed should have a fallback value
+		size = 'medium', // medium is the most common size
 		onModalIntroStart,
 		onModalIntroEnd,
 		onModalOutroStart,

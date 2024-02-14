@@ -2,7 +2,7 @@
 	lang="ts"
 	context="module">
 	export type FormProps = {
-		id: string;
+		id?: string;
 		labels: FormProperties['labels'];
 		random?: FormProperties['random'];
 		response?: FormValue[];
@@ -21,7 +21,7 @@
 		id,
 		labels,
 		random,
-		response = [],
+		response = [], // forms return empty array if no response
 		onFormResponse,
 	} = $props<FormProps>();
 

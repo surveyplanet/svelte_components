@@ -1,10 +1,10 @@
 ### Properties
 
-| Property                                         | Type           | Description                                                                                        |
-| ------------------------------------------------ | -------------- | -------------------------------------------------------------------------------------------------- |
-| `id={(Date.now() + Math.random()).toString(36)}` | `string`       | The unique identifier for the tab bar.                                                             |
-| `block={false}`                                  | `boolean`      | If `true`, allows the tab bar to become a block level element and expands to fill available space. |
-| `data`                                           | `TabBarData[]` | An array of `TabBarData` objects representing each tab.                                            |
+| Property | Type           | Description                                                                                        |
+| -------- | -------------- | -------------------------------------------------------------------------------------------------- |
+| `id`     | `string`       | The unique identifier for the tab bar.                                                             |
+| `block`  | `boolean`      | If `true`, allows the tab bar to become a block level element and expands to fill available space. |
+| `data`   | `TabBarData[]` | An array of `TabBarData` objects representing each tab.                                            |
 
 ### Callbacks
 

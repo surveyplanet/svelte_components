@@ -27,13 +27,13 @@
 
 	let {
 		options,
-		placeholder = null,
-		value = null,
-		label = null,
-		searchThreshold = 15,
-		disabled = false,
-		required = false,
-		size = 'small',
+		placeholder,
+		value,
+		label,
+		searchThreshold = 20, // needs a value to work and the number seems high enough so the search is not triggered in most usecases
+		disabled,
+		required,
+		size = 'small', // input sizes are small by default
 		onDropdownChange,
 	} = $props<DropdownProps>();
 

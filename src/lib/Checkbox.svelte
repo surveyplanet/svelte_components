@@ -16,14 +16,14 @@
 
 <script lang="ts">
 	let {
-		id = (Date.now() + Math.random()).toString(36),
+		id,
 		name,
-		value = null,
-		label = '',
+		value,
+		label,
 		checked,
-		disabled = false,
-		prependLabel = false,
-		size = 'small',
+		disabled,
+		prependLabel,
+		size = 'small', // seems like a usual size we use
 		onCheckboxChange,
 	} = $props<CheckboxProps>();
 </script>

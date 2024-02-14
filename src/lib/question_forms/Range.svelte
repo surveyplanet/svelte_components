@@ -2,7 +2,7 @@
 	lang="ts"
 	context="module">
 	export type RangeProps = {
-		id: string;
+		id?: string;
 		min: number;
 		max: number;
 		response?: RangeValue[];
@@ -15,7 +15,13 @@
 	import TextInput from '../TextInput.svelte';
 	import { RangeSlider } from 'svelte-range-slider-pips';
 
-	let { id, min, max, response = [], onRangeResponse } = $props<RangeProps>();
+	let {
+		id,
+		min,
+		max,
+		response = [], // forms return empty array if no response
+		onRangeResponse,
+	} = $props<RangeProps>();
 
 	let rangeValues = $state([response[0] || min, response[1] || max]);
 	// onMount(() => {

@@ -28,15 +28,15 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	let {
-		mode = 'primary',
-		disabled = false,
-		loader = false,
-		round = true,
-		block = false,
-		action = false,
-		type = 'button',
-		form = null,
-		size = 'medium',
+		mode = 'primary', // commonly used mode
+		disabled,
+		loader,
+		round,
+		block,
+		action,
+		type = 'button', // commonly used type
+		form,
+		size = 'medium', // most use cases are medium
 		onButtonClick,
 		children,
 	} = $props<ButtonProps>();

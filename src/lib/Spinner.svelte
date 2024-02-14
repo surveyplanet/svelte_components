@@ -5,8 +5,8 @@
 		label?: string;
 		id?: string;
 		step?: number;
-		min?: number;
-		max?: number;
+		min: number;
+		max: number;
 		value?: number;
 		disabled?: boolean;
 		required?: boolean;
@@ -24,18 +24,18 @@
 
 <script lang="ts">
 	let {
-		label = '',
-		id = (Date.now() + Math.random()).toString(36),
-		step = 1,
-		min = 0,
-		max = 100,
+		label,
+		id,
+		step = 1, // common use case
+		min,
+		max,
 		value,
-		disabled = false,
-		required = false,
-		overflow = false,
-		dragSpeed = 10,
-		placeholder = null,
-		size = 'small',
+		disabled,
+		required,
+		overflow,
+		dragSpeed = 10, // common use case
+		placeholder,
+		size = 'small', // input sizes are small by default
 		onSpinnerUpdate,
 		onSpinnerInput,
 		onSpinnerChange,

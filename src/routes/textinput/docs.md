@@ -8,12 +8,12 @@
 | `value`                 | `string`                         | The current value of the text input.              |
 | `label`                 | `string`                         | The label or title for the text input.            |
 | `placeholder`           | `string \| null`                 | The placeholder text for the input.               |
-| `readonly={false}`      | `boolean`                        | If `true`, the text input is read-only.           |
-| `disabled={false}`      | `boolean`                        | If `true`, the text input is disabled.            |
+| `readonly`              | `boolean`                        | If `true`, the text input is read-only.           |
+| `disabled`              | `boolean`                        | If `true`, the text input is disabled.            |
 | `cleaveOptions`         | `CleaveOptions`                  | Cleave.js options for formatting the input value. |
-| `validationRules={[]}`  | `string[]`                       | Array of validation rules for the input.          |
+| `validationRules`       | `string[]`                       | Array of validation rules for the input.          |
 | `validationMessage`     | `string \| null`                 | Custom validation error message.                  |
-| `size='medium'`         | `'small' \| 'medium' \| 'large'` | The size of the text input.                       |
+| `size='small'`          | `'small' \| 'medium' \| 'large'` | The size of the text input.                       |
 | `validationHideMessage` | `boolean \| null`                | If `true`, hides the validation error message.    |
 
 ### Callbacks

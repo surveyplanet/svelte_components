@@ -12,7 +12,6 @@
 	}
 
 	export type TabBarProps = {
-		id?: string;
 		block?: boolean;
 		data?: TabBarData[];
 		onTabClick?: (id: string) => void;
@@ -22,12 +21,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	let {
-		id = (Date.now() + Math.random()).toString(36),
-		block = false,
-		data,
-		onTabClick,
-	} = $props<TabBarProps>();
+	let { block, data, onTabClick } = $props<TabBarProps>();
 
 	let activeIndicator: HTMLDivElement | null = $state(null);
 
@@ -94,8 +88,7 @@
 
 <nav
 	class="sp-tab-bar"
-	class:sp-tab-bar--block={block}
-	{id}>
+	class:sp-tab-bar--block={block}>
 	<div
 		class="sp-tab-bar--active-indicator"
 		bind:this={activeIndicator} />

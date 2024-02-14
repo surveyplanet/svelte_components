@@ -19,9 +19,9 @@
 	let {
 		id,
 		labels,
-		order = 'default',
-		layout = '1',
-		response = [],
+		order,
+		layout,
+		response = [], // forms return empty array if no response
 		onRatingResponse,
 	} = $props<RatingProps>();
 
@@ -71,7 +71,6 @@
 		<RangeSlider
 			pushy
 			float
-			{id}
 			min={Number(labels[0].value)}
 			max={Number(labels[labels.length - 1].value)}
 			all="label"

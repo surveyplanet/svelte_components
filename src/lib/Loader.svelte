@@ -9,13 +9,13 @@
 </script>
 
 <script lang="ts">
-	import { COLORS } from '$lib/_definitions';
-
+	// import { COLORS } from '$lib/_definitions';
+	// colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green];
 	const strokeDashOffset = 63;
 
 	let {
-		colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green],
-		size = 20,
+		colors,
+		size = 20, // small size that looks good
 		strokeWidth, // stroke width doesn't look good above 4
 	} = $props<LoaderProps>();
 

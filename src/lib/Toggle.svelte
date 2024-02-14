@@ -9,23 +9,15 @@
 		tall?: boolean;
 		label?: string | null;
 		prependLabel?: boolean;
-		onToggleChange?: (on: boolean) => void;
+		onToggleChange?: (on: boolean | undefined) => void;
 	};
 </script>
 
 <script lang="ts">
 	// export let meridiemIndicator = false;
 
-	let {
-		id = (Date.now() + Math.random()).toString(36),
-		name,
-		disabled = false,
-		on = false,
-		tall = false,
-		label = null,
-		prependLabel = false,
-		onToggleChange,
-	} = $props<ToggleProps>();
+	let { id, name, disabled, on, tall, label, prependLabel, onToggleChange } =
+		$props<ToggleProps>();
 
 	const changeHandler = (event: Event): void => {
 		if (disabled) {

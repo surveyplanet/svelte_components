@@ -2,7 +2,7 @@
 	lang="ts"
 	context="module">
 	export type ScaleProps = {
-		id: string;
+		id?: string;
 		min: ScaleProperties['min'];
 		max: ScaleProperties['max'];
 		response?: ScaleValue[];
@@ -14,7 +14,13 @@
 	import type { ScaleValue, ScaleProperties } from '@surveyplanet/types';
 	import { RangeSlider } from 'svelte-range-slider-pips';
 
-	let { id, min, max, response = [], onScaleResponse } = $props<ScaleProps>();
+	let {
+		id,
+		min,
+		max,
+		response = [], // forms return empty array if no response
+		onScaleResponse,
+	} = $props<ScaleProps>();
 
 	let rangeValues: number[] = $state([response[0]] || [min]);
 

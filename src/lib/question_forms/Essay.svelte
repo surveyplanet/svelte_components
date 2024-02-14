@@ -2,11 +2,11 @@
 	lang="ts"
 	context="module">
 	export type EssayProps = {
-		id: string;
-		min: EssayProperties['min'];
-		max: EssayProperties['max'];
-		single: EssayProperties['single'];
-		response: EssayValue[];
+		id?: string;
+		min?: EssayProperties['min'];
+		max?: EssayProperties['max'];
+		single?: EssayProperties['single'];
+		response?: EssayValue[];
 		onEssayResponse?: (response: EssayValue[]) => void;
 	};
 </script>
@@ -20,7 +20,7 @@
 		min,
 		max,
 		single,
-		response = [],
+		response = [], // forms return empty array if no response
 		onEssayResponse,
 	} = $props<EssayProps>();
 

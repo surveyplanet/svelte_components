@@ -4,7 +4,7 @@
 	export type MultipleChoiceProps = {
 		id: string;
 		labels: MultipleChoiceProperties['labels'];
-		multi: MultipleChoiceProperties['multi'];
+		multi?: MultipleChoiceProperties['multi'];
 		layout?: MultipleChoiceProperties['layout'];
 		random?: MultipleChoiceProperties['random'];
 		other?: MultipleChoiceProperties['other'];
@@ -28,10 +28,10 @@
 		id,
 		labels,
 		multi,
-		layout = '1',
-		random = false,
-		other = 'Other',
-		response = [],
+		layout = '1', // the default layout
+		random,
+		other,
+		response = [], // forms return empty array if no response
 		onMultipleChoiceResponse,
 	} = $props<MultipleChoiceProps>();
 

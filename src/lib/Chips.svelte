@@ -9,7 +9,7 @@
 
 	export type ChipsProps = {
 		data: ChipData[];
-		selectable: boolean;
+		selectable?: boolean;
 		multiSelect?: boolean;
 		removable?: boolean;
 		onChipsClick?: (data: ChipData[]) => void;
@@ -21,9 +21,9 @@
 	import { Icon } from './index';
 	let {
 		data,
-		selectable = false,
-		multiSelect = false,
-		removable = false,
+		selectable,
+		multiSelect,
+		removable,
 		onChipsClick,
 		onChipsRemove,
 	} = $props<ChipsProps>();

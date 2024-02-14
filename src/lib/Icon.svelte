@@ -32,11 +32,11 @@
 	const DEFAULT_SIZE: IconSize = 24;
 
 	let {
-		color = COLORS.black,
-		size = DEFAULT_SIZE,
-		strokeWidth = 2,
+		color = COLORS.black, // black is the most common color for icons
+		size = DEFAULT_SIZE, //
+		strokeWidth = 2, // thickness seems to be fine at 2
 		name,
-		debug = false,
+		debug,
 	} = $props<IconProps>();
 
 	let pathData = $derived(ICON_DATA[name]);

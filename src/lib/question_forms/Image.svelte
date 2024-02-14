@@ -2,7 +2,7 @@
 	lang="ts"
 	context="module">
 	export type ImageProps = {
-		id: string;
+		id?: string;
 		labels: ImageProperties['labels'];
 		multi: ImageProperties['multi'];
 		size: ImageProperties['size'];
@@ -32,8 +32,8 @@
 		size,
 		hideCaptions,
 		random,
-		contain = false,
-		response = [],
+		contain,
+		response = [], // forms return empty array if no response
 		onImageResponse,
 	} = $props<ImageProps>();
 	//nopt working

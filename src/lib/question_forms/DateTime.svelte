@@ -10,7 +10,7 @@
 	}
 
 	export type DateTimeProps = {
-		id: string;
+		id?: string;
 		date?: DateTimeProperties['date'];
 		time?: DateTimeProperties['time'];
 		response?: DateTimeValue[];
@@ -35,15 +35,18 @@
 
 	let {
 		id,
-		date = false,
-		time = false,
-		response = [],
+		date,
+		time,
+		response = [], // forms return empty array if no response
 		onDateTimeResponse,
 	} = $props<DateTimeProps>();
 
 	let type: DateTimeInputType = $state('date');
 	$effect(() => {
-		type = (function (d: boolean, t: boolean): DateTimeInputType {
+		type = (function (
+			d: boolean | undefined,
+			t: boolean | undefined
+		): DateTimeInputType {
 			if (d && t) return 'datetime-local';
 			if (t) return 'time';
 			return 'date';

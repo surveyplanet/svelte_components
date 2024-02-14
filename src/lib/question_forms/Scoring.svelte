@@ -8,12 +8,12 @@
 	}
 
 	export type ScoringProps = {
-		id: string;
+		id?: string;
 		definitions: ScoringDefinitions;
 		values: ScoringProperties['values'];
 		labels: ScoringProperties['labels'];
-		maxLabel: ScoringProperties['maxLabel'];
-		minLabel: ScoringProperties['minLabel'];
+		maxLabel?: ScoringProperties['maxLabel'];
+		minLabel?: ScoringProperties['minLabel'];
 		requireAll?: ScoringProperties['requireAll'];
 		requireUnique?: ScoringProperties['requireUnique'];
 		response?: ScoringValue[];
@@ -33,9 +33,9 @@
 		labels,
 		maxLabel,
 		minLabel,
-		requireAll = false,
-		requireUnique = false,
-		response = [],
+		requireAll,
+		requireUnique,
+		response = [], // forms return empty array if no response
 		onScoringResponse,
 	} = $props<ScoringProps>();
 

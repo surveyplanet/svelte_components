@@ -27,7 +27,7 @@
 
 	export type LogoProps = {
 		color?: LogoColor;
-		fill: LogoFillColor;
+		fill?: LogoFillColor;
 		size?: LogoSize;
 		symbolOnly?: boolean;
 	};
@@ -42,8 +42,8 @@
 	let {
 		color = COLORS.black,
 		fill = 'blue',
+		symbolOnly,
 		size = DEFAULT_SIZE,
-		symbolOnly = false,
 	} = $props<LogoProps>();
 
 	let width: number = $derived(symbolOnly ? size : size * ASPECT_RATION);

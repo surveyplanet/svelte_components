@@ -37,12 +37,12 @@
 		subtitle,
 		type,
 		hideDelay, // in milliseconds
-		confirm = false,
-		confirmButtonLabel = 'Confirm',
-		cancelButtonLabel = 'Cancel',
-		challenge = '', // challenge string to confirm action
-		challengeLabel = '',
-		animationMilliseconds = 350,
+		confirm,
+		confirmButtonLabel = 'Confirm', // common label
+		cancelButtonLabel = 'Cancel', // common label
+		challenge, // challenge string to confirm action
+		challengeLabel,
+		animationMilliseconds = 350, // animation speed, commonly used
 		onAlertConfirm,
 		onAlertOpen,
 		onAlertIn,
@@ -53,7 +53,7 @@
 
 	let visible = $state(false);
 	let icon = $state(successIcon);
-	let isChallenge = $derived(confirm && challenge.length > 0);
+	let isChallenge = $derived(confirm && challenge && challenge.length > 0);
 	let disableConfirmButton: boolean = $state(false);
 	$effect(() => {
 		if (!confirm && hideDelay && hideDelay > 0) {

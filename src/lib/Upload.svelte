@@ -19,9 +19,9 @@
 	import { COLORS } from '$lib/index';
 
 	let {
-		label = 'Upload',
+		label,
 		formats,
-		maxSize = 10,
+		maxSize = 10, // default to 10MB which seems to be a reasonable size  for an image
 		onUploadUpload,
 	} = $props<UploadProps>();
 

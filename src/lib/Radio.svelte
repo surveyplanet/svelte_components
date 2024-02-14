@@ -16,14 +16,14 @@
 
 <script lang="ts">
 	let {
-		id = (Date.now() + Math.random()).toString(36),
+		id,
 		name,
-		value = null,
-		label = '',
-		checked = false,
-		disabled = false,
-		prependLabel = false,
-		size = 'small',
+		value,
+		label,
+		checked,
+		disabled,
+		prependLabel,
+		size = 'small', // small is the most common size
 		onRadioChange,
 	} = $props<RadioProps>();
 </script>

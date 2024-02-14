@@ -24,12 +24,7 @@
 	import { createFloatingActions } from 'svelte-floating-ui';
 	import { Menu, type MenuData } from './index';
 
-	let {
-		data,
-		navMenuData,
-		vertical = false,
-		onNavClick,
-	} = $props<NavBarProps>();
+	let { data, navMenuData, vertical, onNavClick } = $props<NavBarProps>();
 
 	let menuVisible = $state(false);
 
@@ -127,7 +122,7 @@
 	{/if}
 </nav>
 
-{#if menuVisible}
+{#if menuVisible && navMenuData?.length}
 	<div
 		bind:this={navBarMenuEl}
 		class="sp-nav--menu"

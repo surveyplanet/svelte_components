@@ -14,7 +14,7 @@
 		submenu?: MenuData[];
 	}
 	export type MenuProps = {
-		data?: MenuData[];
+		data: MenuData[];
 		size?: 'small' | 'medium' | 'large';
 		onMenuUpdate?: (id: string) => void;
 		onMenuClick?: (id: string) => void;

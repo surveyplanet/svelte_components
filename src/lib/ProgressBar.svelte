@@ -3,18 +3,18 @@
 	context="module">
 	export type ProgressBarProps = {
 		max: number;
-		value: number;
-		speed: number;
+		value?: number;
+		speed?: number;
 		displayValue?: boolean;
 	};
 </script>
 
 <script lang="ts">
 	let {
-		max = 100,
-		value = 0,
-		speed = 1000, // milliseconds
-		displayValue = true,
+		max,
+		value = 0, // to start at 0
+		speed = 1000, // speed should have a fallback value
+		displayValue,
 	} = $props<ProgressBarProps>();
 	let progress = $state(0);
 

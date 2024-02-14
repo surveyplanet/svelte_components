@@ -4,11 +4,11 @@
 
 | Property                      | Type    | Description                                                    |
 | ----------------------------- | ------- | -------------------------------------------------------------- |
-| `title='Modal'`               | String  | Title text for the modal.                                      |
-| `subtitle='Subtitle'`         | String  | Subtitle text for the modal.                                   |
-| `fullscreen={false}`          | Boolean | Indicates if the modal should be displayed in fullscreen.      |
-| `overlay={true}`              | Boolean | Indicates whether to display an overlay behind the modal.      |
-| `visible={false}`             | Boolean | Indicates whether the modal is currently visible.              |
+| `title`                       | String  | Title text for the modal.                                      |
+| `subtitle`                    | String  | Subtitle text for the modal.                                   |
+| `fullscreen`                  | Boolean | Indicates if the modal should be displayed in fullscreen.      |
+| `overlay`                     | Boolean | Indicates whether to display an overlay behind the modal.      |
+| `visible`                     | Boolean | Indicates whether the modal is currently visible.              |
 | `animationMilliseconds={350}` | Number  | Duration of the intro/outro animation in milliseconds.         |
 | `size='medium`                | String  | Size of the modal, one of `'small'`, `'medium'`, or `'large'`. |
 | `footer`                      | Snippet | Custom content for the modal footer.                           |

@@ -79,6 +79,8 @@
 			<Spinner
 				id="number-{(Date.now() + Math.random()).toString(36)}"
 				{label}
+				min={0}
+				max={100000}
 				bind:value
 				size={FORM_CONTROL_SIZE}
 				onSpinnerInput={onInput}

@@ -3,12 +3,12 @@
 | Property             | Type              | Description                                             |
 | -------------------- | ----------------- | ------------------------------------------------------- |
 | `options`            | DropdownOptions[] | Array of objects representing the dropdown options.     |
-| `placeholder=null`   | string            | Placeholder text for the dropdown input.                |
-| `value=null`         | string            | Selected value from the dropdown options.               |
-| `label=null`         | string            | Label for the dropdown.                                 |
+| `placeholder`        | string            | Placeholder text for the dropdown input.                |
+| `value`              | string            | Selected value from the dropdown options.               |
+| `label`              | string            | Label for the dropdown.                                 |
 | `searchThreshold=15` | number            | Number of options to enable search functionality.       |
-| `disabled={false}`   | boolean           | Disables the dropdown if `true`.                        |
-| `required={false}`   | boolean           | Indicates if the dropdown is required.                  |
+| `disabled`           | boolean           | Disables the dropdown if `true`.                        |
+| `required`           | boolean           | Indicates if the dropdown is required.                  |
 | `size='small'`       | string            | Size of the dropdown: `'small'`, `'medium'`, `'large'`. |
 
 ### Callbacks

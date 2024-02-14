@@ -11,8 +11,8 @@
 		| 'multiline';
 
 	export type TextInputProps = {
-		id: string;
-		name: string;
+		id?: string;
+		name?: string;
 		type?: TextInputType;
 		value?: string;
 		label?: string;
@@ -47,12 +47,12 @@
 		value,
 		label,
 		placeholder,
-		readonly = false,
-		disabled = false,
+		readonly,
+		disabled,
 		cleaveOptions,
-		validationRules = [''],
+		validationRules,
 		validationMessage,
-		size = 'small',
+		size = 'small', // inputs are small by default
 		validationHideMessage,
 		onTextInputInput,
 		onTextInputBlur,
@@ -153,7 +153,7 @@
 			{disabled}
 			{readonly}
 			bind:value
-			data-validate-rules={validationRules.length
+			data-validate-rules={validationRules?.length
 				? validationRules.join(',')
 				: null}
 			data-validate-message={validationMessage}
@@ -205,7 +205,7 @@
 			{disabled}
 			{readonly}
 			bind:value
-			data-validate-rules={validationRules.length
+			data-validate-rules={validationRules?.length
 				? validationRules.join(',')
 				: null}
 			data-validate-message={validationMessage}
@@ -225,7 +225,7 @@
 			{disabled}
 			{readonly}
 			bind:value
-			data-validate-rules={validationRules.length
+			data-validate-rules={validationRules?.length
 				? validationRules.join(',')
 				: null}
 			data-validate-message={validationMessage}
@@ -245,7 +245,7 @@
 			{disabled}
 			{readonly}
 			bind:value
-			data-validate-rules={validationRules.length
+			data-validate-rules={validationRules?.length
 				? validationRules.join(',')
 				: null}
 			data-validate-message={validationMessage}
@@ -264,7 +264,7 @@
 			{disabled}
 			{readonly}
 			bind:value
-			data-validate-rules={validationRules.length
+			data-validate-rules={validationRules?.length
 				? validationRules.join(',')
 				: null}
 			data-validate-message={validationMessage}
@@ -284,7 +284,7 @@
 			{disabled}
 			{readonly}
 			bind:value
-			data-validate-rules={validationRules.length
+			data-validate-rules={validationRules?.length
 				? validationRules.join(',')
 				: null}
 			data-validate-message={validationMessage}

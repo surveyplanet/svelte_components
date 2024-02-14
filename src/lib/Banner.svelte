@@ -3,7 +3,7 @@
 	context="module">
 	export type BannerProps = {
 		title?: string;
-		type?: 'info' | 'warning' | 'error' | 'success';
+		type: 'info' | 'warning' | 'error' | 'success';
 		visible?: boolean;
 		hideDelay?: number;
 		children?: Snippet;
@@ -18,10 +18,10 @@
 	import { sineOut } from 'svelte/easing';
 
 	let {
-		title = '',
-		type = 'success',
-		visible = false,
-		hideDelay = 0,
+		title,
+		type,
+		visible,
+		hideDelay = 0, // when default is 0, it will not hide which is a default behavior
 		children,
 	} = $props<BannerProps>();
 

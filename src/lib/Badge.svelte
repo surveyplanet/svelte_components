@@ -3,7 +3,7 @@
 	context="module">
 	export type BadgeProps = {
 		color: BadgeColors;
-		flat: boolean;
+		flat?: boolean;
 		children?: Snippet;
 	};
 	export type BadgeColors = 'yellow' | 'blue' | 'pink' | 'green';

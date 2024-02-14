@@ -2,11 +2,11 @@
 
 ### `UploadProps`
 
-| Property         | Type       | Description                                             |
-| ---------------- | ---------- | ------------------------------------------------------- |
-| `label='Upload'` | `string`   | The label or text associated with the upload button.    |
-| `formats`        | `string[]` | Array of allowed file formats (e.g., `['jpg', 'png']`). |
-| `maxSize={10}`   | `number`   | The maximum allowed file size in megabytes (MB).        |
+| Property       | Type       | Description                                             |
+| -------------- | ---------- | ------------------------------------------------------- |
+| `label`        | `string`   | The label or text associated with the upload button.    |
+| `formats`      | `string[]` | Array of allowed file formats (e.g., `['jpg', 'png']`). |
+| `maxSize={10}` | `number`   | The maximum allowed file size in megabytes (MB).        |
 
 ### Callbacks
 
