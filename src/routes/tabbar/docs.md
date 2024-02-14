@@ -2,10 +2,10 @@
 
 | Property                                         | Type           | Description                                                                                        |
 | ------------------------------------------------ | -------------- | -------------------------------------------------------------------------------------------------- |
+| `data`                                           | `TabBarData[]` | An array of `TabBarData` objects representing each tab.                                            |
 | `block={false}`                                  | `boolean`      | If `true`, allows the tab bar to become a block level element and expands to fill available space. |
 | `[defaultIndicatorWidth]`                        | `number`       | Set the initial width of the selection indicator manually to prevent it from jumping from 0 (the width set by css) to it's calculated width. |
 | `[defaultIndicatorX]`                            | `number`       | Set the initial x position of the selection indicator manually to prevent it from jumping from 0 to it's calculated position. |
-| `data`                                           | `TabBarData[]` | An array of `TabBarData` objects representing each tab.                                            |
 
 ### Callbacks
 
