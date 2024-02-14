@@ -27,8 +27,9 @@
 	]);
 
 	let block = $state(false);
-
 	let id = $state((Date.now() + Math.random()).toString(36));
+	let defaultIndicatorWidth = $state(114);
+	let defaultIndicatorX: number | undefined = $state();
 
 	const tabButtonClickHandler = (id: string): void => {
 		events.push(id);
@@ -56,12 +57,21 @@
 		<PropsChanger
 			label="Id"
 			bind:value={id} />
+		<PropsChanger
+			label="Default indicator width"
+			bind:value={defaultIndicatorWidth} />
+		<PropsChanger
+			label="Default indicator X position"
+			type="number"
+			bind:value={defaultIndicatorX} />
 	{/snippet}
 	{#snippet main()}
 		<TabBar
 			onTabClick={tabButtonClickHandler}
 			bind:data
 			{block}
+			{defaultIndicatorWidth}
+			{defaultIndicatorX}
 			{id} />
 	{/snippet}
 </Layout>
