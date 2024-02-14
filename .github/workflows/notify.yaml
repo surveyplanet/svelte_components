@@ -3,7 +3,7 @@ name: Discord notification
 on:
     workflow_run:
         workflows:
-            - Publish Svelte components
+            - Deploy Svelte components
         types:
             - completed
 

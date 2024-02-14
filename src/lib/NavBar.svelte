@@ -52,7 +52,7 @@
 			window.location.href = target.href;
 		} else {
 			e.preventDefault();
-			e.stopPropagation();
+			// e.stopPropagation();
 			if (typeof onNavClick === 'function') {
 				onNavClick(target.id);
 			}
@@ -142,9 +142,5 @@
 	.sp-nav--icon {
 		/* don't allow icons to receive target */
 		pointer-events: none;
-	}
-
-	button {
-		background-color: red;
 	}
 </style>
