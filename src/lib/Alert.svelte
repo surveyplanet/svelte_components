@@ -2,9 +2,9 @@
 	lang="ts"
 	context="module">
 	export type AlertProps = {
-		title: string | null;
-		subtitle: string | null;
-		type: 'info' | 'warning' | 'error' | 'success';
+		title?: string | null;
+		subtitle?: string | null;
+		type?: 'info' | 'warning' | 'error' | 'success';
 		hideDelay?: number;
 		confirm?: boolean;
 		confirmButtonLabel?: string;
@@ -35,7 +35,7 @@
 	let {
 		title,
 		subtitle,
-		type,
+		type = 'success',
 		hideDelay, // in milliseconds
 		confirm,
 		confirmButtonLabel = 'Confirm', // common label

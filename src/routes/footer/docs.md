@@ -11,5 +11,5 @@
 
 | Property | Type   | Description                     |
 | -------- | ------ | ------------------------------- |
-| `link`   | String | URL link for the footer item.   |
+| `[link]` | String | URL link for the footer item.   |
 | `label`  | String | Label text for the footer item. |

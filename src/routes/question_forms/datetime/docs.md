@@ -2,12 +2,12 @@
 
 ### `DateTimeProps`
 
-| Property   | Type              | Description                               |
-| ---------- | ----------------- | ----------------------------------------- |
-| `id`       | `string`          | The unique identifier for the component.  |
-| `date`     | `boolean`         | Flag to include date input.               |
-| `time`     | `boolean`         | Flag to include time input.               |
-| `response` | `DateTimeValue[]` | Array of date-time values as ISO strings. |
+| Property          | Type              | Description                               |
+| ----------------- | ----------------- | ----------------------------------------- |
+| `[id]`            | `string`          | The unique identifier for the component.  |
+| `[date]`          | `boolean`         | Flag to include date input.               |
+| `[time]`          | `boolean`         | Flag to include time input.               |
+| `[response={[]}]` | `DateTimeValue[]` | Array of date-time values as ISO strings. |
 
 ### Callbacks
 

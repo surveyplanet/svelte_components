@@ -14,9 +14,9 @@
 
 ##### `SortListData`
 
-| Property | Type       | Description                                |
-| -------- | ---------- | ------------------------------------------ |
-| `label`  | `string`   | The label or text content for the item.    |
-| `meta`   | `string`   | Additional meta information for the item.  |
-| `image`  | `string`   | URL of an image associated with the item.  |
-| `icon`   | `IconName` | Name of the icon associated with the item. |
+| Property  | Type       | Description                                |
+| --------- | ---------- | ------------------------------------------ |
+| `label`   | `string`   | The label or text content for the item.    |
+| `[meta]`  | `string`   | Additional meta information for the item.  |
+| `[image]` | `string`   | URL of an image associated with the item.  |
+| `[icon]`  | `IconName` | Name of the icon associated with the item. |

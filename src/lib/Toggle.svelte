@@ -9,7 +9,7 @@
 		tall?: boolean;
 		label?: string | null;
 		prependLabel?: boolean;
-		onToggleChange?: (on: boolean | undefined) => void;
+		onToggleChange?: (on: boolean) => void;
 	};
 </script>
 
@@ -25,7 +25,7 @@
 			return event.preventDefault();
 		}
 
-		if (onToggleChange) onToggleChange(on);
+		if (onToggleChange) onToggleChange(on as boolean);
 	};
 </script>
 

@@ -16,7 +16,7 @@
 	} as Record<string, string>;
 
 	export type AvatarProps = {
-		profileImage: string;
+		profileImage: string; // the if statement that tests if this is an URL doesn't work as a type guard
 		id?: string;
 		size?: 'small' | 'medium' | 'large';
 		disabled?: boolean;

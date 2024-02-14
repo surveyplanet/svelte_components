@@ -9,7 +9,7 @@
 		checked?: boolean;
 		disabled?: boolean;
 		prependLabel?: boolean;
-		size: 'small' | 'medium' | 'large';
+		size?: 'small' | 'medium' | 'large';
 		onCheckboxChange?: (e: Event) => void;
 	};
 </script>
