@@ -4,7 +4,7 @@ export default (
 data: FormProps
 ) => {
 	return `
-<script lang ="ts">
+<script lang="ts">
 	import {Form, type FormProps} from '@surveyplanet/svelte-components';
 	import type {FormValue} from '@surveyplanet/types';
 
@@ -21,7 +21,7 @@ data: FormProps
 	id='${data.id}'
 	{labels}
 	random={${data.random}}
-	response={${JSON.stringify(data.response)}}
+	{response}
 	{onFormResponse}
 />`;
 };

@@ -148,11 +148,11 @@
 						{
 							id: 'controls',
 							label: 'Controls',
-							selected: true,
 						},
 						{
 							id: 'example',
 							label: 'Example',
+							selected: true,
 						},
 						{
 							id: 'docs',

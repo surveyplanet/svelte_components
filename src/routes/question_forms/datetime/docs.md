@@ -13,7 +13,7 @@
 
 | Name                 | Description                                                   | Arguments                   |
 | -------------------- | ------------------------------------------------------------- | --------------------------- |
-| `onDatetimeResponse` | Callback triggered when the date-time input value is changed. | `response: DateTimeValue[]` |
+| `onDateTimeResponse` | Callback triggered when the date-time input value is changed. | `response: DateTimeValue[]` |
 
 ### Interfaces
 

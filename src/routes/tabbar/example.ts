@@ -7,15 +7,15 @@ export default (
 	return `
 <script lang="ts">
 	import {type TabBarData, TabBar} from '@surveyplanet/svelte_components';
-	const onTabClick = (data: TabBarData): void => {
-		console.log(data);
+	const onTabClick = (id: string): void => {
+		console.log(id);
 	};
-	let data: TabBarData = ${JSON.stringify(data.data, null, 2)};
+	let data: TabBarData[] = ${JSON.stringify(data.data, null, 2)};
 </script>
 
 <TabBar 
-	block='${data.block}' 
-	id={${data.id}} 
+	block={${data.block}} 
+	id='${data.id}' 
 	{data}
 	{onTabClick}
 />

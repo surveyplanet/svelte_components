@@ -6,13 +6,13 @@ export default (
 ) => {
 	return `
 <script lang="ts">
-	import { NavBar, type NavBarData, type MenuData } from 'components/NavBar';
+	import { NavBar, type NavBarData, type MenuData } from '@surveyplanet/svelte_components';
 
-	const onNavClick = (event) => {
-		console.log(event.detail);
+	const onNavClick = (id: string) => {
+		console.log(id);
 	}
 
-	let data: NavBarData[] = {${JSON.stringify(data.data, null, 2)})
+	let data: NavBarData[] = ${JSON.stringify(data.data, null, 2)}
 	let navMenuData: MenuData[] = ${JSON.stringify(data.navMenuData, null, 2)};
 </script>
 

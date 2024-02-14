@@ -17,7 +17,7 @@ export default (
     size='${data.size}'
     disabled={${data.disabled}}
     profileImage='${data.profileImage}'
-    {onAvatarClick}
+    {onAvatarClick}>
 </Avatar>
 `;
 };

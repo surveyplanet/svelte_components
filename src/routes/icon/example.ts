@@ -13,7 +13,7 @@ import { Icon, type IconName, type IconSize } from '@surveyplanet/svelte_compone
 
 <Icon 
 	color='${data.color}' 
-	size='${data.size}' 
+	size={${data.size}} 
 	name='${data.name}' />
 `;
 };

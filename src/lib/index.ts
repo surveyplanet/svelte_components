@@ -76,7 +76,7 @@ export {
 	type SortListData,
 	type SortListProps,
 } from './SortableList.svelte';
-export { default as Upload, type UploadProps } from './Upload.svelte';
+export { default as Upload, type UploadProps, type UploadData } from './Upload.svelte';
 
 // QUESTION FORMS
 export {

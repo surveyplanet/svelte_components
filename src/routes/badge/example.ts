@@ -10,9 +10,8 @@ export default (
 
 <Badge
   color='${data.color}'
-  content='${data.content}' 
   flat={${data.flat}}>
-  Pro
+  ${data.content}
 </Badge>
 `;
 };

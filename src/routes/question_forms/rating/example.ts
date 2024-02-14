@@ -5,9 +5,9 @@ export default (
 ) => {
 	return `
 <script lang="ts">
-	import {Rating, RatingProps} from '@surveyplanet/svelte-components';
+	import {Rating, type RatingProps} from '@surveyplanet/svelte-components';
 	import type {RatingValue} from '@surveyplanet/types';
-	const responseHandler = (response: RatingValue[]) => {
+	const onRatingResponse = (response: RatingValue[]) => {
 		console.log(response);
 	}
 	let labels : RatingProps['labels'] = ${JSON.stringify(data.labels)};

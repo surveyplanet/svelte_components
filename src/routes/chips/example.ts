@@ -14,10 +14,10 @@ export default (
 		console.log(data);
 	};
 
-	let data: ChipData[] = ${JSON.stringify(data, null, 4)};
+	let data: ChipData[] = ${JSON.stringify(data.data, null, 4)};
 </script>
 
-<Chip
+<Chips
 	data={data}
 	selectable={${data.selectable}}
 	multiSelect={${data.multiSelect}}

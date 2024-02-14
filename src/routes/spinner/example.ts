@@ -6,15 +6,15 @@ data: SpinnerProps
 	return `
 <script lang="ts">
 	import { Spinner } from '@surveyplanet/svelte-components';
-	const onSpinnerChange = (value: number) => {
+	const onSpinnerChange = (value: number | undefined) => {
 		console.log(value);
-	}
-	const onSpinnerUpdate = (value: number) => {
+	};
+	const onSpinnerUpdate = (value: number | undefined) => {
 		console.log(value);
-	}
-	const onSpinnerInput = (value: number) => {
+	};
+	const onSpinnerInput = (value: number | undefined) => {
 		console.log(value);
-	}
+	};
 	const onSpinnerBlur = () => {
 		console.log('blur');
 	}
