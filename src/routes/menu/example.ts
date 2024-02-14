@@ -17,21 +17,20 @@ export default (data: MenuProps) => {
     let data: MenuData[] = ${JSON.stringify(data.data, null, 4)};
 </script>
 
-    <Menu
-	    {data}
-	    size = {${data.size}}
-	    {onMenuUpdate}
-	    {onMenuClick}
-	    {onMenuBlur} >
+<Menu
+    {data}
+    size = {${data.size}}
+    {onMenuUpdate}
+    {onMenuClick}
+    {onMenuBlur} >
 
-        {#snippet footer()}
-        ...
-        {/snippet}
+    {#snippet footer()}
+    ...
+    {/snippet}
 
-        {#snippet header()}
-        ...
-        {/snippet}
-
-    </Menu>
+    {#snippet header()}
+    ...
+    {/snippet}
+</Menu>
 `;
 };

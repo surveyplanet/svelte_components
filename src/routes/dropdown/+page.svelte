@@ -118,7 +118,7 @@
 				{searchThreshold}
 				{disabled}
 				{required}
-				bind:value
+				{value}
 				{placeholder}
 				{label}
 				{size}

@@ -7,7 +7,6 @@ export default ( data: LoaderProps) => {
 	
 </script>
 
-
 <Loader 
 	colors='${data.colors}'
 	size={${data.size}}
