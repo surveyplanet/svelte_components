@@ -52,7 +52,7 @@
 	let searchThreshold = $state(2);
 	let disabled = $state(false);
 	let required = $state(false);
-	let value = $state('');
+	let value = $state(undefined);
 	let placeholder = $state('Choose one');
 	let label = $state('Dropdown component');
 	let size: 'small' | 'medium' | 'large' = $state('small');
@@ -118,7 +118,7 @@
 				{searchThreshold}
 				{disabled}
 				{required}
-				bind:value
+				{value}
 				{placeholder}
 				{label}
 				{size}

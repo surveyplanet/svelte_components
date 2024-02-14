@@ -5,7 +5,7 @@ export default (
 ) => {
 	return `
 <script lang="ts">
-	import {MultipleChoice, MultipleChoiceProps} from '@surveyplanet/svelte-components';
+	import {MultipleChoice, type MultipleChoiceProps} from '@surveyplanet/svelte-components';
 	import type {MultipleChoiceValue} from '@surveyplanet/types';
 	
 	const onMultipleChoiceResponse = (response: MultipleChoiceValue[]) => {
@@ -20,7 +20,7 @@ export default (
 
 <MultipleChoice
 	id='${data.id}'
-	labels={${JSON.stringify(data.labels)}}
+	{labels}
 	multi={${data.multi}}
 	layout='${data.layout}'
 	random={${data.random}}

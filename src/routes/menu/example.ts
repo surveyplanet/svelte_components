@@ -4,34 +4,33 @@ export default (data: MenuProps) => {
 	return `
 <script lang="ts">
     import { Menu, type MenuData } from '@surveyplanet/svelte_components';
-    const onMenuClick = (event:CustomEvent) {
-        console.log('Clicked menu item:', event.detail);
+    const onMenuClick = (id:string) => {
+        console.log('Clicked menu item:', id);
     }
-    const onMenuBlur = (event:CustomEvent) {
+    const onMenuBlur = (event:FocusEvent) => {
             console.log('Menu blurred:', event.detail);
     }
-    const onMenuUpdate = (event:CustomEvent) {
-            console.log('Menu updated:', event.detail);
+    const onMenuUpdate = (id:string)=> {
+            console.log('Menu updated:', id);
     }
 
     let data: MenuData[] = ${JSON.stringify(data.data, null, 4)};
 </script>
 
-    <Menu
-	    {data}
-	    size = {${data.size}}
-	    {onMenuUpdate}
-	    {onMenuClick}
-	    {onMenuBlur} >
+<Menu
+    {data}
+    size='${data.size}'
+    {onMenuUpdate}
+    {onMenuClick}
+    {onMenuBlur} >
 
-        {#snippet footer()}
-        ...
-        {/snippet}
+    {#snippet footer()}
+    ...
+    {/snippet}
 
-        {#snippet header()}
-        ...
-        {/snippet}
-
-    </Menu>
+    {#snippet header()}
+    ...
+    {/snippet}
+</Menu>
 `;
 };

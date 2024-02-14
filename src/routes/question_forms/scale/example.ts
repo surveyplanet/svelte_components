@@ -4,7 +4,7 @@ export default (
 	data: ScaleProps
 ) => {
 	return `
-<script lang ="ts">
+<script lang="ts">
 	import {Scale} from '@surveyplanet/svelte-components';
 	import type {ScaleValue} from '@surveyplanet/types';
 

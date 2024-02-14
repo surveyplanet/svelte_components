@@ -9,7 +9,6 @@ export default (data: ButtonProps & { content: string }) => {
 	};
 </script>
 
-
 <Button
 	mode='${data.mode}'
 	disabled={${data.disabled}}

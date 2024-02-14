@@ -4,8 +4,8 @@ export default (
  data: ImageProps
 ) => {
 	return `
-<script lang ="ts">
-	import {Image, ImageProps} from '@surveyplanet/svelte-components';
+<script lang="ts">
+	import {Image, type ImageProps} from '@surveyplanet/svelte-components';
 	import type {ImageValue} from '@surveyplanet/types';
 
 	const onImageResponse = (response: ImageValue[]) => {
@@ -20,7 +20,7 @@ export default (
 	id='${data.id}'
 	{labels}
 	multi={${data.multi}}
-	size={${data.size}}
+	size='${data.size}'
 	hideCaptions={${data.hideCaptions}}
 	contain={${data.contain}}
 	random={${data.random}}

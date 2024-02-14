@@ -4,10 +4,10 @@ export default (
 	data: ScoringProps
 ) => {
 	return `
-<script lang ="ts">
-	import {Scoring} from '@surveyplanet/svelte-components';
+<script lang="ts">
+	import {Scoring, type ScoringProps} from '@surveyplanet/svelte-components';
 	import type {ScoringValue} from '@surveyplanet/types';
-	const responseHandler = (response: ScoringValue[]) => {
+	const onScoringResponse = (response: ScoringValue[]) => {
 		console.log(response);
 	}
 	let labels : ScoringProps['labels'] = ${JSON.stringify(data.labels)};
@@ -21,6 +21,7 @@ export default (
 	{values}
 	{labels}
 	minLabel='${data.minLabel}'
+	maxLabel='${data.maxLabel}'
 	requireAll={${data.requireAll}}
 	requireUnique={${data.requireUnique}}
 	{response}

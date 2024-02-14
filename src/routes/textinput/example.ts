@@ -4,27 +4,30 @@ export default (
 ) => {
 	return `
 <script lang="ts">
-	import { TextInput } from '@surveyplanet/svelte_components';
-	const onTextInputInput = (value: string) => {
-		console.log(value);
+	import { TextInput, type TextInputProps } from '@surveyplanet/svelte_components';
+
+	const onTextInputInput = (e: Event) => {
+		console.log(e);
 	}
 	const onTextInputBlur = () => {
 		console.log('blur');
 	}
-	const onTextInputChange = (value: string) => {
-		console.log(value);
+	const onTextInputChange = (e: Event) => {
+		console.log(e);
 	}
 	const onTextInputFocus = () => {
 		console.log('focus');
 	}
-	const onTextInputKeydown = (event: KeyboardEvent) => {
-		console.log(event);
+	const onTextInputKeydown = (e: Event) => {
+		console.log(e);
 	}
-	const onTextInputKeyup = (event: KeyboardEvent) => {
-		console.log(event);
+	const onTextInputKeyup = (e: Event) => {
+		console.log(e);
 	}
 
-	let validationRules = ${JSON.stringify(data.validationRules, null, 2)};
+	let validationRules: TextInputProps['validationRules']  = ${JSON.stringify(data.validationRules, null, 2)};
+	let cleaveOptions: TextInputProps['cleaveOptions'] = ${JSON.stringify(data.cleaveOptions, null, 2)};
+
 </script>
 
 <TextInput
@@ -42,9 +45,9 @@ export default (
 	placeholder='${data.placeholder}'
 	readonly={${data.readonly}}
 	disabled={${data.disabled}}
-	cleaveOptions={${data.cleaveOptions}}
+	{cleaveOptions}
 	{validationRules}
-	validationMessage='${data.validationMessage}'
+	validationMessage=''
 	size='${data.size}'
 />
 `;

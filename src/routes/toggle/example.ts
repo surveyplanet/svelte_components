@@ -4,9 +4,9 @@ export default (
 	data: ToggleProps
 ) => {
 	return `
-<script="ts">
-	import { Toggle } from '@surveyplanet/svelte-components';
-	function onToggleChange(on) {
+<script lang="ts">
+	import { Toggle, type ToggleProps } from '@surveyplanet/svelte-components';
+	function onToggleChange(on: ToggleProps['on']) {
 		console.log(on);
 	}
 </script>

@@ -27,24 +27,17 @@
 	]);
 
 	let block = $state(false);
-	let id = $state((Date.now() + Math.random()).toString(36));
 	let defaultIndicatorWidth = $state(114);
-	let defaultIndicatorX: number | undefined = $state();
+	let defaultIndicatorX: number | undefined = $state(4);
 
 	const tabButtonClickHandler = (id: string): void => {
 		events.push(id);
 	};
-
-	// let dataStringed = $state(JSON.stringify(data));
-
-	// $effect(() => {
-	// 	data = JSON.parse(dataStringed);
-	// });
 </script>
 
 <Layout
 	component="TabBar"
-	example={source({ data, block, id })}
+	example={source({ data, block, defaultIndicatorWidth, defaultIndicatorX })}
 	{md}
 	bind:events>
 	{#snippet controls()}
@@ -54,9 +47,6 @@
 		<PropsChanger
 			label="Block"
 			bind:value={block} />
-		<PropsChanger
-			label="Id"
-			bind:value={id} />
 		<PropsChanger
 			label="Default indicator width"
 			bind:value={defaultIndicatorWidth} />
@@ -71,7 +61,6 @@
 			bind:data
 			{block}
 			{defaultIndicatorWidth}
-			{defaultIndicatorX}
-			{id} />
+			{defaultIndicatorX} />
 	{/snippet}
 </Layout>
