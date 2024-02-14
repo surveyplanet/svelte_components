@@ -13,7 +13,9 @@
 
 	export type TabBarProps = {
 		block?: boolean;
-		data?: TabBarData[];
+		defaultIndicatorWidth?: number;
+		defaultIndicatorX?: number;
+		data: TabBarData[];
 		onTabClick?: (id: string) => void;
 	};
 </script>
@@ -21,7 +23,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	let { block, data, onTabClick } = $props<TabBarProps>();
+	let {
+		block = false,
+		defaultIndicatorWidth,
+		defaultIndicatorX,
+		data,
+		onTabClick,
+	} = $props<TabBarProps>();
 
 	let activeIndicator: HTMLDivElement | null = $state(null);
 
@@ -29,18 +37,13 @@
 		const selected = data?.find((item) => item.selected);
 		if (selected) {
 			selectTabButton(
-				document.getElementById(selected.id) as HTMLButtonElement
+				document.getElementById(selected.id) as HTMLButtonElement,
+				false
 			);
 		}
 	});
-	// const selected = $derived(data.find((item) => item.selected));
-	// if ( selected) {
-	// 	selectTabButton(
-	// 		document.getElementById(selected.id) as HTMLButtonElement
-	// 	);
-	// }
 
-	const moveIndicator = (target: HTMLButtonElement) => {
+	const moveIndicator = (target: HTMLButtonElement, animate = false) => {
 		const left = target.offsetLeft;
 		const width = target.offsetWidth;
 		const parent = target.closest('.sp-tab-bar') as HTMLElement;
@@ -51,14 +54,19 @@
 		);
 
 		if (activeIndicator) {
+			if (animate) {
+				activeIndicator.style.transitionProperty = 'left, width';
+			} else {
+				activeIndicator.style.transitionProperty = 'none';
+			}
 			activeIndicator.style.width = `${width}px`;
 			activeIndicator.style.left = `${left + offset}px`;
 		}
 	};
 
-	const selectTabButton = (target: HTMLButtonElement) => {
+	const selectTabButton = (target: HTMLButtonElement, animate: boolean) => {
 		const id = target.id;
-		moveIndicator(target);
+		moveIndicator(target, animate);
 
 		data = (data ?? []).map((item) => {
 			item.selected = item.id === id;
@@ -71,14 +79,15 @@
 	const tabButtonHandler = (event: Event) => {
 		event.preventDefault();
 		const target = (event.target as HTMLElement).closest('button');
-		selectTabButton(target!);
+		selectTabButton(target!, true);
 	};
 
 	const windowResizeHandler = () => {
 		const selected = data?.find((item) => item.selected);
 		if (selected) {
 			selectTabButton(
-				document.getElementById(selected.id) as HTMLButtonElement
+				document.getElementById(selected.id) as HTMLButtonElement,
+				true
 			);
 		}
 	};
@@ -91,6 +100,8 @@
 	class:sp-tab-bar--block={block}>
 	<div
 		class="sp-tab-bar--active-indicator"
+		style:width={`${defaultIndicatorWidth ? defaultIndicatorWidth + 'px' : void 0}`}
+		style:left={`${defaultIndicatorX ? defaultIndicatorX + 'px' : void 0}`}
 		bind:this={activeIndicator} />
 
 	<ul>
@@ -106,8 +117,7 @@
 						<span class="sp-tab-bar--button--label">
 							{item.label}
 						</span>
-					{/if}
-					{#if item.html}
+					{:else if item.html}
 						<span class="sp-tab-bar--button--html">
 							{item.html}
 						</span>

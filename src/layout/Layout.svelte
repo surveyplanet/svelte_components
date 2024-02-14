@@ -142,7 +142,6 @@
 		<section id="component-details">
 			<header>
 				<TabBar
-					id="tab-bar"
 					block={true}
 					data={[
 						{

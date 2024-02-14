@@ -1,9 +1,6 @@
 import type { TabBarProps } from '$lib';
 
-export default (
-	data: TabBarProps
-
-) => {
+export default (data: TabBarProps) => {
 	return `
 <script lang="ts">
 	import {type TabBarData, TabBar} from '@surveyplanet/svelte_components';
@@ -14,8 +11,9 @@ export default (
 </script>
 
 <TabBar 
-	block={${data.block}} 
-	id='${data.id}' 
+	block='${data.block}' 
+	defaultIndicatorWidth={${data.defaultIndicatorWidth}}
+	defaultIndicatorX={${data.defaultIndicatorX}}
 	{data}
 	{onTabClick}
 />
