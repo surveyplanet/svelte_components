@@ -15,7 +15,7 @@
 		block?: boolean;
 		defaultIndicatorWidth?: number;
 		defaultIndicatorX?: number;
-		data?: TabBarData[];
+		data: TabBarData[];
 		onTabClick?: (id: string) => void;
 	};
 </script>
