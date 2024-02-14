@@ -3,15 +3,11 @@ import type { ToggleProps } from "$lib";
 export default (
 	data: ToggleProps
 ) => {
-	return `<script>
+	return `
+<script="ts">
 	import { Toggle } from '@surveyplanet/svelte-components';
-
-	function onToggle(on) {
-		if (on) {
-			console.log('Toggle ON 🎉');
-		} else {
-			console.log('Toggle OFF 😤');
-		}
+	function onToggleChange(on) {
+		console.log(on);
 	}
 </script>
 
@@ -23,7 +19,7 @@ export default (
 	name='${data.name}'
 	label='${data.label}'
 	prependLabel={${data.prependLabel}}
-	{onToggle}
+	{onToggleChange}
 	/>
 `;
 };

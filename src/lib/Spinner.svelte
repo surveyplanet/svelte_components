@@ -98,11 +98,11 @@
 			}
 		}
 	};
-
-	const reset = () => {
-		value = undefined;
-		if (onSpinnerUpdate) onSpinnerUpdate(value);
-	};
+	// do we really need this?
+	// const reset = () => {
+	// 	value = undefined;
+	// 	if (onSpinnerUpdate) onSpinnerUpdate(value);
+	// };
 
 	const increment = () => {
 		changeValue(true);
@@ -160,7 +160,7 @@
 	};
 
 	const upMouseDownHandler = () => {
-		// increment then use to delay for 1 sec before setting interval
+		// increment then use to delay for .5 sec before setting interval
 		increment();
 
 		spinnerTimeout = setTimeout(() => {
@@ -209,9 +209,10 @@
 			inputChange('ArrowUp');
 		} else if (event.key === 'ArrowDown') {
 			inputChange('ArrowDown');
-		} else if (event.key === 'Backspace' || event.key === 'Delete') {
-			reset();
 		}
+		//  else if (event.key === 'Backspace' || event.key === 'Delete') {
+		// 	reset();
+		// }
 	};
 	const spinnerFocusHandler = () => {
 		if (input) input.focus();
@@ -235,10 +236,10 @@
 	</label>
 
 	<input
+		bind:this={input}
 		class="sp-number-spinner--input"
 		type="number"
 		bind:value
-		bind:this={input}
 		onblur={blurHandler}
 		onchange={changeHandler}
 		onfocus={focusHandler}

@@ -4,19 +4,22 @@ export default (
 	data: RangeProps
 ) => {
 	return `
-<script lang ='ts'>
+<script lang="ts">
 	import {Range} from '@surveyplanet/svelte-components';
 	import type {RangeValue} from '@surveyplanet/types';
 
-	const responseHandler = (response: RangeValue[]) => {
+	const onRangeResponse = (response: RangeValue[]) => {
 		console.log(response);
 	}
+
+	let response: RangeValue[] = ${JSON.stringify(data.response, null, 2)};
 </script>
 
 <Range
 	id='${data.id}'
 	min={${data.min}}
 	max={${data.max}}
-	onRangeResponse={${JSON.stringify(data.response)}}
+	{response}
+	{onRangeResponse}
 />`;
 };

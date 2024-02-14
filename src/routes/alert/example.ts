@@ -7,7 +7,7 @@ export default (
 <script lang="ts">
 	import { Alert } from '@surveyplanet/svelte-components';
 
-  const onAlertOpen = () => {
+    const onAlertOpen = () => {
 		console.log('alert opened');
 	};
 	const onAlertIn = () => {

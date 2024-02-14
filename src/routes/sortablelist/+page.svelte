@@ -49,7 +49,7 @@
 	{#snippet main()}
 		<div class="wrapper">
 			<SortableList
-				onSort={sortableListSortHandler}
+				onSortSort={sortableListSortHandler}
 				bind:data />
 		</div>
 	{/snippet}

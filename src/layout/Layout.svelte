@@ -114,7 +114,6 @@
 					data={[
 						{
 							icon: 'refresh2',
-							link: '#',
 							id: 'refresh',
 							title: 'Refresh',
 						},
@@ -131,7 +130,7 @@
 					<Toggle
 						id="dark-mode-toggle"
 						name="dark-mode-toggle"
-						onToggle={darkModeHandler} />
+						onToggleChange={darkModeHandler} />
 				</div>
 			</header>
 			<div id="component-preview--window">

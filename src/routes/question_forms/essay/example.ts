@@ -4,13 +4,16 @@ export default (
 	data: EssayProps
 ) => {
 	return `
-<script lang ='ts'>
-	import {Scoring} from '@surveyplanet/svelte-components';
-	import type {ScoringValue} from '@surveyplanet/types';
+<script lang ="ts">
+	import {Essay} from '@surveyplanet/svelte-components';
+	import type {EssayValue} from '@surveyplanet/types';
 
-	const responseHandler = (response: ScoringValue[]) => {
+	const onEssayResponse = (response: EssayValue[]) => {
 		console.log(response);
-	}
+	};
+
+	let response: EssayValue[] = ${JSON.stringify(data.response, null, 2)};
+
 </script>	
 
 
@@ -19,6 +22,7 @@ export default (
 	min={${data.min}}
 	max={${data.max}}
 	single={${data.single}}
-	response={${JSON.stringify(data.response)}}
+	{response}
+	{onEssayResponse}
 />`;
 };

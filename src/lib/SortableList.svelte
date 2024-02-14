@@ -16,7 +16,7 @@
 
 	export type SortListProps = {
 		data: SortListData[];
-		onSort: (data: SortListData[]) => void;
+		onSortSort: (data: SortListData[]) => void;
 	};
 </script>
 
@@ -25,7 +25,7 @@
 	import { crossfade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 
-	let { data, onSort } = $props<SortListProps>();
+	let { data, onSortSort } = $props<SortListProps>();
 
 	// FLIP ANIMATION
 	const [send, receive] = crossfade({
@@ -50,7 +50,7 @@
 		let newList = [...data];
 		newList[from] = [newList[to], (newList[to] = newList[from])][0];
 		data = newList;
-		onSort(newList);
+		onSortSort(newList);
 	};
 
 	let isOver: boolean | string = $state(false);

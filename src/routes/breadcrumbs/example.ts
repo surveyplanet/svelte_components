@@ -5,7 +5,7 @@ export default (data: BreadcrumbData[]) => {
 <script lang="ts">
 	import { type BreadcrumbData, Breadcrumbs } from '@surveyplanet/svelte_components';
 
-	export let data: BreadcrumbData[] = ${JSON.stringify(data, null, 4)};
+	let data: BreadcrumbData[] = ${JSON.stringify(data, null, 4)};
 </script>
 
 <Breadcrumbs {data} />

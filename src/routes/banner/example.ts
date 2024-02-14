@@ -4,7 +4,7 @@ export default (
 	data: BannerProps & { content: string }
 ) => {
 	return `
-<script lang='ts>
+<script lang="ts">
 	import { Banner } from '@surveyplanet/svelte_components';
 </script>
 

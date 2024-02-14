@@ -6,9 +6,9 @@
 | `data`   | `SortListData[]` | The array of items to be sorted. |
 ### Callbacks
 
-| Name     | Description                          | Arguments              |
-| -------- | ------------------------------------ | ---------------------- |
-| `onSort` | Event handler for list item sorting. | `data: SortListData[]` |
+| Name         | Description                          | Arguments              |
+| ------------ | ------------------------------------ | ---------------------- |
+| `onSortSort` | Event handler for list item sorting. | `data: SortListData[]` |
 
 ### Interfaces
 

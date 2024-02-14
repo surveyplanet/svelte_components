@@ -1,11 +1,9 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable @typescript-eslint/no-base-to-string */
 import type { TextInputProps } from '$lib';
 export default (
 	data: TextInputProps
 ) => {
 	return `
-<script lang='ts'>
+<script lang="ts">
 	import { TextInput } from '@surveyplanet/svelte_components';
 	const onTextInputInput = (value: string) => {
 		console.log(value);
@@ -25,6 +23,8 @@ export default (
 	const onTextInputKeyup = (event: KeyboardEvent) => {
 		console.log(event);
 	}
+
+	let validationRules = ${JSON.stringify(data.validationRules, null, 2)};
 </script>
 
 <TextInput
@@ -43,7 +43,7 @@ export default (
 	readonly={${data.readonly}}
 	disabled={${data.disabled}}
 	cleaveOptions={${data.cleaveOptions}}
-	validationRules={${JSON.stringify(data.validationRules)}}
+	{validationRules}
 	validationMessage='${data.validationMessage}'
 	size='${data.size}'
 />

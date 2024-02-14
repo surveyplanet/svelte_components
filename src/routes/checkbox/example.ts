@@ -4,7 +4,7 @@ export default (
  data: CheckboxProps
 ) => {
 	return `
-<script>
+<script lang="ts">
 	import {Checkbox} from '@surveyplanet/svelte_components';
 	const onCheckboxChange = (e: Event): void => {
 		console.log(e)

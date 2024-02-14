@@ -9,7 +9,7 @@
 		tall?: boolean;
 		label?: string | null;
 		prependLabel?: boolean;
-		onToggle?: (on: boolean) => void;
+		onToggleChange?: (on: boolean) => void;
 	};
 </script>
 
@@ -24,7 +24,7 @@
 		tall = false,
 		label = null,
 		prependLabel = false,
-		onToggle,
+		onToggleChange,
 	} = $props<ToggleProps>();
 
 	const changeHandler = (event: Event): void => {
@@ -33,7 +33,7 @@
 			return event.preventDefault();
 		}
 
-		if (onToggle) onToggle(on);
+		if (onToggleChange) onToggleChange(on);
 	};
 </script>
 

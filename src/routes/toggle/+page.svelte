@@ -15,7 +15,7 @@
 	let prependLabel = $state(false);
 	// let meridiemIndicator = false;
 
-	const onToggle = (toggle: boolean): void => {
+	const onToggleChange = (toggle: boolean): void => {
 		events.push(toggle);
 	};
 </script>
@@ -48,7 +48,7 @@
 	{/snippet}
 	{#snippet main()}
 		<Toggle
-			{onToggle}
+			{onToggleChange}
 			{id}
 			{on}
 			{disabled}

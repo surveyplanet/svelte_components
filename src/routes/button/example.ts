@@ -2,7 +2,7 @@ import type { ButtonProps } from '$lib';
 
 export default (data: ButtonProps & { content: string }) => {
 	return `
-<script>
+<script lang="ts">
 	import { Button } from '@surveyplanet/svelte-components';
 	const onButtonClick = (): void => {
 		console.log('button clicked');
