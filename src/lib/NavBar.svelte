@@ -67,14 +67,14 @@
 
 	const documentClickHandler = (event: MouseEvent) => {
 		const compPath = event.composedPath();
-		const insideNav =
-			compPath.includes(navBarEl as EventTarget) ||
-			compPath.includes(navBarMenuEl as EventTarget);
+		const insideNav = compPath.includes(navBarEl!);
 
-		console.log(compPath);
-		console.log(
-			`Click was${insideNav ? '' : ' **NOT**'} inside NavBar component`
-		);
+		if (navBarMenuEl) {
+			compPath.includes(navBarMenuEl);
+		}
+
+		// console.log(compPath);
+		// console.log( `Click was${insideNav ? '' : ' **NOT**'} inside NavBar component` );
 
 		if (!insideNav) {
 			menuVisible = false;
