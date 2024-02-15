@@ -3,7 +3,7 @@
 	context="module">
 	export type BannerProps = {
 		title?: string;
-		type: 'info' | 'warning' | 'error' | 'success';
+		type?: 'info' | 'warning' | 'error' | 'success';
 		visible?: boolean;
 		hideDelay?: number;
 		children?: Snippet;
@@ -19,7 +19,7 @@
 
 	let {
 		title,
-		type,
+		type = 'success',
 		visible,
 		hideDelay = 0, // when default is 0, it will not hide which is a default behavior
 		children,

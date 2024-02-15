@@ -1,11 +1,11 @@
 ### Properties
 
-| Property   | Type       | Description                                                   |
-| ---------- | ---------- | ------------------------------------------------------------- |
-| `data`     | MenuData[] | Array of objects representing the menu items.                 |
-| `[size]`   | String     | Size of the menu, one of `'small'`, `'medium'`, or `'large'`. |
-| `[header]` | Snippet    | Custom content for the menu header.                           |
-| `[footer]` | Snippet    | Custom content for the menu footer.                           |
+| Property         | Type       | Description                                                   |
+| ---------------- | ---------- | ------------------------------------------------------------- |
+| `data`           | MenuData[] | Array of objects representing the menu items.                 |
+| `[size='small']` | String     | Size of the menu, one of `'small'`, `'medium'`, or `'large'`. |
+| `[header]`       | Snippet    | Custom content for the menu header.                           |
+| `[footer]`       | Snippet    | Custom content for the menu footer.                           |
 
 ### Callbacks
 

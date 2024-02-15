@@ -31,8 +31,15 @@
 	import { cubicOut } from 'svelte/easing';
 	// import { onMount } from 'svelte'; // use to set focus on mount
 
-	let { data, size, onMenuUpdate, onMenuClick, onMenuBlur, header, footer } =
-		$props<MenuProps>();
+	let {
+		data,
+		size = 'small',
+		onMenuUpdate,
+		onMenuClick,
+		onMenuBlur,
+		header,
+		footer,
+	} = $props<MenuProps>();
 
 	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
 		const allButtons = Array.from(

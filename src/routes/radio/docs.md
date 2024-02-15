@@ -3,7 +3,7 @@
 | Property         | Type                             | Description                                             |
 | ---------------- | -------------------------------- | ------------------------------------------------------- |
 | `[id]`           | `string`                         | The unique identifier for the radio input.              |
-| `name`           | `string`                         | The name of the radio group to which the radio belongs. |
+| `[name]`         | `string`                         | The name of the radio group to which the radio belongs. |
 | `[value]`        | `string`                         | The value associated with the radio input.              |
 | `[label]`        | `string`                         | The label displayed next to the radio input.            |
 | `[checked]`      | `boolean`                        | Flag indicating whether the radio input is checked.     |

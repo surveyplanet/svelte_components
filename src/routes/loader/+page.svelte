@@ -1,21 +1,14 @@
 <script lang="ts">
-	import { Loader } from '$lib';
-
+	import { type LoaderProps, Loader } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	import { COLORS } from '$lib/_definitions';
 
 	let events = $state<string[]>([]);
 
-	let colors: string[] = $state([
-		COLORS.yellow,
-		COLORS.blue,
-		COLORS.pink,
-		COLORS.green,
-	]);
-	let size = $state(20);
-	let strokeWidth: 1 | 2 | 3 | 4 = $state(4);
+	let colors: LoaderProps['colors'] = $state();
+	let size: LoaderProps['size'] = $state(20);
+	let strokeWidth: LoaderProps['strokeWidth'] = $state(4);
 
 	// function getRandomColors(min = 4, max = 20) {
 	// 	const rand = Math.floor(Math.random() * (max - min + 1) + min); // random number between 20 and 4
