@@ -25,8 +25,13 @@
 </script>
 
 <script lang="ts">
-	let { profileImage, id, size, disabled, onAvatarClick } =
-		$props<AvatarProps>();
+	let {
+		profileImage,
+		id,
+		size = 'small',
+		disabled,
+		onAvatarClick,
+	} = $props<AvatarProps>();
 
 	// mascot should return a type that is a key of MASCOTS
 	const mascots = Object.keys(MASCOTS).map((key) => {

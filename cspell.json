@@ -1,6 +1,7 @@
 {
 	"language": "en",
 	"words": [
+		"apng",
 		"CCPA",
 		"dasherize",
 		"datetime",
@@ -43,7 +44,8 @@
 		"textbox",
 		"textinput",
 		"valuenow",
-		"viewbox"
+		"viewbox",
+		"webp"
 	],
 	"ignoreWords": [
 		"xsmall",

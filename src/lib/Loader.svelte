@@ -2,21 +2,20 @@
 	lang="ts"
 	context="module">
 	export type LoaderProps = {
-		colors: string[];
+		colors?: string[];
 		size?: number;
 		strokeWidth?: 1 | 2 | 3 | 4;
 	};
 </script>
 
 <script lang="ts">
-	// import { COLORS } from '$lib/_definitions';
-	// colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green];
+	import { COLORS } from '$lib/_definitions';
 	const strokeDashOffset = 63;
 
 	let {
-		colors,
-		size = 20, // small size that looks good
-		strokeWidth, // stroke width doesn't look good above 4
+		colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green], // common use case
+		size = 72, // medium size that looks good
+		strokeWidth = 4, // stroke width doesn't look good above 4
 	} = $props<LoaderProps>();
 
 	// When updating the colors the animation can get out of sync since the

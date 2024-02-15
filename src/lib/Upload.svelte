@@ -20,7 +20,7 @@
 
 	let {
 		label,
-		formats,
+		formats = ['apng', 'avif', 'gif', 'jpeg', 'png', 'webp'],
 		maxSize = 10, // default to 10MB which seems to be a reasonable size  for an image
 		onUploadUpload,
 	} = $props<UploadProps>();

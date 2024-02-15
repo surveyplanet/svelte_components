@@ -3,7 +3,7 @@
 | Property         | Type    | Description                                                                |
 | ---------------- | ------- | -------------------------------------------------------------------------- |
 | `[id]`           | String  | ID of the checkbox. If not provided, a random unique ID will be generated. |
-| `name`           | String  | Name of the checkbox.                                                      |
+| `[name]`         | String  | Name of the checkbox.                                                      |
 | `[value]`        | String  | Value of the checkbox.                                                     |
 | `[label]`        | String  | Label text for the checkbox.                                               |
 | `[checked]`      | Boolean | Initial checked state of the checkbox.                                     |

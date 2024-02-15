@@ -2,7 +2,7 @@
 	lang="ts"
 	context="module">
 	export type BadgeProps = {
-		color: BadgeColors;
+		color?: BadgeColors;
 		flat?: boolean;
 		children?: Snippet;
 	};
@@ -12,7 +12,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
-	let { color, flat, children } = $props<BadgeProps>();
+	let { color = 'yellow', flat, children } = $props<BadgeProps>();
 </script>
 
 <span

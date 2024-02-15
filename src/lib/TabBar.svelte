@@ -23,13 +23,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	let {
-		block = false,
-		defaultIndicatorWidth,
-		defaultIndicatorX,
-		data,
-		onTabClick,
-	} = $props<TabBarProps>();
+	let { block, defaultIndicatorWidth, defaultIndicatorX, data, onTabClick } =
+		$props<TabBarProps>();
 
 	let activeIndicator: HTMLDivElement | null = $state(null);
 

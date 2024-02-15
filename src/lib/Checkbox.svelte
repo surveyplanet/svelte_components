@@ -3,7 +3,7 @@
 	context="module">
 	export type CheckboxProps = {
 		id?: string;
-		name: string;
+		name?: string;
 		value?: string | null;
 		label?: string;
 		checked?: boolean;

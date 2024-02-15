@@ -7,7 +7,7 @@
 		disabled?: boolean;
 		on?: boolean;
 		tall?: boolean;
-		label?: string | null;
+		label?: string;
 		prependLabel?: boolean;
 		onToggleChange?: (on: boolean) => void;
 	};
