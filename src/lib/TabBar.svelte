@@ -9,6 +9,7 @@
 		icon?: IconName;
 		selected?: boolean;
 		disabled?: boolean;
+		link?: string;
 	}
 
 	export type TabBarProps = {
@@ -74,11 +75,19 @@
 	const tabButtonHandler = (event: Event) => {
 		event.preventDefault();
 		const target = (event.target as HTMLElement).closest('button');
-		selectTabButton(target!, true);
+		if (!target) return;
+
+		if (target.dataset.link?.length) {
+			window.location.href = target.dataset.link;
+			return;
+		}
+
+		selectTabButton(target, true);
 	};
 
 	const windowResizeHandler = () => {
 		const selected = data?.find((item) => item.selected);
+
 		if (selected) {
 			selectTabButton(
 				document.getElementById(selected.id) as HTMLButtonElement,
@@ -107,6 +116,7 @@
 					class="sp-tab-bar--button"
 					class:sp-tab-bar--item--active={item.selected}
 					disabled={item.disabled}
+					data-link={item.link}
 					onclick={tabButtonHandler}>
 					{#if item.label}
 						<span class="sp-tab-bar--button--label">

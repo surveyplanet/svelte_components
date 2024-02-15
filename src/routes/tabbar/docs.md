@@ -17,11 +17,12 @@
 
 ### `TabBarData`
 
-| Property     | Type       | Description                            |
-| ------------ | ---------- | -------------------------------------- |
-| `id`         | `string`   | The unique identifier for the tab.     |
-| `[label]`    | `string`   | The label or title for the tab.        |
-| `[html]`     | `string`   | The HTML content for the tab.          |
-| `[icon]`     | `IconName` | The icon to be displayed on the tab.   |
-| `[selected]` | `boolean`  | Indicates whether the tab is selected. |
-| `[disabled]` | `boolean`  | Indicates whether the tab is disabled. |
+| Property     | Type       | Description                                                                                   |
+| ------------ | ---------- | --------------------------------------------------------------------------------------------- |
+| `id`         | `string`   | The unique identifier for the tab.                                                            |
+| `[label]`    | `string`   | The label or title for the tab.                                                               |
+| `[html]`     | `string`   | The HTML content for the tab.                                                                 |
+| `[icon]`     | `IconName` | The icon to be displayed on the tab.                                                          |
+| `[link]`     | `string`   | A URL to navigate to when tab button is clicked. This will override the `onTabClick` callback |
+| `[selected]` | `boolean`  | Indicates whether the tab is selected.                                                        |
+| `[disabled]` | `boolean`  | Indicates whether the tab is disabled.                                                        |

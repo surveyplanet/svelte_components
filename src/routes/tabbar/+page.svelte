@@ -17,6 +17,7 @@
 			id: 'preview',
 			label: 'Preview',
 			icon: 'eye',
+			link: '#preview',
 		},
 		{
 			id: 'results',
