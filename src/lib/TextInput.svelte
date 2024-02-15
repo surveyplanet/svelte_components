@@ -72,6 +72,11 @@
 			Object.keys(cleaveOptions).length &&
 			Object.prototype.toString.call(cleaveOptions) === '[object Object]'
 		) {
+			if (!id) {
+				throw new Error(
+					'The "id" property is required when using "cleaveOptions"'
+				);
+			}
 			new Cleave(`#${id}`, cleaveOptions);
 		}
 

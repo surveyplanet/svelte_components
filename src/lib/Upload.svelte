@@ -3,7 +3,7 @@
 	context="module">
 	export type UploadProps = {
 		label?: string;
-		formats: string[];
+		formats?: string[];
 		maxSize?: number;
 		onUploadUpload?: (data: UploadData) => void;
 	};
