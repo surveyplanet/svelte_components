@@ -32,10 +32,10 @@
 	const DEFAULT_SIZE: IconSize = 24;
 
 	let {
-		color = COLORS.black, // black is the most common color for icons
-		size = DEFAULT_SIZE, //
-		strokeWidth = 2, // thickness seems to be fine at 2
 		name,
+		color = COLORS.black, // black is the most common color for icons
+		size = DEFAULT_SIZE,
+		strokeWidth = 2, // thickness seems to be fine at 2
 		debug,
 	} = $props<IconProps>();
 

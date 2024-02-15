@@ -1,7 +1,5 @@
 ### Properties
 
-### `UploadProps`
-
 | Property         | Type       | Description                                             |
 | ---------------- | ---------- | ------------------------------------------------------- |
 | `[label]`        | `string`   | The label or text associated with the upload button.    |

@@ -1,4 +1,3 @@
-
 ### Properties
 
 | Property     | Type         | Description                                     |
@@ -7,7 +6,7 @@
 
 ### Interfaces
 
-### `FooterData`
+#### `FooterData`
 
 | Property | Type   | Description                     |
 | -------- | ------ | ------------------------------- |

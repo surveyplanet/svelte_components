@@ -12,10 +12,11 @@
 	// import { COLORS } from '$lib/_definitions';
 	// colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green];
 	const strokeDashOffset = 63;
+	const DEFAULT_SIZE = 72;
 
 	let {
 		colors,
-		size = 20, // small size that looks good
+		size = DEFAULT_SIZE, // small size that looks good
 		strokeWidth, // stroke width doesn't look good above 4
 	} = $props<LoaderProps>();
 

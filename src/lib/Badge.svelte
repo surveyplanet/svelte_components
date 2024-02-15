@@ -11,7 +11,6 @@
 
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-
 	let { color, flat, children } = $props<BadgeProps>();
 </script>
 

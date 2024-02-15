@@ -48,7 +48,6 @@
 
 	let width: number = $derived(symbolOnly ? size : size * ASPECT_RATION);
 	let height: number = $derived(size);
-
 	let viewboxWidth: number = $derived(
 		symbolOnly ? DEFAULT_SIZE : ORIGINAL_WIDTH
 	);

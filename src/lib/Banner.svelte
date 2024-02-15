@@ -27,7 +27,6 @@
 
 	let animDuration = 250;
 
-	// $effect(() => {
 	let iconName = $state(
 		{
 			info: 'info',
@@ -42,7 +41,6 @@
 			visible = false;
 		}, hideDelay);
 	}
-	// });
 </script>
 
 {#if visible}

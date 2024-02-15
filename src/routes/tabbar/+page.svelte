@@ -52,7 +52,6 @@
 			bind:value={defaultIndicatorWidth} />
 		<PropsChanger
 			label="Default indicator X position"
-			type="number"
 			bind:value={defaultIndicatorX} />
 	{/snippet}
 	{#snippet main()}

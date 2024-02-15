@@ -151,11 +151,11 @@
 						{
 							id: 'example',
 							label: 'Example',
-							selected: true,
 						},
 						{
 							id: 'docs',
 							label: 'Docs',
+							selected: true,
 						},
 					]}
 					onTabClick={tabHandler} />

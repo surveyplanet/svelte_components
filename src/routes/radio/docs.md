@@ -1,7 +1,5 @@
 ### Properties
 
-
-
 | Property         | Type                             | Description                                             |
 | ---------------- | -------------------------------- | ------------------------------------------------------- |
 | `[id]`           | `string`                         | The unique identifier for the radio input.              |
