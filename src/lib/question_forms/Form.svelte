@@ -6,13 +6,13 @@
 		labels: FormProperties['labels'];
 		random?: FormProperties['random'];
 		response?: FormValue[];
-		onFormResponse?: (value: FormValue[]) => void;
+		onFormResponse?: (event: ComponentEvent<FormValue[]>) => void;
 	};
 </script>
 
 <script lang="ts">
 	import type { FormValue, FormProperties } from '@surveyplanet/types';
-	import { TextInput } from '../';
+	import { ComponentEvent, TextInput } from '../';
 
 	// export let validations: FormProperties['validations'];
 	// export let requireAll: FormProperties['requireAll'];
@@ -34,14 +34,21 @@
 		response?.push(value);
 	};
 
-	const inputChangeHandler = (event: Event) => {
+	const inputChangeHandler = (event: ComponentEvent<string>) => {
 		const target = event.target as HTMLInputElement;
 		const value: FormValue = {
 			label: target.name,
 			value: target.value,
 		};
 		updateResponse(value);
-		if (onFormResponse) onFormResponse(response);
+		if (onFormResponse) {
+			const componentEvent = new ComponentEvent(
+				response,
+				target,
+				event.raw
+			);
+			onFormResponse(componentEvent);
+		}
 	};
 
 	const inputKeyupHandler = inputChangeHandler;

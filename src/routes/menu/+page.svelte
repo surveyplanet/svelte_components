@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Menu, Button, Icon, type MenuData } from '$lib';
+	import { Menu, Button, Icon, type MenuData, ComponentEvent } from '$lib';
 	import { menuData } from './menu_data';
 
 	import { Layout, PropsChanger } from '$layout/index';
@@ -15,12 +15,12 @@
 		menuVisible = !menuVisible;
 	};
 
-	const menuClickHandler = (id: string) => {
-		events.push(id);
+	const menuClickHandler = (event: ComponentEvent<string>) => {
+		events.push(event.value);
 	};
 
-	const menuUpdateHandler = (id: string) => {
-		events.push(id);
+	const menuUpdateHandler = (event: ComponentEvent<string>) => {
+		events.push(event.value);
 	};
 
 	// let dataStringed = $state(JSON.stringify(data));

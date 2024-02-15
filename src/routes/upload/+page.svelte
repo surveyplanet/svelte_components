@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Upload } from '$lib';
+	import { Upload, ComponentEvent, type UploadData } from '$lib';
 
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
@@ -11,12 +11,11 @@
 	let formats = $state(['.jpg', '.jpeg', '.png', '.gif', '.pdf']);
 	let maxSize = $state(10);
 
-	const onUploadUpload = (uploadData: {
-		image: File;
-		data: string | ArrayBuffer | null;
-	}) => {
-		setUpload(uploadData);
-		events.push(uploadData);
+	const onUploadUpload = (event: ComponentEvent<UploadData>) => {
+		if (event.value) {
+			setUpload(event.value);
+			events.push(event.value);
+		}
 	};
 
 	const setUpload = (uploadData: {

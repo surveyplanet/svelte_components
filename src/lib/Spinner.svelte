@@ -1,6 +1,8 @@
 <script
 	lang="ts"
 	context="module">
+	import { ComponentEvent } from './index';
+
 	export type SpinnerProps = {
 		label?: string;
 		id?: string;
@@ -14,11 +16,11 @@
 		dragSpeed?: number;
 		placeholder?: string;
 		size?: 'small' | 'medium' | 'large';
-		onSpinnerUpdate?: (value: number | undefined) => void;
-		onSpinnerInput?: (value: number | undefined) => void;
-		onSpinnerChange?: (value: number | undefined) => void;
-		onSpinnerBlur?: () => void;
-		onSpinnerFocus?: () => void;
+		onSpinnerUpdate?: (event: ComponentEvent<number | undefined>) => void;
+		onSpinnerInput?: (event: ComponentEvent<number | undefined>) => void;
+		onSpinnerChange?: (event: ComponentEvent<number | undefined>) => void;
+		onSpinnerBlur?: (event: ComponentEvent<undefined>) => void;
+		onSpinnerFocus?: (event: ComponentEvent<undefined>) => void;
 	};
 </script>
 
@@ -77,7 +79,7 @@
 		return newValue;
 	};
 
-	const changeValue = (increment: boolean) => {
+	const changeValue = (event: Event, increment: boolean) => {
 		let currentValue = value;
 
 		if (currentValue === undefined) {
@@ -88,7 +90,14 @@
 
 		if (newValue !== value && newValue !== undefined) {
 			value = checkOverflow(newValue);
-			if (onSpinnerUpdate) onSpinnerUpdate(value);
+			if (typeof onSpinnerUpdate === 'function') {
+				const componentEvent = new ComponentEvent<number>(
+					value,
+					event.target!,
+					event
+				);
+				onSpinnerUpdate(componentEvent);
+			}
 		}
 		if (currentValue === undefined) {
 			if (increment) {
@@ -104,15 +113,15 @@
 	// 	if (onSpinnerUpdate) onSpinnerUpdate(value);
 	// };
 
-	const increment = () => {
-		changeValue(true);
+	const increment = (event: Event) => {
+		changeValue(event, true);
 	};
 
-	const decrement = () => {
-		changeValue(false);
+	const decrement = (event: Event) => {
+		changeValue(event, false);
 	};
 
-	const inputChange = (arrow?: string) => {
+	const inputChange = (event: Event, arrow?: string) => {
 		if (value === undefined) {
 			return;
 		}
@@ -123,7 +132,14 @@
 		} else {
 			value = checkOverflow(value);
 		}
-		if (onSpinnerUpdate) onSpinnerUpdate(value);
+		if (typeof onSpinnerUpdate === 'function') {
+			const componentEvent = new ComponentEvent<number>(
+				value,
+				event.target!,
+				event
+			);
+			onSpinnerUpdate(componentEvent);
+		}
 	};
 	// Mouse dragging
 
@@ -131,10 +147,10 @@
 		// call changeValue every 10px the mouse moves
 		if (event.clientX - startX > dragSpeed) {
 			startX = event.clientX;
-			changeValue(true);
+			changeValue(event, true);
 		} else if (event.clientX - startX < -dragSpeed) {
 			startX = event.clientX;
-			changeValue(false);
+			changeValue(event, false);
 		}
 	};
 
@@ -144,9 +160,16 @@
 		window.removeEventListener('mouseup', stopDragging);
 	};
 
-	const checkForValueChange = () => {
+	const checkForValueChange = (event: Event) => {
 		if (value !== controlValue) {
-			if (onSpinnerInput) onSpinnerInput(value);
+			if (typeof onSpinnerInput === 'function') {
+				const componentEvent = new ComponentEvent<number>(
+					value ?? 0,
+					event.target!,
+					event
+				);
+				onSpinnerInput(componentEvent);
+			}
 		}
 		controlValue = value;
 	};
@@ -159,56 +182,74 @@
 		window.addEventListener('mouseup', stopDragging);
 	};
 
-	const upMouseDownHandler = () => {
+	const upMouseDownHandler = (event: MouseEvent) => {
 		// increment then use to delay for .5 sec before setting interval
-		increment();
+		increment(event);
 
 		spinnerTimeout = setTimeout(() => {
 			spinnerInterval = setInterval(() => {
-				increment();
+				increment(event);
 			}, spinnerIntervalSpeed);
 		}, 500);
 	};
 
-	const downMouseDownHandler = () => {
-		decrement();
+	const downMouseDownHandler = (event: MouseEvent) => {
+		decrement(event);
 
 		spinnerTimeout = setTimeout(() => {
 			spinnerInterval = setInterval(() => {
-				decrement();
+				decrement(event);
 			}, spinnerIntervalSpeed);
 		}, 500);
 	};
-	const changeHandler = () => {
-		if (onSpinnerChange) onSpinnerChange(value);
+	const changeHandler = (event: Event) => {
+		if (typeof onSpinnerChange === 'function') {
+			const componentEvent = new ComponentEvent<number | undefined>(
+				value,
+				event.target!,
+				event
+			);
+			onSpinnerChange(componentEvent);
+		}
 	};
 
-	const inputHandler = () => {
-		inputChange();
+	const inputHandler = (event: Event) => {
+		inputChange(event, undefined);
 	};
 	const mouseUpHandler = () => {
 		clearTimeout(spinnerTimeout);
 		clearInterval(spinnerInterval);
 	};
 
-	const blurHandler = () => {
-		checkForValueChange();
-		if (onSpinnerBlur) onSpinnerBlur();
+	const blurHandler = (event: FocusEvent) => {
+		checkForValueChange(event);
+		const componentEvent = new ComponentEvent<undefined>(
+			undefined,
+			event.target!,
+			event
+		);
+		if (typeof onSpinnerBlur === 'function') onSpinnerBlur(componentEvent);
 		visibleButtons = false;
 	};
 
-	const focusHandler = () => {
+	const focusHandler = (event: FocusEvent) => {
 		visibleButtons = true;
-		if (onSpinnerFocus) onSpinnerFocus();
+		const componentEvent = new ComponentEvent<undefined>(
+			undefined,
+			event.target!,
+			event
+		);
+		if (typeof onSpinnerFocus === 'function')
+			onSpinnerFocus(componentEvent);
 	};
 	const inputClickHandler = () => {
 		if (input) input.focus();
 	};
 	const keydownHandler = (event: KeyboardEvent) => {
 		if (event.key === 'ArrowUp') {
-			inputChange('ArrowUp');
+			inputChange(event, 'ArrowUp');
 		} else if (event.key === 'ArrowDown') {
-			inputChange('ArrowDown');
+			inputChange(event, 'ArrowDown');
 		}
 		//  else if (event.key === 'Backspace' || event.key === 'Delete') {
 		// 	reset();

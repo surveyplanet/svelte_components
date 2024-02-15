@@ -9,9 +9,9 @@
 
 ### Callbacks
 
-| Name         | Description                         | Arguments    |
-| ------------ | ----------------------------------- | ------------ |
-| `onTabClick` | Event handler for tab button click. | `id: string` |
+| Name         | Description                         | Arguments                       |
+| ------------ | ----------------------------------- | ------------------------------- |
+| `onTabClick` | Event handler for tab button click. | `event: ComponentEvent<string>` |
 
 ### Interfaces
 

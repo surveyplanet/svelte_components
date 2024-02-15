@@ -25,7 +25,7 @@
 	import type { Snippet } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	import { COLORS, Button, Icon, TextInput } from './';
+	import { COLORS, Button, Icon, TextInput, ComponentEvent } from './';
 	// import '../assets/styles/alert.scss';
 	import successIcon from '../assets/mascots/tummi_3.svg';
 	import infoIcon from '../assets/mascots/cubbi_3.svg';
@@ -86,8 +86,8 @@
 		visible = true;
 	});
 
-	const challengeKeyupHandler = (event: Event): void => {
-		const input = (event as CustomEvent).detail.target as HTMLInputElement;
+	const challengeKeyupHandler = (event: ComponentEvent<string>): void => {
+		const input = event.target as HTMLInputElement;
 		disableConfirmButton = input.value !== challenge;
 	};
 
@@ -158,7 +158,6 @@
 					{#if isChallenge}
 						<div class="sp-alert--challenge">
 							<TextInput
-								id={`challenge-${(Date.now() + Math.random()).toString(36)}`}
 								name="challenge"
 								label={challengeLabel}
 								placeholder={challenge}

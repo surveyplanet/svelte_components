@@ -20,11 +20,12 @@
 		id?: string;
 		size?: 'small' | 'medium' | 'large';
 		disabled?: boolean;
-		onAvatarClick?: (e: MouseEvent) => void;
+		onAvatarClick?: (event: ComponentEvent<undefined>) => void;
 	};
 </script>
 
 <script lang="ts">
+	import { ComponentEvent } from '$lib';
 	let {
 		profileImage,
 		id,
@@ -61,15 +62,20 @@
 		return idx;
 	};
 
-	function avatarClickHandler(e: MouseEvent): void {
-		e.preventDefault();
+	function avatarClickHandler(event: MouseEvent): void {
+		event.preventDefault();
 
 		if (disabled) {
 			return;
 		}
 
 		if (typeof onAvatarClick === 'function') {
-			onAvatarClick(e);
+			const componentEvent = new ComponentEvent(
+				undefined,
+				event.target!,
+				event
+			);
+			onAvatarClick(componentEvent);
 		}
 	}
 </script>

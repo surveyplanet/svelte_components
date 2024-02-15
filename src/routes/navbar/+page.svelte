@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { NavBar, type MenuData, type NavBarData } from '$lib/index';
+	import {
+		NavBar,
+		type MenuData,
+		type NavBarData,
+		ComponentEvent,
+	} from '$lib/index';
 	import { menuData } from '../menu/menu_data';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
@@ -29,8 +34,8 @@
 	let navMenuData: MenuData[] = $state(menuData);
 	let vertical = $state(false);
 
-	const onNavClick = (id: string) => {
-		events.push(id);
+	const onNavClick = (event: ComponentEvent<string>) => {
+		events.push(event.value);
 	};
 
 	// let dataString = $state(JSON.stringify(data));

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ScaleValue, ScaleProperties } from '@surveyplanet/types';
-	import { Scale } from '$lib';
+	import { ComponentEvent, Scale } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
@@ -12,8 +12,8 @@
 	let min: ScaleProperties['min'] = $state(0);
 	let max: ScaleProperties['max'] = $state(10);
 	let response: ScaleValue[] = $state([]);
-	const scaleResponseHandler = (response: ScaleValue[]) => {
-		events.push(response);
+	const scaleResponseHandler = (event: ComponentEvent<ScaleValue[]>) => {
+		events.push(event.value!);
 	};
 </script>
 

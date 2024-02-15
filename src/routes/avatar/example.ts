@@ -7,8 +7,8 @@ export default (
 <script lang="ts">
 	import {Avatar} from '@surveyplanet/svelte-components';
     
-    const onAvatarClick = (e) => {
-        console.log(e);
+    const onAvatarClick = (event) => {
+        console.log(event);
     }
 </script>
 

@@ -10,11 +10,12 @@
 		disabled?: boolean;
 		prependLabel?: boolean;
 		size?: 'small' | 'medium' | 'large';
-		onCheckboxChange?: (e: Event) => void;
+		onCheckboxChange?: (event: ComponentEvent<boolean>) => void;
 	};
 </script>
 
 <script lang="ts">
+	import { ComponentEvent } from './events/component_event';
 	let {
 		id,
 		name,
@@ -26,6 +27,17 @@
 		size = 'small', // seems like a usual size we use
 		onCheckboxChange,
 	} = $props<CheckboxProps>();
+
+	const checkboxChangeHandler = (event: Event): void => {
+		if (typeof onCheckboxChange === 'function') {
+			const componentEvent = new ComponentEvent(
+				(event.target as HTMLInputElement).checked,
+				event.target!,
+				event
+			);
+			onCheckboxChange(componentEvent);
+		}
+	};
 </script>
 
 <input
@@ -36,7 +48,7 @@
 	{value}
 	bind:checked
 	{disabled}
-	onchange={onCheckboxChange} />
+	onchange={checkboxChangeHandler} />
 <label
 	class="sp-checkbox sp-checkbox--{size}"
 	class:sp-checkbox--prepend={prependLabel}

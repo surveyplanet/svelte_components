@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Dropdown, type DropdownOption } from '$lib';
+	import { ComponentEvent, Dropdown, type DropdownOption } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -57,8 +57,8 @@
 	let label = $state('Dropdown component');
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
-	const onDropdownChange = (value: string) => {
-		events.push(value);
+	const onDropdownChange = (event: ComponentEvent<string>) => {
+		events.push(event.value);
 	};
 
 	// $inspect(searchThreshold);

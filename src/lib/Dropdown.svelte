@@ -18,12 +18,14 @@
 		disabled?: boolean;
 		required?: boolean;
 		size?: 'small' | 'medium' | 'large';
-		onDropdownChange?: (value: DropdownOption['id']) => void;
+		onDropdownChange?: (
+			event: ComponentEvent<DropdownOption['id']>
+		) => void;
 	};
 </script>
 
 <script lang="ts">
-	import { Menu, Icon } from './index';
+	import { Menu, Icon, ComponentEvent } from './';
 
 	let {
 		options,
@@ -57,7 +59,7 @@
 		}
 	};
 
-	const setValue = (id: string, silent = false) => {
+	const setValue = (id: string, silent = false, event?: Event) => {
 		value = id;
 		displayValue = '';
 		for (let item of menuData) {
@@ -67,8 +69,18 @@
 				displayValue = item.label;
 			}
 		}
-		if (!silent && onDropdownChange) {
-			onDropdownChange(value);
+		if (!silent && typeof onDropdownChange === 'function') {
+			let componentEvent;
+			if (!event) {
+				componentEvent = new ComponentEvent(
+					id,
+					input as EventTarget,
+					undefined
+				);
+			} else {
+				componentEvent = new ComponentEvent(id, event.target!, event);
+			}
+			onDropdownChange(componentEvent);
 		}
 	};
 	// const change = new Event('change');
@@ -87,16 +99,16 @@
 		}
 	};
 
-	const clear = () => {
+	const clear = (event: Event) => {
 		reset();
-		setValue(''); // unset value
+		setValue('', undefined, event); // unset value
 		if (input) {
 			input.focus();
 		} // setting focus will open menu
 	};
 
-	const menuClickHandler = (id: string) => {
-		setValue(id);
+	const menuClickHandler = (event: ComponentEvent<string>) => {
+		setValue(event.value!, undefined, event.raw);
 		visible = false; // blur handler hides the menu
 	};
 
@@ -125,7 +137,7 @@
 	const closeButtonHandler = (event: Event) => {
 		event.preventDefault();
 		event.stopPropagation();
-		clear();
+		clear(event);
 	};
 
 	const toggleIconClickHandler = (event: Event) => {

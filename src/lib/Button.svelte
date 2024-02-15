@@ -20,13 +20,14 @@
 		type?: 'button' | 'submit' | 'reset';
 		form?: string;
 		size?: 'small' | 'medium' | 'large';
-		onButtonClick?: (e: MouseEvent) => void;
+		onButtonClick?: (event: ComponentEvent<undefined>) => void;
 		children?: Snippet;
 	};
 </script>
 
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import { ComponentEvent } from '$lib';
 	let {
 		mode = 'primary', // commonly used mode
 		disabled,
@@ -40,6 +41,17 @@
 		onButtonClick,
 		children,
 	} = $props<ButtonProps>();
+
+	const buttonClickHandler = (event: MouseEvent) => {
+		if (typeof onButtonClick === 'function') {
+			const componentEvent = new ComponentEvent(
+				undefined,
+				event.target!,
+				event
+			);
+			onButtonClick(componentEvent);
+		}
+	};
 </script>
 
 <button
@@ -51,7 +63,7 @@
 	class:sp-button--loader={loader}
 	class:sp-button--block={block}
 	class:sp-button--action={action}
-	onclick={onButtonClick}>
+	onclick={buttonClickHandler}>
 	<span class="sp-button--label">
 		{#if children}
 			{@render children()}

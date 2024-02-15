@@ -3,7 +3,7 @@
 		MultipleChoiceValue,
 		MultipleChoiceProperties,
 	} from '@surveyplanet/types';
-	import { MultipleChoice } from '$lib';
+	import { ComponentEvent, MultipleChoice } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
@@ -24,8 +24,10 @@
 	// let max: MultipleChoiceProperties['max'] = $state(null);
 	let response: MultipleChoiceValue[] = $state([]);
 	let other: MultipleChoiceProperties['other'] = $state('Other');
-	const multipleChoiceResponseHandler = (event: MultipleChoiceValue[]) => {
-		events.push(event);
+	const multipleChoiceResponseHandler = (
+		event: ComponentEvent<MultipleChoiceValue[]>
+	) => {
+		events.push(event.value);
 	};
 
 	// let labelsString = $state(JSON.stringify(labels));

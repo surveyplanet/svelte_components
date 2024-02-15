@@ -9,7 +9,9 @@
 		random?: MultipleChoiceProperties['random'];
 		other?: MultipleChoiceProperties['other'];
 		response?: MultipleChoiceValue[];
-		onMultipleChoiceResponse?: (response: MultipleChoiceValue[]) => void;
+		onMultipleChoiceResponse?: (
+			event: ComponentEvent<MultipleChoiceValue[]>
+		) => void;
 	};
 </script>
 
@@ -18,8 +20,7 @@
 		MultipleChoiceValue,
 		MultipleChoiceProperties,
 	} from '@surveyplanet/types';
-	import type { DropdownOption } from '$lib/Dropdown.svelte';
-	import { Checkbox, Radio, Dropdown, TextInput } from '../';
+	import { Checkbox, Radio, Dropdown, TextInput, ComponentEvent } from '../';
 
 	// export let min: MultipleChoiceProperties['min'];
 	// export let max: MultipleChoiceProperties['max'];
@@ -59,7 +60,7 @@
 		response.push(value);
 	};
 
-	const inputChangeHandler = (event: Event) => {
+	const inputChangeHandler = (event: ComponentEvent<boolean>) => {
 		otherChecked = false;
 		const target = event.target as HTMLInputElement;
 		const value: MultipleChoiceValue = {
@@ -67,10 +68,17 @@
 			value: true,
 		};
 		updateResponse(value, !target.checked);
-		if (onMultipleChoiceResponse) onMultipleChoiceResponse(response);
+		if (typeof onMultipleChoiceResponse === 'function') {
+			const componentEvent = new ComponentEvent(
+				response,
+				target,
+				event.raw
+			);
+			onMultipleChoiceResponse(componentEvent);
+		}
 	};
 
-	const otherChangeHandler = (event: Event) => {
+	const otherChangeHandler = (event: ComponentEvent<boolean>) => {
 		const target = event.target as HTMLInputElement;
 		const value: MultipleChoiceValue = {
 			label: target.value,
@@ -80,11 +88,20 @@
 			document.querySelector(`#${id + '-text-input'}`) as HTMLInputElement
 		)?.focus();
 		updateResponse(value, !target.checked);
-		if (onMultipleChoiceResponse) onMultipleChoiceResponse(response);
+		if (typeof onMultipleChoiceResponse === 'function') {
+			const componentEvent = new ComponentEvent(
+				response,
+				target,
+				event.raw
+			);
+			onMultipleChoiceResponse(componentEvent);
+		}
 	};
 
-	const otherTextInputHandler = (event: Event) => {
-		otherTextValue = (event.target as HTMLInputElement).value;
+	const otherTextInputHandler = (
+		event: ComponentEvent<string> | ComponentEvent<undefined>
+	) => {
+		otherTextValue = (event.target as HTMLInputElement).value; // this might no longer work
 		if (otherTextValue && otherTextValue.length && !otherChecked) {
 			otherChecked = true;
 		}
@@ -95,16 +112,30 @@
 			} as MultipleChoiceValue,
 			!otherTextValue.length
 		);
-		if (onMultipleChoiceResponse) onMultipleChoiceResponse(response);
+		if (typeof onMultipleChoiceResponse === 'function') {
+			const componentEvent = new ComponentEvent(
+				response,
+				event.target,
+				event.raw
+			);
+			onMultipleChoiceResponse(componentEvent);
+		}
 	};
 
-	const dropdownChangeHandler = (label: DropdownOption['id']) => {
+	const dropdownChangeHandler = (event: ComponentEvent<string>) => {
 		const value = {
-			label: label,
+			label: event.value,
 			value: true,
 		} as MultipleChoiceValue;
 		updateResponse(value);
-		if (onMultipleChoiceResponse) onMultipleChoiceResponse(response);
+		if (typeof onMultipleChoiceResponse === 'function') {
+			const componentEvent = new ComponentEvent(
+				response,
+				event.target,
+				event.raw
+			);
+			onMultipleChoiceResponse(componentEvent);
+		}
 	};
 
 	const getDropdownOption = (label: string) => {

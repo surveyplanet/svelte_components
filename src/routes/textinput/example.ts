@@ -6,23 +6,23 @@ export default (
 <script lang="ts">
 	import { TextInput, type TextInputProps } from '@surveyplanet/svelte_components';
 
-	const onTextInputInput = (e: Event) => {
-		console.log(e);
+	const onTextInputInput = (event: Event) => {
+		console.log(event);
 	}
 	const onTextInputBlur = () => {
 		console.log('blur');
 	}
-	const onTextInputChange = (e: Event) => {
-		console.log(e);
+	const onTextInputChange = (event: Event) => {
+		console.log(event);
 	}
 	const onTextInputFocus = () => {
 		console.log('focus');
 	}
-	const onTextInputKeydown = (e: Event) => {
-		console.log(e);
+	const onTextInputKeydown = (event: Event) => {
+		console.log(event);
 	}
-	const onTextInputKeyup = (e: Event) => {
-		console.log(e);
+	const onTextInputKeyup = (event: Event) => {
+		console.log(event);
 	}
 
 	let validationRules: TextInputProps['validationRules']  = ${JSON.stringify(data.validationRules, null, 2)};

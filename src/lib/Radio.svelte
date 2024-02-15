@@ -10,11 +10,12 @@
 		disabled?: boolean;
 		prependLabel?: boolean;
 		size?: 'small' | 'medium' | 'large';
-		onRadioChange?: (e: Event) => void;
+		onRadioChange?: (event: ComponentEvent<boolean>) => void;
 	};
 </script>
 
 <script lang="ts">
+	import { ComponentEvent } from '$lib';
 	let {
 		id,
 		name,
@@ -26,6 +27,17 @@
 		size = 'small', // small is the most common size
 		onRadioChange,
 	} = $props<RadioProps>();
+
+	const ratioChangeHandler = (event: Event) => {
+		if (typeof onRadioChange === 'function') {
+			const componentEvent = new ComponentEvent(
+				(event.target as HTMLInputElement).checked,
+				event.target!,
+				event
+			);
+			onRadioChange(componentEvent);
+		}
+	};
 </script>
 
 <input
@@ -36,7 +48,7 @@
 	{value}
 	{checked}
 	{disabled}
-	onchange={onRadioChange} />
+	onchange={ratioChangeHandler} />
 
 <label
 	class="sp-radio sp-radio--{size}"

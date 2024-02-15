@@ -1,6 +1,8 @@
 <script
 	lang="ts"
 	context="module">
+	import { ComponentEvent } from './';
+
 	export type ToggleProps = {
 		id?: string;
 		name?: string;
@@ -9,7 +11,7 @@
 		tall?: boolean;
 		label?: string;
 		prependLabel?: boolean;
-		onToggleChange?: (on: boolean) => void;
+		onToggleChange?: (event: ComponentEvent<boolean | undefined>) => void;
 	};
 </script>
 
@@ -25,15 +27,23 @@
 			return event.preventDefault();
 		}
 
-		if (onToggleChange) onToggleChange(on as boolean);
+		if (typeof onToggleChange === 'function') {
+			const componentEvent = new ComponentEvent(on, event.target!, event);
+			onToggleChange(componentEvent);
+		}
 	};
 </script>
 
-{#if label?.length && prependLabel}
+{#snippet toggleLabel()}
 	<label
-		class="sp-toggle--label sp-toggle--label-prepend"
+		class="sp-toggle--label"
+		class:sp-toggle--label-prepend={prependLabel}
 		class:sp-toggle--label--disabled={disabled}
 		for={id}>{label}</label>
+{/snippet}
+
+{#if label?.length && prependLabel}
+	{@render toggleLabel()}
 {/if}
 
 <div
@@ -54,8 +64,5 @@
 </div>
 
 {#if label?.length && !prependLabel}
-	<label
-		class="sp-toggle--label"
-		class:sp-toggle--label--disabled={disabled}
-		for={id}>{label}</label>
+	{@render toggleLabel()}
 {/if}

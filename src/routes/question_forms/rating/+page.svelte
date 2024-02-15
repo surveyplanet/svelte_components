@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { RatingValue, RatingProperties } from '@surveyplanet/types';
-	import { Rating } from '$lib';
+	import { ComponentEvent, Rating } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 
 	import { default as source } from './example';
@@ -39,8 +39,8 @@
 	let order: RatingProperties['order'] = $state('default');
 	let layout: RatingProperties['layout'] = $state('1');
 	let response: RatingValue[] = $state([]);
-	const ratingResponseHandler = (response: RatingValue[]) => {
-		events.push(response);
+	const ratingResponseHandler = (event: ComponentEvent<RatingValue[]>) => {
+		events.push(event.value);
 	};
 	// let labelStringed = $state(JSON.stringify(labels));
 

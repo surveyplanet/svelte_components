@@ -12,13 +12,14 @@
 		selectable?: boolean;
 		multiSelect?: boolean;
 		removable?: boolean;
-		onChipsClick?: (data: ChipData[]) => void;
-		onChipsRemove?: (data: ChipData[]) => void;
+		onChipsClick?: (event: ComponentEvent<ChipData[]>) => void;
+		onChipsRemove?: (event: ComponentEvent<ChipData[]>) => void;
 	};
 </script>
 
 <script lang="ts">
-	import { Icon } from './index';
+	import { Icon, ComponentEvent } from '$lib';
+
 	let {
 		data,
 		selectable,
@@ -33,12 +34,7 @@
 		return parent.id;
 	};
 
-	const removeHandler = (id: string) => {
-		data = data.filter((chip) => chip.id !== id);
-		if (onChipsRemove) onChipsRemove(data);
-	};
-
-	const toggle = (id: string) => {
+	const toggle = (id: string, event: Event) => {
 		data = data.map((chip) => {
 			if (chip.id === id) {
 				chip.selected = !chip.selected;
@@ -48,39 +44,55 @@
 			return chip;
 		});
 
-		if (onChipsClick) onChipsClick(data);
+		if (typeof onChipsClick === 'function') {
+			const componentEvent = new ComponentEvent(
+				data,
+				event.target!,
+				event
+			);
+			onChipsClick(componentEvent);
+		}
 	};
 
-	const chipClickHandler = (e: MouseEvent) => {
-		e.preventDefault();
-		e.stopPropagation();
+	const chipClickHandler = (event: MouseEvent) => {
+		event.preventDefault();
+		event.stopPropagation();
 		if (!selectable) {
-			return e.preventDefault();
+			return event.preventDefault();
 		}
-		const target = e.target as HTMLButtonElement;
+		const target = event.target as HTMLButtonElement;
 		const id = getChipId(target);
-		toggle(id);
+		toggle(id, event);
 	};
 
-	const chipKeyDownHandler = (e: KeyboardEvent) => {
-		e.preventDefault();
-		e.stopPropagation();
+	const chipKeyDownHandler = (event: KeyboardEvent) => {
+		event.preventDefault();
+		event.stopPropagation();
 		if (!selectable) {
-			return e.preventDefault();
+			return event.preventDefault();
 		}
-		const target = e.target as HTMLButtonElement;
+		const target = event.target as HTMLButtonElement;
 		const id = getChipId(target);
-		if (e.key === 'Enter' || e.key === ' ') {
-			toggle(id);
+		if (event.key === 'Enter' || event.key === ' ') {
+			toggle(id, event);
 		}
 	};
 
-	const closeButtonClickHandler = (e: MouseEvent) => {
-		e.preventDefault();
-		e.stopPropagation();
-		const target = e.target as HTMLButtonElement;
+	const closeButtonClickHandler = (event: MouseEvent) => {
+		event.preventDefault();
+		event.stopPropagation();
+		const target = event.target as HTMLButtonElement;
 		const id = getChipId(target);
-		removeHandler(id);
+
+		data = data.filter((chip) => chip.id !== id);
+		if (typeof onChipsRemove === 'function') {
+			const componentEvent = new ComponentEvent(
+				data,
+				event.target!,
+				event
+			);
+			onChipsRemove(componentEvent);
+		}
 	};
 </script>
 

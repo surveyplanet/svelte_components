@@ -14,7 +14,7 @@
 		data: NavBarData[];
 		navMenuData?: MenuData[];
 		vertical?: boolean;
-		onNavClick?: (id: string) => void;
+		onNavClick?: (event: ComponentEvent<string>) => void;
 	};
 </script>
 
@@ -22,7 +22,7 @@
 	// import { onMount } from 'svelte';
 	import { offset, flip, shift } from 'svelte-floating-ui/dom';
 	import { createFloatingActions } from 'svelte-floating-ui';
-	import { Menu, type MenuData } from './index';
+	import { ComponentEvent, Menu, type MenuData } from './';
 
 	let { data, navMenuData, vertical, onNavClick } = $props<NavBarProps>();
 
@@ -41,22 +41,27 @@
 	// 	};
 	// });
 
-	const navButtonClickHandler = (e: MouseEvent) => {
-		const target = e.target as HTMLLinkElement;
+	const navButtonClickHandler = (event: MouseEvent) => {
+		const target = event.target as HTMLLinkElement;
 		if (target.href?.length) {
 			window.location.href = target.href;
 		} else {
-			e.preventDefault();
-			// e.stopPropagation();
+			event.preventDefault();
+			// event.stopPropagation();
 			if (typeof onNavClick === 'function') {
-				onNavClick(target.id);
+				const componentEvent = new ComponentEvent(
+					target.id,
+					target,
+					event
+				);
+				onNavClick(componentEvent);
 			}
 		}
 	};
 
-	const navMenuTriggerClickHandler = (e: Event) => {
-		e.preventDefault();
-		// e.stopPropagation();
+	const navMenuTriggerClickHandler = (event: Event) => {
+		event.preventDefault();
+		// event.stopPropagation();
 		menuVisible = !menuVisible;
 	};
 
@@ -76,9 +81,16 @@
 		}
 	};
 
-	const menuClickHandler = (id: string) => {
+	const menuClickHandler = (event: ComponentEvent<string>) => {
 		menuVisible = false;
-		if (onNavClick) onNavClick(id);
+		if (onNavClick) {
+			const componentEvent = new ComponentEvent(
+				event.value,
+				event.target!,
+				event.raw
+			);
+			onNavClick(componentEvent);
+		}
 	};
 
 	const [floatingRef, floatingContent] = createFloatingActions({

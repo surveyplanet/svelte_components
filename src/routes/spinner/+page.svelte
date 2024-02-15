@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Spinner } from '$lib';
+	import { ComponentEvent, Spinner } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	let events = $state<(number | undefined | string)[]>([]);
@@ -19,16 +19,16 @@
 	let dragSpeed = $state(10);
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
-	const onSpinnerChange = (value: number | undefined) => {
-		events.push(value);
+	const onSpinnerChange = (event: ComponentEvent<number | undefined>) => {
+		events.push(event.value);
 	};
 
-	const onSpinnerUpdate = (value: number | undefined) => {
-		events.push(value);
+	const onSpinnerUpdate = (event: ComponentEvent<number | undefined>) => {
+		events.push(event.value);
 	};
 
-	const onSpinnerInput = (value: number | undefined) => {
-		events.push(value);
+	const onSpinnerInput = (event: ComponentEvent<number | undefined>) => {
+		events.push(event.value);
 	};
 
 	const onSpinnerBlur = () => {

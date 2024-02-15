@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { TabBar, type TabBarData } from '$lib';
+	import { ComponentEvent, TabBar, type TabBarData } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
@@ -30,8 +30,8 @@
 	let defaultIndicatorWidth = $state(114);
 	let defaultIndicatorX: number | undefined = $state(4);
 
-	const tabButtonClickHandler = (id: string): void => {
-		events.push(id);
+	const tabButtonClickHandler = (event: ComponentEvent<string>): void => {
+		events.push(event.value!);
 	};
 </script>
 

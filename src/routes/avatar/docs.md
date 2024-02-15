@@ -9,6 +9,6 @@
 
 ### Callbacks
 
-| Name            | Description                           | Argument        |
-| --------------- | ------------------------------------- | --------------- |
-| `onAvatarClick` | Triggered when the avatar is clicked. | `e: MouseEvent` |
+| Name            | Description                           | Argument            |
+| --------------- | ------------------------------------- | ------------------- |
+| `onAvatarClick` | Triggered when the avatar is clicked. | `event: MouseEvent` |

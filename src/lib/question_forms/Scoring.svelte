@@ -23,7 +23,7 @@
 
 <script lang="ts">
 	import type { ScoringValue, ScoringProperties } from '@surveyplanet/types';
-	import { Button, Radio } from '../';
+	import { Button, Radio, ComponentEvent, type SortListData } from '../';
 	import SortableList from '$lib/SortableList.svelte';
 
 	let {
@@ -45,7 +45,7 @@
 		response.push(value);
 	};
 
-	const inputChangeHandler = (event: Event) => {
+	const inputChangeHandler = (event: ComponentEvent<boolean>) => {
 		const target = event.target as HTMLInputElement;
 
 		const value: ScoringValue = {
@@ -58,7 +58,8 @@
 		if (onScoringResponse) onScoringResponse(response);
 	};
 
-	const sortableEventHandler = (list: { label: string }[]) => {
+	const sortableEventHandler = (event: ComponentEvent<SortListData[]>) => {
+		const list = event.value!;
 		for (let i = 0; i < list.length; i++) {
 			response = response?.filter((val) => val.label !== list[i].label);
 			response.push({

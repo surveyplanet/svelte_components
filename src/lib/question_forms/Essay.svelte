@@ -7,13 +7,13 @@
 		max?: EssayProperties['max'];
 		single?: EssayProperties['single'];
 		response?: EssayValue[];
-		onEssayResponse?: (response: EssayValue[]) => void;
+		onEssayResponse?: (event: ComponentEvent<EssayValue[]>) => void;
 	};
 </script>
 
 <script lang="ts">
 	import type { EssayValue, EssayProperties } from '@surveyplanet/types';
-	import { TextInput } from '../';
+	import { ComponentEvent, TextInput } from '../';
 
 	let {
 		id,
@@ -28,9 +28,16 @@
 		response = [value];
 	};
 
-	const inputKeyupHandler = (event: Event) => {
+	const inputKeyupHandler = (event: ComponentEvent<string>) => {
 		updateResponse((event.target as HTMLInputElement)?.value);
-		if (onEssayResponse) onEssayResponse(response);
+		if (typeof onEssayResponse === 'function') {
+			const componentEvent = new ComponentEvent(
+				response,
+				event.target!,
+				event.raw
+			);
+			onEssayResponse(componentEvent);
+		}
 	};
 </script>
 

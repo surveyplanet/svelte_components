@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Toggle } from '$lib';
+	import { ComponentEvent, Toggle } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
@@ -15,8 +15,10 @@
 	let prependLabel = $state(false);
 	// let meridiemIndicator = false;
 
-	const onToggleChange = (toggle: boolean): void => {
-		events.push(toggle);
+	const onToggleChange = (
+		event: ComponentEvent<boolean | undefined>
+	): void => {
+		events.push(event.value!);
 	};
 </script>
 
