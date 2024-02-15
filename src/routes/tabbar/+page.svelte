@@ -5,7 +5,6 @@
 	import { default as source } from './example';
 	let events = $state<string[]>([]);
 
-	// let keys = $state(0);
 	let data: TabBarData[] = $state([
 		{
 			id: 'edit',
