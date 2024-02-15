@@ -63,7 +63,7 @@
 		const id = target.id;
 		moveIndicator(target, animate);
 
-		data = (data ?? []).map((item) => {
+		data = data.map((item) => {
 			item.selected = item.id === id;
 			return item;
 		});
@@ -100,7 +100,7 @@
 		bind:this={activeIndicator} />
 
 	<ul>
-		{#each data ?? [] as item}
+		{#each data as item}
 			<li>
 				<button
 					id={item.id}
