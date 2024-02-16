@@ -4,7 +4,7 @@
 	export interface PopoverProps {
 		visible: boolean;
 		children: Snippet;
-		rest?: Record<string, string>;
+		// rest?: Record<string, string>;
 	}
 </script>
 

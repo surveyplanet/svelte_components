@@ -15,6 +15,7 @@
 	) as unknown as Snippet;
 </script>
 
+<!-- eslint-disable svelte/no-at-html-tags -->
 <Layout
 	component="Popover"
 	example={source({ visible, children })}
@@ -28,9 +29,7 @@
 			bind:value={children} />
 	{/snippet}
 	{#snippet main()}
-		<Popover
-			{visible}
-			id="sample-popover">
+		<Popover {visible}>
 			{@html children}
 		</Popover>
 	{/snippet}
