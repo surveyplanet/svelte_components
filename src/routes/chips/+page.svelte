@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Chips, type ChipData } from '$lib';
+	import { Chips, type ChipData, ComponentEvent } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -32,11 +32,11 @@
 	let multiSelect = $state(false);
 	let removable = $state(false);
 
-	const onChipsClick = (data: ChipData[]): void => {
-		events.push(data);
+	const onChipsClick = (event: ComponentEvent<ChipData[]>): void => {
+		events.push(event.value);
 	};
-	const onChipsRemove = (data: ChipData[]): void => {
-		events.push(data);
+	const onChipsRemove = (event: ComponentEvent<ChipData[]>): void => {
+		events.push(event.value);
 	};
 
 	// let stringData = $state(JSON.stringify(data));

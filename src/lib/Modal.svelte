@@ -9,10 +9,10 @@
 		visible?: boolean;
 		animationMilliseconds?: number;
 		size?: 'small' | 'medium' | 'large';
-		onModalIntroStart?: (e: CustomEvent) => void;
-		onModalIntroEnd?: (e: CustomEvent) => void;
-		onModalOutroStart?: (e: CustomEvent) => void;
-		onModalOutroEnd?: (e: CustomEvent) => void;
+		onModalIntroStart?: (event: CustomEvent) => void;
+		onModalIntroEnd?: (event: CustomEvent) => void;
+		onModalOutroStart?: (event: CustomEvent) => void;
+		onModalOutroEnd?: (event: CustomEvent) => void;
 		footer?: Snippet;
 		body?: Snippet;
 		header?: Snippet;
@@ -42,8 +42,8 @@
 		body,
 	} = $props<ModalProps>();
 
-	const overlayClickHandler = (e: KeyboardEvent) => {
-		if (e.key === 'Escape') {
+	const overlayClickHandler = (event: KeyboardEvent) => {
+		if (event.key === 'Escape') {
 			visible = false;
 		}
 	};

@@ -1,5 +1,9 @@
 <script lang="ts">
-	import { SortableList, type SortListData } from '../../lib/index';
+	import {
+		ComponentEvent,
+		SortableList,
+		type SortListData,
+	} from '../../lib/index';
 	import {
 		Layout,
 		//  PropsChanger
@@ -25,8 +29,8 @@
 			image: 'https://picsum.photos/200/300',
 		},
 	]);
-	const sortableListSortHandler = (sortData: SortListData[]) => {
-		events.push(sortData);
+	const sortableListSortHandler = (event: ComponentEvent<SortListData[]>) => {
+		events.push(event.value!);
 	};
 
 	// let dataStringed = $state(JSON.stringify(data));

@@ -17,12 +17,13 @@
 		defaultIndicatorWidth?: number;
 		defaultIndicatorX?: number;
 		data: TabBarData[];
-		onTabClick?: (id: string) => void;
+		onTabClick?: (event: ComponentEvent<string>) => void;
 	};
 </script>
 
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { ComponentEvent } from '$lib';
 
 	let { block, defaultIndicatorWidth, defaultIndicatorX, data, onTabClick } =
 		$props<TabBarProps>();
@@ -68,8 +69,6 @@
 			item.selected = item.id === id;
 			return item;
 		});
-
-		if (onTabClick) onTabClick(id);
 	};
 
 	const tabButtonHandler = (event: Event) => {
@@ -83,8 +82,17 @@
 		}
 
 		selectTabButton(target, true);
+		if (typeof onTabClick === 'function') {
+			const componentEvent = new ComponentEvent<string>(
+				target!.id,
+				target!,
+				event
+			);
+			onTabClick(componentEvent);
+		}
 	};
 
+	//TODO see if we can get rid of this function
 	const windowResizeHandler = () => {
 		const selected = data?.find((item) => item.selected);
 

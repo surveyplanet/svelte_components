@@ -15,6 +15,6 @@
 
 ### Callbacks
 
-| Name              | Description                                            | Type                     |
-| ----------------- | ------------------------------------------------------ | ------------------------ |
-| `onImageResponse` | Callback triggered when the image response is changed. | `response: ImageValue[]` |
+| Name              | Description                                            | Type                                  |
+| ----------------- | ------------------------------------------------------ | ------------------------------------- |
+| `onImageResponse` | Callback triggered when the image response is changed. | `event: ComponentEvent<ImageValue[]>` |

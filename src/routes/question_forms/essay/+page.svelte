@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { EssayProperties, EssayValue } from '@surveyplanet/types';
-	import { Essay } from '$lib';
+	import { ComponentEvent, Essay } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -13,8 +13,8 @@
 	let max: EssayProperties['max'] = $state(10);
 	let single: EssayProperties['single'] = $state(false);
 	let response: EssayValue[] = $state([]);
-	const essayResponseHandler = (response: EssayValue[]) => {
-		events.push(response);
+	const essayResponseHandler = (event: ComponentEvent<EssayValue[]>) => {
+		events.push(event.value);
 	};
 </script>
 

@@ -7,14 +7,14 @@
 		order?: RatingProperties['order'];
 		layout?: RatingProperties['layout'];
 		response?: RatingValue[];
-		onRatingResponse?: (value: RatingValue[]) => void;
+		onRatingResponse?: (value: ComponentEvent<RatingValue[]>) => void;
 	};
 </script>
 
 <script lang="ts">
 	import type { RatingValue, RatingProperties } from '@surveyplanet/types';
 	import { RangeSlider } from 'svelte-range-slider-pips';
-	import { Radio } from '$lib/index';
+	import { ComponentEvent, Radio } from '$lib/index';
 
 	let {
 		id,
@@ -52,7 +52,7 @@
 		response.push(result);
 	};
 
-	const inputChangeHandler = (event: Event) => {
+	const rangeInputChangeHandler = (event: Event) => {
 		if (layout === 'slider') {
 			throw new Error(
 				'UNDER CONSTRUCTION: Rating slider layout is not yet implemented.'
@@ -61,7 +61,25 @@
 
 		const target = event.target as HTMLInputElement;
 		updateResponse(Number(target.value));
-		if (onRatingResponse) onRatingResponse(response);
+		if (
+			typeof onRatingResponse === 'function' &&
+			typeof event.target === 'boolean'
+		) {
+			const componentEvent = new ComponentEvent(response, target, event);
+			onRatingResponse(componentEvent);
+		}
+	};
+
+	const radioInputChangeHandler = (event: ComponentEvent<boolean>) => {
+		updateResponse(Number(event.value));
+		if (typeof onRatingResponse === 'function') {
+			const componentEvent = new ComponentEvent(
+				response,
+				event.target,
+				event.raw
+			);
+			onRatingResponse(componentEvent);
+		}
 	};
 </script>
 
@@ -75,7 +93,7 @@
 			max={Number(labels[labels.length - 1].value)}
 			all="label"
 			bind:value={response}
-			on:stop={inputChangeHandler} />
+			on:stop={rangeInputChangeHandler} />
 	{:else}
 		{#each labels as item}
 			<div>
@@ -84,7 +102,7 @@
 					value={item.value.toString()}
 					label={item.label}
 					size="large"
-					onRadioChange={inputChangeHandler} />
+					onRadioChange={radioInputChangeHandler} />
 			</div>
 		{/each}
 	{/if}

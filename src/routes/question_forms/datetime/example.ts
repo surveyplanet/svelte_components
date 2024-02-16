@@ -5,10 +5,10 @@ export default (
 ) => {
 	return `
 <script lang="ts">
-	import {DateTime} from '@surveyplanet/svelte-components';
+	import {DateTime, ComponentEvent} from '@surveyplanet/svelte-components';
 	import type {DateTimeValue} from '@surveyplanet/types';
-	const onDateTimeResponse = (response: DateTimeValue[]) => {
-		console.log(response);
+	const onDateTimeResponse = (event: ComponentEvent<DateTimeValue[]>) => {
+		console.log(event.value);
 	}
 	let response: DateTimeValue[] = ${JSON.stringify(data.response, null, 2)};
 </script>

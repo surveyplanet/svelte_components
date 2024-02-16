@@ -9,11 +9,11 @@
 
 ### Callbacks
 
-| Name           | Description                                     | Arguments           |
-| -------------- | ----------------------------------------------- | ------------------- |
-| `onMenuUpdate` | Callback function triggered on menu update.     | `id: string`        |
-| `onMenuClick`  | Callback function triggered on menu item click. | `id: string`        |
-| `onMenuBlur`   | Callback function triggered on menu blur.       | `event: FocusEvent` |
+| Name           | Description                                     | Arguments                       |
+| -------------- | ----------------------------------------------- | ------------------------------- |
+| `onMenuUpdate` | Callback function triggered on menu update.     | `event: ComponentEvent<string>` |
+| `onMenuClick`  | Callback function triggered on menu item click. | `event: ComponentEvent<string>` |
+| `onMenuBlur`   | Callback function triggered on menu blur.       | `event: FocusEvent`             |
 
 ### Interfaces
 

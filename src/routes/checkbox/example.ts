@@ -5,9 +5,9 @@ export default (
 ) => {
 	return `
 <script lang="ts">
-	import {Checkbox} from '@surveyplanet/svelte_components';
-	const onCheckboxChange = (e: Event): void => {
-		console.log(e)
+	import {Checkbox, ComponentEvent} from '@surveyplanet/svelte_components';
+	const onCheckboxChange = (event: ComponentEvent<boolean>): void => {
+		console.log(event)
 	};
 	
 </script>

@@ -10,12 +10,13 @@
 		random?: ImageProperties['random'];
 		contain?: ImageProperties['contain'];
 		response?: ImageValue[];
-		onImageResponse?: (value: ImageValue[]) => void;
+		onImageResponse?: (event: ComponentEvent<ImageValue[]>) => void;
 	};
 </script>
 
 <script lang="ts">
 	import type { ImageValue, ImageProperties } from '@surveyplanet/types';
+	import { ComponentEvent } from '$lib';
 	import {
 		transformImage,
 		type TransformOptions,
@@ -91,7 +92,10 @@
 	const inputChangeHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		updateResponse(target.value, !target.checked);
-		if (onImageResponse) onImageResponse(response);
+		if (typeof onImageResponse === 'function') {
+			const componentEvent = new ComponentEvent(response, target, event);
+			onImageResponse(componentEvent);
+		}
 	};
 </script>
 

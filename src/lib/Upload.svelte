@@ -5,7 +5,7 @@
 		label?: string;
 		formats?: string[];
 		maxSize?: number;
-		onUploadUpload?: (data: UploadData) => void;
+		onUploadUpload?: (event: ComponentEvent<UploadData>) => void;
 	};
 
 	export type UploadData = {
@@ -15,7 +15,7 @@
 </script>
 
 <script lang="ts">
-	import { Button, Icon } from '$lib/index';
+	import { Button, Icon, ComponentEvent } from './';
 	import { COLORS } from '$lib/index';
 
 	let {
@@ -34,21 +34,28 @@
 	);
 	const formatAccept = formats?.join(',');
 
-	const fileSelected = (target: FileEventTarget) => {
+	const fileSelected = (event: Event) => {
+		let target = event.target as FileEventTarget | DataTransfer;
 		let image = target.files[0];
 		let reader = new FileReader();
 		reader.readAsDataURL(image);
 		reader.onloadend = () => {
 			let data = reader.result;
-			if (onUploadUpload) onUploadUpload({ image, data });
+			if (typeof onUploadUpload === 'function') {
+				const componentEvent = new ComponentEvent(
+					{ image, data },
+					target as EventTarget,
+					event
+				);
+				onUploadUpload(componentEvent);
+			}
 		};
 	};
 	const fileInputHandler = (event: Event) => {
 		if (!event.target) {
 			return;
 		}
-		let target = event.target as FileEventTarget;
-		fileSelected(target);
+		fileSelected(event);
 	};
 
 	const dragOverHandler = (event: DragEvent) => {
@@ -60,7 +67,7 @@
 		if (!event.dataTransfer) {
 			return;
 		}
-		fileSelected(event.dataTransfer);
+		fileSelected(event);
 	};
 </script>
 

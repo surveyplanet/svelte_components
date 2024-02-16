@@ -5,8 +5,8 @@ export default (
 ) => {
 	return `
 <script lang="ts">
-	import {Radio} from '@surveyplanet/svelte_components';
-	let onRadioChange = (event: Event) => {
+	import {Radio, ComponentEvent} from '@surveyplanet/svelte_components';
+	let onRadioChange = (event: ComponentEvent<boolean>) => {
 		console.log(event);
 	};
 </script>

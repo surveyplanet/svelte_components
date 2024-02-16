@@ -5,6 +5,7 @@
 	} from '@surveyplanet/types';
 
 	import {
+		ComponentEvent,
 		DateTime,
 		// type DateTimeDefinitions
 	} from '$lib';
@@ -27,8 +28,10 @@
 		new Date(1977, 3, 29, 12, 0, 0).toISOString(),
 	]);
 
-	const dateTimeResponseHandler = (datetime: DateTimeValue[]) => {
-		events.push(datetime);
+	const dateTimeResponseHandler = (
+		event: ComponentEvent<DateTimeValue[]>
+	) => {
+		events.push(event.value);
 	};
 
 	// let responseString = $state(JSON.stringify(response));

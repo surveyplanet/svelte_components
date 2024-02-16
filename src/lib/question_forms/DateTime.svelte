@@ -14,7 +14,7 @@
 		date?: DateTimeProperties['date'];
 		time?: DateTimeProperties['time'];
 		response?: DateTimeValue[];
-		onDateTimeResponse?: (response: DateTimeValue[]) => void;
+		onDateTimeResponse?: (event: ComponentEvent<DateTimeValue[]>) => void;
 	};
 </script>
 
@@ -23,7 +23,7 @@
 		DateTimeValue,
 		DateTimeProperties,
 	} from '@surveyplanet/types';
-	import { TextInput, type TextInputType } from '../';
+	import { ComponentEvent, TextInput, type TextInputType } from '../';
 	import { stringToDate } from '@surveyplanet/utilities';
 	// import { dateToString } from '@surveyplanet/utilities';
 
@@ -58,19 +58,26 @@
 		inputType = date && time ? 'datetime-local' : time ? 'time' : 'date';
 	});
 
-	const updateResponse = (value: Date) => {
+	const updateResponse = (value: Date, event: ComponentEvent<string>) => {
 		response = [value.toISOString()];
-		if (onDateTimeResponse) onDateTimeResponse(response);
+		if (typeof onDateTimeResponse === 'function') {
+			const componentEvent = new ComponentEvent(
+				response,
+				event.target!,
+				event.raw
+			);
+			onDateTimeResponse(componentEvent);
+		}
 	};
 
-	const dateInputChangeHandler = (event: Event) => {
+	const dateInputChangeHandler = (event: ComponentEvent<string>) => {
 		const { value } = event.target as HTMLInputElement; // "1977-04-12T11:21"
 		// let valueString = dateToString(type, [value]);
 		// if (!valueString) return;
 		//TODO: it seems like it is working as it is, the above conversion using dateToString is messing up with the input value
 		const date = stringToDate(type, value);
 		if (date) {
-			updateResponse(date);
+			updateResponse(date, event);
 		}
 	};
 </script>

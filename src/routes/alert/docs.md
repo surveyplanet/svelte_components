@@ -15,10 +15,10 @@
 
 ### Callbacks
 
-| Name             | Description                                                   |
-| ---------------- | ------------------------------------------------------------- |
-| `onAlertOpen`    | Alert has been instantiated.                                  |
-| `onAlertIn`      | Alert is full rendered on stage and in animation is complete. |
-| `onAlertClose`   | Alert has been closed.                                        |
-| `onAlertOut`     | Alert has been fully removed and out animation is complete.   |
-| `onAlertConfirm` | Confirmation alert has been confirmed.                        |
+| Name             | Description                                                   | Arguments                          |
+| ---------------- | ------------------------------------------------------------- | ---------------------------------- |
+| `onAlertOpen`    | Alert has been instantiated.                                  | `event: CustomEvent`               |
+| `onAlertIn`      | Alert is full rendered on stage and in animation is complete. | `event: CustomEvent`               |
+| `onAlertClose`   | Alert has been closed.                                        | `event: CustomEvent`               |
+| `onAlertOut`     | Alert has been fully removed and out animation is complete.   | `event: CustomEvent`               |
+| `onAlertConfirm` | Confirmation alert has been confirmed.                        | `event: ComponentEvent<undefined>` |

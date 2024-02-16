@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Checkbox } from '$lib';
+	import { Checkbox, ComponentEvent } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<Event[]>([]);
+	let events = $state<boolean[]>([]);
 
 	let id: string = $state((Date.now() + Math.random()).toString(36));
 	let name = $state('checkbox');
@@ -15,8 +15,8 @@
 	let prependLabel = $state(false);
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
-	const onCheckboxChange = (e: Event): void => {
-		events.push(e);
+	const onCheckboxChange = (event: ComponentEvent<boolean>): void => {
+		events.push(event.value);
 	};
 </script>
 

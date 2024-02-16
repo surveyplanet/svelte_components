@@ -9,6 +9,7 @@
 		Toggle,
 		NavBar,
 		TextInput,
+		ComponentEvent,
 	} from '$lib';
 	import { createComponentsStore } from './stores/components.store.svelte';
 	import type { Snippet } from 'svelte';
@@ -25,7 +26,7 @@
 
 	let { example, md, events, main, controls } = $props<LayoutProps>();
 
-	let isDarkMode = $state(false);
+	let isDarkMode = $state();
 	let mkd = $state(marked(md));
 	let reload = $state(0); //used to force reload the component
 	let componentsData = $state(createComponentsStore.componentsStore);
@@ -49,30 +50,31 @@
 		}
 	});
 
-	const tabHandler = (id: string) => {
+	const tabHandler = (event: ComponentEvent<string>) => {
+		const id = event.value;
 		tabSelected = id;
 	};
 
-	const navBarClickHandler = (id: string) => {
-		console.log('navBarClickHandler' + id);
+	const navBarClickHandler = (event: ComponentEvent<string>) => {
+		console.log('navBarClickHandler' + event.value);
 
-		if (id === 'refresh') {
+		if (event.value === 'refresh') {
 			reload++;
 			events = [];
 		}
 	};
 
-	const menuClickHandler = (id: string) => {
+	const menuClickHandler = (event: ComponentEvent<string>) => {
 		// dropdownValue = id;
 
-		window.location.href = `/${id}`;
+		window.location.href = `/${event.value}`;
 	};
 
-	const darkModeHandler = (selected: boolean) => {
-		isDarkMode = selected;
+	const darkModeHandler = (event: ComponentEvent<boolean | undefined>) => {
+		isDarkMode = event.value;
 	};
 
-	const searchComponents = (event: Event) => {
+	const searchComponents = (event: ComponentEvent<string>) => {
 		const searchValue = (event.target as HTMLInputElement).value;
 		componentsData = createComponentsStore.componentsStore.filter((item) =>
 			item.label.toLowerCase().includes(searchValue.toLowerCase())

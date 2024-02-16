@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { FormProperties, FormValue } from '@surveyplanet/types';
-	import { Form } from '$lib';
+	import { ComponentEvent, Form } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 
 	import { default as source } from './example';
@@ -37,8 +37,8 @@
 	let response: FormValue[] = $state([]);
 	let requireAll: FormProperties['requireAll'] = $state();
 	let random: FormProperties['random'] = $state();
-	const formResponseHandler = (response: FormValue[]) => {
-		events.push(response);
+	const formResponseHandler = (event: ComponentEvent<FormValue[]>) => {
+		events.push(event.value);
 	};
 
 	// let labelsStringed = $state(JSON.stringify(labels));

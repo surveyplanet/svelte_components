@@ -8,9 +8,9 @@
 
 ### Callbacks
 
-| Name         | Description                                         | Arguments    |
-| ------------ | --------------------------------------------------- | ------------ |
-| `onNavClick` | Event handler for individual navigation item click. | `id: string` |
+| Name         | Description                                         | Arguments                       |
+| ------------ | --------------------------------------------------- | ------------------------------- |
+| `onNavClick` | Event handler for individual navigation item click. | `event: ComponentEvent<string>` |
 
 ### Interfaces
 

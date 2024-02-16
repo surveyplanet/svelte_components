@@ -17,9 +17,9 @@
 
 ### Callbacks
 
-| Name                | Description                                         | Arguments        |
-| ------------------- | --------------------------------------------------- | ---------------- |
-| `onModalIntroStart` | Event handler for the start of the intro animation. | `e: CustomEvent` |
-| `onModalIntroEnd`   | Event handler for the end of the intro animation.   | `e: CustomEvent` |
-| `onModalOutroStart` | Event handler for the start of the outro animation. | `e: CustomEvent` |
-| `onModalOutroEnd`   | Event handler for the end of the outro animation.   | `e: CustomEvent` |
+| Name                | Description                                         | Arguments            |
+| ------------------- | --------------------------------------------------- | -------------------- |
+| `onModalIntroStart` | Event handler for the start of the intro animation. | `event: CustomEvent` |
+| `onModalIntroEnd`   | Event handler for the end of the intro animation.   | `event: CustomEvent` |
+| `onModalOutroStart` | Event handler for the start of the outro animation. | `event: CustomEvent` |
+| `onModalOutroEnd`   | Event handler for the end of the outro animation.   | `event: CustomEvent` |

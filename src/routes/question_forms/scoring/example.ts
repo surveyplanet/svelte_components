@@ -7,8 +7,8 @@ export default (
 <script lang="ts">
 	import {Scoring, type ScoringProps} from '@surveyplanet/svelte-components';
 	import type {ScoringValue} from '@surveyplanet/types';
-	const onScoringResponse = (response: ScoringValue[]) => {
-		console.log(response);
+	const onScoringResponse = (event: ComponentEvent<ScoringValue[]>) => {
+		console.log(event.value);
 	}
 	let labels : ScoringProps['labels'] = ${JSON.stringify(data.labels)};
 	let values: ScoringProps['values'] = ${JSON.stringify(data.values, null, 2)};

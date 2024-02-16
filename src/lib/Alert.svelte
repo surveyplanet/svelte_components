@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type AlertProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type AlertProps = HTMLAttributes<HTMLDivElement> & {
 		title?: string | null;
 		subtitle?: string | null;
 		type?: 'info' | 'warning' | 'error' | 'success';
@@ -12,11 +13,11 @@
 		challenge?: string;
 		challengeLabel?: string;
 		animationMilliseconds?: number;
-		onAlertConfirm?: () => void;
-		onAlertOpen?: () => void;
-		onAlertIn?: () => void;
-		onAlertClose?: () => void;
-		onAlertOut?: () => void;
+		onAlertConfirm?: (event: ComponentEvent<undefined>) => void;
+		onAlertOpen?: (event: CustomEvent) => void;
+		onAlertIn?: (event: CustomEvent) => void;
+		onAlertClose?: (event: CustomEvent) => void;
+		onAlertOut?: (event: CustomEvent) => void;
 		children?: Snippet;
 	};
 </script>
@@ -25,7 +26,7 @@
 	import type { Snippet } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	import { COLORS, Button, Icon, TextInput } from './';
+	import { COLORS, Button, Icon, TextInput, ComponentEvent } from './';
 	// import '../assets/styles/alert.scss';
 	import successIcon from '../assets/mascots/tummi_3.svg';
 	import infoIcon from '../assets/mascots/cubbi_3.svg';
@@ -49,6 +50,7 @@
 		onAlertClose,
 		onAlertOut,
 		children,
+		...rest
 	} = $props<AlertProps>();
 
 	let visible = $state(false);
@@ -86,18 +88,20 @@
 		visible = true;
 	});
 
-	const challengeKeyupHandler = (event: Event): void => {
-		const input = (event as CustomEvent).detail.target as HTMLInputElement;
+	const challengeKeyupHandler = (event: ComponentEvent<string>): void => {
+		const input = event.target as HTMLInputElement;
 		disableConfirmButton = input.value !== challenge;
 	};
 
 	const closeButtonClickHandler = () => {
 		visible = false;
 	};
-	const alertConfirmButtonClickHandler = () => {
+	const alertConfirmButtonClickHandler = (
+		event: ComponentEvent<undefined>
+	) => {
 		const value = isChallenge ? !disableConfirmButton : true;
 		if (value) visible = false;
-		if (onAlertConfirm) onAlertConfirm();
+		if (typeof onAlertConfirm === 'function') onAlertConfirm(event);
 	};
 </script>
 
@@ -105,6 +109,7 @@
 
 {#if visible}
 	<div
+		{...rest}
 		role="alert"
 		class="sp-alert sp-alert--{type}"
 		class:sp-alert--confirm={confirm}
@@ -158,7 +163,6 @@
 					{#if isChallenge}
 						<div class="sp-alert--challenge">
 							<TextInput
-								id={`challenge-${(Date.now() + Math.random()).toString(36)}`}
 								name="challenge"
 								label={challengeLabel}
 								placeholder={challenge}

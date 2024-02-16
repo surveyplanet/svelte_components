@@ -1,7 +1,7 @@
 <script
 	lang="ts"
 	context="module">
-	import { Icon, type IconName } from './index';
+	import { ComponentEvent, Icon, type IconName } from './';
 	export interface SortListData {
 		label: string;
 		meta?: string;
@@ -16,7 +16,7 @@
 
 	export type SortListProps = {
 		data: SortListData[];
-		onSortSort: (data: SortListData[]) => void;
+		onSortSort: (event: ComponentEvent<SortListData[]>) => void;
 	};
 </script>
 
@@ -46,11 +46,16 @@
 		},
 	});
 
-	const reorder = (from: number, to: number) => {
+	const reorder = (from: number, to: number, event: DragEvent) => {
 		let newList = [...data];
 		newList[from] = [newList[to], (newList[to] = newList[from])][0];
 		data = newList;
-		onSortSort(newList);
+		const componentEvent = new ComponentEvent(
+			newList,
+			event.target!,
+			event
+		);
+		onSortSort(componentEvent);
 	};
 
 	let isOver: boolean | string = $state(false);
@@ -98,7 +103,7 @@
 			);
 			let from = parseInt(event.dataTransfer.getData('source'));
 			let to = parseInt(dragged.index);
-			reorder(from, to);
+			reorder(from, to, event);
 		}
 	};
 

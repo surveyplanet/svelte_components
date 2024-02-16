@@ -6,7 +6,7 @@
 		min: number;
 		max: number;
 		response?: RangeValue[];
-		onRangeResponse?: (value: RangeValue[]) => void;
+		onRangeResponse?: (event: ComponentEvent<RangeValue[]>) => void;
 	};
 </script>
 
@@ -14,6 +14,7 @@
 	import type { RangeValue } from '@surveyplanet/types';
 	import TextInput from '../TextInput.svelte';
 	import { RangeSlider } from 'svelte-range-slider-pips';
+	import { ComponentEvent } from '$lib';
 
 	let {
 		id,
@@ -28,14 +29,21 @@
 	// 	rangeValues = [response[0] || min, response[1] || max];
 	// });
 
-	const rangeSliderStopHandler = () => {
+	const rangeSliderStopHandler = (event: Event) => {
 		response = [rangeValues[0], rangeValues[1]];
-		if (onRangeResponse) onRangeResponse(response);
+		if (typeof onRangeResponse === 'function') {
+			const componentEvent = new ComponentEvent(
+				response,
+				event.target as HTMLElement,
+				event
+			);
+			onRangeResponse(componentEvent);
+		}
 	};
 
 	// it would be better to do this on a keydown event but we are not dispatching
 	// 'value' on keydown or input but rather events themselves.
-	const minSliderInputHandler = (event: Event) => {
+	const minSliderInputHandler = (event: ComponentEvent<string>) => {
 		let minInputValue = parseInt((event.target as HTMLInputElement).value);
 		if (isNaN(minInputValue)) {
 			minInputValue = min;
@@ -52,7 +60,7 @@
 		}
 	};
 
-	const maxSliderInputHandler = (event: Event) => {
+	const maxSliderInputHandler = (event: ComponentEvent<string>) => {
 		let maxInputValue = parseInt((event.target as HTMLInputElement).value);
 
 		if (maxInputValue <= rangeValues[0]) {

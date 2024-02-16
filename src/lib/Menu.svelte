@@ -1,7 +1,7 @@
 <script
 	lang="ts"
 	context="module">
-	import { Icon, type IconName } from './index';
+	import { ComponentEvent, Icon, type IconName } from './index';
 	export interface MenuData {
 		id: string;
 		label?: string;
@@ -16,8 +16,8 @@
 	export type MenuProps = {
 		data: MenuData[];
 		size?: 'small' | 'medium' | 'large';
-		onMenuUpdate?: (id: string) => void;
-		onMenuClick?: (id: string) => void;
+		onMenuUpdate?: (event: ComponentEvent<string>) => void;
+		onMenuClick?: (event: ComponentEvent<string>) => void;
 		onMenuBlur?: (event: FocusEvent) => void;
 		header?: Snippet;
 		footer?: Snippet;
@@ -41,7 +41,10 @@
 		footer,
 	} = $props<MenuProps>();
 
-	const scrollMenu = (direction: 'up' | 'down' | 'left' | 'right') => {
+	const scrollMenu = (
+		direction: 'up' | 'down' | 'left' | 'right',
+		event: Event
+	) => {
 		const allButtons = Array.from(
 			document.querySelectorAll('.sp-menu--item button')
 		) as HTMLButtonElement[];
@@ -68,7 +71,7 @@
 			) {
 				activeButton.click();
 			} else if (direction === 'left' && location.length) {
-				backClickHandler();
+				backClickHandler(event);
 			}
 		} else {
 			if (direction === 'right') {
@@ -79,7 +82,7 @@
 						allButtons.length
 				].focus();
 			} else if (direction === 'up' && location.length) {
-				backClickHandler();
+				backClickHandler(event);
 			}
 		}
 	};
@@ -117,19 +120,19 @@
 
 		if (event.key === 'ArrowDown') {
 			event.preventDefault();
-			scrollMenu('down');
+			scrollMenu('down', event);
 		} else if (event.key === 'ArrowUp') {
 			event.preventDefault();
-			scrollMenu('up');
+			scrollMenu('up', event);
 		} else if (event.key === 'ArrowRight') {
-			scrollMenu('right');
+			scrollMenu('right', event);
 		} else if (event.key === 'ArrowLeft') {
 			event.preventDefault();
-			scrollMenu('left');
+			scrollMenu('left', event);
 		}
 	};
 
-	const backClickHandler = (event?: Event) => {
+	const backClickHandler = (event: Event) => {
 		if (event) event.preventDefault();
 		const id = location[location.length - 2];
 		location.pop(); // remove the last location
@@ -143,7 +146,10 @@
 		} else {
 			currentState = [...(data || [])]; // go to root
 		}
-		if (onMenuUpdate) onMenuUpdate(id);
+		if (typeof onMenuUpdate === 'function') {
+			const componentEvent = new ComponentEvent(id, event.target!, event);
+			onMenuUpdate(componentEvent);
+		}
 	};
 
 	const itemClickHandler = (event: MouseEvent) => {
@@ -163,13 +169,13 @@
 			location = location.concat([id]);
 			currentState = [...state];
 		}
-
+		const componentEvent = new ComponentEvent(id, event.target!, event);
 		// if clicked and item doesn't have a submenu dispatch 'click'
 		// otherwise dispatch 'update'
 		if (!state) {
-			if (onMenuClick) onMenuClick(id);
+			if (onMenuClick) onMenuClick(componentEvent);
 		} else {
-			if (onMenuUpdate) onMenuUpdate(id);
+			if (onMenuUpdate) onMenuUpdate(componentEvent);
 		}
 	};
 

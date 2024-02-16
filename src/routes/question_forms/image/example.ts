@@ -5,11 +5,11 @@ export default (
 ) => {
 	return `
 <script lang="ts">
-	import {Image, type ImageProps} from '@surveyplanet/svelte-components';
+	import {Image, ComponentEvent, type ImageProps} from '@surveyplanet/svelte-components';
 	import type {ImageValue} from '@surveyplanet/types';
 
-	const onImageResponse = (response: ImageValue[]) => {
-		console.log(response);
+	const onImageResponse = (event: ComponentEvent<ImageValue[]>) => {
+		console.log(event.value);
 	}
 	let labels : ImageProps['labels'] = ${JSON.stringify(data.labels)};
 	let response: ImageValue[] = ${JSON.stringify(data.response, null, 2)};

@@ -19,10 +19,10 @@
 
 ### Callbacks
 
-| Name              | Description                                  | Arguments                    |
-| ----------------- | -------------------------------------------- | ---------------------------- |
-| `onSpinnerUpdate` | Callback function triggered on value update. | `value: number \| undefined` |
-| `onSpinnerInput`  | Callback function triggered on input change. | `value: number \| undefined` |
-| `onSpinnerChange` | Callback function triggered on value change. | `value: number \| undefined` |
-| `onSpinnerBlur`   | Callback function triggered on input blur.   | `undefined`                  |
-| `onSpinnerFocus`  | Callback function triggered on input focus.  | `undefined`                  |
+| Name              | Description                                  | Arguments                                    |
+| ----------------- | -------------------------------------------- | -------------------------------------------- |
+| `onSpinnerUpdate` | Callback function triggered on value update. | `event: ComponentEvent<number \| undefined>` |
+| `onSpinnerInput`  | Callback function triggered on input change. | `event: ComponentEvent<number \| undefined>` |
+| `onSpinnerChange` | Callback function triggered on value change. | `event: ComponentEvent<number \| undefined>` |
+| `onSpinnerBlur`   | Callback function triggered on input blur.   | `event: ComponentEvent<undefined>`           |
+| `onSpinnerFocus`  | Callback function triggered on input focus.  | `event: ComponentEvent<undefined>`           |

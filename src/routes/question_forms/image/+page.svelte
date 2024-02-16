@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ImageProperties, ImageValue } from '@surveyplanet/types';
-	import { Image } from '$lib';
+	import { ComponentEvent, Image } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -32,8 +32,8 @@
 			value: '',
 		},
 	]);
-	const imageResponseHandler = (response: ImageValue[]) => {
-		events.push(response);
+	const imageResponseHandler = (event: ComponentEvent<ImageValue[]>) => {
+		events.push(event.value);
 	};
 
 	// let labelsString = $state(JSON.stringify(labels));

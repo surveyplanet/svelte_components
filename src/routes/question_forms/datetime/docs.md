@@ -11,9 +11,9 @@
 
 ### Callbacks
 
-| Name                 | Description                                                   | Arguments                   |
-| -------------------- | ------------------------------------------------------------- | --------------------------- |
-| `onDateTimeResponse` | Callback triggered when the date-time input value is changed. | `response: DateTimeValue[]` |
+| Name                 | Description                                                   | Arguments                                |
+| -------------------- | ------------------------------------------------------------- | ---------------------------------------- |
+| `onDateTimeResponse` | Callback triggered when the date-time input value is changed. | `event: ComponentEvent<DateTimeValue[]>` |
 
 ### Interfaces
 

@@ -5,10 +5,10 @@ export default (
 ) => {
 	return `
 <script lang="ts">
-	import {Avatar} from '@surveyplanet/svelte-components';
+	import {Avatar, ComponentEvent} from '@surveyplanet/svelte-components';
     
-    const onAvatarClick = (e) => {
-        console.log(e);
+    const onAvatarClick = (event: ComponentEvent<undefined>) => {
+        console.log(event);
     }
 </script>
 

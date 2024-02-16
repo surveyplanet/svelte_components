@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { RangeValue, RangeProperties } from '@surveyplanet/types';
-	import { Range } from '$lib';
+	import { ComponentEvent, Range } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -12,8 +12,8 @@
 	let min: RangeProperties['min'] = $state(0);
 	let max: RangeProperties['max'] = $state(10);
 	let response: RangeValue[] = $state([]);
-	const rangeResponseHandler = (response: RangeValue[]) => {
-		events.push(response);
+	const rangeResponseHandler = (event: ComponentEvent<RangeValue[]>) => {
+		events.push(event.value);
 	};
 </script>
 

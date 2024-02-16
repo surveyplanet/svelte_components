@@ -4,7 +4,7 @@
 	// function isValidJson(val) {
 	// 	try {
 	// 		JSON.parse(val);
-	// 	} catch (e) {
+	// 	} catch (event) {
 	// 		return false;
 	// 	}
 

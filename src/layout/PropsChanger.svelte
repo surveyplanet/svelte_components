@@ -7,6 +7,7 @@
 	// import type { DropdownOptions } from '$lib/Dropdown.svelte';
 	import { dasherize } from '@surveyplanet/utilities';
 	import JsonEditor from './JsonEditor.svelte';
+	import type { ComponentEvent } from '$lib';
 
 	const FORM_CONTROL_SIZE: TextInputProps['size'] = 'medium';
 
@@ -65,8 +66,10 @@
 		return [];
 	};
 
-	const dropdownChangeHandler = (dropdownValueMutated: string) => {
-		value = dropdownValueMutated;
+	const dropdownChangeHandler = (
+		dropdownValueMutated: ComponentEvent<string>
+	) => {
+		value = dropdownValueMutated.value!;
 	};
 
 	const options = optionsParsed();

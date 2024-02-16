@@ -6,19 +6,19 @@ data: SpinnerProps
 	return `
 <script lang="ts">
 	import { Spinner } from '@surveyplanet/svelte-components';
-	const onSpinnerChange = (value: number | undefined) => {
+	const onSpinnerChange = (event: ComponentEvent<number | undefined>) => {
 		console.log(value);
 	};
-	const onSpinnerUpdate = (value: number | undefined) => {
+	const onSpinnerUpdate = (event: ComponentEvent<number | undefined>) => {
 		console.log(value);
 	};
-	const onSpinnerInput = (value: number | undefined) => {
+	const onSpinnerInput = (event: ComponentEvent<number | undefined>) => {
 		console.log(value);
 	};
-	const onSpinnerBlur = () => {
+	const onSpinnerBlur = (event: ComponentEvent<undefined>) => {
 		console.log('blur');
 	}
-	const onSpinnerFocus = () => {
+	const onSpinnerFocus = (event: ComponentEvent<undefined>) => {
 		console.log('focus');
 	}
 </script>

@@ -13,6 +13,6 @@
 
 ### Callbacks
 
-| Name            | Description                           | Arguments  |
-| --------------- | ------------------------------------- | ---------- |
-| `onRadioChange` | Event handler for radio input change. | `e: Event` |
+| Name            | Description                           | Arguments                        |
+| --------------- | ------------------------------------- | -------------------------------- |
+| `onRadioChange` | Event handler for radio input change. | `event: ComponentEvent<boolean>` |
