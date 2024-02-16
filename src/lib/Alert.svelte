@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type AlertProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type AlertProps = HTMLAttributes<HTMLDivElement> & {
 		title?: string | null;
 		subtitle?: string | null;
 		type?: 'info' | 'warning' | 'error' | 'success';
@@ -49,6 +50,7 @@
 		onAlertClose,
 		onAlertOut,
 		children,
+		...rest
 	} = $props<AlertProps>();
 
 	let visible = $state(false);
@@ -107,6 +109,7 @@
 
 {#if visible}
 	<div
+		{...rest}
 		role="alert"
 		class="sp-alert sp-alert--{type}"
 		class:sp-alert--confirm={confirm}

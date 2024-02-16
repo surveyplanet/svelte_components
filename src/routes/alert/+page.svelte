@@ -17,6 +17,10 @@
 		'Instructions on how to reset your password have been sent to: <strong style="color:black;">diego@studiovoila.com</strong>. If the email doesn’t arrive in the next 5 minutes check your spam folder.'
 	);
 
+	let rest = {
+		id: 'alert',
+	};
+
 	const onAlertOpen = () => {
 		events.push('open');
 	};
@@ -81,6 +85,7 @@
 	{/snippet}
 	{#snippet main()}
 		<Alert
+			{...rest}
 			{onAlertOpen}
 			{onAlertIn}
 			{onAlertClose}

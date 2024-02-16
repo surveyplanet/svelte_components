@@ -23,7 +23,7 @@ export {
 	type ChipData,
 	type ChipsProps,
 } from './Chips.svelte';
-export {  ComponentEvent} from './events/component_event';
+export { ComponentEvent} from './events/component_event';
 export {
 	default as Dropdown,
 	type DropdownOption,
