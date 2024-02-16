@@ -7,11 +7,11 @@ export default (
 <script lang="ts">
 	import { Chips, type ChipData } from '@surveyplanet/svelte_components';
 
-	const onChipsClick = (data: ChipData[]): void => {
-		console.log(data);
+	const onChipsClick = (event: ComponentEvent<ChipData[]>): void => {
+		console.log(event.value);
 	};
-	const onChipsRemove = (data: ChipData[]): void => {
-		console.log(data);
+	const onChipsRemove = (event: ComponentEvent<ChipData[]>): void => {
+		console.log(event.value);
 	};
 
 	let data: ChipData[] = ${JSON.stringify(data.data, null, 4)};

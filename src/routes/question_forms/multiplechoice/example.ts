@@ -5,11 +5,11 @@ export default (
 ) => {
 	return `
 <script lang="ts">
-	import {MultipleChoice, type MultipleChoiceProps} from '@surveyplanet/svelte-components';
+	import {MultipleChoice, ComponentEvent, type MultipleChoiceProps} from '@surveyplanet/svelte-components';
 	import type {MultipleChoiceValue} from '@surveyplanet/types';
 	
-	const onMultipleChoiceResponse = (response: MultipleChoiceValue[]) => {
-		console.log(response);
+	const onMultipleChoiceResponse = (event: ComponentEvent<MultipleChoiceValue[]>) => {
+		console.log(event.value);
 	}
 
 	let labels : MultipleChoiceProps['labels'] = ${JSON.stringify(data.labels)};

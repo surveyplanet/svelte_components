@@ -16,9 +16,9 @@
 
 ### Callbacks
 
-| Name                | Description                                              | Arguments                  |
-| ------------------- | -------------------------------------------------------- | -------------------------- |
-| `onScoringResponse` | Callback triggered when the scoring response is changed. | `response: ScoringValue[]` |
+| Name                | Description                                              | Arguments                               |
+| ------------------- | -------------------------------------------------------- | --------------------------------------- |
+| `onScoringResponse` | Callback triggered when the scoring response is changed. | `event: ComponentEvent<ScoringValue[]>` |
 
 ### `ScoringDefinitions`
 

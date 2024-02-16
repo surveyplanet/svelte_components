@@ -18,14 +18,14 @@
 
 ### Callbacks
 
-| Name                 | Description                                   | Arguments      |
-| -------------------- | --------------------------------------------- | -------------- |
-| `onTextInputInput`   | Callback function triggered on input change.  | `event: Event` |
-| `onTextInputBlur`    | Callback function triggered on input blur.    | `event: Event` |
-| `onTextInputChange`  | Callback function triggered on input change.  | `event: Event` |
-| `onTextInputFocus`   | Callback function triggered on input focus.   | `event: Event` |
-| `onTextInputKeydown` | Callback function triggered on keydown event. | `event: Event` |
-| `onTextInputKeyup`   | Callback function triggered on keyup event.   | `event: Event` |
+| Name                 | Description                                   | Arguments                          |
+| -------------------- | --------------------------------------------- | ---------------------------------- |
+| `onTextInputInput`   | Callback function triggered on input change.  | `event: ComponentEvent<string>`    |
+| `onTextInputChange`  | Callback function triggered on input change.  | `event: ComponentEvent<string>`    |
+| `onTextInputKeydown` | Callback function triggered on keydown event. | `event: ComponentEvent<string>`    |
+| `onTextInputKeyup`   | Callback function triggered on keyup event.   | `event: ComponentEvent<string>`    |
+| `onTextInputBlur`    | Callback function triggered on input blur.    | `event: ComponentEvent<undefined>` |
+| `onTextInputFocus`   | Callback function triggered on input focus.   | `event: ComponentEvent<undefined>` |
 
 ### Interfaces
 

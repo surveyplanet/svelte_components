@@ -3,9 +3,9 @@ import type { ButtonProps } from '$lib';
 export default (data: ButtonProps & { content: string }) => {
 	return `
 <script lang="ts">
-	import { Button } from '@surveyplanet/svelte-components';
-	const onButtonClick = (): void => {
-		console.log('button clicked');
+	import { Button, ComponentEvent } from '@surveyplanet/svelte-components';
+	const onButtonClick = (event: ComponentEvent<undefined>): void => {
+		console.log(event);
 	};
 </script>
 

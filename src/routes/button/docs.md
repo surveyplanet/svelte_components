@@ -15,9 +15,9 @@
 
 ### Callbacks
 
-| Name            | Description                         | Arguments    |
-| --------------- | ----------------------------------- | ------------ |
-| `onButtonClick` | Click event handler for the button. | `MouseEvent` |
+| Name            | Description                         | Arguments                          |
+| --------------- | ----------------------------------- | ---------------------------------- |
+| `onButtonClick` | Click event handler for the button. | `event: ComponentEvent<undefined>` |
 
 ### Types
 

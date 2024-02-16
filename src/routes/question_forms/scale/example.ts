@@ -8,8 +8,8 @@ export default (
 	import {Scale} from '@surveyplanet/svelte-components';
 	import type {ScaleValue} from '@surveyplanet/types';
 
-	const onScaleResponse = (response: ScaleValue[]) => {
-		console.log(response);
+	const onScaleResponse = (event: ComponentEvent<ScaleValue[]>) => {
+		console.log(event.value);
 	}
 	let response: ScaleValue[] = ${JSON.stringify(data.response, null, 2)};
 </script>	

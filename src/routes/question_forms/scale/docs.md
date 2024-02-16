@@ -11,6 +11,6 @@
 
 ### Callbacks
 
-| Name              | Description                                            | Type                     |
-| ----------------- | ------------------------------------------------------ | ------------------------ |
-| `onScaleResponse` | Callback triggered when the scale response is changed. | `response: ScaleValue[]` |
+| Name              | Description                                            | Type                                  |
+| ----------------- | ------------------------------------------------------ | ------------------------------------- |
+| `onScaleResponse` | Callback triggered when the scale response is changed. | `event: ComponentEvent<ScaleValue[]>` |

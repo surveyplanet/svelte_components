@@ -13,9 +13,9 @@
 
 ### Callbacks
 
-| Name               | Description                                | Arguments                      |
-| ------------------ | ------------------------------------------ | ------------------------------ |
-| `onDropdownChange` | Triggered when the dropdown value changes. | `value: DropdownOption['id'] ` |
+| Name               | Description                                | Arguments                                     |
+| ------------------ | ------------------------------------------ | --------------------------------------------- |
+| `onDropdownChange` | Triggered when the dropdown value changes. | `event: ComponentEvent<DropdownOption['id']>` |
 
 ### Interfaces
 

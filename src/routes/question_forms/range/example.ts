@@ -5,11 +5,11 @@ export default (
 ) => {
 	return `
 <script lang="ts">
-	import {Range} from '@surveyplanet/svelte-components';
+	import {Range, ComponentEvent} from '@surveyplanet/svelte-components';
 	import type {RangeValue} from '@surveyplanet/types';
 
-	const onRangeResponse = (response: RangeValue[]) => {
-		console.log(response);
+	const onRangeResponse = (event: ComponentEvent<RangeValue[]>) => {
+		console.log(event.value);
 	}
 
 	let response: RangeValue[] = ${JSON.stringify(data.response, null, 2)};

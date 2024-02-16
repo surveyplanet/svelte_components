@@ -12,6 +12,6 @@
 
 ### Callbacks
 
-| Name              | Description                                            | Arguments                |
-| ----------------- | ------------------------------------------------------ | ------------------------ |
-| `onEssayResponse` | Callback triggered when the essay response is changed. | `response: EssayValue[]` |
+| Name              | Description                                            | Arguments                             |
+| ----------------- | ------------------------------------------------------ | ------------------------------------- |
+| `onEssayResponse` | Callback triggered when the essay response is changed. | `event: ComponentEvent<EssayValue[]>` |

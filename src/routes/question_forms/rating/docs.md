@@ -12,6 +12,6 @@
 
 ### Callbacks
 
-| Name               | Description                                             | Type                      |
-| ------------------ | ------------------------------------------------------- | ------------------------- |
-| `onRatingResponse` | Callback triggered when the rating response is changed. | `response: RatingValue[]` |
+| Name               | Description                                             | Type                                   |
+| ------------------ | ------------------------------------------------------- | -------------------------------------- |
+| `onRatingResponse` | Callback triggered when the rating response is changed. | `event: ComponentEvent<RatingValue[]>` |

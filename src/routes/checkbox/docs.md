@@ -13,6 +13,6 @@
 
 ### Callbacks
 
-| Name               | Description                            |
-| ------------------ | -------------------------------------- |
-| `onCheckboxChange` | Change event handler for the checkbox. |
+| Name               | Description                            | Arguments                        |
+| ------------------ | -------------------------------------- | -------------------------------- |
+| `onCheckboxChange` | Change event handler for the checkbox. | `event: ComponentEvent<boolean>` |

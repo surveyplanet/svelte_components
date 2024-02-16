@@ -4,7 +4,6 @@
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
-	let keys = $state(0);
 
 	let title = $state('');
 	let subtitle = $state('Informational alert');
@@ -81,23 +80,21 @@
 			bind:value={content} />
 	{/snippet}
 	{#snippet main()}
-		{#key keys}
-			<Alert
-				{onAlertOpen}
-				{onAlertIn}
-				{onAlertClose}
-				{onAlertOut}
-				{onAlertConfirm}
-				{title}
-				{subtitle}
-				{type}
-				{hideDelay}
-				{confirm}
-				{confirmButtonLabel}
-				{cancelButtonLabel}
-				{challenge}>
-				{@html content}
-			</Alert>
-		{/key}
+		<Alert
+			{onAlertOpen}
+			{onAlertIn}
+			{onAlertClose}
+			{onAlertOut}
+			{onAlertConfirm}
+			{title}
+			{subtitle}
+			{type}
+			{hideDelay}
+			{confirm}
+			{confirmButtonLabel}
+			{cancelButtonLabel}
+			{challenge}>
+			{@html content}
+		</Alert>
 	{/snippet}
 </Layout>

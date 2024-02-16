@@ -6,8 +6,8 @@ export default (
 	return `
 <script lang="ts">
 	import { Toggle, type ToggleProps } from '@surveyplanet/svelte-components';
-	function onToggleChange(on: ToggleProps['on']) {
-		console.log(on);
+	function onToggleChange(event: ComponentEvent<boolean | undefined>) {
+		console.log(event.value);
 	}
 </script>
 

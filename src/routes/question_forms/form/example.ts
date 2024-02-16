@@ -8,8 +8,8 @@ data: FormProps
 	import {Form, type FormProps} from '@surveyplanet/svelte-components';
 	import type {FormValue} from '@surveyplanet/types';
 
-	const onFormResponse = (response: FormValue[]) => {
-		console.log(response);
+	const onFormResponse = (event: ComponentEvent<FormValue[]>) => {
+		console.log(event.value);
 	}
 
 	let labels : FormProps['labels'] = ${JSON.stringify(data.labels)};

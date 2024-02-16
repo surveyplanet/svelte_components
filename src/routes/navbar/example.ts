@@ -8,8 +8,8 @@ export default (
 <script lang="ts">
 	import { NavBar, type NavBarData, type MenuData } from '@surveyplanet/svelte_components';
 
-	const onNavClick = (id: string) => {
-		console.log(id);
+	const onNavClick = (event: ComponentEvent<string>) => {
+		console.log(event.value);
 	}
 
 	let data: NavBarData[] = ${JSON.stringify(data.data, null, 2)}

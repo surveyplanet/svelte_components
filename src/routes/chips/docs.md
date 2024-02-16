@@ -9,17 +9,17 @@
 
 ### Callbacks
 
-| Name            | Description                         | Arguments          |
-| --------------- | ----------------------------------- | ------------------ |
-| `onChipsClick`  | Click event handler for the chips.  | `data: ChipData[]` |
-| `onChipsRemove` | Remove event handler for the chips. | `data: ChipData[]` |
+| Name            | Description                         | Arguments                           |
+| --------------- | ----------------------------------- | ----------------------------------- |
+| `onChipsClick`  | Click event handler for the chips.  | `event: ComponentEvent<ChipData[]>` |
+| `onChipsRemove` | Remove event handler for the chips. | `event: ComponentEvent<ChipData[]>` |
 
 ### Interfaces
 
 #### `ChipData`
 
-| Property   | Type    | Description                        |
-| ---------- | ------- | ---------------------------------- |
-| `id`       | String  | Identifier for the chip.           |
-| `label`    | String  | Label text for the chip.           |
-| `selected` | Boolean | Indicates if the chip is selected. |
+| Property   | Description                        |
+| ---------- | ---------------------------------- |
+| `id`       | Identifier for the chip.           |
+| `label`    | Label text for the chip.           |
+| `selected` | Indicates if the chip is selected. |

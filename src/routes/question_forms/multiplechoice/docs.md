@@ -14,6 +14,6 @@
 
 ### Callbacks
 
-| Name                       | Description                                                      | Arguments                         |
-| -------------------------- | ---------------------------------------------------------------- | --------------------------------- |
-| `onMultipleChoiceResponse` | Callback triggered when the multiple choice response is changed. | `response: MultipleChoiceValue[]` |
+| Name                       | Description                                                      | Arguments                                      |
+| -------------------------- | ---------------------------------------------------------------- | ---------------------------------------------- |
+| `onMultipleChoiceResponse` | Callback triggered when the multiple choice response is changed. | `event: ComponentEvent<MultipleChoiceValue[]>` |

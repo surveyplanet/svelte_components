@@ -10,9 +10,9 @@
 
 ### Callbacks
 
-| Name             | Description                                 | Arguments          |
-| ---------------- | ------------------------------------------- | ------------------ |
-| `onUploadUpload` | Callback triggered when a file is selected. | `data: UploadData` |
+| Name             | Description                                 | Arguments                           |
+| ---------------- | ------------------------------------------- | ----------------------------------- |
+| `onUploadUpload` | Callback triggered when a file is selected. | `event: ComponentEvent<UploadData>` |
 
 ### Interfaces
 

@@ -5,11 +5,11 @@ export default (
 ) => {
 	return `
 <script lang="ts">
-	import {Essay} from '@surveyplanet/svelte-components';
+	import {Essay, ComponentEvent} from '@surveyplanet/svelte-components';
 	import type {EssayValue} from '@surveyplanet/types';
 
-	const onEssayResponse = (response: EssayValue[]) => {
-		console.log(response);
+	const onEssayResponse = (event: ComponentEvent<EssayValue[]>) => {
+		console.log(event.value);
 	};
 
 	let response: EssayValue[] = ${JSON.stringify(data.response, null, 2)};

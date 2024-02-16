@@ -8,7 +8,7 @@ export default (data: DropdownProps) => {
 
 	let options: DropdownOption[] = ${JSON.stringify(data.options, null, 4)};
 
-	const onDropdownChange = (event:DropdownOption['id']) => {
+	const onDropdownChange = (event: ComponentEvent<DropdownOption['id']>) => {
 		console.log('change', event);
 	}
 </script>

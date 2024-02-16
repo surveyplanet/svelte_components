@@ -11,6 +11,6 @@
 
 ### Callbacks
 
-| Name              | Description                                            | Arguments                |
-| ----------------- | ------------------------------------------------------ | ------------------------ |
-| `onRangeResponse` | Callback triggered when the range response is changed. | `response: RangeValue[]` |
+| Name              | Description                                            | Arguments                             |
+| ----------------- | ------------------------------------------------------ | ------------------------------------- |
+| `onRangeResponse` | Callback triggered when the range response is changed. | `event: ComponentEvent<RangeValue[]>` |

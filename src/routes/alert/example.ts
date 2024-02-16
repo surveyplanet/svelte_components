@@ -5,21 +5,21 @@ export default (
 ) => {
 	return `
 <script lang="ts">
-	import { Alert } from '@surveyplanet/svelte-components';
+	import { Alert, ComponentEvent } from '@surveyplanet/svelte-components';
 
-    const onAlertOpen = () => {
-		console.log('alert opened');
+    const onAlertOpen = (event: CustomEvent) => {
+		console.log('alert opened', event);
 	};
-	const onAlertIn = () => {
-		console.log('alert in');
+	const onAlertIn = (event: CustomEvent) => {
+		console.log('alert in', event);
 	};
-	const onAlertClose = () => {
-		console.log('alert closed');
+	const onAlertClose = (event: CustomEvent) => {
+		console.log('alert closed', event);
 	};
-	const onAlertOut = () => {
-		console.log('alert out');
+	const onAlertOut = (event: CustomEvent) => {
+		console.log('alert out', event);
 	};
-	const onAlertConfirm = () => {
+	const onAlertConfirm = (event: ComponentEvent<undefined>) => {
 		console.log('alert confirmed');
 	};
 </script>

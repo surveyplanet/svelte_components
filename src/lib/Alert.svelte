@@ -12,11 +12,11 @@
 		challenge?: string;
 		challengeLabel?: string;
 		animationMilliseconds?: number;
-		onAlertConfirm?: () => void;
-		onAlertOpen?: () => void;
-		onAlertIn?: () => void;
-		onAlertClose?: () => void;
-		onAlertOut?: () => void;
+		onAlertConfirm?: (event: ComponentEvent<undefined>) => void;
+		onAlertOpen?: (event: CustomEvent) => void;
+		onAlertIn?: (event: CustomEvent) => void;
+		onAlertClose?: (event: CustomEvent) => void;
+		onAlertOut?: (event: CustomEvent) => void;
 		children?: Snippet;
 	};
 </script>
@@ -94,10 +94,12 @@
 	const closeButtonClickHandler = () => {
 		visible = false;
 	};
-	const alertConfirmButtonClickHandler = () => {
+	const alertConfirmButtonClickHandler = (
+		event: ComponentEvent<undefined>
+	) => {
 		const value = isChallenge ? !disableConfirmButton : true;
 		if (value) visible = false;
-		if (onAlertConfirm) onAlertConfirm();
+		if (typeof onAlertConfirm === 'function') onAlertConfirm(event);
 	};
 </script>
 

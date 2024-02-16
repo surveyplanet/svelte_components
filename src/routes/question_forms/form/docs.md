@@ -11,6 +11,6 @@
 
 ### Callbacks
 
-| Name             | Description                                           | Arguments               |
-| ---------------- | ----------------------------------------------------- | ----------------------- |
-| `onFormResponse` | Callback triggered when the form response is changed. | `response: FormValue[]` |
+| Name             | Description                                           | Arguments                            |
+| ---------------- | ----------------------------------------------------- | ------------------------------------ |
+| `onFormResponse` | Callback triggered when the form response is changed. | `event: ComponentEvent<FormValue[]>` |
