@@ -54,6 +54,7 @@ export {
 	type NavBarData,
 	type NavBarProps,
 } from './NavBar.svelte';
+export { default as Popover, type PopoverProps } from './Popover.svelte';
 export {
 	default as ProgressBar,
 	type ProgressBarProps,
@@ -76,7 +77,11 @@ export {
 	type SortListData,
 	type SortListProps,
 } from './SortableList.svelte';
-export { default as Upload, type UploadProps, type UploadData } from './Upload.svelte';
+export {
+	default as Upload,
+	type UploadProps,
+	type UploadData,
+} from './Upload.svelte';
 
 // QUESTION FORMS
 export {

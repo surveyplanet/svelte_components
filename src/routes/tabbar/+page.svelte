@@ -16,13 +16,18 @@
 			id: 'preview',
 			label: 'Preview',
 			icon: 'eye',
-			link: '#preview',
 		},
 		{
 			id: 'results',
 			label: 'Results',
 			icon: 'chartColumn',
 			// disabled: true,
+		},
+		{
+			id: 'go',
+			label: 'Go there',
+			icon: 'open',
+			link: 'https://svelte.dev',
 		},
 	]);
 
