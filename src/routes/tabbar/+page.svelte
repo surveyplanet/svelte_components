@@ -5,7 +5,6 @@
 	import { default as source } from './example';
 	let events = $state<string[]>([]);
 
-	// let keys = $state(0);
 	let data: TabBarData[] = $state([
 		{
 			id: 'edit',
@@ -17,6 +16,7 @@
 			id: 'preview',
 			label: 'Preview',
 			icon: 'eye',
+			link: '#preview',
 		},
 		{
 			id: 'results',
@@ -52,7 +52,6 @@
 			bind:value={defaultIndicatorWidth} />
 		<PropsChanger
 			label="Default indicator X position"
-			type="number"
 			bind:value={defaultIndicatorX} />
 	{/snippet}
 	{#snippet main()}

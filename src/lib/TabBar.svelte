@@ -9,6 +9,7 @@
 		icon?: IconName;
 		selected?: boolean;
 		disabled?: boolean;
+		link?: string;
 	}
 
 	export type TabBarProps = {
@@ -64,7 +65,7 @@
 		const id = target.id;
 		moveIndicator(target, animate);
 
-		data = (data ?? []).map((item) => {
+		data = data.map((item) => {
 			item.selected = item.id === id;
 			return item;
 		});
@@ -73,8 +74,14 @@
 	const tabButtonHandler = (event: Event) => {
 		event.preventDefault();
 		const target = (event.target as HTMLElement).closest('button');
-		selectTabButton(target!, true);
+		if (!target) return;
 
+		if (target.dataset.link?.length) {
+			window.location.href = target.dataset.link;
+			return;
+		}
+
+		selectTabButton(target, true);
 		if (typeof onTabClick === 'function') {
 			const componentEvent = new ComponentEvent<string>(
 				target!.id,
@@ -84,9 +91,11 @@
 			onTabClick(componentEvent);
 		}
 	};
+
 	//TODO see if we can get rid of this function
 	const windowResizeHandler = () => {
 		const selected = data?.find((item) => item.selected);
+
 		if (selected) {
 			selectTabButton(
 				document.getElementById(selected.id) as HTMLButtonElement,
@@ -108,13 +117,14 @@
 		bind:this={activeIndicator} />
 
 	<ul>
-		{#each data ?? [] as item}
+		{#each data as item}
 			<li>
 				<button
 					id={item.id}
 					class="sp-tab-bar--button"
 					class:sp-tab-bar--item--active={item.selected}
 					disabled={item.disabled}
+					data-link={item.link}
 					onclick={tabButtonHandler}>
 					{#if item.label}
 						<span class="sp-tab-bar--button--label">

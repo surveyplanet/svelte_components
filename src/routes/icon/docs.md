@@ -1,16 +1,16 @@
 ### Properties
 
-| Property                 | Type     | Description                                        |
-| ------------------------ | -------- | -------------------------------------------------- |
-| `name`                   | IconName | Name of the icon.                                  |
-| `[color={COLORS.black}]` | String   | Color of the icon.                                 |
-| `[size={DEFAULT_SIZE}]`  | IconSize | Size of the icon. Defaults to 24.                  |
-| `[strokeWidth={2}]`      | Number   | Stroke width of the icon. Defaults to 2.           |
-| `[debug]`                | Boolean  | Enable debug mode for the icon. Defaults to false. |
+| Property                 | Type     | Description                     |
+| ------------------------ | -------- | ------------------------------- |
+| `name`                   | IconName | Name of the icon.               |
+| `[color={COLORS.black}]` | string   | Color of the icon.              |
+| `[size={24}]`            | IconSize | Size of the icon.               |
+| `[strokeWidth={2}]`      | number   | Stroke width of the icon.       |
+| `[debug]`                | boolean  | Enable debug mode for the icon. |
 
 ### Interfaces
 
-### `IconSize`
+#### `IconSize`
 
 -   8
 -   12
@@ -24,9 +24,7 @@
 -   256
 -   512;
 
-### `IconName`
-
-The icon name includes:
+#### `IconName`
 
 -   `alignCenter`
 -   `alignJustify`

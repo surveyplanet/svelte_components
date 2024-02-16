@@ -11,10 +11,11 @@
 <script lang="ts">
 	import { COLORS } from '$lib/_definitions';
 	const strokeDashOffset = 63;
+	const DEFAULT_SIZE = 72;
 
 	let {
 		colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green], // common use case
-		size = 72, // medium size that looks good
+		size = DEFAULT_SIZE, // medium size that looks good
 		strokeWidth = 4, // stroke width doesn't look good above 4
 	} = $props<LoaderProps>();
 
