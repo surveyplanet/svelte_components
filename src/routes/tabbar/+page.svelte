@@ -36,7 +36,7 @@
 	let defaultIndicatorX: number | undefined = $state(4);
 
 	const tabButtonClickHandler = (event: ComponentEvent<string>): void => {
-		events.push(event.value!);
+		events.push(event.value);
 	};
 </script>
 

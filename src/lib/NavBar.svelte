@@ -67,10 +67,10 @@
 
 	const documentClickHandler = (event: MouseEvent) => {
 		const compPath = event.composedPath();
-		const insideNav = compPath.includes(navBarEl!);
+		let insideNav = compPath.includes(navBarEl!);
 
 		if (navBarMenuEl) {
-			compPath.includes(navBarMenuEl);
+			insideNav = compPath.includes(navBarMenuEl);
 		}
 
 		// console.log(compPath);
