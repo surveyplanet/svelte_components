@@ -21,7 +21,55 @@ $indicator--speed: 0.5s;
 		ul {
 			justify-content: space-between;
 		}
+
+		&.sp-tab-bar--plain {
+			li+li {
+				margin-left: 0; // reset margin on plain block tab bar
+			}
+		}
 	}
+
+	&.sp-tab-bar--plain {
+		border-radius: 0;
+		background-color: transparent;
+		// background-color: $color--pink;
+		border-bottom: 1px solid $color--beige-darker;
+		margin: 0;
+		padding: 0;
+		height: auto;
+
+		ul {
+			height: auto;
+			padding: 0 $size-space--m;
+		}
+
+		li+li {
+			margin-left: $size-space--l;
+		}
+
+
+		.sp-tab-bar--button {
+			// background-color: $color--blue;
+			color: $color--beige-darkest;
+			height: 100%;
+			padding: $size-space--m 0;
+			border-radius: 0;
+		}
+
+		.sp-tab-bar--button svg path {
+			stroke: $color--beige-darkest;
+		}
+
+		.sp-tab-bar--item--active {
+			color: $color--black;
+		}
+
+		.sp-tab-bar--button--active svg path {
+			stroke: $color--black;
+		}
+
+	}
+
 
 	ul {
 		// position: relative;

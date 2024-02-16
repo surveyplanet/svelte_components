@@ -12,6 +12,7 @@ export default (data: TabBarProps) => {
 
 <TabBar 
 	block='${data.block}' 
+	block='${data.plain}' 
 	defaultIndicatorWidth={${data.defaultIndicatorWidth}}
 	defaultIndicatorX={${data.defaultIndicatorX}}
 	{data}

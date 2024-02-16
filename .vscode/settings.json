@@ -16,7 +16,7 @@
 		"editor.defaultFormatter": "vscode.css-language-features"
 	},
 	"[markdown]": {
-		"editor.defaultFormatter": "yzhang.markdown-all-in-one"
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	}
 
 	// "svelte.plugin.svelte.diagnostics.enable": {

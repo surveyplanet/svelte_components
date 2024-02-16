@@ -32,6 +32,7 @@
 	]);
 
 	let block = $state(false);
+	let plain = $state(true);
 	let defaultIndicatorWidth = $state(114);
 	let defaultIndicatorX: number | undefined = $state(4);
 
@@ -42,7 +43,13 @@
 
 <Layout
 	component="TabBar"
-	example={source({ data, block, defaultIndicatorWidth, defaultIndicatorX })}
+	example={source({
+		data,
+		block,
+		plain,
+		defaultIndicatorWidth,
+		defaultIndicatorX,
+	})}
 	{md}
 	bind:events>
 	{#snippet controls()}
@@ -52,6 +59,9 @@
 		<PropsChanger
 			label="Block"
 			bind:value={block} />
+		<PropsChanger
+			label="Plain"
+			bind:value={plain} />
 		<PropsChanger
 			label="Default indicator width"
 			bind:value={defaultIndicatorWidth} />
@@ -64,6 +74,7 @@
 			onTabClick={tabButtonClickHandler}
 			bind:data
 			{block}
+			{plain}
 			{defaultIndicatorWidth}
 			{defaultIndicatorX} />
 	{/snippet}
