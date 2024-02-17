@@ -61,15 +61,20 @@
 
 	const navMenuTriggerClickHandler = (event: Event) => {
 		event.preventDefault();
-		// event.stopPropagation();
+		// console.log('navMenuTriggerClickHandler', menuVisible);
 		menuVisible = !menuVisible;
 	};
 
+	// TODO: move this into the Menu component
 	const documentClickHandler = (event: MouseEvent) => {
 		const compPath = event.composedPath();
-		let insideNav = compPath.includes(navBarEl!);
+		let insideNav = false;
 
-		if (navBarMenuEl) {
+		if (navBarEl) {
+			insideNav = compPath.includes(navBarEl);
+		}
+
+		if (!insideNav && navBarMenuEl) {
 			insideNav = compPath.includes(navBarMenuEl);
 		}
 
