@@ -8,10 +8,11 @@
 	let events = $state<string[]>([]);
 
 	let profileImage: string = $state('');
+	// let profileImage: string = $state( 'https://media.surveyplanet.com/testing/family.jpeg' );
 
-	let id: string = $state('');
+	let id: string = $state('a');
 
-	let size: AvatarProps['size'] = $state('medium');
+	let size: AvatarProps['size'] = $state('small');
 
 	let disabled = $state(false);
 

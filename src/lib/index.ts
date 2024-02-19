@@ -1,7 +1,7 @@
 export * from './_definitions';
 
 export { default as Alert, type AlertProps } from './Alert.svelte';
-export { default as Avatar, type AvatarProps, MASCOTS } from './Avatar.svelte';
+export { default as Avatar, type AvatarProps } from './Avatar.svelte';
 export {
 	default as Badge,
 	type BadgeProps,
@@ -23,7 +23,7 @@ export {
 	type ChipData,
 	type ChipsProps,
 } from './Chips.svelte';
-export { ComponentEvent} from './events/component_event';
+export { ComponentEvent } from './events/component_event';
 export {
 	default as Dropdown,
 	type DropdownOption,

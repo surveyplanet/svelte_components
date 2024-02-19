@@ -1,8 +1,6 @@
 import type { AlertProps } from '$lib';
 
-export default (
-	data: AlertProps 
-) => {
+export default (data: AlertProps) => {
 	return `
 <script lang="ts">
 	import { Alert, ComponentEvent } from '@surveyplanet/svelte-components';
@@ -25,6 +23,7 @@ export default (
 </script>
 
 <Alert 
+  visible='${data.visible}'
   title='${data.title}'
   subtitle='${data.subtitle}'
   type='${data.type}'

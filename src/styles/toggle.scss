@@ -6,6 +6,7 @@
 	position: relative;
 	width: $size--40;
 	height: $size--20;
+
 	@include set-focus {
 		.sp-toggle--track {
 			box-shadow:
@@ -26,15 +27,16 @@
 		cursor: pointer;
 		z-index: 1;
 
-		&:checked + .sp-toggle--track {
+		&:checked+.sp-toggle--track {
 			background-color: $color--darkest;
+
 			&:after {
 				transform: translateX(calc(100% + 4px));
 			}
 		}
 
 		@include set-focus {
-			& + .sp-toggle--track {
+			&+.sp-toggle--track {
 				box-shadow:
 					0px 0px 0px 1px $color--white,
 					0px 0px 0px 2px $color--beige;
@@ -42,8 +44,9 @@
 		}
 
 		&:disabled {
-			+ .sp-toggle--track {
+			+.sp-toggle--track {
 				background-color: $color--beige-dark;
+
 				&:after {
 					background-color: $color--beige-darker;
 				}
@@ -66,8 +69,8 @@
 		&:after {
 			position: absolute;
 			content: '';
-			height: calc($size--20 - 4px);
-			width: calc($size--20 - 4px);
+			height: $size--16;
+			width: $size--16;
 			left: 2px;
 			top: 2px;
 			background-color: $color--white;
@@ -81,18 +84,20 @@
 	&.sp-toggle--tall {
 		width: $size--36;
 		height: $size--24;
+
 		.sp-toggle--track {
 			&:after {
-				position: absolute;
-				content: '';
-				height: calc($size--24 - 4px);
-				width: calc($size--24 - 4px);
+				height: $size--16;
+				width: $size--16;
+				left: 4px;
+				top: 4px;
 			}
 		}
+
 		input[type='checkbox'] {
-			&:checked + .sp-toggle--track {
+			&:checked+.sp-toggle--track {
 				&:after {
-					transform: translateX(calc(100% - 8px));
+					transform: translateX(calc(100% - 4px));
 				}
 			}
 		}

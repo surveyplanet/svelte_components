@@ -3,8 +3,9 @@
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
 	export type AlertProps = HTMLAttributes<HTMLDivElement> & {
-		title?: string | null;
-		subtitle?: string | null;
+		visible?: boolean;
+		title?: string;
+		subtitle?: string;
 		type?: 'info' | 'warning' | 'error' | 'success';
 		hideDelay?: number;
 		confirm?: boolean;
@@ -28,12 +29,17 @@
 	import { cubicOut } from 'svelte/easing';
 	import { COLORS, Button, Icon, TextInput, ComponentEvent } from './';
 	// import '../assets/styles/alert.scss';
-	import successIcon from '../assets/mascots/tummi_3.svg';
-	import infoIcon from '../assets/mascots/cubbi_3.svg';
-	import warningIcon from '../assets/mascots/zummi_3.svg';
-	import errorIcon from '../assets/mascots/sunni_3.svg';
+	const successIcon =
+		'https://public.surveyplanet.com/images/mascots/tummi_3.svg' as const;
+	const infoIcon =
+		'https://public.surveyplanet.com/images/mascots/cubbi_3.svg' as const;
+	const warningIcon =
+		'https://public.surveyplanet.com/images/mascots/zummi_3.svg' as const;
+	const errorIcon =
+		'https://public.surveyplanet.com/images/mascots/sunni_3.svg' as const;
 
 	let {
+		visible,
 		title,
 		subtitle,
 		type = 'success',
@@ -53,8 +59,8 @@
 		...rest
 	} = $props<AlertProps>();
 
-	let visible = $state(false);
-	let icon = $state(successIcon);
+	// let visible = $state(false);
+	let icon: string = $state(successIcon);
 	let isChallenge = $derived(confirm && challenge && challenge.length > 0);
 	let disableConfirmButton: boolean = $state(false);
 	$effect(() => {
@@ -82,10 +88,6 @@
 				icon = successIcon;
 				break;
 		}
-	});
-
-	$effect(() => {
-		visible = true;
 	});
 
 	const challengeKeyupHandler = (event: ComponentEvent<string>): void => {

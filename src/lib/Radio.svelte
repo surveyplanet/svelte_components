@@ -21,7 +21,7 @@
 		name,
 		value,
 		label,
-		checked,
+		checked = false,
 		disabled,
 		prependLabel,
 		size = 'small', // small is the most common size

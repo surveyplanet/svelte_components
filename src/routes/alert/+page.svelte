@@ -5,6 +5,7 @@
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
 
+	let visible = $state(true);
 	let title = $state('');
 	let subtitle = $state('Informational alert');
 	let type: 'info' | 'warning' | 'error' | 'success' = $state('info');
@@ -42,6 +43,7 @@
 <Layout
 	component="Alert"
 	example={source({
+		visible,
 		title,
 		subtitle,
 		type,
@@ -54,6 +56,9 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
+		<PropsChanger
+			label="Visible"
+			bind:value={visible} />
 		<PropsChanger
 			label="Title"
 			bind:value={title} />
@@ -85,20 +90,21 @@
 	{/snippet}
 	{#snippet main()}
 		<Alert
-			{...rest}
-			{onAlertOpen}
-			{onAlertIn}
-			{onAlertClose}
-			{onAlertOut}
-			{onAlertConfirm}
-			{title}
-			{subtitle}
-			{type}
-			{hideDelay}
+			{cancelButtonLabel}
+			{challenge}
 			{confirm}
 			{confirmButtonLabel}
-			{cancelButtonLabel}
-			{challenge}>
+			{hideDelay}
+			{onAlertClose}
+			{onAlertConfirm}
+			{onAlertIn}
+			{onAlertOpen}
+			{onAlertOut}
+			{subtitle}
+			{title}
+			{type}
+			bind:visible
+			{...rest}>
 			{@html content}
 		</Alert>
 	{/snippet}

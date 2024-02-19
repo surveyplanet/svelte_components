@@ -37,25 +37,105 @@
 	&.sp-avatar--background--green {
 		background: $color--green-gradient;
 	}
+
+
+	.sp-avatar--image--mascot-cubbi,
+	.sp-avatar--image--mascot-gruffi,
+	.sp-avatar--image--mascot-sunni,
+	.sp-avatar--image--mascot-tummi,
+	.sp-avatar--image--mascot-zummi {
+		position: relative;
+	}
+
+	.sp-avatar--image--mascot-cubbi {
+		top: 5px;
+		left: 1px;
+	}
+
+	.sp-avatar--image--mascot-gruffi {
+		top: 7px;
+		left: 1px;
+	}
+
+	.sp-avatar--image--mascot-sunni {
+		top: 4px;
+	}
+
+	.sp-avatar--image--mascot-tummi {
+		top: 5px;
+	}
+
+	.sp-avatar--image--mascot-zummi {
+		top: 6px;
+	}
 }
+
 .sp-avatar--medium {
 	height: $size--48;
 	width: $size--48;
+
+	.sp-avatar--image--mascot-cubbi {
+		top: 7px;
+		left: 1px;
+	}
+
+	.sp-avatar--image--mascot-gruffi {
+		top: 8px;
+	}
+
+	.sp-avatar--image--mascot-sunni {
+		top: 7px;
+	}
+
+	.sp-avatar--image--mascot-tummi {
+		top: 7px;
+		left: 1px;
+	}
+
+	.sp-avatar--image--mascot-zummi {
+		top: 8px;
+	}
 }
+
 .sp-avatar--large {
 	height: $size--64;
 	width: $size--64;
+
+	.sp-avatar--image--mascot-cubbi {
+		top: 9px;
+		left: 1px;
+	}
+
+	.sp-avatar--image--mascot-gruffi {
+		top: 8px;
+	}
+
+	.sp-avatar--image--mascot-sunni {
+		top: 7px;
+	}
+
+	.sp-avatar--image--mascot-tummi {
+		top: 7px;
+		left: 1px;
+	}
+
+	.sp-avatar--image--mascot-zummi {
+		top: 8px;
+	}
 }
+
 .sp-avatar--image {
 	display: flex; // inline-flex
 	justify-content: center; // flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
 	align-items: center; // flex-start | flex-end | center | baseline | first baseline | last baseline | start | end | self-start | self-end + ... safe | unsafe;
 	width: 100%;
 	height: 100%;
+
 	img {
 		height: 80%;
 		width: 80%;
 	}
+
 	// make images full size
 	&.sp-avatar--image--profile {
 		img {
@@ -64,4 +144,5 @@
 			object-fit: cover;
 		}
 	}
+
 }

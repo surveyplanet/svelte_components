@@ -9,15 +9,13 @@
 	let id = $state((Date.now() + Math.random()).toString(36));
 	let on = $state(false);
 	let disabled = $state(false);
-	let tall = $state(false);
+	let tall = $state(true);
 	let name: string = $state('');
 	let label = $state('Toggle switch');
 	let prependLabel = $state(false);
 	// let meridiemIndicator = false;
 
-	const onToggleChange = (
-		event: ComponentEvent<boolean | undefined>
-	): void => {
+	const onToggleChange = (event: ComponentEvent<boolean>): void => {
 		events.push(event.value!);
 	};
 </script>
