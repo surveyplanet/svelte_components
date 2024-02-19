@@ -4,7 +4,6 @@
 	import md from './docs.md?raw';
 	import { default as source } from './example';
 	let events = $state([]) as boolean[];
-	// let keys = $state(0);
 
 	let id = $state((Date.now() + Math.random()).toString(36));
 	let on = $state(false);
@@ -13,7 +12,6 @@
 	let name: string = $state('');
 	let label = $state('Toggle switch');
 	let prependLabel = $state(false);
-	// let meridiemIndicator = false;
 
 	const onToggleChange = (event: ComponentEvent<boolean>): void => {
 		events.push(event.value!);
