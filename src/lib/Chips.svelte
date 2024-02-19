@@ -1,13 +1,14 @@
 <script
 	lang="ts"
 	context="module">
+	import type { HTMLAttributes } from 'svelte/elements';
 	export interface ChipData {
 		id?: string;
 		label?: string;
 		selected?: boolean;
 	}
 
-	export type ChipsProps = {
+	export type ChipsProps = HTMLAttributes<HTMLMenuElement> & {
 		data: ChipData[];
 		selectable?: boolean;
 		multiSelect?: boolean;
@@ -27,6 +28,7 @@
 		removable,
 		onChipsClick,
 		onChipsRemove,
+		...attr
 	} = $props<ChipsProps>();
 
 	const getChipId = (chipEl: HTMLButtonElement) => {
@@ -97,6 +99,7 @@
 </script>
 
 <menu
+	{...attr}
 	class="sp-chips sp-form-control"
 	class:sp-chips--selectable={selectable}
 	class:sp-chips--multi={multiSelect}>

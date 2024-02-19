@@ -56,7 +56,7 @@
 		onAlertClose,
 		onAlertOut,
 		children,
-		...rest
+		...attr
 	} = $props<AlertProps>();
 
 	// let visible = $state(false);
@@ -109,7 +109,7 @@
 
 {#if visible}
 	<div
-		{...rest}
+		{...attr}
 		role="alert"
 		class="sp-alert sp-alert--{type}"
 		class:sp-alert--confirm={confirm}

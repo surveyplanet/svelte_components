@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type ModalProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type ModalProps = HTMLAttributes<HTMLDivElement> & {
 		title?: string;
 		subtitle?: string;
 		fullscreen?: boolean;
@@ -40,6 +41,7 @@
 		footer,
 		header,
 		body,
+		...attr
 	} = $props<ModalProps>();
 
 	const overlayClickHandler = (event: KeyboardEvent) => {
@@ -66,6 +68,7 @@
 {/if}
 {#if visible}
 	<div
+		{...attr}
 		transition:fly={{
 			y: -250,
 			duration: animationMilliseconds,

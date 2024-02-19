@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type AvatarProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type AvatarProps = HTMLAttributes<HTMLButtonElement> & {
 		profileImage: string;
 		id?: string;
 		size?: 'small' | 'medium' | 'large';
@@ -20,6 +21,7 @@
 		size = 'small',
 		disabled,
 		onAvatarClick,
+		...attr
 	} = $props<AvatarProps>();
 
 	const MASCOT_NAMES = [
@@ -112,6 +114,7 @@
 
 <!-- eslint-disable svelte/no-at-html-tags -->
 <button
+	{...attr}
 	class="sp-avatar sp-avatar--{size} sp-avatar--background--{bgColor}"
 	onclick={avatarClickHandler}
 	aria-label={disabled ? null : 'profile image'}

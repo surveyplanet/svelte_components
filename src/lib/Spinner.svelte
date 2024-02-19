@@ -1,9 +1,10 @@
 <script
 	lang="ts"
 	context="module">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import { ComponentEvent } from './index';
 
-	export type SpinnerProps = {
+	export type SpinnerProps = HTMLAttributes<HTMLInputElement> & {
 		label?: string;
 		id?: string;
 		step?: number;
@@ -43,6 +44,7 @@
 		onSpinnerChange,
 		onSpinnerBlur,
 		onSpinnerFocus,
+		...attr
 	} = $props<SpinnerProps>();
 
 	let input: HTMLInputElement | null = $state(null);
@@ -277,6 +279,7 @@
 	</label>
 
 	<input
+		{...attr}
 		bind:this={input}
 		class="sp-number-spinner--input"
 		type="number"

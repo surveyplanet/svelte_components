@@ -2,6 +2,7 @@
 	lang="ts"
 	context="module">
 	import { ComponentEvent, Icon, type IconName } from './index';
+	import type { HTMLAttributes } from 'svelte/elements';
 	export interface MenuData {
 		id: string;
 		label?: string;
@@ -13,7 +14,7 @@
 		selected?: boolean;
 		submenu?: MenuData[];
 	}
-	export type MenuProps = {
+	export type MenuProps = HTMLAttributes<HTMLDivElement> & {
 		data: MenuData[];
 		size?: 'small' | 'medium' | 'large';
 		onMenuUpdate?: (event: ComponentEvent<string>) => void;
@@ -39,6 +40,7 @@
 		onMenuBlur,
 		header,
 		footer,
+		...attr
 	} = $props<MenuProps>();
 
 	const scrollMenu = (
@@ -173,9 +175,10 @@
 		// if clicked and item doesn't have a submenu dispatch 'click'
 		// otherwise dispatch 'update'
 		if (!state) {
-			if (onMenuClick) onMenuClick(componentEvent);
+			if (typeof onMenuClick === 'function') onMenuClick(componentEvent);
 		} else {
-			if (onMenuUpdate) onMenuUpdate(componentEvent);
+			if (typeof onMenuUpdate === 'function')
+				onMenuUpdate(componentEvent);
 		}
 	};
 
@@ -183,6 +186,7 @@
 </script>
 
 <div
+	{...attr}
 	class="sp-menu sp-menu--{size}"
 	role="menu"
 	tabindex="0"

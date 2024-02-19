@@ -1,6 +1,7 @@
 <script
 	context="module"
 	lang="ts">
+	import type { HTMLAttributes } from 'svelte/elements';
 	export type TextInputType =
 		| 'password'
 		| 'search'
@@ -10,7 +11,8 @@
 		| 'datetime-local'
 		| 'multiline';
 
-	export type TextInputProps = {
+	export type TextInputProps = (HTMLAttributes<HTMLInputElement> &
+		HTMLAttributes<HTMLTextAreaElement>) & {
 		id?: string;
 		name?: string;
 		type?: TextInputType;
@@ -60,6 +62,7 @@
 		onTextInputFocus,
 		onTextInputKeydown,
 		onTextInputKeyup,
+		...attr
 	} = $props<TextInputProps>();
 
 	let hasValidationErrors = $state(false);
@@ -199,6 +202,7 @@
 
 	{#if type === 'password'}
 		<input
+			{...attr}
 			class="sp-text-input--input"
 			{name}
 			type="password"
@@ -229,6 +233,7 @@
 		{/if}
 	{:else if type === 'search'}
 		<input
+			{...attr}
 			class="sp-text-input--input"
 			{name}
 			type="search"
@@ -251,6 +256,7 @@
 		</span>
 	{:else if type === 'date'}
 		<input
+			{...attr}
 			class="sp-text-input--input"
 			{name}
 			type="date"
@@ -271,6 +277,7 @@
 			onfocus={inputFocusHandler} />
 	{:else if type === 'time'}
 		<input
+			{...attr}
 			class="sp-text-input--input"
 			{name}
 			type="time"
@@ -291,6 +298,7 @@
 			onfocus={inputFocusHandler} />
 	{:else if type === 'datetime-local'}
 		<input
+			{...attr}
 			class="sp-text-input--input"
 			{name}
 			type="datetime-local"
@@ -311,6 +319,7 @@
 			onfocus={inputFocusHandler} />
 	{:else if type === 'multiline'}
 		<textarea
+			{...attr}
 			class="sp-text-input--textarea"
 			{name}
 			{id}
@@ -330,6 +339,7 @@
 			onfocus={inputFocusHandler}></textarea>
 	{:else}
 		<input
+			{...attr}
 			class="sp-text-input--input"
 			{name}
 			type="text"

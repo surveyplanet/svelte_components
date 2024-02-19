@@ -4,7 +4,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ImageValue[][]>([]);
+	let events = $state<ComponentEvent<ImageValue[]>[]>([]);
 	// let keys = $state(0);
 
 	// Component props
@@ -33,7 +33,7 @@
 		},
 	]);
 	const imageResponseHandler = (event: ComponentEvent<ImageValue[]>) => {
-		events.push(event.value);
+		events.push(event);
 	};
 
 	// let labelsString = $state(JSON.stringify(labels));

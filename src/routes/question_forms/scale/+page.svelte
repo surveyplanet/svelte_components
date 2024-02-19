@@ -4,7 +4,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
-	let events = $state<ScaleValue[][]>([]);
+	let events = $state<ComponentEvent<ScaleValue[]>[]>([]);
 	// let keys = $state(0);
 
 	// Component props
@@ -13,7 +13,7 @@
 	let max: ScaleProperties['max'] = $state(10);
 	let response: ScaleValue[] = $state([]);
 	const scaleResponseHandler = (event: ComponentEvent<ScaleValue[]>) => {
-		events.push(event.value!);
+		events.push(event);
 	};
 </script>
 

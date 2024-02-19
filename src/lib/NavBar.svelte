@@ -1,6 +1,7 @@
 <script
 	context="module"
 	lang="ts">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import { Icon, type IconName } from './index';
 
 	export interface NavBarData {
@@ -10,7 +11,7 @@
 		id: string;
 	}
 
-	export type NavBarProps = {
+	export type NavBarProps = HTMLAttributes<HTMLElement> & {
 		data: NavBarData[];
 		navMenuData?: MenuData[];
 		vertical?: boolean;
@@ -24,7 +25,8 @@
 	import { createFloatingActions } from 'svelte-floating-ui';
 	import { ComponentEvent, Menu, type MenuData } from './';
 
-	let { data, navMenuData, vertical, onNavClick } = $props<NavBarProps>();
+	let { data, navMenuData, vertical, onNavClick, ...attr } =
+		$props<NavBarProps>();
 
 	let menuVisible = $state(false);
 
@@ -109,6 +111,7 @@
 <svelte:document onclick={documentClickHandler} />
 
 <nav
+	{...attr}
 	bind:this={navBarEl}
 	class="sp-nav"
 	class:sp-nav--vertical={vertical}>

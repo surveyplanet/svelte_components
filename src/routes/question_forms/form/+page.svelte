@@ -5,7 +5,7 @@
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<FormValue[][]>([]);
+	let events = $state<ComponentEvent<FormValue[]>[]>([]);
 	// let keys = $state(0);
 
 	// Component props
@@ -38,7 +38,7 @@
 	let requireAll: FormProperties['requireAll'] = $state();
 	let random: FormProperties['random'] = $state();
 	const formResponseHandler = (event: ComponentEvent<FormValue[]>) => {
-		events.push(event.value);
+		events.push(event);
 	};
 
 	// let labelsStringed = $state(JSON.stringify(labels));

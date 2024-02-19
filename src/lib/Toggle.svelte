@@ -1,9 +1,10 @@
 <script
 	lang="ts"
 	context="module">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import { ComponentEvent } from './';
 
-	export type ToggleProps = {
+	export type ToggleProps = HTMLAttributes<HTMLInputElement> & {
 		on?: boolean;
 		id?: string;
 		name?: string;
@@ -25,6 +26,7 @@
 		label,
 		prependLabel,
 		onToggleChange,
+		...attr
 	} = $props<ToggleProps>();
 
 	const changeHandler = (event: Event): void => {
@@ -58,6 +60,7 @@
 	role="switch"
 	aria-checked={on}>
 	<input
+		{...attr}
 		type="checkbox"
 		class="sp-toggle--input"
 		bind:checked={on}

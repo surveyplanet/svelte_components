@@ -2,7 +2,7 @@
 	import { ComponentEvent, Spinner } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
-	let events = $state<(number | undefined | string)[]>([]);
+	let events = $state<ComponentEvent<number | undefined | string>[]>([]);
 	import { default as source } from './example';
 	// let keys = $state(0);
 
@@ -20,23 +20,23 @@
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
 	const onSpinnerChange = (event: ComponentEvent<number | undefined>) => {
-		events.push(event.value);
+		events.push(event);
 	};
 
 	const onSpinnerUpdate = (event: ComponentEvent<number | undefined>) => {
-		events.push(event.value);
+		events.push(event);
 	};
 
 	const onSpinnerInput = (event: ComponentEvent<number | undefined>) => {
-		events.push(event.value);
+		events.push(event);
 	};
 
-	const onSpinnerBlur = () => {
-		events.push('blur');
+	const onSpinnerBlur = (event: ComponentEvent<undefined>) => {
+		events.push(event);
 	};
 
-	const onSpinnerFocus = () => {
-		events.push('focus');
+	const onSpinnerFocus = (event: ComponentEvent<undefined>) => {
+		events.push(event);
 	};
 </script>
 

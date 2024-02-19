@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type ImageProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type ImageProps = HTMLAttributes<HTMLFormElement> & {
 		id?: string;
 		labels: ImageProperties['labels'];
 		multi: ImageProperties['multi'];
@@ -36,6 +37,7 @@
 		contain,
 		response = [], // forms return empty array if no response
 		onImageResponse,
+		...attr
 	} = $props<ImageProps>();
 	//nopt working
 	$effect(() => {
@@ -100,6 +102,7 @@
 </script>
 
 <form
+	{...attr}
 	class="sp-survey--question--form--image sp-survey--question--form--image--{size}"
 	class:sp-survey--question--form--image--contain={contain}>
 	{#each labels as item, index}

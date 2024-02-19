@@ -1,6 +1,7 @@
 <script
 	context="module"
 	lang="ts">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import ICON_DATA from './_icon_data';
 	export type IconName = keyof typeof ICON_DATA;
 	export type IconSize =
@@ -16,7 +17,7 @@
 		| 256
 		| 512;
 
-	export type IconProps = {
+	export type IconProps = HTMLAttributes<SVGElement> & {
 		name: IconName;
 		color?: string;
 		size?: IconSize;
@@ -37,12 +38,14 @@
 		size = DEFAULT_SIZE,
 		strokeWidth = 2, // thickness seems to be fine at 2
 		debug,
+		...attr
 	} = $props<IconProps>();
 
 	let pathData = $derived(ICON_DATA[name]);
 </script>
 
 <svg
+	{...attr}
 	xmlns="http://www.w3.org/2000/svg"
 	class="sp-icon sp-icon--{dasherize(name)}"
 	width={size}

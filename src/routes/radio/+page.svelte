@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { Radio } from '$lib';
+	import { Radio, type ComponentEvent } from '$lib';
 
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
+	let events = $state<ComponentEvent<boolean>[]>([]);
+
 	let id = 'radio';
-	let events = $state<string[]>([]);
 	let name = $state('stooge');
 	let label = $state('Harry');
 	let labelTwo = $state('Larry');
@@ -14,8 +15,8 @@
 	let prependLabel = $state(false);
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
-	const onRadioChange = (): void => {
-		events.push('change');
+	const onRadioChange = (event: ComponentEvent<boolean>): void => {
+		events.push(event);
 	};
 </script>
 

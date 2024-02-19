@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Alert } from '$lib';
+	import { Alert, ComponentEvent } from '$lib';
 	import { Layout, PropsChanger } from '../../layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<string[]>([]);
+	let events = $state<Event[] & EventTarget[]>([]);
 
 	let visible = $state(true);
 	let title = $state('');
@@ -18,24 +18,20 @@
 		'Instructions on how to reset your password have been sent to: <strong style="color:black;">diego@studiovoila.com</strong>. If the email doesn’t arrive in the next 5 minutes check your spam folder.'
 	);
 
-	let rest = {
-		id: 'alert',
+	const onAlertOpen = (event: Event) => {
+		events.push(event);
 	};
-
-	const onAlertOpen = () => {
-		events.push('open');
+	const onAlertIn = (event: Event) => {
+		events.push(event);
 	};
-	const onAlertIn = () => {
-		events = ['in'];
+	const onAlertClose = (event: Event) => {
+		events.push(event);
 	};
-	const onAlertClose = () => {
-		events = ['close'];
+	const onAlertOut = (event: Event) => {
+		events.push(event);
 	};
-	const onAlertOut = () => {
-		events = ['out'];
-	};
-	const onAlertConfirm = () => {
-		events = ['confirm'];
+	const onAlertConfirm = (event: ComponentEvent<undefined>) => {
+		events.push(event.target);
 	};
 </script>
 
@@ -103,8 +99,7 @@
 			{subtitle}
 			{title}
 			{type}
-			bind:visible
-			{...rest}>
+			bind:visible>
 			{@html content}
 		</Alert>
 	{/snippet}

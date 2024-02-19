@@ -1,13 +1,14 @@
 <script
 	lang="ts"
 	context="module">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import type { Language } from '@surveyplanet/types';
 
 	export interface ScoringDefinitions {
 		scoringResetButton: Language['definitions']['scoringResetButton'];
 	}
 
-	export type ScoringProps = {
+	export type ScoringProps = HTMLAttributes<HTMLFormElement> & {
 		id?: string;
 		definitions: ScoringDefinitions;
 		values: ScoringProperties['values'];
@@ -17,7 +18,7 @@
 		requireAll?: ScoringProperties['requireAll'];
 		requireUnique?: ScoringProperties['requireUnique'];
 		response?: ScoringValue[];
-		onScoringResponse?: (value: ScoringValue[]) => void;
+		onScoringResponse?: (event: ComponentEvent<ScoringValue[]>) => void;
 	};
 </script>
 
@@ -37,6 +38,7 @@
 		requireUnique,
 		response = [], // forms return empty array if no response
 		onScoringResponse,
+		...attr
 	} = $props<ScoringProps>();
 
 	const updateResponse = (value: ScoringValue) => {
@@ -55,7 +57,15 @@
 
 		updateResponse(value);
 
-		if (onScoringResponse) onScoringResponse(response);
+		if (typeof onScoringResponse === 'function') {
+			const componentEvent = new ComponentEvent<ScoringValue[]>(
+				response,
+				event.target,
+				event.raw
+			);
+
+			onScoringResponse(componentEvent);
+		}
 	};
 
 	const sortableEventHandler = (event: ComponentEvent<SortListData[]>) => {
@@ -67,12 +77,26 @@
 				value: values[i],
 			});
 		}
-		if (onScoringResponse) onScoringResponse(response);
+		if (typeof onScoringResponse === 'function') {
+			const componentEvent = new ComponentEvent<ScoringValue[]>(
+				response,
+				event.target,
+				event.raw
+			);
+			onScoringResponse(componentEvent);
+		}
 	};
 
-	const clearButtonClickHandler = () => {
+	const clearButtonClickHandler = (event: ComponentEvent<unknown>) => {
 		response = [];
-		if (onScoringResponse) onScoringResponse(response);
+		if (typeof onScoringResponse === 'function') {
+			const componentEvent = new ComponentEvent<ScoringValue[]>(
+				response,
+				event.target,
+				event.raw
+			);
+			onScoringResponse(componentEvent);
+		}
 	};
 	let sortedLabels: { label: string }[] = [];
 	const listSorted = (labels: string[]): typeof sortedLabels => {
@@ -85,7 +109,9 @@
 	};
 </script>
 
-<form class="sp-survey--question--form--scoring">
+<form
+	{...attr}
+	class="sp-survey--question--form--scoring">
 	{#if requireAll && requireUnique && values.length === labels.length}
 		{#if maxLabel}
 			<p class="sp-survey--question--form--scoring--min-label">

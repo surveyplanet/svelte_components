@@ -3,7 +3,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
-	let events = $state<string[]>([]);
+	let events = $state<ComponentEvent<string>[]>([]);
 
 	let data: TabBarData[] = $state([
 		{
@@ -37,7 +37,7 @@
 	let defaultIndicatorX: number | undefined = $state(4);
 
 	const tabButtonClickHandler = (event: ComponentEvent<string>): void => {
-		events.push(event.value);
+		events.push(event);
 	};
 </script>
 

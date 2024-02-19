@@ -13,7 +13,7 @@
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<DateTimeValue[][]>([]);
+	let events = $state<ComponentEvent<DateTimeValue[]>[]>([]);
 	// let keys = $state(0);
 
 	let id = $state('abc123');
@@ -31,7 +31,7 @@
 	const dateTimeResponseHandler = (
 		event: ComponentEvent<DateTimeValue[]>
 	) => {
-		events.push(event.value);
+		events.push(event);
 	};
 
 	// let responseString = $state(JSON.stringify(response));

@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type RadioProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type RadioProps = HTMLAttributes<HTMLInputElement> & {
 		id?: string;
 		name?: string;
 		value?: string | null;
@@ -26,6 +27,7 @@
 		prependLabel,
 		size = 'small', // small is the most common size
 		onRadioChange,
+		...attr
 	} = $props<RadioProps>();
 
 	const ratioChangeHandler = (event: Event) => {
@@ -48,6 +50,7 @@
 	{value}
 	{checked}
 	{disabled}
+	{...attr}
 	onchange={ratioChangeHandler} />
 
 <label

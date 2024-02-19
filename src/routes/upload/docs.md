@@ -2,11 +2,12 @@
 
 ### `UploadProps`
 
-| Property                                                     | Type       | Description                                                 |
-| ------------------------------------------------------------ | ---------- | ----------------------------------------------------------- |
-| `[label]`                                                    | `string`   | The label or text associated with the upload button.        |
-| `[formats={['apng', 'avif', 'gif', 'jpeg', 'png', 'webp']]}` | `string[]` | Array of allowed file formats (event.g., `['jpg', 'png']`). |
-| `[maxSize={10}]`                                             | `number`   | The maximum allowed file size in megabytes (MB).            |
+| Property                                                     | Type                            | Description                                                 |
+| ------------------------------------------------------------ | ------------------------------- | ----------------------------------------------------------- |
+| `[label]`                                                    | string                          | The label or text associated with the upload button.        |
+| `[formats={['apng', 'avif', 'gif', 'jpeg', 'png', 'webp']]}` | string[]                        | Array of allowed file formats (event.g., `['jpg', 'png']`). |
+| `[maxSize={10}]`                                             | number                          | The maximum allowed file size in megabytes (MB).            |
+| `[...attr] `                                                 | HTMLAttributes<HTMLFormElement> | Other attributes to be spread on the element.               |
 
 ### Callbacks
 

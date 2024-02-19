@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type UploadProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type UploadProps = HTMLAttributes<HTMLInputElement> & {
 		label?: string;
 		formats?: string[];
 		maxSize?: number;
@@ -23,6 +24,7 @@
 		formats = ['apng', 'avif', 'gif', 'jpeg', 'png', 'webp'],
 		maxSize = 10, // default to 10MB which seems to be a reasonable size  for an image
 		onUploadUpload,
+		...attr
 	} = $props<UploadProps>();
 
 	type FileEventTarget = (EventTarget & { files: FileList }) | DataTransfer;
@@ -94,6 +96,7 @@
 	</Button>
 
 	<input
+		{...attr}
 		bind:this={fileinput}
 		class="sp-image-upload--input"
 		type="file"

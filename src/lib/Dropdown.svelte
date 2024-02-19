@@ -1,6 +1,7 @@
 <script
 	lang="ts"
 	context="module">
+	import type { HTMLAttributes } from 'svelte/elements';
 	export interface DropdownOption {
 		label: string;
 		id: string;
@@ -9,7 +10,7 @@
 		submenu?: DropdownOption[];
 	}
 
-	export type DropdownProps = {
+	export type DropdownProps = HTMLAttributes<HTMLDivElement> & {
 		options: DropdownOption[];
 		placeholder?: string;
 		value?: DropdownOption['id'];
@@ -37,6 +38,7 @@
 		required,
 		size = 'small', // input sizes are small by default
 		onDropdownChange,
+		...attr
 	} = $props<DropdownProps>();
 
 	let input: HTMLInputElement | undefined = $state(undefined);
@@ -148,6 +150,7 @@
 </script>
 
 <div
+	{...attr}
 	class="sp-form-control sp-dropdown sp-dropdown--{size}"
 	class:sp-dropdown--open={visible}>
 	{#if label}

@@ -1,12 +1,13 @@
 ### Properties
 
-| Property                 | Type     | Description                     |
-| ------------------------ | -------- | ------------------------------- |
-| `name`                   | IconName | Name of the icon.               |
-| `[color={COLORS.black}]` | string   | Color of the icon.              |
-| `[size={24}]`            | IconSize | Size of the icon.               |
-| `[strokeWidth={2}]`      | number   | Stroke width of the icon.       |
-| `[debug]`                | boolean  | Enable debug mode for the icon. |
+| Property                 | Type                       | Description                                   |
+| ------------------------ | -------------------------- | --------------------------------------------- |
+| `name`                   | IconName                   | Name of the icon.                             |
+| `[color={COLORS.black}]` | string                     | Color of the icon.                            |
+| `[size={24}]`            | IconSize                   | Size of the icon.                             |
+| `[strokeWidth={2}]`      | number                     | Stroke width of the icon.                     |
+| `[debug]`                | boolean                    | Enable debug mode for the icon.               |
+| `[...attr] `             | HTMLAttributes<SVGElement> | Other attributes to be spread on the element. |
 
 ### Interfaces
 

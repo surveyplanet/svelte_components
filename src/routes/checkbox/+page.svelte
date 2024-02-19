@@ -3,7 +3,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<boolean[]>([]);
+	let events = $state<ComponentEvent<boolean>[]>([]);
 
 	let id: string = $state((Date.now() + Math.random()).toString(36));
 	let name = $state('checkbox');
@@ -16,7 +16,7 @@
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
 	const onCheckboxChange = (event: ComponentEvent<boolean>): void => {
-		events.push(event.value);
+		events.push(event);
 	};
 </script>
 

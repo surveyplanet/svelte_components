@@ -3,7 +3,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ChipData[][]>([]);
+	let events = $state<ComponentEvent<ChipData[]>[]>([]);
 
 	let data: ChipData[] = $state([
 		{
@@ -33,10 +33,10 @@
 	let removable = $state(false);
 
 	const onChipsClick = (event: ComponentEvent<ChipData[]>): void => {
-		events.push(event.value);
+		events.push(event);
 	};
 	const onChipsRemove = (event: ComponentEvent<ChipData[]>): void => {
-		events.push(event.value);
+		events.push(event);
 	};
 
 	// let stringData = $state(JSON.stringify(data));

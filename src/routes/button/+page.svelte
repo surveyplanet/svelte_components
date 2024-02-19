@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Button, type ButtonMode } from '$lib';
+	import { Button, ComponentEvent, type ButtonMode } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<string[]>([]);
+	let events = $state<ComponentEvent<undefined>[]>([]);
 
 	let content = $state('Submit');
 	let mode = $state<ButtonMode>('primary');
@@ -15,8 +15,8 @@
 	let type: 'button' | 'submit' | 'reset' = $state('button');
 	let size: 'small' | 'medium' | 'large' = $state('medium');
 
-	const onButtonClick = (): void => {
-		events.push('click');
+	const onButtonClick = (event: ComponentEvent<undefined>): void => {
+		events.push(event);
 	};
 </script>
 

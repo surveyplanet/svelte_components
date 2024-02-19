@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { TextInput, type TextInputType } from '$lib';
+	import { TextInput, type TextInputType, type ComponentEvent } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import source from './example';
 	import md from './docs.md?raw';
-	let events = $state<string[]>([]);
+	let events = $state<ComponentEvent<string | undefined>[]>([]);
 
 	// let keys = $state(0);
 
@@ -20,28 +20,28 @@
 	let validationMessage: string = $state('');
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
-	const onTextInputChange = (): void => {
-		events.push('change');
+	const onTextInputChange = (event: ComponentEvent<string>): void => {
+		events.push(event);
 	};
 
-	const onTextInputInput = (): void => {
-		events.push('input');
+	const onTextInputInput = (event: ComponentEvent<string>): void => {
+		events.push(event);
 	};
 
-	const onTextInputBlur = (): void => {
-		events.push('Blur');
+	const onTextInputKeydown = (event: ComponentEvent<string>) => {
+		events.push(event);
 	};
 
-	const onTextInputFocus = () => {
-		events.push('focus');
+	const onTextInputKeyup = (event: ComponentEvent<string>) => {
+		events.push(event);
 	};
 
-	const onTextInputKeydown = () => {
-		events.push('keydown');
+	const onTextInputBlur = (event: ComponentEvent<undefined>): void => {
+		events.push(event);
 	};
 
-	const onTextInputKeyup = () => {
-		events.push('keyup');
+	const onTextInputFocus = (event: ComponentEvent<undefined>) => {
+		events.push(event);
 	};
 
 	// let cleaveOptionsStringed = $state(JSON.stringify(cleaveOptions));

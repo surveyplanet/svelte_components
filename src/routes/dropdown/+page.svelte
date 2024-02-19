@@ -3,7 +3,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<string[]>([]);
+	let events = $state<ComponentEvent<string>[]>([]);
 
 	let keys = $state(0);
 
@@ -58,7 +58,7 @@
 	let size: 'small' | 'medium' | 'large' = $state('small');
 
 	const onDropdownChange = (event: ComponentEvent<string>) => {
-		events.push(event.value);
+		events.push(event);
 	};
 
 	// $inspect(searchThreshold);

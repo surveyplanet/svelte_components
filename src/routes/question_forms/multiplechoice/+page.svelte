@@ -7,7 +7,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
-	let events = $state([]) as MultipleChoice['value'][];
+	let events = $state<ComponentEvent<MultipleChoiceValue[]>[]>([]);
 	// let keys = $state(0);
 
 	// Component props
@@ -27,7 +27,7 @@
 	const multipleChoiceResponseHandler = (
 		event: ComponentEvent<MultipleChoiceValue[]>
 	) => {
-		events.push(event.value);
+		events.push(event);
 	};
 
 	// let labelsString = $state(JSON.stringify(labels));

@@ -1,18 +1,18 @@
 <script
 	lang="ts"
 	context="module">
-	export interface PopoverProps {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type PopoverProps = HTMLAttributes<HTMLDivElement> & {
 		visible: boolean;
 		children: Snippet;
-		// rest?: Record<string, string>;
-	}
+	};
 </script>
 
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { cubicOut } from 'svelte/easing';
 
-	let { visible = false, children, ...rest } = $props<PopoverProps>();
+	let { visible = false, children, ...attr } = $props<PopoverProps>();
 
 	let popoverEl: HTMLDivElement | undefined = $state();
 
@@ -75,11 +75,12 @@
 
 {#if visible}
 	<div
+		{...attr}
 		class="sp-popover"
 		bind:this={popoverEl}
 		in:animate={{}}
 		out:animate={{}}
-		{...rest}>
+		{...attr}>
 		{#if children}
 			{@render children()}
 		{/if}

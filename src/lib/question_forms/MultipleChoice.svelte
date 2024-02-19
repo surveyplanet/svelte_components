@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type MultipleChoiceProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type MultipleChoiceProps = HTMLAttributes<HTMLFormElement> & {
 		id: string;
 		labels: MultipleChoiceProperties['labels'];
 		multi?: MultipleChoiceProperties['multi'];
@@ -34,6 +35,7 @@
 		other,
 		response = [], // forms return empty array if no response
 		onMultipleChoiceResponse,
+		...attr
 	} = $props<MultipleChoiceProps>();
 
 	$effect(() => {
@@ -151,6 +153,7 @@
 </script>
 
 <form
+	{...attr}
 	class="sp-survey--question--form--multiple-choice sp-survey--question--form--multiple-choice--layout-{layout}">
 	{#if layout === 'dropdown'}
 		<Dropdown

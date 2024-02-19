@@ -1,8 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type CheckboxProps = {
-		id?: string;
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type CheckboxProps = HTMLAttributes<HTMLInputElement> & {
 		name?: string;
 		value?: string | null;
 		label?: string;
@@ -21,11 +21,12 @@
 		name,
 		value,
 		label,
-		checked,
+		checked = false,
 		disabled,
 		prependLabel,
 		size = 'small', // seems like a usual size we use
 		onCheckboxChange,
+		...attr
 	} = $props<CheckboxProps>();
 
 	const checkboxChangeHandler = (event: Event): void => {
@@ -48,6 +49,7 @@
 	{value}
 	bind:checked
 	{disabled}
+	{...attr}
 	onchange={checkboxChangeHandler} />
 <label
 	class="sp-checkbox sp-checkbox--{size}"

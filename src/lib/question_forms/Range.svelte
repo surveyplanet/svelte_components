@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type RangeProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type RangeProps = HTMLAttributes<HTMLFormElement> & {
 		id?: string;
 		min: number;
 		max: number;
@@ -22,6 +23,7 @@
 		max,
 		response = [], // forms return empty array if no response
 		onRangeResponse,
+		...attr
 	} = $props<RangeProps>();
 
 	let rangeValues = $state([response[0] || min, response[1] || max]);
@@ -76,7 +78,9 @@
 	};
 </script>
 
-<form class="sp-survey--question--form--range">
+<form
+	{...attr}
+	class="sp-survey--question--form--range">
 	<RangeSlider
 		range
 		pushy

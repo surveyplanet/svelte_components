@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type BannerProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type BannerProps = HTMLAttributes<HTMLDivElement> & {
 		title?: string;
 		type?: 'info' | 'warning' | 'error' | 'success';
 		visible?: boolean;
@@ -23,6 +24,7 @@
 		visible,
 		hideDelay = 0, // when default is 0, it will not hide which is a default behavior
 		children,
+		...attr
 	} = $props<BannerProps>();
 
 	let animDuration = 250;
@@ -45,6 +47,7 @@
 
 {#if visible}
 	<div
+		{...attr}
 		role="alert"
 		class="sp-banner sp-banner--{type}"
 		in:slide={{ duration: animDuration, axis: 'y', easing: sineOut }}

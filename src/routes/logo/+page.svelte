@@ -4,7 +4,6 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<string[]>([]);
 
 	let color: LogoProps['color'] = $state(COLORS.black);
 	let size: LogoProps['size'] = $state(48);
@@ -15,8 +14,7 @@
 <Layout
 	component="Logo"
 	example={source({ size, fill, color, symbolOnly })}
-	{md}
-	bind:events>
+	{md}>
 	{#snippet controls()}
 		<PropsChanger
 			label="Color"

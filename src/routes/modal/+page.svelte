@@ -3,7 +3,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<string[]>([]);
+	let events = $state<Event[]>([]);
 
 	let title = $state('Modal');
 	let subtitle = $state('Subtitle');
@@ -12,20 +12,20 @@
 	let visible = $state(false);
 	let size: 'small' | 'medium' | 'large' = $state('medium');
 
-	const onModalIntroStart = (): void => {
-		events.push('open');
+	const onModalIntroStart = (event: Event): void => {
+		events.push(event);
 	};
 
-	const onModalIntroEnd = (): void => {
-		events.push('in');
+	const onModalIntroEnd = (event: Event): void => {
+		events.push(event);
 	};
 
-	const onModalOutroStart = (): void => {
-		events.push('out');
+	const onModalOutroStart = (event: Event): void => {
+		events.push(event);
 	};
 
-	const onModalOutroEnd = () => {
-		events.push('close');
+	const onModalOutroEnd = (event: Event) => {
+		events.push(event);
 	};
 </script>
 

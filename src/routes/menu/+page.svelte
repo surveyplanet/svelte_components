@@ -5,7 +5,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<string[]>([]);
+	let events = $state<ComponentEvent<string>[]>([]);
 
 	let menuVisible = $state(false);
 	let data: MenuData[] = $state(menuData);
@@ -16,11 +16,11 @@
 	};
 
 	const menuClickHandler = (event: ComponentEvent<string>) => {
-		events.push(event.value);
+		events.push(event);
 	};
 
 	const menuUpdateHandler = (event: ComponentEvent<string>) => {
-		events.push(event.value);
+		events.push(event);
 	};
 
 	// let dataStringed = $state(JSON.stringify(data));
