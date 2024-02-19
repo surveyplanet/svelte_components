@@ -1,12 +1,10 @@
-import type { ToggleProps } from "$lib";
+import type { ToggleProps } from '$lib';
 
-export default (
-	data: ToggleProps
-) => {
+export default (data: ToggleProps) => {
 	return `
 <script lang="ts">
 	import { Toggle, type ToggleProps } from '@surveyplanet/svelte-components';
-	function onToggleChange(event: ComponentEvent<boolean | undefined>) {
+	function onToggleChange(event: ComponentEvent<boolean>) {
 		console.log(event.value);
 	}
 </script>

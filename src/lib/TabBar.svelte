@@ -14,6 +14,7 @@
 
 	export type TabBarProps = {
 		block?: boolean;
+		plain?: boolean;
 		defaultIndicatorWidth?: number;
 		defaultIndicatorX?: number;
 		data: TabBarData[];
@@ -25,8 +26,14 @@
 	import { onMount } from 'svelte';
 	import { ComponentEvent } from '$lib';
 
-	let { block, defaultIndicatorWidth, defaultIndicatorX, data, onTabClick } =
-		$props<TabBarProps>();
+	let {
+		plain,
+		block,
+		defaultIndicatorWidth,
+		defaultIndicatorX,
+		data,
+		onTabClick,
+	} = $props<TabBarProps>();
 
 	let activeIndicator: HTMLDivElement | null = $state(null);
 
@@ -41,16 +48,16 @@
 	});
 
 	const moveIndicator = (target: HTMLButtonElement, animate = false) => {
-		const left = target.offsetLeft;
-		const width = target.offsetWidth;
-		const parent = target.closest('.sp-tab-bar') as HTMLElement;
-		const offset = Number(
-			getComputedStyle(parent)
-				.getPropertyValue('padding-left')
-				.replace('px', '')
-		);
-
 		if (activeIndicator) {
+			const left = target.offsetLeft;
+			const width = target.offsetWidth;
+			const parent = target.closest('.sp-tab-bar') as HTMLElement;
+			const offset = Number(
+				getComputedStyle(parent)
+					.getPropertyValue('padding-left')
+					.replace('px', '')
+			);
+
 			if (animate) {
 				activeIndicator.style.transitionProperty = 'left, width';
 			} else {
@@ -109,12 +116,15 @@
 
 <nav
 	class="sp-tab-bar"
+	class:sp-tab-bar--plain={plain}
 	class:sp-tab-bar--block={block}>
-	<div
-		class="sp-tab-bar--active-indicator"
-		style:width={`${defaultIndicatorWidth ? defaultIndicatorWidth + 'px' : void 0}`}
-		style:left={`${defaultIndicatorX ? defaultIndicatorX + 'px' : void 0}`}
-		bind:this={activeIndicator} />
+	{#if !plain}
+		<div
+			class="sp-tab-bar--active-indicator"
+			style:width={`${defaultIndicatorWidth ? defaultIndicatorWidth + 'px' : void 0}`}
+			style:left={`${defaultIndicatorX ? defaultIndicatorX + 'px' : void 0}`}
+			bind:this={activeIndicator} />
+	{/if}
 
 	<ul>
 		{#each data as item}

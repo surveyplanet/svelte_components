@@ -1,7 +1,7 @@
 export * from './_definitions';
 
 export { default as Alert, type AlertProps } from './Alert.svelte';
-export { default as Avatar, type AvatarProps, MASCOTS } from './Avatar.svelte';
+export { default as Avatar, type AvatarProps } from './Avatar.svelte';
 export {
 	default as Badge,
 	type BadgeProps,
@@ -23,7 +23,7 @@ export {
 	type ChipData,
 	type ChipsProps,
 } from './Chips.svelte';
-export { ComponentEvent} from './events/component_event';
+export { ComponentEvent } from './events/component_event';
 export {
 	default as Dropdown,
 	type DropdownOption,
@@ -55,6 +55,7 @@ export {
 	type NavBarData,
 	type NavBarProps,
 } from './NavBar.svelte';
+export { default as Popover, type PopoverProps } from './Popover.svelte';
 export {
 	default as ProgressBar,
 	type ProgressBarProps,
@@ -77,7 +78,11 @@ export {
 	type SortListData,
 	type SortListProps,
 } from './SortableList.svelte';
-export { default as Upload, type UploadProps, type UploadData } from './Upload.svelte';
+export {
+	default as Upload,
+	type UploadProps,
+	type UploadData,
+} from './Upload.svelte';
 
 // QUESTION FORMS
 export {

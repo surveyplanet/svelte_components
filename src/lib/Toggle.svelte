@@ -4,22 +4,30 @@
 	import { ComponentEvent } from './';
 
 	export type ToggleProps = {
+		on: boolean;
 		id?: string;
 		name?: string;
 		disabled?: boolean;
-		on?: boolean;
 		tall?: boolean;
 		label?: string;
 		prependLabel?: boolean;
-		onToggleChange?: (event: ComponentEvent<boolean | undefined>) => void;
+		onToggleChange?: (event: ComponentEvent<boolean>) => void;
 	};
 </script>
 
 <script lang="ts">
 	// export let meridiemIndicator = false;
 
-	let { id, name, disabled, on, tall, label, prependLabel, onToggleChange } =
-		$props<ToggleProps>();
+	let {
+		on = false,
+		id,
+		name,
+		disabled,
+		tall,
+		label,
+		prependLabel,
+		onToggleChange,
+	} = $props<ToggleProps>();
 
 	const changeHandler = (event: Event): void => {
 		if (disabled) {

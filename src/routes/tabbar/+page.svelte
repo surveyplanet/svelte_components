@@ -16,7 +16,6 @@
 			id: 'preview',
 			label: 'Preview',
 			icon: 'eye',
-			link: '#preview',
 		},
 		{
 			id: 'results',
@@ -24,20 +23,33 @@
 			icon: 'chartColumn',
 			// disabled: true,
 		},
+		{
+			id: 'go',
+			label: 'Go there',
+			icon: 'open',
+			link: 'https://svelte.dev',
+		},
 	]);
 
 	let block = $state(false);
+	let plain = $state(true);
 	let defaultIndicatorWidth = $state(114);
 	let defaultIndicatorX: number | undefined = $state(4);
 
 	const tabButtonClickHandler = (event: ComponentEvent<string>): void => {
-		events.push(event.value!);
+		events.push(event.value);
 	};
 </script>
 
 <Layout
 	component="TabBar"
-	example={source({ data, block, defaultIndicatorWidth, defaultIndicatorX })}
+	example={source({
+		data,
+		block,
+		plain,
+		defaultIndicatorWidth,
+		defaultIndicatorX,
+	})}
 	{md}
 	bind:events>
 	{#snippet controls()}
@@ -47,6 +59,9 @@
 		<PropsChanger
 			label="Block"
 			bind:value={block} />
+		<PropsChanger
+			label="Plain"
+			bind:value={plain} />
 		<PropsChanger
 			label="Default indicator width"
 			bind:value={defaultIndicatorWidth} />
@@ -59,6 +74,7 @@
 			onTabClick={tabButtonClickHandler}
 			bind:data
 			{block}
+			{plain}
 			{defaultIndicatorWidth}
 			{defaultIndicatorX} />
 	{/snippet}

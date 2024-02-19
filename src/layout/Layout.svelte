@@ -36,7 +36,7 @@
 		events?.length ? events.map((event) => JSON.stringify(event)) : []
 	);
 
-	let tabSelected = $state();
+	let tabSelected = $state('controls');
 	// let dropdownValue = $state();
 
 	$effect(() => {
@@ -51,8 +51,7 @@
 	});
 
 	const tabHandler = (event: ComponentEvent<string>) => {
-		const id = event.value;
-		tabSelected = id;
+		tabSelected = event.value;
 	};
 
 	const navBarClickHandler = (event: ComponentEvent<string>) => {
@@ -65,8 +64,6 @@
 	};
 
 	const menuClickHandler = (event: ComponentEvent<string>) => {
-		// dropdownValue = id;
-
 		window.location.href = `/${event.value}`;
 	};
 
@@ -149,6 +146,7 @@
 						{
 							id: 'controls',
 							label: 'Controls',
+							selected: true,
 						},
 						{
 							id: 'example',
@@ -157,7 +155,6 @@
 						{
 							id: 'docs',
 							label: 'Docs',
-							selected: true,
 						},
 					]}
 					onTabClick={tabHandler} />

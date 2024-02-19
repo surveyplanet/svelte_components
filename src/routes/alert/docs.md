@@ -2,6 +2,7 @@
 
 | Property                         | Type    | Description                                                                                       |
 | -------------------------------- | ------- | ------------------------------------------------------------------------------------------------- |
+| `[visible=false]`                | boolean | Whether or not the alert should be visible or not.                                                |
 | `[title]`                        | string  | Main alert title.                                                                                 |
 | `[subtitle]`                     | string  | Optional alert subtitle.                                                                          |
 | `[type='success']`               | string  | One of `info`, `warning`, `error`, or `success`.                                                  |
