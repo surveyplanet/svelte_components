@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type LoaderProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type LoaderProps = HTMLAttributes<SVGElement> & {
 		colors?: string[];
 		size?: number;
 		strokeWidth?: 1 | 2 | 3 | 4;
@@ -17,6 +18,7 @@
 		colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green], // common use case
 		size = DEFAULT_SIZE, // medium size that looks good
 		strokeWidth = 4, // stroke width doesn't look good above 4
+		...attr
 	} = $props<LoaderProps>();
 
 	// When updating the colors the animation can get out of sync since the
@@ -48,6 +50,7 @@
 </script>
 
 <svg
+	{...attr}
 	class="sp-loader sp-loader--{size}"
 	viewBox="0 0 24 24"
 	style:width="{size}px"

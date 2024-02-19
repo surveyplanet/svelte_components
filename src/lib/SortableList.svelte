@@ -1,6 +1,7 @@
 <script
 	lang="ts"
 	context="module">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import { ComponentEvent, Icon, type IconName } from './';
 	export interface SortListData {
 		label: string;
@@ -14,7 +15,7 @@
 		index: string;
 	};
 
-	export type SortListProps = {
+	export type SortListProps = HTMLAttributes<HTMLUListElement> & {
 		data: SortListData[];
 		onSortSort: (event: ComponentEvent<SortListData[]>) => void;
 	};
@@ -25,7 +26,7 @@
 	import { crossfade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 
-	let { data, onSortSort } = $props<SortListProps>();
+	let { data, onSortSort, ...attr } = $props<SortListProps>();
 
 	// FLIP ANIMATION
 	const [send, receive] = crossfade({
@@ -110,7 +111,9 @@
 	//TODO: add |global to transitions once it is fixed in svelte 5
 </script>
 
-<ul class="sp--sortable-list">
+<ul
+	{...attr}
+	class="sp--sortable-list">
 	{#if data?.length}
 		{#each data as item, index (item)}
 			<li

@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type ScaleProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type ScaleProps = HTMLAttributes<HTMLFormElement> & {
 		id?: string;
 		min: ScaleProperties['min'];
 		max: ScaleProperties['max'];
@@ -21,6 +22,7 @@
 		max,
 		response = [], // forms return empty array if no response
 		onScaleResponse,
+		...attr
 	} = $props<ScaleProps>();
 
 	let rangeValues: number[] = $state([response[0]] || [min]);
@@ -38,7 +40,9 @@
 	};
 </script>
 
-<form class="sp-survey--question--form--scale">
+<form
+	{...attr}
+	class="sp-survey--question--form--scale">
 	<RangeSlider
 		{id}
 		pushy

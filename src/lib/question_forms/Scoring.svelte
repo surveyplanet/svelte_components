@@ -1,13 +1,14 @@
 <script
 	lang="ts"
 	context="module">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import type { Language } from '@surveyplanet/types';
 
 	export interface ScoringDefinitions {
 		scoringResetButton: Language['definitions']['scoringResetButton'];
 	}
 
-	export type ScoringProps = {
+	export type ScoringProps = HTMLAttributes<HTMLFormElement> & {
 		id?: string;
 		definitions: ScoringDefinitions;
 		values: ScoringProperties['values'];
@@ -37,6 +38,7 @@
 		requireUnique,
 		response = [], // forms return empty array if no response
 		onScoringResponse,
+		...attr
 	} = $props<ScoringProps>();
 
 	const updateResponse = (value: ScoringValue) => {
@@ -85,7 +87,9 @@
 	};
 </script>
 
-<form class="sp-survey--question--form--scoring">
+<form
+	{...attr}
+	class="sp-survey--question--form--scoring">
 	{#if requireAll && requireUnique && values.length === labels.length}
 		{#if maxLabel}
 			<p class="sp-survey--question--form--scoring--min-label">

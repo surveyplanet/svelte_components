@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type EssayProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type EssayProps = HTMLAttributes<HTMLFormElement> & {
 		id?: string;
 		min?: EssayProperties['min'];
 		max?: EssayProperties['max'];
@@ -22,6 +23,7 @@
 		single,
 		response = [], // forms return empty array if no response
 		onEssayResponse,
+		...attr
 	} = $props<EssayProps>();
 
 	const updateResponse = (value: string) => {
@@ -41,7 +43,9 @@
 	};
 </script>
 
-<form class="sp-survey--question--form--essay">
+<form
+	{...attr}
+	class="sp-survey--question--form--essay">
 	<TextInput
 		name="text-input"
 		type={single ? 'text' : 'multiline'}

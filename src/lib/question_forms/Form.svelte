@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type FormProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type FormProps = HTMLAttributes<HTMLFormElement> & {
 		id?: string;
 		labels: FormProperties['labels'];
 		random?: FormProperties['random'];
@@ -23,6 +24,7 @@
 		random,
 		response = [], // forms return empty array if no response
 		onFormResponse,
+		...attr
 	} = $props<FormProps>();
 
 	if (random) {
@@ -54,7 +56,9 @@
 	const inputKeyupHandler = inputChangeHandler;
 </script>
 
-<form class="sp-survey--question--form--form">
+<form
+	{...attr}
+	class="sp-survey--question--form--form">
 	{#each labels as label}
 		<TextInput
 			name={label}

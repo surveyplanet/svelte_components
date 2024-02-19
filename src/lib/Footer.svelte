@@ -1,21 +1,24 @@
 <script
 	lang="ts"
 	context="module">
+	import type { HTMLAttributes } from 'svelte/elements';
 	export interface FooterData {
 		link?: string;
 		label: string;
 	}
 
-	export type FooterProps = {
+	export type FooterProps = HTMLAttributes<HTMLElement> & {
 		footerData: FooterData[];
 	};
 </script>
 
 <script lang="ts">
-	let { footerData } = $props<FooterProps>();
+	let { footerData, ...attr } = $props<FooterProps>();
 </script>
 
-<nav class="sp-footer">
+<nav
+	class="sp-footer"
+	{...attr}>
 	<ul>
 		{#each footerData as item}
 			<li>

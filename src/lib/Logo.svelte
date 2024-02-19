@@ -1,6 +1,7 @@
 <script
 	context="module"
 	lang="ts">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import { COLORS } from './_definitions';
 
 	export type LogoSize =
@@ -25,7 +26,7 @@
 
 	export type LogoColor = typeof COLORS.black | typeof COLORS.white;
 
-	export type LogoProps = {
+	export type LogoProps = HTMLAttributes<SVGElement> & {
 		color?: LogoColor;
 		fill?: LogoFillColor;
 		size?: LogoSize;
@@ -44,6 +45,7 @@
 		fill = 'blue',
 		symbolOnly,
 		size = DEFAULT_SIZE,
+		...attr
 	} = $props<LogoProps>();
 
 	let width: number = $derived(symbolOnly ? size : size * ASPECT_RATION);
@@ -60,6 +62,7 @@
 	class="sp-logo sp-logo--fill-{fill}"
 	style="height:{height}px; width: {width}px; ">
 	<svg
+		{...attr}
 		width="100%"
 		height="100%"
 		viewBox="0 0 {viewboxWidth} {viewboxHeight}"

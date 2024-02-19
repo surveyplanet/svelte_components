@@ -2,6 +2,7 @@
 	lang="ts"
 	context="module">
 	import { ComponentEvent, Icon, type IconName } from './index';
+	import type { HTMLAttributes } from 'svelte/elements';
 	export interface MenuData {
 		id: string;
 		label?: string;
@@ -13,7 +14,7 @@
 		selected?: boolean;
 		submenu?: MenuData[];
 	}
-	export type MenuProps = {
+	export type MenuProps = HTMLAttributes<HTMLDivElement> & {
 		data: MenuData[];
 		size?: 'small' | 'medium' | 'large';
 		onMenuUpdate?: (event: ComponentEvent<string>) => void;
@@ -39,6 +40,7 @@
 		onMenuBlur,
 		header,
 		footer,
+		...attr
 	} = $props<MenuProps>();
 
 	const scrollMenu = (
@@ -183,6 +185,7 @@
 </script>
 
 <div
+	{...attr}
 	class="sp-menu sp-menu--{size}"
 	role="menu"
 	tabindex="0"

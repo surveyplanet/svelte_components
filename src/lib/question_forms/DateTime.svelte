@@ -1,6 +1,7 @@
 <script
 	lang="ts"
 	context="module">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import type { Language } from '@surveyplanet/types';
 
 	export interface DateTimeDefinitions {
@@ -9,7 +10,7 @@
 		currentDatetime: Language['definitions']['currentDatetime'];
 	}
 
-	export type DateTimeProps = {
+	export type DateTimeProps = HTMLAttributes<HTMLFormElement> & {
 		id?: string;
 		date?: DateTimeProperties['date'];
 		time?: DateTimeProperties['time'];
@@ -34,11 +35,11 @@
 	// export let definitions: DateTimeDefinitions;
 
 	let {
-		id,
 		date,
 		time,
 		response = [], // forms return empty array if no response
 		onDateTimeResponse,
+		...attr
 	} = $props<DateTimeProps>();
 
 	let type: DateTimeInputType = $state('date');
@@ -82,9 +83,10 @@
 	};
 </script>
 
-<form class="sp-survey--question--form sp-survey--question--form--datetime">
+<form
+	{...attr}
+	class="sp-survey--question--form sp-survey--question--form--datetime">
 	<TextInput
-		id="{id}-datetime-input"
 		name="date"
 		size="large"
 		label=""

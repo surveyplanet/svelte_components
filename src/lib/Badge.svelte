@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type BadgeProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
 		color?: BadgeColors;
 		flat?: boolean;
 		children?: Snippet;
@@ -11,10 +12,11 @@
 
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	let { color = 'yellow', flat, children } = $props<BadgeProps>();
+	let { color = 'yellow', flat, children, ...attr } = $props<BadgeProps>();
 </script>
 
 <span
+	{...attr}
 	class="sp-badge sp-badge--{color}"
 	class:sp-badge--flat={flat}>
 	{#if children}

@@ -1,6 +1,7 @@
 <script
 	lang="ts"
 	context="module">
+	import type { HTMLAttributes } from 'svelte/elements';
 	export type ButtonMode =
 		| 'primary'
 		| 'light'
@@ -10,7 +11,7 @@
 		| 'accent-alt3'
 		| 'outline';
 
-	export type ButtonProps = {
+	export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
 		mode?: ButtonMode;
 		disabled?: boolean;
 		loader?: boolean;
@@ -40,6 +41,7 @@
 		size = 'medium', // most use cases are medium
 		onButtonClick,
 		children,
+		...attr
 	} = $props<ButtonProps>();
 
 	const buttonClickHandler = (event: MouseEvent) => {
@@ -55,6 +57,7 @@
 </script>
 
 <button
+	{...attr}
 	{type}
 	{disabled}
 	{form}

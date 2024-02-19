@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type RatingProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type RatingProps = HTMLAttributes<HTMLFormElement> & {
 		id: string;
 		labels: RatingProperties['labels'];
 		order?: RatingProperties['order'];
@@ -23,6 +24,7 @@
 		layout,
 		response = [], // forms return empty array if no response
 		onRatingResponse,
+		...attr
 	} = $props<RatingProps>();
 
 	// TODO: THIS NEEDS TO BE TESTED
@@ -84,6 +86,7 @@
 </script>
 
 <form
+	{...attr}
 	class="sp-survey--question--form--rating sp-survey--question--form--rating--layout-{layout}">
 	{#if layout === 'slider'}
 		<RangeSlider

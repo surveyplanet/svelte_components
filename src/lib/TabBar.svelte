@@ -1,6 +1,7 @@
 <script
 	lang="ts"
 	context="module">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import { Icon, type IconName } from './index';
 	export interface TabBarData {
 		id: string;
@@ -12,7 +13,7 @@
 		link?: string;
 	}
 
-	export type TabBarProps = {
+	export type TabBarProps = HTMLAttributes<HTMLElement> & {
 		block?: boolean;
 		plain?: boolean;
 		defaultIndicatorWidth?: number;
@@ -33,6 +34,7 @@
 		defaultIndicatorX,
 		data,
 		onTabClick,
+		...attr
 	} = $props<TabBarProps>();
 
 	let activeIndicator: HTMLDivElement | null = $state(null);
@@ -115,6 +117,7 @@
 <svelte:window on:resize={windowResizeHandler} />
 
 <nav
+	{...attr}
 	class="sp-tab-bar"
 	class:sp-tab-bar--plain={plain}
 	class:sp-tab-bar--block={block}>

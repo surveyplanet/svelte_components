@@ -1,7 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	export type ProgressBarProps = {
+	import type { HTMLAttributes } from 'svelte/elements';
+	export type ProgressBarProps = HTMLAttributes<HTMLDivElement> & {
 		max: number;
 		value?: number;
 		speed?: number;
@@ -15,6 +16,7 @@
 		value = 0, // to start at 0
 		speed = 1000, // speed should have a fallback value
 		displayValue,
+		...attr
 	} = $props<ProgressBarProps>();
 	let progress = $state(0);
 
@@ -25,7 +27,9 @@
 	});
 </script>
 
-<div class="sp-progress-bar">
+<div
+	{...attr}
+	class="sp-progress-bar">
 	<div
 		class="sp-progress-bar--progress"
 		style="width: {progress}%; transition-duration: {speed}ms;" />

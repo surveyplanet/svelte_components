@@ -1,15 +1,16 @@
 ### Properties
 
-| Property               | Type             | Description                                             |
-| ---------------------- | ---------------- | ------------------------------------------------------- |
-| `options`              | DropdownOption[] | Array of objects representing the dropdown options.     |
-| `[placeholder]`        | string           | Placeholder text for the dropdown input.                |
-| `[value]`              | string           | Selected value from the dropdown options.               |
-| `[label]`              | string           | Label for the dropdown.                                 |
-| `[searchThreshold=20]` | number           | Number of options to enable search functionality.       |
-| `[disabled]`           | boolean          | Disables the dropdown if `true`.                        |
-| `[required]`           | boolean          | Indicates if the dropdown is required.                  |
-| `[size='small']`       | string           | Size of the dropdown: `'small'`, `'medium'`, `'large'`. |
+| Property               | Type                           | Description                                             |
+| ---------------------- | ------------------------------ | ------------------------------------------------------- |
+| `options`              | DropdownOption[]               | Array of objects representing the dropdown options.     |
+| `[placeholder]`        | string                         | Placeholder text for the dropdown input.                |
+| `[value]`              | string                         | Selected value from the dropdown options.               |
+| `[label]`              | string                         | Label for the dropdown.                                 |
+| `[searchThreshold=20]` | number                         | Number of options to enable search functionality.       |
+| `[disabled]`           | boolean                        | Disables the dropdown if `true`.                        |
+| `[required]`           | boolean                        | Indicates if the dropdown is required.                  |
+| `[size='small']`       | string                         | Size of the dropdown: `'small'`, `'medium'`, `'large'`. |
+| `[...attr] `           | HTMLAttributes<HTMLDivElement> | Other attributes to be spread on the element.           |
 
 ### Callbacks
 

@@ -1,8 +1,10 @@
 ### Properties
 
-| Property | Type             | Description                                |
-| -------- | ---------------- | ------------------------------------------ |
-| `data`   | BreadcrumbData[] | Array of objects representing breadcrumbs. |
+| Property     | Type                        | Description                                   |
+| ------------ | --------------------------- | --------------------------------------------- |
+| `data`       | BreadcrumbData[]            | Array of objects representing breadcrumbs.    |
+| `[...attr] ` | HTMLAttributes<HTMLElement> | Other attributes to be spread on the element. |
+
 ### Interfaces
 
 #### `BreadcrumbData`
