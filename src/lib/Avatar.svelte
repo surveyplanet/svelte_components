@@ -32,6 +32,7 @@
 		size = 'small',
 		disabled,
 		onAvatarClick,
+		...rest
 	} = $props<AvatarProps>();
 
 	// mascot should return a type that is a key of MASCOTS
@@ -81,6 +82,7 @@
 </script>
 
 <button
+	{...rest}
 	class="sp-avatar sp-avatar--{size} sp-avatar--background--{bgColor}"
 	onclick={avatarClickHandler}
 	aria-label={disabled ? null : 'profile image'}
