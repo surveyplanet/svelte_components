@@ -6,7 +6,7 @@
 	import type { Snippet } from 'svelte';
 	let events = $state<Event[] & EventTarget[]>([]);
 
-	let visible: AlertProps['visible'] = $state(true);
+	let visible: AlertProps['visible'] = $state(undefined);
 	let title: AlertProps['title'] = $state('');
 	let subtitle: AlertProps['subtitle'] = $state('Informational alert');
 	let type: AlertProps['type'] = $state('info');
@@ -56,6 +56,7 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Visible"
+			type="boolean"
 			bind:value={visible} />
 		<PropsChanger
 			label="Title"

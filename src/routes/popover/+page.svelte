@@ -23,6 +23,7 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Visible"
+			type="boolean"
 			bind:value={visible} />
 		<PropsChanger
 			label="Content"
