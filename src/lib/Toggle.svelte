@@ -4,7 +4,7 @@
 	import { ComponentEvent } from './';
 
 	export type ToggleProps = {
-		on: boolean;
+		on?: boolean;
 		id?: string;
 		name?: string;
 		disabled?: boolean;
@@ -16,8 +16,6 @@
 </script>
 
 <script lang="ts">
-	// export let meridiemIndicator = false;
-
 	let {
 		on = false,
 		id,
