@@ -28,7 +28,7 @@
 	import { fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	import { COLORS, Button, Icon, TextInput, ComponentEvent } from './';
-	// import '../assets/styles/alert.scss';
+
 	const successIcon =
 		'https://public.surveyplanet.com/images/mascots/tummi_3.svg' as const;
 	const infoIcon =
@@ -60,33 +60,31 @@
 	} = $props<AlertProps>();
 
 	// let visible = $state(false);
-	let icon: string = $state(successIcon);
+	let icon: string = $derived.by(() => {
+		switch (type) {
+			case 'info':
+				return infoIcon;
+			case 'warning':
+				return warningIcon;
+			case 'error':
+				return errorIcon;
+			default:
+				return successIcon;
+		}
+	});
+
 	let isChallenge = $derived(confirm && challenge && challenge.length > 0);
 	let disableConfirmButton: boolean = $state(false);
-	$effect(() => {
-		if (!confirm && hideDelay && hideDelay > 0) {
-			setTimeout(() => {
-				visible = false;
-			}, hideDelay);
-		}
 
+	$effect(() => {
 		if (isChallenge) {
 			disableConfirmButton = true;
 		}
 
-		switch (type) {
-			case 'info':
-				icon = infoIcon;
-				break;
-			case 'warning':
-				icon = warningIcon;
-				break;
-			case 'error':
-				icon = errorIcon;
-				break;
-			default:
-				icon = successIcon;
-				break;
+		if (!confirm && hideDelay && hideDelay > 0) {
+			setTimeout(() => {
+				visible = false;
+			}, hideDelay);
 		}
 	});
 
@@ -127,9 +125,11 @@
 		onOutroEnd={onAlertOut}>
 		<div class="sp-alert--col-a">
 			<div class="sp-alert--sidebar">
-				<img
-					src={icon}
-					alt={type} />
+				{#if icon && icon.length}
+					<img
+						src={icon}
+						alt={type} />
+				{/if}
 			</div>
 		</div>
 		<div class="sp-alert--col-b">

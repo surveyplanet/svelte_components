@@ -7,8 +7,8 @@
 	let events = $state<string[]>([]);
 
 	let colors: LoaderProps['colors'] = $state();
-	let size: LoaderProps['size'] = $state(20);
-	let strokeWidth: LoaderProps['strokeWidth'] = $state(4);
+	let size: LoaderProps['size'] = $state();
+	let strokeWidth: LoaderProps['strokeWidth'] = $state();
 
 	// function getRandomColors(min = 4, max = 20) {
 	// 	const rand = Math.floor(Math.random() * (max - min + 1) + min); // random number between 20 and 4
@@ -30,14 +30,18 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<!-- <PropsChanger
-			label="Colors"
-			value={colors} /> -->
 		<PropsChanger
+			type="string"
+			label="Colors"
+			value={colors} />
+
+		<PropsChanger
+			type="number"
 			label="Size"
 			bind:value={size} />
+
 		<PropsChanger
-			label="Stroke Width"
+			label="Stroke width"
 			selectOptions={[1, 2, 3, 4]}
 			bind:value={strokeWidth} />
 	{/snippet}

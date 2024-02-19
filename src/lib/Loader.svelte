@@ -10,8 +10,8 @@
 
 <script lang="ts">
 	import { COLORS } from '$lib/_definitions';
-	const strokeDashOffset = 63;
-	const DEFAULT_SIZE = 72;
+	const STROKE_OFFSET = 63 as const;
+	const DEFAULT_SIZE = 72 as const;
 
 	let {
 		colors = [COLORS.yellow, COLORS.blue, COLORS.pink, COLORS.green], // common use case
@@ -37,7 +37,7 @@
 		const keyframe = Math.round((1 / (colors.length * 2)) * 100);
 		keyframeEl.textContent = `@keyframes loader-stroke {
 	${keyframe}% { stroke-dashoffset: 0 } ${keyframe * 2}%,
-	100% { stroke-dashoffset: ${strokeDashOffset} } 
+	100% { stroke-dashoffset: ${STROKE_OFFSET} } 
 }`;
 		document.head.appendChild(keyframeEl);
 	}
@@ -61,8 +61,8 @@
 			stroke-width={strokeWidth}
 			stroke={color}
 			style:animation-duration="{speed}s"
-			style:stroke-dasharray={strokeDashOffset}
-			style:stroke-dashoffset={strokeDashOffset}
+			style:stroke-dasharray={STROKE_OFFSET}
+			style:stroke-dashoffset={STROKE_OFFSET}
 			style:animation-delay="{index + 1}s" />
 	{/each}
 </svg>

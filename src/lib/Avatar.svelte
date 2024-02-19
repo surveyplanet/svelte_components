@@ -62,8 +62,10 @@
 				const img = new Image();
 				img.src = profileImage;
 				img.onerror = reject;
-				img.onload = () =>
-					resolve(`<img src="${src}" alt="profile" />`);
+				img.onload = async () => {
+					// await dalay(10000); // test loading
+					return resolve(`<img src="${src}" alt="profile" />`);
+				};
 			});
 		}
 
@@ -71,11 +73,8 @@
 			`https://public.surveyplanet.com/images/mascots/${mascot}_1.svg`
 		);
 
-		// return new Promise((resolve, reject) => {
-		// 	setTimeout(() => {
-		// 		resolve(response.text());
-		// 	}, 10000);
-		// });
+		// await await dalay(10000); // test loading
+
 		return response.text();
 	};
 

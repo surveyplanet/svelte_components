@@ -10,7 +10,7 @@
 	let profileImage: string = $state('');
 	// let profileImage: string = $state( 'https://media.surveyplanet.com/testing/family.jpeg' );
 
-	let id: string = $state('a');
+	let id: string = $state('1');
 
 	let size: AvatarProps['size'] = $state('small');
 
