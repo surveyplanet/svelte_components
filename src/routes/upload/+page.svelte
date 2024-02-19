@@ -3,7 +3,7 @@
 
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
-	let events = $state([]) as object[];
+	let events = $state<ComponentEvent<UploadData>[]>([]);
 	import { default as source } from './example';
 	// let keys = $state(0);
 
@@ -14,7 +14,7 @@
 	const onUploadUpload = (event: ComponentEvent<UploadData>) => {
 		if (event.value) {
 			setUpload(event.value);
-			events.push(event.value);
+			events.push(event);
 		}
 	};
 

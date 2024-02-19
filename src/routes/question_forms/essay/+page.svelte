@@ -4,7 +4,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<EssayValue[][]>([]);
+	let events = $state<ComponentEvent<EssayValue[]>[]>([]);
 	// let keys = $state(0);
 
 	// Component props
@@ -14,7 +14,7 @@
 	let single: EssayProperties['single'] = $state(false);
 	let response: EssayValue[] = $state([]);
 	const essayResponseHandler = (event: ComponentEvent<EssayValue[]>) => {
-		events.push(event.value);
+		events.push(event);
 	};
 </script>
 

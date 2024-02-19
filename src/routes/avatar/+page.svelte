@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { type AvatarProps, Avatar } from '$lib';
+	import { type AvatarProps, Avatar, ComponentEvent } from '$lib';
 	import { Layout, PropsChanger } from '../../layout/index';
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 
-	let events = $state<string[]>([]);
+	let events = $state<ComponentEvent<undefined>[]>([]);
 
 	let profileImage: string = $state('');
 	// let profileImage: string = $state( 'https://media.surveyplanet.com/testing/family.jpeg' );
@@ -16,8 +16,8 @@
 
 	let disabled = $state(false);
 
-	const onAvatarClick = () => {
-		events.push('click');
+	const onAvatarClick = (event: ComponentEvent<undefined>) => {
+		events.push(event);
 	};
 </script>
 

@@ -5,7 +5,7 @@
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<RatingValue[][]>([]);
+	let events = $state<ComponentEvent<RatingValue[]>[]>([]);
 	// let keys = $state(0);
 
 	// Component props
@@ -40,7 +40,7 @@
 	let layout: RatingProperties['layout'] = $state('1');
 	let response: RatingValue[] = $state([]);
 	const ratingResponseHandler = (event: ComponentEvent<RatingValue[]>) => {
-		events.push(event.value);
+		events.push(event);
 	};
 	// let labelStringed = $state(JSON.stringify(labels));
 

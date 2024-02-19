@@ -9,7 +9,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<string[]>([]);
+	let events = $state<ComponentEvent<string>[]>([]);
 
 	let data: NavBarData[] = $state([
 		{
@@ -35,7 +35,7 @@
 	let vertical = $state(false);
 
 	const onNavClick = (event: ComponentEvent<string>) => {
-		events.push(event.value);
+		events.push(event);
 	};
 
 	// let dataString = $state(JSON.stringify(data));

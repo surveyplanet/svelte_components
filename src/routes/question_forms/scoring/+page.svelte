@@ -1,10 +1,14 @@
 <script lang="ts">
 	import type { ScoringValue, ScoringProperties } from '@surveyplanet/types';
-	import { Scoring, type ScoringDefinitions } from '$lib';
+	import {
+		Scoring,
+		type ScoringDefinitions,
+		type ComponentEvent,
+	} from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ScoringValue[][]>([]);
+	let events = $state<ComponentEvent<ScoringValue[]>[]>([]);
 	// let keys = $state(0);
 
 	// Component props
@@ -24,8 +28,8 @@
 	let requireAll: ScoringProperties['requireAll'] = $state(false);
 	let requireUnique: ScoringProperties['requireUnique'] = $state(false);
 	let response: ScoringValue[] = $state([]);
-	const scoringResponseHandler = (response: ScoringValue[]) => {
-		events.push(response);
+	const scoringResponseHandler = (event: ComponentEvent<ScoringValue[]>) => {
+		events.push(event);
 	};
 
 	// let definitionString = $state(JSON.stringify(definitions));

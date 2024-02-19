@@ -10,7 +10,7 @@
 	} from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<SortListData[][]>([]);
+	let events = $state<ComponentEvent<SortListData[]>[]>([]);
 
 	let data: SortListData[] = $state([
 		{
@@ -30,7 +30,7 @@
 		},
 	]);
 	const sortableListSortHandler = (event: ComponentEvent<SortListData[]>) => {
-		events.push(event.value!);
+		events.push(event);
 	};
 
 	// let dataStringed = $state(JSON.stringify(data));

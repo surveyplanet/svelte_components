@@ -3,7 +3,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
-	let events = $state([]) as boolean[];
+	let events = $state<ComponentEvent<boolean>[]>([]);
 
 	let id = $state((Date.now() + Math.random()).toString(36));
 	let on = $state(false);
@@ -14,7 +14,7 @@
 	let prependLabel = $state(false);
 
 	const onToggleChange = (event: ComponentEvent<boolean>): void => {
-		events.push(event.value!);
+		events.push(event);
 	};
 </script>
 

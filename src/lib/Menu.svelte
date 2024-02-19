@@ -175,9 +175,10 @@
 		// if clicked and item doesn't have a submenu dispatch 'click'
 		// otherwise dispatch 'update'
 		if (!state) {
-			if (onMenuClick) onMenuClick(componentEvent);
+			if (typeof onMenuClick === 'function') onMenuClick(componentEvent);
 		} else {
-			if (onMenuUpdate) onMenuUpdate(componentEvent);
+			if (typeof onMenuUpdate === 'function')
+				onMenuUpdate(componentEvent);
 		}
 	};
 

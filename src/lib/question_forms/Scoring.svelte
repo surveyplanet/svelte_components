@@ -18,7 +18,7 @@
 		requireAll?: ScoringProperties['requireAll'];
 		requireUnique?: ScoringProperties['requireUnique'];
 		response?: ScoringValue[];
-		onScoringResponse?: (value: ScoringValue[]) => void;
+		onScoringResponse?: (event: ComponentEvent<ScoringValue[]>) => void;
 	};
 </script>
 
@@ -57,7 +57,15 @@
 
 		updateResponse(value);
 
-		if (onScoringResponse) onScoringResponse(response);
+		if (typeof onScoringResponse === 'function') {
+			const componentEvent = new ComponentEvent<ScoringValue[]>(
+				response,
+				event.target,
+				event.raw
+			);
+
+			onScoringResponse(componentEvent);
+		}
 	};
 
 	const sortableEventHandler = (event: ComponentEvent<SortListData[]>) => {
@@ -69,12 +77,26 @@
 				value: values[i],
 			});
 		}
-		if (onScoringResponse) onScoringResponse(response);
+		if (typeof onScoringResponse === 'function') {
+			const componentEvent = new ComponentEvent<ScoringValue[]>(
+				response,
+				event.target,
+				event.raw
+			);
+			onScoringResponse(componentEvent);
+		}
 	};
 
-	const clearButtonClickHandler = () => {
+	const clearButtonClickHandler = (event: ComponentEvent<unknown>) => {
 		response = [];
-		if (onScoringResponse) onScoringResponse(response);
+		if (typeof onScoringResponse === 'function') {
+			const componentEvent = new ComponentEvent<ScoringValue[]>(
+				response,
+				event.target,
+				event.raw
+			);
+			onScoringResponse(componentEvent);
+		}
 	};
 	let sortedLabels: { label: string }[] = [];
 	const listSorted = (labels: string[]): typeof sortedLabels => {

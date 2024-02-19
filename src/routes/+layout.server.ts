@@ -15,6 +15,9 @@ const getComponentsList = (dirPath: string, parentId = '') => {
 	const items = fs.readdirSync(dirPath);
 
 	items.forEach((item) => {
+		if (item === 'events') {
+			return;
+		}
 		const itemPath = path.join(dirPath, item);
 		const stats = fs.statSync(itemPath);
 
