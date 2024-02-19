@@ -4,7 +4,7 @@
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 
-	let events = $state<string[]>([]);
+	let events: string[] = $state([]);
 
 	let colors: LoaderProps['colors'] = $state();
 	let size: LoaderProps['size'] = $state(20);

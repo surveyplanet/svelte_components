@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Breadcrumbs, type BreadcrumbData } from '$lib';
+	import { Breadcrumbs, type BreadcrumbsProps } from '$lib';
 	import {
 		Layout,
 		// PropsChanger
@@ -10,7 +10,7 @@
 
 	// let keys = $state(0);
 
-	let data: BreadcrumbData[] = $state([
+	let data: BreadcrumbsProps['data'] = $state([
 		{
 			name: 'Home',
 			url: '/',

@@ -3,7 +3,6 @@
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
 	export type RangeProps = HTMLAttributes<HTMLFormElement> & {
-		id?: string;
 		min: number;
 		max: number;
 		response?: RangeValue[];
@@ -18,7 +17,6 @@
 	import { ComponentEvent } from '$lib';
 
 	let {
-		id,
 		min,
 		max,
 		response = [], // forms return empty array if no response
@@ -93,12 +91,10 @@
 
 	<TextInput
 		name="Min"
-		id={`${id}-min`}
 		value={rangeValues[0].toString()}
 		onTextInputKeydown={minSliderInputHandler} />
 	<TextInput
 		name="Max"
-		id={`${id}-max`}
 		value={rangeValues[1].toString()}
 		onTextInputKeydown={maxSliderInputHandler} />
 </form>

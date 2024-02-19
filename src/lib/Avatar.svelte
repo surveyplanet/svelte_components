@@ -13,7 +13,7 @@
 
 <script lang="ts">
 	import { transformImage } from '@surveyplanet/utilities';
-	import { ComponentEvent } from '$lib';
+	import { ComponentEvent } from './events/component_event';
 
 	let {
 		profileImage,

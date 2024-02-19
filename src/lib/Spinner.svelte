@@ -6,7 +6,6 @@
 
 	export type SpinnerProps = HTMLAttributes<HTMLInputElement> & {
 		label?: string;
-		id?: string;
 		step?: number;
 		min: number;
 		max: number;

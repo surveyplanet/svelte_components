@@ -184,8 +184,6 @@
 					onRadioChange={otherChangeHandler}
 					onCheckboxChange={otherChangeHandler} />
 				<TextInput
-					name={id}
-					id={id + '-text-input'}
 					placeholder={other}
 					size="large"
 					onTextInputInput={otherTextInputHandler}
