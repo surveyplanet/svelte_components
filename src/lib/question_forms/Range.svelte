@@ -12,9 +12,8 @@
 
 <script lang="ts">
 	import type { RangeValue } from '@surveyplanet/types';
-	import TextInput from '../TextInput.svelte';
 	import { RangeSlider } from 'svelte-range-slider-pips';
-	import { ComponentEvent } from '$lib';
+	import { TextInput, ComponentEvent } from '../';
 
 	let {
 		min,

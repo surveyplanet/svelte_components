@@ -10,7 +10,7 @@
 </script>
 
 <script lang="ts">
-	import { COLORS } from '$lib/_definitions';
+	import { COLORS } from './';
 	const strokeDashOffset = 63;
 	const DEFAULT_SIZE = 72;
 

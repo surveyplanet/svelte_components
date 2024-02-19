@@ -1,7 +1,7 @@
 <script
 	lang="ts"
 	context="module">
-	import { ComponentEvent, Icon, type IconName } from './index';
+	import { ComponentEvent, Icon, type IconName } from './';
 	import type { HTMLAttributes } from 'svelte/elements';
 	export interface MenuData {
 		id: string;
@@ -27,7 +27,6 @@
 
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-
 	import { slide, type SlideParams } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	// import { onMount } from 'svelte'; // use to set focus on mount

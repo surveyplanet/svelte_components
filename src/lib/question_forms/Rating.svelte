@@ -15,7 +15,7 @@
 <script lang="ts">
 	import type { RatingValue, RatingProperties } from '@surveyplanet/types';
 	import { RangeSlider } from 'svelte-range-slider-pips';
-	import { ComponentEvent, Radio } from '$lib/index';
+	import { ComponentEvent, Radio } from '../';
 
 	let {
 		id,

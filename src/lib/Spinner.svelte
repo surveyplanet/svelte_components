@@ -2,7 +2,7 @@
 	lang="ts"
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { ComponentEvent } from './index';
+	import { ComponentEvent } from './';
 
 	export type SpinnerProps = HTMLAttributes<HTMLInputElement> & {
 		label?: string;

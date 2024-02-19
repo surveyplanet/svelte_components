@@ -15,7 +15,7 @@
 </script>
 
 <script lang="ts">
-	import { ComponentEvent } from './events/component_event';
+	import { ComponentEvent } from './';
 	let {
 		id,
 		name,
