@@ -7,8 +7,8 @@
 
 	let events = $state<ComponentEvent<undefined>[]>([]);
 
-	// let profileImage: AvatarProps['profileImage'] = $state( 'https://media.surveyplanet.com/testing/family.jpeg' ); // test image
-	let profileImage: AvatarProps['profileImage'] = $state();
+	let profileImage: AvatarProps['profileImage'] = $state('');
+	// let profileImage: string = $state( 'https://media.surveyplanet.com/testing/family.jpeg' );
 	let id: AvatarProps['id'] = $state('a');
 	let size: AvatarProps['size'] = $state('small');
 	let disabled: AvatarProps['disabled'] = $state(false);

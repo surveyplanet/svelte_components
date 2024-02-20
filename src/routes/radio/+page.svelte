@@ -52,7 +52,10 @@
 		<div id="wrapper">
 			<Radio
 				id={label!.toLowerCase().replace(' ', '-')}
+<<<<<<< HEAD
 				name="stooges"
+=======
+>>>>>>> alpha
 				{disabled}
 				bind:group
 				value={label}
@@ -62,7 +65,10 @@
 				{onRadioChange} />
 			<Radio
 				id={labelTwo!.toLowerCase().replace(' ', '-')}
+<<<<<<< HEAD
 				name="stooges"
+=======
+>>>>>>> alpha
 				{disabled}
 				bind:group
 				value={labelTwo}
@@ -72,7 +78,10 @@
 				{onRadioChange} />
 			<Radio
 				id={labelThree!.toLowerCase().replace(' ', '-')}
+<<<<<<< HEAD
 				name="stooges"
+=======
+>>>>>>> alpha
 				{disabled}
 				bind:group
 				value={labelThree}
