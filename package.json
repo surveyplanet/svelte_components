@@ -50,7 +50,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"clean:hard": "rm package-lock.json && npm run clean",
-		"clean": "rm -rf styles dist coverage node_modules dist .svelte-kit && npm --force i",
+		"clean": "rm -rf styles dist coverage node_modules dist .svelte-kit && npm install",
 		"dev": "vite dev",
 		"format": "prettier --plugin-search-dir . --write .",
 		"lint:check": "eslint .",

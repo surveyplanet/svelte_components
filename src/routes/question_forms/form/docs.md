@@ -8,7 +8,7 @@
 | `labels`          | FormProperties['labels']        | An array of labels for which text responses need to be collected. |
 | `[random]`        | FormProperties['random']        | If set to `true`, the labels will be displayed in a random order. |
 | `[response={[]}]` | FormValue[]                     | Array of form values containing label-value pairs.                |
-| `[...attr] `      | HTMLAttributes<HTMLFormElement> | Other attributes to be spread on the element.                     |
+| `[...attr] `      | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node.                     |
 
 ### Callbacks
 

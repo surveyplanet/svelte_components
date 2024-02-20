@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { Menu, Button, Icon, type MenuData, ComponentEvent } from '$lib';
+	import { Menu, Button, Icon, ComponentEvent, type MenuProps } from '$lib';
 	import { menuData } from './menu_data';
 
-	import { Layout, PropsChanger } from '$layout/index';
+	import { Layout, PropsChanger } from '$layout';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<string>[]>([]);
-
-	let menuVisible = $state(false);
-	let data: MenuData[] = $state(menuData);
-	let size: 'small' | 'medium' | 'large' = $state('small');
+	let events: ComponentEvent<string>[] = $state([]);
+	let menuVisible: boolean = $state(false);
+	let data: MenuProps['data'] = $state(menuData);
+	let size: MenuProps['size'] = $state('small');
 
 	const buttonClickHandler = () => {
 		menuVisible = !menuVisible;

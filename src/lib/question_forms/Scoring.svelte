@@ -24,8 +24,13 @@
 
 <script lang="ts">
 	import type { ScoringValue, ScoringProperties } from '@surveyplanet/types';
-	import { Button, Radio, ComponentEvent, type SortListData } from '../';
-	import SortableList from '$lib/SortableList.svelte';
+	import {
+		Button,
+		Radio,
+		ComponentEvent,
+		SortableList,
+		type SortListData,
+	} from '../';
 
 	let {
 		id,

@@ -3,6 +3,7 @@
 		ComponentEvent,
 		SortableList,
 		type SortListData,
+		type SortListProps,
 	} from '../../lib/index';
 	import {
 		Layout,
@@ -12,7 +13,7 @@
 	import md from './docs.md?raw';
 	let events = $state<ComponentEvent<SortListData[]>[]>([]);
 
-	let data: SortListData[] = $state([
+	let data: SortListProps['data'] = $state([
 		{
 			label: 'Nice',
 			meta: 'image',

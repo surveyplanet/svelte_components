@@ -6,7 +6,7 @@
 | `[selectable]`  | Boolean                         | Enables chip selection if `true`.             |
 | `[multiSelect]` | Boolean                         | Allows multiple chip selection if `true`.     |
 | `[removable]`   | Boolean                         | Enables chip removal if `true`.               |
-| `[...attr] `    | HTMLAttributes<HTMLMenuElement> | Other attributes to be spread on the element. |
+| `[...attr] `    | HTMLAttributes<HTMLMenuElement> | Additional attributes to be expanded on to primary the node. |
 
 ### Callbacks
 

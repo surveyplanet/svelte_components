@@ -5,7 +5,7 @@
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 
-	let visible: PopoverProps['visible'] = $state(true);
+	let visible = $state<PopoverProps['visible']>(true);
 	let children: PopoverProps['children'] = $state(
 		[
 			`<p>And visit not than sacred cell wins in not childe. Fabled most heart charms een feeble. Had his flatterers yes nor, from from cell soon once upon beyond so then, sore from dome condole was favour departed friend from moths.</p>`,
@@ -23,6 +23,7 @@
 	{#snippet controls()}
 		<PropsChanger
 			label="Visible"
+			type="boolean"
 			bind:value={visible} />
 		<PropsChanger
 			label="Content"

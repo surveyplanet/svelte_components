@@ -6,10 +6,7 @@
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<ComponentEvent<FormValue[]>[]>([]);
-	// let keys = $state(0);
 
-	// Component props
-	let id = $state('abc123');
 	let labels: FormProperties['labels'] = $state([
 		'First name',
 		'Last name',
@@ -52,13 +49,10 @@
 
 <Layout
 	component="Form"
-	example={source({ id, labels, random, response })}
+	example={source({ labels, random, response })}
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<PropsChanger
-			label="ID"
-			bind:value={id} />
 		<!-- <PropsChanger
 			label="Labels"
 			bind:value={labelsStringed} /> -->
@@ -75,7 +69,6 @@
 	{#snippet main()}
 		<div class="wrapper">
 			<Form
-				{id}
 				bind:labels
 				{response}
 				{random}

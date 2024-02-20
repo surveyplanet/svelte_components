@@ -7,14 +7,11 @@
 
 	let events = $state<ComponentEvent<undefined>[]>([]);
 
-	let profileImage: string = $state('');
-	// let profileImage: string = $state( 'https://media.surveyplanet.com/testing/family.jpeg' );
-
-	let id: string = $state('1');
-
+	// let profileImage: AvatarProps['profileImage'] = $state( 'https://media.surveyplanet.com/testing/family.jpeg' ); // test image
+	let profileImage: AvatarProps['profileImage'] = $state();
+	let id: AvatarProps['id'] = $state('a');
 	let size: AvatarProps['size'] = $state('small');
-
-	let disabled = $state(false);
+	let disabled: AvatarProps['disabled'] = $state(false);
 
 	const onAvatarClick = (event: ComponentEvent<undefined>) => {
 		events.push(event);

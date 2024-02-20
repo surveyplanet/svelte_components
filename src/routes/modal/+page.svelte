@@ -1,16 +1,15 @@
 <script lang="ts">
-	import { Modal, Button } from '$lib';
+	import { Modal, Button, type ModalProps } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<Event[]>([]);
-
-	let title = $state('Modal');
-	let subtitle = $state('Subtitle');
-	let fullscreen = $state(false);
-	let overlay = $state(true);
-	let visible = $state(false);
-	let size: 'small' | 'medium' | 'large' = $state('medium');
+	let events: Event[] = $state([]);
+	let title: ModalProps['title'] = $state('Modal');
+	let subtitle: ModalProps['subtitle'] = $state('Subtitle');
+	let fullscreen: ModalProps['fullscreen'] = $state(false);
+	let overlay: ModalProps['overlay'] = $state(true);
+	let visible: ModalProps['visible'] = $state(false);
+	let size: ModalProps['size'] = $state('medium');
 
 	const onModalIntroStart = (event: Event): void => {
 		events.push(event);

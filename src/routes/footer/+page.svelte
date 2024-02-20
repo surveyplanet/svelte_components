@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { Footer, type FooterData } from '$lib';
+	import { Footer, type FooterProps } from '$lib';
 	import {
 		Layout,
 		// PropsChanger
 	} from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<string[]>([]);
+	let events: string[] = $state([]);
 
-	let footerData: FooterData[] = $state([
+	let footerData: FooterProps['footerData'] = $state([
 		{
 			link: '/about',
 			label: 'About',

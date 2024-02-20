@@ -8,7 +8,6 @@
 	// let keys = $state(0);
 
 	// Component props
-	let id = $state('abc123');
 	let min: RangeProperties['min'] = $state(0);
 	let max: RangeProperties['max'] = $state(10);
 	let response: RangeValue[] = $state([]);
@@ -19,13 +18,10 @@
 
 <Layout
 	component="Range"
-	example={source({ id, min, max, response })}
+	example={source({ min, max, response })}
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<PropsChanger
-			label="ID"
-			bind:value={id} />
 		<PropsChanger
 			label="Min"
 			bind:value={min} />
@@ -36,7 +32,6 @@
 	{#snippet main()}
 		<div class="wrapper">
 			<Range
-				{id}
 				{min}
 				{max}
 				{response}

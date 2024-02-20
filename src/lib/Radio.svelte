@@ -2,38 +2,48 @@
 	lang="ts"
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
+
 	export type RadioProps = HTMLAttributes<HTMLInputElement> & {
-		id?: string;
-		name?: string;
-		value?: string | null;
+		name?: string; // 'name' is not a property of HTMLInputElement (for some reason) so add it here.
+		group?: string; // use group instead of checked: https://github.com/sveltejs/svelte/issues/2300
+		value?: string;
 		label?: string;
 		checked?: boolean;
 		disabled?: boolean;
 		prependLabel?: boolean;
 		size?: 'small' | 'medium' | 'large';
-		onRadioChange?: (event: ComponentEvent<boolean>) => void;
+		onRadioChange?: (event: ComponentEvent<string>) => void;
 	};
 </script>
 
 <script lang="ts">
 	import { ComponentEvent } from '$lib';
+	import { onMount } from 'svelte';
 	let {
-		id,
-		name,
+		group = [],
 		value,
 		label,
-		checked = false,
+		checked,
 		disabled,
 		prependLabel,
-		size = 'small', // small is the most common size
+		size = 'small',
 		onRadioChange,
 		...attr
 	} = $props<RadioProps>();
 
+	onMount(() => {
+		console.log(
+			'Radio component mounted',
+			Object.prototype.toString.call(
+				document.querySelector('input[type="radio"]')
+			)
+		);
+	});
+
 	const ratioChangeHandler = (event: Event) => {
 		if (typeof onRadioChange === 'function') {
 			const componentEvent = new ComponentEvent(
-				(event.target as HTMLInputElement).checked,
+				(event.target as HTMLInputElement).value,
 				event.target!,
 				event
 			);
@@ -45,9 +55,8 @@
 <input
 	type="radio"
 	class="sp-radio--input"
-	{name}
-	{id}
 	{value}
+	bind:group
 	{checked}
 	{disabled}
 	{...attr}
@@ -56,7 +65,7 @@
 <label
 	class="sp-radio sp-radio--{size}"
 	class:sp-radio--prepend={prependLabel}
-	for={id}>
+	for={typeof attr.id !== 'undefined' && attr.id !== null ? attr.id : void 0}>
 	<span class="sp-radio--dot">
 		<svg
 			width="16px"

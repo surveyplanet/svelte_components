@@ -10,6 +10,7 @@ export {
 export {
 	default as Breadcrumbs,
 	type BreadcrumbData,
+	type BreadcrumbsProps,
 } from './Breadcrumbs.svelte';
 export { default as Banner, type BannerProps } from './Banner.svelte';
 export {

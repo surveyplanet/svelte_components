@@ -3,7 +3,6 @@
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
 	export type RangeProps = HTMLAttributes<HTMLFormElement> & {
-		id?: string;
 		min: number;
 		max: number;
 		response?: RangeValue[];
@@ -13,12 +12,10 @@
 
 <script lang="ts">
 	import type { RangeValue } from '@surveyplanet/types';
-	import TextInput from '../TextInput.svelte';
 	import { RangeSlider } from 'svelte-range-slider-pips';
-	import { ComponentEvent } from '$lib';
+	import { TextInput, ComponentEvent } from '../';
 
 	let {
-		id,
 		min,
 		max,
 		response = [], // forms return empty array if no response
@@ -93,12 +90,10 @@
 
 	<TextInput
 		name="Min"
-		id={`${id}-min`}
 		value={rangeValues[0].toString()}
 		onTextInputKeydown={minSliderInputHandler} />
 	<TextInput
 		name="Max"
-		id={`${id}-max`}
 		value={rangeValues[1].toString()}
 		onTextInputKeydown={maxSliderInputHandler} />
 </form>

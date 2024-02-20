@@ -6,7 +6,7 @@
 | `[id]`           | string                            | Optional identifier for additional customization.     |
 | `[size='small']` | string                            | Size of the avatar: `'small'`, `'medium'`, `'large'`. |
 | `[disabled]`     | boolean                           | Disable the avatar interaction if `true`.             |
-| `[...attr] `     | HTMLAttributes<HTMLButtonElement> | Other attributes to be spread on the element.         |
+| `[...attr] `     | HTMLAttributes<HTMLButtonElement> | Additional attributes to be expanded on to primary the node.         |
 
 ### Callbacks
 

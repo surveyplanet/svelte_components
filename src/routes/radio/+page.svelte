@@ -1,34 +1,33 @@
 <script lang="ts">
-	import { Radio, type ComponentEvent } from '$lib';
+	import { Radio, type ComponentEvent, type RadioProps } from '$lib';
 
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
-	let events = $state<ComponentEvent<boolean>[]>([]);
+	let events = $state<ComponentEvent<string>[]>([]);
 
-	let id = 'radio';
-	let name = $state('stooge');
-	let label = $state('Harry');
-	let labelTwo = $state('Larry');
-	let labelThree = $state('Moe');
-	let disabled = $state(false);
-	let prependLabel = $state(false);
-	let size: 'small' | 'medium' | 'large' = $state('small');
+	let group: RadioProps['group'] = $state('');
+	let label: RadioProps['label'] = $state('Harry');
+	let labelTwo: RadioProps['label'] = $state('Larry');
+	let labelThree: RadioProps['label'] = $state('Moe');
+	let disabled: RadioProps['disabled'] = $state(false);
+	let prependLabel: RadioProps['prependLabel'] = $state(false);
+	let size: RadioProps['size'] = $state('small');
 
-	const onRadioChange = (event: ComponentEvent<boolean>): void => {
+	const onRadioChange = (event: ComponentEvent<string>): void => {
 		events.push(event);
 	};
 </script>
 
 <Layout
 	component="Radio"
-	example={source({ id, name, label, disabled, prependLabel, size })}
+	example={source({ group, label, disabled, prependLabel, size })}
 	{md}
 	bind:events>
 	{#snippet controls()}
 		<PropsChanger
-			label="Name"
-			bind:value={name} />
+			label="Group"
+			bind:value={group} />
 		<PropsChanger
 			label="Label One"
 			bind:value={label} />
@@ -39,40 +38,43 @@
 			label="Label Three"
 			bind:value={labelThree} />
 		<PropsChanger
+			label="Size"
+			selectOptions={['small', 'medium', 'large']}
+			bind:value={size} />
+		<PropsChanger
 			label="Disabled"
 			bind:value={disabled} />
 		<PropsChanger
 			label="Prepend Label"
 			bind:value={prependLabel} />
-		<PropsChanger
-			label="Size"
-			selectOptions={['small', 'medium', 'large']}
-			bind:value={size} />
 	{/snippet}
 	{#snippet main()}
 		<div id="wrapper">
 			<Radio
-				id={label.toLowerCase().replace(' ', '-')}
+				id={label!.toLowerCase().replace(' ', '-')}
+				name="stooges"
 				{disabled}
-				{name}
+				bind:group
 				value={label}
 				{label}
 				{prependLabel}
 				{size}
 				{onRadioChange} />
 			<Radio
-				id={labelTwo.toLowerCase().replace(' ', '-')}
+				id={labelTwo!.toLowerCase().replace(' ', '-')}
+				name="stooges"
 				{disabled}
-				{name}
+				bind:group
 				value={labelTwo}
 				label={labelTwo}
 				{prependLabel}
 				{size}
 				{onRadioChange} />
 			<Radio
-				id={labelThree.toLowerCase().replace(' ', '-')}
+				id={labelThree!.toLowerCase().replace(' ', '-')}
+				name="stooges"
 				{disabled}
-				{name}
+				bind:group
 				value={labelThree}
 				label={labelThree}
 				{prependLabel}

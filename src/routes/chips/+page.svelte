@@ -1,11 +1,16 @@
 <script lang="ts">
-	import { Chips, type ChipData, ComponentEvent } from '$lib';
+	import {
+		Chips,
+		type ChipsProps,
+		type ChipData,
+		ComponentEvent,
+	} from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<ChipData[]>[]>([]);
+	let events: ComponentEvent<ChipData[]>[] = $state([]);
 
-	let data: ChipData[] = $state([
+	let data: ChipsProps['data'] = $state([
 		{
 			id: 'apple',
 			label: 'Apple',
@@ -28,9 +33,9 @@
 		},
 	]);
 
-	let selectable = $state(true);
-	let multiSelect = $state(false);
-	let removable = $state(false);
+	let selectable: ChipsProps['selectable'] = $state(true);
+	let multiSelect: ChipsProps['multiSelect'] = $state(false);
+	let removable: ChipsProps['removable'] = $state(false);
 
 	const onChipsClick = (event: ComponentEvent<ChipData[]>): void => {
 		events.push(event);

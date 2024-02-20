@@ -12,7 +12,7 @@
 | `[round]`          | boolean                           | Makes the button round if `true`.                     |
 | `[size='medium']`  | string                            | Size of the button: `'small'`, `'medium'`, `'large'`. |
 | `[type='button']`  | string                            | Button type: `'button'`, `'submit'`, `'reset'`.       |
-| `[...attr] `       | HTMLAttributes<HTMLButtonElement> | Other attributes to be spread on the element.         |
+| `[...attr] `       | HTMLAttributes<HTMLButtonElement> | Additional attributes to be expanded on to primary the node.         |
 
 ### Callbacks
 

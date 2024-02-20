@@ -12,9 +12,8 @@ export default (
 </script>
 
 <Radio
-	id='${data.id}'
+	bind:group={${data.group}}
 	disabled={${data.disabled}}
-	name='${data.name}'
 	label='${data.label}'
 	prependLabel={${data.prependLabel}}
 	size='${data.size}'

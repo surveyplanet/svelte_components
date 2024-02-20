@@ -3,7 +3,6 @@
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
 	export type EssayProps = HTMLAttributes<HTMLFormElement> & {
-		id?: string;
 		min?: EssayProperties['min'];
 		max?: EssayProperties['max'];
 		single?: EssayProperties['single'];
@@ -17,7 +16,6 @@
 	import { ComponentEvent, TextInput } from '../';
 
 	let {
-		id,
 		min,
 		max,
 		single,
@@ -49,7 +47,6 @@
 	<TextInput
 		name="text-input"
 		type={single ? 'text' : 'multiline'}
-		id={`${id}-essay`}
 		value={response?.length ? response[0] : ''}
 		onTextInputKeyup={inputKeyupHandler} />
 

@@ -3,7 +3,6 @@
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
 	export type FormProps = HTMLAttributes<HTMLFormElement> & {
-		id?: string;
 		labels: FormProperties['labels'];
 		random?: FormProperties['random'];
 		response?: FormValue[];
@@ -19,7 +18,6 @@
 	// export let requireAll: FormProperties['requireAll'];
 
 	let {
-		id,
 		labels,
 		random,
 		response = [], // forms return empty array if no response
@@ -64,7 +62,6 @@
 			name={label}
 			{label}
 			type="text"
-			id={`${id}-${label.toLocaleLowerCase()}`}
 			size="large"
 			onTextInputChange={inputChangeHandler}
 			onTextInputKeyup={inputKeyupHandler} />

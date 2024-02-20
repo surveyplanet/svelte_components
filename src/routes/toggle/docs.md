@@ -9,7 +9,7 @@
 | `[tall]`         | boolean                         | If `true`, the toggle is tall, providing a larger hit area. |
 | `[label]`        | string                          | The label associated with the toggle.                       |
 | `[prependLabel]` | boolean                         | If `true`, the label is prepended to the toggle.            |
-| `[...attr] `     | HTMLAttributes<HTMLFormElement> | Other attributes to be spread on the element.               |
+| `[...attr] `     | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node.               |
 
 ### Callbacks
 

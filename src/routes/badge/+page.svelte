@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { Badge, type BadgeColors } from '$lib';
+	import { Badge, type BadgeProps } from '$lib';
 	import { Layout, PropsChanger } from '../../layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 
-	let color: BadgeColors = $state('yellow');
-	let flat: boolean = $state(true);
+	let color: BadgeProps['color'] = $state('yellow');
+	let flat: BadgeProps['flat'] = $state(true);
 	let content: string = $state('Pro');
 </script>
 

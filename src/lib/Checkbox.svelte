@@ -3,39 +3,38 @@
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
 	export type CheckboxProps = HTMLAttributes<HTMLInputElement> & {
-		name?: string;
-		value?: string | null;
+		name?: string; // 'name' is not a property of HTMLInputElement (for some reason) so add it here.
+		group?: string[]; // use group instead of checked: https://github.com/sveltejs/svelte/issues/2300
+		value?: string;
 		label?: string;
 		checked?: boolean;
 		disabled?: boolean;
 		prependLabel?: boolean;
 		size?: 'small' | 'medium' | 'large';
-		onCheckboxChange?: (event: ComponentEvent<boolean>) => void;
+		onCheckboxChange?: (event: ComponentEvent<string[]>) => void;
 	};
 </script>
 
 <script lang="ts">
-	import { ComponentEvent } from './events/component_event';
+	import { ComponentEvent } from './';
 	let {
-		id,
-		name,
+		group = [],
 		value,
 		label,
-		checked = false,
+		checked,
 		disabled,
 		prependLabel,
-		size = 'small', // seems like a usual size we use
+		size = 'small',
 		onCheckboxChange,
 		...attr
 	} = $props<CheckboxProps>();
 
 	const checkboxChangeHandler = (event: Event): void => {
+		console.log('checkboxChangeHandler', group);
+
 		if (typeof onCheckboxChange === 'function') {
-			const componentEvent = new ComponentEvent(
-				(event.target as HTMLInputElement).checked,
-				event.target!,
-				event
-			);
+			const target = event.target as HTMLInputElement;
+			const componentEvent = new ComponentEvent(group, target, event);
 			onCheckboxChange(componentEvent);
 		}
 	};
@@ -44,17 +43,17 @@
 <input
 	type="checkbox"
 	class="sp-checkbox--input"
-	{id}
-	{name}
 	{value}
-	bind:checked
+	bind:group
+	{checked}
 	{disabled}
 	{...attr}
 	onchange={checkboxChangeHandler} />
+
 <label
 	class="sp-checkbox sp-checkbox--{size}"
 	class:sp-checkbox--prepend={prependLabel}
-	for={id}>
+	for={typeof attr.id !== 'undefined' && attr.id !== null ? attr.id : void 0}>
 	<span class="sp-checkbox--check">
 		<svg
 			width="12px"

@@ -8,7 +8,7 @@
 | `[date]`          | boolean                         | Flag to include date input.                   |
 | `[time]`          | boolean                         | Flag to include time input.                   |
 | `[response={[]}]` | DateTimeValue[]                 | Array of date-time values as ISO strings.     |
-| `[...attr] `      | HTMLAttributes<HTMLFormElement> | Other attributes to be spread on the element. |
+| `[...attr] `      | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node. |
 
 ### Callbacks
 

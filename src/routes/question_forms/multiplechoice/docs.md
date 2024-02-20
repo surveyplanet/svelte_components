@@ -11,7 +11,7 @@
 | `[random]`        | MultipleChoiceProperties['random'] | If set to `true`, the order of choices will be randomized.                                                      |
 | `[other]`         | MultipleChoiceProperties['other']  | Text representing an 'Other' option. If present, users can input custom text.                                   |
 | `[response={[]}]` | MultipleChoiceValue[]              | Array of multiple choice values containing label-value pairs.                                                   |
-| `[...attr] `      | HTMLAttributes<HTMLFormElement>    | Other attributes to be spread on the element.                                                                   |
+| `[...attr] `      | HTMLAttributes<HTMLFormElement>    | Additional attributes to be expanded on to primary the node.                                                                   |
 
 ### Callbacks
 

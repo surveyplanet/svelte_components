@@ -2,7 +2,7 @@
 	lang="ts"
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { Icon, type IconName } from './index';
+	import { Icon, type IconName } from './';
 	export interface TabBarData {
 		id: string;
 		label?: string;

@@ -1,25 +1,25 @@
-<!-- <script lang="ts">
-	import { editor } from 'monaco-editor';
+<script lang="ts">
+	// import { editor } from 'monaco-editor';
 
-	// function isValidJson(val) {
-	// 	try {
-	// 		JSON.parse(val);
-	// 	} catch (event) {
-	// 		return false;
-	// 	}
+	interface JsonEditorProps<T extends object | any[]> {
+		value: T;
+	}
 
-	// 	return true;
-	// }
+	let { value } = $props<JsonEditorProps<any>>();
 
-	let editors;
+	let jsonCache: string = $derived(JSON.stringify(value, null, 4));
 
-	let div = document.createElement('div');
-	editor.create(div);
+	const hasChanged = () => {
+		return jsonCache !== JSON.stringify(value, null, 4);
+	};
+
+	$effect(() => {
+		if (hasChanged()) {
+			value = JSON.stringify(value, null, 4);
+		}
+	});
 </script>
 
-<textarea
-	bind:this={editors}
-	id="code-editor">
-</textarea> -->
-
-<h1>This is JSON</h1>
+<textarea id="code-editor">
+	{value}
+</textarea>

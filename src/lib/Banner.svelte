@@ -12,7 +12,7 @@
 </script>
 
 <script lang="ts">
-	import { type IconName, Icon } from './index';
+	import { type IconName, Icon } from './';
 	import type { Snippet } from 'svelte';
 
 	import { slide, fade } from 'svelte/transition';
