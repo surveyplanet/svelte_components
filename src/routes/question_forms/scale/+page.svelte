@@ -24,7 +24,7 @@
 	bind:events>
 	{#snippet controls()}
 		<PropsChanger
-			label="ID"
+			label="Id"
 			bind:value={id} />
 		<PropsChanger
 			label="Min"

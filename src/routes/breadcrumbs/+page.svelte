@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { Breadcrumbs, type BreadcrumbsProps } from '$lib';
-	import {
-		Layout,
-		// PropsChanger
-	} from '$layout/index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
@@ -27,10 +24,6 @@
 			name: 'Submit',
 		},
 	]);
-	// let dataString = $state(JSON.stringify(data));
-	// $effect(() => {
-	// 	data = JSON.parse(dataString);
-	// });
 </script>
 
 <Layout
@@ -39,9 +32,10 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Data"
-			bind:value={dataString} /> -->
+			bind:value={data}
+			type="json" />
 	{/snippet}
 	{#snippet main()}
 		<Breadcrumbs bind:data></Breadcrumbs>

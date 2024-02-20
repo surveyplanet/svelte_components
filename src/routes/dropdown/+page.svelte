@@ -58,14 +58,6 @@
 	const onDropdownChange = (event: ComponentEvent<string>) => {
 		events.push(event);
 	};
-
-	// $inspect(searchThreshold);
-
-	// let stringedOptions = $state(JSON.stringify(options));
-
-	// $effect(() => {
-	// 	options = JSON.parse(stringedOptions);
-	// });
 </script>
 
 <Layout
@@ -83,9 +75,9 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Options"
-			bind:value={stringedOptions} /> -->
+			bind:value={options} />
 		<PropsChanger
 			label="Search threshold"
 			bind:value={searchThreshold} />

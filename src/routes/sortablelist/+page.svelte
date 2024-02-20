@@ -5,10 +5,7 @@
 		type SortListData,
 		type SortListProps,
 	} from '../../lib/index';
-	import {
-		Layout,
-		//  PropsChanger
-	} from '$layout/index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<ComponentEvent<SortListData[]>[]>([]);
@@ -33,12 +30,6 @@
 	const sortableListSortHandler = (event: ComponentEvent<SortListData[]>) => {
 		events.push(event);
 	};
-
-	// let dataStringed = $state(JSON.stringify(data));
-
-	// $effect(() => {
-	// 	data = JSON.parse(dataStringed);
-	// });
 </script>
 
 <Layout
@@ -47,9 +38,9 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Data"
-			bind:value={dataStringed} /> -->
+			bind:value={data} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">

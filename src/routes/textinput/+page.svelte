@@ -43,14 +43,6 @@
 	const onTextInputFocus = (event: ComponentEvent<undefined>) => {
 		events.push(event);
 	};
-
-	// let cleaveOptionsStringed = $state(JSON.stringify(cleaveOptions));
-	// let validationRulesStringed = $state(JSON.stringify(validationRules));
-
-	// $effect(() => {
-	// 	cleaveOptions = JSON.parse(cleaveOptionsStringed);
-	// 	validationRules = JSON.parse(validationRulesStringed);
-	// });
 </script>
 
 <Layout
@@ -105,12 +97,12 @@
 		<PropsChanger
 			label="Disabled"
 			bind:value={disabled} />
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Cleave Options"
-			bind:value={cleaveOptionsStringed} />
+			bind:value={cleaveOptions} />
 		<PropsChanger
 			label="Validation Rules"
-			bind:value={validationRulesStringed} /> -->
+			bind:value={validationRules} />
 		<PropsChanger
 			label="Validation Message"
 			bind:value={validationMessage} />

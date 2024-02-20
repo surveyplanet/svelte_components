@@ -43,11 +43,6 @@
 	const onChipsRemove = (event: ComponentEvent<ChipData[]>): void => {
 		events.push(event);
 	};
-
-	// let stringData = $state(JSON.stringify(data));
-	// $effect(() => {
-	// 	data = JSON.parse(stringData);
-	// });
 </script>
 
 <Layout
@@ -56,9 +51,9 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Data"
-			bind:value={stringData} /> -->
+			bind:value={data} />
 		<PropsChanger
 			label="Selectable"
 			bind:value={selectable} />

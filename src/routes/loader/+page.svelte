@@ -18,10 +18,7 @@
 	// 	);
 	// }
 
-	// let colorsStringed = $state(JSON.stringify(colors));
-	// $effect(() => {
-	// 	colors = JSON.parse(colorsStringed);
-	// });
+	// can't Bind to 'colors' because it is has a fallback value
 </script>
 
 <Layout
@@ -33,7 +30,7 @@
 		<PropsChanger
 			type="string"
 			label="Colors"
-			value={colors} />
+			bind:value={colors} />
 
 		<PropsChanger
 			type="number"

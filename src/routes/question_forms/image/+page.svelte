@@ -35,12 +35,6 @@
 	const imageResponseHandler = (event: ComponentEvent<ImageValue[]>) => {
 		events.push(event);
 	};
-
-	// let labelsString = $state(JSON.stringify(labels));
-
-	// $effect(() => {
-	// 	labels = JSON.parse(labelsString);
-	// });
 </script>
 
 <Layout
@@ -61,9 +55,9 @@
 		<PropsChanger
 			label="ID"
 			bind:value={id} />
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Labels"
-			bind:value={labelsString} /> -->
+			bind:value={labels} />
 		<PropsChanger
 			label="Multi"
 			bind:value={multi} />

@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { Footer, type FooterProps } from '$lib';
-	import {
-		Layout,
-		// PropsChanger
-	} from '$layout/index';
+	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events: string[] = $state([]);
@@ -25,11 +22,6 @@
 			label: '© 2022 SurveyPlanet, LLC',
 		},
 	]);
-
-	// let dataStringed = $state(JSON.stringify(footerData));
-	// $effect(() => {
-	// 	footerData = JSON.parse(dataStringed);
-	// });
 </script>
 
 <Layout
@@ -38,9 +30,9 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Footer Data"
-			bind:value={dataStringed} /> -->
+			bind:value={footerData} />
 	{/snippet}
 	{#snippet main()}
 		<Footer bind:footerData />

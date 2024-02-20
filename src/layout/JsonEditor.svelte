@@ -1,25 +1,19 @@
-<!-- <script lang="ts">
-	import { editor } from 'monaco-editor';
+<script lang="ts">
+	import CodeMirror from './code_mirror/CodeMirror.svelte';
+	import { json } from '@codemirror/lang-json';
 
-	// function isValidJson(val) {
-	// 	try {
-	// 		JSON.parse(val);
-	// 	} catch (event) {
-	// 		return false;
-	// 	}
+	let { data } = $props();
 
-	// 	return true;
-	// }
+	let StringData = $state(JSON.stringify(data, null, 2));
 
-	let editors;
-
-	let div = document.createElement('div');
-	editor.create(div);
+	$effect(() => {
+		data = JSON.parse(StringData);
+	});
 </script>
 
-<textarea
-	bind:this={editors}
-	id="code-editor">
-</textarea> -->
-
-<h1>This is JSON</h1>
+<CodeMirror
+	bind:value={StringData}
+	lang={json()}
+	onCodeMirrorChange={() => {
+		console.log('changed');
+	}} />

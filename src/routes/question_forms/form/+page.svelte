@@ -13,38 +13,30 @@
 		'Email',
 		'Phone number',
 	]);
-	// let validations: FormProperties['validations'] = $state([
-	// 	{
-	// 		label: 'First name',
-	// 		rule: 'required',
-	// 	},
-	// 	{
-	// 		label: 'Last name',
-	// 		rule: 'required',
-	// 	},
-	// 	{
-	// 		label: 'Email',
-	// 		rule: 'email',
-	// 	},
-	// 	{
-	// 		label: 'Phone number',
-	// 		rule: 'phone',
-	// 	},
-	// ]);
+	let validations: FormProperties['validations'] = $state([
+		{
+			label: 'First name',
+			rule: 'required',
+		},
+		{
+			label: 'Last name',
+			rule: 'required',
+		},
+		{
+			label: 'Email',
+			rule: 'email',
+		},
+		{
+			label: 'Phone number',
+			rule: 'phone',
+		},
+	]);
 	let response: FormValue[] = $state([]);
 	let requireAll: FormProperties['requireAll'] = $state();
 	let random: FormProperties['random'] = $state();
 	const formResponseHandler = (event: ComponentEvent<FormValue[]>) => {
 		events.push(event);
 	};
-
-	// let labelsStringed = $state(JSON.stringify(labels));
-	// let validationsString = $state(JSON.stringify(validations));
-
-	// $effect(() => {
-	// 	labels = JSON.parse(labelsStringed);
-	// 	validations = JSON.parse(validationsString);
-	// });
 </script>
 
 <Layout
@@ -53,18 +45,18 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Labels"
-			bind:value={labelsStringed} /> -->
+			bind:value={labels} />
 		<PropsChanger
 			label="Require all"
 			bind:value={requireAll} />
 		<PropsChanger
 			label="Random"
 			bind:value={random} />
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Validations"
-			bind:value={validationsString} /> -->
+			bind:value={validations} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">

@@ -37,12 +37,6 @@
 		img.src = uploadData.data as string;
 		img.classList.remove('none');
 	};
-
-	// let formatsStringed = $state(JSON.stringify(formats));
-
-	// $effect(() => {
-	// 	formats = JSON.parse(formatsStringed);
-	// });
 </script>
 
 <Layout
@@ -54,9 +48,9 @@
 		<PropsChanger
 			label="Label"
 			bind:value={label} />
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Formats"
-			bind:value={formatsStringed} /> -->
+			bind:value={formats} />
 		<PropsChanger
 			label="Max Size"
 			bind:value={maxSize} />

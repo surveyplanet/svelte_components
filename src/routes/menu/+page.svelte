@@ -21,12 +21,6 @@
 	const menuUpdateHandler = (event: ComponentEvent<string>) => {
 		events.push(event);
 	};
-
-	// let dataStringed = $state(JSON.stringify(data));
-
-	// $effect(() => {
-	// 	data = JSON.parse(dataStringed);
-	// });
 </script>
 
 <Layout
@@ -38,9 +32,9 @@
 		<PropsChanger
 			label="Visible"
 			bind:value={menuVisible} />
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Data"
-			bind:value={dataStringed} /> -->
+			bind:value={data} />
 		<PropsChanger
 			label="Size"
 			selectOptions={['small', 'medium', 'large']}

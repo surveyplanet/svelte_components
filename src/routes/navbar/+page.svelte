@@ -32,14 +32,6 @@
 	const onNavClick = (event: ComponentEvent<string>) => {
 		events.push(event);
 	};
-
-	// let dataString = $state(JSON.stringify(data));
-	// let menuDataString = $state(JSON.stringify(navMenuData));
-
-	// $effect(() => {
-	// 	data = JSON.parse(dataString);
-	// 	navMenuData = JSON.parse(menuDataString);
-	// });
 </script>
 
 <Layout
@@ -48,12 +40,12 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Data"
-			bind:value={dataString} />
+			bind:value={data} />
 		<PropsChanger
 			label="Menu Data"
-			bind:value={menuDataString} /> -->
+			bind:value={navMenuData} />
 		<PropsChanger
 			label="Vertical"
 			bind:value={vertical} />

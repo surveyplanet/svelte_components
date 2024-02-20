@@ -33,11 +33,6 @@
 	) => {
 		events.push(event);
 	};
-
-	// let responseString = $state(JSON.stringify(response));
-	// $effect(() => {
-	// 	response = JSON.parse(responseString);
-	// });
 </script>
 
 <Layout

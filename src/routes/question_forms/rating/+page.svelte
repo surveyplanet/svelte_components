@@ -42,11 +42,6 @@
 	const ratingResponseHandler = (event: ComponentEvent<RatingValue[]>) => {
 		events.push(event);
 	};
-	// let labelStringed = $state(JSON.stringify(labels));
-
-	// $effect(() => {
-	// 	labels = JSON.parse(labelStringed);
-	// });
 </script>
 
 <Layout
@@ -58,9 +53,9 @@
 		<PropsChanger
 			label="ID"
 			bind:value={id} />
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Labels"
-			bind:value={labelStringed} /> -->
+			bind:value={labels} />
 		<PropsChanger
 			label="Order"
 			bind:value={order}

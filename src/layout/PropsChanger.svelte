@@ -98,7 +98,8 @@
 				size={FORM_CONTROL_SIZE}
 				onCheckboxChange={onInput} />
 		{:else if type === 'json'}
-			<JsonEditor />
+			<p>{label}</p>
+			<JsonEditor bind:data={value} />
 		{:else if type === 'select'}
 			<Dropdown
 				{options}

@@ -31,16 +31,6 @@
 	const scoringResponseHandler = (event: ComponentEvent<ScoringValue[]>) => {
 		events.push(event);
 	};
-
-	// let definitionString = $state(JSON.stringify(definitions));
-	// let valuesString = $state(JSON.stringify(values));
-	// let labelsString = $state(JSON.stringify(labels));
-
-	// $effect(() => {
-	// 	definitions = JSON.parse(definitionString);
-	// 	values = JSON.parse(valuesString);
-	// 	labels = JSON.parse(labelsString);
-	// });
 </script>
 
 <Layout
@@ -68,15 +58,15 @@
 		<PropsChanger
 			label="Require Unique"
 			bind:value={requireUnique} />
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Definitions"
-			bind:value={definitionString} />
+			bind:value={definitions} />
 		<PropsChanger
 			label="Values"
-			bind:value={valuesString} />
+			bind:value={values} />
 		<PropsChanger
 			label="Labels"
-			bind:value={labelsString} /> -->
+			bind:value={labels} />
 		<PropsChanger
 			label="Max Label"
 			bind:value={maxLabel} />

@@ -54,9 +54,9 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<!-- <PropsChanger
+		<PropsChanger
 			label="Data"
-			bind:value={dataStringed} /> -->
+			bind:value={data} />
 		<PropsChanger
 			label="Block"
 			bind:value={block} />
