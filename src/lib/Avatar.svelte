@@ -3,7 +3,7 @@
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
 	export type AvatarProps = HTMLAttributes<HTMLButtonElement> & {
-		profileImage: string;
+		profileImage?: string;
 		id?: string;
 		size?: 'small' | 'medium' | 'large';
 		disabled?: boolean;
@@ -13,7 +13,7 @@
 
 <script lang="ts">
 	import { transformImage } from '@surveyplanet/utilities';
-	import { ComponentEvent } from '$lib';
+	import { ComponentEvent } from './';
 
 	let {
 		profileImage,
