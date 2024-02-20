@@ -1,13 +1,11 @@
 <script lang="ts">
-	import { ComponentEvent, Dropdown, type DropdownOption } from '$lib';
+	import { ComponentEvent, Dropdown, type DropdownProps } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<string>[]>([]);
+	let events: ComponentEvent<string>[] = $state([]);
 
-	let keys = $state(0);
-
-	let options: DropdownOption[] = $state([
+	let options: DropdownProps['options'] = $state([
 		// {
 		// 	label: 'None',
 		// 	id: '',
@@ -49,13 +47,13 @@
 		},
 	]);
 
-	let searchThreshold = $state(2);
-	let disabled = $state(false);
-	let required = $state(false);
-	let value = $state(undefined);
-	let placeholder = $state('Choose one');
-	let label = $state('Dropdown component');
-	let size: 'small' | 'medium' | 'large' = $state('small');
+	let searchThreshold: DropdownProps['searchThreshold'] = $state(2);
+	let disabled: DropdownProps['disabled'] = $state(false);
+	let required: DropdownProps['required'] = $state(false);
+	let value: DropdownProps['value'] = $state(undefined);
+	let placeholder: DropdownProps['placeholder'] = $state('Choose one');
+	let label: DropdownProps['label'] = $state('Dropdown component');
+	let size: DropdownProps['size'] = $state('small');
 
 	const onDropdownChange = (event: ComponentEvent<string>) => {
 		events.push(event);
@@ -112,17 +110,15 @@
 			bind:value={size} />
 	{/snippet}
 	{#snippet main()}
-		{#key keys}
-			<Dropdown
-				bind:options
-				{searchThreshold}
-				{disabled}
-				{required}
-				{value}
-				{placeholder}
-				{label}
-				{size}
-				{onDropdownChange} />
-		{/key}
+		<Dropdown
+			bind:options
+			{searchThreshold}
+			{disabled}
+			{required}
+			{value}
+			{placeholder}
+			{label}
+			{size}
+			{onDropdownChange} />
 	{/snippet}
 </Layout>

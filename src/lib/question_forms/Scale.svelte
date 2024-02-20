@@ -12,7 +12,7 @@
 </script>
 
 <script lang="ts">
-	import { ComponentEvent } from '$lib';
+	import { ComponentEvent } from '../';
 	import type { ScaleValue, ScaleProperties } from '@surveyplanet/types';
 	import { RangeSlider } from 'svelte-range-slider-pips';
 

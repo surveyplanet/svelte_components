@@ -1,15 +1,26 @@
 <script lang="ts">
-	import { Upload, ComponentEvent, type UploadData } from '$lib';
+	import {
+		Upload,
+		ComponentEvent,
+		type UploadData,
+		type UploadProps,
+	} from '$lib';
 
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<UploadData>[]>([]);
+	let events: ComponentEvent<UploadData>[] = $state([]);
 	import { default as source } from './example';
 	// let keys = $state(0);
 
-	let label = $state('Upload');
-	let formats = $state(['.jpg', '.jpeg', '.png', '.gif', '.pdf']);
-	let maxSize = $state(10);
+	let label: UploadProps['label'] = $state('Upload');
+	let formats: UploadProps['formats'] = $state([
+		'.jpg',
+		'.jpeg',
+		'.png',
+		'.gif',
+		'.pdf',
+	]);
+	let maxSize: UploadProps['maxSize'] = $state(10);
 
 	const onUploadUpload = (event: ComponentEvent<UploadData>) => {
 		if (event.value) {

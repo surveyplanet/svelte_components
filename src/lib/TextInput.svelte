@@ -39,7 +39,7 @@
 	import { validate, type ValidatorError } from '@surveyplanet/utilities';
 	import Cleave from 'cleave.js';
 	import type { CleaveOptions } from 'cleave.js/options';
-	import { Icon, ComponentEvent } from '$lib';
+	import { Icon, ComponentEvent } from './';
 	import { onMount } from 'svelte';
 
 	let {

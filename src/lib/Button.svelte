@@ -28,7 +28,7 @@
 
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { ComponentEvent } from '$lib';
+	import { ComponentEvent } from './';
 	let {
 		mode = 'primary', // commonly used mode
 		disabled,

@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { ProgressBar } from '$lib/index';
+	import { ProgressBar, type ProgressBarProps } from '$lib/index';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events = $state<string[]>([]);
 
-	let speed = $state(1000);
-	let max = $state(100);
-	let value = $state(20);
-	let displayValue = $state(true);
+	let speed: ProgressBarProps['speed'] = $state(1000);
+	let max: ProgressBarProps['max'] = $state(100);
+	let value: ProgressBar['value'] = $state(20);
+	let displayValue: ProgressBar['displayValue'] = $state(true);
 </script>
 
 <Layout

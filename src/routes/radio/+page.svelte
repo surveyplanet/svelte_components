@@ -1,19 +1,19 @@
 <script lang="ts">
-	import { Radio, type ComponentEvent } from '$lib';
+	import { Radio, type ComponentEvent, type RadioProps } from '$lib';
 
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
 	let events = $state<ComponentEvent<boolean>[]>([]);
 
-	let id = 'radio';
-	let name = $state('stooge');
-	let label = $state('Harry');
-	let labelTwo = $state('Larry');
-	let labelThree = $state('Moe');
-	let disabled = $state(false);
-	let prependLabel = $state(false);
-	let size: 'small' | 'medium' | 'large' = $state('small');
+	let id: RadioProps['id'] = 'radio';
+	let name: RadioProps['name'] = $state('stooge');
+	let label: RadioProps['label'] = $state('Harry');
+	let labelTwo: RadioProps['label'] = $state('Larry');
+	let labelThree: RadioProps['label'] = $state('Moe');
+	let disabled: RadioProps['disabled'] = $state(false);
+	let prependLabel: RadioProps['prependLabel'] = $state(false);
+	let size: RadioProps['size'] = $state('small');
 
 	const onRadioChange = (event: ComponentEvent<boolean>): void => {
 		events.push(event);
@@ -52,7 +52,7 @@
 	{#snippet main()}
 		<div id="wrapper">
 			<Radio
-				id={label.toLowerCase().replace(' ', '-')}
+				id={label!.toLowerCase().replace(' ', '-')}
 				{disabled}
 				{name}
 				value={label}
@@ -61,7 +61,7 @@
 				{size}
 				{onRadioChange} />
 			<Radio
-				id={labelTwo.toLowerCase().replace(' ', '-')}
+				id={labelTwo!.toLowerCase().replace(' ', '-')}
 				{disabled}
 				{name}
 				value={labelTwo}
@@ -70,7 +70,7 @@
 				{size}
 				{onRadioChange} />
 			<Radio
-				id={labelThree.toLowerCase().replace(' ', '-')}
+				id={labelThree!.toLowerCase().replace(' ', '-')}
 				{disabled}
 				{name}
 				value={labelThree}

@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { ComponentEvent, TabBar, type TabBarData } from '$lib';
+	import { ComponentEvent, TabBar, type TabBarProps } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
 	let events = $state<ComponentEvent<string>[]>([]);
 
-	let data: TabBarData[] = $state([
+	let data: TabBarProps['data'] = $state([
 		{
 			id: 'edit',
 			label: 'Edit',
@@ -31,10 +31,11 @@
 		},
 	]);
 
-	let block = $state(false);
-	let plain = $state(true);
-	let defaultIndicatorWidth = $state(114);
-	let defaultIndicatorX: number | undefined = $state(4);
+	let block: TabBarProps['block'] = $state(false);
+	let plain: TabBarProps['plain'] = $state(true);
+	let defaultIndicatorWidth: TabBarProps['defaultIndicatorWidth'] =
+		$state(114);
+	let defaultIndicatorX: TabBarProps['defaultIndicatorX'] = $state(4);
 
 	const tabButtonClickHandler = (event: ComponentEvent<string>): void => {
 		events.push(event);

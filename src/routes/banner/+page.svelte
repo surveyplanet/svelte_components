@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { Banner } from '$lib';
+	import { Banner, type BannerProps } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<string[]>([]);
 
-	let title = $state('');
-	let type: 'info' | 'warning' | 'error' | 'success' = $state('info');
-	let visible = $state(true);
-	let hideDelay = $state(0);
+	let title: BannerProps['title'] = $state('');
+	let type: BannerProps['type'] = $state('info');
+	let visible: BannerProps['visible'] = $state(true);
+	let hideDelay: BannerProps['hideDelay'] = $state(0);
 	let content = $state(
 		'Your email address has not been verified. For your security please <a href="https://surveyplanet.com/verify-email"> verify your email</a> address before logging in.'
 	);
@@ -18,8 +17,7 @@
 <Layout
 	component="Banner"
 	example={source({ content, title, type, visible, hideDelay })}
-	{md}
-	bind:events>
+	{md}>
 	{#snippet controls()}
 		<PropsChanger
 			label="Title"

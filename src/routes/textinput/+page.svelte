@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { TextInput, type TextInputType, type ComponentEvent } from '$lib';
+	import { TextInput, type ComponentEvent, type TextInputProps } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import source from './example';
 	import md from './docs.md?raw';
@@ -7,18 +7,18 @@
 
 	// let keys = $state(0);
 
-	let id = $state('basic-text');
-	let name = $state('basic-text');
-	let type: TextInputType = $state('text');
-	let value: string = $state('');
-	let label = $state('Text input');
-	let placeholder = $state('Placeholder');
-	let readonly = $state(false);
-	let disabled = $state(false);
-	let cleaveOptions = $state({});
-	let validationRules: string[] = $state([]);
-	let validationMessage: string = $state('');
-	let size: 'small' | 'medium' | 'large' = $state('small');
+	let id: TextInputProps['id'] = $state('basic-text');
+	let name: TextInputProps['name'] = $state('basic-text');
+	let type: TextInputProps['type'] = $state('text');
+	let value: TextInputProps['value'] = $state('');
+	let label: TextInputProps['label'] = $state('Text input');
+	let placeholder: TextInputProps['placeholder'] = $state('Placeholder');
+	let readonly: TextInputProps['readonly'] = $state(false);
+	let disabled: TextInputProps['disabled'] = $state(false);
+	let cleaveOptions: TextInputProps['cleaveOptions'] = $state({});
+	let validationRules: TextInputProps['validationRules'] = $state([]);
+	let validationMessage: TextInputProps['validationMessage'] = $state('');
+	let size: TextInputProps['size'] = $state('small');
 
 	const onTextInputChange = (event: ComponentEvent<string>): void => {
 		events.push(event);

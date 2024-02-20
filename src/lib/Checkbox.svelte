@@ -15,13 +15,13 @@
 </script>
 
 <script lang="ts">
-	import { ComponentEvent } from './events/component_event';
+	import { ComponentEvent } from './';
 	let {
 		id,
 		name,
 		value,
 		label,
-		checked = false,
+		checked,
 		disabled,
 		prependLabel,
 		size = 'small', // seems like a usual size we use

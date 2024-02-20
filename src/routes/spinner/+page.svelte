@@ -1,23 +1,25 @@
 <script lang="ts">
-	import { ComponentEvent, Spinner } from '$lib';
+	import { ComponentEvent, Spinner, type SpinnerProps } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<number | undefined | string>[]>([]);
+	let events: ComponentEvent<number | undefined | string>[] = $state([]);
 	import { default as source } from './example';
 	// let keys = $state(0);
 
-	let label = $state('Number Spinner');
-	let step = $state(1);
-	let min = $state(0);
-	let max = $state(100);
-	let value: number | undefined = $state(undefined);
-	let disabled = $state(false);
-	let required = $state(false);
-	let overflow = $state(false);
-	let id = $state((Date.now() + Math.random()).toString(36));
-	let placeholder = $state('Please put in the number');
-	let dragSpeed = $state(10);
-	let size: 'small' | 'medium' | 'large' = $state('small');
+	let label: SpinnerProps['label'] = $state('Number Spinner');
+	let step: SpinnerProps['step'] = $state(1);
+	let min: SpinnerProps['min'] = $state(0);
+	let max: SpinnerProps['max'] = $state(100);
+	let value: SpinnerProps['value'] = $state(undefined);
+	let disabled: SpinnerProps['disabled'] = $state(false);
+	let required: SpinnerProps['required'] = $state(false);
+	let overflow: SpinnerProps['overflow'] = $state(false);
+
+	let placeholder: SpinnerProps['placeholder'] = $state(
+		'Please put in the number'
+	);
+	let dragSpeed: SpinnerProps['dragSpeed'] = $state(10);
+	let size: SpinnerProps['size'] = $state('small');
 
 	const onSpinnerChange = (event: ComponentEvent<number | undefined>) => {
 		events.push(event);
@@ -51,7 +53,6 @@
 		disabled,
 		required,
 		overflow,
-		id,
 		placeholder,
 		dragSpeed,
 		size,
@@ -84,9 +85,6 @@
 			label="Overflow"
 			bind:value={overflow} />
 		<PropsChanger
-			label="Id"
-			bind:value={id} />
-		<PropsChanger
 			label="Placeholder"
 			bind:value={placeholder} />
 		<PropsChanger
@@ -107,7 +105,6 @@
 			{disabled}
 			{required}
 			{overflow}
-			{id}
 			{placeholder}
 			{dragSpeed}
 			{size}

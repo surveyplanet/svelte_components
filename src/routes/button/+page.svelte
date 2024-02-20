@@ -1,19 +1,19 @@
 <script lang="ts">
-	import { Button, ComponentEvent, type ButtonMode } from '$lib';
+	import { Button, ComponentEvent, type ButtonProps } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<undefined>[]>([]);
+	let events: ComponentEvent<undefined>[] = $state([]);
 
+	let mode: ButtonProps['mode'] = $state('primary');
+	let disabled: ButtonProps['disabled'] = $state(false);
+	let loader: ButtonProps['loader'] = $state(false);
+	let round: ButtonProps['round'] = $state(false);
+	let block: ButtonProps['block'] = $state(false);
+	let action: ButtonProps['action'] = $state(false);
+	let type: ButtonProps['type'] = $state('button');
+	let size: ButtonProps['size'] = $state('medium');
 	let content = $state('Submit');
-	let mode = $state<ButtonMode>('primary');
-	let disabled = $state(false);
-	let loader = $state(false);
-	let round = $state(false);
-	let block = $state(false);
-	let action = $state(false);
-	let type: 'button' | 'submit' | 'reset' = $state('button');
-	let size: 'small' | 'medium' | 'large' = $state('medium');
 
 	const onButtonClick = (event: ComponentEvent<undefined>): void => {
 		events.push(event);

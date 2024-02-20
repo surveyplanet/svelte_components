@@ -1,19 +1,21 @@
 <script lang="ts">
-	import { Checkbox, ComponentEvent } from '$lib';
+	import { Checkbox, ComponentEvent, type CheckboxProps } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<boolean>[]>([]);
+	let events: ComponentEvent<boolean>[] = $state([]);
 
-	let id: string = $state((Date.now() + Math.random()).toString(36));
-	let name = $state('checkbox');
-	let value: string = $state('checkbox');
-	let label = $state('Checkbox');
+	let id: CheckboxProps['id'] = $state(
+		(Date.now() + Math.random()).toString(36)
+	);
+	let name: CheckboxProps['name'] = $state('checkbox');
+	let value: CheckboxProps['value'] = $state('checkbox');
+	let label: CheckboxProps['label'] = $state('Checkbox');
 
-	let checked = $state(false);
-	let disabled = $state(false);
-	let prependLabel = $state(false);
-	let size: 'small' | 'medium' | 'large' = $state('small');
+	let checked: CheckboxProps['checked'] = $state(false);
+	let disabled: CheckboxProps['disabled'] = $state(false);
+	let prependLabel: CheckboxProps['prependLabel'] = $state(false);
+	let size: CheckboxProps['size'] = $state('small');
 
 	const onCheckboxChange = (event: ComponentEvent<boolean>): void => {
 		events.push(event);

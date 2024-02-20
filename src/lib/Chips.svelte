@@ -19,7 +19,7 @@
 </script>
 
 <script lang="ts">
-	import { Icon, ComponentEvent } from '$lib';
+	import { Icon, ComponentEvent } from './';
 
 	let {
 		data,

@@ -17,7 +17,7 @@
 
 <script lang="ts">
 	import type { ImageValue, ImageProperties } from '@surveyplanet/types';
-	import { ComponentEvent } from '$lib';
+	import { ComponentEvent } from '../';
 	import {
 		transformImage,
 		type TransformOptions,

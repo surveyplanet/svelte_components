@@ -8,7 +8,7 @@
 	// let keys = $state(0);
 
 	// Component props
-	let id = $state('abc123');
+	let id = $state('abc123'); // for name, jonah said leave it
 	let labels: ImageProperties['labels'] = $state([
 		{
 			image: 'https://media.surveyplanet.com/testing/default',

@@ -10,7 +10,7 @@
 </script>
 
 <script lang="ts">
-	import { COLORS } from '$lib/_definitions';
+	import { COLORS } from './';
 	const STROKE_OFFSET = 63 as const;
 	const DEFAULT_SIZE = 72 as const;
 

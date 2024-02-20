@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { Icon, type IconName, type IconSize } from '$lib';
+	import { Icon, type IconProps } from '$lib';
 	import { COLORS } from '$lib/_definitions';
 	import ICON_DATA from '$lib/_icon_data';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<string[]>([]);
+	let events: string[] = $state([]);
 
-	let color = $state(COLORS.dark);
-	let size: IconSize = $state(24);
-	let name: IconName = $state('bell');
-	let debug = $state(false);
+	let color: IconProps['color'] = $state(COLORS.dark);
+	let size: IconProps['size'] = $state(24);
+	let name: IconProps['name'] = $state('bell');
+	let debug: IconProps['debug'] = $state(false);
 </script>
 
 <Layout

@@ -1,17 +1,12 @@
 <script lang="ts">
-	import {
-		NavBar,
-		type MenuData,
-		type NavBarData,
-		ComponentEvent,
-	} from '$lib/index';
+	import { NavBar, ComponentEvent, type NavBarProps } from '$lib/index';
 	import { menuData } from '../menu/menu_data';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<string>[]>([]);
+	let events: ComponentEvent<string>[] = $state([]);
 
-	let data: NavBarData[] = $state([
+	let data: NavBarProps['data'] = $state([
 		{
 			icon: 'edit',
 			link: '#edit',
@@ -31,8 +26,8 @@
 		},
 	]);
 
-	let navMenuData: MenuData[] = $state(menuData);
-	let vertical = $state(false);
+	let navMenuData: NavBarProps['navMenuData'] = $state(menuData);
+	let vertical: NavBarProps['vertical'] = $state(false);
 
 	const onNavClick = (event: ComponentEvent<string>) => {
 		events.push(event);

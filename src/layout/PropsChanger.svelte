@@ -78,7 +78,7 @@
 
 <div class="props-changer">
 	<div class="props-changer--item {className}">
-		{#if type === 'number' && typeof value === 'number'}
+		{#if type === 'number' && (typeof value === 'number' || typeof value === 'undefined')}
 			<Spinner
 				id="number-{(Date.now() + Math.random()).toString(36)}"
 				{label}
@@ -88,7 +88,7 @@
 				size={FORM_CONTROL_SIZE}
 				onSpinnerInput={onInput}
 				onSpinnerBlur={onBlur} />
-		{:else if type === 'boolean' && typeof value === 'boolean'}
+		{:else if type === 'boolean' && (typeof value === 'boolean' || typeof value === 'undefined')}
 			<Checkbox
 				id="boolean-{(Date.now() + Math.random()).toString(36)}"
 				{label}
@@ -107,7 +107,7 @@
 				placeholder={value?.toString() || 'Select an option'}
 				value={dropdownValue}
 				onDropdownChange={dropdownChangeHandler} />
-		{:else if type === 'string' && typeof value === 'string'}
+		{:else if type === 'string' && (typeof value === 'string' || typeof value === 'undefined')}
 			<TextInput
 				id={`text-${label}`}
 				name="text"
