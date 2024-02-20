@@ -40,7 +40,7 @@
 	const isValidProfileImage = (): boolean => {
 		return (
 			Object.prototype.toString.call(profileImage) ===
-				'[object String]' && profileImage.startsWith('http')
+				'[object String]' && profileImage!.startsWith('http')
 		);
 	};
 
@@ -55,14 +55,14 @@
 
 	const loadProfileImage = async (): Promise<string> => {
 		if (isValidProfileImage()) {
-			const src = await transformImage(profileImage, {
+			const src = await transformImage(profileImage!, {
 				width: profileImageSize,
 				height: profileImageSize,
 				fit: 'cover',
 			});
 			return new Promise((resolve, reject) => {
 				const img = new Image();
-				img.src = profileImage;
+				img.src = profileImage!;
 				img.onerror = reject;
 				img.onload = async () => {
 					// await dalay(10000); // test loading
