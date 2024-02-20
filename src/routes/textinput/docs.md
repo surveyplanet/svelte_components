@@ -15,7 +15,7 @@
 | `[validationMessage]`     | string                           | Custom validation error message.                  |
 | `[size='small']`          | 'small' \| 'medium' \| 'large'   | The size of the text input.                       |
 | `[validationHideMessage]` | boolean                          | If `true`, hides the validation error message.    |
-| `[...attr] `              | HTMLAttributes<HTMLInputElement> | Other attributes to be spread on the element.     |
+| `[...attr] `              | HTMLAttributes<HTMLInputElement> | Additional attributes to be expanded on to primary the node.     |
 
 ### Callbacks
 

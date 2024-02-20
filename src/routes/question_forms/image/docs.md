@@ -12,7 +12,7 @@
 | `[random]`        | ImageProperties['random']       | If set to `true`, the order of images will be randomized.                |
 | `[contain]`       | ImageProperties['contain']      | If set to `true`, contains the entire image within the specified size.   |
 | `[response={[]}]` | ImageValue[]                    | Array of image values containing label-value pairs.                      |
-| `[...attr] `      | HTMLAttributes<HTMLFormElement> | Other attributes to be spread on the element.                            |
+| `[...attr] `      | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node.                            |
 
 ### Callbacks
 

@@ -7,7 +7,7 @@
 | `[size={24}]`            | IconSize                   | Size of the icon.                             |
 | `[strokeWidth={2}]`      | number                     | Stroke width of the icon.                     |
 | `[debug]`                | boolean                    | Enable debug mode for the icon.               |
-| `[...attr] `             | HTMLAttributes<SVGElement> | Other attributes to be spread on the element. |
+| `[...attr] `             | HTMLAttributes<SVGElement> | Additional attributes to be expanded on to primary the node. |
 
 ### Interfaces
 

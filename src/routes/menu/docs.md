@@ -6,7 +6,7 @@
 | `[size='small']` | String                         | Size of the menu, one of `'small'`, `'medium'`, or `'large'`. |
 | `[header]`       | Snippet                        | Custom content for the menu header.                           |
 | `[footer]`       | Snippet                        | Custom content for the menu footer.                           |
-| `[...attr] `     | HTMLAttributes<HTMLDivElement> | Other attributes to be spread on the element.                 |
+| `[...attr] `     | HTMLAttributes<HTMLDivElement> | Additional attributes to be expanded on to primary the node.                 |
 
 ### Callbacks
 

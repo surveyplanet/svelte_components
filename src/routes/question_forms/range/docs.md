@@ -8,7 +8,7 @@
 | `min`             | number                          | The minimum value of the range.               |
 | `max`             | number                          | The maximum value of the range.               |
 | `[response={[]}]` | RangeValue[]                    | Array containing the selected range values.   |
-| `[...attr] `      | HTMLAttributes<HTMLFormElement> | Other attributes to be spread on the element. |
+| `[...attr] `      | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node. |
 
 ### Callbacks
 

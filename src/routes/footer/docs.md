@@ -3,7 +3,7 @@
 | Property     | Type                        | Description                                     |
 | ------------ | --------------------------- | ----------------------------------------------- |
 | `footerData` | FooterData[]                | Array of objects representing the footer items. |
-| `[...attr] ` | HTMLAttributes<HTMLElement> | Other attributes to be spread on the element.   |
+| `[...attr] ` | HTMLAttributes<HTMLElement> | Additional attributes to be expanded on to primary the node.   |
 
 ### Interfaces
 

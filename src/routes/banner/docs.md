@@ -7,4 +7,4 @@
 | `[visible]`        | boolean                        | Whether the banner is visible.                                                                    |
 | `[hideDelay=0]`    | number                         | Time in milliseconds before the banner is hidden. A value of 0 means it won't hide automatically. |
 | `[children]`       | Snippet                        | Optional content to be displayed inside the banner.                                               |
-| `[...attr] `       | HTMLAttributes<HTMLDivElement> | Other attributes to be spread on the element.                                                     |
+| `[...attr] `       | HTMLAttributes<HTMLDivElement> | Additional attributes to be expanded on to primary the node.                                                     |

@@ -8,7 +8,7 @@
 | `min`             | ScaleProperties['min']          | The minimum value of the scale.               |
 | `max`             | ScaleProperties['max']          | The maximum value of the scale.               |
 | `[response={[]}]` | ScaleValue[]                    | Array containing the selected scale values.   |
-| `[...attr] `      | HTMLAttributes<HTMLFormElement> | Other attributes to be spread on the element. |
+| `[...attr] `      | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node. |
 
 ### Callbacks
 
