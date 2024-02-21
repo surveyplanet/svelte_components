@@ -31,6 +31,11 @@
 		...attr
 	} = $props<ChipsProps>();
 
+	// let newData = $derived(data);
+	// $effect(() => {
+	// 	data = newData;
+	// });
+
 	const getChipId = (chipEl: HTMLButtonElement) => {
 		const parent = chipEl.closest('.sp-chips--chip')! as HTMLButtonElement;
 		return parent.id;

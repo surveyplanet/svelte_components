@@ -65,8 +65,8 @@
 			{id}
 			{name}
 			{label}
-			{value}
-			{checked}
+			bind:value
+			bind:checked
 			{disabled}
 			{prependLabel}
 			{size}

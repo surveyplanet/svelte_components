@@ -59,7 +59,7 @@
 	// });
 
 	let {
-		value = '',
+		value,
 		basic = true,
 		lang = undefined,
 		theme = undefined,
@@ -71,159 +71,161 @@
 		editable = true,
 		readonly = false,
 		placeholder = undefined,
-		nodeBounce = false,
+		nodeBounce = true,
 		onCodeMirrorChange,
 	} = $props<CodeMirrorProps>();
 	let classes = '';
+
 	export { classes as class };
 
 	const is_browser = typeof window !== 'undefined';
 
 	let element: HTMLDivElement | null = $state(null);
 	let view: EditorView;
-
-	const dispatch = (newValue: string) => {
-		if (typeof onCodeMirrorChange === 'function' && element !== null) {
-			const componentEvent: ComponentEvent<string> = {
-				value: newValue,
-				target: element,
-				raw: undefined,
-			};
-			onCodeMirrorChange(componentEvent);
-		}
-	};
-
-	let update_from_prop = false;
-	let update_from_state = false;
-	let first_config = true;
-	let first_update = true;
-	let state_extensions = $state([
-		...get_base_extensions(
-			basic,
-			useTab,
-			tabSize,
-			lineWrapping,
-			placeholder,
-			editable,
-			readonly,
-			lang
-		),
-		...get_theme(theme, styles),
-		...(extensions ?? []),
-	]);
 	$effect(() => {
-		view && update(value);
-	});
+		const dispatch = (newValue: string) => {
+			if (typeof onCodeMirrorChange === 'function' && element !== null) {
+				const componentEvent: ComponentEvent<string> = {
+					value: newValue,
+					target: element,
+					raw: undefined,
+				};
+				onCodeMirrorChange(componentEvent);
+			}
+		};
 
-	$effect(() => {
-		view && state_extensions && reconfigure();
-	});
-
-	let on_change = $derived(
-		nodeBounce ? handle_change : debounce(handle_change, 300)
-	);
-
-	onMount(() => (view = create_editor_view()));
-
-	onDestroy(() => view?.destroy());
-
-	function create_editor_view(): EditorView {
-		return new EditorView({
-			parent: element!,
-			state: create_editor_state(value),
-			dispatch(transaction) {
-				view.update([transaction]);
-
-				if (!update_from_prop && transaction.docChanged) {
-					on_change();
-				}
-			},
+		let update_from_prop = false;
+		let update_from_state = false;
+		let first_config = true;
+		let first_update = true;
+		let state_extensions = $state([
+			...get_base_extensions(
+				basic,
+				useTab,
+				tabSize,
+				lineWrapping,
+				placeholder,
+				editable,
+				readonly,
+				lang
+			),
+			...get_theme(theme, styles),
+			...(extensions ?? []),
+		]);
+		$effect(() => {
+			view && update(value);
 		});
-	}
 
-	function reconfigure(): void {
-		if (first_config) {
-			first_config = false;
-			return;
-		}
-		if (state_extensions !== undefined) {
-			view.dispatch({
-				effects: StateEffect.reconfigure.of(state_extensions),
+		$effect(() => {
+			view && state_extensions && reconfigure();
+		});
+
+		let on_change = $derived(
+			nodeBounce ? handle_change : debounce(handle_change, 300)
+		);
+
+		onMount(() => (view = create_editor_view()));
+
+		onDestroy(() => view?.destroy());
+
+		function create_editor_view(): EditorView {
+			return new EditorView({
+				parent: element!,
+				state: create_editor_state(value),
+				dispatch(transaction) {
+					view.update([transaction]);
+
+					if (!update_from_prop && transaction.docChanged) {
+						on_change();
+					}
+				},
 			});
 		}
-	}
 
-	function update(value: string | null | undefined): void {
-		if (first_update) {
-			first_update = false;
-			return;
+		function reconfigure(): void {
+			if (first_config) {
+				first_config = false;
+				return;
+			}
+			if (state_extensions !== undefined) {
+				view.dispatch({
+					effects: StateEffect.reconfigure.of(state_extensions),
+				});
+			}
 		}
 
-		if (update_from_state) {
-			update_from_state = false;
-			return;
+		function update(value: string | null | undefined): void {
+			if (first_update) {
+				first_update = false;
+				return;
+			}
+
+			if (update_from_state) {
+				update_from_state = false;
+				return;
+			}
+
+			update_from_prop = true;
+
+			view.setState(create_editor_state(value));
+
+			update_from_prop = false;
 		}
 
-		update_from_prop = true;
+		function handle_change(): void {
+			const new_value = view.state.doc.toString();
+			if (new_value === value) return;
 
-		view.setState(create_editor_state(value));
+			update_from_state = true;
 
-		update_from_prop = false;
-	}
+			value = new_value;
+			dispatch(value);
+		}
 
-	function handle_change(): void {
-		const new_value = view.state.doc.toString();
-		if (new_value === value) return;
+		function create_editor_state(
+			value: string | null | undefined
+		): EditorState {
+			return EditorState.create({
+				doc: value ?? undefined,
+				extensions: state_extensions,
+			});
+		}
 
-		update_from_state = true;
+		function get_base_extensions(
+			basic: boolean,
+			useTab: boolean,
+			tabSize: number,
+			lineWrapping: boolean,
+			placeholder: string | HTMLElement | null | undefined,
+			editable: boolean,
+			readonly: boolean,
+			lang: LanguageSupport | null | undefined
+		): Extension[] {
+			const extensions: Extension[] = [
+				indentUnit.of(' '.repeat(tabSize)),
+				EditorView.editable.of(editable),
+				EditorState.readOnly.of(readonly),
+			];
 
-		value = new_value;
-		dispatch(value);
-	}
+			if (basic) extensions.push(basicSetup);
+			if (useTab) extensions.push(keymap.of([indentWithTab]));
+			if (placeholder) extensions.push(placeholderExt(placeholder));
+			if (lang) extensions.push(lang);
+			if (lineWrapping) extensions.push(EditorView.lineWrapping);
 
-	function create_editor_state(
-		value: string | null | undefined
-	): EditorState {
-		return EditorState.create({
-			doc: value ?? undefined,
-			extensions: state_extensions,
-		});
-	}
+			return extensions;
+		}
 
-	function get_base_extensions(
-		basic: boolean,
-		useTab: boolean,
-		tabSize: number,
-		lineWrapping: boolean,
-		placeholder: string | HTMLElement | null | undefined,
-		editable: boolean,
-		readonly: boolean,
-		lang: LanguageSupport | null | undefined
-	): Extension[] {
-		const extensions: Extension[] = [
-			indentUnit.of(' '.repeat(tabSize)),
-			EditorView.editable.of(editable),
-			EditorState.readOnly.of(readonly),
-		];
-
-		if (basic) extensions.push(basicSetup);
-		if (useTab) extensions.push(keymap.of([indentWithTab]));
-		if (placeholder) extensions.push(placeholderExt(placeholder));
-		if (lang) extensions.push(lang);
-		if (lineWrapping) extensions.push(EditorView.lineWrapping);
-
-		return extensions;
-	}
-
-	function get_theme(
-		theme: Extension | null | undefined,
-		styles: ThemeSpec | null | undefined
-	): Extension[] {
-		const extensions: Extension[] = [];
-		if (styles) extensions.push(EditorView.theme(styles));
-		if (theme) extensions.push(theme);
-		return extensions;
-	}
+		function get_theme(
+			theme: Extension | null | undefined,
+			styles: ThemeSpec | null | undefined
+		): Extension[] {
+			const extensions: Extension[] = [];
+			if (styles) extensions.push(EditorView.theme(styles));
+			if (theme) extensions.push(theme);
+			return extensions;
+		}
+	});
 </script>
 
 {#if is_browser}
@@ -231,111 +233,16 @@
 		class="codemirror-wrapper {classes}"
 		bind:this={element} />
 {:else}
-	<div class="scm-waiting {classes}">
-		<div class="scm-waiting__loading scm-loading">
-			<div class="scm-loading__spinner" />
-			<p class="scm-loading__text">Loading editor...</p>
+	{#key value}
+		<div class="scm-waiting {classes}">
+			<div class="scm-waiting__loading scm-loading">
+				<div class="scm-loading__spinner" />
+				<p class="scm-loading__text">Loading editor...</p>
+			</div>
+			<pre class="scm-pre cm-editor">{value}</pre>
 		</div>
-
-		<pre class="scm-pre cm-editor">{value}</pre>
-	</div>
+	{/key}
 {/if}
-
-<svelte:head>
-	<style lang="scss">
-		.cm-s-base16-dark.CodeMirror {
-			background: #151515;
-			color: #e0e0e0;
-		}
-		.cm-s-base16-dark div.CodeMirror-selected {
-			background: #303030;
-		}
-		.cm-s-base16-dark .CodeMirror-line::selection,
-		.cm-s-base16-dark .CodeMirror-line > span::selection,
-		.cm-s-base16-dark .CodeMirror-line > span > span::selection {
-			background: rgba(48, 48, 48, 0.99);
-		}
-		.cm-s-base16-dark .CodeMirror-line::-moz-selection,
-		.cm-s-base16-dark .CodeMirror-line > span::-moz-selection,
-		.cm-s-base16-dark .CodeMirror-line > span > span::-moz-selection {
-			background: rgba(48, 48, 48, 0.99);
-		}
-		.cm-s-base16-dark .CodeMirror-gutters {
-			background: #151515;
-			border-right: 0px;
-		}
-		.cm-s-base16-dark .CodeMirror-guttermarker {
-			color: #ac4142;
-		}
-		.cm-s-base16-dark .CodeMirror-guttermarker-subtle {
-			color: #505050;
-		}
-		.cm-s-base16-dark .CodeMirror-linenumber {
-			color: #505050;
-		}
-		.cm-s-base16-dark .CodeMirror-cursor {
-			border-left: 1px solid #b0b0b0;
-		}
-		.cm-s-base16-dark.cm-fat-cursor .CodeMirror-cursor {
-			background-color: #8e8d8875 !important;
-		}
-		.cm-s-base16-dark .cm-animate-fat-cursor {
-			background-color: #8e8d8875 !important;
-		}
-
-		.cm-s-base16-dark span.cm-comment {
-			color: #8f5536;
-		}
-		.cm-s-base16-dark span.cm-atom {
-			color: #aa759f;
-		}
-		.cm-s-base16-dark span.cm-number {
-			color: #aa759f;
-		}
-
-		.cm-s-base16-dark span.cm-property,
-		.cm-s-base16-dark span.cm-attribute {
-			color: #90a959;
-		}
-		.cm-s-base16-dark span.cm-keyword {
-			color: #ac4142;
-		}
-		.cm-s-base16-dark span.cm-string {
-			color: #f4bf75;
-		}
-
-		.cm-s-base16-dark span.cm-variable {
-			color: #90a959;
-		}
-		.cm-s-base16-dark span.cm-variable-2 {
-			color: #6a9fb5;
-		}
-		.cm-s-base16-dark span.cm-def {
-			color: #d28445;
-		}
-		.cm-s-base16-dark span.cm-bracket {
-			color: #e0e0e0;
-		}
-		.cm-s-base16-dark span.cm-tag {
-			color: #ac4142;
-		}
-		.cm-s-base16-dark span.cm-link {
-			color: #aa759f;
-		}
-		.cm-s-base16-dark span.cm-error {
-			background: #ac4142;
-			color: #b0b0b0;
-		}
-
-		.cm-s-base16-dark .CodeMirror-activeline-background {
-			background: #202020;
-		}
-		.cm-s-base16-dark .CodeMirror-matchingbracket {
-			text-decoration: underline;
-			color: white !important;
-		}
-	</style>
-</svelte:head>
 
 <style>
 	.codemirror-wrapper :global(.cm-focused) {

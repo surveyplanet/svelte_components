@@ -1,19 +1,25 @@
 <script lang="ts">
+	import type { ComponentEvent } from '$lib';
 	import CodeMirror from './code_mirror/CodeMirror.svelte';
 	import { json } from '@codemirror/lang-json';
 
-	let { data } = $props();
+	let { value } = $props();
 
-	let StringData = $state(JSON.stringify(data, null, 2));
+	let StringData = $state(JSON.stringify(value, null, 2));
 
 	$effect(() => {
-		data = JSON.parse(StringData);
+		StringData = JSON.stringify(value, null, 2);
 	});
+	// $inspect('JSON EDITOR STRING DATA', StringData);
+
+	const onCodeMirrorChange = (event: ComponentEvent<string>) => {
+		value = JSON.parse(event.value);
+	};
 </script>
 
-<CodeMirror
-	bind:value={StringData}
-	lang={json()}
-	onCodeMirrorChange={() => {
-		console.log('changed');
-	}} />
+{#key StringData}
+	<CodeMirror
+		bind:value={StringData}
+		lang={json()}
+		{onCodeMirrorChange} />
+{/key}

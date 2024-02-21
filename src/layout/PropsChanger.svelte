@@ -8,6 +8,7 @@
 	import { dasherize } from '@surveyplanet/utilities';
 	import JsonEditor from './JsonEditor.svelte';
 	import type { ComponentEvent } from '$lib';
+	import { onMount } from 'svelte';
 
 	const FORM_CONTROL_SIZE: TextInputProps['size'] = 'medium';
 
@@ -31,7 +32,7 @@
 		onBlur,
 	} = $props<PropsChangerProps<ValueTypes>>();
 
-	$effect(() => {
+	onMount(() => {
 		if (type?.length) return;
 
 		if (selectOptions?.length) {
@@ -99,7 +100,7 @@
 				onCheckboxChange={onInput} />
 		{:else if type === 'json'}
 			<p>{label}</p>
-			<JsonEditor bind:data={value} />
+			<JsonEditor bind:value />
 		{:else if type === 'select'}
 			<Dropdown
 				{options}
