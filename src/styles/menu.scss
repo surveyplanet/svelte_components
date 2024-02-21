@@ -22,9 +22,11 @@
 	&:not(:has(li)) {
 		display: none;
 	}
+
 	&.sp-menu--medium {
 		font-size: $font-size--14;
 	}
+
 	&.sp-menu--large {
 		font-size: $font-size--16;
 	}
@@ -37,7 +39,7 @@
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
-	justify-content: start;
+	justify-content: space-between;
 	align-items: center;
 	cursor: pointer;
 	border: none;
@@ -46,18 +48,22 @@
 	padding: $size-gutter--quarter $size-gutter--half;
 	margin: 0;
 	font-size: inherit;
+
 	&:hover {
 		background: $color--beige-dark;
 	}
+
 	&:focus {
 		background: $color--beige-dark;
 		outline: none;
 	}
+
 	svg {
 		margin-left: auto;
 	}
+
 	.sp-menu--item--meta {
-		margin-left: auto;
+		margin-left: $size-space--l;
 		color: $color--beige-darkest;
 	}
 }
@@ -66,10 +72,12 @@
 	border-bottom: 1px solid $color--beige-darker;
 	padding-bottom: $size-gutter--quarter;
 	margin-bottom: $size-gutter--quarter;
+
 	.sp-menu--back-btn {
 		.sp-menu--back-btn--label {
 			padding-left: $size-gutter--quarter;
 		}
+
 		svg {
 			margin-left: 0;
 		}
@@ -78,6 +86,7 @@
 
 .sp-menu--item {
 	position: relative;
+
 	&.sp-menu--item--submenu {
 		button:before {
 			content: '';
@@ -101,17 +110,21 @@
 
 	&.sp-menu--item--inline {
 		display: inline;
+
 		button {
 			display: inline-block;
 			width: auto;
 		}
+
 		&.sp-menu--item--selected {
+
 			// no background-color if selected button is displayed inline
 			button {
 				background-color: transparent;
 			}
 		}
 	}
+
 	&.sp-menu--item--selected {
 		button {
 			background-color: $color--darkest;
@@ -122,9 +135,11 @@
 	// not supported in FF
 	// disable the button hover and focus states for color chip
 	&:has(> button .color-chip) {
+
 		/* styles to apply to the li tag */
 		button {
 			background-color: transparent !important;
+
 			&:hover,
 			&:focus {
 				.color-chip {
@@ -165,6 +180,7 @@
 .sp-menu--header,
 .sp-menu--footer {
 	padding: $size-gutter--quarter $size-gutter--half;
+
 	&:empty {
 		display: none;
 	}

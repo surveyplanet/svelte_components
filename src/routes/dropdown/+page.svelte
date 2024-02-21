@@ -6,47 +6,50 @@
 	let events: ComponentEvent<string>[] = $state([]);
 
 	let options: DropdownProps['options'] = $state([
-		// {
-		// 	label: 'None',
-		// 	id: '',
-		// },
 		{
-			label: 'Bengal tiger',
-			id: 'bengal-tiger',
-			meta: 'endangered',
+			label: 'New',
+			id: 'new',
+			meta: '⌘ N',
+			selected: false,
 		},
 		{
-			label: 'Siberian tiger',
-			id: 'siberian-tiger',
-			meta: 'endangered',
+			label: 'Open',
+			id: 'open',
+			meta: '⌘ O',
+			selected: false,
 		},
 		{
-			label: 'Sumatran tiger',
-			id: 'sumatran-tiger',
-			meta: 'endangered',
+			label: 'Save',
+			id: 'save',
+			meta: '⌘ S',
+			selected: false,
 		},
 		{
-			label: 'Caspian tiger',
-			id: 'caspian-tiger',
-			meta: 'extinct',
+			label: 'Close',
+			id: 'close',
+			meta: '⌘ W',
+			selected: false,
 		},
 		{
-			label: 'Indochinese tiger',
-			id: 'indochinese-tiger',
-			meta: 'endangered',
-		},
-		{
-			label: 'Malayan tiger',
-			id: 'malayan-tiger',
-			meta: 'endangered',
-		},
-		{
-			label: 'South China tiger',
-			id: 'south-china-tiger',
-			meta: 'endangered',
+			label: 'Edit',
+			id: 'edit',
+			selected: false,
+			submenu: [
+				{
+					label: 'Undo',
+					id: 'undo',
+					meta: '⌘ ←',
+					selected: false,
+				},
+				{
+					label: 'Redo',
+					id: 'redo',
+					meta: '⌘ →',
+					selected: false,
+				},
+			],
 		},
 	]);
-
 	let searchThreshold: DropdownProps['searchThreshold'] = $state(2);
 	let disabled: DropdownProps['disabled'] = $state(false);
 	let required: DropdownProps['required'] = $state(false);
@@ -89,6 +92,7 @@
 			bind:value={required} />
 		<PropsChanger
 			label="Value"
+			type="string"
 			bind:value />
 		<PropsChanger
 			label="Placeholder"
@@ -114,3 +118,6 @@
 			{onDropdownChange} />
 	{/snippet}
 </Layout>
+
+<style lang="scss">
+</style>

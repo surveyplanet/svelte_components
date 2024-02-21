@@ -2,6 +2,7 @@
 
 .sp-dropdown {
 	font: $font--default;
+
 	// font-size: $font-size--default;
 	&.sp-dropdown--open {
 		.sp-dropdown--toggle-btn svg {
@@ -11,19 +12,23 @@
 
 	&.sp-dropdown--medium {
 		font-size: $font-size--14;
+
 		input {
 			height: $size--48;
 		}
 	}
+
 	&.sp-dropdown--large {
 		font-size: $font-size--16;
+
 		input {
 			height: $size--52;
 		}
 	}
+
 	.sp-menu {
 		max-width: 100%;
-		// width: 100%;
+		position: absolute;
 	}
 
 	label {
@@ -31,6 +36,7 @@
 		display: block;
 		padding: 0 0 $size--12 $size--4;
 		font: inherit;
+
 		.sp-dropdown--label--required {
 			color: $color--pink;
 			font-size: smaller;
@@ -73,9 +79,11 @@
 			border-color: $color--beige-darker;
 			background-color: $color--beige-dark;
 			box-shadow: none;
+
 			@include set-focus {
 				box-shadow: none;
 			}
+
 			&:active {
 				box-shadow: none;
 			}
@@ -104,6 +112,7 @@
 	margin: 0;
 	padding: 0;
 	outline: none;
+
 	&:disabled {
 		path {
 			stroke: $color--beige-darkest;
@@ -113,8 +122,10 @@
 
 .sp-dropdown--close-btn {
 	z-index: 1;
+
 	&:hover {
 		background-color: $color--beige-darker;
+
 		.sp-icon path {
 			stroke: $color--white;
 		}
