@@ -4,15 +4,22 @@
 	import { json } from '@codemirror/lang-json';
 	import { solarizedDark } from 'cm6-theme-solarized-dark';
 	import { solarizedLight } from 'cm6-theme-solarized-light';
+	import { onDestroy } from 'svelte';
 
 	let { value } = $props();
 
 	let StringData = $state(JSON.stringify(value, null, 2));
 	let isDarkMode = $state(false);
+	let intervalId = $state();
 
 	$effect(() => {
 		StringData = JSON.stringify(value, null, 2);
-		isDarkMode = document.body.classList.contains('dark');
+		intervalId = setInterval(() => {
+			isDarkMode = document.body.classList.contains('dark');
+		}, 1);
+	});
+	onDestroy(() => {
+		clearInterval(intervalId as number);
 	});
 
 	const onCodeMirrorChange = (event: ComponentEvent<string>) => {

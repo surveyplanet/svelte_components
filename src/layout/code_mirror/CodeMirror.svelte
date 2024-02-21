@@ -43,34 +43,19 @@
 	import { indentUnit, type LanguageSupport } from '@codemirror/language';
 	import { debounce } from './util';
 
-	// let baseTheme = EditorView.baseTheme({
-	// 	'.cm-o-replacement': {
-	// 		display: 'inline-block',
-	// 		width: '.5em',
-	// 		height: '.5em',
-	// 		borderRadius: '.25em',
-	// 	},
-	// 	'&light .cm-o-replacement': {
-	// 		backgroundColor: '#04c',
-	// 	},
-	// 	'&dark .cm-o-replacement': {
-	// 		backgroundColor: '#52f',
-	// 	},
-	// });
-
 	let {
 		value,
 		basic = true,
-		lang = undefined,
-		theme = undefined,
-		extensions = undefined,
+		lang,
+		theme,
+		extensions,
 		useTab = true,
 		tabSize = 2,
-		styles = undefined,
+		styles,
 		lineWrapping = false,
 		editable = true,
 		readonly = false,
-		placeholder = undefined,
+		placeholder,
 		nodeBounce = true,
 		onCodeMirrorChange,
 	} = $props<CodeMirrorProps>();
@@ -222,6 +207,7 @@
 		): Extension[] {
 			const extensions: Extension[] = [];
 			if (styles) extensions.push(EditorView.theme(styles));
+
 			if (theme) extensions.push(theme);
 			return extensions;
 		}

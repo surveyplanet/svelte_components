@@ -15,6 +15,8 @@
 	import type { Snippet } from 'svelte';
 	import CodeMirror from './code_mirror/CodeMirror.svelte';
 	import { html } from '@codemirror/lang-html';
+	import { solarizedDark } from 'cm6-theme-solarized-dark';
+	import { solarizedLight } from 'cm6-theme-solarized-light';
 
 	interface LayoutProps {
 		example: string;
@@ -79,7 +81,7 @@
 	};
 
 	const darkModeHandler = (event: ComponentEvent<boolean | undefined>) => {
-		isDarkMode = event.value;
+		isDarkMode = !event.value;
 	};
 
 	const searchComponents = (event: ComponentEvent<string>) => {
@@ -190,10 +192,16 @@
 									{ icon: 'copy', id: 'copy', title: 'copy' },
 								]}
 								onNavClick={navCopyHandler} />
-							<CodeMirror
-								bind:value={example}
-								editable={false}
-								lang={html()} />
+							{#key isDarkMode}
+								<CodeMirror
+									bind:value={example}
+									theme={isDarkMode
+										? solarizedDark
+										: solarizedLight}
+									editable={false}
+									lang={html()} />
+							{/key}
+							
 						</pre>
 					</div>
 				{:else if tabSelected === 'docs'}
