@@ -50,7 +50,7 @@
 			],
 		},
 	]);
-	let searchThreshold: DropdownProps['searchThreshold'] = $state(2);
+	let searchThreshold: DropdownProps['searchThreshold'] = $state();
 	let disabled: DropdownProps['disabled'] = $state(false);
 	let required: DropdownProps['required'] = $state(false);
 	let value: DropdownProps['value'] = $state(undefined);
@@ -83,6 +83,7 @@
 			bind:value={options} />
 		<PropsChanger
 			label="Search threshold"
+			type="number"
 			bind:value={searchThreshold} />
 		<PropsChanger
 			label="Disabled"
