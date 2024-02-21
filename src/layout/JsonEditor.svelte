@@ -2,15 +2,18 @@
 	import type { ComponentEvent } from '$lib';
 	import CodeMirror from './code_mirror/CodeMirror.svelte';
 	import { json } from '@codemirror/lang-json';
+	import { solarizedDark } from 'cm6-theme-solarized-dark';
+	import { solarizedLight } from 'cm6-theme-solarized-light';
 
 	let { value } = $props();
 
 	let StringData = $state(JSON.stringify(value, null, 2));
+	let isDarkMode = $state(false);
 
 	$effect(() => {
 		StringData = JSON.stringify(value, null, 2);
+		isDarkMode = document.body.classList.contains('dark');
 	});
-	// $inspect('JSON EDITOR STRING DATA', StringData);
 
 	const onCodeMirrorChange = (event: ComponentEvent<string>) => {
 		value = JSON.parse(event.value);
@@ -22,6 +25,7 @@
 		<CodeMirror
 			bind:value={StringData}
 			lang={json()}
+			theme={isDarkMode ? solarizedDark : solarizedLight}
 			{onCodeMirrorChange} />
 	{/key}
 </div>
