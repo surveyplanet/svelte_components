@@ -72,6 +72,7 @@
 		"test": "playwright test"
 	},
 	"devDependencies": {
+		"@codemirror/lang-html": "^6.4.8",
 		"@codemirror/lang-javascript": "^6.2.2",
 		"@codemirror/lang-json": "^6.0.1",
 		"@codemirror/language": "^6.10.1",

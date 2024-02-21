@@ -13,6 +13,8 @@
 	} from '$lib';
 	import { createComponentsStore } from './stores/components.store.svelte';
 	import type { Snippet } from 'svelte';
+	import CodeMirror from './code_mirror/CodeMirror.svelte';
+	import { html } from '@codemirror/lang-html';
 
 	interface LayoutProps {
 		example: string;
@@ -35,6 +37,7 @@
 	let eventsLogs: unknown[] = $derived(
 		events?.length ? events.map((event) => JSON.stringify(event)) : []
 	);
+	let copied = $state(false);
 
 	let tabSelected = $state('controls');
 	// let dropdownValue = $state();
@@ -49,6 +52,14 @@
 			});
 		}
 	});
+
+	const copyExample = () => {
+		navigator.clipboard.writeText(example);
+		copied = true;
+		setTimeout(() => {
+			copied = false;
+		}, 1000);
+	};
 
 	const tabHandler = (event: ComponentEvent<string>) => {
 		tabSelected = event.value;
@@ -77,6 +88,9 @@
 			item.label.toLowerCase().includes(searchValue.toLowerCase())
 		);
 		reload++;
+	};
+	const navCopyHandler = () => {
+		copyExample();
 	};
 </script>
 
@@ -168,7 +182,18 @@
 				{:else if tabSelected === 'example'}
 					<div id="component-details--example">
 						<pre>
-							<code> {example} </code>
+							{#if copied}
+								<div class="copied">Copied!</div>
+							{/if}
+							<NavBar
+								data={[
+									{ icon: 'copy', id: 'copy', title: 'copy' },
+								]}
+								onNavClick={navCopyHandler} />
+							<CodeMirror
+								bind:value={example}
+								editable={false}
+								lang={html()} />
 						</pre>
 					</div>
 				{:else if tabSelected === 'docs'}
