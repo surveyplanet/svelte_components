@@ -3,7 +3,6 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<string[]>([]);
 
 	let speed: ProgressBarProps['speed'] = $state(1000);
 	let max: ProgressBarProps['max'] = $state(100);
@@ -14,8 +13,7 @@
 <Layout
 	component="ProgressBar"
 	example={source({ speed, max, value, displayValue })}
-	{md}
-	bind:events>
+	{md}>
 	{#snippet controls()}
 		<PropsChanger
 			label="Speed"

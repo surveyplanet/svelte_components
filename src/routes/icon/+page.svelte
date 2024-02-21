@@ -5,7 +5,6 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events: string[] = $state([]);
 
 	let color: IconProps['color'] = $state(COLORS.dark);
 	let size: IconProps['size'] = $state(24);
@@ -16,8 +15,7 @@
 <Layout
 	component="Icon"
 	example={source({ color, size, name })}
-	{md}
-	bind:events>
+	{md}>
 	{#snippet controls()}
 		<PropsChanger
 			label="Color"

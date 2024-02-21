@@ -3,7 +3,6 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events: string[] = $state([]);
 
 	let footerData: FooterProps['footerData'] = $state([
 		{
@@ -27,8 +26,7 @@
 <Layout
 	component="Footer"
 	example={source(footerData)}
-	{md}
-	bind:events>
+	{md}>
 	{#snippet controls()}
 		<PropsChanger
 			label="Footer Data"

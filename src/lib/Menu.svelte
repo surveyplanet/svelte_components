@@ -156,7 +156,9 @@
 	const itemClickHandler = (event: MouseEvent) => {
 		event.preventDefault();
 		event.stopPropagation();
-		let id = (event.target as HTMLElement).id;
+		let target = event.target as HTMLElement;
+
+		let id = target.id;
 		if (!id?.length) {
 			const btn = (event.target as HTMLElement).closest('button');
 			if (btn) {
@@ -170,9 +172,10 @@
 			location = location.concat([id]);
 			currentState = [...state];
 		}
+		//NOTE: For some reason passing a target here creates an error in the console
 		const componentEvent = new ComponentEvent(id, event.target!, event);
 		// if clicked and item doesn't have a submenu dispatch 'click'
-		// otherwise dispatch 'update'
+		// otherwise dispatch 'update'∂
 		if (!state) {
 			if (typeof onMenuClick === 'function') onMenuClick(componentEvent);
 		} else {
@@ -180,8 +183,6 @@
 				onMenuUpdate(componentEvent);
 		}
 	};
-
-	//TODO: add |global to transitions once it is fixed in svelte 5
 </script>
 
 <div

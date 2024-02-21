@@ -21,7 +21,7 @@
 	interface LayoutProps {
 		example: string;
 		md: string;
-		events?: unknown[];
+		events?: ComponentEvent<unknown>[] | Event[];
 		component: string;
 		value?: string;
 		main: Snippet;
@@ -35,10 +35,31 @@
 	let reload = $state(0); //used to force reload the component
 	let componentsData = $state(createComponentsStore.componentsStore);
 	let componentEvents: HTMLElement | null = $state(null);
-	// let eventsLogs: unknown[] = $state([]);
-	let eventsLogs: unknown[] = $derived(
-		events?.length ? events.map((event) => JSON.stringify(event)) : []
-	);
+
+	$effect(() => {
+		if (!events?.length) {
+			return;
+		}
+		let lastEvent = events[events.length - 1];
+
+		if (lastEvent instanceof Event) {
+			eventsParsed.push(lastEvent);
+		} else if ('value' in lastEvent) {
+			let eventValue = JSON.stringify(lastEvent.value) || 'undefined';
+			let eventTarget = `${lastEvent.target}`;
+			let eventEvent = JSON.stringify(lastEvent.raw);
+
+			eventsParsed.push({
+				value: eventValue,
+				target: eventTarget,
+				event: eventEvent,
+			});
+		}
+		eventsLogs = eventsParsed.map((event) => JSON.stringify(event));
+	});
+	let eventsParsed: object[] = [];
+	let eventsLogs: string[] = $state([]);
+
 	let copied = $state(false);
 
 	let tabSelected = $state('controls');
@@ -47,7 +68,7 @@
 	$effect(() => {
 		document.body.classList[isDarkMode ? 'add' : 'remove']('dark'); // add dark mode
 
-		if (eventsLogs) {
+		if (eventsLogs.length) {
 			componentEvents?.scrollTo({
 				top: componentEvents.scrollHeight,
 				behavior: 'smooth',

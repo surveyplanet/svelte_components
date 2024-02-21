@@ -3,7 +3,6 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<string[]>([]);
 
 	// let keys = $state(0);
 
@@ -29,8 +28,7 @@
 <Layout
 	component="Breadcrumbs"
 	example={source(data)}
-	{md}
-	bind:events>
+	{md}>
 	{#snippet controls()}
 		<PropsChanger
 			label="Data"

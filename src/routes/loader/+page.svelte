@@ -4,8 +4,6 @@
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 
-	let events: string[] = $state([]);
-
 	let colors: LoaderProps['colors'] = $state();
 	let size: LoaderProps['size'] = $state();
 	let strokeWidth: LoaderProps['strokeWidth'] = $state();
@@ -24,8 +22,7 @@
 <Layout
 	component="Loader"
 	example={source({ colors, size, strokeWidth })}
-	{md}
-	bind:events>
+	{md}>
 	{#snippet controls()}
 		<PropsChanger
 			type="string"
