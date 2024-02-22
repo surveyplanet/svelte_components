@@ -4,6 +4,8 @@
 	import {
 		COLORS,
 		Logo,
+		Icon,
+		Button,
 		Menu,
 		TabBar,
 		Toggle,
@@ -62,7 +64,7 @@
 
 	let copied = $state(false);
 
-	let tabSelected = $state('controls');
+	let tabSelected = $state('example');
 	// let dropdownValue = $state();
 
 	$effect(() => {
@@ -183,11 +185,11 @@
 						{
 							id: 'controls',
 							label: 'Controls',
-							selected: true,
 						},
 						{
 							id: 'example',
 							label: 'Example',
+							selected: true,
 						},
 						{
 							id: 'docs',
@@ -204,26 +206,28 @@
 					</div>
 				{:else if tabSelected === 'example'}
 					<div id="component-details--example">
-						<pre>
+						<header>
 							{#if copied}
-								<div class="copied">Copied!</div>
+								<div class="example-copied">Copied!</div>
 							{/if}
-							<NavBar
-								data={[
-									{ icon: 'copy', id: 'copy', title: 'copy' },
-								]}
-								onNavClick={navCopyHandler} />
-							{#key isDarkMode}
-								<CodeMirror
-									bind:value={example}
-									theme={isDarkMode
-										? solarizedDark
-										: solarizedLight}
-									editable={false}
-									lang={html()} />
-							{/key}
-							
-						</pre>
+							<Button
+								onButtonClick={navCopyHandler}
+								action={true}
+								mode="outline">
+								<Icon
+									name="copy"
+									size={12} />
+							</Button>
+						</header>
+						{#key isDarkMode}
+							<CodeMirror
+								bind:value={example}
+								theme={isDarkMode
+									? solarizedDark
+									: solarizedLight}
+								editable={false}
+								lang={html()} />
+						{/key}
 					</div>
 				{:else if tabSelected === 'docs'}
 					<div class="docs">

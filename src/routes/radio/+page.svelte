@@ -35,7 +35,7 @@
 
 <Layout
 	component="Radio"
-	example={source({ group, data, prependLabel, size })}
+	example={source({ group, data, prependLabel, size, block })}
 	{md}
 	bind:events>
 	{#snippet controls()}

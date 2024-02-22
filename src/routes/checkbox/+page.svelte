@@ -40,9 +40,9 @@
 
 	let group: CheckboxProps['group'] = $state(['kant']);
 
-	let prependLabel: CheckboxProps['prependLabel'] = $state([]);
+	let prependLabel: CheckboxProps['prependLabel'] = $state();
 
-	let block: CheckboxProps['block'] = $state([]);
+	let block: CheckboxProps['block'] = $state();
 
 	let size: CheckboxProps['size'] = $state('small');
 
@@ -53,7 +53,7 @@
 
 <Layout
 	component="Checkbox"
-	example={source({ group, data, prependLabel, size })}
+	example={source({ group, data, prependLabel, size, block })}
 	{md}
 	bind:events>
 	{#snippet controls()}
@@ -73,19 +73,19 @@
 		<PropsChanger
 			label="Prepend Label"
 			type="boolean"
-			bind:group={prependLabel} />
+			bind:value={prependLabel} />
 
 		<PropsChanger
 			label="Block"
 			type="boolean"
-			bind:group={block} />
+			bind:value={block} />
 	{/snippet}
 	{#snippet main()}
 		<Checkbox
 			{data}
 			bind:group
-			prependLabel={prependLabel.length > 0}
-			block={block.length > 0}
+			{prependLabel}
+			{block}
 			{size}
 			{onCheckboxChange} />
 	{/snippet}

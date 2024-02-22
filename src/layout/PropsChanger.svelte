@@ -33,9 +33,7 @@
 		onInput,
 		onBlur,
 	} = $props<
-		PropsChangerProps<
-			string | number | boolean | string[] | object | undefined
-		>
+		PropsChangerProps<string | number | boolean | object | undefined | null>
 	>();
 
 	$effect.pre(() => {
@@ -99,6 +97,7 @@
 			<Toggle
 				id="boolean-{(Date.now() + Math.random()).toString(36)}"
 				bind:on={value}
+				size={FORM_CONTROL_SIZE}
 				{label}
 				onToggleChange={onInput} />
 			<!-- <Checkbox
