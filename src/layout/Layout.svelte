@@ -64,7 +64,7 @@
 
 	let copied = $state(false);
 
-	let tabSelected = $state('example');
+	let tabSelected = $state('controls');
 	// let dropdownValue = $state();
 
 	$effect(() => {
@@ -185,11 +185,11 @@
 						{
 							id: 'controls',
 							label: 'Controls',
+							selected: true,
 						},
 						{
 							id: 'example',
 							label: 'Example',
-							selected: true,
 						},
 						{
 							id: 'docs',

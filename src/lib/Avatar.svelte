@@ -65,7 +65,6 @@
 				img.src = profileImage!;
 				img.onerror = reject;
 				img.onload = async () => {
-					// await dalay(10000); // test loading
 					return resolve(`<img src="${src}" alt="profile" />`);
 				};
 			});
@@ -74,8 +73,6 @@
 		const response = await fetch(
 			`https://public.surveyplanet.com/images/mascots/${mascot}_1.svg`
 		);
-
-		// await await dalay(10000); // test loading
 
 		return response.text();
 	};

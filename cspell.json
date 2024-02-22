@@ -16,6 +16,7 @@
 		"introend",
 		"introstart",
 		"keydown",
+		"keymap",
 		"keyup",
 		"manzano",
 		"Moby",

@@ -33,7 +33,7 @@
 		placeholder,
 		value,
 		label,
-		searchThreshold = 20, // needs a value to work and the number seems high enough so the search is not triggered in most usecases
+		searchThreshold = 20, // needs a value to work and the number seems high enough so the search is not triggered in most use cases
 		disabled,
 		required,
 		size = 'small', // input sizes are small by default
