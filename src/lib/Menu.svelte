@@ -118,7 +118,6 @@
 
 	const arrowClickHandler = (event: KeyboardEvent) => {
 		// check mouse is over the menu
-
 		if (event.key === 'ArrowDown') {
 			event.preventDefault();
 			scrollMenu('down', event);
@@ -172,12 +171,13 @@
 			location = location.concat([id]);
 			currentState = [...state];
 		}
-		//NOTE: For some reason passing a target here creates an error in the console
 		const componentEvent = new ComponentEvent(id, event.target!, event);
 		// if clicked and item doesn't have a submenu dispatch 'click'
 		// otherwise dispatch 'update'∂
 		if (!state) {
-			if (typeof onMenuClick === 'function') onMenuClick(componentEvent);
+			if (typeof onMenuClick === 'function') {
+				onMenuClick(componentEvent);
+			}
 		} else {
 			if (typeof onMenuUpdate === 'function')
 				onMenuUpdate(componentEvent);

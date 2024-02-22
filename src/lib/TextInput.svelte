@@ -41,6 +41,7 @@
 	import type { CleaveOptions } from 'cleave.js/options';
 	import { Icon, ComponentEvent } from './';
 	import { onMount } from 'svelte';
+	// import { omitProps } from '@surveyplanet/utilities';
 
 	let {
 		id,

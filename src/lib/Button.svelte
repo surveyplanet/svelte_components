@@ -43,6 +43,7 @@
 		children,
 		...attr
 	} = $props<ButtonProps>();
+	// import { omitProps } from '@surveyplanet/utilities';
 
 	const buttonClickHandler = (event: MouseEvent) => {
 		if (typeof onButtonClick === 'function') {

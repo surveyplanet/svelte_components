@@ -6,7 +6,6 @@
 
 	export type ToggleProps = HTMLAttributes<HTMLInputElement> & {
 		on?: boolean;
-		id?: string;
 		name?: string;
 		disabled?: boolean;
 		tall?: boolean;
@@ -17,9 +16,9 @@
 </script>
 
 <script lang="ts">
+	// import { omitProps } from '@surveyplanet/utilities';
 	let {
 		on = false,
-		id,
 		name,
 		disabled,
 		tall,
@@ -47,7 +46,7 @@
 		class="sp-toggle--label"
 		class:sp-toggle--label-prepend={prependLabel}
 		class:sp-toggle--label--disabled={disabled}
-		for={id}>{label}</label>
+		for={attr.id}>{label}</label>
 {/snippet}
 
 {#if label?.length && prependLabel}
@@ -60,11 +59,9 @@
 	role="switch"
 	aria-checked={on}>
 	<input
-		{...attr}
 		type="checkbox"
 		class="sp-toggle--input"
 		bind:checked={on}
-		{id}
 		{name}
 		{disabled}
 		onchange={changeHandler} />

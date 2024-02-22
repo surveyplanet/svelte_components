@@ -102,7 +102,7 @@
 	};
 
 	const darkModeHandler = (event: ComponentEvent<boolean | undefined>) => {
-		isDarkMode = !event.value;
+		isDarkMode = event.value;
 	};
 
 	const searchComponents = (event: ComponentEvent<string>) => {

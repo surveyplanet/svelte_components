@@ -29,6 +29,7 @@
 <script lang="ts">
 	import { COLORS } from './';
 	import { dasherize } from '@surveyplanet/utilities';
+	// import { omitProps } from '@surveyplanet/utilities';
 
 	const DEFAULT_SIZE: IconSize = 24;
 

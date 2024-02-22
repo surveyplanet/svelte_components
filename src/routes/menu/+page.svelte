@@ -15,6 +15,7 @@
 	};
 
 	const menuClickHandler = (event: ComponentEvent<string>) => {
+		menuVisible = false;
 		events.push(event);
 	};
 
@@ -29,9 +30,6 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<PropsChanger
-			label="Visible"
-			bind:value={menuVisible} />
 		<PropsChanger
 			label="Data"
 			bind:value={data} />

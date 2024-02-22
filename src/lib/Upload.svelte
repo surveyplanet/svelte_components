@@ -18,6 +18,7 @@
 <script lang="ts">
 	import { Button, Icon, ComponentEvent } from './';
 	import { COLORS } from '$lib/index';
+	// import { omitProps } from '@surveyplanet/utilities';
 
 	let {
 		label,

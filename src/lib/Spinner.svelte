@@ -25,6 +25,8 @@
 </script>
 
 <script lang="ts">
+	// import { omitProps } from '@surveyplanet/utilities';
+
 	let {
 		label,
 		id,

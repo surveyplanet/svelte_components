@@ -219,15 +219,13 @@
 		class="codemirror-wrapper {classes}"
 		bind:this={element} />
 {:else}
-	{#key value}
-		<div class="scm-waiting {classes}">
-			<div class="scm-waiting__loading scm-loading">
-				<div class="scm-loading__spinner" />
-				<p class="scm-loading__text">Loading editor...</p>
-			</div>
-			<pre class="scm-pre cm-editor">{value}</pre>
+	<div class="scm-waiting {classes}">
+		<div class="scm-waiting__loading scm-loading">
+			<div class="scm-loading__spinner" />
+			<p class="scm-loading__text">Loading editor...</p>
 		</div>
-	{/key}
+		<pre class="scm-pre cm-editor">{value}</pre>
+	</div>
 {/if}
 
 <style>

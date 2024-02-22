@@ -10,15 +10,18 @@
 
 	let StringData = $state(JSON.stringify(value, null, 2));
 	let isDarkMode = $state(false);
-	let intervalId = $state();
+	let intervalId: number | null | NodeJS.Timeout = null;
 
 	$effect(() => {
 		StringData = JSON.stringify(value, null, 2);
-		intervalId = setInterval(() => {
-			isDarkMode = document.body.classList.contains('dark');
-		}, 1);
 	});
+
+	intervalId = setInterval(() => {
+		isDarkMode = document.body.classList.contains('dark');
+	}, 0);
+
 	onDestroy(() => {
+		console.log('clearing interval');
 		clearInterval(intervalId as number);
 	});
 
@@ -27,7 +30,9 @@
 	};
 </script>
 
-<div class="jsonEditor">
+<div
+	class="jsonEditor"
+	spellcheck="false">
 	{#key StringData}
 		<CodeMirror
 			bind:value={StringData}
