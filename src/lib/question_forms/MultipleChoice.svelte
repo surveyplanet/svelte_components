@@ -168,6 +168,7 @@
 					value={label}
 					{label}
 					size="large"
+					block={true}
 					onRadioChange={inputChangeHandler}
 					onCheckboxChange={inputChangeHandler} />
 			</div>

@@ -2,66 +2,98 @@
 	lang="ts"
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
-	export type CheckboxProps = HTMLAttributes<HTMLInputElement> & {
-		name?: string;
-		value?: string | null;
-		label?: string;
-		checked?: boolean;
+
+	export type CheckboxData = {
+		id?: string;
+		label: string;
+		value?: string;
 		disabled?: boolean;
-		prependLabel?: boolean;
+	} & HTMLAttributes<HTMLInputElement>;
+
+	export type CheckboxProps = {
+		data: CheckboxData | CheckboxData[];
+		group?: string[];
 		size?: 'small' | 'medium' | 'large';
-		onCheckboxChange?: (event: ComponentEvent<boolean>) => void;
-	};
+		prependLabel?: boolean;
+		block?: boolean;
+		onCheckboxChange?: (event: ComponentEvent<string[]>) => void;
+	} & HTMLAttributes<HTMLDivElement>;
 </script>
 
 <script lang="ts">
+	// import { tick } from 'svelte';
 	import { ComponentEvent } from './';
+	import { omitProps, delay, uniqueId } from '@surveyplanet/utilities';
+
 	let {
-		id,
-		name,
-		value,
-		label,
-		checked,
-		disabled,
+		data,
+		group = [], // TODO: no default value since it's bound to the input checked attribute
+		size = 'small',
 		prependLabel,
-		size = 'small', // seems like a usual size we use
+		block,
 		onCheckboxChange,
 		...attr
 	} = $props<CheckboxProps>();
 
-	const checkboxChangeHandler = (event: Event): void => {
+	const checkboxChangeHandler = async (event: Event): Promise<void> => {
 		if (typeof onCheckboxChange === 'function') {
+			await delay(); // wait one cycle of event loop for 'group' to update
+			const eventTarget = event.target as HTMLInputElement;
+
 			const componentEvent = new ComponentEvent(
-				(event.target as HTMLInputElement).checked,
-				event.target!,
+				group,
+				eventTarget,
 				event
 			);
 			onCheckboxChange(componentEvent);
 		}
 	};
+
+	$effect.pre(() => {
+		if (typeof data === 'object' && !Array.isArray(data)) {
+			data = [data];
+		}
+
+		// make sure each item has an id
+		data = data.map((item) => {
+			item.id = item.id || uniqueId();
+			return item;
+		});
+	});
 </script>
 
-<input
-	type="checkbox"
-	class="sp-checkbox--input"
-	{id}
-	{name}
-	{value}
-	bind:checked
-	{disabled}
-	{...attr}
-	onchange={checkboxChangeHandler} />
-<label
-	class="sp-checkbox sp-checkbox--{size}"
-	class:sp-checkbox--prepend={prependLabel}
-	for={id}>
-	<span class="sp-checkbox--check">
-		<svg
-			width="12px"
-			height="9px"
-			viewBox="0 0 12 9">
-			<polyline points="1 5 4 8 11 1" />
-		</svg>
-	</span>
-	<span class="sp-checkbox--label">{label}</span>
-</label>
+<div
+	class="sp-form-control sp-checkbox--group"
+	class:sp-checkbox--block={block}
+	{...attr}>
+	{#if Array.isArray(data) && data.length}
+		{#each data as item}
+			<div class="sp-checkbox">
+				<input
+					type="checkbox"
+					class="sp-checkbox--input"
+					id={item.id}
+					value={item.value}
+					disabled={item.disabled}
+					bind:group
+					{...omitProps(item, ['label', 'id'])}
+					onchange={checkboxChangeHandler} />
+
+				<label
+					class="sp-checkbox--item sp-checkbox--{size}"
+					class:sp-checkbox--prepend={prependLabel}
+					for={item.id}>
+					<span class="sp-checkbox--check">
+						<svg
+							width="12px"
+							height="9px"
+							viewBox="0 0 12 9">
+							<polyline points="1 5 4 8 11 1" />
+						</svg>
+					</span>
+					<span class="sp-checkbox--label">{item.label}</span>
+				</label>
+			</div>
+		{/each}
+	{/if}
+</div>

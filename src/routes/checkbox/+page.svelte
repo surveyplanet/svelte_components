@@ -3,72 +3,89 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events: ComponentEvent<boolean>[] = $state([]);
+	let events: ComponentEvent<string[]>[] = $state([]);
 
-	let id: CheckboxProps['id'] = $state(
-		(Date.now() + Math.random()).toString(36)
-	);
-	let name: CheckboxProps['name'] = $state('checkbox');
-	let value: CheckboxProps['value'] = $state('checkbox');
-	let label: CheckboxProps['label'] = $state('Checkbox');
+	let data: CheckboxProps['data'] = $state([
+		{
+			id: 'plato-checkbox',
+			label: 'Plato',
+			value: 'plato',
+			disabled: false,
+		},
+		{
+			id: 'aristotle-checkbox',
+			label: 'Aristotle',
+			value: 'aristotle',
+			disabled: false,
+		},
+		{
+			id: 'descartes-checkbox',
+			label: 'Descartes',
+			value: 'descartes',
+			disabled: false,
+		},
+		{
+			id: 'kant-checkbox',
+			label: 'Kant',
+			value: 'kant',
+			disabled: false,
+		},
+		{
+			id: 'nietzsche-checkbox',
+			label: 'Nietzsche',
+			value: 'nietzsche',
+			disabled: false,
+		},
+	]);
 
-	let checked: CheckboxProps['checked'] = $state(false);
-	let disabled: CheckboxProps['disabled'] = $state(false);
-	let prependLabel: CheckboxProps['prependLabel'] = $state(false);
+	let group: CheckboxProps['group'] = $state(['kant']);
+
+	let prependLabel: CheckboxProps['prependLabel'] = $state([]);
+
+	let block: CheckboxProps['block'] = $state([]);
+
 	let size: CheckboxProps['size'] = $state('small');
 
-	const onCheckboxChange = (event: ComponentEvent<boolean>): void => {
+	const onCheckboxChange = (event: ComponentEvent<string[]>): void => {
 		events.push(event);
 	};
 </script>
 
 <Layout
 	component="Checkbox"
-	example={source({ id, name, value, checked, disabled, prependLabel, size })}
+	example={source({ group, data, prependLabel, size })}
 	{md}
 	bind:events>
 	{#snippet controls()}
 		<PropsChanger
-			label="Id"
-			bind:value={id} />
+			label="Group"
+			bind:value={group} />
 
 		<PropsChanger
-			label="Name"
-			bind:value={name} />
+			label="Data"
+			bind:value={data} />
 
-		<PropsChanger
-			label="Value"
-			bind:value />
-
-		<PropsChanger
-			label="Label"
-			bind:value={label} />
-
-		<PropsChanger
-			label="Checked"
-			bind:value={checked} />
-
-		<PropsChanger
-			label="Disabled"
-			bind:value={disabled} />
-
-		<PropsChanger
-			label="Prepend Label"
-			bind:value={prependLabel} />
 		<PropsChanger
 			label="Size"
 			bind:value={size}
 			selectOptions={['small', 'medium', 'large']} />
+
+		<PropsChanger
+			label="Prepend Label"
+			type="boolean"
+			bind:group={prependLabel} />
+
+		<PropsChanger
+			label="Block"
+			type="boolean"
+			bind:group={block} />
 	{/snippet}
 	{#snippet main()}
 		<Checkbox
-			{id}
-			{name}
-			{label}
-			bind:value
-			bind:checked
-			{disabled}
-			{prependLabel}
+			{data}
+			bind:group
+			prependLabel={prependLabel.length > 0}
+			block={block.length > 0}
 			{size}
 			{onCheckboxChange} />
 	{/snippet}

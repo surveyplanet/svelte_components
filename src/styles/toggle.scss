@@ -1,6 +1,34 @@
 @use '@surveyplanet/styles' as *;
 
 .sp-toggle {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: start;
+	align-items: center;
+	gap: $size-space--m;
+
+	&.sp-toggle--prepend {
+		.sp-toggle--label {
+			order: 1;
+		}
+
+		.sp-toggle--switch {
+			order: 2;
+		}
+	}
+}
+
+.sp-toggle--label {
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: top;
+	font: $font--default;
+	height: $size--20;
+	font-size: $font-size--12;
+}
+
+.sp-toggle--switch {
 	font: $font--default;
 	display: inline-block;
 	position: relative;
@@ -54,33 +82,6 @@
 		}
 	}
 
-	.sp-toggle--track {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		border-radius: $size--20;
-		background-color: $color--beige-darker;
-		transition:
-			transform 400ms,
-			background-color 400ms;
-
-		&:after {
-			position: absolute;
-			content: '';
-			height: $size--16;
-			width: $size--16;
-			left: 2px;
-			top: 2px;
-			background-color: $color--white;
-			transition:
-				transform 400ms,
-				background-color 400ms;
-			border-radius: 50%;
-		}
-	}
-
 	&.sp-toggle--tall {
 		width: $size--36;
 		height: $size--24;
@@ -104,13 +105,29 @@
 	}
 }
 
-.sp-toggle--label {
-	cursor: pointer;
-	display: inline-block;
-	vertical-align: top;
-	font: $font--default;
-	height: $size--20;
-	line-height: $size--20;
-	font-size: $font-size--12;
-	padding-left: $size-gutter--quarter;
+.sp-toggle--track {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: $size--20;
+	background-color: $color--beige-darker;
+	transition:
+		transform 400ms,
+		background-color 400ms;
+
+	&:after {
+		position: absolute;
+		content: '';
+		height: $size--16;
+		width: $size--16;
+		left: 2px;
+		top: 2px;
+		background-color: $color--white;
+		transition:
+			transform 400ms,
+			background-color 400ms;
+		border-radius: 50%;
+	}
 }

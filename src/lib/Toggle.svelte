@@ -5,73 +5,74 @@
 	import { ComponentEvent } from './';
 
 	export type ToggleProps = HTMLAttributes<HTMLInputElement> & {
-		on?: boolean;
 		id?: string;
-		name?: string;
-		disabled?: boolean;
+		on?: boolean;
 		tall?: boolean;
 		label?: string;
 		prependLabel?: boolean;
+		size?: 'small' | 'medium' | 'large';
+		disabled?: boolean; // TS isn't recognizing disabled in HTMLInputElement for some reason
 		onToggleChange?: (event: ComponentEvent<boolean>) => void;
 	};
 </script>
 
 <script lang="ts">
+	import { uniqueId } from '@surveyplanet/utilities';
+
 	let {
-		on = false,
-		id,
-		name,
-		disabled,
+		id = uniqueId(),
+		on, // no default value since it's bound to the input checked attribute
 		tall,
 		label,
+		size = 'small',
 		prependLabel,
 		onToggleChange,
 		...attr
 	} = $props<ToggleProps>();
 
 	const changeHandler = (event: Event): void => {
-		if (disabled) {
-			on = false;
+		if (attr.disabled) {
 			return event.preventDefault();
 		}
 
-		if (typeof onToggleChange === 'function') {
-			const componentEvent = new ComponentEvent(on, event.target!, event);
+		const target = (event.target as HTMLElement)!.closest(
+			'input'
+		) as HTMLInputElement;
+
+		if (typeof onToggleChange === 'function' && typeof on !== 'undefined') {
+			const componentEvent = new ComponentEvent(on, target, event);
 			onToggleChange(componentEvent);
 		}
 	};
 </script>
 
-{#snippet toggleLabel()}
-	<label
-		class="sp-toggle--label"
-		class:sp-toggle--label-prepend={prependLabel}
-		class:sp-toggle--label--disabled={disabled}
-		for={id}>{label}</label>
-{/snippet}
-
-{#if label?.length && prependLabel}
-	{@render toggleLabel()}
-{/if}
-
 <div
-	class="sp-form-control sp-toggle sp-toggle--{on ? 'on' : 'off'}"
-	class:sp-toggle--tall={tall}
-	role="switch"
-	aria-checked={on}>
-	<input
-		{...attr}
-		type="checkbox"
-		class="sp-toggle--input"
-		bind:checked={on}
-		{id}
-		{name}
-		{disabled}
-		onchange={changeHandler} />
+	class="sp-form-control sp-toggle
+		sp-toggle--size-{size}
+		sp-toggle--{on ? 'on' : 'off'} "
+	class:sp-toggle--prepend={prependLabel}
+	class:sp-toggle--label--disabled={attr.disabled}>
+	<div
+		class="sp-toggle--switch"
+		class:sp-toggle--tall={tall}
+		role="switch"
+		aria-checked={on}>
+		<input
+			{id}
+			type="checkbox"
+			class="sp-toggle--input"
+			bind:checked={on}
+			disabled={attr.disabled}
+			{...attr}
+			onchange={changeHandler} />
 
-	<div class="sp-toggle--track" />
+		<div class="sp-toggle--track" />
+	</div>
+	{#if label?.length}
+		<label
+			class="sp-toggle--label"
+			for={id}>
+			{label}
+		</label>
+	{/if}
 </div>
-
-{#if label?.length && !prependLabel}
-	{@render toggleLabel()}
-{/if}
