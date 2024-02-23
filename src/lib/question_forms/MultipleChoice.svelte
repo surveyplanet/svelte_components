@@ -176,6 +176,7 @@
 			return {
 				label: label,
 				value: label,
+				id: (id + Math.random()).replace('.', ''),
 			};
 		}
 	);

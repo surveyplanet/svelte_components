@@ -4,7 +4,7 @@
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 
 	export type RadioData = {
-		label: string;
+		label?: string;
 	} & HTMLInputAttributes;
 
 	export type RadioProps = {
@@ -90,7 +90,7 @@
 								r="50%" />
 						</svg>
 					</span>
-					<span class="sp-radio--label">{item.label}</span>
+					<span class="sp-radio--label">{item.label || ''}</span>
 				</label>
 			</div>
 		{/each}

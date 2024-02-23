@@ -4,7 +4,7 @@
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 
 	export type CheckboxData = {
-		label: string;
+		label?: string;
 	} & HTMLInputAttributes;
 
 	export type CheckboxProps = {
@@ -90,7 +90,7 @@
 							<polyline points="1 5 4 8 11 1" />
 						</svg>
 					</span>
-					<span class="sp-checkbox--label">{item.label}</span>
+					<span class="sp-checkbox--label">{item.label || ''}</span>
 				</label>
 			</div>
 		{/each}

@@ -126,7 +126,6 @@
 
 	let radioData: RadioProps['data'] = labels.map((label) => {
 		return {
-			label: '',
 			value: label,
 		};
 	});
