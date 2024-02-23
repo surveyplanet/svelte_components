@@ -6,7 +6,9 @@
 		label?: string;
 		formats?: string[];
 		maxSize?: number;
-		onUploadUpload?: (event: ComponentEvent<UploadData>) => void;
+		onUploadUpload?: (
+			event: ComponentEvent<UploadData, HTMLInputElement>
+		) => void;
 	};
 
 	export type UploadData = {
@@ -18,7 +20,6 @@
 <script lang="ts">
 	import { Button, Icon, ComponentEvent } from './';
 	import { COLORS } from '$lib/index';
-	// import { omitProps } from '@surveyplanet/utilities';
 
 	let {
 		label,

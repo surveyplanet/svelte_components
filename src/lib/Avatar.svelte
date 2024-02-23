@@ -3,11 +3,14 @@
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
 	export type AvatarProps = HTMLAttributes<HTMLButtonElement> & {
+		label?: string;
 		profileImage?: string;
-		id?: string;
+		userId?: string;
 		size?: 'small' | 'medium' | 'large';
 		disabled?: boolean;
-		onAvatarClick?: (event: ComponentEvent<undefined>) => void;
+		onAvatarClick?: (
+			event: ComponentEvent<undefined, HTMLButtonElement>
+		) => void;
 	};
 </script>
 
@@ -17,9 +20,8 @@
 
 	let {
 		profileImage,
-		id,
+		userId,
 		size = 'small',
-		disabled,
 		onAvatarClick,
 		...attr
 	} = $props<AvatarProps>();
@@ -31,6 +33,7 @@
 		'tummi',
 		'zummi',
 	] as const;
+
 	const BG_COLORS = ['yellow', 'blue', 'pink', 'green'] as const;
 
 	let bgColor: (typeof BG_COLORS)[number] = $state(BG_COLORS[0]);
@@ -45,10 +48,10 @@
 	};
 
 	const getPersistentIndex = (length = 0): number => {
-		if (!id?.length) {
+		if (!userId?.length) {
 			return 0;
 		}
-		const idx = id.trim().toLowerCase().charCodeAt(0) % length;
+		const idx = userId.trim().toLowerCase().charCodeAt(0) % length;
 
 		return idx;
 	};
@@ -97,14 +100,14 @@
 	function avatarClickHandler(event: MouseEvent): void {
 		event.preventDefault();
 
-		if (disabled) {
+		if (attr.disabled) {
 			return;
 		}
 
 		if (typeof onAvatarClick === 'function') {
 			const componentEvent = new ComponentEvent(
 				undefined,
-				event.target!,
+				event.target as HTMLButtonElement,
 				event
 			);
 			onAvatarClick(componentEvent);
@@ -117,9 +120,8 @@
 	{...attr}
 	class="sp-avatar sp-avatar--{size} sp-avatar--background--{bgColor}"
 	onclick={avatarClickHandler}
-	aria-label={disabled ? null : 'profile image'}
-	role={disabled ? 'presentation' : null}
-	{disabled}>
+	aria-label={attr.disabled ? null : 'profile image'}
+	role={attr.disabled ? 'presentation' : null}>
 	<div
 		class="sp-avatar--image {isValidProfileImage()
 			? 'sp-avatar--image--profile'

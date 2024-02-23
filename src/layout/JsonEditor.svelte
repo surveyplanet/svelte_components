@@ -25,7 +25,9 @@
 		clearInterval(intervalId as number);
 	});
 
-	const onCodeMirrorChange = (event: ComponentEvent<string>) => {
+	const onCodeMirrorChange = (
+		event: ComponentEvent<string, HTMLDivElement>
+	) => {
 		value = JSON.parse(event.value);
 	};
 </script>

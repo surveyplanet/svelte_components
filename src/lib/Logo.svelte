@@ -39,7 +39,6 @@
 	const ORIGINAL_HEIGHT = 24;
 	const ASPECT_RATION = ORIGINAL_WIDTH / ORIGINAL_HEIGHT;
 	const DEFAULT_SIZE: LogoSize = ORIGINAL_HEIGHT;
-	// import { omitProps } from '@surveyplanet/utilities';
 
 	let {
 		color = COLORS.black,

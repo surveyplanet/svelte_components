@@ -29,7 +29,7 @@
 	import type { Snippet } from 'svelte';
 	import { slide, type SlideParams } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	// import { onMount } from 'svelte'; // use to set focus on mount
+	import { onMount } from 'svelte'; // use to set focus on mount
 
 	let {
 		data,
@@ -41,6 +41,13 @@
 		footer,
 		...attr
 	} = $props<MenuProps>();
+
+	onMount(() => {
+		const allButtons = Array.from(
+			document.querySelectorAll('.sp-menu--item button')
+		) as HTMLButtonElement[];
+		allButtons[0].focus();
+	});
 
 	const scrollMenu = (
 		direction: 'up' | 'down' | 'left' | 'right',

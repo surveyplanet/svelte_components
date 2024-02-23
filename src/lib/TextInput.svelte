@@ -26,12 +26,24 @@
 		validationMessage?: string | null;
 		size?: 'small' | 'medium' | 'large';
 		validationHideMessage?: boolean | null;
-		onTextInputInput?: (event: ComponentEvent<string>) => void;
-		onTextInputChange?: (event: ComponentEvent<string>) => void;
-		onTextInputKeydown?: (event: ComponentEvent<string>) => void;
-		onTextInputKeyup?: (event: ComponentEvent<string>) => void;
-		onTextInputFocus?: (event: ComponentEvent<undefined>) => void;
-		onTextInputBlur?: (event: ComponentEvent<undefined>) => void;
+		onTextInputInput?: (
+			event: ComponentEvent<string, HTMLInputElement>
+		) => void;
+		onTextInputChange?: (
+			event: ComponentEvent<string, HTMLInputElement>
+		) => void;
+		onTextInputKeydown?: (
+			event: ComponentEvent<string, HTMLInputElement>
+		) => void;
+		onTextInputKeyup?: (
+			event: ComponentEvent<string, HTMLInputElement>
+		) => void;
+		onTextInputFocus?: (
+			event: ComponentEvent<undefined, HTMLInputElement>
+		) => void;
+		onTextInputBlur?: (
+			event: ComponentEvent<undefined, HTMLInputElement>
+		) => void;
 	};
 </script>
 
@@ -41,7 +53,6 @@
 	import type { CleaveOptions } from 'cleave.js/options';
 	import { Icon, ComponentEvent } from './';
 	import { onMount } from 'svelte';
-	// import { omitProps } from '@surveyplanet/utilities';
 
 	let {
 		id,
@@ -98,7 +109,7 @@
 		const target = event.target as HTMLInputElement;
 		validateInput(target);
 		if (!hasValidationErrors && typeof onTextInputChange === 'function') {
-			const componentEvent = new ComponentEvent<string>(
+			const componentEvent = new ComponentEvent<string, HTMLInputElement>(
 				target.value,
 				target,
 				event
@@ -110,7 +121,7 @@
 		const target = event.target as HTMLInputElement;
 		validateInput(target);
 		if (!hasValidationErrors && typeof onTextInputInput === 'function') {
-			const componentEvent = new ComponentEvent<string>(
+			const componentEvent = new ComponentEvent<string, HTMLInputElement>(
 				target.value,
 				target,
 				event
@@ -133,7 +144,7 @@
 			}
 		}
 		if (typeof onTextInputKeyup === 'function') {
-			const componentEvent = new ComponentEvent<string>(
+			const componentEvent = new ComponentEvent<string, HTMLInputElement>(
 				target.value,
 				target,
 				event
@@ -145,7 +156,7 @@
 	const keydownHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		if (typeof onTextInputKeydown === 'function') {
-			const componentEvent = new ComponentEvent<string>(
+			const componentEvent = new ComponentEvent<string, HTMLInputElement>(
 				target.value,
 				target,
 				event
@@ -156,22 +167,20 @@
 
 	const inputFocusHandler = (event: Event) => {
 		if (typeof onTextInputFocus === 'function') {
-			const componentEvent = new ComponentEvent<undefined>(
+			const componentEvent = new ComponentEvent<
 				undefined,
-				event.target as HTMLInputElement,
-				event
-			);
+				HTMLInputElement
+			>(undefined, event.target as HTMLInputElement, event);
 			onTextInputFocus(componentEvent);
 		}
 	};
 
 	const inputBlurHandler = (event: Event) => {
 		if (typeof onTextInputBlur === 'function') {
-			const componentEvent = new ComponentEvent<undefined>(
+			const componentEvent = new ComponentEvent<
 				undefined,
-				event.target as HTMLInputElement,
-				event
-			);
+				HTMLInputElement
+			>(undefined, event.target as HTMLInputElement, event);
 			onTextInputBlur(componentEvent);
 		}
 	};

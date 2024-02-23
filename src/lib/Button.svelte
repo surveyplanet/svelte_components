@@ -13,15 +13,15 @@
 
 	export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
 		mode?: ButtonMode;
-		disabled?: boolean;
 		loader?: boolean;
 		round?: boolean;
 		block?: boolean;
 		action?: boolean;
-		type?: 'button' | 'submit' | 'reset';
-		form?: string;
+
 		size?: 'small' | 'medium' | 'large';
-		onButtonClick?: (event: ComponentEvent<undefined>) => void;
+		onButtonClick?: (
+			event: ComponentEvent<undefined, HTMLButtonElement>
+		) => void;
 		children?: Snippet;
 	};
 </script>
@@ -31,25 +31,21 @@
 	import { ComponentEvent } from './';
 	let {
 		mode = 'primary', // commonly used mode
-		disabled,
 		loader,
 		round,
 		block,
 		action,
-		type = 'button', // commonly used type
-		form,
 		size = 'medium', // most use cases are medium
 		onButtonClick,
 		children,
 		...attr
 	} = $props<ButtonProps>();
-	// import { omitProps } from '@surveyplanet/utilities';
 
 	const buttonClickHandler = (event: MouseEvent) => {
 		if (typeof onButtonClick === 'function') {
 			const componentEvent = new ComponentEvent(
 				undefined,
-				event.target!,
+				event.target as HTMLButtonElement,
 				event
 			);
 			onButtonClick(componentEvent);
@@ -59,9 +55,6 @@
 
 <button
 	{...attr}
-	{type}
-	{disabled}
-	{form}
 	class="sp-button sp-button--{mode} sp-button--{size}"
 	class:sp-button--round={round}
 	class:sp-button--loader={loader}

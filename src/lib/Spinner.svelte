@@ -16,17 +16,25 @@
 		dragSpeed?: number;
 		placeholder?: string;
 		size?: 'small' | 'medium' | 'large';
-		onSpinnerUpdate?: (event: ComponentEvent<number | undefined>) => void;
-		onSpinnerInput?: (event: ComponentEvent<number | undefined>) => void;
-		onSpinnerChange?: (event: ComponentEvent<number | undefined>) => void;
-		onSpinnerBlur?: (event: ComponentEvent<undefined>) => void;
-		onSpinnerFocus?: (event: ComponentEvent<undefined>) => void;
+		onSpinnerUpdate?: (
+			event: ComponentEvent<number | undefined, HTMLInputElement>
+		) => void;
+		onSpinnerInput?: (
+			event: ComponentEvent<number | undefined, HTMLInputElement>
+		) => void;
+		onSpinnerChange?: (
+			event: ComponentEvent<number | undefined, HTMLInputElement>
+		) => void;
+		onSpinnerBlur?: (
+			event: ComponentEvent<undefined, HTMLInputElement>
+		) => void;
+		onSpinnerFocus?: (
+			event: ComponentEvent<undefined, HTMLInputElement>
+		) => void;
 	};
 </script>
 
 <script lang="ts">
-	// import { omitProps } from '@surveyplanet/utilities';
-
 	let {
 		label,
 		id,
@@ -94,11 +102,10 @@
 		if (newValue !== value && newValue !== undefined) {
 			value = checkOverflow(newValue);
 			if (typeof onSpinnerUpdate === 'function') {
-				const componentEvent = new ComponentEvent<number>(
-					value,
-					event.target!,
-					event
-				);
+				const componentEvent = new ComponentEvent<
+					number,
+					HTMLInputElement
+				>(value, event.target as HTMLInputElement, event);
 				onSpinnerUpdate(componentEvent);
 			}
 		}
@@ -136,9 +143,9 @@
 			value = checkOverflow(value);
 		}
 		if (typeof onSpinnerUpdate === 'function') {
-			const componentEvent = new ComponentEvent<number>(
+			const componentEvent = new ComponentEvent<number, HTMLInputElement>(
 				value,
-				event.target!,
+				event.target as HTMLInputElement,
 				event
 			);
 			onSpinnerUpdate(componentEvent);
@@ -166,11 +173,10 @@
 	const checkForValueChange = (event: Event) => {
 		if (value !== controlValue) {
 			if (typeof onSpinnerInput === 'function') {
-				const componentEvent = new ComponentEvent<number>(
-					value ?? 0,
-					event.target!,
-					event
-				);
+				const componentEvent = new ComponentEvent<
+					number,
+					HTMLInputElement
+				>(value ?? 0, event.target as HTMLInputElement, event);
 				onSpinnerInput(componentEvent);
 			}
 		}
@@ -207,11 +213,10 @@
 	};
 	const changeHandler = (event: Event) => {
 		if (typeof onSpinnerChange === 'function') {
-			const componentEvent = new ComponentEvent<number | undefined>(
-				value,
-				event.target!,
-				event
-			);
+			const componentEvent = new ComponentEvent<
+				number | undefined,
+				HTMLInputElement
+			>(value, event.target as HTMLInputElement, event);
 			onSpinnerChange(componentEvent);
 		}
 	};
@@ -226,9 +231,9 @@
 
 	const blurHandler = (event: FocusEvent) => {
 		checkForValueChange(event);
-		const componentEvent = new ComponentEvent<undefined>(
+		const componentEvent = new ComponentEvent<undefined, HTMLInputElement>(
 			undefined,
-			event.target!,
+			event.target as HTMLInputElement,
 			event
 		);
 		if (typeof onSpinnerBlur === 'function') onSpinnerBlur(componentEvent);
@@ -237,9 +242,9 @@
 
 	const focusHandler = (event: FocusEvent) => {
 		visibleButtons = true;
-		const componentEvent = new ComponentEvent<undefined>(
+		const componentEvent = new ComponentEvent<undefined, HTMLInputElement>(
 			undefined,
-			event.target!,
+			event.target as HTMLInputElement,
 			event
 		);
 		if (typeof onSpinnerFocus === 'function')
