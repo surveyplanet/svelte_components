@@ -119,6 +119,6 @@
 		"@surveyplanet/utilities": "^2.5.0",
 		"cleave.js": "^1.6.0",
 		"svelte-floating-ui": "^1.5.3",
-		"svelte-range-slider-pips": "^3.0.0-beta.3"
+		"svelte-range-slider-pips": "^3.0.0-beta.5"
 	}
 }

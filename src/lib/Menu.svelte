@@ -2,8 +2,8 @@
 	lang="ts"
 	context="module">
 	import { ComponentEvent, Icon, type IconName } from './';
-	import type { HTMLAttributes } from 'svelte/elements';
-	export interface MenuData {
+	import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
+	export interface MenuData extends HTMLButtonAttributes {
 		id: string;
 		label?: string;
 		html?: string;
@@ -17,8 +17,12 @@
 	export type MenuProps = HTMLAttributes<HTMLDivElement> & {
 		data: MenuData[];
 		size?: 'small' | 'medium' | 'large';
-		onMenuUpdate?: (event: ComponentEvent<string>) => void;
-		onMenuClick?: (event: ComponentEvent<string>) => void;
+		onMenuUpdate?: (
+			event: ComponentEvent<string, HTMLButtonElement>
+		) => void;
+		onMenuClick?: (
+			event: ComponentEvent<string, HTMLButtonElement>
+		) => void;
 		onMenuBlur?: (event: FocusEvent) => void;
 		header?: Snippet;
 		footer?: Snippet;
@@ -154,7 +158,11 @@
 			currentState = [...(data || [])]; // go to root
 		}
 		if (typeof onMenuUpdate === 'function') {
-			const componentEvent = new ComponentEvent(id, event.target!, event);
+			const componentEvent = new ComponentEvent(
+				id,
+				event.target as HTMLButtonElement,
+				event
+			);
 			onMenuUpdate(componentEvent);
 		}
 	};
@@ -178,7 +186,11 @@
 			location = location.concat([id]);
 			currentState = [...state];
 		}
-		const componentEvent = new ComponentEvent(id, event.target!, event);
+		const componentEvent = new ComponentEvent(
+			id,
+			event.target as HTMLButtonElement,
+			event
+		);
 		// if clicked and item doesn't have a submenu dispatch 'click'
 		// otherwise dispatch 'update'∂
 		if (!state) {

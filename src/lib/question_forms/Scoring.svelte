@@ -3,6 +3,7 @@
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import type { Language } from '@surveyplanet/types';
+	import type { CustomDragEventTarget } from '$lib/SortableList.svelte';
 
 	export interface ScoringDefinitions {
 		scoringResetButton: Language['definitions']['scoringResetButton'];
@@ -18,7 +19,12 @@
 		requireAll?: ScoringProperties['requireAll'];
 		requireUnique?: ScoringProperties['requireUnique'];
 		response?: ScoringValue[];
-		onScoringResponse?: (event: ComponentEvent<ScoringValue[]>) => void;
+		onScoringResponse?: (
+			event: ComponentEvent<
+				ScoringValue[],
+				HTMLInputElement | CustomDragEventTarget | HTMLButtonElement
+			>
+		) => void;
 	};
 </script>
 
@@ -30,10 +36,10 @@
 		ComponentEvent,
 		SortableList,
 		type SortListData,
+		type RadioProps,
 	} from '../';
 
 	let {
-		id,
 		definitions,
 		values,
 		labels,
@@ -52,7 +58,9 @@
 		response.push(value);
 	};
 
-	const inputChangeHandler = (event: ComponentEvent<boolean>) => {
+	const inputChangeHandler = (
+		event: ComponentEvent<string, HTMLInputElement>
+	) => {
 		const target = event.target as HTMLInputElement;
 
 		const value: ScoringValue = {
@@ -63,17 +71,18 @@
 		updateResponse(value);
 
 		if (typeof onScoringResponse === 'function') {
-			const componentEvent = new ComponentEvent<ScoringValue[]>(
-				response,
-				event.target,
-				event.raw
-			);
+			const componentEvent = new ComponentEvent<
+				ScoringValue[],
+				HTMLInputElement
+			>(response, event.target, event.raw);
 
 			onScoringResponse(componentEvent);
 		}
 	};
 
-	const sortableEventHandler = (event: ComponentEvent<SortListData[]>) => {
+	const sortableEventHandler = (
+		event: ComponentEvent<SortListData[], CustomDragEventTarget>
+	) => {
 		const list = event.value!;
 		for (let i = 0; i < list.length; i++) {
 			response = response?.filter((val) => val.label !== list[i].label);
@@ -83,19 +92,21 @@
 			});
 		}
 		if (typeof onScoringResponse === 'function') {
-			const componentEvent = new ComponentEvent<ScoringValue[]>(
+			const componentEvent = new ComponentEvent(
 				response,
-				event.target,
+				event.target as CustomDragEventTarget,
 				event.raw
 			);
 			onScoringResponse(componentEvent);
 		}
 	};
 
-	const clearButtonClickHandler = (event: ComponentEvent<unknown>) => {
+	const clearButtonClickHandler = (
+		event: ComponentEvent<unknown, HTMLButtonElement>
+	) => {
 		response = [];
 		if (typeof onScoringResponse === 'function') {
-			const componentEvent = new ComponentEvent<ScoringValue[]>(
+			const componentEvent = new ComponentEvent(
 				response,
 				event.target,
 				event.raw
@@ -111,6 +122,19 @@
 			});
 		});
 		return sortedLabels;
+	};
+
+	let radioData: RadioProps['data'] = labels.map((label) => {
+		return {
+			label: '',
+			value: label,
+		};
+	});
+
+	let radioProps: RadioProps = {
+		data: radioData,
+		group: response[0]?.label,
+		onRadioChange: inputChangeHandler,
 	};
 </script>
 
@@ -150,22 +174,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each labels as label, rowIndex}
+				{#each labels as label}
 					<tr>
 						<th
 							scope="row"
 							class="sp-survey--question--form--scoring--label-row"
 							>{label}</th>
 
-						{#each values as value, cellIndex}
-							<td>
-								<Radio
-									name={label}
-									value={value.toString()}
-									id="{id}-{rowIndex}-{cellIndex}"
-									onRadioChange={inputChangeHandler} />
-							</td>
-						{/each}
+						<Radio {...radioProps} />
 					</tr>
 				{/each}
 			</tbody>

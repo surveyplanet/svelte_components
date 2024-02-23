@@ -6,7 +6,7 @@
 		min: number;
 		max: number;
 		response?: RangeValue[];
-		onRangeResponse?: (event: ComponentEvent<RangeValue[]>) => void;
+		onRangeResponse?: (event: ComponentEvent<RangeValue[], null>) => void;
 	};
 </script>
 
@@ -29,20 +29,19 @@
 	// });
 
 	const rangeSliderStopHandler = (event: Event) => {
+		console.log('rangeValues', event);
 		response = [rangeValues[0], rangeValues[1]];
 		if (typeof onRangeResponse === 'function') {
-			const componentEvent = new ComponentEvent(
-				response,
-				event.target as HTMLElement,
-				event
-			);
+			const componentEvent = new ComponentEvent(response, null, event);
 			onRangeResponse(componentEvent);
 		}
 	};
 
 	// it would be better to do this on a keydown event but we are not dispatching
 	// 'value' on keydown or input but rather events themselves.
-	const minSliderInputHandler = (event: ComponentEvent<string>) => {
+	const minSliderInputHandler = (
+		event: ComponentEvent<string, HTMLInputElement>
+	) => {
 		let minInputValue = parseInt((event.target as HTMLInputElement).value);
 		if (isNaN(minInputValue)) {
 			minInputValue = min;
@@ -59,7 +58,9 @@
 		}
 	};
 
-	const maxSliderInputHandler = (event: ComponentEvent<string>) => {
+	const maxSliderInputHandler = (
+		event: ComponentEvent<string, HTMLInputElement>
+	) => {
 		let maxInputValue = parseInt((event.target as HTMLInputElement).value);
 
 		if (maxInputValue <= rangeValues[0]) {

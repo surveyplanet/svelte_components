@@ -72,7 +72,7 @@
 	};
 
 	const dropdownChangeHandler = (
-		dropdownValueMutated: ComponentEvent<string>
+		dropdownValueMutated: ComponentEvent<string, HTMLButtonElement>
 	) => {
 		value = dropdownValueMutated.value!;
 	};

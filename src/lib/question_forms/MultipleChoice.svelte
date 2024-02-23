@@ -11,7 +11,10 @@
 		other?: MultipleChoiceProperties['other'];
 		response?: MultipleChoiceValue[];
 		onMultipleChoiceResponse?: (
-			event: ComponentEvent<MultipleChoiceValue[]>
+			event: ComponentEvent<
+				MultipleChoiceValue[],
+				HTMLInputElement | HTMLButtonElement
+			>
 		) => void;
 	};
 </script>
@@ -21,7 +24,15 @@
 		MultipleChoiceValue,
 		MultipleChoiceProperties,
 	} from '@surveyplanet/types';
-	import { Checkbox, Radio, Dropdown, TextInput, ComponentEvent } from '../';
+	import {
+		Checkbox,
+		Radio,
+		Dropdown,
+		TextInput,
+		ComponentEvent,
+		type RadioProps,
+		type CheckboxProps,
+	} from '../';
 
 	// export let min: MultipleChoiceProperties['min'];
 	// export let max: MultipleChoiceProperties['max'];
@@ -62,9 +73,13 @@
 		response.push(value);
 	};
 
-	const inputChangeHandler = (event: ComponentEvent<boolean>) => {
+	const inputChangeHandler = (
+		event: ComponentEvent<string | string[], HTMLInputElement>
+	) => {
 		otherChecked = false;
 		const target = event.target as HTMLInputElement;
+		console.log(event);
+
 		const value: MultipleChoiceValue = {
 			label: target.value,
 			value: true,
@@ -80,7 +95,9 @@
 		}
 	};
 
-	const otherChangeHandler = (event: ComponentEvent<boolean>) => {
+	const otherChangeHandler = (
+		event: ComponentEvent<string | string[], HTMLInputElement>
+	) => {
 		const target = event.target as HTMLInputElement;
 		const value: MultipleChoiceValue = {
 			label: target.value,
@@ -101,7 +118,9 @@
 	};
 
 	const otherTextInputHandler = (
-		event: ComponentEvent<string> | ComponentEvent<undefined>
+		event:
+			| ComponentEvent<string, HTMLInputElement>
+			| ComponentEvent<undefined, HTMLInputElement>
 	) => {
 		otherTextValue = (event.target as HTMLInputElement).value; // this might no longer work
 		if (otherTextValue && otherTextValue.length && !otherChecked) {
@@ -124,7 +143,9 @@
 		}
 	};
 
-	const dropdownChangeHandler = (event: ComponentEvent<string>) => {
+	const dropdownChangeHandler = (
+		event: ComponentEvent<string, HTMLButtonElement>
+	) => {
 		const value = {
 			label: event.value,
 			value: true,
@@ -150,6 +171,29 @@
 			selected: selected,
 		};
 	};
+	let checkRadioData: RadioProps['data'] | CheckboxProps['data'] = labels.map(
+		(label) => {
+			return {
+				label: label,
+				value: label,
+			};
+		}
+	);
+
+	let checkProps: CheckboxProps = {
+		data: checkRadioData,
+		group: response.map((val) => val.label),
+		size: 'large' as CheckboxProps['size'],
+		block: true,
+	};
+
+	let radioProps: RadioProps = {
+		data: checkRadioData,
+		group: response[0]?.label,
+		size: 'large' as RadioProps['size'],
+		block: true,
+	};
+	// TODO -fix 'Other' input
 </script>
 
 <form
@@ -161,30 +205,32 @@
 			onDropdownChange={dropdownChangeHandler} />
 	{:else}
 		<!-- {@const callbacks = multi ? { onCheckboxChange: inputChangeHandler } : { onRadioChange: inputChangeHandler }} -->
-		{#each labels as label}
-			<div>
-				<svelte:component
-					this={multi ? Checkbox : Radio}
-					name={id}
-					value={label}
-					{label}
-					size="large"
-					block={true}
-					onRadioChange={inputChangeHandler}
-					onCheckboxChange={inputChangeHandler} />
-			</div>
-		{/each}
+		{#if multi}
+			<Checkbox
+				{...checkProps}
+				onCheckboxChange={inputChangeHandler} />
+		{:else}
+			<Radio
+				{...radioProps}
+				onRadioChange={inputChangeHandler} />
+		{/if}
+
 		{#if other}
 			<div class="sp-survey--question--form--multiple-choice-other">
-				<svelte:component
-					this={multi ? Checkbox : Radio}
-					name={id}
-					value={other}
-					label={other}
-					checked={otherChecked}
-					size="large"
-					onRadioChange={otherChangeHandler}
-					onCheckboxChange={otherChangeHandler} />
+				{#if multi}
+					<Checkbox
+						data={[{ label: other, value: other }]}
+						group={response.map((val) => val.label)}
+						size="large"
+						onCheckboxChange={otherChangeHandler} />
+				{:else}
+					<Radio
+						data={[{ label: other, value: other }]}
+						group={response[0]?.label}
+						size="large"
+						onRadioChange={otherChangeHandler} />
+				{/if}
+
 				<TextInput
 					placeholder={other}
 					size="large"

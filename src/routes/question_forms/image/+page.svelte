@@ -4,7 +4,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<ImageValue[]>[]>([]);
+	let events = $state<ComponentEvent<ImageValue[], HTMLInputElement>[]>([]);
 	// let keys = $state(0);
 
 	// Component props
@@ -32,7 +32,9 @@
 			value: '',
 		},
 	]);
-	const imageResponseHandler = (event: ComponentEvent<ImageValue[]>) => {
+	const imageResponseHandler = (
+		event: ComponentEvent<ImageValue[], HTMLInputElement>
+	) => {
 		events.push(event);
 	};
 </script>

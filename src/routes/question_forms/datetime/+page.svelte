@@ -13,7 +13,9 @@
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<DateTimeValue[]>[]>([]);
+	let events = $state<ComponentEvent<DateTimeValue[], HTMLInputElement>[]>(
+		[]
+	);
 	// let keys = $state(0);
 
 	let id = $state('abc123');
@@ -28,8 +30,8 @@
 		new Date(1977, 3, 29, 12, 0, 0).toISOString(),
 	]);
 
-	const dateTimeResponseHandler = (
-		event: ComponentEvent<DateTimeValue[]>
+	const onDateTimeResponse = (
+		event: ComponentEvent<DateTimeValue[], HTMLInputElement>
 	) => {
 		events.push(event);
 	};
@@ -58,7 +60,7 @@
 				{date}
 				{time}
 				{response}
-				onDateTimeResponse={dateTimeResponseHandler} />
+				{onDateTimeResponse} />
 		</div>
 	{/snippet}
 </Layout>

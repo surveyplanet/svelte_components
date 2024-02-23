@@ -35,7 +35,7 @@
 <div
 	class="jsonEditor"
 	spellcheck="false">
-	{#key StringData}
+	{#key value}
 		<CodeMirror
 			bind:value={StringData}
 			lang={json()}

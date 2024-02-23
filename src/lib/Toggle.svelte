@@ -1,10 +1,10 @@
 <script
 	lang="ts"
 	context="module">
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { ComponentEvent } from './';
 
-	export type ToggleProps = HTMLAttributes<HTMLInputElement> & {
+	export type ToggleProps = Omit<HTMLInputAttributes, 'size'> & {
 		id?: string;
 		on?: boolean;
 		tall?: boolean;
@@ -12,7 +12,9 @@
 		prependLabel?: boolean;
 		size?: 'small' | 'medium' | 'large';
 		disabled?: boolean; // TS isn't recognizing disabled in HTMLInputElement for some reason
-		onToggleChange?: (event: ComponentEvent<boolean>) => void;
+		onToggleChange?: (
+			event: ComponentEvent<boolean, HTMLInputElement>
+		) => void;
 	};
 </script>
 
@@ -35,7 +37,7 @@
 			return event.preventDefault();
 		}
 
-		const target = (event.target as HTMLElement)!.closest(
+		const target = (event.target as HTMLInputElement)!.closest(
 			'input'
 		) as HTMLInputElement;
 

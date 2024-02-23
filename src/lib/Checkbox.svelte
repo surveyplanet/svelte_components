@@ -1,14 +1,11 @@
 <script
 	lang="ts"
 	context="module">
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 
 	export type CheckboxData = {
-		id?: string;
 		label: string;
-		value?: string;
-		disabled?: boolean;
-	} & HTMLAttributes<HTMLInputElement>;
+	} & HTMLInputAttributes;
 
 	export type CheckboxProps = {
 		data: CheckboxData | CheckboxData[];
@@ -16,7 +13,9 @@
 		size?: 'small' | 'medium' | 'large';
 		prependLabel?: boolean;
 		block?: boolean;
-		onCheckboxChange?: (event: ComponentEvent<string[]>) => void;
+		onCheckboxChange?: (
+			event: ComponentEvent<string[], HTMLInputElement>
+		) => void;
 	} & HTMLAttributes<HTMLDivElement>;
 </script>
 

@@ -1,20 +1,23 @@
 <script
 	lang="ts"
 	context="module">
-	import type { HTMLAttributes } from 'svelte/elements';
-	export interface ChipData {
-		id?: string;
+	import type { HTMLAttributes, HTMLMenuAttributes } from 'svelte/elements';
+	export interface ChipData extends HTMLAttributes<HTMLDivElement> {
 		label?: string;
 		selected?: boolean;
 	}
 
-	export type ChipsProps = HTMLAttributes<HTMLMenuElement> & {
+	export type ChipsProps = HTMLMenuAttributes & {
 		data: ChipData[];
 		selectable?: boolean;
 		multiSelect?: boolean;
 		removable?: boolean;
-		onChipsClick?: (event: ComponentEvent<ChipData[]>) => void;
-		onChipsRemove?: (event: ComponentEvent<ChipData[]>) => void;
+		onChipsClick?: (
+			event: ComponentEvent<ChipData[], HTMLButtonElement>
+		) => void;
+		onChipsRemove?: (
+			event: ComponentEvent<ChipData[], HTMLButtonElement>
+		) => void;
 	};
 </script>
 
@@ -54,7 +57,7 @@
 		if (typeof onChipsClick === 'function') {
 			const componentEvent = new ComponentEvent(
 				data,
-				event.target!,
+				event.target as HTMLButtonElement,
 				event
 			);
 			onChipsClick(componentEvent);
@@ -95,7 +98,7 @@
 		if (typeof onChipsRemove === 'function') {
 			const componentEvent = new ComponentEvent(
 				data,
-				event.target!,
+				event.target as HTMLButtonElement,
 				event
 			);
 			onChipsRemove(componentEvent);

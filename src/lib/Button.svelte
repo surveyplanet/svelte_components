@@ -1,7 +1,7 @@
 <script
 	lang="ts"
 	context="module">
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { HTMLButtonAttributes } from 'svelte/elements';
 	export type ButtonMode =
 		| 'primary'
 		| 'light'
@@ -11,13 +11,12 @@
 		| 'accent-alt3'
 		| 'outline';
 
-	export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
+	export type ButtonProps = HTMLButtonAttributes & {
 		mode?: ButtonMode;
 		loader?: boolean;
 		round?: boolean;
 		block?: boolean;
 		action?: boolean;
-
 		size?: 'small' | 'medium' | 'large';
 		onButtonClick?: (
 			event: ComponentEvent<undefined, HTMLButtonElement>

@@ -1,10 +1,10 @@
 <script
 	lang="ts"
 	context="module">
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { ComponentEvent } from './';
 
-	export type SpinnerProps = HTMLAttributes<HTMLInputElement> & {
+	export type SpinnerProps = Omit<HTMLInputAttributes, 'size'> & {
 		label?: string;
 		step?: number;
 		min: number;

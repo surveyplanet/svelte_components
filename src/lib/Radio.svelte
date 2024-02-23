@@ -1,14 +1,11 @@
 <script
 	lang="ts"
 	context="module">
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 
 	export type RadioData = {
-		id?: string;
 		label: string;
-		value?: string;
-		disabled?: boolean;
-	} & HTMLAttributes<HTMLInputElement>;
+	} & HTMLInputAttributes;
 
 	export type RadioProps = {
 		data: RadioData | RadioData[];
@@ -16,7 +13,9 @@
 		size?: 'small' | 'medium' | 'large';
 		prependLabel?: boolean;
 		block?: boolean;
-		onRadioChange?: (event: ComponentEvent<string>) => void;
+		onRadioChange?: (
+			event: ComponentEvent<string, HTMLInputElement>
+		) => void;
 	} & HTMLAttributes<HTMLDivElement>;
 </script>
 

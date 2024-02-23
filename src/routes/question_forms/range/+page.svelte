@@ -4,14 +4,16 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<RangeValue[]>[]>([]);
+	let events = $state<ComponentEvent<RangeValue[], null>[]>([]);
 	// let keys = $state(0);
 
 	// Component props
 	let min: RangeProperties['min'] = $state(0);
 	let max: RangeProperties['max'] = $state(10);
 	let response: RangeValue[] = $state([]);
-	const rangeResponseHandler = (event: ComponentEvent<RangeValue[]>) => {
+	const rangeResponseHandler = (
+		event: ComponentEvent<RangeValue[], null>
+	) => {
 		events.push(event);
 	};
 </script>

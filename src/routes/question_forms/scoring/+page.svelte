@@ -4,11 +4,17 @@
 		Scoring,
 		type ScoringDefinitions,
 		type ComponentEvent,
+		type CustomDragEventTarget,
 	} from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<ScoringValue[]>[]>([]);
+	let events = $state<
+		ComponentEvent<
+			ScoringValue[],
+			HTMLInputElement | CustomDragEventTarget | HTMLButtonElement
+		>[]
+	>([]);
 	// let keys = $state(0);
 
 	// Component props
@@ -28,7 +34,12 @@
 	let requireAll: ScoringProperties['requireAll'] = $state(false);
 	let requireUnique: ScoringProperties['requireUnique'] = $state(false);
 	let response: ScoringValue[] = $state([]);
-	const scoringResponseHandler = (event: ComponentEvent<ScoringValue[]>) => {
+	const scoringResponseHandler = (
+		event: ComponentEvent<
+			ScoringValue[],
+			HTMLInputElement | CustomDragEventTarget | HTMLButtonElement
+		>
+	) => {
 		events.push(event);
 	};
 </script>

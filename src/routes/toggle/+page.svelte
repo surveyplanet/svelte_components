@@ -3,7 +3,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
-	let events: ComponentEvent<boolean>[] = $state([]);
+	let events: ComponentEvent<boolean, HTMLInputElement>[] = $state([]);
 
 	let id: ToggleProps['id'] = $state();
 	let on: ToggleProps['on'] = $state(false);
@@ -13,7 +13,9 @@
 	let label: ToggleProps['label'] = $state('Toggle switch');
 	let prependLabel: ToggleProps['prependLabel'] = $state(false);
 
-	const onToggleChange = (event: ComponentEvent<boolean>): void => {
+	const onToggleChange = (
+		event: ComponentEvent<boolean, HTMLInputElement>
+	): void => {
 		events.push(event);
 	};
 </script>

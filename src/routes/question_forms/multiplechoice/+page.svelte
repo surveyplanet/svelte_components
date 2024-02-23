@@ -7,7 +7,12 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
-	let events = $state<ComponentEvent<MultipleChoiceValue[]>[]>([]);
+	let events = $state<
+		ComponentEvent<
+			MultipleChoiceValue[],
+			HTMLInputElement | HTMLButtonElement
+		>[]
+	>([]);
 	// let keys = $state(0);
 
 	// Component props
@@ -25,7 +30,10 @@
 	let response: MultipleChoiceValue[] = $state([]);
 	let other: MultipleChoiceProperties['other'] = $state('Other');
 	const multipleChoiceResponseHandler = (
-		event: ComponentEvent<MultipleChoiceValue[]>
+		event: ComponentEvent<
+			MultipleChoiceValue[],
+			HTMLInputElement | HTMLButtonElement
+		>
 	) => {
 		events.push(event);
 	};

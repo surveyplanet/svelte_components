@@ -1,8 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	import type { HTMLAttributes } from 'svelte/elements';
-	export interface DropdownOption {
+	import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
+	export interface DropdownOption extends HTMLButtonAttributes {
 		label: string;
 		id: string;
 		meta?: string;
@@ -20,7 +20,7 @@
 		required?: boolean;
 		size?: 'small' | 'medium' | 'large';
 		onDropdownChange?: (
-			event: ComponentEvent<DropdownOption['id']>
+			event: ComponentEvent<DropdownOption['id'], HTMLButtonElement>
 		) => void;
 	};
 </script>
@@ -76,11 +76,15 @@
 			if (!event) {
 				componentEvent = new ComponentEvent(
 					id,
-					input as EventTarget,
+					input as HTMLButtonElement,
 					undefined
 				);
 			} else {
-				componentEvent = new ComponentEvent(id, event.target!, event);
+				componentEvent = new ComponentEvent(
+					id,
+					event.target as HTMLButtonElement,
+					event
+				);
 			}
 			onDropdownChange(componentEvent);
 		}
@@ -109,7 +113,9 @@
 		} // setting focus will open menu
 	};
 
-	const menuClickHandler = (event: ComponentEvent<string>) => {
+	const menuClickHandler = (
+		event: ComponentEvent<string, HTMLButtonElement>
+	) => {
 		setValue(event.value!, undefined, event.raw);
 		visible = false; // blur handler hides the menu
 	};

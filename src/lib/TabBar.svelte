@@ -19,7 +19,7 @@
 		defaultIndicatorWidth?: number;
 		defaultIndicatorX?: number;
 		data: TabBarData[];
-		onTabClick?: (event: ComponentEvent<string>) => void;
+		onTabClick?: (event: ComponentEvent<string, HTMLButtonElement>) => void;
 	};
 </script>
 
@@ -92,11 +92,10 @@
 
 		selectTabButton(target, true);
 		if (typeof onTabClick === 'function') {
-			const componentEvent = new ComponentEvent<string>(
-				target!.id,
-				target!,
-				event
-			);
+			const componentEvent = new ComponentEvent<
+				string,
+				HTMLButtonElement
+			>(target!.id, target as HTMLButtonElement, event);
 			onTabClick(componentEvent);
 		}
 	};

@@ -1,7 +1,10 @@
 <script
 	context="module"
 	lang="ts">
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type {
+		HTMLInputAttributes,
+		HTMLTextareaAttributes,
+	} from 'svelte/elements';
 	export type TextInputType =
 		| 'password'
 		| 'search'
@@ -11,16 +14,13 @@
 		| 'datetime-local'
 		| 'multiline';
 
-	export type TextInputProps = (HTMLAttributes<HTMLInputElement> &
-		HTMLAttributes<HTMLTextAreaElement>) & {
-		id?: string;
+	export type TextInputProps = (Omit<HTMLInputAttributes, 'size' | 'label'> &
+		HTMLTextareaAttributes) & {
 		name?: string;
 		type?: TextInputType;
 		value?: string;
 		label?: string;
 		placeholder?: string | null;
-		readonly?: boolean;
-		disabled?: boolean;
 		cleaveOptions?: CleaveOptions;
 		validationRules?: string[];
 		validationMessage?: string | null;

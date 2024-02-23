@@ -20,7 +20,9 @@
 		readonly?: boolean;
 		placeholder?: string | HTMLElement | null | undefined;
 		nodeBounce?: boolean;
-		onCodeMirrorChange?: (event: ComponentEvent<string>) => void;
+		onCodeMirrorChange?: (
+			event: ComponentEvent<string, HTMLDivElement>
+		) => void;
 	};
 </script>
 
@@ -70,7 +72,7 @@
 	$effect(() => {
 		const dispatch = (newValue: string) => {
 			if (typeof onCodeMirrorChange === 'function' && element !== null) {
-				const componentEvent: ComponentEvent<string> = {
+				const componentEvent = {
 					value: newValue,
 					target: element,
 					raw: undefined,

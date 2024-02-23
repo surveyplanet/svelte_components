@@ -1,8 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	import type { HTMLAttributes } from 'svelte/elements';
-	export type AvatarProps = HTMLAttributes<HTMLButtonElement> & {
+	import type { HTMLButtonAttributes } from 'svelte/elements';
+	export type AvatarProps = HTMLButtonAttributes & {
 		label?: string;
 		profileImage?: string;
 		userId?: string;

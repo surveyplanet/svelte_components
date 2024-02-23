@@ -1,8 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	import type { HTMLAttributes } from 'svelte/elements';
-	export type UploadProps = HTMLAttributes<HTMLInputElement> & {
+	import type { HTMLInputAttributes } from 'svelte/elements';
+	export type UploadProps = HTMLInputAttributes & {
 		label?: string;
 		formats?: string[];
 		maxSize?: number;
@@ -48,7 +48,7 @@
 			if (typeof onUploadUpload === 'function') {
 				const componentEvent = new ComponentEvent(
 					{ image, data },
-					target as EventTarget,
+					target as HTMLInputElement,
 					event
 				);
 				onUploadUpload(componentEvent);

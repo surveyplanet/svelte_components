@@ -3,7 +3,9 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import source from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<string | undefined>[]>([]);
+	let events = $state<ComponentEvent<string | undefined, HTMLInputElement>[]>(
+		[]
+	);
 
 	// let keys = $state(0);
 
@@ -20,27 +22,39 @@
 	let validationMessage: TextInputProps['validationMessage'] = $state('');
 	let size: TextInputProps['size'] = $state('small');
 
-	const onTextInputChange = (event: ComponentEvent<string>): void => {
+	const onTextInputChange = (
+		event: ComponentEvent<string, HTMLInputElement>
+	): void => {
 		events.push(event);
 	};
 
-	const onTextInputInput = (event: ComponentEvent<string>): void => {
+	const onTextInputInput = (
+		event: ComponentEvent<string, HTMLInputElement>
+	): void => {
 		events.push(event);
 	};
 
-	const onTextInputKeydown = (event: ComponentEvent<string>) => {
+	const onTextInputKeydown = (
+		event: ComponentEvent<string, HTMLInputElement>
+	) => {
 		events.push(event);
 	};
 
-	const onTextInputKeyup = (event: ComponentEvent<string>) => {
+	const onTextInputKeyup = (
+		event: ComponentEvent<string, HTMLInputElement>
+	) => {
 		events.push(event);
 	};
 
-	const onTextInputBlur = (event: ComponentEvent<undefined>): void => {
+	const onTextInputBlur = (
+		event: ComponentEvent<undefined, HTMLInputElement>
+	): void => {
 		events.push(event);
 	};
 
-	const onTextInputFocus = (event: ComponentEvent<undefined>) => {
+	const onTextInputFocus = (
+		event: ComponentEvent<undefined, HTMLInputElement>
+	) => {
 		events.push(event);
 	};
 </script>
