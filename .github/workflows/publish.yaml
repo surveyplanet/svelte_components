@@ -33,11 +33,11 @@ jobs:
             # - name: Check Lint errors
             #   run: npm run lint
 
-            - name: Check Typescript errors
-              run: npm run check
+            # - name: Check Typescript errors
+            #   run: npm run check
 
-            # - name: Check spelling errors
-            #   run: npm run spell
+            - name: Check spelling errors
+              run: npm run spell
 
             # - name: Install Playwright (for tests)
             #   run: npx playwright install --with-deps

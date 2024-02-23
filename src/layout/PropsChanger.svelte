@@ -1,6 +1,7 @@
 <script lang="ts">
-	import Checkbox from '$lib/Checkbox.svelte';
+	// import Checkbox from '$lib/Checkbox.svelte';
 	import TextInput from '$lib/TextInput.svelte';
+	import Toggle from '$lib/Toggle.svelte';
 	import type { TextInputProps } from '$lib/TextInput.svelte';
 	import Spinner from '$lib/Spinner.svelte';
 	import Dropdown from '$lib/Dropdown.svelte';
@@ -8,14 +9,14 @@
 	import { dasherize } from '@surveyplanet/utilities';
 	import JsonEditor from './JsonEditor.svelte';
 	import type { ComponentEvent } from '$lib';
-	import { onMount } from 'svelte';
 
 	const FORM_CONTROL_SIZE: TextInputProps['size'] = 'medium';
 
-	type ValueTypes = string | number | boolean | object | undefined | null;
+	// type ValueTypes = string | number | boolean | object | undefined ;
 
 	interface PropsChangerProps<T> {
 		value: T;
+		// group?: string[]; // for checkbox
 		label: string;
 		type?: 'string' | 'number' | 'boolean' | 'json' | 'select';
 		selectOptions?: string[] | number[] | { label: string; id: string }[];
@@ -25,14 +26,17 @@
 
 	let {
 		value,
+		// group,
 		label,
 		selectOptions = [],
 		type,
 		onInput,
 		onBlur,
-	} = $props<PropsChangerProps<ValueTypes>>();
+	} = $props<
+		PropsChangerProps<string | number | boolean | object | undefined | null>
+	>();
 
-	onMount(() => {
+	$effect.pre(() => {
 		if (type?.length) return;
 
 		if (selectOptions?.length) {
@@ -90,14 +94,22 @@
 				onSpinnerInput={onInput}
 				onSpinnerBlur={onBlur} />
 		{:else if type === 'boolean' && (typeof value === 'boolean' || typeof value === 'undefined')}
-			<Checkbox
+			<Toggle
 				id="boolean-{(Date.now() + Math.random()).toString(36)}"
-				{label}
-				prependLabel
-				name="boolean-{label}s"
-				bind:checked={value}
+				bind:on={value}
 				size={FORM_CONTROL_SIZE}
-				onCheckboxChange={onInput} />
+				{label}
+				onToggleChange={onInput} />
+			<!-- <Checkbox
+				data={{
+					id: `boolean-${(Date.now() + Math.random()).toString(36)}`,
+					label,
+					value: label.toLocaleLowerCase().replace(/\s/g, '-'),
+				}}
+				prependLabel={false}
+				bind:group
+				size={FORM_CONTROL_SIZE}
+				onCheckboxChange={onInput} /> -->
 		{:else if type === 'json'}
 			<p>{label}</p>
 			<JsonEditor bind:value />

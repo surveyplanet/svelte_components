@@ -13,6 +13,7 @@
 
 body {
 	background-color: $color--white;
+
 	&.dark {
 		background-color: $color--dark;
 		// color: $color--white;
@@ -39,12 +40,15 @@ body {
 #main-sidebar {
 	grid-area: sidebar;
 	border-right: 1px solid $color--beige-darker;
+
 	header {
 		padding: $size-space--m;
+
 		.sp-logo {
 			margin-bottom: $size-space--m;
 		}
 	}
+
 	.sp-menu {
 		width: 100%;
 		max-width: unset;
@@ -59,33 +63,38 @@ body {
 	grid-area: main;
 	display: grid;
 	grid-template-columns: 3fr 1fr;
-	#component-preview {
-		background-color: $color--white;
-		// background: white url('grid.svg') repeat;
-		#component-preview--window {
-			padding: $size-space--l;
-		}
-		#component-preview--header {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: nowrap;
-			justify-content: space-between;
-			background-color: $color--beige;
-			border-bottom: 1px solid $color--beige-darker;
-			padding: $size-space--s $size-space--m;
-		}
+}
+
+#component-preview {
+	background-color: $color--white;
+
+	#component-preview--window {
+		padding: $size-space--l;
 	}
-	#component-details {
-		border-left: 1px solid $color--beige-darker;
-		padding: $size-space--m;
-		width: px-to-rem(400);
-		header {
-			margin-bottom: $size-space--m;
-			padding-bottom: $size-space--m;
-			border-bottom: 1px solid $color--beige-darker;
-		}
+
+	#component-preview--header {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: space-between;
+		background-color: $color--beige;
+		border-bottom: 1px solid $color--beige-darker;
+		padding: $size-space--s $size-space--m;
 	}
 }
+
+#component-details {
+	border-left: 1px solid $color--beige-darker;
+	padding: $size-space--m;
+	width: px-to-rem(400);
+
+	header {
+		margin-bottom: $size-space--m;
+		padding-bottom: $size-space--m;
+		border-bottom: 1px solid $color--beige-darker;
+	}
+}
+
 #component-details--controls,
 #component-details--docs,
 #component-details--example {
@@ -100,15 +109,30 @@ body {
 }
 
 #component-details--example {
-	background-color: $color--white;
 	border-radius: $size-radius--small;
-	pre {
+
+	header {
 		margin: 0;
-		padding: 0 $size-space--m;
+		// padding: 0;
+		border: none;
+		border: none;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: end;
+		align-items: center;
+		gap: 1rem;
+		background-color: transparent;
+
+	}
+
+	.example-copied {
+		color: $color--dark;
 	}
 }
 
 #component-details--docs {
+
 	// padding: 0;
 	h3 {
 		background-color: $color--beige-darker;
@@ -116,6 +140,7 @@ body {
 		padding: $size-space--s;
 		border-bottom: 1px solid $color--beige-darkest;
 	}
+
 	table {
 		width: 100%;
 		border-collapse: collapse;
@@ -153,29 +178,35 @@ body {
 	background-color: $color--beige;
 	min-height: 10rem;
 	overflow-y: auto;
+
 	header {
 		position: sticky;
 		top: 0;
 		padding: $size-space--s;
 		border-bottom: 1px solid $color--beige-darker;
 		background-color: white;
+
 		h3 {
 			font-size: $font-step--1;
 			margin: 0;
 		}
 	}
+
 	#component-events {
 		margin: 0;
 		padding: $size-space--m;
 		// overflow: auto;
 		max-height: 300px;
+
 		ol {
 			list-style: none;
 			counter-reset: li;
 			padding-left: 0;
+
 			li {
 				counter-increment: li;
 				border-bottom: 1px solid $color--beige-darker;
+
 				&::before {
 					display: inline-block;
 					content: counter(li);
@@ -199,12 +230,15 @@ body.dark {
 	#main-container {
 		background-color: $color--darker;
 	}
+
 	#main-sidebar {
 		border-color: $color--darkest;
 	}
+
 	#main-content {
 		#component-preview {
 			background-color: $color--darker;
+
 			#component-preview--header {
 				border-color: $color--darkest;
 				background-color: $color--darker;
@@ -215,6 +249,7 @@ body.dark {
 			border-color: $color--darkest;
 		}
 	}
+
 	#main-footer {
 		border-color: $color--darkest;
 		background-color: $color--darker;
@@ -222,15 +257,18 @@ body.dark {
 		header {
 			border-color: $color--darkest;
 			background-color: $color--darker;
+
 			h3 {
 				color: $color--white;
 			}
 		}
+
 		#component-events {
 			ol {
 				li {
 					border-color: $color--darkest;
 					color: white;
+
 					&::before {
 						background-color: $color--darkest;
 						color: $color--white;

@@ -160,6 +160,7 @@
 			options={labels.map(getDropdownOption)}
 			onDropdownChange={dropdownChangeHandler} />
 	{:else}
+		<!-- {@const callbacks = multi ? { onCheckboxChange: inputChangeHandler } : { onRadioChange: inputChangeHandler }} -->
 		{#each labels as label}
 			<div>
 				<svelte:component
@@ -168,6 +169,7 @@
 					value={label}
 					{label}
 					size="large"
+					block={true}
 					onRadioChange={inputChangeHandler}
 					onCheckboxChange={inputChangeHandler} />
 			</div>
