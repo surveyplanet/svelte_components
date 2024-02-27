@@ -66,12 +66,12 @@
 		{#each data as item}
 			<div class="sp-radio">
 				<input
+					bind:group
 					type="radio"
 					class="sp-radio--input"
 					value={item.value}
 					disabled={item.disabled}
 					id={item.id}
-					bind:group
 					{...omitProps(item, ['label', 'id'])}
 					onchange={ratioChangeHandler} />
 

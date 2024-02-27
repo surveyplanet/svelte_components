@@ -9,6 +9,8 @@
 		layout?: MultipleChoiceProperties['layout'];
 		random?: MultipleChoiceProperties['random'];
 		other?: MultipleChoiceProperties['other'];
+		min?: MultipleChoiceProperties['min'];
+		max?: MultipleChoiceProperties['max'];
 		response?: MultipleChoiceValue[];
 		onMultipleChoiceResponse?: (
 			event: ComponentEvent<
@@ -24,142 +26,39 @@
 		MultipleChoiceValue,
 		MultipleChoiceProperties,
 	} from '@surveyplanet/types';
-	import {
-		Checkbox,
-		Radio,
-		Dropdown,
-		TextInput,
-		ComponentEvent,
-		type RadioProps,
-		type CheckboxProps,
-	} from '../';
-
+	import { Checkbox, Radio, Dropdown, TextInput, ComponentEvent } from '../';
+	import { delay } from '@surveyplanet/utilities';
 	// export let min: MultipleChoiceProperties['min'];
 	// export let max: MultipleChoiceProperties['max'];
 
 	let {
-		id,
 		labels,
 		multi,
-		layout = '1', // the default layout
+		layout = '1',
 		random,
 		other,
-		response = [], // forms return empty array if no response
+		min,
+		max,
+		response = [],
 		onMultipleChoiceResponse,
 		...attr
 	} = $props<MultipleChoiceProps>();
 
-	$effect(() => {
+	let group: string[] | string | undefined = $state();
+	let otherValue: string | undefined = $state();
+	let otherIsSelected: boolean = $derived(
+		typeof other !== 'undefined' &&
+			other?.length > 0 &&
+			response.some((val) => val.label === other)
+	);
+
+	let otherInputEl: HTMLInputElement | undefined = $state();
+
+	$effect.pre(() => {
 		if (random) {
 			labels = labels.sort(() => Math.random() - 0.5);
 		}
 	});
-
-	let otherTextValue = $state('');
-	let otherChecked = $state(false);
-	const updateResponse = (value: MultipleChoiceValue, remove = false) => {
-		// remove value if already exits.
-		if (multi) {
-			response = response?.filter((val) => val.label !== value.label);
-		} else {
-			response = [];
-		}
-
-		// just remove the value when the image is unselected.
-		if (remove) {
-			return;
-		}
-
-		response.push(value);
-	};
-
-	const inputChangeHandler = (
-		event: ComponentEvent<string | string[], HTMLInputElement>
-	) => {
-		otherChecked = false;
-		const target = event.target as HTMLInputElement;
-		console.log(event);
-
-		const value: MultipleChoiceValue = {
-			label: target.value,
-			value: true,
-		};
-		updateResponse(value, !target.checked);
-		if (typeof onMultipleChoiceResponse === 'function') {
-			const componentEvent = new ComponentEvent(
-				response,
-				target,
-				event.raw
-			);
-			onMultipleChoiceResponse(componentEvent);
-		}
-	};
-
-	const otherChangeHandler = (
-		event: ComponentEvent<string | string[], HTMLInputElement>
-	) => {
-		const target = event.target as HTMLInputElement;
-		const value: MultipleChoiceValue = {
-			label: target.value,
-			value: otherTextValue,
-		};
-		(
-			document.querySelector(`#${id + '-text-input'}`) as HTMLInputElement
-		)?.focus();
-		updateResponse(value, !target.checked);
-		if (typeof onMultipleChoiceResponse === 'function') {
-			const componentEvent = new ComponentEvent(
-				response,
-				target,
-				event.raw
-			);
-			onMultipleChoiceResponse(componentEvent);
-		}
-	};
-
-	const otherTextInputHandler = (
-		event:
-			| ComponentEvent<string, HTMLInputElement>
-			| ComponentEvent<undefined, HTMLInputElement>
-	) => {
-		otherTextValue = (event.target as HTMLInputElement).value; // this might no longer work
-		if (otherTextValue && otherTextValue.length && !otherChecked) {
-			otherChecked = true;
-		}
-		updateResponse(
-			{
-				label: other,
-				value: otherTextValue,
-			} as MultipleChoiceValue,
-			!otherTextValue.length
-		);
-		if (typeof onMultipleChoiceResponse === 'function') {
-			const componentEvent = new ComponentEvent(
-				response,
-				event.target,
-				event.raw
-			);
-			onMultipleChoiceResponse(componentEvent);
-		}
-	};
-
-	const dropdownChangeHandler = (
-		event: ComponentEvent<string, HTMLButtonElement>
-	) => {
-		const value = {
-			label: event.value,
-			value: true,
-		} as MultipleChoiceValue;
-		updateResponse(value);
-		if (typeof onMultipleChoiceResponse === 'function') {
-			const componentEvent = new ComponentEvent(
-				response,
-				event.target,
-				event.raw
-			);
-			onMultipleChoiceResponse(componentEvent);
-		}
-	};
 
 	const getDropdownOption = (label: string) => {
 		const selected = response.some(
@@ -171,30 +70,100 @@
 			selected: selected,
 		};
 	};
-	let checkRadioData: RadioProps['data'] | CheckboxProps['data'] = labels.map(
-		(label) => {
+
+	const getCheckRadioData = () => {
+		const res = labels.map((label) => {
 			return {
-				label: label,
+				id: label,
 				value: label,
-				id: (id + Math.random()).replace('.', ''),
+				label: label,
 			};
+		});
+
+		if (other?.length) {
+			res.push({
+				id: other,
+				value: other,
+				label: other,
+			});
 		}
-	);
 
-	let checkProps: CheckboxProps = {
-		data: checkRadioData,
-		group: response.map((val) => val.label),
-		size: 'large' as CheckboxProps['size'],
-		block: true,
+		return res;
 	};
 
-	let radioProps: RadioProps = {
-		data: checkRadioData,
-		group: response[0]?.label,
-		size: 'large' as RadioProps['size'],
-		block: true,
+	const updateResponse = async (
+		event: ComponentEvent<string | string[] | undefined, HTMLInputElement>
+	) => {
+		await delay(); // wait one cycle of event loop for 'group' to update
+
+		if (Array.isArray(group) && group.length) {
+			response = group.map((val) => {
+				let value = val === other ? other : true;
+				return {
+					label: val,
+					value,
+				};
+			});
+		} else if (
+			Object.prototype.toString.call(group) === '[object String]' &&
+			group?.length
+		) {
+			let value =
+				group === other && otherValue?.length ? otherValue : true;
+			response = [
+				{
+					label: group as string,
+					value,
+				},
+			];
+		} else {
+			response = [];
+		}
+
+		if (response.length > 0) {
+			if (typeof min === 'number' && response.length < min) {
+				// TODO: show error message
+			}
+
+			if (typeof max === 'number' && response.length > max) {
+				// TODO: show error message
+			}
+		}
+
+		if (typeof onMultipleChoiceResponse === 'function') {
+			onMultipleChoiceResponse(
+				new ComponentEvent<MultipleChoiceValue[]>(
+					response,
+					undefined,
+					event.raw
+				)
+			);
+		}
 	};
-	// TODO -fix 'Other' input
+
+	const radioChangeHandler = (
+		event: ComponentEvent<string, HTMLInputElement>
+	) => {
+		updateResponse(event);
+	};
+	const checkboxChangeHandler = (
+		event: ComponentEvent<string[], HTMLInputElement>
+	) => {
+		updateResponse(event);
+	};
+
+	const otherTextInputHandler = (
+		event: ComponentEvent<string | undefined, HTMLInputElement>
+	) => {
+		updateResponse(event);
+	};
+
+	const dropdownChangeHandler = (
+		event: ComponentEvent<string, HTMLButtonElement>
+	) => {
+		group = event.value;
+		updateResponse(event);
+	};
 </script>
 
 <form
@@ -205,38 +174,31 @@
 			options={labels.map(getDropdownOption)}
 			onDropdownChange={dropdownChangeHandler} />
 	{:else}
-		<!-- {@const callbacks = multi ? { onCheckboxChange: inputChangeHandler } : { onRadioChange: inputChangeHandler }} -->
 		{#if multi}
 			<Checkbox
-				{...checkProps}
-				onCheckboxChange={inputChangeHandler} />
+				bind:group
+				data={getCheckRadioData()}
+				size="large"
+				block={true}
+				onRadioChange={radioChangeHandler}
+				onCheckboxChange={checkboxChangeHandler} />
 		{:else}
 			<Radio
-				{...radioProps}
-				onRadioChange={inputChangeHandler} />
+				bind:group
+				data={getCheckRadioData()}
+				size="large"
+				block={true}
+				onRadioChange={radioChangeHandler}
+				onCheckboxChange={checkboxChangeHandler} />
 		{/if}
 
-		{#if other}
+		{#if other?.length}
 			<div class="sp-survey--question--form--multiple-choice-other">
-				{#if multi}
-					<Checkbox
-						data={[{ label: other, value: other }]}
-						group={response.map((val) => val.label)}
-						size="large"
-						onCheckboxChange={otherChangeHandler} />
-				{:else}
-					<Radio
-						data={[{ label: other, value: other }]}
-						group={response[0]?.label}
-						size="large"
-						onRadioChange={otherChangeHandler} />
-				{/if}
-
 				<TextInput
-					placeholder={other}
+					bind:value={otherValue}
+					disabled={otherIsSelected}
 					size="large"
-					onTextInputInput={otherTextInputHandler}
-					onTextInputBlur={otherTextInputHandler} />
+					onTextInputInput={otherTextInputHandler} />
 			</div>
 		{/if}
 	{/if}

@@ -49,6 +49,10 @@
 	};
 
 	$effect.pre(() => {
+		if (!data) {
+			throw new Error('Checkbox component requires a data prop');
+		}
+
 		if (typeof data === 'object' && !Array.isArray(data)) {
 			data = [data];
 		}
@@ -69,12 +73,12 @@
 		{#each data as item}
 			<div class="sp-checkbox">
 				<input
+					bind:group
 					type="checkbox"
 					class="sp-checkbox--input"
 					id={item.id}
 					value={item.value}
 					disabled={item.disabled}
-					bind:group
 					{...omitProps(item, ['label', 'id'])}
 					onchange={checkboxChangeHandler} />
 

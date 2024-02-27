@@ -3,7 +3,7 @@
 	lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import ICON_DATA from './_icon_data';
-	export type IconName = keyof typeof ICON_DATA;
+	export type IconName = keyof typeof ICON_DATA & string;
 	export type IconSize =
 		| 8
 		| 12
@@ -24,6 +24,22 @@
 		strokeWidth?: number;
 		debug?: boolean;
 	};
+
+	interface SVGPathAttr extends HTMLAttributes<SVGPathElement> {
+		fill?: string;
+		'stroke-width'?: number;
+		'stroke-linecap'?: 'inherit' | 'round' | 'butt' | 'square' | null;
+		'stroke-linejoin'?:
+			| 'inherit'
+			| 'round'
+			| 'arcs'
+			| 'miter-clip'
+			| 'miter'
+			| 'bevel'
+			| null;
+
+		stroke?: string;
+	}
 </script>
 
 <script lang="ts">
@@ -42,8 +58,23 @@
 	} = $props<IconProps>();
 
 	let pathData = $derived(ICON_DATA[name]);
+	let fillType = $derived(
+		pathData.some((data) => 'fill' in data) ? 'fill' : 'none'
+	);
+
+	function parsePathAttr(data: (typeof pathData)[number]): SVGPathAttr {
+		return 'fill' in data && data.fill
+			? { fill: color }
+			: {
+					'stroke-width': strokeWidth,
+					'stroke-linecap': 'round',
+					'stroke-linejoin': 'round',
+					stroke: color,
+				};
+	}
 </script>
 
+<!-- fill:none is an issue if we want to fill -->
 <svg
 	{...attr}
 	xmlns="http://www.w3.org/2000/svg"
@@ -51,17 +82,13 @@
 	width={size}
 	height={size}
 	viewBox="0 0 {DEFAULT_SIZE} {DEFAULT_SIZE}"
-	fill="none"
+	fill={fillType}
 	data-color={color}
 	style={debug ? 'background-color: red;' : ''}>
-	<!-- <title>{'icon ' + name}</title> -->
 	{#each pathData as data}
 		<path
-			stroke-width={strokeWidth}
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke={color}
-			{...data} />
+			d={data.d}
+			{...parsePathAttr(data)} />
 		<!-- 
 		Could potentially build out more complex svg shapes with svelte:element
 		<svelte:element this={data.type} {...data} />

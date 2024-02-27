@@ -84,8 +84,8 @@
 	{/snippet}
 	{#snippet main()}
 		<Checkbox
-			{data}
 			bind:group
+			{data}
 			{prependLabel}
 			{block}
 			{size}
