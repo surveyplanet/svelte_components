@@ -48,7 +48,7 @@
 	let searchable = options.length >= searchThreshold;
 	let menuData = $state([...options]);
 
-	$effect.pre(() => {
+	$effect(() => {
 		if (value?.length) {
 			setValue(value, true);
 		}
@@ -76,13 +76,13 @@
 			if (!event) {
 				componentEvent = new ComponentEvent(
 					id,
-					input as HTMLInputElement,
+					input as HTMLButtonElement,
 					undefined
 				);
 			} else {
 				componentEvent = new ComponentEvent(
 					id,
-					event.target as HTMLInputElement,
+					event.target as HTMLButtonElement,
 					event
 				);
 			}
