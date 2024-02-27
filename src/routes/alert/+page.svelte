@@ -4,7 +4,9 @@
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	import type { Snippet } from 'svelte';
-	let events = $state<Event[] & EventTarget[]>([]);
+	let events = $state<
+		ComponentEvent<undefined, HTMLElement>[] & EventTarget[]
+	>([]);
 
 	let visible: AlertProps['visible'] = $state(undefined);
 	let title: AlertProps['title'] = $state('');
@@ -20,19 +22,19 @@
 		'Instructions on how to reset your password have been sent to: <strong style="color:black;">diego@studiovoila.com</strong>. If the email doesn’t arrive in the next 5 minutes check your spam folder.'
 	) as unknown as Snippet;
 
-	const onAlertOpen = (event: Event) => {
+	const onAlertOpen = (event: ComponentEvent<undefined, HTMLElement>) => {
 		events.push(event);
 	};
-	const onAlertIn = (event: Event) => {
+	const onAlertIn = (event: ComponentEvent<undefined, HTMLElement>) => {
 		events.push(event);
 	};
-	const onAlertClose = (event: Event) => {
+	const onAlertClose = (event: ComponentEvent<undefined, HTMLElement>) => {
 		events.push(event);
 	};
-	const onAlertOut = (event: Event) => {
+	const onAlertOut = (event: ComponentEvent<undefined, HTMLElement>) => {
 		events.push(event);
 	};
-	const onAlertConfirm = (event: ComponentEvent<undefined>) => {
+	const onAlertConfirm = (event: ComponentEvent<undefined, HTMLElement>) => {
 		events.push(event.target);
 	};
 </script>

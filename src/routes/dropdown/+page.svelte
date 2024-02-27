@@ -3,7 +3,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events: ComponentEvent<string>[] = $state([]);
+	let events: ComponentEvent<string, HTMLButtonElement>[] = $state([]);
 
 	let options: DropdownProps['options'] = $state([
 		{
@@ -58,7 +58,9 @@
 	let label: DropdownProps['label'] = $state('Dropdown component');
 	let size: DropdownProps['size'] = $state('small');
 
-	const onDropdownChange = (event: ComponentEvent<string>) => {
+	const onDropdownChange = (
+		event: ComponentEvent<string, HTMLButtonElement>
+	) => {
 		events.push(event);
 	};
 </script>

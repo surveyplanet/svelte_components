@@ -5,7 +5,7 @@
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 
-	let events = $state<ComponentEvent<undefined>[]>([]);
+	let events = $state<ComponentEvent<undefined, HTMLButtonElement>[]>([]);
 
 	let profileImage: AvatarProps['profileImage'] = $state('');
 	// let profileImage: string = $state( 'https://media.surveyplanet.com/testing/family.jpeg' );
@@ -13,7 +13,9 @@
 	let size: AvatarProps['size'] = $state('small');
 	let disabled: AvatarProps['disabled'] = $state(false);
 
-	const onAvatarClick = (event: ComponentEvent<undefined>) => {
+	const onAvatarClick = (
+		event: ComponentEvent<undefined, HTMLButtonElement>
+	) => {
 		events.push(event);
 	};
 </script>

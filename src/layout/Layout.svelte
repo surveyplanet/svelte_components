@@ -23,7 +23,7 @@
 	interface LayoutProps {
 		example: string;
 		md: string;
-		events?: ComponentEvent<unknown>[] | Event[];
+		events?: ComponentEvent<unknown, unknown>[] | Event[];
 		component: string;
 		value?: string;
 		main: Snippet;
@@ -86,11 +86,11 @@
 		}, 1000);
 	};
 
-	const tabHandler = (event: ComponentEvent<string>) => {
+	const tabHandler = (event: ComponentEvent<string, HTMLElement>) => {
 		tabSelected = event.value;
 	};
 
-	const navBarClickHandler = (event: ComponentEvent<string>) => {
+	const navBarClickHandler = (event: ComponentEvent<string, HTMLElement>) => {
 		console.log('navBarClickHandler' + event.value);
 
 		if (event.value === 'refresh') {
@@ -99,15 +99,17 @@
 		}
 	};
 
-	const menuClickHandler = (event: ComponentEvent<string>) => {
+	const menuClickHandler = (event: ComponentEvent<string, HTMLElement>) => {
 		window.location.href = `/${event.value}`;
 	};
 
-	const darkModeHandler = (event: ComponentEvent<boolean | undefined>) => {
-		isDarkMode = !event.value;
+	const darkModeHandler = (
+		event: ComponentEvent<boolean | undefined, HTMLElement>
+	) => {
+		isDarkMode = event.value;
 	};
 
-	const searchComponents = (event: ComponentEvent<string>) => {
+	const searchComponents = (event: ComponentEvent<string, HTMLElement>) => {
 		const searchValue = (event.target as HTMLInputElement).value;
 		componentsData = createComponentsStore.componentsStore.filter((item) =>
 			item.label.toLowerCase().includes(searchValue.toLowerCase())

@@ -5,7 +5,7 @@
 	import { Layout, PropsChanger } from '$layout';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events: ComponentEvent<string>[] = $state([]);
+	let events: ComponentEvent<string, HTMLButtonElement>[] = $state([]);
 	let menuVisible: boolean = $state(false);
 	let data: MenuProps['data'] = $state(menuData);
 	let size: MenuProps['size'] = $state('small');
@@ -14,11 +14,16 @@
 		menuVisible = !menuVisible;
 	};
 
-	const menuClickHandler = (event: ComponentEvent<string>) => {
+	const menuClickHandler = (
+		event: ComponentEvent<string, HTMLButtonElement>
+	) => {
+		menuVisible = false;
 		events.push(event);
 	};
 
-	const menuUpdateHandler = (event: ComponentEvent<string>) => {
+	const menuUpdateHandler = (
+		event: ComponentEvent<string, HTMLButtonElement>
+	) => {
 		events.push(event);
 	};
 </script>
@@ -29,9 +34,6 @@
 	{md}
 	bind:events>
 	{#snippet controls()}
-		<PropsChanger
-			label="Visible"
-			bind:value={menuVisible} />
 		<PropsChanger
 			label="Data"
 			bind:value={data} />

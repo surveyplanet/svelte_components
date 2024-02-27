@@ -3,11 +3,10 @@
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
 	export type ScaleProps = HTMLAttributes<HTMLFormElement> & {
-		id?: string;
 		min: ScaleProperties['min'];
 		max: ScaleProperties['max'];
 		response?: ScaleValue[];
-		onScaleResponse?: (event: ComponentEvent<ScaleValue[]>) => void;
+		onScaleResponse?: (event: ComponentEvent<ScaleValue[], null>) => void;
 	};
 </script>
 
@@ -17,7 +16,6 @@
 	import { RangeSlider } from 'svelte-range-slider-pips';
 
 	let {
-		id,
 		min,
 		max,
 		response = [], // forms return empty array if no response
@@ -30,11 +28,7 @@
 	const sliderStopHandler = (event: Event) => {
 		response = [rangeValues[0]];
 		if (typeof onScaleResponse === 'function') {
-			const componentEvent = new ComponentEvent(
-				response,
-				event.target!,
-				event
-			);
+			const componentEvent = new ComponentEvent(response, null, event);
 			onScaleResponse(componentEvent);
 		}
 	};
@@ -44,9 +38,9 @@
 	{...attr}
 	class="sp-survey--question--form--scale">
 	<RangeSlider
-		{id}
 		pushy
 		float
+		value={0}
 		min={Number(min)}
 		max={Number(max)}
 		all="label"

@@ -5,7 +5,7 @@
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<FormValue[]>[]>([]);
+	let events = $state<ComponentEvent<FormValue[], HTMLInputElement>[]>([]);
 
 	let labels: FormProperties['labels'] = $state([
 		'First name',
@@ -34,7 +34,9 @@
 	let response: FormValue[] = $state([]);
 	let requireAll: FormProperties['requireAll'] = $state();
 	let random: FormProperties['random'] = $state();
-	const formResponseHandler = (event: ComponentEvent<FormValue[]>) => {
+	const formResponseHandler = (
+		event: ComponentEvent<FormValue[], HTMLInputElement>
+	) => {
 		events.push(event);
 	};
 </script>

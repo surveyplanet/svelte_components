@@ -10,25 +10,32 @@
 
 	let StringData = $state(JSON.stringify(value, null, 2));
 	let isDarkMode = $state(false);
-	let intervalId = $state();
+	let intervalId: number | null | NodeJS.Timeout = null;
 
 	$effect(() => {
 		StringData = JSON.stringify(value, null, 2);
-		intervalId = setInterval(() => {
-			isDarkMode = document.body.classList.contains('dark');
-		}, 1);
 	});
+
+	intervalId = setInterval(() => {
+		isDarkMode = document.body.classList.contains('dark');
+	}, 0);
+
 	onDestroy(() => {
+		console.log('clearing interval');
 		clearInterval(intervalId as number);
 	});
 
-	const onCodeMirrorChange = (event: ComponentEvent<string>) => {
+	const onCodeMirrorChange = (
+		event: ComponentEvent<string, HTMLDivElement>
+	) => {
 		value = JSON.parse(event.value);
 	};
 </script>
 
-<div class="jsonEditor">
-	{#key StringData}
+<div
+	class="jsonEditor"
+	spellcheck="false">
+	{#key value}
 		<CodeMirror
 			bind:value={StringData}
 			lang={json()}

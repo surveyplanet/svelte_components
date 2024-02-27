@@ -2,8 +2,8 @@
 	lang="ts"
 	context="module">
 	import { ComponentEvent, Icon, type IconName } from './';
-	import type { HTMLAttributes } from 'svelte/elements';
-	export interface MenuData {
+	import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
+	export interface MenuData extends HTMLButtonAttributes {
 		id: string;
 		label?: string;
 		html?: string;
@@ -17,8 +17,12 @@
 	export type MenuProps = HTMLAttributes<HTMLDivElement> & {
 		data: MenuData[];
 		size?: 'small' | 'medium' | 'large';
-		onMenuUpdate?: (event: ComponentEvent<string>) => void;
-		onMenuClick?: (event: ComponentEvent<string>) => void;
+		onMenuUpdate?: (
+			event: ComponentEvent<string, HTMLButtonElement>
+		) => void;
+		onMenuClick?: (
+			event: ComponentEvent<string, HTMLButtonElement>
+		) => void;
 		onMenuBlur?: (event: FocusEvent) => void;
 		header?: Snippet;
 		footer?: Snippet;
@@ -29,7 +33,7 @@
 	import type { Snippet } from 'svelte';
 	import { slide, type SlideParams } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	// import { onMount } from 'svelte'; // use to set focus on mount
+	import { onMount } from 'svelte'; // use to set focus on mount
 
 	let {
 		data,
@@ -41,6 +45,13 @@
 		footer,
 		...attr
 	} = $props<MenuProps>();
+
+	onMount(() => {
+		const allButtons = Array.from(
+			document.querySelectorAll('.sp-menu--item button')
+		) as HTMLButtonElement[];
+		allButtons[0].focus();
+	});
 
 	const scrollMenu = (
 		direction: 'up' | 'down' | 'left' | 'right',
@@ -118,7 +129,6 @@
 
 	const arrowClickHandler = (event: KeyboardEvent) => {
 		// check mouse is over the menu
-
 		if (event.key === 'ArrowDown') {
 			event.preventDefault();
 			scrollMenu('down', event);
@@ -148,7 +158,11 @@
 			currentState = [...(data || [])]; // go to root
 		}
 		if (typeof onMenuUpdate === 'function') {
-			const componentEvent = new ComponentEvent(id, event.target!, event);
+			const componentEvent = new ComponentEvent(
+				id,
+				event.target as HTMLButtonElement,
+				event
+			);
 			onMenuUpdate(componentEvent);
 		}
 	};
@@ -172,12 +186,17 @@
 			location = location.concat([id]);
 			currentState = [...state];
 		}
-		//NOTE: For some reason passing a target here creates an error in the console
-		const componentEvent = new ComponentEvent(id, event.target!, event);
+		const componentEvent = new ComponentEvent(
+			id,
+			event.target as HTMLButtonElement,
+			event
+		);
 		// if clicked and item doesn't have a submenu dispatch 'click'
 		// otherwise dispatch 'update'∂
 		if (!state) {
-			if (typeof onMenuClick === 'function') onMenuClick(componentEvent);
+			if (typeof onMenuClick === 'function') {
+				onMenuClick(componentEvent);
+			}
 		} else {
 			if (typeof onMenuUpdate === 'function')
 				onMenuUpdate(componentEvent);

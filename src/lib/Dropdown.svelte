@@ -1,8 +1,8 @@
 <script
 	lang="ts"
 	context="module">
-	import type { HTMLAttributes } from 'svelte/elements';
-	export interface DropdownOption {
+	import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
+	export interface DropdownOption extends HTMLButtonAttributes {
 		label: string;
 		id: string;
 		meta?: string;
@@ -20,7 +20,7 @@
 		required?: boolean;
 		size?: 'small' | 'medium' | 'large';
 		onDropdownChange?: (
-			event: ComponentEvent<DropdownOption['id']>
+			event: ComponentEvent<DropdownOption['id'], HTMLButtonElement>
 		) => void;
 	};
 </script>
@@ -41,14 +41,14 @@
 		...attr
 	} = $props<DropdownProps>();
 
-	let input: HTMLInputElement | undefined = $state(undefined);
+	let input: HTMLInputElement | undefined = $state();
 	let visible = $state(false);
 	let displayValue: DropdownOption['label'] | '' = $state('');
 
 	let searchable = options.length >= searchThreshold;
 	let menuData = $state([...options]);
 
-	$effect(() => {
+	$effect.pre(() => {
 		if (value?.length) {
 			setValue(value, true);
 		}
@@ -76,11 +76,15 @@
 			if (!event) {
 				componentEvent = new ComponentEvent(
 					id,
-					input as EventTarget,
+					input as HTMLInputElement,
 					undefined
 				);
 			} else {
-				componentEvent = new ComponentEvent(id, event.target!, event);
+				componentEvent = new ComponentEvent(
+					id,
+					event.target as HTMLInputElement,
+					event
+				);
 			}
 			onDropdownChange(componentEvent);
 		}
@@ -109,7 +113,9 @@
 		} // setting focus will open menu
 	};
 
-	const menuClickHandler = (event: ComponentEvent<string>) => {
+	const menuClickHandler = (
+		event: ComponentEvent<string, HTMLButtonElement>
+	) => {
 		setValue(event.value!, undefined, event.raw);
 		visible = false; // blur handler hides the menu
 	};

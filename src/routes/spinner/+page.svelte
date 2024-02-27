@@ -2,7 +2,9 @@
 	import { ComponentEvent, Spinner, type SpinnerProps } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
-	let events: ComponentEvent<number | undefined | string>[] = $state([]);
+	let events: ComponentEvent<number | undefined, HTMLInputElement>[] = $state(
+		[]
+	);
 	import { default as source } from './example';
 	// let keys = $state(0);
 
@@ -21,23 +23,33 @@
 	let dragSpeed: SpinnerProps['dragSpeed'] = $state(10);
 	let size: SpinnerProps['size'] = $state('small');
 
-	const onSpinnerChange = (event: ComponentEvent<number | undefined>) => {
+	const onSpinnerChange = (
+		event: ComponentEvent<number | undefined, HTMLInputElement>
+	) => {
 		events.push(event);
 	};
 
-	const onSpinnerUpdate = (event: ComponentEvent<number | undefined>) => {
+	const onSpinnerUpdate = (
+		event: ComponentEvent<number | undefined, HTMLInputElement>
+	) => {
 		events.push(event);
 	};
 
-	const onSpinnerInput = (event: ComponentEvent<number | undefined>) => {
+	const onSpinnerInput = (
+		event: ComponentEvent<number | undefined, HTMLInputElement>
+	) => {
 		events.push(event);
 	};
 
-	const onSpinnerBlur = (event: ComponentEvent<undefined>) => {
+	const onSpinnerBlur = (
+		event: ComponentEvent<undefined, HTMLInputElement>
+	) => {
 		events.push(event);
 	};
 
-	const onSpinnerFocus = (event: ComponentEvent<undefined>) => {
+	const onSpinnerFocus = (
+		event: ComponentEvent<undefined, HTMLInputElement>
+	) => {
 		events.push(event);
 	};
 </script>

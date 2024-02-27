@@ -8,7 +8,7 @@
 
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
-	let events: ComponentEvent<UploadData>[] = $state([]);
+	let events: ComponentEvent<UploadData, HTMLInputElement>[] = $state([]);
 	import { default as source } from './example';
 	// let keys = $state(0);
 
@@ -22,7 +22,9 @@
 	]);
 	let maxSize: UploadProps['maxSize'] = $state(10);
 
-	const onUploadUpload = (event: ComponentEvent<UploadData>) => {
+	const onUploadUpload = (
+		event: ComponentEvent<UploadData, HTMLInputElement>
+	) => {
 		if (event.value) {
 			setUpload(event.value);
 			events.push(event);

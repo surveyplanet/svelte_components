@@ -5,7 +5,7 @@
 
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<RatingValue[]>[]>([]);
+	let events = $state<ComponentEvent<RatingValue[], HTMLInputElement>[]>([]);
 	// let keys = $state(0);
 
 	// Component props
@@ -39,7 +39,9 @@
 	let order: RatingProperties['order'] = $state('default');
 	let layout: RatingProperties['layout'] = $state('1');
 	let response: RatingValue[] = $state([]);
-	const ratingResponseHandler = (event: ComponentEvent<RatingValue[]>) => {
+	const ratingResponseHandler = (
+		event: ComponentEvent<RatingValue[], HTMLInputElement>
+	) => {
 		events.push(event);
 	};
 </script>

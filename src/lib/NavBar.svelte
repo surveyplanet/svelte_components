@@ -15,7 +15,9 @@
 		data: NavBarData[];
 		navMenuData?: MenuData[];
 		vertical?: boolean;
-		onNavClick?: (event: ComponentEvent<string>) => void;
+		onNavClick?: (
+			event: ComponentEvent<string, HTMLButtonElement | HTMLLinkElement>
+		) => void;
 	};
 </script>
 
@@ -88,12 +90,14 @@
 		}
 	};
 
-	const menuClickHandler = (event: ComponentEvent<string>) => {
+	const menuClickHandler = (
+		event: ComponentEvent<string, HTMLButtonElement>
+	) => {
 		menuVisible = false;
-		if (onNavClick) {
+		if (typeof onNavClick === 'function') {
 			const componentEvent = new ComponentEvent(
 				event.value,
-				event.target!,
+				event.target as HTMLButtonElement,
 				event.raw
 			);
 			onNavClick(componentEvent);

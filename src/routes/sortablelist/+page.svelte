@@ -8,7 +8,10 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<SortListData[]>[]>([]);
+	import type { CustomDragEventTarget } from '$lib/SortableList.svelte';
+	let events = $state<
+		ComponentEvent<SortListData[], CustomDragEventTarget>[]
+	>([]);
 
 	let data: SortListProps['data'] = $state([
 		{
@@ -27,7 +30,9 @@
 			image: 'https://picsum.photos/200/300',
 		},
 	]);
-	const sortableListSortHandler = (event: ComponentEvent<SortListData[]>) => {
+	const sortableListSortHandler = (
+		event: ComponentEvent<SortListData[], CustomDragEventTarget>
+	) => {
 		events.push(event);
 	};
 </script>

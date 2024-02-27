@@ -4,7 +4,8 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events: ComponentEvent<string>[] = $state([]);
+	let events: ComponentEvent<string, HTMLButtonElement | HTMLLinkElement>[] =
+		$state([]);
 
 	let data: NavBarProps['data'] = $state([
 		{
@@ -29,7 +30,9 @@
 	let navMenuData: NavBarProps['navMenuData'] = $state(menuData);
 	let vertical: NavBarProps['vertical'] = $state(false);
 
-	const onNavClick = (event: ComponentEvent<string>) => {
+	const onNavClick = (
+		event: ComponentEvent<string, HTMLButtonElement | HTMLLinkElement>
+	) => {
 		events.push(event);
 	};
 </script>

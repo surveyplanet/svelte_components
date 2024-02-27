@@ -78,6 +78,7 @@ export {
 	default as SortableList,
 	type SortListData,
 	type SortListProps,
+	type CustomDragEventTarget,
 } from './SortableList.svelte';
 export {
 	default as Upload,

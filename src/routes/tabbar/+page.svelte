@@ -3,7 +3,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
-	let events = $state<ComponentEvent<string>[]>([]);
+	let events = $state<ComponentEvent<string, HTMLButtonElement>[]>([]);
 
 	let data: TabBarProps['data'] = $state([
 		{
@@ -37,7 +37,9 @@
 		$state(114);
 	let defaultIndicatorX: TabBarProps['defaultIndicatorX'] = $state(4);
 
-	const tabButtonClickHandler = (event: ComponentEvent<string>): void => {
+	const tabButtonClickHandler = (
+		event: ComponentEvent<string, HTMLButtonElement>
+	): void => {
 		events.push(event);
 	};
 </script>

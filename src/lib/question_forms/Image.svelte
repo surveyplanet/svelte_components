@@ -11,7 +11,9 @@
 		random?: ImageProperties['random'];
 		contain?: ImageProperties['contain'];
 		response?: ImageValue[];
-		onImageResponse?: (event: ComponentEvent<ImageValue[]>) => void;
+		onImageResponse?: (
+			event: ComponentEvent<ImageValue[], HTMLInputElement>
+		) => void;
 	};
 </script>
 

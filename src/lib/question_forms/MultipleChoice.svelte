@@ -13,7 +13,10 @@
 		max?: MultipleChoiceProperties['max'];
 		response?: MultipleChoiceValue[];
 		onMultipleChoiceResponse?: (
-			event: ComponentEvent<MultipleChoiceValue[]>
+			event: ComponentEvent<
+				MultipleChoiceValue[],
+				HTMLInputElement | HTMLButtonElement
+			>
 		) => void;
 	};
 </script>
@@ -89,7 +92,7 @@
 	};
 
 	const updateResponse = async (
-		event: ComponentEvent<string | string[] | undefined>
+		event: ComponentEvent<string | string[] | undefined, HTMLInputElement>
 	) => {
 		await delay(); // wait one cycle of event loop for 'group' to update
 
@@ -138,20 +141,26 @@
 		}
 	};
 
-	const radioChangeHandler = (event: ComponentEvent<string>) => {
+	const radioChangeHandler = (
+		event: ComponentEvent<string, HTMLInputElement>
+	) => {
 		updateResponse(event);
 	};
-	const checkboxChangeHandler = (event: ComponentEvent<string[]>) => {
-		updateResponse(event);
-	};
-
-	const otherTextInputHandler = (
-		event: ComponentEvent<string | undefined>
+	const checkboxChangeHandler = (
+		event: ComponentEvent<string[], HTMLInputElement>
 	) => {
 		updateResponse(event);
 	};
 
-	const dropdownChangeHandler = (event: ComponentEvent<string>) => {
+	const otherTextInputHandler = (
+		event: ComponentEvent<string | undefined, HTMLInputElement>
+	) => {
+		updateResponse(event);
+	};
+
+	const dropdownChangeHandler = (
+		event: ComponentEvent<string, HTMLButtonElement>
+	) => {
 		group = event.value;
 		updateResponse(event);
 	};
@@ -165,22 +174,28 @@
 			options={labels.map(getDropdownOption)}
 			onDropdownChange={dropdownChangeHandler} />
 	{:else}
-		<div>
-			<svelte:component
-				this={multi ? Checkbox : Radio}
+		{#if multi}
+			<Checkbox
 				bind:group
 				data={getCheckRadioData()}
 				size="large"
 				block={true}
 				onRadioChange={radioChangeHandler}
 				onCheckboxChange={checkboxChangeHandler} />
-		</div>
+		{:else}
+			<Radio
+				bind:group
+				data={getCheckRadioData()}
+				size="large"
+				block={true}
+				onRadioChange={radioChangeHandler}
+				onCheckboxChange={checkboxChangeHandler} />
+		{/if}
 
 		{#if other?.length}
 			<div class="sp-survey--question--form--multiple-choice-other">
 				<TextInput
 					bind:value={otherValue}
-					placeholder={other}
 					disabled={otherIsSelected}
 					size="large"
 					onTextInputInput={otherTextInputHandler} />

@@ -8,7 +8,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events: ComponentEvent<ChipData[]>[] = $state([]);
+	let events: ComponentEvent<ChipData[], HTMLButtonElement>[] = $state([]);
 
 	let data: ChipsProps['data'] = $state([
 		{
@@ -37,10 +37,14 @@
 	let multiSelect: ChipsProps['multiSelect'] = $state(false);
 	let removable: ChipsProps['removable'] = $state(false);
 
-	const onChipsClick = (event: ComponentEvent<ChipData[]>): void => {
+	const onChipsClick = (
+		event: ComponentEvent<ChipData[], HTMLButtonElement>
+	): void => {
 		events.push(event);
 	};
-	const onChipsRemove = (event: ComponentEvent<ChipData[]>): void => {
+	const onChipsRemove = (
+		event: ComponentEvent<ChipData[], HTMLButtonElement>
+	): void => {
 		events.push(event);
 	};
 </script>

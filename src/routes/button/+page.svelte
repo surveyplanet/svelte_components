@@ -3,7 +3,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events: ComponentEvent<undefined>[] = $state([]);
+	let events: ComponentEvent<undefined, HTMLButtonElement>[] = $state([]);
 
 	let mode: ButtonProps['mode'] = $state('primary');
 	let disabled: ButtonProps['disabled'] = $state(false);
@@ -15,7 +15,9 @@
 	let size: ButtonProps['size'] = $state('medium');
 	let content = $state('Submit');
 
-	const onButtonClick = (event: ComponentEvent<undefined>): void => {
+	const onButtonClick = (
+		event: ComponentEvent<undefined, HTMLButtonElement>
+	): void => {
 		events.push(event);
 	};
 </script>
@@ -77,7 +79,6 @@
 	{/snippet}
 	{#snippet main()}
 		<Button
-			{onButtonClick}
 			{mode}
 			{disabled}
 			{loader}
@@ -85,7 +86,8 @@
 			{block}
 			{action}
 			{type}
-			{size}>
+			{size}
+			{onButtonClick}>
 			{content}
 		</Button>
 	{/snippet}

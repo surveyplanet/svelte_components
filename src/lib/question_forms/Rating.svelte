@@ -8,14 +8,16 @@
 		order?: RatingProperties['order'];
 		layout?: RatingProperties['layout'];
 		response?: RatingValue[];
-		onRatingResponse?: (value: ComponentEvent<RatingValue[]>) => void;
+		onRatingResponse?: (
+			value: ComponentEvent<RatingValue[], HTMLInputElement>
+		) => void;
 	};
 </script>
 
 <script lang="ts">
 	import type { RatingValue, RatingProperties } from '@surveyplanet/types';
 	import { RangeSlider } from 'svelte-range-slider-pips';
-	import { ComponentEvent, Radio } from '../';
+	import { ComponentEvent, Radio, type RadioProps } from '../';
 
 	let {
 		id,
@@ -72,7 +74,9 @@
 		}
 	};
 
-	const radioInputChangeHandler = (event: ComponentEvent<boolean>) => {
+	const radioInputChangeHandler = (
+		event: ComponentEvent<string, HTMLInputElement>
+	) => {
 		updateResponse(Number(event.value));
 		if (typeof onRatingResponse === 'function') {
 			const componentEvent = new ComponentEvent(
@@ -82,6 +86,17 @@
 			);
 			onRatingResponse(componentEvent);
 		}
+	};
+	let radioProps: RadioProps = {
+		data: labels.map((item) => {
+			return {
+				label: item.label,
+				value: item.value.toString(),
+			};
+		}),
+		group: id,
+		size: 'large',
+		onRadioChange: radioInputChangeHandler,
 	};
 </script>
 
@@ -95,18 +110,11 @@
 			min={Number(labels[0].value)}
 			max={Number(labels[labels.length - 1].value)}
 			all="label"
-			bind:value={response}
+			bind:values={response}
 			on:stop={rangeInputChangeHandler} />
 	{:else}
-		{#each labels as item}
-			<div>
-				<Radio
-					name={id}
-					value={item.value.toString()}
-					label={item.label}
-					size="large"
-					onRadioChange={radioInputChangeHandler} />
-			</div>
-		{/each}
+		<div>
+			<Radio {...radioProps} />
+		</div>
 	{/if}
 </form>

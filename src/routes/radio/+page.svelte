@@ -4,7 +4,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
 	import { default as source } from './example';
-	let events = $state<ComponentEvent<string>[]>([]);
+	let events = $state<ComponentEvent<string, HTMLInputElement>[]>([]);
 	let data: RadioProps['data'] = $state([
 		{
 			id: 'harry-radio',
@@ -28,7 +28,9 @@
 	let block: RadioProps['block'] = $state();
 	let size: RadioProps['size'] = $state('small');
 
-	const onRadioChange = (event: ComponentEvent<string>): void => {
+	const onRadioChange = (
+		event: ComponentEvent<string, HTMLInputElement>
+	): void => {
 		events.push(event);
 	};
 </script>

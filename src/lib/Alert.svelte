@@ -14,11 +14,13 @@
 		challenge?: string;
 		challengeLabel?: string;
 		animationMilliseconds?: number;
-		onAlertConfirm?: (event: ComponentEvent<undefined>) => void;
-		onAlertOpen?: (event: CustomEvent) => void;
-		onAlertIn?: (event: CustomEvent) => void;
-		onAlertClose?: (event: CustomEvent) => void;
-		onAlertOut?: (event: CustomEvent) => void;
+		onAlertConfirm?: (
+			event: ComponentEvent<undefined, HTMLElement>
+		) => void;
+		onAlertOpen?: (event: ComponentEvent<undefined, HTMLElement>) => void;
+		onAlertIn?: (event: ComponentEvent<undefined, HTMLElement>) => void;
+		onAlertClose?: (event: ComponentEvent<undefined, HTMLElement>) => void;
+		onAlertOut?: (event: ComponentEvent<undefined, HTMLElement>) => void;
 		children?: Snippet;
 	};
 </script>
@@ -88,7 +90,9 @@
 		}
 	});
 
-	const challengeKeyupHandler = (event: ComponentEvent<string>): void => {
+	const challengeKeyupHandler = (
+		event: ComponentEvent<string, HTMLInputElement>
+	): void => {
 		const input = event.target as HTMLInputElement;
 		disableConfirmButton = input.value !== challenge;
 	};
@@ -97,11 +101,55 @@
 		visible = false;
 	};
 	const alertConfirmButtonClickHandler = (
-		event: ComponentEvent<undefined>
+		event: ComponentEvent<undefined, HTMLButtonElement>
 	) => {
 		const value = isChallenge ? !disableConfirmButton : true;
 		if (value) visible = false;
 		if (typeof onAlertConfirm === 'function') onAlertConfirm(event);
+	};
+
+	const alertOpenHandler = (event: CustomEvent) => {
+		if (typeof onAlertOpen === 'function') {
+			const componentEvent = new ComponentEvent(
+				undefined,
+				event.target as HTMLDivElement,
+				event
+			);
+			onAlertOpen(componentEvent);
+		}
+	};
+
+	const alertInHandler = (event: CustomEvent) => {
+		if (typeof onAlertIn === 'function') {
+			const componentEvent = new ComponentEvent(
+				undefined,
+				event.target as HTMLDivElement,
+				event
+			);
+			onAlertIn(componentEvent);
+		}
+	};
+
+	const alertCloseHandler = (event: CustomEvent) => {
+		if (typeof onAlertClose === 'function') {
+			const componentEvent = new ComponentEvent(
+				undefined,
+				event.target as HTMLDivElement,
+				event
+			);
+			onAlertClose(componentEvent);
+		}
+	};
+
+	const alertOutHandler = (event: CustomEvent) => {
+		if (typeof onAlertOut === 'function') {
+			const componentEvent = new ComponentEvent(
+				undefined,
+				event.target as HTMLDivElement,
+				event
+			);
+			onAlertOut(componentEvent);
+		}
 	};
 </script>
 
@@ -119,10 +167,10 @@
 			duration: animationMilliseconds,
 			easing: cubicOut,
 		}}
-		onIntroStart={onAlertOpen}
-		onIntroEnd={onAlertIn}
-		onOutroStart={onAlertClose}
-		onOutroEnd={onAlertOut}>
+		onIntroStart={alertOpenHandler}
+		onIntroEnd={alertInHandler}
+		onOutroStart={alertCloseHandler}
+		onOutroEnd={alertOutHandler}>
 		<div class="sp-alert--col-a">
 			<div class="sp-alert--sidebar">
 				{#if icon && icon.length}

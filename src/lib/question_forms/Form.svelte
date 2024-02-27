@@ -6,7 +6,9 @@
 		labels: FormProperties['labels'];
 		random?: FormProperties['random'];
 		response?: FormValue[];
-		onFormResponse?: (event: ComponentEvent<FormValue[]>) => void;
+		onFormResponse?: (
+			event: ComponentEvent<FormValue[], HTMLInputElement>
+		) => void;
 	};
 </script>
 
@@ -34,7 +36,9 @@
 		response?.push(value);
 	};
 
-	const inputChangeHandler = (event: ComponentEvent<string>) => {
+	const inputChangeHandler = (
+		event: ComponentEvent<string, HTMLInputElement>
+	) => {
 		const target = event.target as HTMLInputElement;
 		const value: FormValue = {
 			label: target.name,

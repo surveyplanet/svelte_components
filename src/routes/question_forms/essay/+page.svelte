@@ -4,7 +4,7 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events = $state<ComponentEvent<EssayValue[]>[]>([]);
+	let events = $state<ComponentEvent<EssayValue[], HTMLInputElement>[]>([]);
 	// let keys = $state(0);
 
 	// Component props
@@ -12,7 +12,9 @@
 	let max: EssayProperties['max'] = $state(10);
 	let single: EssayProperties['single'] = $state(false);
 	let response: EssayValue[] = $state([]);
-	const essayResponseHandler = (event: ComponentEvent<EssayValue[]>) => {
+	const essayResponseHandler = (
+		event: ComponentEvent<EssayValue[], HTMLInputElement>
+	) => {
 		events.push(event);
 	};
 </script>

@@ -17,7 +17,9 @@
 
 	export type SortListProps = HTMLAttributes<HTMLUListElement> & {
 		data: SortListData[];
-		onSortSort: (event: ComponentEvent<SortListData[]>) => void;
+		onSortSort: (
+			event: ComponentEvent<SortListData[], CustomDragEventTarget>
+		) => void;
 	};
 </script>
 
@@ -53,7 +55,7 @@
 		data = newList;
 		const componentEvent = new ComponentEvent(
 			newList,
-			event.target!,
+			event.target as CustomDragEventTarget,
 			event
 		);
 		onSortSort(componentEvent);

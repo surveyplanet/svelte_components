@@ -15,7 +15,9 @@
 		date?: DateTimeProperties['date'];
 		time?: DateTimeProperties['time'];
 		response?: DateTimeValue[];
-		onDateTimeResponse?: (event: ComponentEvent<DateTimeValue[]>) => void;
+		onDateTimeResponse?: (
+			event: ComponentEvent<DateTimeValue[], HTMLInputElement>
+		) => void;
 	};
 </script>
 
@@ -59,19 +61,24 @@
 		inputType = date && time ? 'datetime-local' : time ? 'time' : 'date';
 	});
 
-	const updateResponse = (value: Date, event: ComponentEvent<string>) => {
+	const updateResponse = (
+		value: Date,
+		event: ComponentEvent<string, HTMLInputElement>
+	) => {
 		response = [value.toISOString()];
 		if (typeof onDateTimeResponse === 'function') {
 			const componentEvent = new ComponentEvent(
 				response,
-				event.target!,
+				event.target,
 				event.raw
 			);
 			onDateTimeResponse(componentEvent);
 		}
 	};
 
-	const dateInputChangeHandler = (event: ComponentEvent<string>) => {
+	const dateInputChangeHandler = (
+		event: ComponentEvent<string, HTMLInputElement>
+	) => {
 		const { value } = event.target as HTMLInputElement; // "1977-04-12T11:21"
 		// let valueString = dateToString(type, [value]);
 		// if (!valueString) return;

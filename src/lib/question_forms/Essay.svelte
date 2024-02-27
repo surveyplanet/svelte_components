@@ -7,7 +7,9 @@
 		max?: EssayProperties['max'];
 		single?: EssayProperties['single'];
 		response?: EssayValue[];
-		onEssayResponse?: (event: ComponentEvent<EssayValue[]>) => void;
+		onEssayResponse?: (
+			event: ComponentEvent<EssayValue[], HTMLInputElement>
+		) => void;
 	};
 </script>
 
@@ -28,7 +30,9 @@
 		response = [value];
 	};
 
-	const inputKeyupHandler = (event: ComponentEvent<string>) => {
+	const inputKeyupHandler = (
+		event: ComponentEvent<string, HTMLInputElement>
+	) => {
 		updateResponse((event.target as HTMLInputElement)?.value);
 		if (typeof onEssayResponse === 'function') {
 			const componentEvent = new ComponentEvent(
