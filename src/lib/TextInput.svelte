@@ -21,6 +21,7 @@
 		placeholder?: string | null;
 		readonly?: boolean;
 		disabled?: boolean;
+		focus?: boolean;
 		cleaveOptions?: CleaveOptions;
 		validationRules?: string[];
 		validationMessage?: string | null;
@@ -51,6 +52,7 @@
 		placeholder,
 		readonly,
 		disabled,
+		focus,
 		cleaveOptions,
 		validationRules,
 		validationMessage,

@@ -167,7 +167,6 @@
 				<div class="dark-mode-toggle">
 					<Toggle
 						id="dark-mode-toggle"
-						name="dark-mode-toggle"
 						onToggleChange={darkModeHandler} />
 				</div>
 			</header>

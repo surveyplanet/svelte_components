@@ -63,11 +63,11 @@
 	{#snippet main()}
 		<div id="wrapper">
 			<Radio
+				bind:group
 				{data}
 				{prependLabel}
 				{size}
 				{block}
-				bind:group
 				{onRadioChange} />
 		</div>
 	{/snippet}
