@@ -3,6 +3,7 @@ import path from 'path';
 import type { DropdownOption } from '$lib/Dropdown.svelte';
 
 const directoryPath = './src/lib'; // specify the path to the directory here
+export const ssr = false;
 
 export const load = () => {
 	console.log('Loading components...');

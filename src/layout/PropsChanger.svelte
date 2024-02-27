@@ -78,7 +78,7 @@
 	};
 
 	const options = optionsParsed();
-	let dropdownValue = $state<string>();
+	let dropdownValue = $state(`${value}`);
 </script>
 
 <div class="props-changer">
@@ -100,16 +100,6 @@
 				size={FORM_CONTROL_SIZE}
 				{label}
 				onToggleChange={onInput} />
-			<!-- <Checkbox
-				data={{
-					id: `boolean-${(Date.now() + Math.random()).toString(36)}`,
-					label,
-					value: label.toLocaleLowerCase().replace(/\s/g, '-'),
-				}}
-				prependLabel={false}
-				bind:group
-				size={FORM_CONTROL_SIZE}
-				onCheckboxChange={onInput} /> -->
 		{:else if type === 'json'}
 			<p>{label}</p>
 			<JsonEditor bind:value />
@@ -118,8 +108,7 @@
 				{options}
 				{label}
 				size={FORM_CONTROL_SIZE}
-				placeholder={value?.toString() || 'Select an option'}
-				value={dropdownValue}
+				bind:value={dropdownValue}
 				onDropdownChange={dropdownChangeHandler} />
 		{:else if type === 'string' && (typeof value === 'string' || typeof value === 'undefined')}
 			<TextInput

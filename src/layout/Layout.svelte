@@ -14,7 +14,7 @@
 		ComponentEvent,
 	} from '$lib';
 	import { createComponentsStore } from './stores/components.store.svelte';
-	import type { Snippet } from 'svelte';
+	import { type Snippet } from 'svelte';
 	import CodeMirror from './code_mirror/CodeMirror.svelte';
 	import { html } from '@codemirror/lang-html';
 	import { solarizedDark } from 'cm6-theme-solarized-dark';
@@ -29,7 +29,6 @@
 		main: Snippet;
 		controls: Snippet;
 	}
-
 	let { example, md, events, main, controls } = $props<LayoutProps>();
 
 	let isDarkMode = $state();
@@ -38,6 +37,27 @@
 	let componentsData = $state(createComponentsStore.componentsStore);
 	let componentEvents: HTMLElement | null = $state(null);
 
+	$effect.pre(() => {
+		const pathParts = window.location.pathname.split('/');
+		const lastPart = pathParts[pathParts.length - 1].toLowerCase();
+		componentsData.forEach((component) => {
+			// Check if the component id matches the last part of the pathname
+			if (component.id.toLowerCase() === lastPart) {
+				component.selected = true;
+			}
+			// If the component has a submenu, check the submenu items
+			if (component.submenu) {
+				const item = component.submenu.find(
+					(item) =>
+						item.id.toLowerCase() === 'question_forms/' + lastPart
+				);
+				// If the item exists, set its selected property to true
+				if (item) {
+					item.selected = true;
+				}
+			}
+		});
+	});
 	$effect(() => {
 		if (!events?.length) {
 			return;
@@ -139,12 +159,10 @@
 					onTextInputInput={searchComponents} />
 			</div>
 		</header>
-		{#key reload}
-			<Menu
-				data={componentsData}
-				size="small"
-				onMenuClick={menuClickHandler} />
-		{/key}
+		<Menu
+			bind:data={componentsData}
+			size="small"
+			onMenuClick={menuClickHandler} />
 	</aside>
 
 	<main id="main-content">

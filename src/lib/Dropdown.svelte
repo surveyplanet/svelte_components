@@ -27,6 +27,7 @@
 
 <script lang="ts">
 	import { Menu, Icon, ComponentEvent } from './';
+	import { onMount } from 'svelte';
 
 	let {
 		options,
@@ -41,14 +42,14 @@
 		...attr
 	} = $props<DropdownProps>();
 
-	let input: HTMLInputElement | undefined = $state(undefined);
+	let input: HTMLInputElement | undefined = $state();
 	let visible = $state(false);
 	let displayValue: DropdownOption['label'] | '' = $state('');
 
-	let searchable = options.length >= searchThreshold;
+	let searchable = $derived(options.length >= searchThreshold);
 	let menuData = $state([...options]);
 
-	$effect(() => {
+	onMount(() => {
 		if (value?.length) {
 			setValue(value, true);
 		}
@@ -89,7 +90,6 @@
 			onDropdownChange(componentEvent);
 		}
 	};
-	// const change = new Event('change');
 
 	const search = (query: string) => {
 		query = query.toLowerCase().trim();
@@ -208,7 +208,7 @@
 			bind:this={input}
 			{placeholder}
 			{disabled}
-			value={displayValue}
+			bind:value={displayValue}
 			readonly={!searchable}
 			onclick={searchClickHandler}
 			onblur={searchBlurHandler}
@@ -217,7 +217,7 @@
 
 	{#if visible}
 		<Menu
-			data={menuData}
+			bind:data={menuData}
 			{size}
 			onMenuClick={menuClickHandler} />
 	{/if}

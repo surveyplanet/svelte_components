@@ -17,7 +17,6 @@
 	const menuClickHandler = (
 		event: ComponentEvent<string, HTMLButtonElement>
 	) => {
-		menuVisible = false;
 		events.push(event);
 	};
 

@@ -14,9 +14,11 @@
 		| 'datetime-local'
 		| 'multiline';
 
-	export type TextInputProps = (Omit<HTMLInputAttributes, 'size' | 'label'> &
+	export type TextInputProps = (Omit<
+		HTMLInputAttributes,
+		'size' | 'label' | 'type'
+	> &
 		HTMLTextareaAttributes) & {
-		name?: string;
 		type?: TextInputType;
 		value?: string;
 		label?: string;

@@ -50,10 +50,10 @@
 			],
 		},
 	]);
-	let searchThreshold: DropdownProps['searchThreshold'] = $state();
+	let searchThreshold: DropdownProps['searchThreshold'] = $state(15);
 	let disabled: DropdownProps['disabled'] = $state(false);
 	let required: DropdownProps['required'] = $state(false);
-	let value: DropdownProps['value'] = $state(undefined);
+	let value: DropdownProps['value'] = $state('');
 	let placeholder: DropdownProps['placeholder'] = $state('Choose one');
 	let label: DropdownProps['label'] = $state('Dropdown component');
 	let size: DropdownProps['size'] = $state('small');
@@ -111,13 +111,13 @@
 	{#snippet main()}
 		<Dropdown
 			bind:options
-			{searchThreshold}
+			bind:searchThreshold
 			{disabled}
 			{required}
-			{value}
+			bind:value
 			{placeholder}
 			{label}
-			{size}
+			bind:size
 			{onDropdownChange} />
 	{/snippet}
 </Layout>

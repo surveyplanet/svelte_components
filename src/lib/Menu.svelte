@@ -45,14 +45,46 @@
 		footer,
 		...attr
 	} = $props<MenuProps>();
+	let currentState = $state([...data]);
 
+	let location: string[] = $state([]);
 	onMount(() => {
 		const allButtons = Array.from(
 			document.querySelectorAll('.sp-menu--item button')
 		) as HTMLButtonElement[];
-		allButtons[0].focus();
-	});
 
+		if (allButtons.length) {
+			allButtons[0].focus();
+		}
+		// open the submenu if there is a pre-selected item
+		const hasSelectedSubmenuItem = (
+			data: MenuData[]
+		): { id: string; data: MenuData[] } | undefined => {
+			for (let item of data) {
+				if (item.submenu) {
+					for (let subItem of item.submenu) {
+						if (subItem.selected) {
+							return { id: subItem.id, data: item.submenu };
+						}
+					}
+					// Recursive call to search in nested submenus
+					const nestedResult = hasSelectedSubmenuItem(item.submenu);
+					if (nestedResult) {
+						return nestedResult;
+					}
+				}
+			}
+			console.log('no selected submenu item');
+			return undefined;
+		};
+		let item = hasSelectedSubmenuItem(data || []);
+		if (!item) return;
+		if (item.data?.length) {
+			location = location.concat([item.id]);
+			console.log('location', location);
+			currentState = [...item.data];
+		}
+	});
 	const scrollMenu = (
 		direction: 'up' | 'down' | 'left' | 'right',
 		event: Event
@@ -99,20 +131,11 @@
 		}
 	};
 
-	const transitionProps: SlideParams = {
-		// axis: 'x',
-		duration: 150,
-		easing: cubicOut,
-	};
-
-	let currentState = $state([...(data || [])]);
-
-	let location: string[] = $state([]);
-
 	const getState = (
 		data: MenuData[],
 		id: string
 	): MenuData['submenu'] | null => {
+		// deselectAll(data, id);
 		for (let item of data) {
 			if (item.id === id && item.submenu?.length) {
 				return item.submenu;
@@ -124,7 +147,68 @@
 				}
 			}
 		}
+
 		return null; // item has no submenu
+	};
+	// deselect all items except the one with the id
+	const deselectAll = (data: MenuData[]) => {
+		for (let item of data) {
+			if (item.selected) {
+				item.selected = false;
+			}
+			if (item.submenu) {
+				deselectAll(item.submenu);
+			}
+		}
+	};
+	const selectItem = (menuData: MenuData[], id: string) => {
+		for (let item of menuData) {
+			if (item.id === id && !item.submenu) {
+				deselectAll(data); // only deselect an item if you can select a new one
+				item.selected = true;
+			} else if (item.submenu) {
+				selectItem(item.submenu, id);
+			}
+		}
+	};
+
+	const itemClickHandler = (event: MouseEvent) => {
+		event.preventDefault();
+		event.stopPropagation();
+
+		let target = event.target as HTMLElement;
+
+		let id = target.id;
+		if (!id?.length) {
+			const btn = (event.target as HTMLElement).closest('button');
+			if (btn) {
+				id = btn.id;
+			}
+		}
+		selectItem(data, id);
+		const state = getState(data || [], id);
+
+		if (state?.length) {
+			location = location.concat([id]);
+			currentState = [...state];
+		}
+
+		data = [...data];
+		const componentEvent = new ComponentEvent(
+			id,
+			event.target as HTMLButtonElement,
+			event
+		);
+		// if clicked and item doesn't have a submenu dispatch 'click'
+		// otherwise dispatch 'update'∂
+		if (!state) {
+			if (typeof onMenuClick === 'function') {
+				onMenuClick(componentEvent);
+			}
+		} else {
+			if (typeof onMenuUpdate === 'function')
+				onMenuUpdate(componentEvent);
+		}
 	};
 
 	const arrowClickHandler = (event: KeyboardEvent) => {
@@ -167,40 +251,10 @@
 		}
 	};
 
-	const itemClickHandler = (event: MouseEvent) => {
-		event.preventDefault();
-		event.stopPropagation();
-		let target = event.target as HTMLElement;
-
-		let id = target.id;
-		if (!id?.length) {
-			const btn = (event.target as HTMLElement).closest('button');
-			if (btn) {
-				id = btn.id;
-			}
-		}
-
-		const state = getState(data || [], id);
-
-		if (state?.length) {
-			location = location.concat([id]);
-			currentState = [...state];
-		}
-		const componentEvent = new ComponentEvent(
-			id,
-			event.target as HTMLButtonElement,
-			event
-		);
-		// if clicked and item doesn't have a submenu dispatch 'click'
-		// otherwise dispatch 'update'∂
-		if (!state) {
-			if (typeof onMenuClick === 'function') {
-				onMenuClick(componentEvent);
-			}
-		} else {
-			if (typeof onMenuUpdate === 'function')
-				onMenuUpdate(componentEvent);
-		}
+	const transitionProps: SlideParams = {
+		// axis: 'x',
+		duration: 150,
+		easing: cubicOut,
 	};
 </script>
 
