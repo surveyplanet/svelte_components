@@ -57,7 +57,6 @@
 			const menuButton = mostRecentMenu?.querySelector(
 				'.sp-menu--item--btn'
 			) as HTMLButtonElement;
-			console.log(menuButton);
 			menuButton.focus();
 		}
 		const hasSelectedSubmenuItem = (
@@ -107,9 +106,6 @@
 		) {
 			if (direction === 'down') {
 				allButtons[(activeButtonIndex + 1) % allButtons.length].focus();
-				// console.log(
-				// 	allButtons[(activeButtonIndex + 1) % allButtons.length]
-				// );
 			} else if (direction === 'up') {
 				allButtons[
 					(activeButtonIndex + allButtons.length - 1) %

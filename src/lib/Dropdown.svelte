@@ -20,7 +20,7 @@
 		required?: boolean;
 		size?: 'small' | 'medium' | 'large';
 		onDropdownChange?: (
-			event: ComponentEvent<DropdownOption['id'], HTMLButtonElement>
+			event: ComponentEvent<DropdownOption['id'], HTMLInputElement>
 		) => void;
 	};
 </script>
@@ -77,13 +77,13 @@
 			if (!event) {
 				componentEvent = new ComponentEvent(
 					id,
-					input as HTMLButtonElement,
+					input as HTMLInputElement,
 					undefined
 				);
 			} else {
 				componentEvent = new ComponentEvent(
 					id,
-					event.target as HTMLButtonElement,
+					input as HTMLInputElement,
 					event
 				);
 			}

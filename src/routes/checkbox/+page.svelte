@@ -3,7 +3,8 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
-	let events: ComponentEvent<string[], HTMLInputElement>[] = $state([]);
+	let events: ComponentEvent<string[] | undefined, HTMLInputElement>[] =
+		$state([]);
 
 	let data: CheckboxProps['data'] = $state([
 		{
@@ -47,7 +48,7 @@
 	let size: CheckboxProps['size'] = $state('small');
 
 	const onCheckboxChange = (
-		event: ComponentEvent<string[], HTMLInputElement>
+		event: ComponentEvent<string[] | undefined, HTMLInputElement>
 	): void => {
 		events.push(event);
 	};

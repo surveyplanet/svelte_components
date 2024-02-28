@@ -31,6 +31,10 @@
 	// export let min: MultipleChoiceProperties['min'];
 	// export let max: MultipleChoiceProperties['max'];
 
+	type GroupType<T extends boolean | undefined> = T extends undefined | false
+		? string | undefined
+		: string[] | undefined;
+
 	let {
 		labels,
 		multi,
@@ -44,15 +48,14 @@
 		...attr
 	} = $props<MultipleChoiceProps>();
 
-	let group: string[] | string | undefined = $state();
+	let multipleChoiceForm: HTMLFormElement | undefined = $state();
+	let group: GroupType<typeof multi> = $state();
 	let otherValue: string | undefined = $state();
 	let otherIsSelected: boolean = $derived(
 		typeof other !== 'undefined' &&
 			other?.length > 0 &&
 			response.some((val) => val.label === other)
 	);
-
-	let otherInputEl: HTMLInputElement | undefined = $state();
 
 	$effect.pre(() => {
 		if (random) {
@@ -89,6 +92,16 @@
 		}
 
 		return res;
+	};
+
+	const selectOther = () => {
+		let otherChoice = multipleChoiceForm?.querySelector(
+			`input[value="${other}"]`
+		) as HTMLInputElement;
+		console.log('otherChoice', otherChoice);
+		if (otherChoice) {
+			otherChoice.click();
+		}
 	};
 
 	const updateResponse = async (
@@ -132,9 +145,9 @@
 
 		if (typeof onMultipleChoiceResponse === 'function') {
 			onMultipleChoiceResponse(
-				new ComponentEvent<MultipleChoiceValue[]>(
+				new ComponentEvent<MultipleChoiceValue[], HTMLInputElement>(
 					response,
-					undefined,
+					event.target,
 					event.raw
 				)
 			);
@@ -147,7 +160,7 @@
 		updateResponse(event);
 	};
 	const checkboxChangeHandler = (
-		event: ComponentEvent<string[], HTMLInputElement>
+		event: ComponentEvent<string[] | undefined, HTMLInputElement>
 	) => {
 		updateResponse(event);
 	};
@@ -155,11 +168,12 @@
 	const otherTextInputHandler = (
 		event: ComponentEvent<string | undefined, HTMLInputElement>
 	) => {
+		selectOther();
 		updateResponse(event);
 	};
 
 	const dropdownChangeHandler = (
-		event: ComponentEvent<string, HTMLButtonElement>
+		event: ComponentEvent<string, HTMLInputElement>
 	) => {
 		group = event.value;
 		updateResponse(event);
@@ -167,6 +181,7 @@
 </script>
 
 <form
+	bind:this={multipleChoiceForm}
 	{...attr}
 	class="sp-survey--question--form--multiple-choice sp-survey--question--form--multiple-choice--layout-{layout}">
 	{#if layout === 'dropdown'}
@@ -174,29 +189,26 @@
 			options={labels.map(getDropdownOption)}
 			onDropdownChange={dropdownChangeHandler} />
 	{:else}
-		{#if multi}
+		{#if multi && (typeof group === 'object' || typeof group === 'undefined')}
 			<Checkbox
 				bind:group
 				data={getCheckRadioData()}
 				size="large"
 				block={true}
-				onRadioChange={radioChangeHandler}
 				onCheckboxChange={checkboxChangeHandler} />
-		{:else}
+		{:else if !multi && (typeof group === 'string' || typeof group === 'undefined')}
 			<Radio
 				bind:group
 				data={getCheckRadioData()}
 				size="large"
 				block={true}
-				onRadioChange={radioChangeHandler}
-				onCheckboxChange={checkboxChangeHandler} />
+				onRadioChange={radioChangeHandler} />
 		{/if}
-
 		{#if other?.length}
 			<div class="sp-survey--question--form--multiple-choice-other">
 				<TextInput
 					bind:value={otherValue}
-					disabled={otherIsSelected}
+					focus={otherIsSelected}
 					size="large"
 					onTextInputInput={otherTextInputHandler} />
 			</div>

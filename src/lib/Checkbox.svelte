@@ -14,7 +14,7 @@
 		prependLabel?: boolean;
 		block?: boolean;
 		onCheckboxChange?: (
-			event: ComponentEvent<string[], HTMLInputElement>
+			event: ComponentEvent<string[] | undefined, HTMLInputElement>
 		) => void;
 	} & HTMLAttributes<HTMLDivElement>;
 </script>
@@ -26,7 +26,7 @@
 
 	let {
 		data,
-		group = [], // TODO: no default value since it's bound to the input checked attribute
+		group, // TODO: no default value since it's bound to the input checked attribute
 		size = 'small',
 		prependLabel,
 		block,

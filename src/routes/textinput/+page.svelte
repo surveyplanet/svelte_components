@@ -21,6 +21,7 @@
 	let validationRules: TextInputProps['validationRules'] = $state([]);
 	let validationMessage: TextInputProps['validationMessage'] = $state('');
 	let size: TextInputProps['size'] = $state('small');
+	let focus: TextInputProps['focus'] = $state(false);
 
 	const onTextInputChange = (
 		event: ComponentEvent<string, HTMLInputElement>
@@ -124,6 +125,9 @@
 			label="Size"
 			selectOptions={['small', 'medium', 'large']}
 			bind:value={size} />
+		<PropsChanger
+			label="Focus"
+			bind:value={focus} />
 	{/snippet}
 	{#snippet main()}
 		<TextInput
@@ -139,6 +143,7 @@
 			{validationRules}
 			{validationMessage}
 			{size}
+			bind:focus
 			{onTextInputChange}
 			{onTextInputFocus}
 			{onTextInputKeydown}

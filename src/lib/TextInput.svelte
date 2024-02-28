@@ -86,7 +86,7 @@
 	let hasValidationErrors = $state(false);
 
 	let validationDisplayMessage = $state('');
-
+	let input: HTMLInputElement | HTMLTextAreaElement | undefined = $state();
 	onMount(() => {
 		if (
 			cleaveOptions &&
@@ -101,6 +101,20 @@
 			new Cleave(`#${id}`, cleaveOptions);
 		}
 	});
+
+	$effect(() => {
+		if (focus && input) {
+			input.focus();
+		} else if (input && !focus) {
+			input.blur();
+		}
+		if (document.activeElement === input) {
+			focus = true;
+		} else {
+			focus = false;
+		}
+	});
+	$inspect(focus);
 
 	const validateInput = (target: HTMLInputElement) => {
 		const errors: ValidatorError[] = validate(target);
@@ -218,6 +232,7 @@
 
 	{#if type === 'password'}
 		<input
+			bind:this={input}
 			{...attr}
 			class="sp-text-input--input"
 			{name}
@@ -249,6 +264,7 @@
 		{/if}
 	{:else if type === 'search'}
 		<input
+			bind:this={input}
 			{...attr}
 			class="sp-text-input--input"
 			{name}
@@ -272,6 +288,7 @@
 		</span>
 	{:else if type === 'date'}
 		<input
+			bind:this={input}
 			{...attr}
 			class="sp-text-input--input"
 			{name}
@@ -293,6 +310,7 @@
 			onfocus={inputFocusHandler} />
 	{:else if type === 'time'}
 		<input
+			bind:this={input}
 			{...attr}
 			class="sp-text-input--input"
 			{name}
@@ -314,6 +332,7 @@
 			onfocus={inputFocusHandler} />
 	{:else if type === 'datetime-local'}
 		<input
+			bind:this={input}
 			{...attr}
 			class="sp-text-input--input"
 			{name}
@@ -335,6 +354,7 @@
 			onfocus={inputFocusHandler} />
 	{:else if type === 'multiline'}
 		<textarea
+			bind:this={input}
 			{...attr}
 			class="sp-text-input--textarea"
 			{name}
@@ -355,6 +375,7 @@
 			onfocus={inputFocusHandler}></textarea>
 	{:else}
 		<input
+			bind:this={input}
 			{...attr}
 			class="sp-text-input--input"
 			{name}
