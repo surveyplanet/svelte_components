@@ -6,27 +6,32 @@
 
 	&.sp-text-input--medium {
 		font-size: $font-size--14;
+
 		input {
 			height: $size--48;
 		}
 	}
+
 	&.sp-text-input--large {
 		font-size: $font-size--16;
+
 		input {
 			height: $size--52;
 		}
 	}
 
 	&.validation-error {
+
 		input,
 		textarea {
 			border-color: $color--pink;
 		}
 	}
 
-	& > input[type='search'] {
+	&>input[type='search'] {
 		padding-left: $size--32;
-		& ~ .sp-text-input--search-icon {
+
+		&~.sp-text-input--search-icon {
 			// background-color: red;
 			display: block;
 			position: absolute;
@@ -42,6 +47,7 @@
 		font-size: $font-size--10;
 		padding: $size--6 0 0 $size--4;
 		color: $color--pink;
+
 		em {
 			font-style: normal;
 		}
@@ -53,6 +59,7 @@
 	display: block;
 	font: inherit;
 	padding: 0 0 $size--12 $size--4;
+
 	.sp-text-input--label--required {
 		color: $color--pink;
 		font-size: smaller;
@@ -64,11 +71,12 @@
 	font: inherit;
 	width: 100%;
 	height: $size--40;
-	min-width: $size--256;
+	// min-width: $size--256;
 	background-color: $color--white;
 	border: 1px solid $color--beige-darker;
 	border-radius: $size-radius--default;
 	padding: $size--12 $size--16;
+
 	@include set-focus {
 		border: 1px solid $color--beige-darker;
 		box-shadow: 0px 0px 0px 2px $color--beige-dark;
@@ -85,6 +93,7 @@
 		@include set-focus {
 			box-shadow: none;
 		}
+
 		&:active {
 			box-shadow: none;
 		}
@@ -98,9 +107,11 @@
 		border-color: $color--beige-darker;
 		background-color: $color--beige-dark;
 		box-shadow: none;
+
 		@include set-focus {
 			box-shadow: none;
 		}
+
 		&:active {
 			box-shadow: none;
 		}

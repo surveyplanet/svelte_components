@@ -6,6 +6,7 @@
 		label?: string;
 		formats?: string[];
 		maxSize?: number;
+		note?: string;
 		onUploadUpload?: (
 			event: ComponentEvent<UploadData, HTMLInputElement>
 		) => void;
@@ -25,6 +26,7 @@
 		label,
 		formats = ['apng', 'avif', 'gif', 'jpeg', 'png', 'webp'],
 		maxSize = 10, // default to 10MB which seems to be a reasonable size  for an image
+		note,
 		onUploadUpload,
 		...attr
 	} = $props<UploadProps>();
@@ -32,10 +34,6 @@
 	type FileEventTarget = (EventTarget & { files: FileList }) | DataTransfer;
 
 	let fileinput: HTMLInputElement | null = $state(null);
-	let note = $state(
-		` ${formats?.join(', ').toUpperCase().replaceAll('.', '')}.` +
-			` Up to ${maxSize}MB`
-	);
 	const formatAccept = formats?.join(',');
 
 	const fileSelected = (event: Event) => {
@@ -104,8 +102,4 @@
 		type="file"
 		accept={formatAccept}
 		onchange={fileInputHandler} />
-
-	{#if note?.length}
-		<p class="sp-image-upload--note">{note}</p>
-	{/if}
 </div>
