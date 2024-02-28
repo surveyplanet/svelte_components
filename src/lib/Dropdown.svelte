@@ -46,7 +46,7 @@
 	let visible = $state(false);
 	let displayValue: DropdownOption['label'] | '' = $state('');
 
-	let searchable = $derived(options.length >= searchThreshold);
+	let searchable = options.length >= searchThreshold;
 	let menuData = $state([...options]);
 
 	onMount(() => {
@@ -90,6 +90,7 @@
 			onDropdownChange(componentEvent);
 		}
 	};
+	// const change = new Event('change');
 
 	const search = (query: string) => {
 		query = query.toLowerCase().trim();
@@ -138,8 +139,25 @@
 	};
 
 	const searchKeyupHandler = (event: KeyboardEvent) => {
-		const target = event.target as HTMLInputElement;
-		search(target.value);
+		if (event.key === 'Down' || event.key === 'ArrowDown') {
+			const allMenus = document.querySelectorAll('.sp-menu');
+			const mostRecentMenu = allMenus[allMenus.length - 1];
+			const menuButton = mostRecentMenu?.querySelector(
+				'.sp-menu--item--btn'
+			) as HTMLButtonElement;
+			menuButton.focus();
+		} else {
+			const target = event.target as HTMLInputElement;
+			search(target.value);
+			visible = true;
+		}
+	};
+
+	const searchKeyDownHandler = (event: KeyboardEvent) => {
+		if (event.key === 'Down' || event.key === 'ArrowDown') {
+			return;
+		}
+		visible = false;
 	};
 
 	const closeButtonHandler = (event: Event) => {
@@ -208,11 +226,12 @@
 			bind:this={input}
 			{placeholder}
 			{disabled}
-			bind:value={displayValue}
+			value={displayValue}
 			readonly={!searchable}
 			onclick={searchClickHandler}
 			onblur={searchBlurHandler}
-			onkeyup={searchKeyupHandler} />
+			onkeyup={searchKeyupHandler}
+			onkeydown={searchKeyDownHandler} />
 	</div>
 
 	{#if visible}

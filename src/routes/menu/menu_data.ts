@@ -34,7 +34,7 @@ export const menuData: MenuData[] = [
 							},
 							{
 								label: 'Caspian tiger',
-								id: 'sumatran-tiger',
+								id: 'caspian-tiger',
 								meta: 'extinct',
 							},
 							{
@@ -100,7 +100,6 @@ export const menuData: MenuData[] = [
 								label: 'Golden Delicious ',
 								id: 'golden-delicious',
 								meta: '(8)',
-								selected: true,
 							},
 							{
 								label: 'Granny Smith ',

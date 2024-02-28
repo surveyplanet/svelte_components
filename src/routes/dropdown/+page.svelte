@@ -50,7 +50,7 @@
 			],
 		},
 	]);
-	let searchThreshold: DropdownProps['searchThreshold'] = $state(15);
+	let searchThreshold: DropdownProps['searchThreshold'] = $state(0);
 	let disabled: DropdownProps['disabled'] = $state(false);
 	let required: DropdownProps['required'] = $state(false);
 	let value: DropdownProps['value'] = $state('');

@@ -34,6 +34,7 @@
 	import { slide, type SlideParams } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	import { onMount } from 'svelte'; // use to set focus on mount
+	// import { delay } from '@surveyplanet/utilities';
 
 	let {
 		data,
@@ -46,17 +47,19 @@
 		...attr
 	} = $props<MenuProps>();
 	let currentState = $state([...data]);
-
+	let menu = $state<HTMLDivElement>();
 	let location: string[] = $state([]);
 	onMount(() => {
-		const allButtons = Array.from(
-			document.querySelectorAll('.sp-menu--item button')
-		) as HTMLButtonElement[];
-
-		if (allButtons.length) {
-			allButtons[0].focus();
+		const parentElement = menu?.parentElement;
+		if (parentElement && !parentElement.classList.contains('sp-dropdown')) {
+			const allMenus = document.querySelectorAll('.sp-menu');
+			const mostRecentMenu = allMenus[allMenus.length - 1];
+			const menuButton = mostRecentMenu?.querySelector(
+				'.sp-menu--item--btn'
+			) as HTMLButtonElement;
+			console.log(menuButton);
+			menuButton.focus();
 		}
-		// open the submenu if there is a pre-selected item
 		const hasSelectedSubmenuItem = (
 			data: MenuData[]
 		): { id: string; data: MenuData[] } | undefined => {
@@ -74,23 +77,25 @@
 					}
 				}
 			}
-			console.log('no selected submenu item');
 			return undefined;
 		};
 		let item = hasSelectedSubmenuItem(data || []);
 		if (!item) return;
 		if (item.data?.length) {
 			location = location.concat([item.id]);
-			console.log('location', location);
 			currentState = [...item.data];
 		}
 	});
+
+	$effect(() => {});
+
 	const scrollMenu = (
 		direction: 'up' | 'down' | 'left' | 'right',
 		event: Event
 	) => {
+		if (!menu) return;
 		const allButtons = Array.from(
-			document.querySelectorAll('.sp-menu--item button')
+			menu.querySelectorAll('.sp-menu--item button')
 		) as HTMLButtonElement[];
 		const activeButton = document.activeElement as HTMLButtonElement;
 		const activeButtonIndex = allButtons.indexOf(activeButton);
@@ -102,6 +107,9 @@
 		) {
 			if (direction === 'down') {
 				allButtons[(activeButtonIndex + 1) % allButtons.length].focus();
+				// console.log(
+				// 	allButtons[(activeButtonIndex + 1) % allButtons.length]
+				// );
 			} else if (direction === 'up') {
 				allButtons[
 					(activeButtonIndex + allButtons.length - 1) %
@@ -114,6 +122,7 @@
 				)
 			) {
 				activeButton.click();
+				allButtons[0].focus();
 			} else if (direction === 'left' && location.length) {
 				backClickHandler(event);
 			}
@@ -194,13 +203,14 @@
 		}
 
 		data = [...data];
+
 		const componentEvent = new ComponentEvent(
 			id,
 			event.target as HTMLButtonElement,
 			event
 		);
 		// if clicked and item doesn't have a submenu dispatch 'click'
-		// otherwise dispatch 'update'∂
+		// otherwise dispatch 'update'
 		if (!state) {
 			if (typeof onMenuClick === 'function') {
 				onMenuClick(componentEvent);
@@ -259,6 +269,7 @@
 </script>
 
 <div
+	bind:this={menu}
 	{...attr}
 	class="sp-menu sp-menu--{size}"
 	role="menu"
