@@ -5,6 +5,7 @@
 
 	export type RadioData = {
 		label?: string;
+		html?: string;
 	} & HTMLInputAttributes;
 
 	export type RadioProps = {
@@ -90,7 +91,13 @@
 								r="50%" />
 						</svg>
 					</span>
-					<span class="sp-radio--label">{item.label || ''}</span>
+					{#if item.label}
+						<span class="sp-radio--label">{item.label || ''}</span>
+					{/if}
+					{#if item.html}
+						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+						<span class="sp-radio--html">{@html item.html}</span>
+					{/if}
 				</label>
 			</div>
 		{/each}

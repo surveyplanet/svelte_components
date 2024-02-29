@@ -5,6 +5,7 @@
 
 	export type CheckboxData = {
 		label?: string;
+		html?: string;
 	} & HTMLInputAttributes;
 
 	export type CheckboxProps = {
@@ -94,7 +95,14 @@
 							<polyline points="1 5 4 8 11 1" />
 						</svg>
 					</span>
-					<span class="sp-checkbox--label">{item.label || ''}</span>
+					{#if item.label}
+						<span class="sp-checkbox--label"
+							>{item.label || ''}</span>
+					{/if}
+					{#if item.html}
+						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+						<span class="sp-checkbox--html">{@html item.html}</span>
+					{/if}
 				</label>
 			</div>
 		{/each}
