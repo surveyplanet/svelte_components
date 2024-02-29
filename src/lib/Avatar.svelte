@@ -17,6 +17,7 @@
 <script lang="ts">
 	import { transformImage } from '@surveyplanet/utilities';
 	import { ComponentEvent } from './';
+	import { onMount } from 'svelte';
 
 	let {
 		profileImage,
@@ -55,6 +56,10 @@
 
 		return idx;
 	};
+
+	onMount(async () => {
+		profileImage = await loadProfileImage();
+	});
 
 	const loadProfileImage = async (): Promise<string> => {
 		if (isValidProfileImage()) {
@@ -123,8 +128,6 @@
 		class="sp-avatar--image {isValidProfileImage()
 			? 'sp-avatar--image--profile'
 			: `sp-avatar--image--mascot-${mascot}`}">
-		{#await loadProfileImage() then profileImage}
-			{@html profileImage}
-		{/await}
+		{@html profileImage}
 	</div>
 </button>
