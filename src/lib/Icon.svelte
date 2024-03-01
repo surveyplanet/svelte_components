@@ -5,6 +5,8 @@
 	import ICON_DATA from './_icon_data';
 	export type IconName = keyof typeof ICON_DATA & string;
 	export type IconSize =
+		| 4
+		| 6
 		| 8
 		| 12
 		| 16
