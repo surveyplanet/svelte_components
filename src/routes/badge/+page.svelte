@@ -7,12 +7,15 @@
 	let color: BadgeProps['color'] = $state('yellow');
 	let flat: BadgeProps['flat'] = $state(true);
 	let content: string = $state('Pro');
+
+	const btoaProps = $derived(btoa(JSON.stringify({ color, flat, content })));
 </script>
 
 <Layout
 	component="Badge"
 	example={source({ color, content, flat })}
-	{md}>
+	{md}
+	{btoaProps}>
 	{#snippet controls()}
 		<PropsChanger
 			label="Color"

@@ -37,10 +37,27 @@
 	const onAlertConfirm = (event: ComponentEvent<undefined, HTMLElement>) => {
 		events.push(event.target);
 	};
+
+	let btoaProps = $derived(
+		btoa(
+			JSON.stringify({
+				visible,
+				title,
+				subtitle,
+				type,
+				hideDelay,
+				confirm,
+				confirmButtonLabel,
+				cancelButtonLabel,
+				challenge,
+			})
+		)
+	);
 </script>
 
 <!-- eslint-disable svelte/no-at-html-tags -->
 <Layout
+	{btoaProps}
 	component="Alert"
 	example={source({
 		visible,
@@ -91,20 +108,20 @@
 	{/snippet}
 	{#snippet main()}
 		<Alert
-			{cancelButtonLabel}
-			{challenge}
-			{confirm}
-			{confirmButtonLabel}
-			{hideDelay}
+			bind:cancelButtonLabel
+			bind:challenge
+			bind:confirm
+			bind:confirmButtonLabel
+			bind:hideDelay
+			bind:subtitle
+			bind:title
+			bind:type
+			bind:visible
 			{onAlertClose}
 			{onAlertConfirm}
 			{onAlertIn}
 			{onAlertOpen}
-			{onAlertOut}
-			{subtitle}
-			{title}
-			{type}
-			bind:visible>
+			{onAlertOut}>
 			{@html content}
 		</Alert>
 	{/snippet}

@@ -47,9 +47,20 @@
 	): void => {
 		events.push(event);
 	};
+	let btoaProps = $derived(
+		btoa(
+			JSON.stringify({
+				data,
+				selectable,
+				multiSelect,
+				removable,
+			})
+		)
+	);
 </script>
 
 <Layout
+	{btoaProps}
 	component="Chips"
 	example={source({ data, selectable, multiSelect, removable })}
 	{md}
