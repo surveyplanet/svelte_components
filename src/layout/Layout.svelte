@@ -26,16 +26,27 @@
 		events?: ComponentEvent<unknown, unknown>[] | Event[];
 		component: string;
 		value?: string;
+		btoaProps: string;
 		main: Snippet;
 		controls: Snippet;
 	}
-	let { example, md, events, main, controls } = $props<LayoutProps>();
+	let { example, md, events, btoaProps, main, controls } =
+		$props<LayoutProps>();
 
+	let eventsParsed: object[] = [];
 	let isDarkMode = $state();
 	let mkd = $state(marked(md));
 	let reload = $state(0); //used to force reload the component
 	let componentsData = $state(createComponentsStore.componentsStore);
 	let componentEvents: HTMLElement | null = $state(null);
+	let eventsLogs: string[] = $state([]);
+	let copied = $state(false);
+	let tabSelected = $state('controls');
+
+	let isResizing = false;
+	let startWidth = 0;
+	let startX = 0;
+	let resizableElement = $state<ParentNode | null>(null);
 
 	$effect.pre(() => {
 		const pathParts = window.location.pathname.split('/');
@@ -79,13 +90,6 @@
 		}
 		eventsLogs = eventsParsed.map((event) => JSON.stringify(event));
 	});
-	let eventsParsed: object[] = [];
-	let eventsLogs: string[] = $state([]);
-
-	let copied = $state(false);
-
-	let tabSelected = $state('controls');
-	// let dropdownValue = $state();
 
 	$effect(() => {
 		document.body.classList[isDarkMode ? 'add' : 'remove']('dark'); // add dark mode
@@ -110,13 +114,27 @@
 		tabSelected = event.value;
 	};
 
-	const navBarClickHandler = (event: ComponentEvent<string, HTMLElement>) => {
-		console.log('navBarClickHandler' + event.value);
-
+	const navBarClickHandler = async (
+		event: ComponentEvent<string, HTMLElement>
+	) => {
 		if (event.value === 'refresh') {
 			reload++;
 			events = [];
 		}
+		if (event.value === 'share') {
+			openNewWindow();
+		}
+	};
+
+	const openNewWindow = () => {
+		let props = btoaProps;
+
+		let currentComponent = $derived(
+			componentsData.find((item) => item.selected)
+		);
+		let component = $derived(currentComponent?.label);
+		// eslint-disable-next-line svelte/valid-compile
+		window.open(`../solo_component?${component}*${props}`, '_blank');
 	};
 
 	const menuClickHandler = (event: ComponentEvent<string, HTMLElement>) => {
@@ -126,7 +144,7 @@
 	const darkModeHandler = (
 		event: ComponentEvent<boolean | undefined, HTMLElement>
 	) => {
-		isDarkMode = event.value;
+		isDarkMode = !event.value;
 	};
 
 	const searchComponents = (event: ComponentEvent<string, HTMLElement>) => {
@@ -139,6 +157,29 @@
 	const navCopyHandler = () => {
 		copyExample();
 	};
+	// resize the component details section
+	function resizeMouseDownHandler(event: MouseEvent) {
+		event.preventDefault();
+		event.stopPropagation();
+		isResizing = true;
+		resizableElement = (event.currentTarget as HTMLElement).parentNode;
+		startWidth = (resizableElement as HTMLElement)?.offsetWidth;
+		startX = event.clientX;
+		window.addEventListener('mousemove', mouseMoveHandler);
+		window.addEventListener('mouseup', mouseUpHandler);
+	}
+
+	function mouseMoveHandler(event: MouseEvent) {
+		if (!isResizing) return;
+		const newWidth = startWidth - (event.clientX - startX);
+		(resizableElement as HTMLElement).style.width = `${newWidth}px`;
+	}
+
+	function mouseUpHandler() {
+		isResizing = false;
+		window.removeEventListener('mousemove', mouseMoveHandler);
+		window.removeEventListener('mouseup', mouseUpHandler);
+	}
 </script>
 
 <!-- eslint-disable svelte/no-at-html-tags -->
@@ -177,7 +218,6 @@
 						},
 						{
 							icon: 'share2',
-							link: '#',
 							id: 'share',
 							title: 'Share',
 						},
@@ -196,7 +236,10 @@
 				{/key}
 			</div>
 		</section>
-		<section id="component-details">
+
+		<section
+			id="component-details"
+			class="resizable">
 			<header>
 				<TabBar
 					block={true}
@@ -255,6 +298,11 @@
 						</div>
 					</div>
 				{/if}
+			</div>
+			<!-- eslint-disable-next-line svelte/valid-compile -->
+			<div
+				class="resize-handle"
+				on:mousedown={resizeMouseDownHandler}>
 			</div>
 		</section>
 	</main>

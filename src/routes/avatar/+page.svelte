@@ -18,9 +18,21 @@
 	) => {
 		events.push(event);
 	};
+
+	let btoaProps = $derived(
+		btoa(
+			JSON.stringify({
+				profileImage,
+				id,
+				size,
+				disabled,
+			})
+		)
+	);
 </script>
 
 <Layout
+	{btoaProps}
 	component="Avatar"
 	example={source({ id, profileImage, size, disabled })}
 	{md}

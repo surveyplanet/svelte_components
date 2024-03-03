@@ -9,25 +9,25 @@
 		{
 			label: 'New',
 			id: 'new',
-			meta: '⌘ N',
+			meta: ' N',
 			selected: false,
 		},
 		{
 			label: 'Open',
 			id: 'open',
-			meta: '⌘ O',
+			meta: ' O',
 			selected: false,
 		},
 		{
 			label: 'Save',
 			id: 'save',
-			meta: '⌘ S',
+			meta: ' S',
 			selected: false,
 		},
 		{
 			label: 'Close',
 			id: 'close',
-			meta: '⌘ W',
+			meta: ' W',
 			selected: false,
 		},
 		{
@@ -38,19 +38,19 @@
 				{
 					label: 'Undo',
 					id: 'undo',
-					meta: '⌘ ←',
+					meta: '',
 					selected: false,
 				},
 				{
 					label: 'Redo',
 					id: 'redo',
-					meta: '⌘ →',
+					meta: '',
 					selected: false,
 				},
 			],
 		},
 	]);
-	let searchThreshold: DropdownProps['searchThreshold'] = $state(0);
+	let searchThreshold: DropdownProps['searchThreshold'] = $state(10);
 	let disabled: DropdownProps['disabled'] = $state(false);
 	let required: DropdownProps['required'] = $state(false);
 	let value: DropdownProps['value'] = $state('');
@@ -63,9 +63,24 @@
 	) => {
 		events.push(event);
 	};
+	let btoaProps = $derived(
+		btoa(
+			JSON.stringify({
+				options,
+				searchThreshold,
+				disabled,
+				required,
+				value,
+				placeholder,
+				label,
+				size,
+			})
+		)
+	);
 </script>
 
 <Layout
+	{btoaProps}
 	component="Dropdown"
 	example={source({
 		options,

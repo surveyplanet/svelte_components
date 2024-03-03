@@ -87,11 +87,31 @@ body {
 	border-left: 1px solid $color--beige-darker;
 	padding: $size-space--m;
 	width: px-to-rem(400);
+	min-width: 23.75rem;
+	max-width: 85rem;
+	position: relative;
 
 	header {
 		margin-bottom: $size-space--m;
 		padding-bottom: $size-space--m;
 		border-bottom: 1px solid $color--beige-darker;
+	}
+
+	.resize-handle {
+
+		display: block;
+		width: 10px;
+		height: 100%;
+		background-color: $color--beige-darker;
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+
+		&:hover {
+			background-color: $color--darkest;
+			cursor: ew-resize;
+		}
 	}
 }
 
@@ -197,6 +217,8 @@ body {
 		padding: $size-space--m;
 		// overflow: auto;
 		max-height: 300px;
+		resize: both;
+		overflow: auto;
 
 		ol {
 			list-style: none;
@@ -247,7 +269,11 @@ body.dark {
 
 		#component-details {
 			border-color: $color--darkest;
+
+
 		}
+
+
 	}
 
 	#main-footer {
