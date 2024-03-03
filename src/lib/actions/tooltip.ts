@@ -79,7 +79,7 @@ export function tooltip(node: HTMLElement, options: ToolTipOptions) {
 				left: 'right',
 			}[side] as 'top' | 'right' | 'bottom' | 'left';
 
-			arrowStyles[staticSide] = `-4px`; // arrow is 8px
+			arrowStyles[staticSide] = `-3px`; // arrow is 8px
 
 			console.log({ staticSide, placement }, arrowStyles);
 

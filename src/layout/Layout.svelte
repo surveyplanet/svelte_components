@@ -269,16 +269,21 @@
 				{:else if tabSelected === 'example'}
 					<div id="component-details--example">
 						<header>
-							{#if copied}
-								<div class="example-copied">Copied!</div>
-							{/if}
 							<Button
 								onButtonClick={navCopyHandler}
 								action={true}
 								mode="outline">
-								<Icon
-									name="copy"
-									size={12} />
+								{#if copied}
+									<Icon
+										name="check"
+										strokeWidth={3}
+										color={COLORS.greenDarker}
+										size={16} />
+								{:else}
+									<Icon
+										name="copy"
+										size={12} />
+								{/if}
 							</Button>
 						</header>
 						{#key isDarkMode}
@@ -303,6 +308,10 @@
 			<div
 				class="resize-handle"
 				on:mousedown={resizeMouseDownHandler}>
+				<Icon
+					name="menu"
+					size={12}
+					color={COLORS.beigeDarkerMid} />
 			</div>
 		</section>
 	</main>

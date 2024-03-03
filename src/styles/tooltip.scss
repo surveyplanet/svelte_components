@@ -21,9 +21,10 @@
 	.sp-tooltip--arrow {
 		position: absolute;
 		display: block;
-		background-color: $color--black;
 		width: 8px;
 		height: 8px;
+		border-radius: 2px;
 		transform: rotate(45deg);
+		background-color: $color--black;
 	}
 }

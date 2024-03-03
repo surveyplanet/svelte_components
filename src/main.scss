@@ -102,15 +102,23 @@ body {
 		display: block;
 		width: 10px;
 		height: 100%;
-		background-color: $color--beige-darker;
+		// background-color: $color--beige;
 		position: absolute;
 		left: 0;
 		top: 0;
 		bottom: 0;
 
 		&:hover {
-			background-color: $color--darkest;
+			background-color: $color--beige-dark;
 			cursor: ew-resize;
+		}
+
+		.sp-icon {
+			position: absolute;
+			top: 50%;
+			left: calc(50% + 1px);
+			transform: translate(-50%, -50%) rotate(90deg);
+			color: $color--beige-darker;
 		}
 	}
 }
