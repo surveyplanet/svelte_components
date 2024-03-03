@@ -1,0 +1,29 @@
+@use '@surveyplanet/styles/src/colors.scss' as *;
+@use '@surveyplanet/styles/src/fonts.scss' as *;
+@use '@surveyplanet/styles/src/sizes.scss' as *;
+
+.sp-tooltip {
+	position: absolute;
+	color: $color--white;
+	font: $font--small;
+	max-width: 28ch; // limit the width of an element to approximately the width of 28 "0" characters
+
+	text-align: center;
+	width: max-content;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: $color--black;
+	color: white;
+	padding: $size-space--2xs $size-space--xs;
+	border-radius: $size-radius--small;
+
+	.sp-tooltip--arrow {
+		position: absolute;
+		display: block;
+		background-color: $color--black;
+		width: 8px;
+		height: 8px;
+		transform: rotate(45deg);
+	}
+}

@@ -114,7 +114,6 @@
 			focus = false;
 		}
 	});
-	$inspect(focus);
 
 	const validateInput = (target: HTMLInputElement) => {
 		const errors: ValidatorError[] = validate(target);
