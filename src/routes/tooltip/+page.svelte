@@ -8,11 +8,37 @@
 		'This is a helpful tooltip!'
 	);
 	let placement: ToolTipParameters['placement'] = $state('left');
+
+	let padding: ToolTipParameters['padding'] = $state(10);
+
+	let changeCount = $state(0);
+
+	// TODO: replace this hacky mess when PropsChanger callbacks are fixed
+	let cache: ToolTipParameters;
+	(() => {
+		cache = { content, placement, padding };
+	})();
+
+	$effect.pre(() => {
+		if (content !== cache.content) {
+			changeCount += 1;
+			cache.content = content;
+		}
+		if (placement !== cache.placement) {
+			changeCount += 1;
+			cache.placement = placement;
+		}
+		if (padding !== cache.padding) {
+			changeCount += 1;
+			cache.padding = padding;
+		}
+		console.log('changeCount', changeCount);
+	});
 </script>
 
 <Layout
 	component="Tooltip"
-	example={source({ content })}
+	example={source({ content, placement, padding })}
 	{md}>
 	{#snippet controls()}
 		<PropsChanger
@@ -35,21 +61,29 @@
 				'left-start',
 				'left-end',
 			]} />
+		<PropsChanger
+			label="Padding"
+			bind:value={padding} />
 	{/snippet}
 	{#snippet main()}
-		{#key placement}
-			<button use:tooltip={{ content, placement }}>Hover me</button>
+		{#key changeCount}
+			<div
+				class="hot-spot"
+				use:tooltip={{ content, placement, padding }}>
+				Hover here
+			</div>
 		{/key}
 	{/snippet}
 </Layout>
 
 <style lang="scss">
 	@use '@surveyplanet/styles' as *;
-	.props {
-		border: 1px solid black;
-	}
-	.wrapper {
-		background-color: $color--beige;
-		border-radius: $size-radius--small;
+	.hot-spot {
+		width: 100px;
+		height: 100px;
+		background-color: $color--green;
+		line-height: 100px;
+		text-align: center;
+		font-size: 12px;
 	}
 </style>

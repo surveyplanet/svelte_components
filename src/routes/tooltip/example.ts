@@ -1,15 +1,16 @@
-import { type BadgeProps } from '$lib';
+import type { ToolTipOptions } from '$lib';
 
-export default (data: BadgeProps & { content: string }) => {
+export default (data: ToolTipOptions) => {
 	return `
 <script lang="ts">
-	import {Badge} from '@surveyplanet/svelte-components';
+	import {tooltip} from '@surveyplanet/svelte-components';
 </script>
 
-<Badge
-  color='${data.color}'
-  flat={${data.flat}}>
-  ${data.content}
-</Badge>
+<button use:tooltip={{
+	content: '${data.content}',
+	placement: '${data.placement}',
+	padding: {${data.padding}} }}> 
+	Click me
+</button>
 `;
 };

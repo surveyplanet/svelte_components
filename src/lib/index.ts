@@ -122,3 +122,6 @@ export {
 	type ScoringDefinitions,
 	type ScoringProps,
 } from './question_forms/Scoring.svelte';
+
+// Actions
+export { tooltip, type ToolTipOptions } from './actions/tooltip';

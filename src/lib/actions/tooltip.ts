@@ -1,4 +1,5 @@
 import {
+	type Side,
 	type Placement,
 	computePosition,
 	flip,
@@ -66,22 +67,16 @@ export function tooltip(node: HTMLElement, options: ToolTipOptions) {
 				bottom: '',
 			};
 
-			const side = placement.split('-')[0] as
-				| 'top'
-				| 'right'
-				| 'bottom'
-				| 'left';
+			const side = placement.split('-')[0];
 
 			const staticSide = {
 				top: 'bottom',
 				right: 'left',
 				bottom: 'top',
 				left: 'right',
-			}[side] as 'top' | 'right' | 'bottom' | 'left';
+			}[side] as Side;
 
 			arrowStyles[staticSide] = `-3px`; // arrow is 8px
-
-			console.log({ staticSide, placement }, arrowStyles);
 
 			Object.assign(arrowEl.style, arrowStyles);
 		});
