@@ -59,12 +59,14 @@
 			</Button>
 			<br />
 			<br />
-			<Menu
-				bind:data
-				{size}
-				bind:visible
-				onMenuUpdate={menuUpdateHandler}
-				onMenuClick={menuClickHandler} />
+			{#if visible}
+				<Menu
+					bind:data
+					{size}
+					{visible}
+					onMenuUpdate={menuUpdateHandler}
+					onMenuClick={menuClickHandler} />
+			{/if}
 		</div>
 	{/snippet}
 </Layout>

@@ -154,6 +154,7 @@
 		use:floatingContent>
 		<Menu
 			data={navMenuData}
+			visible={true}
 			onMenuClick={menuClickHandler} />
 	</div>
 {/if}

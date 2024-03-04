@@ -77,6 +77,7 @@
 				item.selected = true;
 				displayValue = item.label;
 			}
+			menuData = [...options];
 		}
 		if (!silent && typeof onDropdownChange === 'function') {
 			let componentEvent;
@@ -151,15 +152,32 @@
 				'.sp-menu--item--btn'
 			) as HTMLButtonElement;
 			menuButton.focus();
+		} else if (event.key === 'Up' || event.key === 'ArrowUp') {
+			const allMenus = document.querySelectorAll('.sp-menu');
+			const mostRecentMenu = allMenus[allMenus.length - 1];
+			const menuButton = mostRecentMenu?.querySelector(
+				'.sp-menu--item--btn'
+			) as HTMLButtonElement;
+			menuButton.focus();
 		} else {
-			const target = event.target as HTMLInputElement;
-			search(target.value);
-			visible = true;
+			if (searchable) {
+				const target = event.target as HTMLInputElement;
+				search(target.value);
+				visible = true;
+			}
 		}
 	};
 
 	const searchKeyDownHandler = (event: KeyboardEvent) => {
-		if (event.key === 'Down' || event.key === 'ArrowDown') {
+		if (
+			event.key === 'Down' ||
+			event.key === 'ArrowDown' ||
+			event.key === 'Up' ||
+			event.key === 'ArrowUp' ||
+			event.key === 'Enter' ||
+			event.key === 'Tab' ||
+			event.key === 'Return'
+		) {
 			return;
 		}
 		visible = false;
@@ -175,6 +193,11 @@
 		event.preventDefault();
 		event.stopPropagation();
 		visible = !visible;
+	};
+
+	const menuBlurHandler = () => {
+		console.log('menuBlurHandler');
+		// visible = false;
 	};
 </script>
 
@@ -239,11 +262,12 @@
 			onkeydown={searchKeyDownHandler} />
 	</div>
 
-	{#if visible}
+	{#if visible && menuData.length}
 		<Menu
 			bind:data={menuData}
 			visible={true}
 			{size}
-			onMenuClick={menuClickHandler} />
+			onMenuClick={menuClickHandler}
+			onMenuBlur={menuBlurHandler} />
 	{/if}
 </div>

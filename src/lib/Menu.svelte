@@ -24,7 +24,9 @@
 		onMenuClick?: (
 			event: ComponentEvent<string, HTMLButtonElement>
 		) => void;
-		onMenuBlur?: (event: FocusEvent) => void;
+		onMenuBlur?: (
+			event: ComponentEvent<undefined, HTMLButtonElement | HTMLDivElement>
+		) => void;
 		header?: Snippet;
 		footer?: Snippet;
 	};
@@ -51,6 +53,9 @@
 	let menu = $state<HTMLDivElement>();
 	let location: string[] = $state([]);
 	onMount(() => {
+		// this will not trigger unless the menu is rendered on page/component.
+		// Seems like onMount code only runs when the component is rendered and not when the inner HTML of the component is rendered
+		// $effect.pre makes no difference here
 		const parentElement = menu?.parentElement;
 		if (parentElement && !parentElement.classList.contains('sp-dropdown')) {
 			const allMenus = document.querySelectorAll('.sp-menu');
@@ -215,11 +220,14 @@
 		// otherwise dispatch 'update'
 		if (!state) {
 			if (typeof onMenuClick === 'function') {
+				console.log('dispatching click');
 				onMenuClick(componentEvent);
 			}
 		} else {
-			if (typeof onMenuUpdate === 'function')
+			if (typeof onMenuUpdate === 'function') {
+				console.log('dispatching update');
 				onMenuUpdate(componentEvent);
+			}
 		}
 	};
 
@@ -263,6 +271,31 @@
 		}
 	};
 
+	const menuItemBlurHandler = (event: FocusEvent) => {
+		const newFocusEl = (event.relatedTarget as HTMLElement) || null;
+		// if (newFocusEl?.classList) {
+		// 	if (
+		// 		newFocusEl.classList.contains('sp-menu--item--btn') ||
+		// 		newFocusEl.classList.contains('sp-menu--back-btn') ||
+		// 		newFocusEl.classList.contains('sp-menu--back-btn--label')
+		// 	) {
+		// 		return;
+		// 	}
+		// }
+		if (menu?.contains(newFocusEl)) return;
+		menuBlurHandler(event);
+	};
+	const menuBlurHandler = (event: FocusEvent) => {
+		if (typeof onMenuBlur === 'function') {
+			const componentEvent = new ComponentEvent(
+				undefined,
+				event.target as HTMLDivElement,
+				event
+			);
+			onMenuBlur(componentEvent);
+		}
+	};
+
 	const transitionProps: SlideParams = {
 		// axis: 'x',
 		duration: 150,
@@ -277,8 +310,7 @@
 		class="sp-menu sp-menu--{size}"
 		role="menu"
 		tabindex="0"
-		onkeydown={arrowClickHandler}
-		onblur={onMenuBlur}>
+		onkeydown={arrowClickHandler}>
 		<ul>
 			<li class="sp-menu--header">
 				{#if header}
@@ -312,6 +344,7 @@
 					<button
 						class="sp-menu--item--btn"
 						id={item.id}
+						onblur={menuItemBlurHandler}
 						onclick={itemClickHandler}>
 						{#if item.label}
 							<span class="sp-menu--item--label">

@@ -41,7 +41,10 @@ const getComponentsList = (dirPath: string, parentId = '') => {
 			});
 		}
 	});
-	componentsList.push({ id: 'tooltip', label: 'Tooltip' });
+	// add all components that are not .svelte files
+	if (!parentId) {
+		componentsList.push({ id: 'tooltip', label: 'Tooltip' });
+	}
 
 	// Sort the submenu items alphabetically
 	componentsList.sort((a, b) => a.label.localeCompare(b.label));
@@ -59,7 +62,7 @@ const getComponentsList = (dirPath: string, parentId = '') => {
 	return { componentsList };
 };
 
-const formatLabel = (str: string) => {
+const formatLabel = (str: string): string => {
 	// Replace underscores with spaces
 	let label = str.replace(/_/g, ' ');
 
