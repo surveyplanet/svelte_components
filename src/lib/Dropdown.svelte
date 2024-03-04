@@ -57,8 +57,14 @@
 
 	const reset = () => {
 		menuData = [...options];
-		for (let item of menuData) {
+		deselect(menuData);
+	};
+	const deselect = (data: DropdownOption[]) => {
+		for (let item of data) {
 			item.selected = false;
+			if (item.submenu) {
+				deselect(item.submenu);
+			}
 		}
 	};
 
@@ -90,7 +96,6 @@
 			onDropdownChange(componentEvent);
 		}
 	};
-	// const change = new Event('change');
 
 	const search = (query: string) => {
 		query = query.toLowerCase().trim();

@@ -42,6 +42,9 @@ const getComponentsList = (dirPath: string, parentId = '') => {
 		}
 	});
 	componentsList.push({ id: 'tooltip', label: 'Tooltip' });
+
+	// Sort the submenu items alphabetically
+	componentsList.sort((a, b) => a.label.localeCompare(b.label));
 	// Sort the componentsList array so that items with a submenu are at the top
 	componentsList.sort((a, b) => {
 		if (a.submenu && !b.submenu) {
@@ -52,8 +55,7 @@ const getComponentsList = (dirPath: string, parentId = '') => {
 			return 0;
 		}
 	});
-	// Sort the submenu items alphabetically
-	componentsList.sort((a, b) => a.label.localeCompare(b.label));
+
 	return { componentsList };
 };
 

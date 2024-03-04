@@ -3,6 +3,10 @@
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
+	let keys = $state(0);
+	const reset = () => {
+		keys = keys++;
+	};
 	let events: ComponentEvent<string, HTMLInputElement>[] = $state([]);
 
 	let options: DropdownProps['options'] = $state([
@@ -101,7 +105,8 @@
 		<PropsChanger
 			label="Search threshold"
 			type="number"
-			bind:value={searchThreshold} />
+			bind:value={searchThreshold}
+			onPropsChangerInput={reset} />
 		<PropsChanger
 			label="Disabled"
 			bind:value={disabled} />
@@ -124,16 +129,18 @@
 			bind:value={size} />
 	{/snippet}
 	{#snippet main()}
-		<Dropdown
-			bind:options
-			bind:searchThreshold
-			{disabled}
-			{required}
-			bind:value
-			{placeholder}
-			{label}
-			bind:size
-			{onDropdownChange} />
+		{#key keys}
+			<Dropdown
+				bind:options
+				bind:searchThreshold
+				{disabled}
+				{required}
+				bind:value
+				{placeholder}
+				{label}
+				bind:size
+				{onDropdownChange} />
+		{/key}
 	{/snippet}
 </Layout>
 
