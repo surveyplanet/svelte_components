@@ -4,9 +4,10 @@
 | ---------------- | ------------------------------ | ------------------------------------------------------------- |
 | `data`           | MenuData[]                     | Array of objects representing the menu items.                 |
 | `[size='small']` | String                         | Size of the menu, one of `'small'`, `'medium'`, or `'large'`. |
+| `[visible]`      | Boolean                        | Whether the menu is visible.                                  |
 | `[header]`       | Snippet                        | Custom content for the menu header.                           |
 | `[footer]`       | Snippet                        | Custom content for the menu footer.                           |
-| `[...attr] `     | HTMLAttributes<HTMLDivElement> | Additional attributes to be expanded on to primary the node.                 |
+| `[...attr] `     | HTMLAttributes<HTMLDivElement> | Additional attributes to be expanded on to primary the node.  |
 
 ### Callbacks
 

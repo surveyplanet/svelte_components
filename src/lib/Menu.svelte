@@ -17,6 +17,7 @@
 	export type MenuProps = HTMLAttributes<HTMLDivElement> & {
 		data: MenuData[];
 		size?: 'small' | 'medium' | 'large';
+		visible?: boolean;
 		onMenuUpdate?: (
 			event: ComponentEvent<string, HTMLButtonElement>
 		) => void;
@@ -34,11 +35,11 @@
 	import { slide, type SlideParams } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	import { onMount } from 'svelte'; // use to set focus on mount
-	// import { delay } from '@surveyplanet/utilities';
 
 	let {
 		data,
 		size = 'small',
+		visible,
 		onMenuUpdate,
 		onMenuClick,
 		onMenuBlur,
@@ -59,27 +60,32 @@
 			) as HTMLButtonElement;
 			menuButton.focus();
 		}
-		const hasSelectedSubmenuItem = (
+		//test this function
+		const findSelectedSubmenu = (
 			data: MenuData[]
-		): { id: string; data: MenuData[] } | undefined => {
-			for (let item of data) {
+		): { id: string; data: MenuData[] | undefined } | null => {
+			const foundItem = data.find((item) => {
 				if (item.submenu) {
-					for (let subItem of item.submenu) {
-						if (subItem.selected) {
-							return { id: subItem.id, data: item.submenu };
-						}
+					const foundSubItem = item.submenu.find(
+						(subItem) => subItem.selected
+					);
+					if (foundSubItem) {
+						return true;
 					}
 					// Recursive call to search in nested submenus
-					const nestedResult = hasSelectedSubmenuItem(item.submenu);
-					if (nestedResult) {
-						return nestedResult;
-					}
+					return item.submenu.some((subItem) =>
+						findSelectedSubmenu(subItem.submenu || [])
+					);
 				}
-			}
-			return undefined;
+				return false;
+			});
+
+			return foundItem
+				? { id: foundItem.id, data: foundItem.submenu }
+				: null;
 		};
-		let item = hasSelectedSubmenuItem(data || []);
-		if (!item) return;
+		let item = findSelectedSubmenu(data || []);
+		if (item === null) return;
 		if (item.data?.length) {
 			location = location.concat([item.id]);
 			currentState = [...item.data];
@@ -264,75 +270,77 @@
 	};
 </script>
 
-<div
-	bind:this={menu}
-	{...attr}
-	class="sp-menu sp-menu--{size}"
-	role="menu"
-	tabindex="0"
-	onkeydown={arrowClickHandler}
-	onblur={onMenuBlur}>
-	<ul>
-		<li class="sp-menu--header">
-			{#if header}
-				{@render header()}
-			{/if}
-		</li>
-
-		{#if location.length}
-			<li
-				transition:slide={transitionProps}
-				class="sp-menu--back">
-				<button
-					class="sp-menu--back-btn"
-					onclick={backClickHandler}>
-					<Icon
-						name="arrowLeft"
-						size={16} />
-					<span class="sp-menu--back-btn--label">Back</span>
-				</button>
+{#if visible}
+	<div
+		bind:this={menu}
+		{...attr}
+		class="sp-menu sp-menu--{size}"
+		role="menu"
+		tabindex="0"
+		onkeydown={arrowClickHandler}
+		onblur={onMenuBlur}>
+		<ul>
+			<li class="sp-menu--header">
+				{#if header}
+					{@render header()}
+				{/if}
 			</li>
-		{/if}
 
-		{#each currentState as item}
-			<li
-				class="sp-menu--item"
-				class:sp-menu--item--divide={item.divide}
-				class:sp-menu--item--inline={item.inline}
-				class:sp-menu--item--selected={item.selected}
-				class:sp-menu--item--submenu={item?.submenu?.length}
-				transition:slide={transitionProps}>
-				<button
-					class="sp-menu--item--btn"
-					id={item.id}
-					onclick={itemClickHandler}>
-					{#if item.label}
-						<span class="sp-menu--item--label">
-							{item.label}
-						</span>
-					{/if}
-
-					{#if item.html}
-						{@html item.html}
-					{/if}
-
-					{#if item.icon}
+			{#if location.length}
+				<li
+					transition:slide={transitionProps}
+					class="sp-menu--back">
+					<button
+						class="sp-menu--back-btn"
+						onclick={backClickHandler}>
 						<Icon
-							name={item.icon}
+							name="arrowLeft"
 							size={16} />
-					{/if}
-
-					{#if item.meta}
-						<span class="sp-menu--item--meta">{item.meta}</span>
-					{/if}
-				</button>
-			</li>
-		{/each}
-
-		<li class="sp-menu--footer">
-			{#if footer}
-				{@render footer()}
+						<span class="sp-menu--back-btn--label">Back</span>
+					</button>
+				</li>
 			{/if}
-		</li>
-	</ul>
-</div>
+
+			{#each currentState as item}
+				<li
+					class="sp-menu--item"
+					class:sp-menu--item--divide={item.divide}
+					class:sp-menu--item--inline={item.inline}
+					class:sp-menu--item--selected={item.selected}
+					class:sp-menu--item--submenu={item?.submenu?.length}
+					transition:slide={transitionProps}>
+					<button
+						class="sp-menu--item--btn"
+						id={item.id}
+						onclick={itemClickHandler}>
+						{#if item.label}
+							<span class="sp-menu--item--label">
+								{item.label}
+							</span>
+						{/if}
+
+						{#if item.html}
+							{@html item.html}
+						{/if}
+
+						{#if item.icon}
+							<Icon
+								name={item.icon}
+								size={16} />
+						{/if}
+
+						{#if item.meta}
+							<span class="sp-menu--item--meta">{item.meta}</span>
+						{/if}
+					</button>
+				</li>
+			{/each}
+
+			<li class="sp-menu--footer">
+				{#if footer}
+					{@render footer()}
+				{/if}
+			</li>
+		</ul>
+	</div>
+{/if}

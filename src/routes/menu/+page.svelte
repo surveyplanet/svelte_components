@@ -6,12 +6,12 @@
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events: ComponentEvent<string, HTMLButtonElement>[] = $state([]);
-	let menuVisible: boolean = $state(false);
+	let visible: boolean = $state(false);
 	let data: MenuProps['data'] = $state(menuData);
 	let size: MenuProps['size'] = $state('small');
 
 	const buttonClickHandler = () => {
-		menuVisible = !menuVisible;
+		visible = !visible;
 	};
 
 	const menuClickHandler = (
@@ -25,9 +25,13 @@
 	) => {
 		events.push(event);
 	};
+	let btoaProps = $derived(
+		btoa(JSON.stringify({ data, size, visible: true }))
+	);
 </script>
 
 <Layout
+	{btoaProps}
 	component="Menu"
 	example={source({ data, size })}
 	{md}
@@ -40,6 +44,9 @@
 			label="Size"
 			selectOptions={['small', 'medium', 'large']}
 			bind:value={size} />
+		<PropsChanger
+			label="Visible"
+			bind:value={visible} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">
@@ -52,13 +59,12 @@
 			</Button>
 			<br />
 			<br />
-			{#if menuVisible}
-				<Menu
-					bind:data
-					{size}
-					onMenuUpdate={menuUpdateHandler}
-					onMenuClick={menuClickHandler} />
-			{/if}
+			<Menu
+				bind:data
+				{size}
+				bind:visible
+				onMenuUpdate={menuUpdateHandler}
+				onMenuClick={menuClickHandler} />
 		</div>
 	{/snippet}
 </Layout>

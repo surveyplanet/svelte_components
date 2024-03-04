@@ -162,6 +162,14 @@
 			startX = event.clientX;
 			changeValue(event, false);
 		}
+
+		if (typeof onSpinnerChange === 'function') {
+			const componentEvent = new ComponentEvent<
+				number | undefined,
+				HTMLInputElement
+			>(value, event.target as HTMLInputElement, event);
+			onSpinnerChange(componentEvent);
+		}
 	};
 
 	const stopDragging = () => {

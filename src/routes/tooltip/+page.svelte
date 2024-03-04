@@ -1,49 +1,35 @@
 <script lang="ts">
-	import { tooltip, type ToolTipParameters } from '$lib/actions/tooltip';
+	import { tooltip, type ToolTipOptions } from '$lib/actions/tooltip';
 	import { Layout, PropsChanger } from '../../layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 
-	let content: ToolTipParameters['content'] = $state(
+	let content: ToolTipOptions['content'] = $state(
 		'This is a helpful tooltip!'
 	);
-	let placement: ToolTipParameters['placement'] = $state('left');
+	let placement: ToolTipOptions['placement'] = $state('left');
 
-	let padding: ToolTipParameters['padding'] = $state(10);
+	let padding: ToolTipOptions['padding'] = $state(10);
 
 	let changeCount = $state(0);
 
-	// TODO: replace this hacky mess when PropsChanger callbacks are fixed
-	let cache: ToolTipParameters;
-	(() => {
-		cache = { content, placement, padding };
-	})();
-
-	$effect.pre(() => {
-		if (content !== cache.content) {
-			changeCount += 1;
-			cache.content = content;
-		}
-		if (placement !== cache.placement) {
-			changeCount += 1;
-			cache.placement = placement;
-		}
-		if (padding !== cache.padding) {
-			changeCount += 1;
-			cache.padding = padding;
-		}
-		console.log('changeCount', changeCount);
-	});
+	let btoaProps = $derived(
+		btoa(JSON.stringify({ content, placement, padding }))
+	);
 </script>
 
 <Layout
+	{btoaProps}
 	component="Tooltip"
 	example={source({ content, placement, padding })}
 	{md}>
 	{#snippet controls()}
 		<PropsChanger
 			label="Content"
-			bind:value={content} />
+			bind:value={content}
+			onPropsChangerInput={() => {
+				changeCount++;
+			}} />
 		<PropsChanger
 			label="Placement"
 			bind:value={placement}
@@ -60,10 +46,16 @@
 				'left',
 				'left-start',
 				'left-end',
-			]} />
+			]}
+			onPropsChangerInput={() => {
+				changeCount++;
+			}} />
 		<PropsChanger
 			label="Padding"
-			bind:value={padding} />
+			bind:value={padding}
+			onPropsChangerInput={() => {
+				changeCount++;
+			}} />
 	{/snippet}
 	{#snippet main()}
 		{#key changeCount}

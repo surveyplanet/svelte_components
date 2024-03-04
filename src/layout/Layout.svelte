@@ -203,6 +203,7 @@
 		<Menu
 			bind:data={componentsData}
 			size="small"
+			visible={true}
 			onMenuClick={menuClickHandler} />
 	</aside>
 

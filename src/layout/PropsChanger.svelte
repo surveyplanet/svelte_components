@@ -1,11 +1,9 @@
 <script lang="ts">
-	// import Checkbox from '$lib/Checkbox.svelte';
 	import TextInput from '$lib/TextInput.svelte';
 	import Toggle from '$lib/Toggle.svelte';
 	import type { TextInputProps } from '$lib/TextInput.svelte';
 	import Spinner from '$lib/Spinner.svelte';
 	import Dropdown from '$lib/Dropdown.svelte';
-	// import type { DropdownOptions } from '$lib/Dropdown.svelte';
 	import { dasherize } from '@surveyplanet/utilities';
 	import JsonEditor from './JsonEditor.svelte';
 	import type { ComponentEvent } from '$lib';
@@ -16,22 +14,20 @@
 
 	interface PropsChangerProps<T> {
 		value: T;
-		// group?: string[]; // for checkbox
 		label: string;
 		type?: 'string' | 'number' | 'boolean' | 'json' | 'select';
 		selectOptions?: string[] | number[] | { label: string; id: string }[];
-		onInput?: () => void;
-		onBlur?: () => void;
+		onPropsChangerInput?: () => void;
+		onPropsChangerBlur?: () => void;
 	}
 
 	let {
 		value,
-		// group,
 		label,
 		selectOptions = [],
 		type,
-		onInput,
-		onBlur,
+		onPropsChangerInput,
+		onPropsChangerBlur,
 	} = $props<
 		PropsChangerProps<string | number | boolean | object | undefined | null>
 	>();
@@ -56,6 +52,18 @@
 		`props-changer--item--${type} props-changer--item--${dasherize(label)}`
 	);
 
+	const dispatchInput = () => {
+		if (onPropsChangerInput) {
+			onPropsChangerInput();
+		}
+	};
+
+	const dispatchBlur = () => {
+		if (onPropsChangerBlur) {
+			onPropsChangerBlur();
+		}
+	};
+
 	const optionsParsed = () => {
 		if (selectOptions?.length && Array.isArray(selectOptions)) {
 			return selectOptions.map((option) => {
@@ -75,6 +83,7 @@
 		dropdownValueMutated: ComponentEvent<string, HTMLInputElement>
 	) => {
 		value = dropdownValueMutated.value!;
+		dispatchInput();
 	};
 
 	const options = optionsParsed();
@@ -91,18 +100,21 @@
 				max={100000}
 				bind:value
 				size={FORM_CONTROL_SIZE}
-				onSpinnerInput={onInput}
-				onSpinnerBlur={onBlur} />
+				onSpinnerChange={dispatchInput}
+				onSpinnerInput={dispatchInput}
+				onSpinnerBlur={dispatchBlur} />
 		{:else if type === 'boolean' && (typeof value === 'boolean' || typeof value === 'undefined')}
 			<Toggle
 				id="boolean-{(Date.now() + Math.random()).toString(36)}"
 				bind:on={value}
 				size={FORM_CONTROL_SIZE}
 				{label}
-				onToggleChange={onInput} />
-		{:else if type === 'json'}
+				onToggleChange={dispatchInput} />
+		{:else if type === 'json' && (typeof value === 'object' || typeof value === 'undefined')}
 			<p>{label}</p>
-			<JsonEditor bind:value />
+			<JsonEditor
+				bind:value
+				onJsonEditorInput={dispatchInput} />
 		{:else if type === 'select'}
 			<Dropdown
 				{options}
@@ -118,8 +130,8 @@
 				type="text"
 				size={FORM_CONTROL_SIZE}
 				bind:value
-				onTextInputInput={onInput}
-				onTextInputBlur={onBlur} />
+				onTextInputInput={dispatchInput}
+				onTextInputBlur={dispatchBlur} />
 		{/if}
 	</div>
 </div>

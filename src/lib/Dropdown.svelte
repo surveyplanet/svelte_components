@@ -237,6 +237,7 @@
 	{#if visible}
 		<Menu
 			bind:data={menuData}
+			visible={true}
 			{size}
 			onMenuClick={menuClickHandler} />
 	{/if}

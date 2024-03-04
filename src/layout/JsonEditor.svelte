@@ -1,12 +1,18 @@
 <script lang="ts">
-	import type { ComponentEvent } from '$lib';
+	import { ComponentEvent } from '$lib';
 	import CodeMirror from './code_mirror/CodeMirror.svelte';
 	import { json } from '@codemirror/lang-json';
 	import { solarizedDark } from 'cm6-theme-solarized-dark';
 	import { solarizedLight } from 'cm6-theme-solarized-light';
 	import { onDestroy } from 'svelte';
 
-	let { value } = $props();
+	interface JsonEditorProps {
+		value: object | undefined | null;
+		onJsonEditorInput?: (
+			event: ComponentEvent<string, HTMLDivElement>
+		) => void;
+	}
+	let { value, onJsonEditorInput } = $props<JsonEditorProps>();
 
 	let StringData = $state(JSON.stringify(value, null, 2));
 	let isDarkMode = $state(false);
@@ -29,6 +35,14 @@
 		event: ComponentEvent<string, HTMLDivElement>
 	) => {
 		value = JSON.parse(event.value);
+		if (typeof onJsonEditorInput === 'function') {
+			const componentEvent = new ComponentEvent(
+				event.value,
+				event.target,
+				event.raw
+			);
+			onJsonEditorInput(componentEvent);
+		}
 	};
 </script>
 
