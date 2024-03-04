@@ -13,17 +13,29 @@
 			link: '#edit',
 			id: 'edit',
 			title: 'Edit',
+			tooltips: {
+				placement: 'bottom',
+				content: 'Edit',
+			},
 		},
 		{
 			icon: 'share',
 			id: 'share',
 			title: 'Share',
+			tooltips: {
+				placement: 'bottom',
+				content: 'Share',
+			},
 		},
 		{
 			icon: 'chartColumn',
 			link: '#charts',
 			id: 'chart',
 			title: 'Chart',
+			tooltips: {
+				placement: 'bottom',
+				content: 'Chart',
+			},
 		},
 	]);
 
@@ -35,9 +47,14 @@
 	) => {
 		events.push(event);
 	};
+
+	let btoaProps = $derived(
+		btoa(JSON.stringify({ data, navMenuData, vertical }))
+	);
 </script>
 
 <Layout
+	{btoaProps}
 	component="NavBar"
 	example={source({ data, navMenuData, vertical })}
 	{md}

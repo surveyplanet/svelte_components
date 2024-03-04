@@ -52,6 +52,7 @@ const getComponentsList = (dirPath: string, parentId = '') => {
 			return 0;
 		}
 	});
+	// Sort the submenu items alphabetically
 	componentsList.sort((a, b) => a.label.localeCompare(b.label));
 	return { componentsList };
 };

@@ -2,13 +2,14 @@
 	context="module"
 	lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { Icon, type IconName } from './index';
+	import { Icon, type IconName, type ToolTipOptions } from './index';
 
 	export interface NavBarData {
 		icon: IconName;
 		link?: string;
 		title: string;
 		id: string;
+		tooltip?: ToolTipOptions;
 	}
 
 	export type NavBarProps = HTMLAttributes<HTMLElement> & {
