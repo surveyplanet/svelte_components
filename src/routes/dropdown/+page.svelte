@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { ComponentEvent, Dropdown, type DropdownProps } from '$lib';
+	// import { menuData } from '../menu/menu_data';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -54,6 +55,7 @@
 			],
 		},
 	]);
+	// let options: DropdownProps['options'] = $state(menuData);
 	let searchThreshold: DropdownProps['searchThreshold'] = $state(10);
 	let disabled: DropdownProps['disabled'] = $state(false);
 	let required: DropdownProps['required'] = $state(false);

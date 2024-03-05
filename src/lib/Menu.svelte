@@ -220,12 +220,10 @@
 		// otherwise dispatch 'update'
 		if (!state) {
 			if (typeof onMenuClick === 'function') {
-				console.log('dispatching click');
 				onMenuClick(componentEvent);
 			}
 		} else {
 			if (typeof onMenuUpdate === 'function') {
-				console.log('dispatching update');
 				onMenuUpdate(componentEvent);
 			}
 		}
@@ -273,15 +271,15 @@
 
 	const menuItemBlurHandler = (event: FocusEvent) => {
 		const newFocusEl = (event.relatedTarget as HTMLElement) || null;
-		// if (newFocusEl?.classList) {
-		// 	if (
-		// 		newFocusEl.classList.contains('sp-menu--item--btn') ||
-		// 		newFocusEl.classList.contains('sp-menu--back-btn') ||
-		// 		newFocusEl.classList.contains('sp-menu--back-btn--label')
-		// 	) {
-		// 		return;
-		// 	}
-		// }
+		if (newFocusEl?.classList) {
+			if (
+				newFocusEl.classList.contains('sp-menu--item--btn') ||
+				newFocusEl.classList.contains('sp-menu--back-btn') ||
+				newFocusEl.classList.contains('sp-menu--back-btn--label')
+			) {
+				return;
+			}
+		}
 		if (menu?.contains(newFocusEl)) return;
 		menuBlurHandler(event);
 	};

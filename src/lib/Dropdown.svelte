@@ -3,7 +3,7 @@
 	context="module">
 	import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 	export interface DropdownOption extends HTMLButtonAttributes {
-		label: string;
+		label?: string;
 		id: string;
 		meta?: string;
 		selected?: boolean;
@@ -26,7 +26,7 @@
 </script>
 
 <script lang="ts">
-	import { Menu, Icon, ComponentEvent } from './';
+	import { Menu, Icon, ComponentEvent, type MenuData } from './';
 	import { onMount } from 'svelte';
 
 	let {
@@ -68,16 +68,26 @@
 		}
 	};
 
-	const setValue = (id: string, silent = false, event?: Event) => {
-		value = id;
-		displayValue = '';
-		for (let item of menuData) {
-			item.selected = false;
+	const findLabel = (id: string, menu: MenuData[]): string | undefined => {
+		for (let item of menu) {
 			if (item.id === id) {
 				item.selected = true;
-				displayValue = item.label;
+				return item.label;
+			} else if (item.submenu) {
+				const foundLabel = findLabel(id, item.submenu);
+				if (foundLabel) {
+					return foundLabel;
+				}
 			}
-			menuData = [...options];
+		}
+		return undefined;
+	};
+
+	const setValue = (id: string, silent = false, event?: Event) => {
+		value = id;
+		const foundLabel = findLabel(id, menuData);
+		if (foundLabel) {
+			displayValue = foundLabel;
 		}
 		if (!silent && typeof onDropdownChange === 'function') {
 			let componentEvent;
@@ -105,7 +115,8 @@
 			visible = true;
 			menuData = options.filter((item) => {
 				// item.selected = false;
-				return item.label.toLowerCase().trim().includes(query);
+				if (item.label)
+					return item.label.toLowerCase().trim().includes(query);
 			});
 		} else {
 			reset();
@@ -136,11 +147,14 @@
 
 		// let menu click handler hide itself after value has been set
 		if (newFocusEl?.classList) {
-			if (newFocusEl.classList.contains('sp-menu--item--btn')) {
+			if (
+				newFocusEl.classList.contains('sp-menu--item--btn') ||
+				newFocusEl.classList.contains('sp-menu--back-btn') ||
+				newFocusEl.classList.contains('sp-menu--back-btn--label')
+			) {
 				return;
 			}
 		}
-
 		visible = false;
 	};
 
@@ -195,10 +209,11 @@
 		visible = !visible;
 	};
 
-	const menuBlurHandler = () => {
-		console.log('menuBlurHandler');
-		// visible = false;
-	};
+	const menuUpdateHandler = () =>
+		// event: ComponentEvent<string, HTMLButtonElement>
+		{
+			// console.log('menuUpdateHandler', event.value);
+		};
 </script>
 
 <div
@@ -268,6 +283,6 @@
 			visible={true}
 			{size}
 			onMenuClick={menuClickHandler}
-			onMenuBlur={menuBlurHandler} />
+			onMenuUpdate={menuUpdateHandler} />
 	{/if}
 </div>
