@@ -16,7 +16,7 @@ const getComponentsList = (dirPath: string, parentId = '') => {
 	const items = fs.readdirSync(dirPath);
 
 	items.forEach((item) => {
-		if (item === 'events' || item === 'actions') {
+		if (item === 'events') {
 			return;
 		}
 		const itemPath = path.join(dirPath, item);
@@ -41,13 +41,7 @@ const getComponentsList = (dirPath: string, parentId = '') => {
 			});
 		}
 	});
-	// add all components that are not .svelte files
-	if (!parentId) {
-		componentsList.push({ id: 'tooltip', label: 'Tooltip' });
-	}
 
-	// Sort the submenu items alphabetically
-	componentsList.sort((a, b) => a.label.localeCompare(b.label));
 	// Sort the componentsList array so that items with a submenu are at the top
 	componentsList.sort((a, b) => {
 		if (a.submenu && !b.submenu) {
@@ -62,7 +56,7 @@ const getComponentsList = (dirPath: string, parentId = '') => {
 	return { componentsList };
 };
 
-const formatLabel = (str: string): string => {
+const formatLabel = (str: string) => {
 	// Replace underscores with spaces
 	let label = str.replace(/_/g, ' ');
 
