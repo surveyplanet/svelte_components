@@ -23,7 +23,7 @@
 		},
 	]);
 
-	let group: RadioProps['group'] = $state();
+	let group: RadioProps['group'] = $state('');
 	let prependLabel: RadioProps['prependLabel'] = $state();
 	let block: RadioProps['block'] = $state();
 	let size: RadioProps['size'] = $state('small');

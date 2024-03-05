@@ -26,3 +26,27 @@ The data for the checkbox includes:
 | `html`   | string              | HTML to be rendered for the checkbox.   |
 | `label`  | string              | Label for the checkbox.                 |
 | `...`    | HTMLInputAttributes | Additional attributes for the checkbox. |
+
+### Binding
+
+```svelte
+let group: CheckboxProps['group'] = $state(['apple']); // apple will be checked
+<Checkbox
+	bind:group
+	{data} />
+```
+
+_Note: bound value must NOT be undefined. For example, this will cause a `ERR_SVELTE_BINDING_FALLBACK` error:_
+
+```svelte
+let group: CheckboxProps['group'] = $state();
+<Checkbox
+	bind:group
+	{data} />
+```
+
+However, it's fine to have no bound value:
+
+```svelte
+<Checkbox {data} />
+```
