@@ -10,7 +10,7 @@
 
 	export type CheckboxProps = {
 		data: CheckboxData | CheckboxData[];
-		group?: string[];
+		group: string[];
 		size?: 'small' | 'medium' | 'large';
 		prependLabel?: boolean;
 		block?: boolean;
@@ -27,7 +27,7 @@
 
 	let {
 		data,
-		group, // TODO: no default value since it's bound to the input checked attribute
+		group = [],
 		size = 'small',
 		prependLabel,
 		block,

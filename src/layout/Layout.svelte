@@ -26,7 +26,7 @@
 		events?: ComponentEvent<unknown, unknown>[] | Event[];
 		component: string;
 		value?: string;
-		btoaProps: string;
+		btoaProps?: string;
 		main: Snippet;
 		controls: Snippet;
 	}
@@ -150,7 +150,7 @@
 	const searchComponents = (event: ComponentEvent<string, HTMLElement>) => {
 		const searchValue = (event.target as HTMLInputElement).value;
 		componentsData = createComponentsStore.componentsStore.filter((item) =>
-			item.label.toLowerCase().includes(searchValue.toLowerCase())
+			(item.label ?? '').toLowerCase().includes(searchValue.toLowerCase())
 		);
 		reload++;
 	};
