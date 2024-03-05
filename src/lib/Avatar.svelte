@@ -17,12 +17,13 @@
 <script lang="ts">
 	import { transformImage } from '@surveyplanet/utilities';
 	import { ComponentEvent } from './';
-	import { onMount } from 'svelte';
+	// import { onMount } from 'svelte';
 
 	let {
 		profileImage,
 		userId,
 		size = 'small',
+		disabled,
 		onAvatarClick,
 		...attr
 	} = $props<AvatarProps>();
@@ -57,32 +58,31 @@
 		return idx;
 	};
 
-	onMount(async () => {
-		profileImage = await loadProfileImage();
-	});
+	// onMount(async () => {
+	// 	profileImage = await loadProfileImage();
+	// });
 
 	const loadProfileImage = async (): Promise<string> => {
+		let src = '';
+
 		if (isValidProfileImage()) {
-			const src = await transformImage(profileImage!, {
+			src = await transformImage(profileImage!, {
 				width: profileImageSize,
 				height: profileImageSize,
 				fit: 'cover',
 			});
-			return new Promise((resolve, reject) => {
-				const img = new Image();
-				img.src = profileImage!;
-				img.onerror = reject;
-				img.onload = async () => {
-					return resolve(`<img src="${src}" alt="profile" />`);
-				};
-			});
+		} else {
+			src = `https://public.surveyplanet.com/images/mascots/${mascot}_1.svg`;
 		}
 
-		const response = await fetch(
-			`https://public.surveyplanet.com/images/mascots/${mascot}_1.svg`
-		);
-
-		return response.text();
+		return new Promise((resolve, reject) => {
+			const img = new Image();
+			img.src = src;
+			img.onerror = reject;
+			img.onload = async () => {
+				return resolve(src);
+			};
+		});
 	};
 
 	$effect.pre(() => {
@@ -102,7 +102,7 @@
 	function avatarClickHandler(event: MouseEvent): void {
 		event.preventDefault();
 
-		if (attr.disabled) {
+		if (disabled) {
 			return;
 		}
 
@@ -118,16 +118,22 @@
 </script>
 
 <!-- eslint-disable svelte/no-at-html-tags -->
-<button
+
+<svelte:element
+	this={disabled ? 'div' : 'button'}
 	{...attr}
 	class="sp-avatar sp-avatar--{size} sp-avatar--background--{bgColor}"
 	onclick={avatarClickHandler}
-	aria-label={attr.disabled ? null : 'profile image'}
-	role={attr.disabled ? 'presentation' : null}>
-	<div
-		class="sp-avatar--image {isValidProfileImage()
-			? 'sp-avatar--image--profile'
-			: `sp-avatar--image--mascot-${mascot}`}">
-		{@html profileImage}
-	</div>
-</button>
+	aria-label={disabled ? null : 'profile image'}
+	role={disabled ? 'presentation' : null}>
+	{#await loadProfileImage() then image}
+		<div
+			class="sp-avatar--image {isValidProfileImage()
+				? 'sp-avatar--image--profile'
+				: `sp-avatar--image--mascot-${mascot}`}">
+			<img
+				src={image}
+				alt="profile" />
+		</div>
+	{/await}
+</svelte:element>
