@@ -177,6 +177,11 @@
 			}
 		}
 	};
+	let preventBlurVal = false;
+	const preventBlur = () => {
+		preventBlurVal = true;
+	};
+
 	const selectItem = (menuData: MenuData[], id: string) => {
 		for (let item of menuData) {
 			if (item.id === id && !item.submenu) {
@@ -223,6 +228,7 @@
 				onMenuClick(componentEvent);
 			}
 		} else {
+			preventBlur();
 			if (typeof onMenuUpdate === 'function') {
 				onMenuUpdate(componentEvent);
 			}
@@ -259,6 +265,7 @@
 		} else {
 			currentState = [...(data || [])]; // go to root
 		}
+		preventBlur();
 		if (typeof onMenuUpdate === 'function') {
 			const componentEvent = new ComponentEvent(
 				id,
@@ -284,7 +291,7 @@
 		menuBlurHandler(event);
 	};
 	const menuBlurHandler = (event: FocusEvent) => {
-		if (typeof onMenuBlur === 'function') {
+		if (typeof onMenuBlur === 'function' && !preventBlurVal) {
 			const componentEvent = new ComponentEvent(
 				undefined,
 				event.target as HTMLDivElement,
