@@ -280,7 +280,7 @@
 	{#if visible && menuData.length}
 		<Menu
 			bind:data={menuData}
-			visible={visible && menuData.length}
+			visible={visible && menuData.length > 0}
 			{size}
 			onMenuClick={menuClickHandler}
 			onMenuUpdate={menuUpdateHandler} />

@@ -25,7 +25,15 @@ export {
 	type ChipsProps,
 } from './Chips.svelte';
 export { ComponentEvent } from './events/component_event';
-export { default as Dropdown, type DropdownProps } from './Dropdown.svelte';
+export {
+	default as ColorSelector,
+	type ColorSelectorProps,
+} from './ColorSelector.svelte';
+export {
+	default as Dropdown,
+	type DropdownOption,
+	type DropdownProps,
+} from './Dropdown.svelte';
 export {
 	default as Footer,
 	type FooterData,
