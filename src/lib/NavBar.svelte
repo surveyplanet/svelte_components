@@ -23,11 +23,11 @@
 </script>
 
 <script lang="ts">
-	import { onMount } from 'svelte';
+	// import { onMount } from 'svelte';
 	// import { offset, flip, shift } from 'svelte-floating-ui/dom';
 	// import { createFloatingActions } from 'svelte-floating-ui';
 	import {
-		type Side,
+		// type Side,
 		type Placement,
 		computePosition,
 		flip,
@@ -84,40 +84,27 @@
 
 	const navMenuTriggerClickHandler = (event: Event) => {
 		event.preventDefault();
-		menuVisible = !menuVisible;
+		event.stopPropagation();
+
+		// setTimeout(() => {
+		if (menuVisible === true) {
+			return;
+		}
+		menuVisible = true;
+		// }, 0);
 	};
-
-	// TODO: move this into the Menu component
-	// const documentClickHandler = (event: MouseEvent) => {
-	// 	const compPath = event.composedPath();
-	// 	let insideNav = false;
-
-	// 	if (navBarEl) {
-	// 		insideNav = compPath.includes(navBarEl);
-	// 	}
-
-	// 	if (!insideNav && navBarMenuEl) {
-	// 		insideNav = compPath.includes(navBarMenuEl);
-	// 	}
-
-	// 	// console.log(compPath);
-	// 	// console.log( `Click was${insideNav ? '' : ' **NOT**'} inside NavBar component` );
-
-	// 	if (!insideNav) {
-	// 		menuVisible = false;
-	// 	}
-	// };
 
 	const navBarBlurHandler = (event: FocusEvent) => {
 		console.log('navBarBlurHandler', event.relatedTarget);
 		const newFocusEl = (event.relatedTarget as HTMLElement) || null;
-
+		console.log('newFocusEl', newFocusEl);
 		// let menu click handler hide itself after value has been set
 		if (newFocusEl?.classList) {
 			if (
 				newFocusEl.classList.contains('sp-menu--item--btn') ||
 				newFocusEl.classList.contains('sp-menu--back-btn') ||
-				newFocusEl.classList.contains('sp-menu--back-btn--label')
+				newFocusEl.classList.contains('sp-menu--back-btn--label') ||
+				newFocusEl.classList.contains('sp-nav--menu-trigger')
 			) {
 				return;
 			}
@@ -182,8 +169,7 @@
 		<Menu
 			data={navMenuData}
 			visible={true}
-			onMenuClick={menuClickHandler}
-			onMenuBlur={navBarBlurHandler} />
+			onMenuClick={menuClickHandler} />
 	</div>
 {/if}
 
