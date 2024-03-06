@@ -94,6 +94,21 @@
 
 .sp-dropdown--input-wrapper {
 	position: relative;
+
+	&.sp-dropdown--input-wrapper--icon {
+		input {
+			padding-left: $size--32;
+		}
+	}
+
+	.sp-icon {
+		position: absolute;
+		top: 50%;
+		left: $size--12;
+		transform: translateY(-50%);
+	}
+
+
 }
 
 .sp-dropdown--toggle-btn,

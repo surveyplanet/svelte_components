@@ -3,11 +3,12 @@ import type { MenuData } from '$lib';
 
 export const menuData: MenuData[] = [
 	{ label: 'Edit', id: 'edit' },
-	{ label: 'Preview', id: 'preview' },
-	{ label: 'Duplicate', id: 'duplicate' },
+	{ label: 'Preview', id: 'preview', icon: 'image' },
+	{ label: 'Duplicate', id: 'duplicate', icon: 'copy', prependIcon: true },
 	{
 		label: 'Categories',
 		id: 'categories',
+		icon: 'edit',
 		submenu: [
 			{
 				label: 'Animals',
@@ -192,7 +193,6 @@ export const menuData: MenuData[] = [
 				html: `<span class="color-chip" style="background: linear-gradient( 180deg, ${COLORS.blueGradientStart} 0%, ${COLORS.blueGradientEnd} 100% );"></span>`,
 				id: 'blue',
 				inline: true,
-				selected: true,
 			},
 			{
 				html: `<span class="color-chip" style="background: linear-gradient( 180deg, ${COLORS.pinkGradientStart} 0%, ${COLORS.pinkGradientEnd} 100% );"></span>`,
@@ -203,8 +203,9 @@ export const menuData: MenuData[] = [
 				html: `<span class="color-chip" style="background: linear-gradient( 180deg, ${COLORS.greenGradientStart} 0%, ${COLORS.greenGradientEnd} 100% );"></span>`,
 				id: 'green',
 				inline: true,
+				selected: false,
 			},
 		],
 	},
-	{ label: 'Delete', id: 'delete', divide: true },
+	{ label: 'Delete', id: 'delete', meta: '⌘ D', divide: true },
 ];

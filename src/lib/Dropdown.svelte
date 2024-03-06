@@ -1,14 +1,10 @@
 <script
 	lang="ts"
 	context="module">
-	import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
-	export interface DropdownOption extends HTMLButtonAttributes {
-		label?: string;
-		id: string;
-		meta?: string;
-		selected?: boolean;
-		submenu?: DropdownOption[];
-	}
+	import type { HTMLAttributes } from 'svelte/elements';
+	import type { MenuData } from './';
+
+	export type DropdownOption = MenuData;
 
 	export type DropdownProps = HTMLAttributes<HTMLDivElement> & {
 		options: DropdownOption[];
@@ -26,7 +22,7 @@
 </script>
 
 <script lang="ts">
-	import { Menu, Icon, ComponentEvent, type MenuData } from './';
+	import { Menu, Icon, ComponentEvent } from './';
 	import { onMount } from 'svelte';
 
 	let {
@@ -47,7 +43,7 @@
 	let visible = $state(false);
 
 	let searchable = options.length >= searchThreshold;
-	let menuData = $state([...options]);
+	let dropdownOptions = $state([...options]);
 
 	onMount(() => {
 		if (value?.length) {
@@ -56,8 +52,8 @@
 	});
 
 	const reset = () => {
-		menuData = [...options];
-		deselect(menuData);
+		dropdownOptions = [...options];
+		deselect(dropdownOptions);
 	};
 	const deselect = (data: DropdownOption[]) => {
 		for (let item of data) {
@@ -88,7 +84,7 @@
 
 	const setValue = (id: string, silent = false, event?: Event) => {
 		value = id;
-		const option = findSelected(id, menuData);
+		const option = findSelected(id, dropdownOptions);
 		if (option) {
 			selectedOption = option;
 		}
@@ -106,7 +102,7 @@
 
 		if (query?.length) {
 			visible = true;
-			menuData = options.filter((item) => {
+			dropdownOptions = options.filter((item) => {
 				// item.selected = false;
 				if (item.label)
 					return item.label.toLowerCase().trim().includes(query);
@@ -224,7 +220,18 @@
 		</label>
 	{/if}
 
-	<div class="sp-dropdown--input-wrapper">
+	<div
+		class="sp-dropdown--input-wrapper"
+		class:sp-dropdown--input-wrapper--icon={selectedOption?.icon?.length}>
+		{console.log('selectedOption', { ...selectedOption })}
+		{#if selectedOption && selectedOption.icon}
+			<!-- {#key selectedOption.icon} -->
+			<Icon
+				name={selectedOption.icon}
+				size={16} />
+			<!-- {/key} -->
+		{/if}
+
 		{#if searchable && selectedOption?.label?.length}
 			<button
 				class="sp-dropdown--close-btn"
@@ -255,7 +262,6 @@
 				</svg>
 			</button>
 		{/if}
-
 		<input
 			type="text"
 			class="sp-dropdown--search"
@@ -270,12 +276,10 @@
 			onkeydown={searchKeyDownHandler} />
 	</div>
 
-	{#if visible && menuData.length}
-		<Menu
-			bind:data={menuData}
-			visible={true}
-			{size}
-			onMenuClick={menuClickHandler}
-			onMenuUpdate={menuUpdateHandler} />
-	{/if}
+	<Menu
+		bind:data={dropdownOptions}
+		visible={visible && dropdownOptions.length > 0}
+		{size}
+		onMenuClick={menuClickHandler}
+		onMenuUpdate={menuUpdateHandler} />
 </div>

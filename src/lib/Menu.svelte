@@ -8,6 +8,7 @@
 		label?: string;
 		html?: string;
 		icon?: IconName;
+		prependIcon?: boolean;
 		meta?: string;
 		divide?: boolean;
 		inline?: boolean;
@@ -306,6 +307,7 @@
 		bind:this={menu}
 		{...attr}
 		class="sp-menu sp-menu--{size}"
+		transition:slide={{ ...transitionProps, axis: 'y' }}
 		role="menu"
 		tabindex="0"
 		onkeydown={arrowClickHandler}>
@@ -341,9 +343,19 @@
 					transition:slide={transitionProps}>
 					<button
 						class="sp-menu--item--btn"
+						class:sp-menu--item--btn--prepend-icon={item.icon &&
+							(item.prependIcon ||
+								item.meta?.length ||
+								item?.submenu?.length)}
 						id={item.id}
 						onblur={menuItemBlurHandler}
 						onclick={itemClickHandler}>
+						<!-- {#if item.prependIcon && item.icon}
+							<Icon
+								name={item.icon}
+								size={16} />
+						{/if} -->
+
 						{#if item.label}
 							<span class="sp-menu--item--label">
 								{item.label}
@@ -360,7 +372,7 @@
 								size={16} />
 						{/if}
 
-						{#if item.meta}
+						{#if item.meta?.length}
 							<span class="sp-menu--item--meta">{item.meta}</span>
 						{/if}
 					</button>

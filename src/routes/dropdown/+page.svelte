@@ -15,29 +15,34 @@
 			label: 'New',
 			id: 'new',
 			meta: ' N',
+			icon: 'plus',
 			selected: false,
 		},
 		{
 			label: 'Open',
 			id: 'open',
 			meta: ' O',
+			icon: 'share2',
 			selected: false,
 		},
 		{
 			label: 'Save',
 			id: 'save',
 			meta: ' S',
+			icon: 'arrowUp',
 			selected: false,
 		},
 		{
 			label: 'Close',
 			id: 'close',
+			icon: 'x',
 			meta: ' W',
 			selected: false,
 		},
 		{
 			label: 'Edit',
 			id: 'edit',
+			icon: 'edit',
 			selected: false,
 			submenu: [
 				{
