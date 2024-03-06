@@ -13,13 +13,13 @@
 		) => void;
 	}
 	let { value, onJsonEditorInput } = $props<JsonEditorProps>();
-
-	let StringData = $state(JSON.stringify(value, null, 2));
+	let stringData = $state(JSON.stringify(value, null, 2));
 	let isDarkMode = $state(false);
 	let intervalId: number | null | NodeJS.Timeout = null;
+	let focus = $state(false);
 
 	$effect(() => {
-		StringData = JSON.stringify(value, null, 2);
+		stringData = JSON.stringify(value, null, 2);
 	});
 
 	intervalId = setInterval(() => {
@@ -31,17 +31,27 @@
 		clearInterval(intervalId as number);
 	});
 
+	const onCodeMirrorBlur = () => {
+		focus = true;
+	};
+
+	const onCodeMirrorFocus = () => {
+		focus = false;
+	};
+
 	const onCodeMirrorChange = (
 		event: ComponentEvent<string, HTMLDivElement>
 	) => {
-		value = JSON.parse(event.value);
-		if (typeof onJsonEditorInput === 'function') {
-			const componentEvent = new ComponentEvent(
-				event.value,
-				event.target,
-				event.raw
-			);
-			onJsonEditorInput(componentEvent);
+		if (!focus) {
+			value = JSON.parse(event.value);
+			if (typeof onJsonEditorInput === 'function') {
+				const componentEvent = new ComponentEvent(
+					event.value,
+					event.target,
+					event.raw
+				);
+				onJsonEditorInput(componentEvent);
+			}
 		}
 	};
 </script>
@@ -51,10 +61,12 @@
 	spellcheck="false">
 	{#key value}
 		<CodeMirror
-			bind:value={StringData}
+			bind:value={stringData}
 			lang={json()}
 			theme={isDarkMode ? solarizedDark : solarizedLight}
-			{onCodeMirrorChange} />
+			{onCodeMirrorChange}
+			{onCodeMirrorBlur}
+			{onCodeMirrorFocus} />
 	{/key}
 </div>
 
