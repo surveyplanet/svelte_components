@@ -1,15 +1,11 @@
 <script lang="ts">
-	import {
-		ColorSelector,
-		// type ColorSelectorProps,
-		type ComponentEvent,
-	} from '$lib';
+	import { COLORS, ColorSelector, type ComponentEvent } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events: ComponentEvent<string, HTMLInputElement>[] = $state([]);
 
-	let value = $state('#000');
+	let value = $state(COLORS.pink);
 
 	const onColorSelectorChange = (
 		event: ComponentEvent<string, HTMLInputElement>

@@ -1,0 +1,36 @@
+@use '@surveyplanet/styles/src/colors.scss' as *;
+@use '@surveyplanet/styles/src/sizes.scss' as *;
+@use '@surveyplanet/styles/src/functions.scss' as *;
+
+.sp-color-picker {
+	display: inline-flex;
+	align-items: center;
+	border: 1px solid $color--beige-darker;
+	gap: 3px;
+	width: fit-content;
+	padding: 5px 3px 5px 5px;
+	border-radius: $size-radius--default;
+	background-color: $color--white;
+
+	input {
+		border: none;
+		outline: none;
+		box-shadow: none;
+		background-color: transparent;
+		width: 20px;
+		height: 20px;
+		padding: 0;
+		margin: 0;
+		flex-shrink: 0;
+		border-radius: $size-radius--small;
+		overflow: hidden;
+
+		&::-webkit-color-swatch-wrapper {
+			padding: 0;
+		}
+
+		&::-webkit-color-swatch {
+			border: none;
+		}
+	}
+}
