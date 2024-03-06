@@ -9,7 +9,7 @@ test.describe('Dropdown component', () => {
 		const input = dropdown.locator('input');
 		const label = preview.locator('.sp-dropdown--label');
 		await setControl(page, 'Search threshold', 'number', '5');
-		const closeBtn = dropdown.locator('.sp-dropdown--close-btn');
+		const closeBtn = dropdown.locator('.sp-dropdown--clear-btn');
 
 		await expect(dropdown).toBeVisible();
 		await expect(input).toBeVisible();

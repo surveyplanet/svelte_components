@@ -23,9 +23,13 @@
 </script>
 
 <script lang="ts">
-	// import { onMount } from 'svelte';
-	import { offset, flip, shift } from 'svelte-floating-ui/dom';
-	import { createFloatingActions } from 'svelte-floating-ui';
+	import {
+		type Placement,
+		computePosition,
+		flip,
+		shift,
+		offset,
+	} from '@floating-ui/dom';
 	import { ComponentEvent, Menu, type MenuData } from './';
 
 	let { data, navMenuData, vertical, onNavClick, ...attr } =
@@ -36,15 +40,25 @@
 	let navBarEl: HTMLElement | undefined = $state();
 	let navBarMenuEl: HTMLElement | undefined = $state();
 
-	// onMount(() => {
-	// 	// I think we only need this if we have a menu
-	// 	// if (navMenuData?.length) {
-	// 	document.addEventListener('click', documentClickHandler);
-	// 	// }
-	// 	return () => {
-	// 		document.removeEventListener('click', documentClickHandler);
-	// 	};
-	// });
+	let padding = 10; // adjust as needed
+
+	$effect(() => {
+		if (!navBarMenuEl) return;
+
+		const middleware = [flip(), shift({ padding }), offset(padding)];
+
+		if (navBarEl && navBarMenuEl) {
+			computePosition(navBarEl, navBarMenuEl, {
+				placement: 'bottom-start' as Placement,
+				middleware,
+			}).then(({ x, y }) => {
+				Object.assign(navBarMenuEl!.style, {
+					left: `${x}px`,
+					top: `${y}px`,
+				});
+			});
+		}
+	});
 
 	const navButtonClickHandler = (event: MouseEvent) => {
 		const target = event.target as HTMLLinkElement;
@@ -66,29 +80,27 @@
 
 	const navMenuTriggerClickHandler = (event: Event) => {
 		event.preventDefault();
-		// console.log('navMenuTriggerClickHandler', menuVisible);
+		event.stopPropagation();
 		menuVisible = !menuVisible;
 	};
 
-	// TODO: move this into the Menu component
-	const documentClickHandler = (event: MouseEvent) => {
-		const compPath = event.composedPath();
-		let insideNav = false;
-
-		if (navBarEl) {
-			insideNav = compPath.includes(navBarEl);
+	const onMenuBlur = (
+		event: ComponentEvent<undefined, HTMLButtonElement | HTMLDivElement>
+	) => {
+		const newFocusEl =
+			((event.raw! as FocusEvent).relatedTarget as HTMLElement) || null;
+		// let menu hide itself after value has been set
+		if (newFocusEl?.classList) {
+			if (
+				newFocusEl.classList.contains('sp-menu--item--btn') ||
+				newFocusEl.classList.contains('sp-menu--back-btn') ||
+				newFocusEl.classList.contains('sp-menu--back-btn--label') ||
+				newFocusEl.classList.contains('sp-nav--menu-trigger')
+			) {
+				return;
+			}
 		}
-
-		if (!insideNav && navBarMenuEl) {
-			insideNav = compPath.includes(navBarMenuEl);
-		}
-
-		// console.log(compPath);
-		// console.log( `Click was${insideNav ? '' : ' **NOT**'} inside NavBar component` );
-
-		if (!insideNav) {
-			menuVisible = false;
-		}
+		menuVisible = false;
 	};
 
 	const menuClickHandler = (
@@ -104,16 +116,7 @@
 			onNavClick(componentEvent);
 		}
 	};
-
-	const [floatingRef, floatingContent] = createFloatingActions({
-		strategy: 'fixed',
-		placement: 'top-start',
-		middleware: [offset(10), flip(), shift()],
-	});
 </script>
-
-<!-- This is not good since it triggers for each instance of the nav bar -->
-<svelte:document onclick={documentClickHandler} />
 
 <nav
 	{...attr}
@@ -137,7 +140,6 @@
 
 	{#if navMenuData?.length}
 		<button
-			use:floatingRef
 			class="sp-nav--menu-trigger"
 			onclick={navMenuTriggerClickHandler}>
 			<Icon
@@ -150,12 +152,12 @@
 {#if menuVisible && navMenuData?.length}
 	<div
 		bind:this={navBarMenuEl}
-		class="sp-nav--menu"
-		use:floatingContent>
+		class="sp-nav--menu">
 		<Menu
 			data={navMenuData}
 			visible={true}
-			onMenuClick={menuClickHandler} />
+			onMenuClick={menuClickHandler}
+			{onMenuBlur} />
 	</div>
 {/if}
 

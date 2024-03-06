@@ -15,6 +15,7 @@
 		disabled?: boolean;
 		required?: boolean;
 		size?: 'small' | 'medium' | 'large';
+		displayIconOnly?: boolean;
 		onDropdownChange?: (
 			event: ComponentEvent<DropdownOption['id'], HTMLInputElement>
 		) => void;
@@ -24,6 +25,17 @@
 <script lang="ts">
 	import { Menu, Icon, ComponentEvent } from './';
 	import { onMount } from 'svelte';
+	import { cloneDeep } from '@surveyplanet/utilities';
+
+	const SEARCH_KEYS: string[] = [
+		'Down',
+		'ArrowDown',
+		'Up',
+		'ArrowUp',
+		'Enter',
+		'Tab',
+		'Return',
+	] as const;
 
 	let {
 		options,
@@ -34,6 +46,7 @@
 		disabled,
 		required,
 		size = 'small', // input sizes are small by default
+		displayIconOnly,
 		onDropdownChange,
 		...attr
 	} = $props<DropdownProps>();
@@ -41,9 +54,9 @@
 	let input: HTMLInputElement | undefined = $state();
 	let selectedOption: DropdownOption | undefined = $state();
 	let visible = $state(false);
-
-	let searchable = options.length >= searchThreshold;
 	let dropdownOptions = $state([...options]);
+	let showClearButton = $state(false);
+	let searchable = $derived(options.length >= searchThreshold);
 
 	onMount(() => {
 		if (value?.length) {
@@ -53,13 +66,17 @@
 
 	const reset = () => {
 		dropdownOptions = [...options];
-		deselect(dropdownOptions);
+		resetMenu(dropdownOptions);
+		if (input) {
+			input.value = ''; // clear input
+		}
 	};
-	const deselect = (data: DropdownOption[]) => {
+
+	const resetMenu = (data: DropdownOption[]) => {
 		for (let item of data) {
 			item.selected = false;
 			if (item.submenu) {
-				deselect(item.submenu);
+				resetMenu(item.submenu);
 			}
 		}
 	};
@@ -84,12 +101,14 @@
 
 	const setValue = (id: string, silent = false, event?: Event) => {
 		value = id;
-		const option = findSelected(id, dropdownOptions);
+		const option = findSelected(value, dropdownOptions);
 		if (option) {
 			selectedOption = option;
+		} else {
+			selectedOption = undefined;
 		}
 		if (!silent && input && typeof onDropdownChange === 'function') {
-			let componentEvent = new ComponentEvent(id, input);
+			let componentEvent = new ComponentEvent(value, input);
 			if (event) {
 				componentEvent.raw = event;
 			}
@@ -102,19 +121,23 @@
 
 		if (query?.length) {
 			visible = true;
+			showClearButton = true;
 			dropdownOptions = options.filter((item) => {
 				// item.selected = false;
-				if (item.label)
+				if (item.label?.length) {
 					return item.label.toLowerCase().trim().includes(query);
+				}
 			});
+			console.log(cloneDeep(dropdownOptions));
 		} else {
+			showClearButton = false;
 			reset();
 		}
 	};
 
-	const clear = (event: Event) => {
-		reset();
+	const clearInput = (event: Event) => {
 		setValue('', undefined, event); // unset value
+		reset();
 		if (input) {
 			input.focus();
 		} // setting focus will open menu
@@ -123,7 +146,7 @@
 	const menuClickHandler = (
 		event: ComponentEvent<string, HTMLButtonElement>
 	) => {
-		setValue(event.value!, undefined, event.raw);
+		setValue(event.value, undefined, event.raw);
 		visible = false; // blur handler hides the menu
 	};
 
@@ -172,37 +195,21 @@
 	};
 
 	const searchKeyDownHandler = (event: KeyboardEvent) => {
-		if (
-			event.key === 'Down' ||
-			event.key === 'ArrowDown' ||
-			event.key === 'Up' ||
-			event.key === 'ArrowUp' ||
-			event.key === 'Enter' ||
-			event.key === 'Tab' ||
-			event.key === 'Return'
-		) {
+		if (SEARCH_KEYS.includes(event.key)) {
 			return;
 		}
 		visible = false;
 	};
 
-	const closeButtonHandler = (event: Event) => {
+	const clearButtonHandler = (event: Event) => {
 		event.preventDefault();
-		event.stopPropagation();
-		clear(event);
+		clearInput(event);
 	};
 
 	const toggleIconClickHandler = (event: Event) => {
 		event.preventDefault();
-		event.stopPropagation();
 		visible = !visible;
 	};
-
-	const menuUpdateHandler = () =>
-		// event: ComponentEvent<string, HTMLButtonElement>
-		{
-			// console.log('menuUpdateHandler', event.value);
-		};
 </script>
 
 <div
@@ -223,20 +230,20 @@
 	<div
 		class="sp-dropdown--input-wrapper"
 		class:sp-dropdown--input-wrapper--icon={selectedOption?.icon?.length}>
-		{console.log('selectedOption', { ...selectedOption })}
-		{#if selectedOption && selectedOption.icon}
-			<!-- {#key selectedOption.icon} -->
-			<Icon
-				name={selectedOption.icon}
-				size={16} />
-			<!-- {/key} -->
+		{#if selectedOption && selectedOption.icon && selectedOption.icon.length}
+			<!-- TODO: this should not need to be re-rendered -->
+			{#key selectedOption.icon}
+				<Icon
+					name={selectedOption.icon}
+					size={16} />
+			{/key}
 		{/if}
 
-		{#if searchable && selectedOption?.label?.length}
+		{#if showClearButton}
 			<button
-				class="sp-dropdown--close-btn"
+				class="sp-dropdown--clear-btn"
 				{disabled}
-				onclick={closeButtonHandler}>
+				onclick={clearButtonHandler}>
 				<Icon
 					name="x"
 					size={16} />
@@ -268,7 +275,9 @@
 			bind:this={input}
 			{placeholder}
 			{disabled}
-			value={selectedOption?.label}
+			value={!selectedOption || displayIconOnly
+				? ''
+				: selectedOption?.label}
 			readonly={!searchable}
 			onclick={searchClickHandler}
 			onblur={searchBlurHandler}
@@ -276,10 +285,12 @@
 			onkeydown={searchKeyDownHandler} />
 	</div>
 
-	<Menu
-		bind:data={dropdownOptions}
-		visible={visible && dropdownOptions.length > 0}
-		{size}
-		onMenuClick={menuClickHandler}
-		onMenuUpdate={menuUpdateHandler} />
+	<!-- If dropdown options change re-render the component so it will animate -->
+	{#key [...dropdownOptions]}
+		<Menu
+			bind:data={dropdownOptions}
+			visible={visible && dropdownOptions.length > 0}
+			{size}
+			onMenuClick={menuClickHandler} />
+	{/key}
 </div>

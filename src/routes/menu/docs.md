@@ -21,14 +21,15 @@
 
 #### `MenuData`
 
-| Property     | Type       | Description                                             |
-| ------------ | ---------- | ------------------------------------------------------- |
-| `id`         | String     | Unique identifier for the menu item.                    |
-| `[label]`    | String     | Label text for the menu item.                           |
-| `[html]`     | String     | HTML content for the menu item.                         |
-| `[icon]`     | IconName   | Name of the icon to display for the menu item.          |
-| `[meta]`     | String     | Additional information/meta for the menu item.          |
-| `[divide]`   | Boolean    | Whether to display a dividing line above the menu item. |
-| `[inline]`   | Boolean    | Whether the menu item should be displayed inline.       |
-| `[selected]` | Boolean    | Whether the menu item is selected.                      |
-| `[submenu]`  | MenuData[] | Submenu items for nested menus.                         |
+| Property        | Type       | Description                                             |
+| --------------- | ---------- | ------------------------------------------------------- |
+| `id`            | String     | Unique identifier for the menu item.                    |
+| `[label]`       | String     | Label text for the menu item.                           |
+| `[html]`        | String     | HTML content for the menu item.                         |
+| `[icon]`        | IconName   | Name of the icon to display for the menu item.          |
+| `[prependIcon]` | boolean    | Put the icon before the label instead of after.         |
+| `[meta]`        | String     | Additional information/meta for the menu item.          |
+| `[divide]`      | Boolean    | Whether to display a dividing line above the menu item. |
+| `[inline]`      | Boolean    | Whether the menu item should be displayed inline.       |
+| `[selected]`    | Boolean    | Whether the menu item is selected.                      |
+| `[submenu]`     | MenuData[] | Submenu items for nested menus.                         |

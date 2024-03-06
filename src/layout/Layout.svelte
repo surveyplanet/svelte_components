@@ -12,6 +12,7 @@
 		NavBar,
 		TextInput,
 		ComponentEvent,
+		type MenuData,
 	} from '$lib';
 	import { createComponentsStore } from './stores/components.store.svelte';
 	import { type Snippet } from 'svelte';
@@ -59,7 +60,7 @@
 			// If the component has a submenu, check the submenu items
 			if (component.submenu) {
 				const item = component.submenu.find(
-					(item) =>
+					(item: MenuData) =>
 						item.id.toLowerCase() === 'question_forms/' + lastPart
 				);
 				// If the item exists, set its selected property to true
@@ -129,10 +130,9 @@
 	const openNewWindow = () => {
 		let props = btoaProps;
 
-		let currentComponent = $derived(
-			componentsData.find((item) => item.selected)
-		);
-		let component = $derived(currentComponent?.label);
+		let currentComponent = componentsData.find((item) => item.selected);
+
+		let component = currentComponent?.label;
 		// eslint-disable-next-line svelte/valid-compile
 		window.open(`../solo_component?${component}*${props}`, '_blank');
 	};

@@ -53,11 +53,14 @@
 	let currentState = $state([...data]);
 	let menu = $state<HTMLDivElement>();
 	let location: string[] = $state([]);
+	let preventBlurVal = $state(false);
+
 	onMount(() => {
 		// this will not trigger unless the menu is rendered on page/component.
 		// Seems like onMount code only runs when the component is rendered and not when the inner HTML of the component is rendered
 		// $effect.pre makes no difference here
 		const parentElement = menu?.parentElement;
+
 		if (parentElement && !parentElement.classList.contains('sp-dropdown')) {
 			const allMenus = document.querySelectorAll('.sp-menu');
 			const mostRecentMenu = allMenus[allMenus.length - 1];
@@ -66,6 +69,7 @@
 			) as HTMLButtonElement;
 			menuButton.focus();
 		}
+
 		//test this function
 		const findSelectedSubmenu = (
 			data: MenuData[]
@@ -97,8 +101,6 @@
 			currentState = [...item.data];
 		}
 	});
-
-	$effect(() => {});
 
 	const scrollMenu = (
 		direction: 'up' | 'down' | 'left' | 'right',
@@ -167,6 +169,7 @@
 
 		return null; // item has no submenu
 	};
+
 	// deselect all items except the one with the id
 	const deselectAll = (data: MenuData[]) => {
 		for (let item of data) {
@@ -178,6 +181,11 @@
 			}
 		}
 	};
+
+	const preventBlur = () => {
+		preventBlurVal = true;
+	};
+
 	const selectItem = (menuData: MenuData[], id: string) => {
 		for (let item of menuData) {
 			if (item.id === id && !item.submenu) {
@@ -193,15 +201,12 @@
 		event.preventDefault();
 		event.stopPropagation();
 
-		let target = event.target as HTMLElement;
+		let target = (event.target as HTMLElement).closest(
+			'button'
+		) as HTMLButtonElement;
 
-		let id = target.id;
-		if (!id?.length) {
-			const btn = (event.target as HTMLElement).closest('button');
-			if (btn) {
-				id = btn.id;
-			}
-		}
+		let id = target.dataset.id as string;
+
 		selectItem(data, id);
 		const state = getState(data || [], id);
 
@@ -224,6 +229,7 @@
 				onMenuClick(componentEvent);
 			}
 		} else {
+			preventBlur();
 			if (typeof onMenuUpdate === 'function') {
 				onMenuUpdate(componentEvent);
 			}
@@ -260,6 +266,7 @@
 		} else {
 			currentState = [...(data || [])]; // go to root
 		}
+		preventBlur();
 		if (typeof onMenuUpdate === 'function') {
 			const componentEvent = new ComponentEvent(
 				id,
@@ -284,8 +291,9 @@
 		if (menu?.contains(newFocusEl)) return;
 		menuBlurHandler(event);
 	};
+
 	const menuBlurHandler = (event: FocusEvent) => {
-		if (typeof onMenuBlur === 'function') {
+		if (typeof onMenuBlur === 'function' && !preventBlurVal) {
 			const componentEvent = new ComponentEvent(
 				undefined,
 				event.target as HTMLDivElement,
@@ -334,6 +342,11 @@
 			{/if}
 
 			{#each currentState as item}
+				{@const prepend =
+					item.icon &&
+					(item.prependIcon ||
+						item.meta?.length ||
+						item?.submenu?.length)}
 				<li
 					class="sp-menu--item"
 					class:sp-menu--item--divide={item.divide}
@@ -343,19 +356,10 @@
 					transition:slide={transitionProps}>
 					<button
 						class="sp-menu--item--btn"
-						class:sp-menu--item--btn--prepend-icon={item.icon &&
-							(item.prependIcon ||
-								item.meta?.length ||
-								item?.submenu?.length)}
-						id={item.id}
+						class:sp-menu--item--btn--prepend-icon={prepend}
+						data-id={item.id}
 						onblur={menuItemBlurHandler}
 						onclick={itemClickHandler}>
-						<!-- {#if item.prependIcon && item.icon}
-							<Icon
-								name={item.icon}
-								size={16} />
-						{/if} -->
-
 						{#if item.label}
 							<span class="sp-menu--item--label">
 								{item.label}

@@ -12,62 +12,88 @@
 
 	let options: DropdownProps['options'] = $state([
 		{
-			label: 'New',
-			id: 'new',
-			meta: ' N',
-			icon: 'plus',
+			label: 'Donut',
+			id: 'donut',
+			icon: 'chartPie',
+			prependIcon: true,
+			selected: true,
+		},
+		{
+			label: 'Bar',
+			id: 'bar',
+			icon: 'chartBar',
+			prependIcon: true,
 			selected: false,
 		},
 		{
-			label: 'Open',
-			id: 'open',
-			meta: ' O',
-			icon: 'share2',
+			label: 'Column',
+			id: 'column',
+			icon: 'chartColumn',
+			prependIcon: true,
 			selected: false,
 		},
 		{
-			label: 'Save',
-			id: 'save',
-			meta: ' S',
-			icon: 'arrowUp',
+			label: 'Line',
+			id: 'line',
+			icon: 'chartLine',
+			prependIcon: true,
 			selected: false,
-		},
-		{
-			label: 'Close',
-			id: 'close',
-			icon: 'x',
-			meta: ' W',
-			selected: false,
-		},
-		{
-			label: 'Edit',
-			id: 'edit',
-			icon: 'edit',
-			selected: false,
-			submenu: [
-				{
-					label: 'Undo',
-					id: 'undo',
-					meta: '',
-					selected: false,
-				},
-				{
-					label: 'Redo',
-					id: 'redo',
-					meta: '',
-					selected: false,
-				},
-			],
 		},
 	]);
-	// let options: DropdownProps['options'] = $state(menuData);
-	let searchThreshold: DropdownProps['searchThreshold'] = $state(10);
+	// let options: DropdownProps['options'] = $state([
+	// 	{
+	// 		label: 'New',
+	// 		id: 'new',
+	// 		meta: ' N',
+	// 		selected: false,
+	// 	},
+	// 	{
+	// 		label: 'Open',
+	// 		id: 'open',
+	// 		meta: ' O',
+	// 		selected: false,
+	// 	},
+	// 	{
+	// 		label: 'Save',
+	// 		id: 'save',
+	// 		meta: ' S',
+	// 		selected: false,
+	// 	},
+	// 	{
+	// 		label: 'Close',
+	// 		id: 'close',
+	// 		icon: 'x',
+	// 		selected: false,
+	// 	},
+	// 	{
+	// 		label: 'Edit',
+	// 		id: 'edit',
+	// 		selected: false,
+	// 		submenu: [
+	// 			{
+	// 				label: 'Undo',
+	// 				id: 'undo',
+	// 				meta: '',
+	// 				selected: false,
+	// 			},
+	// 			{
+	// 				label: 'Redo',
+	// 				id: 'redo',
+	// 				meta: '',
+	// 				selected: false,
+	// 			},
+	// 		],
+	// 	},
+	// ]);
+
+	let searchThreshold: DropdownProps['searchThreshold'] = $state(1);
 	let disabled: DropdownProps['disabled'] = $state(false);
 	let required: DropdownProps['required'] = $state(false);
 	let value: DropdownProps['value'] = $state('');
 	let placeholder: DropdownProps['placeholder'] = $state('Choose one');
 	let label: DropdownProps['label'] = $state('Dropdown component');
 	let size: DropdownProps['size'] = $state('small');
+	let displayIconOnly: DropdownProps['displayIconOnly'] = $state(false);
 
 	const onDropdownChange = (
 		event: ComponentEvent<string, HTMLInputElement>
@@ -85,6 +111,7 @@
 				placeholder,
 				label,
 				size,
+				displayIconOnly,
 			})
 		)
 	);
@@ -102,6 +129,7 @@
 		placeholder,
 		label,
 		size,
+		displayIconOnly,
 	})}
 	{md}
 	bind:events>
@@ -134,20 +162,24 @@
 			label="Size"
 			selectOptions={['small', 'medium', 'large']}
 			bind:value={size} />
+		<PropsChanger
+			label="Display icon only"
+			bind:value={displayIconOnly} />
 	{/snippet}
 	{#snippet main()}
-		{#key keys}
-			<Dropdown
-				bind:options
-				bind:searchThreshold
-				{disabled}
-				{required}
-				bind:value
-				{placeholder}
-				{label}
-				bind:size
-				{onDropdownChange} />
-		{/key}
+		<!-- {#key keys} -->
+		<Dropdown
+			{options}
+			bind:value
+			{searchThreshold}
+			{disabled}
+			{required}
+			{placeholder}
+			{label}
+			{size}
+			{displayIconOnly}
+			{onDropdownChange} />
+		<!-- {/key} -->
 	{/snippet}
 </Layout>
 

@@ -112,7 +112,7 @@
 }
 
 .sp-dropdown--toggle-btn,
-.sp-dropdown--close-btn {
+.sp-dropdown--clear-btn {
 	cursor: pointer;
 	position: absolute;
 	top: 1px;
@@ -136,7 +136,7 @@
 	}
 }
 
-.sp-dropdown--close-btn {
+.sp-dropdown--clear-btn {
 	z-index: 1;
 
 	&:hover {
@@ -153,7 +153,7 @@
 // 	label {
 // 		color: $color--white;
 // 	}
-// 	.sp-dropdown--close-btn {
+// 	.sp-dropdown--clear-btn {
 // 		:global(.sp-icon path) {
 // 			stroke: $color--white;
 // 		}

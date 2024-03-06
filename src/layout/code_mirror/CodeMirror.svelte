@@ -23,6 +23,12 @@
 		onCodeMirrorChange?: (
 			event: ComponentEvent<string, HTMLDivElement>
 		) => void;
+		onCodeMirrorBlur?: (
+			event: ComponentEvent<undefined, HTMLDivElement>
+		) => void;
+		onCodeMirrorFocus?: (
+			event: ComponentEvent<undefined, HTMLDivElement>
+		) => void;
 	};
 </script>
 
@@ -30,7 +36,6 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { basicSetup } from 'codemirror';
 	import type { ComponentEvent } from '$lib';
-	// import * as base16Dark from './base16-dark.css?inline';
 	import {
 		EditorView,
 		keymap,
@@ -60,6 +65,8 @@
 		placeholder,
 		nodeBounce = true,
 		onCodeMirrorChange,
+		onCodeMirrorBlur,
+		onCodeMirrorFocus,
 	} = $props<CodeMirrorProps>();
 	let classes = '';
 
@@ -71,6 +78,7 @@
 	let view: EditorView;
 	$effect(() => {
 		const dispatch = (newValue: string) => {
+			value = newValue;
 			if (typeof onCodeMirrorChange === 'function' && element !== null) {
 				const componentEvent = {
 					value: newValue,
@@ -99,6 +107,14 @@
 			...get_theme(theme, styles),
 			...(extensions ?? []),
 		]);
+		let on_change = $derived(
+			nodeBounce ? handle_change : debounce(handle_change, 300)
+		);
+
+		onMount(() => (view = create_editor_view()));
+
+		onDestroy(() => view?.destroy());
+
 		$effect(() => {
 			view && update(value);
 		});
@@ -107,13 +123,15 @@
 			view && state_extensions && reconfigure();
 		});
 
-		let on_change = $derived(
-			nodeBounce ? handle_change : debounce(handle_change, 300)
-		);
-
-		onMount(() => (view = create_editor_view()));
-
-		onDestroy(() => view?.destroy());
+		$effect(() => {
+			if (view !== null && is_browser) {
+				view.contentDOM.addEventListener('blur', codeMirrorBlurHandler);
+				view.contentDOM.addEventListener(
+					'focus',
+					codeMirrorFocusHandler
+				);
+			}
+		});
 
 		function create_editor_view(): EditorView {
 			return new EditorView({
@@ -214,6 +232,28 @@
 			return extensions;
 		}
 	});
+
+	const codeMirrorBlurHandler = () => {
+		if (typeof onCodeMirrorBlur === 'function' && element !== null) {
+			const componentEvent = {
+				value: undefined,
+				target: element,
+				raw: undefined,
+			};
+			onCodeMirrorBlur(componentEvent);
+		}
+	};
+
+	const codeMirrorFocusHandler = () => {
+		if (typeof onCodeMirrorFocus === 'function' && element !== null) {
+			const componentEvent = {
+				value: undefined,
+				target: element,
+				raw: undefined,
+			};
+			onCodeMirrorFocus(componentEvent);
+		}
+	};
 </script>
 
 {#if is_browser}

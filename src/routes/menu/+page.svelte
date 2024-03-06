@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Menu, Button, Icon, ComponentEvent, type MenuProps } from '$lib';
+	import { type MenuProps, Menu, ComponentEvent } from '$lib';
 	import { menuData } from './menu_data';
 
 	import { Layout, PropsChanger } from '$layout';

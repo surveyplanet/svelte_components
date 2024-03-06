@@ -13,13 +13,12 @@
 		) => void;
 	}
 	let { value, onJsonEditorInput } = $props<JsonEditorProps>();
-
-	let StringData = $state(JSON.stringify(value, null, 2));
+	let stringData = $state(JSON.stringify(value, null, 2));
 	let isDarkMode = $state(false);
 	let intervalId: number | null | NodeJS.Timeout = null;
 
 	$effect(() => {
-		StringData = JSON.stringify(value, null, 2);
+		stringData = JSON.stringify(value, null, 2);
 	});
 
 	intervalId = setInterval(() => {
@@ -49,13 +48,11 @@
 <div
 	class="jsonEditor"
 	spellcheck="false">
-	{#key value}
-		<CodeMirror
-			bind:value={StringData}
-			lang={json()}
-			theme={isDarkMode ? solarizedDark : solarizedLight}
-			{onCodeMirrorChange} />
-	{/key}
+	<CodeMirror
+		bind:value={stringData}
+		lang={json()}
+		theme={isDarkMode ? solarizedDark : solarizedLight}
+		{onCodeMirrorChange} />
 </div>
 
 <style lang="scss">
