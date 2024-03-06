@@ -348,7 +348,6 @@
 					transition:slide={transitionProps}>
 					<button
 						class="sp-menu--item--btn"
-						id={item.id}
 						onblur={menuItemBlurHandler}
 						onclick={itemClickHandler}>
 						{#if item.label}

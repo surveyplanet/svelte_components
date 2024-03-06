@@ -23,11 +23,7 @@
 </script>
 
 <script lang="ts">
-	// import { onMount } from 'svelte';
-	// import { offset, flip, shift } from 'svelte-floating-ui/dom';
-	// import { createFloatingActions } from 'svelte-floating-ui';
 	import {
-		// type Side,
 		type Placement,
 		computePosition,
 		flip,
@@ -85,11 +81,7 @@
 	const navMenuTriggerClickHandler = (event: Event) => {
 		event.preventDefault();
 		event.stopPropagation();
-
-		// setTimeout(() => {
-
 		menuVisible = !menuVisible;
-		// }, 0);
 	};
 
 	const onMenuBlur = (
@@ -97,7 +89,7 @@
 	) => {
 		const newFocusEl =
 			((event.raw! as FocusEvent).relatedTarget as HTMLElement) || null;
-		// let menu click handler hide itself after value has been set
+		// let menu hide itself after value has been set
 		if (newFocusEl?.classList) {
 			if (
 				newFocusEl.classList.contains('sp-menu--item--btn') ||
