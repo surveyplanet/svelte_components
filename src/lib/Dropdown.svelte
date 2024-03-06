@@ -1,26 +1,26 @@
 <script
 	lang="ts"
 	context="module">
-	import type { HTMLAttributes } from 'svelte/elements';
-	// export interface DropdownOption extends HTMLButtonAttributes {
-	// 	label?: string;
-	// 	id: string;
-	// 	meta?: string;
-	// 	selected?: boolean;
-	// 	submenu?: DropdownOption[];
-	// }
+	import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
+	export interface DropdownOption extends HTMLButtonAttributes {
+		label?: string;
+		id: string;
+		meta?: string;
+		selected?: boolean;
+		submenu?: DropdownOption[];
+	}
 
 	export type DropdownProps = HTMLAttributes<HTMLDivElement> & {
-		options: MenuData[];
+		options: DropdownOption[];
 		placeholder?: string;
-		value?: MenuData['id'];
+		value?: DropdownOption['id'];
 		label?: string;
 		searchThreshold?: number;
 		disabled?: boolean;
 		required?: boolean;
 		size?: 'small' | 'medium' | 'large';
 		onDropdownChange?: (
-			event: ComponentEvent<MenuData['id'], HTMLInputElement>
+			event: ComponentEvent<DropdownOption['id'], HTMLInputElement>
 		) => void;
 	};
 </script>
@@ -44,7 +44,7 @@
 
 	let input: HTMLInputElement | undefined = $state();
 	let visible = $state(false);
-	let displayValue: MenuData['label'] | '' = $state('');
+	let displayValue: DropdownOption['label'] | '' = $state('');
 
 	let searchable = options.length >= searchThreshold;
 	let menuData = $state([...options]);
@@ -59,7 +59,7 @@
 		menuData = [...options];
 		deselect(menuData);
 	};
-	const deselect = (data: MenuData[]) => {
+	const deselect = (data: DropdownOption[]) => {
 		for (let item of data) {
 			item.selected = false;
 			if (item.submenu) {
@@ -280,7 +280,7 @@
 	{#if visible && menuData.length}
 		<Menu
 			bind:data={menuData}
-			visible={true}
+			visible={visible && menuData.length}
 			{size}
 			onMenuClick={menuClickHandler}
 			onMenuUpdate={menuUpdateHandler} />

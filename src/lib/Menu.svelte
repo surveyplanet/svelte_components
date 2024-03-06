@@ -52,11 +52,14 @@
 	let currentState = $state([...data]);
 	let menu = $state<HTMLDivElement>();
 	let location: string[] = $state([]);
+	let preventBlurVal = $state(false);
+
 	onMount(() => {
 		// this will not trigger unless the menu is rendered on page/component.
 		// Seems like onMount code only runs when the component is rendered and not when the inner HTML of the component is rendered
 		// $effect.pre makes no difference here
 		const parentElement = menu?.parentElement;
+
 		if (parentElement && !parentElement.classList.contains('sp-dropdown')) {
 			const allMenus = document.querySelectorAll('.sp-menu');
 			const mostRecentMenu = allMenus[allMenus.length - 1];
@@ -65,6 +68,7 @@
 			) as HTMLButtonElement;
 			menuButton.focus();
 		}
+
 		//test this function
 		const findSelectedSubmenu = (
 			data: MenuData[]
@@ -96,8 +100,6 @@
 			currentState = [...item.data];
 		}
 	});
-
-	$effect(() => {});
 
 	const scrollMenu = (
 		direction: 'up' | 'down' | 'left' | 'right',
@@ -166,6 +168,7 @@
 
 		return null; // item has no submenu
 	};
+
 	// deselect all items except the one with the id
 	const deselectAll = (data: MenuData[]) => {
 		for (let item of data) {
@@ -177,7 +180,7 @@
 			}
 		}
 	};
-	let preventBlurVal = false;
+
 	const preventBlur = () => {
 		preventBlurVal = true;
 	};
@@ -197,15 +200,12 @@
 		event.preventDefault();
 		event.stopPropagation();
 
-		let target = event.target as HTMLElement;
+		let target = (event.target as HTMLElement).closest(
+			'button'
+		) as HTMLButtonElement;
 
-		let id = target.id;
-		if (!id?.length) {
-			const btn = (event.target as HTMLElement).closest('button');
-			if (btn) {
-				id = btn.id;
-			}
-		}
+		let id = target.dataset.id as string;
+
 		selectItem(data, id);
 		const state = getState(data || [], id);
 
@@ -290,6 +290,7 @@
 		if (menu?.contains(newFocusEl)) return;
 		menuBlurHandler(event);
 	};
+
 	const menuBlurHandler = (event: FocusEvent) => {
 		if (typeof onMenuBlur === 'function' && !preventBlurVal) {
 			const componentEvent = new ComponentEvent(
@@ -348,6 +349,7 @@
 					transition:slide={transitionProps}>
 					<button
 						class="sp-menu--item--btn"
+						data-id={item.id}
 						onblur={menuItemBlurHandler}
 						onclick={itemClickHandler}>
 						{#if item.label}
