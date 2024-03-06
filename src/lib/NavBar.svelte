@@ -87,17 +87,16 @@
 		event.stopPropagation();
 
 		// setTimeout(() => {
-		if (menuVisible === true) {
-			return;
-		}
-		menuVisible = true;
+
+		menuVisible = !menuVisible;
 		// }, 0);
 	};
 
-	const navBarBlurHandler = (event: FocusEvent) => {
-		console.log('navBarBlurHandler', event.relatedTarget);
-		const newFocusEl = (event.relatedTarget as HTMLElement) || null;
-		console.log('newFocusEl', newFocusEl);
+	const onMenuBlur = (
+		event: ComponentEvent<undefined, HTMLButtonElement | HTMLDivElement>
+	) => {
+		const newFocusEl =
+			((event.raw! as FocusEvent).relatedTarget as HTMLElement) || null;
 		// let menu click handler hide itself after value has been set
 		if (newFocusEl?.classList) {
 			if (
@@ -127,15 +126,11 @@
 	};
 </script>
 
-<!-- This is not good since it triggers for each instance of the nav bar -->
-<!-- <svelte:document onclick={documentClickHandler} /> -->
-
 <nav
 	{...attr}
 	bind:this={navBarEl}
 	class="sp-nav"
-	class:sp-nav--vertical={vertical}
-	onblur={navBarBlurHandler}>
+	class:sp-nav--vertical={vertical}>
 	{#each data as item}
 		<a
 			class="sp-nav--link"
@@ -169,7 +164,8 @@
 		<Menu
 			data={navMenuData}
 			visible={true}
-			onMenuClick={menuClickHandler} />
+			onMenuClick={menuClickHandler}
+			{onMenuBlur} />
 	</div>
 {/if}
 
