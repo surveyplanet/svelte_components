@@ -43,8 +43,8 @@
 	} = $props<DropdownProps>();
 
 	let input: HTMLInputElement | undefined = $state();
+	let selectedOption: DropdownOption | undefined = $state();
 	let visible = $state(false);
-	let displayValue: DropdownOption['label'] | '' = $state('');
 
 	let searchable = options.length >= searchThreshold;
 	let menuData = $state([...options]);
@@ -68,15 +68,18 @@
 		}
 	};
 
-	const findLabel = (id: string, menu: MenuData[]): string | undefined => {
+	const findSelected = (
+		id: string,
+		menu: MenuData[]
+	): DropdownOption | undefined => {
 		for (let item of menu) {
 			if (item.id === id) {
 				item.selected = true;
-				return item.label;
+				return item;
 			} else if (item.submenu) {
-				const foundLabel = findLabel(id, item.submenu);
-				if (foundLabel) {
-					return foundLabel;
+				const found = findSelected(id, item.submenu);
+				if (found) {
+					return found;
 				}
 			}
 		}
@@ -85,24 +88,14 @@
 
 	const setValue = (id: string, silent = false, event?: Event) => {
 		value = id;
-		const foundLabel = findLabel(id, menuData);
-		if (foundLabel) {
-			displayValue = foundLabel;
+		const option = findSelected(id, menuData);
+		if (option) {
+			selectedOption = option;
 		}
-		if (!silent && typeof onDropdownChange === 'function') {
-			let componentEvent;
-			if (!event) {
-				componentEvent = new ComponentEvent(
-					id,
-					input as HTMLInputElement,
-					undefined
-				);
-			} else {
-				componentEvent = new ComponentEvent(
-					id,
-					input as HTMLInputElement,
-					event
-				);
+		if (!silent && input && typeof onDropdownChange === 'function') {
+			let componentEvent = new ComponentEvent(id, input);
+			if (event) {
+				componentEvent.raw = event;
 			}
 			onDropdownChange(componentEvent);
 		}
@@ -232,7 +225,7 @@
 	{/if}
 
 	<div class="sp-dropdown--input-wrapper">
-		{#if searchable && displayValue?.length}
+		{#if searchable && selectedOption?.label?.length}
 			<button
 				class="sp-dropdown--close-btn"
 				{disabled}
@@ -269,7 +262,7 @@
 			bind:this={input}
 			{placeholder}
 			{disabled}
-			value={displayValue}
+			value={selectedOption?.label}
 			readonly={!searchable}
 			onclick={searchClickHandler}
 			onblur={searchBlurHandler}
