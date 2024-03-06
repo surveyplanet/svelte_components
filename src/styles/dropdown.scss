@@ -94,10 +94,25 @@
 
 .sp-dropdown--input-wrapper {
 	position: relative;
+
+	&.sp-dropdown--input-wrapper--icon {
+		input {
+			padding-left: $size--32;
+		}
+	}
+
+	.sp-icon {
+		position: absolute;
+		top: 50%;
+		left: $size--12;
+		transform: translateY(-50%);
+	}
+
+
 }
 
 .sp-dropdown--toggle-btn,
-.sp-dropdown--close-btn {
+.sp-dropdown--clear-btn {
 	cursor: pointer;
 	position: absolute;
 	top: 1px;
@@ -121,7 +136,7 @@
 	}
 }
 
-.sp-dropdown--close-btn {
+.sp-dropdown--clear-btn {
 	z-index: 1;
 
 	&:hover {
@@ -138,7 +153,7 @@
 // 	label {
 // 		color: $color--white;
 // 	}
-// 	.sp-dropdown--close-btn {
+// 	.sp-dropdown--clear-btn {
 // 		:global(.sp-icon path) {
 // 			stroke: $color--white;
 // 		}

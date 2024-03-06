@@ -34,14 +34,15 @@
 
 .sp-menu--back-btn,
 .sp-menu--item--btn {
-	width: 100%;
-	min-width: px-to-rem(120);
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
-	justify-content: space-between;
+	// justify-content: space-between;
 	align-items: center;
+	gap: $size-space--xs;
 	cursor: pointer;
+	width: 100%;
+	min-width: px-to-rem(120);
 	border: none;
 	background-color: transparent;
 	border-radius: $size-radius--small;
@@ -58,13 +59,31 @@
 		outline: none;
 	}
 
-	svg {
+	.sp-icon {
 		margin-left: auto;
 	}
 
 	.sp-menu--item--meta {
 		margin-left: $size-space--l;
 		color: $color--beige-darkest;
+		margin-left: auto;
+	}
+
+	&.sp-menu--item--btn--prepend-icon {
+
+		.sp-icon {
+			margin: 0;
+			order: 1;
+		}
+
+		.sp-menu--item--label {
+			order: 2;
+		}
+
+		.sp-menu--item--meta {
+			order: 3;
+		}
+
 	}
 }
 
@@ -109,16 +128,15 @@
 	}
 
 	&.sp-menu--item--inline {
-		display: inline;
+		display: inline-block;
 
 		button {
 			display: inline-block;
-			width: auto;
+			min-width: fit-content;
+
 		}
 
 		&.sp-menu--item--selected {
-
-			// no background-color if selected button is displayed inline
 			button {
 				background-color: transparent;
 			}
@@ -129,6 +147,10 @@
 		button {
 			background-color: $color--darkest;
 			color: $color--white;
+
+			.sp-icon path {
+				stroke: $color--white;
+			}
 		}
 	}
 

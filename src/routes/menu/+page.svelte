@@ -1,18 +1,14 @@
 <script lang="ts">
-	import { Menu, Button, Icon, ComponentEvent, type MenuProps } from '$lib';
+	import { type MenuProps, Menu, ComponentEvent } from '$lib';
 	import { menuData } from './menu_data';
 
 	import { Layout, PropsChanger } from '$layout';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 	let events: ComponentEvent<string, HTMLButtonElement>[] = $state([]);
-	let visible: boolean = $state(false);
+	let visible: boolean = $state(true);
 	let data: MenuProps['data'] = $state(menuData);
 	let size: MenuProps['size'] = $state('small');
-
-	const buttonClickHandler = () => {
-		visible = !visible;
-	};
 
 	const menuClickHandler = (
 		event: ComponentEvent<string, HTMLButtonElement>
@@ -50,23 +46,12 @@
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">
-			<Button
-				action={true}
-				onButtonClick={buttonClickHandler}>
-				<Icon
-					name="plus"
-					color="white" />
-			</Button>
-			<br />
-			<br />
-			{#if visible}
-				<Menu
-					bind:data
-					{size}
-					{visible}
-					onMenuUpdate={menuUpdateHandler}
-					onMenuClick={menuClickHandler} />
-			{/if}
+			<Menu
+				bind:data
+				{size}
+				{visible}
+				onMenuUpdate={menuUpdateHandler}
+				onMenuClick={menuClickHandler} />
 		</div>
 	{/snippet}
 </Layout>

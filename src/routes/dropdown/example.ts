@@ -22,6 +22,7 @@ export default (data: DropdownProps) => {
 	placeholder='${data.placeholder}'
 	label='${data.label}'
 	size='${data.size}'
+	displayIconOnly={${data.displayIconOnly}}
 	{onDropdownChange}
 />
 `;
