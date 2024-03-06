@@ -10,7 +10,7 @@
 
 	export type RadioProps = {
 		data: RadioData | RadioData[];
-		group?: string;
+		group: string;
 		size?: 'small' | 'medium' | 'large';
 		prependLabel?: boolean;
 		block?: boolean;
@@ -25,7 +25,7 @@
 	import { omitProps, uniqueId } from '@surveyplanet/utilities';
 	let {
 		data,
-		group, // no default value since it's bound to the input checked attribute
+		group = '', // no default value since it's bound to the input checked attribute
 		size = 'small', // small is the most common size
 		prependLabel,
 		block,

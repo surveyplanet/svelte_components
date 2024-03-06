@@ -7,9 +7,11 @@
 
 	let events = $state<ComponentEvent<undefined, HTMLButtonElement>[]>([]);
 
-	let profileImage: AvatarProps['profileImage'] = $state('');
-	// let profileImage: string = $state( 'https://media.surveyplanet.com/testing/family.jpeg' );
-	let id: AvatarProps['id'] = $state('a');
+	// let profileImage: AvatarProps['profileImage'] = $state('');
+	let profileImage: string = $state(
+		'https://media.surveyplanet.com/testing/family.jpeg'
+	);
+	let userId: AvatarProps['userId'] = $state('a');
 	let size: AvatarProps['size'] = $state('small');
 	let disabled: AvatarProps['disabled'] = $state(false);
 
@@ -23,7 +25,7 @@
 		btoa(
 			JSON.stringify({
 				profileImage,
-				id,
+				userId,
 				size,
 				disabled,
 			})
@@ -34,7 +36,7 @@
 <Layout
 	{btoaProps}
 	component="Avatar"
-	example={source({ id, profileImage, size, disabled })}
+	example={source({ userId, profileImage, size, disabled })}
 	{md}
 	bind:events>
 	{#snippet controls()}
@@ -42,8 +44,8 @@
 			label="Profile Image"
 			bind:value={profileImage} />
 		<PropsChanger
-			label="Id"
-			bind:value={id} />
+			label="User ID"
+			bind:value={userId} />
 		<PropsChanger
 			label="Size"
 			selectOptions={['small', 'medium', 'large']}
@@ -55,7 +57,7 @@
 	{#snippet main()}
 		<Avatar
 			{profileImage}
-			{id}
+			{userId}
 			{size}
 			{disabled}
 			{onAvatarClick} />

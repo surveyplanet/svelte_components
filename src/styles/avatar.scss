@@ -1,5 +1,6 @@
 @use '@surveyplanet/styles' as *;
 
+
 .sp-avatar {
 	margin: 0;
 	padding: 0;
@@ -13,10 +14,6 @@
 	border: 0;
 	overflow: hidden;
 	background: $color--yellow-gradient;
-
-	&:hover {
-		cursor: pointer;
-	}
 
 	@include set-focus {
 		border: 1px solid $color--dark;
@@ -68,6 +65,10 @@
 	.sp-avatar--image--mascot-zummi {
 		top: 6px;
 	}
+}
+
+button.sp-avatar:hover {
+	cursor: pointer;
 }
 
 .sp-avatar--medium {
@@ -132,17 +133,18 @@
 	height: 100%;
 
 	img {
-		height: 80%;
-		width: 80%;
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
 	}
 
-	// make images full size
-	&.sp-avatar--image--profile {
-		img {
-			height: 100%;
-			width: 100%;
-			object-fit: cover;
-		}
-	}
+	// // make images full size
+	// &.sp-avatar--image--profile {
+	// 	img {
+	// 		height: 100%;
+	// 		width: 100%;
+	// 		object-fit: cover;
+	// 	}
+	// }
 
 }

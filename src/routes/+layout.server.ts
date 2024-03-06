@@ -10,6 +10,8 @@ export const load = () => {
 	return getComponentsList(directoryPath);
 };
 
+// add ignore files
+
 const getComponentsList = (dirPath: string, parentId = '') => {
 	const componentsList: DropdownOption[] = [];
 
@@ -47,7 +49,7 @@ const getComponentsList = (dirPath: string, parentId = '') => {
 	}
 
 	// Sort the submenu items alphabetically
-	componentsList.sort((a, b) => a.label.localeCompare(b.label));
+	componentsList.sort((a, b) => a.label!.localeCompare(b.label!));
 	// Sort the componentsList array so that items with a submenu are at the top
 	componentsList.sort((a, b) => {
 		if (a.submenu && !b.submenu) {

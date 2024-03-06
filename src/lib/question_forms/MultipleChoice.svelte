@@ -32,8 +32,8 @@
 	// export let max: MultipleChoiceProperties['max'];
 
 	type GroupType<T extends boolean | undefined> = T extends undefined | false
-		? string | undefined
-		: string[] | undefined;
+		? string
+		: string[];
 
 	let {
 		labels,
@@ -49,7 +49,7 @@
 	} = $props<MultipleChoiceProps>();
 
 	let multipleChoiceForm: HTMLFormElement | undefined = $state();
-	let group: GroupType<typeof multi> = $state();
+	let group: GroupType<typeof multi> = $state(multi ? [] : '');
 	let otherValue: string | undefined = $state();
 	let otherIsSelected: boolean = $derived(
 		typeof other !== 'undefined' &&

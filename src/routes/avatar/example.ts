@@ -1,8 +1,6 @@
-import { type AvatarProps } from "$lib";
+import { type AvatarProps } from '$lib';
 
-export default (
-	data: AvatarProps 
-) => {
+export default (data: AvatarProps) => {
 	return `
 <script lang="ts">
 	import {Avatar, ComponentEvent} from '@surveyplanet/svelte-components';
@@ -13,7 +11,7 @@ export default (
 </script>
 
 <Avatar
-    id='${data.id}'
+    userId='${data.userId}'
     size='${data.size}'
     disabled={${data.disabled}}
     profileImage='${data.profileImage}'
