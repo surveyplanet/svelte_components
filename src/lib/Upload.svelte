@@ -3,13 +3,15 @@
 	context="module">
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	export type UploadProps = HTMLInputAttributes & {
+		id?: string;
 		label?: string;
 		formats?: string[];
 		maxSize?: number;
 		note?: string;
-		onUploadUpload?: (
+		onUploadComplete?: (
 			event: ComponentEvent<UploadData, HTMLInputElement>
 		) => void;
+		onUploadError?: (event: ComponentErrorEvent) => void;
 	};
 
 	export type UploadData = {
@@ -19,15 +21,18 @@
 </script>
 
 <script lang="ts">
-	import { Button, Icon, ComponentEvent } from './';
+	import { Button, Icon, ComponentEvent, ComponentErrorEvent } from './';
 	import { COLORS } from '$lib/index';
+	import { uniqueId } from '@surveyplanet/utilities';
 
 	let {
+		id = uniqueId(),
 		label,
 		formats = ['apng', 'avif', 'gif', 'jpeg', 'png', 'webp'],
 		maxSize = 10, // default to 10MB which seems to be a reasonable size  for an image
 		note,
-		onUploadUpload,
+		onUploadComplete,
+		onUploadError,
 		...attr
 	} = $props<UploadProps>();
 
@@ -40,19 +45,33 @@
 		let target = event.target as FileEventTarget | DataTransfer;
 		let image = target.files[0];
 		let reader = new FileReader();
+		// check file.type and file.size
+		if (image.size > maxSize * 1024 * 1024) {
+			const error = new Error('File size is too large');
+			if (typeof onUploadError === 'function') {
+				const componentErrorEvent = new ComponentErrorEvent(error);
+				onUploadError(componentErrorEvent);
+			} else {
+				throw error;
+			}
+
+			return;
+		}
+
 		reader.readAsDataURL(image);
 		reader.onloadend = () => {
 			let data = reader.result;
-			if (typeof onUploadUpload === 'function') {
+			if (typeof onUploadComplete === 'function') {
 				const componentEvent = new ComponentEvent(
 					{ image, data },
 					target as HTMLInputElement,
 					event
 				);
-				onUploadUpload(componentEvent);
+				onUploadComplete(componentEvent);
 			}
 		};
 	};
+
 	const fileInputHandler = (event: Event) => {
 		if (!event.target) {
 			return;
@@ -71,22 +90,22 @@
 		}
 		fileSelected(event);
 	};
+
+	const onButtonClick = () => {
+		if (fileinput) {
+			fileinput.click();
+		}
+	};
 </script>
 
-<div
+<label
 	class="sp-form-control sp-image-upload"
-	role="button"
-	tabindex="0"
-	id="drop_zone"
+	for={id}
 	aria-dropeffect="copy"
 	on:drop={dropHandler}
 	on:dragover={dragOverHandler}>
 	<Button
-		onButtonClick={() => {
-			if (fileinput) {
-				fileinput.click();
-			}
-		}}
+		{onButtonClick}
 		round={false}>
 		{label}
 		<Icon
@@ -96,10 +115,15 @@
 	</Button>
 
 	<input
+		{id}
 		{...attr}
 		bind:this={fileinput}
 		class="sp-image-upload--input"
 		type="file"
 		accept={formatAccept}
 		onchange={fileInputHandler} />
-</div>
+
+	{#if note}
+		<p class="sp-image-upload--note">{note}</p>
+	{/if}
+</label>

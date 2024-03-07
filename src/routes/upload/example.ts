@@ -1,4 +1,4 @@
-import type { UploadProps } from "$lib";
+import type { UploadProps } from '$lib';
 
 export default (data: UploadProps) => {
 	return `
@@ -7,14 +7,20 @@ export default (data: UploadProps) => {
 	const onUploadUpload = (event: ComponentEvent<UploadData>) => {
 		console.log(event.value);
 	};
+	const onUploadError = (event: ComponentErrorEvent) => {
+		console.error(event.error);
+	};
 
 	let formats: UploadProps['formats'] = ${JSON.stringify(data.formats, null, 2)};
 </script>
 	
 <Upload
+	id='${data.id}'
 	label='${data.label}'
 	{formats}
 	maxSize={${data.maxSize}}
+	note='${data.note}'
 	{onUploadUpload}
+	{onUploadError}
 />`;
 };

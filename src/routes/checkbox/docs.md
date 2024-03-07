@@ -3,7 +3,7 @@
 | Property         | Type                             | Description                                                           |
 | ---------------- | -------------------------------- | --------------------------------------------------------------------- |
 | `data`           | CheckboxData                     | Data for the checkbox.                                                |
-| `group=[]`       | string[]                         | Group name for the checkbox.                                          |
+| `[group=[]]`     | string[]                         | Group name for the checkbox.                                          |
 | `[prependLabel]` | Boolean                          | Positions the label before the checkbox if `true`.                    |
 | `[size='small']` | String                           | Size of the checkbox: `'small'`, `'medium'`, `'large'`.               |
 | `[block]`        | Boolean                          | If `true`, the checkbox will take up the full width of its container. |

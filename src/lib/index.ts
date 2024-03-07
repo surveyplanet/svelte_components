@@ -25,6 +25,7 @@ export {
 	type ChipsProps,
 } from './Chips.svelte';
 export { ComponentEvent } from './events/component_event';
+export { ComponentErrorEvent } from './events/component_error_event';
 export {
 	default as ColorPicker,
 	type ColorPickerProps,

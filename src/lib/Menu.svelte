@@ -62,9 +62,7 @@
 		const parentElement = menu?.parentElement;
 
 		if (parentElement && !parentElement.classList.contains('sp-dropdown')) {
-			const allMenus = document.querySelectorAll('.sp-menu');
-			const mostRecentMenu = allMenus[allMenus.length - 1];
-			const menuButton = mostRecentMenu?.querySelector(
+			const menuButton = menu?.querySelector(
 				'.sp-menu--item--btn'
 			) as HTMLButtonElement;
 			menuButton.focus();

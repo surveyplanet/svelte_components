@@ -2,18 +2,21 @@
 
 ### `UploadProps`
 
-| Property                                                     | Type                            | Description                                                 |
-| ------------------------------------------------------------ | ------------------------------- | ----------------------------------------------------------- |
-| `[label]`                                                    | string                          | The label or text associated with the upload button.        |
-| `[formats={['apng', 'avif', 'gif', 'jpeg', 'png', 'webp']]}` | string[]                        | Array of allowed file formats (event.g., `['jpg', 'png']`). |
-| `[maxSize={10}]`                                             | number                          | The maximum allowed file size in megabytes (MB).            |
-| `[...attr] `                                                 | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node.               |
+| Property                                                     | Type                            | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------- | ------------------------------------------------------------ |
+| `[id]`                                                       | string                          | The unique identifier for the upload component.              |
+| `[label]`                                                    | string                          | The label or text associated with the upload button.         |
+| `[formats={['apng', 'avif', 'gif', 'jpeg', 'png', 'webp']]}` | string[]                        | Array of allowed file formats (event.g., `['jpg', 'png']`).  |
+| `[maxSize={10}]`                                             | number                          | The maximum allowed file size in megabytes (MB).             |
+| `[note]`                                                     | string                          | Additional information or instructions for the user.         |
+| `[...attr] `                                                 | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node. |
 
 ### Callbacks
 
-| Name             | Description                                 | Arguments                           |
-| ---------------- | ------------------------------------------- | ----------------------------------- |
-| `onUploadUpload` | Callback triggered when a file is selected. | `event: ComponentEvent<UploadData>` |
+| Name               | Description                                 | Arguments                           |
+| ------------------ | ------------------------------------------- | ----------------------------------- |
+| `onUploadComplete` | Callback triggered when a file is selected. | `event: ComponentEvent<UploadData>` |
+| `onUploadError`    | Callback triggered when an error occurs.    | `event: ComponentEvent`             |
 
 ### Interfaces
 

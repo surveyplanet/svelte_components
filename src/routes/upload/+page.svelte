@@ -4,14 +4,16 @@
 		ComponentEvent,
 		type UploadData,
 		type UploadProps,
+		ComponentErrorEvent,
 	} from '$lib';
 
 	import { Layout, PropsChanger } from '$layout/index';
 	import md from './docs.md?raw';
-	let events: ComponentEvent<UploadData, HTMLInputElement>[] = $state([]);
+	let events: ComponentEvent<UploadData, HTMLInputElement>[] &
+		ComponentErrorEvent[] = $state([]);
 	import { default as source } from './example';
 	// let keys = $state(0);
-
+	let id = $state('upload');
 	let label: UploadProps['label'] = $state('Upload');
 	let formats: UploadProps['formats'] = $state([
 		'.jpg',
@@ -21,14 +23,20 @@
 		'.pdf',
 	]);
 	let maxSize: UploadProps['maxSize'] = $state(10);
+	let note: UploadProps['note'] = $state('Upload a file');
 
-	const onUploadUpload = (
+	const onUploadComplete = (
 		event: ComponentEvent<UploadData, HTMLInputElement>
 	) => {
 		if (event.value) {
 			setUpload(event.value);
 			events.push(event);
 		}
+	};
+
+	const onUploadError = (event: ComponentErrorEvent) => {
+		console.log('error', event);
+		events.push(event);
 	};
 
 	const setUpload = (uploadData: {
@@ -48,6 +56,9 @@
 	bind:events>
 	{#snippet controls()}
 		<PropsChanger
+			label="Id"
+			bind:value={id} />
+		<PropsChanger
 			label="Label"
 			bind:value={label} />
 		<PropsChanger
@@ -56,19 +67,26 @@
 		<PropsChanger
 			label="Max Size"
 			bind:value={maxSize} />
+
+		<PropsChanger
+			label="Note"
+			bind:value={note} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">
 			<Upload
+				{id}
 				{label}
 				bind:formats
 				{maxSize}
-				{onUploadUpload} />
+				{note}
+				{onUploadComplete}
+				{onUploadError} />
 		</div>
 
 		<embed
 			id="upload"
-			class="image-upload none"
+			class="image-upload"
 			width="1000"
 			height="1000" />
 	{/snippet}

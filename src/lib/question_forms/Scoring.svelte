@@ -124,9 +124,9 @@
 		return sortedLabels;
 	};
 
-	let radioData: RadioProps['data'] = labels.map((label) => {
+	let radioData: RadioProps['data'] = values.map((value) => {
 		return {
-			value: label,
+			value: value,
 		};
 	});
 
@@ -179,7 +179,6 @@
 							scope="row"
 							class="sp-survey--question--form--scoring--label-row"
 							>{label}</th>
-
 						<Radio {...radioProps} />
 					</tr>
 				{/each}

@@ -13,6 +13,7 @@
 		TextInput,
 		ComponentEvent,
 		type MenuData,
+		ComponentErrorEvent,
 	} from '$lib';
 	import { createComponentsStore } from './stores/components.store.svelte';
 	import { type Snippet } from 'svelte';
@@ -24,7 +25,10 @@
 	interface LayoutProps {
 		example: string;
 		md: string;
-		events?: ComponentEvent<unknown, unknown>[] | Event[];
+		events?:
+			| ComponentEvent<unknown, unknown>[]
+			| Event[]
+			| ComponentErrorEvent[];
 		component: string;
 		value?: string;
 		btoaProps?: string;

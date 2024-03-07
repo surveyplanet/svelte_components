@@ -10,7 +10,7 @@
 
 	export type RadioProps = {
 		data: RadioData | RadioData[];
-		group: string;
+		group?: string;
 		size?: 'small' | 'medium' | 'large';
 		prependLabel?: boolean;
 		block?: boolean;
