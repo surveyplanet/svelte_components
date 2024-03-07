@@ -26,6 +26,7 @@
 	import { Menu, Icon, ComponentEvent } from './';
 	import { onMount } from 'svelte';
 	import { cloneDeep } from '@surveyplanet/utilities';
+	import { menuData } from '../routes/menu/menu_data';
 
 	const SEARCH_KEYS: string[] = [
 		'Down',
@@ -61,6 +62,8 @@
 	onMount(() => {
 		if (value?.length) {
 			setValue(value, true);
+		} else {
+			selectedOption = findSelectedOption(dropdownOptions) || undefined;
 		}
 	});
 
@@ -81,7 +84,24 @@
 		}
 	};
 
-	const findSelected = (
+	const findSelectedOption = (
+		menu: MenuData[]
+	): DropdownOption | undefined => {
+		for (let item of menu) {
+			if (item.selected) {
+				console.log('found', item.label);
+				return item;
+			} else if (item.submenu) {
+				const found = findSelectedOption(item.submenu);
+				if (found) {
+					return found;
+				}
+			}
+		}
+		return undefined;
+	};
+
+	const findSelectedItem = (
 		id: string,
 		menu: MenuData[]
 	): DropdownOption | undefined => {
@@ -90,7 +110,7 @@
 				item.selected = true;
 				return item;
 			} else if (item.submenu) {
-				const found = findSelected(id, item.submenu);
+				const found = findSelectedItem(id, item.submenu);
 				if (found) {
 					return found;
 				}
@@ -101,7 +121,7 @@
 
 	const setValue = (id: string, silent = false, event?: Event) => {
 		value = id;
-		const option = findSelected(value, dropdownOptions);
+		const option = findSelectedItem(value, dropdownOptions);
 		if (option) {
 			selectedOption = option;
 		} else {

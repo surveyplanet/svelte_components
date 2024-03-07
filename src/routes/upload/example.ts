@@ -20,6 +20,7 @@ export default (data: UploadProps) => {
 	{formats}
 	maxSize={${data.maxSize}}
 	note='${data.note}'
+	preview={${data.preview}}
 	{onUploadUpload}
 	{onUploadError}
 />`;

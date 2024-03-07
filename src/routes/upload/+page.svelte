@@ -12,8 +12,9 @@
 	let events: ComponentEvent<UploadData, HTMLInputElement>[] &
 		ComponentErrorEvent[] = $state([]);
 	import { default as source } from './example';
+	import { uniqueId } from '@surveyplanet/utilities';
 	// let keys = $state(0);
-	let id = $state('upload');
+	let id = $state(uniqueId());
 	let label: UploadProps['label'] = $state('Upload');
 	let formats: UploadProps['formats'] = $state([
 		'.jpg',
@@ -24,12 +25,12 @@
 	]);
 	let maxSize: UploadProps['maxSize'] = $state(10);
 	let note: UploadProps['note'] = $state('Upload a file');
+	let preview: UploadProps['preview'] = $state(true);
 
 	const onUploadComplete = (
 		event: ComponentEvent<UploadData, HTMLInputElement>
 	) => {
 		if (event.value) {
-			setUpload(event.value);
 			events.push(event);
 		}
 	};
@@ -38,20 +39,11 @@
 		console.log('error', event);
 		events.push(event);
 	};
-
-	const setUpload = (uploadData: {
-		image: File;
-		data: string | ArrayBuffer | null;
-	}) => {
-		let img = document.getElementById('upload') as HTMLImageElement;
-		img.src = uploadData.data as string;
-		img.classList.remove('none');
-	};
 </script>
 
 <Layout
 	component="Upload"
-	example={source({ label, formats, maxSize })}
+	example={source({ label, formats, maxSize, note, preview })}
 	{md}
 	bind:events>
 	{#snippet controls()}
@@ -71,6 +63,9 @@
 		<PropsChanger
 			label="Note"
 			bind:value={note} />
+		<PropsChanger
+			label="Preview"
+			bind:value={preview} />
 	{/snippet}
 	{#snippet main()}
 		<div class="wrapper">
@@ -80,15 +75,10 @@
 				bind:formats
 				{maxSize}
 				{note}
+				{preview}
 				{onUploadComplete}
 				{onUploadError} />
 		</div>
-
-		<embed
-			id="upload"
-			class="image-upload"
-			width="1000"
-			height="1000" />
 	{/snippet}
 </Layout>
 

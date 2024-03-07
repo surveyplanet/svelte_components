@@ -8,6 +8,7 @@
 		formats?: string[];
 		maxSize?: number;
 		note?: string;
+		preview?: boolean;
 		onUploadComplete?: (
 			event: ComponentEvent<UploadData, HTMLInputElement>
 		) => void;
@@ -31,22 +32,33 @@
 		formats = ['apng', 'avif', 'gif', 'jpeg', 'png', 'webp'],
 		maxSize = 10, // default to 10MB which seems to be a reasonable size  for an image
 		note,
+		preview,
 		onUploadComplete,
 		onUploadError,
 		...attr
 	} = $props<UploadProps>();
 
-	type FileEventTarget = (EventTarget & { files: FileList }) | DataTransfer;
+	// type FileEventTarget = (EventTarget & { files: FileList }) | DataTransfer;
 
 	let fileinput: HTMLInputElement | null = $state(null);
+	let previewImage: HTMLEmbedElement | null = $state(null);
+	let loader = $state(false);
+	let disabled = $state(false);
 	const formatAccept = formats?.join(',');
 
 	const fileSelected = (event: Event) => {
-		let target = event.target as FileEventTarget | DataTransfer;
-		let image = target.files[0];
+		let image: File | null;
+		if (event instanceof DragEvent && event.dataTransfer) {
+			image = event.dataTransfer.files[0];
+		} else if (event.target instanceof HTMLInputElement) {
+			image = event.target.files ? event.target.files[0] : null;
+		} else {
+			return;
+		}
+
 		let reader = new FileReader();
-		// check file.type and file.size
-		if (image.size > maxSize * 1024 * 1024) {
+		// check file.type
+		if (image && image.size && image.size > maxSize * 1024 * 1024) {
 			const error = new Error('File size is too large');
 			if (typeof onUploadError === 'function') {
 				const componentErrorEvent = new ComponentErrorEvent(error);
@@ -57,14 +69,52 @@
 
 			return;
 		}
+		if (image?.type) {
+			const fileExtension = '.' + image.type.split('/')[1];
+			if (formats && !formats.includes(fileExtension)) {
+				const error = new Error('File format is not supported');
+				if (typeof onUploadError === 'function') {
+					const componentErrorEvent = new ComponentErrorEvent(error);
+					onUploadError(componentErrorEvent);
+				} else {
+					throw error;
+				}
 
-		reader.readAsDataURL(image);
+				return;
+			}
+		}
+
+		reader.onerror = (error) => {
+			if (typeof onUploadError === 'function') {
+				const componentErrorEvent = new ComponentErrorEvent(
+					error as unknown as Error
+				);
+				onUploadError(componentErrorEvent);
+			} else {
+				throw error;
+			}
+		};
+
+		reader.onloadstart = () => {
+			loader = true;
+			disabled = true;
+		};
+
+		if (image) {
+			reader.readAsDataURL(image);
+		}
 		reader.onloadend = () => {
+			loader = false;
+			disabled = false;
 			let data = reader.result;
-			if (typeof onUploadComplete === 'function') {
+			if (preview && previewImage && reader.result) {
+				previewImage.src = reader.result as string;
+				previewImage.classList.remove('none');
+			}
+			if (typeof onUploadComplete === 'function' && image !== null) {
 				const componentEvent = new ComponentEvent(
 					{ image, data },
-					target as HTMLInputElement,
+					event.target as HTMLInputElement,
 					event
 				);
 				onUploadComplete(componentEvent);
@@ -102,10 +152,19 @@
 	class="sp-form-control sp-image-upload"
 	for={id}
 	aria-dropeffect="copy"
-	on:drop={dropHandler}
-	on:dragover={dragOverHandler}>
+	ondrop={dropHandler}
+	ondragover={dragOverHandler}>
+	{#if preview}
+		<embed
+			bind:this={previewImage}
+			class="sp-image-upload--preview none"
+			width="100%"
+			height="100%" />
+	{/if}
 	<Button
 		{onButtonClick}
+		{disabled}
+		{loader}
 		round={false}>
 		{label}
 		<Icon

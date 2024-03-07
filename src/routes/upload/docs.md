@@ -9,6 +9,7 @@
 | `[formats={['apng', 'avif', 'gif', 'jpeg', 'png', 'webp']]}` | string[]                        | Array of allowed file formats (event.g., `['jpg', 'png']`).  |
 | `[maxSize={10}]`                                             | number                          | The maximum allowed file size in megabytes (MB).             |
 | `[note]`                                                     | string                          | Additional information or instructions for the user.         |
+| `[preview]`                                                  | boolean                         | Whether to display a preview of the selected image.          |
 | `[...attr] `                                                 | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node. |
 
 ### Callbacks
