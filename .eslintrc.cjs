@@ -42,23 +42,25 @@ module.exports = {
 				parser: '@typescript-eslint/parser',
 			},
 		},
-		{
-			// @html is okay in these paces
-			files: ['Menu.svelte', 'TextInput.svelte', '*.story.svelte'],
-			rules: {
-				'svelte/no-at-html-tags': 'off',
-			},
-		},
+
 		{
 			files: ['**/*.test.ts'],
 			rules: {
 				'@typescript-eslint/unbound-method': 'off',
 			},
 		},
+		// Non-component files
 		{
-			files: ['**/*.story.svelte'],
+			files: [
+				'src/routes/**/*.svelte',
+				'src/layout/**/*.svelte',
+				'src/routes/**/*.ts',
+				'src/layout/**/*.ts',
+			],
 			rules: {
-				'svelte/no-at-html-tags': 'off',
+				'svelte/a11y-no-static-element-interactions': 'ignore',
+				'a11y-click-events-have-key-events': 'ignore',
+				'svelte/no-at-html-tags': 'warn',
 			},
 		},
 	],

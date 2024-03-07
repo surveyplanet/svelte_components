@@ -309,9 +309,10 @@
 					</div>
 				{/if}
 			</div>
-			<!-- eslint-disable-next-line svelte/valid-compile -->
 			<div
 				class="resize-handle"
+				role="button"
+				tabindex="0"
 				on:mousedown={resizeMouseDownHandler}>
 				<Icon
 					name="menu"
