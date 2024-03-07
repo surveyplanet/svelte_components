@@ -42,7 +42,6 @@
 
 	let fileinput: HTMLInputElement | null = $state(null);
 	let previewImage: HTMLEmbedElement | null = $state(null);
-	let loader = $state(false);
 	let disabled = $state(false);
 	const formatAccept = formats?.join(',');
 
@@ -96,7 +95,6 @@
 		};
 
 		reader.onloadstart = () => {
-			loader = true;
 			disabled = true;
 		};
 
@@ -104,7 +102,6 @@
 			reader.readAsDataURL(image);
 		}
 		reader.onloadend = () => {
-			loader = false;
 			disabled = false;
 			let data = reader.result;
 			if (preview && previewImage && reader.result) {
@@ -164,7 +161,7 @@
 	<Button
 		{onButtonClick}
 		{disabled}
-		{loader}
+		loader
 		round={false}>
 		{label}
 		<Icon
