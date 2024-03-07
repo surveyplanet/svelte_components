@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { COLORS, ColorSelector, type ComponentEvent } from '$lib';
+	import { COLORS, ColorPicker, type ComponentEvent } from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -7,13 +7,13 @@
 
 	let value = $state(COLORS.pink);
 
-	const onColorSelectorChange = (
+	const onColorPickerChange = (
 		event: ComponentEvent<string, HTMLInputElement>
 	): void => {
 		events.push(event);
 	};
 
-	const onColorSelectorInput = (
+	const onColorPickerInput = (
 		event: ComponentEvent<string, HTMLInputElement>
 	): void => {
 		events.push(event);
@@ -36,13 +36,13 @@
 	bind:events>
 	{#snippet controls()}
 		<PropsChanger
-			label="Data"
+			label="Hex value"
 			bind:value />
 	{/snippet}
 	{#snippet main()}
-		<ColorSelector
+		<ColorPicker
 			bind:value
-			{onColorSelectorChange}
-			{onColorSelectorInput} />
+			{onColorPickerChange}
+			{onColorPickerInput} />
 	{/snippet}
 </Layout>

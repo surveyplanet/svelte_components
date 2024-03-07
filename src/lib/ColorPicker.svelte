@@ -3,13 +3,13 @@
 	context="module">
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { ComponentEvent } from '$lib';
-	export type ColorSelectorProps = {
+	export type ColorPickerProps = {
 		id?: string;
 		value?: string;
-		onColorSelectorChange?: (
+		onColorPickerChange?: (
 			event: ComponentEvent<string, HTMLInputElement>
 		) => void;
-		onColorSelectorInput?: (
+		onColorPickerInput?: (
 			event: ComponentEvent<string, HTMLInputElement>
 		) => void;
 	} & HTMLInputAttributes;
@@ -22,30 +22,30 @@
 	let {
 		id = uniqueId(),
 		value = '#000',
-		onColorSelectorChange,
-		onColorSelectorInput,
+		onColorPickerChange,
+		onColorPickerInput,
 		...attr
-	} = $props<ColorSelectorProps>();
+	} = $props<ColorPickerProps>();
 
 	const colorInputHandler = (event: Event) => {
-		if (typeof onColorSelectorInput === 'function') {
+		if (typeof onColorPickerInput === 'function') {
 			const componentEvent = new ComponentEvent(
 				(event.target as HTMLInputElement).value,
 				event.target as HTMLInputElement,
 				event
 			);
-			onColorSelectorInput(componentEvent);
+			onColorPickerInput(componentEvent);
 		}
 	};
 
 	const colorChangeHandler = (event: Event) => {
-		if (typeof onColorSelectorChange === 'function') {
+		if (typeof onColorPickerChange === 'function') {
 			const componentEvent = new ComponentEvent(
 				(event.target as HTMLInputElement).value,
 				event.target as HTMLInputElement,
 				event
 			);
-			onColorSelectorChange(componentEvent);
+			onColorPickerChange(componentEvent);
 		}
 	};
 </script>

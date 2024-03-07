@@ -26,9 +26,9 @@ export {
 } from './Chips.svelte';
 export { ComponentEvent } from './events/component_event';
 export {
-	default as ColorSelector,
-	type ColorSelectorProps,
-} from './ColorSelector.svelte';
+	default as ColorPicker,
+	type ColorPickerProps,
+} from './ColorPicker.svelte';
 export {
 	default as Dropdown,
 	type DropdownOption,
