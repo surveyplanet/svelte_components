@@ -24,7 +24,7 @@
 <script lang="ts">
 	import { Button, Icon, ComponentEvent, ComponentErrorEvent } from './';
 	import { COLORS } from '$lib/index';
-	import { uniqueId } from '@surveyplanet/utilities';
+	import { transformImage, uniqueId } from '@surveyplanet/utilities';
 
 	let {
 		id = uniqueId(),
@@ -152,23 +152,42 @@
 	ondrop={dropHandler}
 	ondragover={dragOverHandler}>
 	{#if preview}
-		<embed
-			bind:this={previewImage}
-			class="sp-image-upload--preview none"
-			width="100%"
-			height="100%" />
+		<div class="sp-image-upload--preview">
+			<!-- placeholder image -->
+			<img
+				src={transformImage(
+					'https://media.surveyplanet.com/testing/default',
+					{ width: 100, height: 100 }
+				)}
+				alt="preview" />
+
+			<!-- 
+			{#if value?.length} 
+				<img src={value} alt="preview"/>
+			{:else}
+				<Icon size={24} name="image" color={COLORS.beigeDark} /> 
+			{/if} 
+			-->
+		</div>
 	{/if}
-	<Button
-		{onButtonClick}
-		{disabled}
-		loader
-		round={false}>
-		{label}
-		<Icon
-			size={12}
-			name="plus"
-			color={COLORS.white} />
-	</Button>
+	<div class="sp-image-upload--inner">
+		<Button
+			{onButtonClick}
+			{disabled}
+			loader
+			round={false}
+			block
+			size="small">
+			{label}
+			<Icon
+				size={12}
+				name="plus"
+				color={COLORS.white} />
+		</Button>
+		{#if note}
+			<div class="sp-image-upload--note">{note}</div>
+		{/if}
+	</div>
 
 	<input
 		{id}
@@ -178,8 +197,4 @@
 		type="file"
 		accept={formatAccept}
 		onchange={fileInputHandler} />
-
-	{#if note}
-		<p class="sp-image-upload--note">{note}</p>
-	{/if}
 </label>
