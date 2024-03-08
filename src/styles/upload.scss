@@ -4,11 +4,20 @@
 @use '@surveyplanet/styles/src/functions.scss' as *;
 
 .sp-image-upload {
-	display: flex;
+	display: inline-flex;
 	gap: $size-space--s;
+	padding: $size-space--xs;
+	box-sizing: border-box;
 
 	input[type="file"] {
 		display: none;
+	}
+
+	&.sp-image-upload--drag-over {
+		border: 2px dashed $color--beige-darker;
+		background-color: $color--beige;
+		border-radius: $size-radius--default;
+
 	}
 }
 

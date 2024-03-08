@@ -43,6 +43,7 @@
 	let fileinput: HTMLInputElement | null = $state(null);
 	let previewImage: HTMLEmbedElement | null = $state(null);
 	let disabled = $state(false);
+	let isDragging = $state(false);
 	const formatAccept = formats?.join(',');
 
 	const fileSelected = (event: Event) => {
@@ -128,6 +129,12 @@
 
 	const dragOverHandler = (event: DragEvent) => {
 		event.preventDefault();
+		isDragging = true;
+	};
+
+	const dragLeaveHandler = (event: DragEvent) => {
+		event.preventDefault();
+		isDragging = false;
 	};
 
 	const dropHandler = (event: DragEvent) => {
@@ -147,10 +154,12 @@
 
 <label
 	class="sp-form-control sp-image-upload"
+	class:sp-image-upload--drag-over={isDragging}
 	for={id}
 	aria-dropeffect="copy"
 	ondrop={dropHandler}
-	ondragover={dragOverHandler}>
+	ondragover={dragOverHandler}
+	ondragleave={dragLeaveHandler}>
 	{#if preview}
 		<div class="sp-image-upload--preview">
 			<!-- placeholder image -->
