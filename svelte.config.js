@@ -19,6 +19,7 @@ export default {
 			$types: './src/views/questions_types',
 			$layout: './src/layout/',
 		},
+		csrf: { checkOrigin: false },
 	},
 
 	// compilerOptions: {
