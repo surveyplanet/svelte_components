@@ -90,16 +90,24 @@
 		const formData = new FormData();
 		formData.append('image', image);
 
-		// This server (at: src/routes/upload/test/+server.ts ) will always
-		// return the same image.
-		const response = await fetch('/upload/test', {
-			method: 'POST',
-			body: formData,
-		});
+		const timeoutHandler = (ms: number) => {
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					reject(new Error('Upload timeout'));
+				}, ms);
+			});
+		};
+
+		// This server (at: src/routes/upload/test/+server.ts ) will always return the same image.
+		// User Promise.race catch timeout errors
+		const response: Response = (await Promise.race([
+			fetch('/upload/test', { method: 'POST', body: formData }),
+			timeoutHandler(5000),
+		])) as Response;
 
 		// Handle the response
 		if (!response.ok) {
-			const error = new Error('Upload failed:', response.statusText);
+			const error = new Error(`Upload failed: ${response.statusText}`);
 			if (typeof onUploadError === 'function') {
 				const componentErrorEvent = new ComponentErrorEvent(error);
 				return onUploadError(componentErrorEvent);
