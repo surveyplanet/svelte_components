@@ -80,7 +80,10 @@
 		}
 		let lastEvent = events[events.length - 1];
 
-		if (lastEvent instanceof Event) {
+		if (
+			lastEvent instanceof Event ||
+			lastEvent instanceof ComponentErrorEvent
+		) {
 			eventsParsed.push(lastEvent);
 		} else if ('value' in lastEvent) {
 			let eventValue = JSON.stringify(lastEvent.value) || 'undefined';

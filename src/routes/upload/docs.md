@@ -10,6 +10,8 @@
 | `[maxSize={10}]`                                             | number                          | The maximum allowed file size in megabytes (MB).             |
 | `[note]`                                                     | string                          | Additional information or instructions for the user.         |
 | `[preview]`                                                  | boolean                         | Whether to display a preview of the selected image.          |
+| `uploadUrl`                                                  | string                          | The URL to upload the file to.                               |
+| `authToken`                                                  | string                          | The authentication token to be used for the upload request.  |
 | `[...attr] `                                                 | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node. |
 
 ### Callbacks

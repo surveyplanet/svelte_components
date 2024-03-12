@@ -13,19 +13,18 @@
 		ComponentErrorEvent[] = $state([]);
 	import { default as source } from './example';
 	import { uniqueId } from '@surveyplanet/utilities';
-	// let keys = $state(0);
-	let id = $state(uniqueId());
+
+	let id: UploadProps['id'] = $state();
 	let label: UploadProps['label'] = $state('Upload');
-	let formats: UploadProps['formats'] = $state([
-		'.jpg',
-		'.jpeg',
-		'.png',
-		'.gif',
-		'.pdf',
-	]);
+	let formats: UploadProps['formats'] = $state(['jpg', 'jpeg', 'png', 'gif']);
 	let maxSize: UploadProps['maxSize'] = $state(10);
 	let note: UploadProps['note'] = $state('Upload a file');
 	let preview: UploadProps['preview'] = $state(true);
+	let value: UploadProps['value'] = $state();
+	let request: UploadProps['request'] = $state({
+		url: 'http://localhost:6006/upload/test',
+		method: 'POST',
+	});
 
 	const onUploadComplete = (
 		event: ComponentEvent<UploadData, HTMLInputElement>
@@ -36,7 +35,6 @@
 	};
 
 	const onUploadError = (event: ComponentErrorEvent) => {
-		console.log('error', event);
 		events.push(event);
 	};
 </script>
@@ -76,6 +74,8 @@
 				{maxSize}
 				{note}
 				{preview}
+				{value}
+				{request}
 				{onUploadComplete}
 				{onUploadError} />
 		</div>

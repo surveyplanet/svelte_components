@@ -10,6 +10,13 @@
 		maxSize?: number;
 		note?: string;
 		preview?: boolean;
+		request?: {
+			url: string;
+			method: 'POST' | 'PUT';
+			headers?: Record<string, string>;
+			authToken?: string;
+		};
+
 		onUploadComplete?: (
 			event: ComponentEvent<UploadData, HTMLInputElement>
 		) => void;
@@ -17,7 +24,7 @@
 	};
 
 	export type UploadData = {
-		image: File;
+		image: File | null;
 		data: string | ArrayBuffer | null;
 	};
 </script>
@@ -25,7 +32,7 @@
 <script lang="ts">
 	import { Button, Icon, ComponentEvent, ComponentErrorEvent } from './';
 	import { COLORS } from '$lib/index';
-	import { delay, transformImage, uniqueId } from '@surveyplanet/utilities';
+	import { transformImage, uniqueId } from '@surveyplanet/utilities';
 
 	let {
 		id = uniqueId(),
@@ -35,6 +42,10 @@
 		note,
 		preview,
 		value,
+		request = {
+			url: 'https://media.surveyplanet.com/',
+			method: 'POST',
+		},
 		onUploadComplete,
 		onUploadError,
 		...attr
@@ -42,8 +53,7 @@
 
 	// type FileEventTarget = (EventTarget & { files: FileList }) | DataTransfer;
 
-	let fileinput: HTMLInputElement | null = $state(null);
-	let previewImage: HTMLEmbedElement | null = $state(null);
+	let fileInput: HTMLInputElement | null = $state(null);
 	let disabled = $state(false);
 	let isDragging = $state(false);
 	const formatAccept = formats?.join(',');
@@ -59,22 +69,21 @@
 			return;
 		}
 
-		// let reader = new FileReader();
-		// check file.type
 		if (image && image.size && image.size > maxSize * 1024 * 1024) {
+			console.log('size', image.size);
 			const error = new Error('File size is too large');
+			disabled = false;
 			if (typeof onUploadError === 'function') {
 				const componentErrorEvent = new ComponentErrorEvent(error);
 				onUploadError(componentErrorEvent);
 			} else {
 				throw error;
 			}
-
-			return;
 		}
 		if (image?.type) {
-			const fileExtension = '.' + image.type.split('/')[1];
+			const fileExtension = image.type.split('/')[1];
 			if (formats && !formats.includes(fileExtension)) {
+				disabled = false;
 				const error = new Error('File format is not supported');
 				if (typeof onUploadError === 'function') {
 					const componentErrorEvent = new ComponentErrorEvent(error);
@@ -82,79 +91,73 @@
 				} else {
 					throw error;
 				}
-
-				return;
 			}
 		}
 
 		const formData = new FormData();
-		formData.append('image', image);
+		if (image) {
+			formData.append('image', image);
+		}
 
 		const timeoutHandler = (ms: number) => {
 			return new Promise((resolve, reject) => {
 				setTimeout(() => {
-					reject(new Error('Upload timeout'));
+					const error = new Error('Request timed out');
+					reject(error);
 				}, ms);
 			});
 		};
 
-		// This server (at: src/routes/upload/test/+server.ts ) will always return the same image.
 		// User Promise.race catch timeout errors
-		const response: Response = (await Promise.race([
-			fetch('/upload/test', { method: 'POST', body: formData }),
-			timeoutHandler(5000),
-		])) as Response;
 
-		// Handle the response
-		if (!response.ok) {
-			const error = new Error(`Upload failed: ${response.statusText}`);
+		const headers = request.headers || {};
+
+		if (request.authToken?.length) {
+			headers['Authorization'] = `Bearer ${request.authToken}`;
+		}
+		try {
+			const response: Response = (await Promise.race([
+				fetch(request.url, {
+					method: 'POST',
+					body: formData,
+					headers: headers,
+				}),
+				timeoutHandler(5000),
+			])) as Response;
+
+			if (!response.ok) {
+				const error = new Error(
+					`Upload failed: ${response.statusText}`
+				);
+
+				throw error;
+			}
+
+			const json = await response.json();
+
+			value = json.Location;
+			disabled = false;
+			console.log('json', value);
+			const componentEvent = new ComponentEvent(
+				{ image, data: json.location },
+				event.target as HTMLInputElement,
+				event
+			);
+
+			if (typeof onUploadComplete === 'function' && image !== null) {
+				onUploadComplete(componentEvent);
+			}
+		} catch (error) {
+			disabled = false;
 			if (typeof onUploadError === 'function') {
-				const componentErrorEvent = new ComponentErrorEvent(error);
+				const componentErrorEvent = new ComponentErrorEvent(
+					error as Error
+				);
 				return onUploadError(componentErrorEvent);
 			}
-			throw error;
 		}
 
-		const json = await response.json();
-
-		await delay(2000); // simulate upload delay
-		value = `https://media.surveyplanet.com/${json.Key}`; // some images apis may not return the same JSON structure as AWS S3
-		disabled = false;
-
-		// reader.onerror = (error) => {
-		// 	if (typeof onUploadError === 'function') {
-		// 		const componentErrorEvent = new ComponentErrorEvent(
-		// 			error as unknown as Error
-		// 		);
-		// 		onUploadError(componentErrorEvent);
-		// 	} else {
-		// 		throw error;
-		// 	}
-		// };
-
-		// reader.onloadstart = () => {
-		// 	disabled = true;
-		// };
-
-		// if (image) {
-		// 	reader.readAsDataURL(image);
-		// }
-		// reader.onloadend = () => {
-		// 	disabled = false;
-		// 	let data = reader.result;
-		// 	if (preview && previewImage && reader.result) {
-		// 		previewImage.src = reader.result as string;
-		// 		previewImage.classList.remove('none');
-		// 	}
-		// 	if (typeof onUploadComplete === 'function' && image !== null) {
-		// 		const componentEvent = new ComponentEvent(
-		// 			{ image, data },
-		// 			event.target as HTMLInputElement,
-		// 			event
-		// 		);
-		// 		onUploadComplete(componentEvent);
-		// 	}
-		// };
+		// Handle the response
 	};
 
 	const fileInputHandler = (event: Event) => {
@@ -179,13 +182,24 @@
 		if (!event.dataTransfer) {
 			return;
 		}
+		isDragging = false;
 		fileSelected(event);
 	};
 
-	const onButtonClick = () => {
-		if (fileinput) {
-			fileinput.click();
+	const onButtonClick = (
+		event: ComponentEvent<undefined, HTMLButtonElement>
+	) => {
+		if (fileInput) {
+			fileInput.click();
 		}
+	};
+
+	const removeImageHandler = () => {
+		value = undefined;
+	};
+
+	const fileInputClickHandler = (event: MouseEvent) => {
+		// event.stopPropagation();
 	};
 </script>
 
@@ -200,7 +214,6 @@
 	{#if preview}
 		<div class="sp-image-upload--preview">
 			<!-- placeholder image -->
-
 			{#if value?.length}
 				<img
 					src={transformImage(value, { width: 100, height: 100 })}
@@ -235,9 +248,32 @@
 	<input
 		{id}
 		{...attr}
-		bind:this={fileinput}
+		bind:this={fileInput}
 		class="sp-image-upload--input"
 		type="file"
 		accept={formatAccept}
-		onchange={fileInputHandler} />
+		capture="user"
+		onchange={fileInputHandler}
+		onclick={fileInputClickHandler} />
 </label>
+
+{#if value !== undefined}
+	<button
+		class="sp-image-upload--remove"
+		type="button"
+		onclick={removeImageHandler}>
+		Remove
+	</button>
+{/if}
+
+<style>
+	.sp-image-upload--remove {
+		top: 0;
+		right: 0;
+		background: rgba(0, 0, 0, 0.5);
+		color: white;
+		padding: 0.5rem;
+		border: none;
+		cursor: pointer;
+	}
+</style>

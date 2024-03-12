@@ -17,7 +17,8 @@
 	},
 	"[markdown]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	}
+	},
+	"cmake.configureOnOpen": false
 
 	// "svelte.plugin.svelte.diagnostics.enable": {
 	// 	"a11y": false
