@@ -7,6 +7,7 @@
 	};
 
 	export type CodeMirrorProps = {
+		mirrorId?: string;
 		value?: string | null | undefined;
 		basic?: boolean;
 		lang: LanguageSupport | null | undefined;
@@ -35,6 +36,7 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
 	import { basicSetup } from 'codemirror';
+	import { StateField } from '@codemirror/state';
 	import type { ComponentEvent } from '$lib';
 	import {
 		EditorView,
@@ -49,6 +51,7 @@
 	import { indentWithTab } from '@codemirror/commands';
 	import { indentUnit, type LanguageSupport } from '@codemirror/language';
 	import { debounce } from './util';
+	import { idText } from 'typescript';
 
 	let {
 		value,
@@ -64,6 +67,7 @@
 		readonly = false,
 		placeholder,
 		nodeBounce = true,
+		mirrorId,
 		onCodeMirrorChange,
 		onCodeMirrorBlur,
 		onCodeMirrorFocus,
@@ -88,6 +92,12 @@
 				onCodeMirrorChange(componentEvent);
 			}
 		};
+		let id = StateField.define({
+			create: () => mirrorId,
+			toJSON: (id) => id,
+			fromJSON: (id) => id,
+			update: (id, tr) => id,
+		});
 
 		let update_from_prop = false;
 		let update_from_state = false;
@@ -102,7 +112,8 @@
 				placeholder,
 				editable,
 				readonly,
-				lang
+				lang,
+				id
 			),
 			...get_theme(theme, styles),
 			...(extensions ?? []),
@@ -204,12 +215,14 @@
 			placeholder: string | HTMLElement | null | undefined,
 			editable: boolean,
 			readonly: boolean,
-			lang: LanguageSupport | null | undefined
+			lang: LanguageSupport | null | undefined,
+			id: StateField<string>
 		): Extension[] {
 			const extensions: Extension[] = [
 				indentUnit.of(' '.repeat(tabSize)),
 				EditorView.editable.of(editable),
 				EditorState.readOnly.of(readonly),
+				id,
 			];
 
 			if (basic) extensions.push(basicSetup);

@@ -8,11 +8,12 @@
 
 	interface JsonEditorProps {
 		value: object | undefined | null;
+		id: string;
 		onJsonEditorInput?: (
 			event: ComponentEvent<string, HTMLDivElement>
 		) => void;
 	}
-	let { value, onJsonEditorInput } = $props<JsonEditorProps>();
+	let { value, id, onJsonEditorInput } = $props<JsonEditorProps>();
 	let stringData = $state(JSON.stringify(value, null, 2));
 	let isDarkMode = $state(false);
 	let intervalId: number | null | NodeJS.Timeout = null;
@@ -49,6 +50,7 @@
 	class="jsonEditor"
 	spellcheck="false">
 	<CodeMirror
+		mirrorId={id}
 		bind:value={stringData}
 		lang={json()}
 		theme={isDarkMode ? solarizedDark : solarizedLight}

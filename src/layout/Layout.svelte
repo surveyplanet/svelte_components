@@ -87,8 +87,9 @@
 			eventsParsed.push(lastEvent);
 		} else if ('value' in lastEvent) {
 			let eventValue = JSON.stringify(lastEvent.value) || 'undefined';
-			let eventTarget = `${lastEvent.target}`;
+			let eventTarget = `${(lastEvent.target as HTMLElement).nodeName.toLowerCase()}, ${(lastEvent.target as HTMLElement).classList}`;
 			let eventEvent = JSON.stringify(lastEvent.raw);
+			console.log(lastEvent.raw);
 
 			eventsParsed.push({
 				value: eventValue,
@@ -96,7 +97,9 @@
 				event: eventEvent,
 			});
 		}
-		eventsLogs = eventsParsed.map((event) => JSON.stringify(event));
+		eventsLogs = eventsParsed.map((event) =>
+			JSON.stringify(event, null, 2)
+		);
 	});
 
 	$effect(() => {
@@ -255,11 +258,11 @@
 						{
 							id: 'controls',
 							label: 'Controls',
-							selected: true,
 						},
 						{
 							id: 'example',
 							label: 'Example',
+							selected: true,
 						},
 						{
 							id: 'docs',

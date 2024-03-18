@@ -284,7 +284,7 @@
 	onFocus={spinnerFocusHandler}
 	onBlur={spinnerBlurHandler}>
 	<label
-		for="sp-spinner"
+		for={id}
 		class="sp-spinner--label"
 		>{label}
 		{#if required}

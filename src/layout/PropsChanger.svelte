@@ -88,13 +88,14 @@
 
 	const options = optionsParsed();
 	let dropdownValue = $state(`${value}`);
+	let id = `props-changer-${(Date.now() + Math.random()).toString(36)}`;
 </script>
 
 <div class="props-changer">
 	<div class="props-changer--item {className}">
 		{#if type === 'number' && (typeof value === 'number' || typeof value === 'undefined')}
 			<Spinner
-				id="number-{(Date.now() + Math.random()).toString(36)}"
+				{id}
 				{label}
 				min={0}
 				max={100000}
@@ -105,18 +106,23 @@
 				onSpinnerBlur={dispatchBlur} />
 		{:else if type === 'boolean' && (typeof value === 'boolean' || typeof value === 'undefined')}
 			<Toggle
-				id="boolean-{(Date.now() + Math.random()).toString(36)}"
+				{id}
 				bind:on={value}
 				size={FORM_CONTROL_SIZE}
 				{label}
 				onToggleChange={dispatchInput} />
 		{:else if type === 'json' && (typeof value === 'object' || typeof value === 'undefined')}
-			<p>{label}</p>
-			<JsonEditor
-				bind:value
-				onJsonEditorInput={dispatchInput} />
+			<label for={id}>
+				{label}
+
+				<JsonEditor
+					{id}
+					bind:value
+					onJsonEditorInput={dispatchInput} />
+			</label>
 		{:else if type === 'select'}
 			<Dropdown
+				{id}
 				{options}
 				{label}
 				size={FORM_CONTROL_SIZE}
@@ -124,7 +130,7 @@
 				onDropdownChange={dropdownChangeHandler} />
 		{:else if type === 'string' && (typeof value === 'string' || typeof value === 'undefined')}
 			<TextInput
-				id={`text-${label}`}
+				{id}
 				name="text"
 				{label}
 				type="text"

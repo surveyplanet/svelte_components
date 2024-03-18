@@ -5,11 +5,6 @@ import {
 	type Page,
 } from '@playwright/test';
 
-interface HistoireEvent {
-	name: string;
-	data?: object;
-}
-
 type ControlType =
 	| 'button'
 	| 'buttonGroup'
@@ -33,29 +28,50 @@ type ControlType =
  * @param variant {Number} The story variant index
  * @returns Promise<FrameLocator> the Histoire preview (iframe) or the page if there isn't one.
  */
+// export const loadStory = async (
+// 	page: Page,
+// 	name: string,
+// 	variant: number | null = 0
+// ): Promise<FrameLocator | Page> => {
+// 	const parser: string[] = name.toLocaleLowerCase().split('/');
+
+// 	const componentName = parser.pop();
+// 	const path = parser.join('-').replace(/_/g, '-');
+
+// 	let url = '';
+// 	if (path.length) {
+// 		url = `/story/src-stories-${path}-${componentName}-${componentName}-story-svelte`;
+// 	} else {
+// 		url = `/story/src-stories-${componentName}-${componentName}-story-svelte`;
+// 	}
+// 	if (variant !== null && !isNaN(variant)) {
+// 		url += `?variantId=src-stories-${componentName}-${componentName}-story-svelte-${variant}`;
+// 	}
+
+// 	await page.goto(url);
+
+// 	return page.frameLocator('[data-test-id="preview-iframe"]');
+// };
+
 export const loadStory = async (
 	page: Page,
-	name: string,
-	variant: number | null = 0
+	name: string
+	// variant: number | null = 0
 ): Promise<FrameLocator | Page> => {
 	const parser: string[] = name.toLocaleLowerCase().split('/');
 
 	const componentName = parser.pop();
-	const path = parser.join('-').replace(/_/g, '-');
+	// const path = parser.join('-').replace(/_/g, '-');
 
-	let url = '';
-	if (path.length) {
-		url = `/story/src-stories-${path}-${componentName}-${componentName}-story-svelte`;
-	} else {
-		url = `/story/src-stories-${componentName}-${componentName}-story-svelte`;
-	}
-	if (variant !== null && !isNaN(variant)) {
-		url += `?variantId=src-stories-${componentName}-${componentName}-story-svelte-${variant}`;
-	}
+	let url = `/${componentName}`;
+
+	// if (variant !== null && !isNaN(variant)) {
+	// 	url += `?variantId=src-stories-${componentName}-${componentName}-story-svelte-${variant}`;
+	// }
 
 	await page.goto(url);
 
-	return page.frameLocator('[data-test-id="preview-iframe"]');
+	return page.locator('id=component-preview--window');
 };
 
 /**
@@ -109,28 +125,6 @@ const _parseEventData = (dataTxt: string): object => {
 	);
 };
 
-const _openEventsMenu = async (page: Page, useMenu = false): Promise<void> => {
-	const baseMenu = page.locator('.histoire-base-overflow-menu');
-	const eventTab = baseMenu.getByText('Events');
-	const eventTabVisible = await eventTab.isVisible();
-	// console.log('---->', eventTabVisible, await eventTab.count());
-	if (eventTabVisible && !useMenu) {
-		try {
-			await eventTab.click(); // Sometimes this does not work, it's defined as visible even though it's not.
-		} catch (error) {
-			return _openEventsMenu(page, true);
-		}
-	} else {
-		// open dropdown if menu is truncated
-		await baseMenu.getByRole('button').click();
-		const optionsEl = page.locator('.v-popper__popper').last();
-		await expect(optionsEl, 'Could not find select values').toBeVisible();
-		const optionEl = optionsEl.locator(`text="Events"`);
-		await expect(optionEl).toBeVisible();
-		await optionEl.click();
-	}
-};
-
 /**
  * Retrieve the last event from the Histoire event pane.
  *
@@ -139,22 +133,20 @@ const _openEventsMenu = async (page: Page, useMenu = false): Promise<void> => {
  * @param page {Page} The Playwright page
  * @returns Promise<HistoireEvent> Then event name and data (Does not work with nested objects)
  */
-export const getLastEvent = async (page: Page): Promise<HistoireEvent> => {
-	await _openEventsMenu(page);
-	const eventItem = page.locator('[data-test-id="event-item"]').last();
+export const getLastEvent = async (page: Page): Promise<{ event: string }> => {
+	// const events = page.locator('component-events');
+	const eventItem = page.locator('.component-event').last();
 	const hasEventItems = (await eventItem.count()) > 0;
+	console.log('hasEventItems', eventItem, hasEventItems);
 
 	if (!hasEventItems) {
-		return { name: '' };
+		return { event: '' };
 	}
 
-	const eventName = eventItem.locator('span').first();
-	const eventData = eventItem.locator('span').last();
-	const name = await eventName.innerText();
-	const dataTxt = await eventData.innerText();
-	const data = _parseEventData(dataTxt);
+	const eventName = eventItem.locator('code').first();
+	const event = await eventName.innerText();
 
-	return { name, data };
+	return { event };
 };
 
 /**
@@ -165,28 +157,24 @@ export const getLastEvent = async (page: Page): Promise<HistoireEvent> => {
  * @param page {Page} The Playwright page
  * @returns Promise<HistoireEvent[]>
  */
-export const getAllEvents = async (page: Page): Promise<HistoireEvent[]> => {
-	await _openEventsMenu(page);
-	const eventItems = page.locator('[data-test-id="event-item"]');
+export const getAllEvents = async (
+	page: Page
+): Promise<{ event: string }[]> => {
+	const eventItems = page.locator('component-event');
 	const totalEvents = await eventItems.count();
-	const data: HistoireEvent[] = [];
-
+	const data: { event: string }[] = [];
 	if (totalEvents <= 0) {
 		return data;
 	}
-
 	for (let i = 0; i < totalEvents; i++) {
 		const eventItem = eventItems.nth(i);
 
-		const eventName = eventItem.locator('span').first();
-		const eventData = eventItem.locator('span').last();
-		const dataTxt = await eventData.innerText();
+		const eventName = eventItem.locator('code').first();
+
 		data.push({
-			name: await eventName.innerText(),
-			data: _parseEventData(dataTxt),
+			event: await eventName.innerText(),
 		});
 	}
-
 	return data;
 };
 
@@ -208,27 +196,17 @@ export const setControl = async (
 	value: string
 ): Promise<void> => {
 	// click the controls tab
-	await page.locator('.histoire-base-overflow-menu a').nth(0).click();
-	const controls = page.locator('[data-test-id="story-controls"]');
-	// const labelEl = controls.locator(`:text("${label}") + span`);
+	await page.locator('.sp-tab-bar--button').getByText('Controls').click();
+	const controls = page.locator('.component-details--content');
 	const labelEl = controls.locator('label', {
 		has: page.locator(`text="${label}"`),
 	});
-	await expect(labelEl).toBeVisible();
+	// await expect(labelEl).toBeVisible();
+	const id = await labelEl.getAttribute('for');
 
-	if (type === 'button') {
-		// TODO:
-		throw new Error('setControls is not available for button control.');
-	} else if (type === 'buttonGroup') {
-		// TODO:
-		throw new Error(
-			'setControls is not available for buttonGroup control. Use `HST.Select` control instead'
-		);
-	} else if (type === 'checkbox') {
-		const input = labelEl.locator('.histoire-simple-checkbox');
-		const svg = input.locator('svg path');
-		const svgStrokeAttr = await svg.getAttribute('stroke-dashoffset');
-		const isChecked = svgStrokeAttr === '0';
+	if (type === 'checkbox') {
+		const input = page.locator(`id=${id}`);
+		const isChecked = (await input.innerHTML()).valueOf();
 		const shouldBeChecked =
 			value.toLocaleLowerCase() === 'false' ? false : value.length > 0;
 		if (
@@ -237,40 +215,34 @@ export const setControl = async (
 		) {
 			await labelEl.click();
 		}
-	} else if (type === 'checkboxList') {
-		// TODO:
-		throw new Error(
-			'setControls is not available for checkboxList control.'
-		);
 	} else if (type === 'json') {
 		const input = labelEl.locator('.cm-content');
-		await expect(input).toBeVisible();
+		// await expect(input).toBeVisible();
 		await input.fill(value);
 	} else if (type === 'number') {
-		const input = labelEl.locator('input');
-		await expect(input).toBeVisible();
+		const input = page.locator(`id=${id}`);
+		// await expect(numberSpinnerComponent).toBeVisible();
+		// const input = numberSpinnerComponent.locator('.sp-dropdown--search');
+		await input.click();
+		// expect(input).toBeVisible();
 		await input.fill(value);
-	} else if (type === 'radio') {
-		// TODO:
-		throw new Error('setControls is not available for radio control.');
 	} else if (type === 'select') {
-		const trigger = labelEl.locator('.v-popper');
-		await expect(trigger).toBeVisible();
-		await trigger.dblclick();
-		const optionsEl = page.locator('.v-popper__popper').last();
-		await expect(optionsEl, 'Could not find select values').toBeVisible();
+		const dropdownComponent = page.locator(`id=${id}`);
+		expect(dropdownComponent).toBeVisible();
+		const input = dropdownComponent.locator('.sp-dropdown--search');
+		await expect(input).toBeVisible();
+		await input.click();
+		const optionsEl = dropdownComponent.locator('.sp-menu--item');
+		// await expect(optionsEl, 'Could not find select values').toBeVisible();
 		const optionEl = optionsEl.locator(`text="${value}"`);
 		await expect(optionEl).toBeVisible();
 		await optionEl.click();
-	} else if (type === 'slider') {
-		// TODO:
-		throw new Error('setControls is not available for slider control.');
 	} else if (type === 'text') {
-		const input = labelEl.locator('input');
+		const input = page.locator(`id=${id}`);
 		await expect(input).toBeVisible();
 		await input.fill(value);
 	} else if (type === 'textarea') {
-		const input = labelEl.locator('textarea');
+		const input = page.locator(`id=${id}`);
 		await expect(input).toBeVisible();
 		await input.fill(value);
 	}

@@ -238,7 +238,7 @@
 	class:sp-dropdown--open={visible}>
 	{#if label}
 		<label
-			for="sp-dropdown"
+			for={attr.id}
 			class="sp-dropdown--label">
 			{label}
 			{#if required}

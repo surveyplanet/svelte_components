@@ -8,8 +8,8 @@
 		ComponentEvent<undefined, HTMLElement>[] & EventTarget[]
 	>([]);
 
-	let visible: AlertProps['visible'] = $state(undefined);
-	let title: AlertProps['title'] = $state('');
+	let visible: AlertProps['visible'] = $state(true);
+	let title: AlertProps['title'] = $state('Did you know?');
 	let subtitle: AlertProps['subtitle'] = $state('Informational alert');
 	let type: AlertProps['type'] = $state('info');
 	let hideDelay: AlertProps['hideDelay'] = $state(0);
@@ -17,7 +17,7 @@
 	let confirmButtonLabel: AlertProps['confirmButtonLabel'] =
 		$state('Confirm');
 	let cancelButtonLabel: AlertProps['cancelButtonLabel'] = $state('Cancel');
-	let challenge: AlertProps['challenge'] = $state('yes');
+	let challenge: AlertProps['challenge'] = $state('');
 	let content: AlertProps['children'] = $state(
 		'Instructions on how to reset your password have been sent to: <strong style="color:black;">diego@studiovoila.com</strong>. If the email doesn’t arrive in the next 5 minutes check your spam folder.'
 	) as unknown as Snippet;

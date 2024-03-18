@@ -4,13 +4,15 @@ import { COLORS } from '../lib/_definitions.js';
 
 test.describe('Icon component', () => {
 	let canvas: FrameLocator;
+	let iconFrame: FrameLocator;
 
 	test.beforeEach(async ({ page }) => {
 		canvas = (await loadStory(page, 'icon')) as FrameLocator;
+		iconFrame = canvas.locator('id=icon-preview');
 	});
 
 	test('basic', async () => {
-		const icon = canvas.locator('svg');
+		const icon = iconFrame.locator('svg');
 		await expect(icon).toBeVisible();
 		const path = icon.locator('path').first();
 		await expect(path).toBeVisible();
@@ -24,10 +26,10 @@ test.describe('Icon component', () => {
 	});
 
 	test('light', async ({ page }) => {
-		const icon = canvas.locator('svg');
+		const icon = iconFrame.locator('svg');
 		await expect(icon).toBeVisible();
 
-		await setControl(page, 'Color', 'select', 'YellowDarker');
+		await setControl(page, 'Color', 'select', 'yellowDarker');
 		const path = icon.locator('path').first();
 		await expect(path).toBeVisible();
 		await expect(path).toHaveAttribute('stroke', COLORS.yellowDarker);
@@ -35,11 +37,11 @@ test.describe('Icon component', () => {
 
 	test('large', async ({ page }) => {
 		const size = '512';
-		const icon = canvas.locator('svg');
+		const icon = iconFrame.locator('svg');
 		await expect(icon).toBeVisible();
 
 		await setControl(page, 'Size', 'select', size);
-		await setControl(page, 'Color', 'select', 'GreenDark');
+		await setControl(page, 'Color', 'select', 'greenDark');
 
 		const path = icon.locator('path').first();
 		await expect(path).toBeVisible();
@@ -50,11 +52,11 @@ test.describe('Icon component', () => {
 
 	test('small', async ({ page }) => {
 		const size = '8';
-		const icon = canvas.locator('svg');
+		const icon = iconFrame.locator('svg');
 		await expect(icon).toBeVisible();
 
 		await setControl(page, 'Size', 'select', size);
-		await setControl(page, 'Color', 'select', 'PinkDark');
+		await setControl(page, 'Color', 'select', 'pinkDark');
 
 		const path = icon.locator('path').first();
 		await expect(path).toBeVisible();

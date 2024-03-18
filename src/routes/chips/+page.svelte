@@ -14,7 +14,7 @@
 		{
 			id: 'apple',
 			label: 'Apple',
-			selected: true,
+			selected: false,
 		},
 		{
 			id: 'peach',
@@ -73,7 +73,7 @@
 			label="Selectable"
 			bind:value={selectable} />
 		<PropsChanger
-			label="MultiSelect"
+			label="Multi select"
 			bind:value={multiSelect} />
 		<PropsChanger
 			label="Removable"

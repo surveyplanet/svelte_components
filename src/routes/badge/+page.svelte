@@ -5,7 +5,7 @@
 	import md from './docs.md?raw';
 
 	let color: BadgeProps['color'] = $state('yellow');
-	let flat: BadgeProps['flat'] = $state(true);
+	let flat: BadgeProps['flat'] = $state(false);
 	let content: string = $state('Pro');
 
 	const btoaProps = $derived(btoa(JSON.stringify({ color, flat, content })));

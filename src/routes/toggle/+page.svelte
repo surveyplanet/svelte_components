@@ -8,7 +8,7 @@
 	let id: ToggleProps['id'] = $state();
 	let on: ToggleProps['on'] = $state(false);
 	let disabled: ToggleProps['disabled'] = $state(false);
-	let tall: ToggleProps['tall'] = $state(true);
+	let tall: ToggleProps['tall'] = $state(false);
 	let size: ToggleProps['size'] = $state();
 	let label: ToggleProps['label'] = $state('Toggle switch');
 	let prependLabel: ToggleProps['prependLabel'] = $state(false);

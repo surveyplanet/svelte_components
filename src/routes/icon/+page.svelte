@@ -12,6 +12,12 @@
 	let size: IconProps['size'] = $state(24);
 	let name: IconProps['name'] = $state('bell');
 	let debug: IconProps['debug'] = $state(false);
+
+	let colorNames: keyof typeof COLORS = $state('dark');
+
+	$effect(() => {
+		color = COLORS[colorNames];
+	});
 </script>
 
 <Layout
@@ -22,7 +28,7 @@
 		<PropsChanger
 			label="Color"
 			selectOptions={Object.keys(COLORS)}
-			bind:value={color} />
+			bind:value={colorNames} />
 		<PropsChanger
 			label="Size"
 			selectOptions={[8, 12, 16, 20, 24, 32, 48, 64, 128, 256, 512]}

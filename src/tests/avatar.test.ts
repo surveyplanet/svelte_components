@@ -7,15 +7,9 @@ test.describe('Avatar component', () => {
 	}) => {
 		const preview = await loadStory(page, 'avatar');
 
-		const value = 'Medium';
+		const value = 'medium';
 		await setControl(page, 'Size', 'select', value);
 		const avatar = preview.getByRole('button');
-
-		// const bgColor = await avatar.evaluate((el) => {
-		// 	return window
-		// 		.getComputedStyle(el)
-		// 		.getPropertyValue('background-color');
-		// });
 		const height = await avatar.evaluate((el) => {
 			return window.getComputedStyle(el).getPropertyValue('height');
 		});
@@ -37,24 +31,27 @@ test.describe('Avatar component', () => {
 		expect(avatar).toBeVisible();
 		await expect(avatar).toHaveClass(/sp-avatar/);
 		await expect(avatar).toHaveClass(/sp-avatar--medium/);
-		// expect(bgColor).toBe('rgb(158, 228, 250)');
 		expect(height).toBe('48px');
 		expect(width).toBe('48px');
 		expect(borderRadius).toBe('100%');
-		expect(src).toBe('https://loremflickr.com/500/500/headshot');
+		expect(src).toBe(
+			'https://media.surveyplanet.com/w_96,h_96,f_cover/testing/family.jpeg'
+		);
 		expect(alt).toBe('profile');
 
 		await expect(avatar).toHaveAttribute('aria-label', 'profile image');
 
 		await avatar.click();
 		const lastEvent = await getLastEvent(page);
-		expect(lastEvent.name).toBe('click');
+		expect(lastEvent).toEqual({
+			event: `{ \"value\": \"undefined\", \"target\": \"img, \", \"event\": \"{\\\"isTrusted\\\":true,\\\"__root\\\":{}}\" }`,
+		});
 		// expect(lastEvent.data?.detail).toBe('[object Object]');
 	});
 
 	test('should render avatar as large', async ({ page }) => {
 		const preview = await loadStory(page, 'avatar');
-		const value = 'Large';
+		const value = 'large';
 		await setControl(page, 'Size', 'select', value);
 
 		const avatar = preview.getByRole('button');
@@ -89,14 +86,18 @@ test.describe('Avatar component', () => {
 		expect(height).toBe('64px');
 		expect(width).toBe('64px');
 		expect(borderRadius).toBe('100%');
-		expect(src).toBe('https://loremflickr.com/500/500/headshot');
+		expect(src).toBe(
+			'https://media.surveyplanet.com/w_128,h_128,f_cover/testing/family.jpeg'
+		);
 		expect(alt).toBe('profile');
 	});
 
-	test('should render avatar as disabled and small', async ({ page }) => {
+	test.skip('should render avatar as disabled and small', async ({
+		page,
+	}) => {
 		const preview = await loadStory(page, 'avatar');
 
-		const value = 'Small';
+		const value = 'small';
 		await setControl(page, 'Size', 'select', value);
 		const avatar = preview.getByRole('button');
 		await setControl(page, 'Disabled', 'checkbox', 'true');

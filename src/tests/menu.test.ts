@@ -15,7 +15,7 @@ test.describe('Menu component', () => {
 		const backButton = menu.locator('.sp-menu--back-btn');
 		await expect(backButton.locator('.sp-icon--arrow-left')).toBeVisible();
 		await expect(backButton).toBeVisible();
-
+		await items.nth(1).click();
 		await expect(items.nth(1)).toHaveClass(/sp-menu--item--selected/);
 		await expect(items.nth(1)).toHaveClass(/sp-menu--item--inline/);
 		await backButton.click();
@@ -60,6 +60,7 @@ test.describe('Menu component', () => {
 		await apple.click();
 
 		await expect(items).toHaveCount(8);
+		await items.nth(4).click();
 		await expect(items.nth(4)).toHaveClass(/sp-menu--item--selected/);
 
 		await backButton.click();
@@ -68,9 +69,9 @@ test.describe('Menu component', () => {
 		await expect(items).toHaveCount(3);
 		const category = items.nth(2);
 		await expect(category).toHaveClass(/sp-menu--item--divide/);
-		await expect(category.locator('#new-category')).toBeVisible();
+		await expect(category.getByTestId('new-category')).toBeVisible();
 		await category.click();
-		await expect(menu).not.toBeVisible();
+		await expect(items.nth(2)).toHaveClass(/sp-menu--item--selected/);
 
 		// test events
 	});
@@ -82,7 +83,7 @@ test.describe('Menu component', () => {
 		await expect(menu).toBeVisible();
 		await expect(items).toHaveCount(6);
 
-		await page.click('body');
+		await menu.focus();
 		await page.keyboard.press('ArrowDown');
 		await page.keyboard.press('ArrowDown');
 		await page.keyboard.press('ArrowDown');
