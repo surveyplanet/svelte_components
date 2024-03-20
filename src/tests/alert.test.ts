@@ -120,7 +120,7 @@ test.describe('Alert component', () => {
 			page,
 			'Content',
 			'textarea',
-			'<a href="#" data-testid="test" >Click Me!</a>'
+			'<a href="#" data-id="test" >Click Me!</a>'
 		);
 
 		const alert = canvas.getByRole('alert');

@@ -29,7 +29,6 @@
 	// });
 
 	const rangeSliderStopHandler = (event: Event) => {
-		console.log('rangeValues', event);
 		response = [rangeValues[0], rangeValues[1]];
 		if (typeof onRangeResponse === 'function') {
 			const componentEvent = new ComponentEvent(response, null, event);

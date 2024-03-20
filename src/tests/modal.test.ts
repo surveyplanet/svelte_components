@@ -67,7 +67,7 @@ test.describe('Modal component', () => {
 		expect(modalStyles).toHaveProperty('height', '720px');
 	});
 
-	test.only('overlay', async ({ page }) => {
+	test('overlay', async ({ page }) => {
 		const preview = await loadStory(page, 'modal');
 		const launchBtn = preview.locator('.sp-button');
 

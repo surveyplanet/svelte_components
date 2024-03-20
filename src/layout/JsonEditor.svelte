@@ -27,7 +27,6 @@
 	}, 0);
 
 	onDestroy(() => {
-		console.log('clearing interval');
 		clearInterval(intervalId as number);
 	});
 

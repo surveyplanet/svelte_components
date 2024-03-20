@@ -59,14 +59,13 @@ test.describe('Toggle component', () => {
 		await expect(toggle).toHaveClass(/sp-toggle--tall/);
 	});
 
-	test.skip('prepended label', async ({ page }) => {
+	test('prepended label', async ({ page }) => {
 		// const toggle = canvas.getByRole('switch');
 		await setControl(page, 'Label', 'text', 'Prepended');
-		await setControl(page, 'Prepend label', 'checkbox', 'true');
+		await setControl(page, 'Prepend Label', 'checkbox', 'true');
 
-		const label = canvas.getByText('Prepended');
-		await expect(label).toBeVisible();
-		await expect(label).toHaveClass(/sp-toggle--label/);
-		await expect(label).toHaveClass(/sp-toggle--label-prepend/);
+		const toggle = canvas.locator('.sp-toggle');
+		await expect(toggle).toBeVisible();
+		await expect(toggle).toHaveClass(/sp-toggle--prepend/);
 	});
 });

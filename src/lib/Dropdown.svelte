@@ -89,7 +89,6 @@
 	): DropdownOption | undefined => {
 		for (let item of menu) {
 			if (item.selected) {
-				console.log('found', item.label);
 				return item;
 			} else if (item.submenu) {
 				const found = findSelectedOption(item.submenu);
@@ -148,7 +147,6 @@
 					return item.label.toLowerCase().trim().includes(query);
 				}
 			});
-			console.log(cloneDeep(dropdownOptions));
 		} else {
 			showClearButton = false;
 			reset();
@@ -182,7 +180,9 @@
 			if (
 				newFocusEl.classList.contains('sp-menu--item--btn') ||
 				newFocusEl.classList.contains('sp-menu--back-btn') ||
-				newFocusEl.classList.contains('sp-menu--back-btn--label')
+				newFocusEl.classList.contains('sp-menu--back-btn--label') ||
+				newFocusEl.classList.contains('sp-dropdown--clear-btn') ||
+				newFocusEl.classList.contains('sp-dropdown--toggle-btn')
 			) {
 				return;
 			}
@@ -228,6 +228,12 @@
 
 	const toggleIconClickHandler = (event: Event) => {
 		event.preventDefault();
+		//get active element
+		const activeElement = document.activeElement as HTMLElement;
+		if (activeElement) {
+			activeElement.blur();
+		}
+
 		visible = !visible;
 	};
 </script>

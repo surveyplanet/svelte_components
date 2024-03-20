@@ -58,16 +58,10 @@ export const loadStory = async (
 	name: string
 	// variant: number | null = 0
 ): Promise<FrameLocator | Page> => {
-	const parser: string[] = name.toLocaleLowerCase().split('/');
-
-	const componentName = parser.pop();
-	// const path = parser.join('-').replace(/_/g, '-');
+	const componentName: string = name.toLocaleLowerCase();
+	// const componentName = parser.pop();
 
 	let url = `/${componentName}`;
-
-	// if (variant !== null && !isNaN(variant)) {
-	// 	url += `?variantId=src-stories-${componentName}-${componentName}-story-svelte-${variant}`;
-	// }
 
 	await page.goto(url);
 

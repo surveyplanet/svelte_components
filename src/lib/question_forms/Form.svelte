@@ -63,6 +63,7 @@
 	class="sp-survey--question--form--form">
 	{#each labels as label}
 		<TextInput
+			id={`${(Date.now() + Math.random()).toString(36)}`}
 			name={label}
 			{label}
 			type="text"

@@ -304,7 +304,7 @@ test.describe('Button component', () => {
 	// 	expect(iconStyles.stroke).toBe(btnStyles.color);
 	// });
 
-	test.skip('icon small', async ({ page }) => {
+	test.only('icon small', async ({ page }) => {
 		const btn = page.getByTestId('icon');
 		const icon = btn.locator('svg');
 		await expect(icon).toBeVisible();

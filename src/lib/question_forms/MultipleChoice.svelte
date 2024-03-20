@@ -98,7 +98,6 @@
 		let otherChoice = multipleChoiceForm?.querySelector(
 			`input[value="${other}"]`
 		) as HTMLInputElement;
-		console.log('otherChoice', otherChoice);
 		if (otherChoice) {
 			otherChoice.click();
 		}

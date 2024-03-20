@@ -70,7 +70,6 @@
 		}
 
 		if (image && image.size && image.size > maxSize * 1024 * 1024) {
-			console.log('size', image.size);
 			const error = new Error('File size is too large');
 			disabled = false;
 			if (typeof onUploadError === 'function') {
@@ -137,7 +136,6 @@
 
 			value = json.Location;
 			disabled = false;
-			console.log('json', value);
 			const componentEvent = new ComponentEvent(
 				{ image, data: json.location },
 				event.target as HTMLInputElement,

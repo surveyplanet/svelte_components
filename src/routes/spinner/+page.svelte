@@ -86,6 +86,7 @@
 			bind:value={max} />
 		<PropsChanger
 			label="Value"
+			type="number"
 			bind:value />
 		<PropsChanger
 			label="Disabled"

@@ -13,14 +13,18 @@ test.describe('Progress Bar component', () => {
 		let progressStyle = await progress.getAttribute('style');
 		expect(progressStyle).toContain('width: 0%');
 
-		for (let value = 5; value <= 100; value += 5) {
+		for (let value = 0; value <= 100; value += 25) {
 			await setControl(page, 'Value', 'number', value.toString());
 			progressStyle = await progress.getAttribute('style');
 			expect(progressStyle).toContain(`width: ${value}%`);
-			await expect(progress).toBeVisible();
-			await progressbar.hover();
-			await expect(progressValue).toBeVisible();
-			await expect(progressValue).toHaveText(`${value}`);
+			if (value === 0) {
+				await expect(progress).not.toBeVisible();
+			} else {
+				await expect(progress).toBeVisible();
+				await progressbar.hover();
+				await expect(progressValue).toBeVisible();
+				await expect(progressValue).toHaveText(`${value}`);
+			}
 		}
 	});
 });

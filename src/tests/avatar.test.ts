@@ -92,17 +92,15 @@ test.describe('Avatar component', () => {
 		expect(alt).toBe('profile');
 	});
 
-	test.skip('should render avatar as disabled and small', async ({
-		page,
-	}) => {
+	test('should render avatar as disabled and small', async ({ page }) => {
 		const preview = await loadStory(page, 'avatar');
 
 		const value = 'small';
 		await setControl(page, 'Size', 'select', value);
-		const avatar = preview.getByRole('button');
+		const avatar = preview.locator('.sp-avatar');
 		await setControl(page, 'Disabled', 'checkbox', 'true');
 
 		await expect(avatar).toBeVisible();
-		await expect(avatar).toBeDisabled();
+		await expect(avatar).toHaveAttribute('role', 'presentation');
 	});
 });

@@ -6,7 +6,7 @@
 
 	let speed: ProgressBarProps['speed'] = $state(1000);
 	let max: ProgressBarProps['max'] = $state(100);
-	let value: ProgressBar['value'] = $state(20);
+	let value: ProgressBar['value'] = $state(0);
 	let displayValue: ProgressBar['displayValue'] = $state(true);
 </script>
 

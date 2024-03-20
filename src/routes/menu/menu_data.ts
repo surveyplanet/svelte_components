@@ -1,5 +1,5 @@
-import { COLORS } from '$lib';
-import type { MenuData } from '$lib';
+import { COLORS } from '../../lib/_definitions';
+import type MenuData from '../../lib/Menu.svelte';
 
 export const menuData: MenuData[] = [
 	{ label: 'Edit', id: 'edit' },

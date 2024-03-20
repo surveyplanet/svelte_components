@@ -29,7 +29,7 @@ test.describe('Text Input component', () => {
 		await expect(input).toBeFocused();
 		input.type(value);
 		await expect(input).toHaveValue(value);
-		// const events = await getAllEvents(page);
+		const events = await getAllEvents(page);
 		// expect(events.length > 0).toBeTruthy();
 		// const totalKeyUps = events.filter((i) => i.name == 'keyup').length;
 		// const totalKeyDowns = events.filter((i) => i.name == 'keydown').length;
@@ -39,25 +39,25 @@ test.describe('Text Input component', () => {
 		// expect(events[events.length - 1].name).toBe('change');
 	});
 
-	// test('multiline', async ({ page }) => {
-	// 	await setControl(page, 'Multiline', 'checkbox', 'true');
-	// 	const value = '11!\nThis is something new I wish I had 11 too!';
-	// 	const wrapper = canvas.locator('.sp-text-input').first();
-	// 	const input = wrapper.getByRole('textbox');
+	test('multiline', async ({ page }) => {
+		await setControl(page, 'Type', 'select', 'multiline');
+		const value = '11!\nThis is something new I wish I had 11 too!';
+		const wrapper = canvas.locator('.sp-text-input').first();
+		const input = wrapper.getByRole('textbox');
 
-	// 	await input.click();
-	// 	await expect(input).toBeFocused();
-	// 	input.type(value);
-	// 	await expect(input).toHaveValue(value);
-	// 	const events = await getAllEvents(page);
-	// 	// expect(events.length > 0).toBeTruthy();
-	// 	// const totalKeyUps = events.filter((i) => i.name == 'keyup').length;
-	// 	// const totalKeyDowns = events.filter((i) => i.name == 'keydown').length;
-	// 	// expect(events[0].name).toBe('focus');
-	// 	// expect(totalKeyUps).toEqual(value.length);
-	// 	// expect(totalKeyDowns).toEqual(value.length);
-	// 	// expect(events[events.length - 1].name).toBe('change');
-	// });
+		await input.click();
+		await expect(input).toBeFocused();
+		input.type(value);
+		await expect(input).toHaveValue(value);
+		const events = await getAllEvents(page);
+		// expect(events.length > 0).toBeTruthy();
+		// const totalKeyUps = events.filter((i) => i.name == 'keyup').length;
+		// const totalKeyDowns = events.filter((i) => i.name == 'keydown').length;
+		// expect(events[0].name).toBe('focus');
+		// expect(totalKeyUps).toEqual(value.length);
+		// expect(totalKeyDowns).toEqual(value.length);
+		// expect(events[events.length - 1].name).toBe('change');
+	});
 
 	test('disabled', async ({ page }) => {
 		const input = canvas.getByLabel('Text input');
@@ -73,7 +73,7 @@ test.describe('Text Input component', () => {
 		expect(readOnlyAttr).not.toBeNull(); // readonly doesn't have a value
 	});
 
-	test.skip('validate', async ({ page }) => {
+	test('validate', async ({ page }) => {
 		const validationRules = ['required', 'email'];
 		const validationMsg =
 			"What's the matter with you, you don't know your email address?";
@@ -81,16 +81,17 @@ test.describe('Text Input component', () => {
 		const wrapper = canvas.locator('.sp-text-input').first();
 		await setControl(
 			page,
-			'Validation rules',
+			'Validation Rules',
 			'json',
 			JSON.stringify(validationRules)
 		);
-		await setControl(page, 'Validation message', 'text', validationMsg);
+		await setControl(page, 'Validation Message', 'text', validationMsg);
 		await expect(input).toHaveAttribute('id', 'basic-text');
 		await expect(input).toHaveAttribute(
 			'data-validate-rules',
 			validationRules.join(',')
 		);
+		await page.locator('id=refresh').click();
 		await input.type('invalid email address');
 		await input.press('Tab');
 

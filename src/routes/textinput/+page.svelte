@@ -18,10 +18,17 @@
 	let readonly: TextInputProps['readonly'] = $state(false);
 	let disabled: TextInputProps['disabled'] = $state(false);
 	let cleaveOptions: TextInputProps['cleaveOptions'] = $state({});
-	let validationRules: TextInputProps['validationRules'] = $state([]);
-	let validationMessage: TextInputProps['validationMessage'] = $state('');
+	let validationRules: TextInputProps['validationRules'] = $state([
+		'required',
+		'email',
+	]);
+	let validationMessage: TextInputProps['validationMessage'] = $state(
+		`What's the matter with you, you don't know your email address?`
+	);
 	let size: TextInputProps['size'] = $state('small');
 	let focus: TextInputProps['focus'] = $state(false);
+	let validationHideMessage: TextInputProps['validationHideMessage'] =
+		$state(false);
 
 	const onTextInputChange = (
 		event: ComponentEvent<string, HTMLInputElement>
@@ -121,6 +128,9 @@
 		<PropsChanger
 			label="Validation Message"
 			bind:value={validationMessage} />
+		<PropsChanger
+			label="Hide Validation Message"
+			bind:value={validationHideMessage} />
 		<PropsChanger
 			label="Size"
 			selectOptions={['small', 'medium', 'large']}

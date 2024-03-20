@@ -117,9 +117,11 @@
 
 	const validateInput = (target: HTMLInputElement) => {
 		const errors: ValidatorError[] = validate(target);
+		console.log('errors', errors);
 
 		if (errors.length) {
 			hasValidationErrors = true;
+			console.log('errors', hasValidationErrors);
 			validationDisplayMessage = errors[0].error;
 		}
 	};

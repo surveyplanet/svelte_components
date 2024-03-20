@@ -89,7 +89,6 @@
 			let eventValue = JSON.stringify(lastEvent.value) || 'undefined';
 			let eventTarget = `${(lastEvent.target as HTMLElement).nodeName.toLowerCase()}, ${(lastEvent.target as HTMLElement).classList}`;
 			let eventEvent = JSON.stringify(lastEvent.raw);
-			console.log(lastEvent.raw);
 
 			eventsParsed.push({
 				value: eventValue,
