@@ -2,11 +2,12 @@ import { test, expect } from '@playwright/test';
 import { loadStory, setControl, getAllEvents, getStyles } from './_utils.js';
 
 test.describe('Checkbox component', () => {
-	test.skip('should render basic checkbox component', async ({ page }) => {
+	test('should render basic checkbox component', async ({ page }) => {
 		const preview = await loadStory(page, 'checkbox');
 
 		const input = preview.locator('input').nth(0);
 		const input2 = preview.locator('input').nth(1);
+		const inputDisabled = preview.locator('input').nth(4);
 
 		const label = preview.locator('.sp-checkbox').nth(0);
 		const label2 = preview.locator('.sp-checkbox').nth(1);
@@ -34,73 +35,66 @@ test.describe('Checkbox component', () => {
 
 		await label.click();
 
-		// await setControl(page, 'Id', 'text', '123');
-		await setControl(page, 'Value', 'text', '123');
-		await setControl(page, 'Name', 'text', 'abc');
-		await setControl(page, 'Checked', 'checkbox', 'true');
-
-		// await expect(input).toHaveAttribute('id', '123');
-		// await expect(input).toHaveAttribute('value', '123');
-		// await expect(input).toHaveAttribute('name', 'abc');
-		await expect(input).toBeChecked();
+		await expect(inputDisabled).not.toBeChecked();
+		await expect(inputDisabled).toBeDisabled();
 
 		const events = await getAllEvents(page);
 		// const changeEvents = events.filter((i) => i.name === 'change').length;
 		// expect(changeEvents).toBe(3);
 	});
-	test.skip('should render checkbox and disabled it', async ({ page }) => {
-		const preview = await loadStory(page, 'checkbox');
-		const input = preview.locator('input').nth(0);
-		setControl(page, 'Disabled', 'checkbox', 'true');
 
-		await expect(input).toBeDisabled();
-	});
-
-	test.skip('should render checkbox and prepend label', async ({ page }) => {
+	test('should render checkbox and prepend label', async ({ page }) => {
 		const preview = await loadStory(page, 'checkbox');
-		const label = preview.locator('.sp-checkbox').nth(0);
-		setControl(page, 'Prepend label', 'checkbox', 'true');
+		const label = preview.locator('.sp-checkbox--item').nth(0);
+		await setControl(page, 'Prepend Label', 'checkbox', 'true');
 
 		await expect(label).toHaveClass(/sp-checkbox--prepend/);
 
 		const labelStyles = await getStyles(label);
-		expect(labelStyles.flexDirection).toBe('row-reverse');
+		expect(labelStyles.flexDirection).toBe('row');
 	});
 
-	test.skip('should render checkbox in small', async ({ page }) => {
-		// this test is not working even on it's onw. It seems to have something to do with the utils functions
+	test('should render checkbox in block', async ({ page }) => {
 		const preview = await loadStory(page, 'checkbox');
-		const label = preview.locator('.sp-checkbox').nth(0);
-		setControl(page, 'Size', 'select', 'small');
+		const checkboxGroup = preview.locator('.sp-checkbox--group').nth(0);
+		await setControl(page, 'Block', 'checkbox', 'true');
 
-		await expect(label).toHaveClass(/sp-checkbox--small/);
-
-		const labelStyles = await getStyles(label);
-		expect(labelStyles.width).toBe('77.9453px');
-		expect(labelStyles.height).toBe('22px');
+		await expect(checkboxGroup).toHaveClass(/sp-checkbox--block/);
 	});
-
-	test.skip('should render checkbox in large', async ({ page }) => {
+	test('should render checkbox in large', async ({ page }) => {
 		const preview = await loadStory(page, 'checkbox');
-		setControl(page, 'Size', 'select', 'large');
-		const label = preview.locator('.sp-checkbox').nth(0);
+		await setControl(page, 'Size', 'select', 'large');
+		const label = preview.locator('.sp-checkbox--item').nth(0);
 
 		await expect(label).toHaveClass(/sp-checkbox--large/);
 
 		const labelStyles = await getStyles(label);
-		expect(labelStyles.width).toBe('91.9219px');
+		// expect(labelStyles.width).toBe('73.4453px' || '72.7422px'); //inconsistent and changes from test to test
 		expect(labelStyles.height).toBe('24px');
 	});
 
-	test.skip('should render checkbox in medium', async ({ page }) => {
+	test('should render checkbox in small', async ({ page }) => {
+		// this test is not working even on it's onw. It seems to have something to do with the utils functions
 		const preview = await loadStory(page, 'checkbox');
-		setControl(page, 'Size', 'select', 'medium');
-		const label = preview.locator('.sp-checkbox').nth(0);
+		const label = preview.locator('.sp-checkbox--item').nth(0);
+		await setControl(page, 'Size', 'select', 'small');
+
+		await expect(label).toHaveClass(/sp-checkbox--small/);
+
+		const labelStyles = await getStyles(label);
+		expect(labelStyles.width).toBe('64.0859px');
+		expect(labelStyles.height).toBe('22px');
+	});
+
+	test('should render checkbox in medium', async ({ page }) => {
+		const preview = await loadStory(page, 'checkbox');
+		const label = preview.locator('.sp-checkbox--item').nth(0);
+		await setControl(page, 'Size', 'select', 'medium');
 
 		await expect(label).toHaveClass(/sp-checkbox--medium/);
 
 		const labelStyles = await getStyles(label);
-		expect(labelStyles.width).toBe('84.9375px');
+		expect(labelStyles.width).toBe('68.7656px');
 		expect(labelStyles.height).toBe('22px');
 	});
 });

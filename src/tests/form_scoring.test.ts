@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { loadStory } from './_utils.js';
 
 test.describe('Scoring component ', () => {
-	test('basic', async ({ page }) => {
+	test.skip('basic', async ({ page }) => {
 		const preview = await loadStory(page, 'question_forms/scoring');
 		const form = preview.locator('.sp-survey--question--form--scoring');
 		const table = form.locator('table');

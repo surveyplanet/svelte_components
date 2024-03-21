@@ -46,6 +46,7 @@ export {
 	type IconSize,
 	type IconProps,
 } from './Icon.svelte';
+export { default as ICON_DATA } from './_icon_data';
 export { default as Loader, type LoaderProps } from './Loader.svelte';
 export {
 	default as Logo,

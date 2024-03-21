@@ -36,8 +36,8 @@ test.describe('Date Time component ', () => {
 			'.sp-survey--question--form--datetime'
 		);
 		const textInput = dateTime.locator('.sp-text-input');
-		setControl(page, 'Date', 'checkbox', 'false');
-		setControl(page, 'Time', 'checkbox', 'true');
+		await setControl(page, 'Date', 'checkbox', 'false');
+		await setControl(page, 'Time', 'checkbox', 'true');
 		const input = textInput.locator('input');
 
 		await expect(dateTime).toBeVisible();
@@ -60,8 +60,8 @@ test.describe('Date Time component ', () => {
 			'.sp-survey--question--form--datetime'
 		);
 		const textInput = dateTime.locator('.sp-text-input');
-		setControl(page, 'Date', 'checkbox', 'true');
-		setControl(page, 'Time', 'checkbox', 'false');
+		await setControl(page, 'Date', 'checkbox', 'true');
+		await setControl(page, 'Time', 'checkbox', 'false');
 		const input = textInput.locator('input');
 
 		await expect(dateTime).toBeVisible();

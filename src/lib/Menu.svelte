@@ -53,7 +53,7 @@
 	let currentState = $state([...data]);
 	let menu = $state<HTMLDivElement>();
 	let location: string[] = $state([]);
-	let preventBlurVal = $state(false);
+	let preventBlur = $state(false);
 
 	onMount(() => {
 		// this will not trigger unless the menu is rendered on page/component.
@@ -180,10 +180,6 @@
 		}
 	};
 
-	const preventBlur = () => {
-		preventBlurVal = true;
-	};
-
 	const selectItem = (menuData: MenuData[], id: string) => {
 		for (let item of menuData) {
 			if (item.id === id && !item.submenu) {
@@ -227,7 +223,7 @@
 				onMenuClick(componentEvent);
 			}
 		} else {
-			preventBlur();
+			preventBlur = true;
 			if (typeof onMenuUpdate === 'function') {
 				onMenuUpdate(componentEvent);
 			}
@@ -264,7 +260,7 @@
 		} else {
 			currentState = [...(data || [])]; // go to root
 		}
-		preventBlur();
+		preventBlur = true;
 		if (typeof onMenuUpdate === 'function') {
 			const componentEvent = new ComponentEvent(
 				id,
@@ -291,7 +287,7 @@
 	};
 
 	const menuBlurHandler = (event: FocusEvent) => {
-		if (typeof onMenuBlur === 'function' && !preventBlurVal) {
+		if (typeof onMenuBlur === 'function' && !preventBlur) {
 			const componentEvent = new ComponentEvent(
 				undefined,
 				event.target as HTMLDivElement,

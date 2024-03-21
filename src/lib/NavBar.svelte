@@ -39,6 +39,7 @@
 
 	let navBarEl: HTMLElement | undefined = $state();
 	let navBarMenuEl: HTMLElement | undefined = $state();
+	let menuIsBeingUsed = $state(false);
 
 	let padding = 10; // adjust as needed
 
@@ -85,22 +86,45 @@
 	};
 
 	const onMenuBlur = (
-		event: ComponentEvent<undefined, HTMLButtonElement | HTMLDivElement>
+		event:
+			| ComponentEvent<undefined, HTMLButtonElement | HTMLDivElement>
+			| FocusEvent
 	) => {
-		const newFocusEl =
-			((event.raw! as FocusEvent).relatedTarget as HTMLElement) || null;
-		// let menu hide itself after value has been set
-		if (newFocusEl?.classList) {
-			if (
-				newFocusEl.classList.contains('sp-menu--item--btn') ||
-				newFocusEl.classList.contains('sp-menu--back-btn') ||
-				newFocusEl.classList.contains('sp-menu--back-btn--label') ||
-				newFocusEl.classList.contains('sp-nav--menu-trigger')
-			) {
-				return;
-			}
+		const newFocusEl: HTMLElement | null =
+			event instanceof ComponentEvent
+				? ((event.raw! as FocusEvent).relatedTarget as HTMLElement) ||
+					null
+				: (event.relatedTarget as HTMLElement) || null;
+
+		const focusClasses = [
+			'sp-menu--item--btn',
+			'sp-menu--back-btn',
+			'sp-menu--back-btn--label',
+			'sp-nav--menu-trigger',
+		];
+
+		if (
+			newFocusEl?.classList &&
+			focusClasses.some((className) =>
+				newFocusEl.classList.contains(className)
+			)
+		) {
+			return;
 		}
+
+		if (
+			(event.target as HTMLElement)?.classList.contains(
+				'sp-menu--back-btn'
+			)
+		) {
+			return;
+		}
+
 		menuVisible = false;
+	};
+
+	const onMenuUpdate = (event: ComponentEvent<string, HTMLButtonElement>) => {
+		document.body.addEventListener('click', onMenuBlur);
 	};
 
 	const menuClickHandler = (
@@ -141,6 +165,7 @@
 	{#if navMenuData?.length}
 		<button
 			class="sp-nav--menu-trigger"
+			onblur={onMenuBlur}
 			onclick={navMenuTriggerClickHandler}>
 			<Icon
 				name="ellipsis"
@@ -149,13 +174,14 @@
 	{/if}
 </nav>
 
-{#if menuVisible && navMenuData?.length}
+{#if navMenuData?.length}
 	<div
 		bind:this={navBarMenuEl}
 		class="sp-nav--menu">
 		<Menu
 			data={navMenuData}
-			visible={true}
+			visible={menuVisible}
+			{onMenuUpdate}
 			onMenuClick={menuClickHandler}
 			{onMenuBlur} />
 	</div>

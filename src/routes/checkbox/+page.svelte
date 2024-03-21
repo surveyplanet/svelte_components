@@ -35,15 +35,15 @@
 			id: 'nietzsche-checkbox',
 			label: 'Nietzsche',
 			value: 'nietzsche',
-			disabled: false,
+			disabled: true,
 		},
 	]);
 
 	let group: CheckboxProps['group'] = $state(['kant']);
 
-	let prependLabel: CheckboxProps['prependLabel'] = $state();
+	let prependLabel: CheckboxProps['prependLabel'] = $state(false);
 
-	let block: CheckboxProps['block'] = $state();
+	let block: CheckboxProps['block'] = $state(false);
 
 	let size: CheckboxProps['size'] = $state('small');
 

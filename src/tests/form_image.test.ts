@@ -71,7 +71,7 @@ test.describe('Image  component ', () => {
 		const choice1 = label1.locator('input');
 		const choice2 = label2.locator('input');
 
-		setControl(page, 'Multi', 'checkbox', 'false');
+		await setControl(page, 'Multi', 'checkbox', 'true');
 
 		await expect(form).toBeVisible();
 

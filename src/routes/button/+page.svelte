@@ -1,5 +1,13 @@
 <script lang="ts">
-	import { Button, ComponentEvent, type ButtonProps } from '$lib';
+	import {
+		Button,
+		Icon,
+		ComponentEvent,
+		ICON_DATA,
+		COLORS,
+		type ButtonProps,
+		type IconName,
+	} from '$lib';
 	import { Layout, PropsChanger } from '$layout/index';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
@@ -14,6 +22,9 @@
 	let type: ButtonProps['type'] = $state('button');
 	let size: ButtonProps['size'] = $state('medium');
 	let content = $state('Submit');
+
+	let icon: IconName = $state('');
+	let iconColor: keyof typeof COLORS = $state('beige');
 
 	const onButtonClick = (
 		event: ComponentEvent<undefined, HTMLButtonElement>
@@ -76,6 +87,14 @@
 			label="Size"
 			bind:value={size}
 			selectOptions={['small', 'medium', 'large']} />
+		<PropsChanger
+			label="Icon"
+			bind:value={icon}
+			selectOptions={Object.keys(ICON_DATA)} />
+		<PropsChanger
+			label="Icon Color"
+			bind:value={iconColor}
+			selectOptions={Object.keys(COLORS)} />
 	{/snippet}
 	{#snippet main()}
 		<Button
@@ -89,6 +108,12 @@
 			{size}
 			{onButtonClick}>
 			{content}
+			{#if icon}
+				<Icon
+					name={icon}
+					color={iconColor}
+					size={20} />
+			{/if}
 		</Button>
 	{/snippet}
 </Layout>

@@ -14,7 +14,7 @@
 	import { default as source } from './example';
 	import { uniqueId } from '@surveyplanet/utilities';
 
-	let id: UploadProps['id'] = $state();
+	let id: UploadProps['id'] = $state(uniqueId());
 	let label: UploadProps['label'] = $state('Upload');
 	let formats: UploadProps['formats'] = $state(['jpg', 'jpeg', 'png', 'gif']);
 	let maxSize: UploadProps['maxSize'] = $state(10);
