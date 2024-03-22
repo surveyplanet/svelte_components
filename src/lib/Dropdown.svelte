@@ -25,9 +25,7 @@
 <script lang="ts">
 	import { Menu, Icon, ComponentEvent } from './';
 	import { onMount } from 'svelte';
-	import { cloneDeep } from '@surveyplanet/utilities';
-	import { menuData } from '../routes/menu/menu_data';
-
+	// import { cloneDeep } from '@surveyplanet/utilities';
 	const SEARCH_KEYS: string[] = [
 		'Down',
 		'ArrowDown',
