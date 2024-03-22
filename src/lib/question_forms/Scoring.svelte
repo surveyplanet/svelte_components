@@ -54,7 +54,7 @@
 
 	const updateResponse = (value: ScoringValue) => {
 		// remove value if already exits.
-		response = response?.filter((val) => val.label !== value.label);
+		response = response.filter((val) => val.label !== value.label);
 		response.push(value);
 	};
 
@@ -62,7 +62,7 @@
 		event: ComponentEvent<string, HTMLInputElement>
 	) => {
 		const target = event.target as HTMLInputElement;
-
+		console.log(event);
 		const value: ScoringValue = {
 			label: target.name,
 			value: Number(target.value),
@@ -124,16 +124,11 @@
 		return sortedLabels;
 	};
 
-	let radioData: RadioProps['data'] = values.map((value) => {
-		return {
+	const setRadioData = (label: string): RadioProps['data'] => {
+		return values.map((value) => ({
+			name: label,
 			value: value,
-		};
-	});
-
-	let radioProps: RadioProps = {
-		data: radioData,
-		group: response[0]?.label,
-		onRadioChange: inputChangeHandler,
+		}));
 	};
 </script>
 
@@ -179,7 +174,10 @@
 							scope="row"
 							class="sp-survey--question--form--scoring--label-row"
 							>{label}</th>
-						<Radio {...radioProps} />
+						<Radio
+							data={setRadioData(label)}
+							group={label}
+							onRadioChange={inputChangeHandler} />
 					</tr>
 				{/each}
 			</tbody>
