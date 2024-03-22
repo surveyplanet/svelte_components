@@ -2,7 +2,7 @@
 	lang="ts"
 	context="module">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import type { MenuData } from './';
+	import { type MenuData } from './';
 
 	export type DropdownOption = MenuData;
 
