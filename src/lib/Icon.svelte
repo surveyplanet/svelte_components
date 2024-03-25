@@ -57,7 +57,7 @@
 		strokeWidth = 2, // thickness seems to be fine at 2
 		debug,
 		...attr
-	} = $props<IconProps>();
+	}: IconProps = $props();
 
 	let pathData = $derived(ICON_DATA[name]);
 	let fillType = $derived(

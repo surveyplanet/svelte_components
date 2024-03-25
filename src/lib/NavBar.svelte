@@ -32,8 +32,8 @@
 	} from '@floating-ui/dom';
 	import { ComponentEvent, Menu, type MenuData } from './';
 
-	let { data, navMenuData, vertical, onNavClick, ...attr } =
-		$props<NavBarProps>();
+	let { data, navMenuData, vertical, onNavClick, ...attr }: NavBarProps =
+		$props();
 
 	let menuVisible = $state(false);
 

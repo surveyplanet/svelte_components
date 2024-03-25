@@ -25,7 +25,7 @@
 		response = [], // forms return empty array if no response
 		onFormResponse,
 		...attr
-	} = $props<FormProps>();
+	}: FormProps = $props();
 
 	if (random) {
 		labels = labels.sort(() => Math.random() - 0.5);

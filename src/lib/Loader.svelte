@@ -19,7 +19,7 @@
 		size = DEFAULT_SIZE, // medium size that looks good
 		strokeWidth = 4, // stroke width doesn't look good above 4
 		...attr
-	} = $props<LoaderProps>();
+	}: LoaderProps = $props();
 
 	// When updating the colors the animation can get out of sync since the
 	// speed is based on the number of colors. This should be fine as long as the

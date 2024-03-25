@@ -28,7 +28,7 @@
 	import { crossfade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 
-	let { data, onSortSort, ...attr } = $props<SortListProps>();
+	let { data, onSortSort, ...attr }: SortListProps = $props();
 
 	// FLIP ANIMATION
 	const [send, receive] = crossfade({

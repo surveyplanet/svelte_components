@@ -26,7 +26,7 @@
 		disabled,
 		onAvatarClick,
 		...attr
-	} = $props<AvatarProps>();
+	}: AvatarProps = $props();
 
 	const MASCOT_NAMES = [
 		'cubbi',

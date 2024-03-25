@@ -38,7 +38,7 @@
 		onButtonClick,
 		children,
 		...attr
-	} = $props<ButtonProps>();
+	}: ButtonProps = $props();
 
 	const buttonClickHandler = (event: MouseEvent) => {
 		if (typeof onButtonClick === 'function') {

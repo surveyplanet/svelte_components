@@ -40,7 +40,7 @@
 		response = [], // forms return empty array if no response
 		onImageResponse,
 		...attr
-	} = $props<ImageProps>();
+	}: ImageProps = $props();
 	//nopt working
 	$effect(() => {
 		if (random) {

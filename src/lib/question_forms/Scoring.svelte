@@ -50,7 +50,7 @@
 		response = [], // forms return empty array if no response
 		onScoringResponse,
 		...attr
-	} = $props<ScoringProps>();
+	}: ScoringProps = $props();
 
 	const updateResponse = (value: ScoringValue) => {
 		// remove value if already exits.

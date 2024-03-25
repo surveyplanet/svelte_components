@@ -102,7 +102,7 @@ test.describe('Text Input component', () => {
 		await expect(errLabel).toHaveAttribute('for', 'basic-text');
 	});
 
-	test.skip('masked', async ({ page }) => {
+	test('masked', async ({ page }) => {
 		const today = new Date();
 		const year = today.getFullYear().toString();
 		const month = (today.getMonth() + 1).toString().padStart(2, '0');
@@ -115,12 +115,12 @@ test.describe('Text Input component', () => {
 		};
 		await setControl(
 			page,
-			'Mask options',
+			'Cleave Options',
 			'json',
 			JSON.stringify(cleaveOptions)
 		);
 		await setControl(page, 'Placeholder', 'text', 'YYYY-MM-DD');
-
+		await page.locator('id=refresh').click();
 		const input = canvas.getByRole('textbox');
 		input.type('noop');
 		await expect(input).toHaveValue('');

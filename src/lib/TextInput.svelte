@@ -81,7 +81,7 @@
 		onTextInputKeydown,
 		onTextInputKeyup,
 		...attr
-	} = $props<TextInputProps>();
+	}: TextInputProps = $props();
 
 	let hasValidationErrors = $state(false);
 

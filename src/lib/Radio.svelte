@@ -31,7 +31,7 @@
 		block,
 		onRadioChange,
 		...attr
-	} = $props<RadioProps>();
+	}: RadioProps = $props();
 
 	const ratioChangeHandler = (event: Event) => {
 		if (typeof onRadioChange === 'function') {

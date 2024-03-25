@@ -59,7 +59,7 @@
 		onAlertOut,
 		children,
 		...attr
-	} = $props<AlertProps>();
+	}: AlertProps = $props();
 
 	// let visible = $state(false);
 	let icon: string = $derived.by(() => {

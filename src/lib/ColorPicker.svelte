@@ -25,7 +25,7 @@
 		onColorPickerChange,
 		onColorPickerInput,
 		...attr
-	} = $props<ColorPickerProps>();
+	}: ColorPickerProps = $props();
 
 	const colorInputHandler = (event: Event) => {
 		if (typeof onColorPickerInput === 'function') {

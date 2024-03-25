@@ -49,7 +49,7 @@
 		header,
 		footer,
 		...attr
-	} = $props<MenuProps>();
+	}: MenuProps = $props();
 	let currentState = $state([...data]);
 	let menu = $state<HTMLDivElement>();
 	let location: string[] = $state([]);

@@ -46,7 +46,7 @@
 		response = [],
 		onMultipleChoiceResponse,
 		...attr
-	} = $props<MultipleChoiceProps>();
+	}: MultipleChoiceProps = $props();
 
 	let multipleChoiceForm: HTMLFormElement | undefined = $state();
 	let group: GroupType<typeof multi> = $state(multi ? [] : '');

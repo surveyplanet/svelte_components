@@ -46,7 +46,7 @@
 		symbolOnly,
 		size = DEFAULT_SIZE,
 		...attr
-	} = $props<LogoProps>();
+	}: LogoProps = $props();
 
 	let width: number = $derived(symbolOnly ? size : size * ASPECT_RATION);
 	let height: number = $derived(size);

@@ -42,7 +42,7 @@
 		header,
 		body,
 		...attr
-	} = $props<ModalProps>();
+	}: ModalProps = $props();
 
 	const overlayClickHandler = (event: KeyboardEvent) => {
 		if (event.key === 'Escape') {

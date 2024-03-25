@@ -35,8 +35,8 @@
 		main: Snippet;
 		controls: Snippet;
 	}
-	let { example, md, events, btoaProps, main, controls } =
-		$props<LayoutProps>();
+	let { example, md, events, btoaProps, main, controls }: LayoutProps =
+		$props();
 
 	let eventsParsed: object[] = [];
 	let isDarkMode = $state();

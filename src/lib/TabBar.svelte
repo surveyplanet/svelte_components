@@ -35,7 +35,7 @@
 		data,
 		onTabClick,
 		...attr
-	} = $props<TabBarProps>();
+	}: TabBarProps = $props();
 
 	let activeIndicator: HTMLDivElement | null = $state(null);
 

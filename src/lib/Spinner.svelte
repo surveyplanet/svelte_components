@@ -54,7 +54,7 @@
 		onSpinnerBlur,
 		onSpinnerFocus,
 		...attr
-	} = $props<SpinnerProps>();
+	}: SpinnerProps = $props();
 
 	let input: HTMLInputElement | null = $state(null);
 

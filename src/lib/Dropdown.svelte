@@ -48,7 +48,7 @@
 		displayIconOnly,
 		onDropdownChange,
 		...attr
-	} = $props<DropdownProps>();
+	}: DropdownProps = $props();
 
 	let input: HTMLInputElement | undefined = $state();
 	let selectedOption: DropdownOption | undefined = $state();

@@ -24,7 +24,7 @@
 		response = [], // forms return empty array if no response
 		onEssayResponse,
 		...attr
-	} = $props<EssayProps>();
+	}: EssayProps = $props();
 
 	const updateResponse = (value: string) => {
 		response = [value];

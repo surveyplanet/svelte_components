@@ -42,7 +42,7 @@
 		response = [], // forms return empty array if no response
 		onDateTimeResponse,
 		...attr
-	} = $props<DateTimeProps>();
+	}: DateTimeProps = $props();
 
 	let type: DateTimeInputType = $state('date');
 	$effect(() => {

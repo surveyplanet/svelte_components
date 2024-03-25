@@ -21,7 +21,7 @@
 		response = [], // forms return empty array if no response
 		onRangeResponse,
 		...attr
-	} = $props<RangeProps>();
+	}: RangeProps = $props();
 
 	let rangeValues = $state([response[0] || min, response[1] || max]);
 	// onMount(() => {

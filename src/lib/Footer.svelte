@@ -13,7 +13,7 @@
 </script>
 
 <script lang="ts">
-	let { footerData, ...attr } = $props<FooterProps>();
+	let { footerData, ...attr }: FooterProps = $props();
 </script>
 
 <nav

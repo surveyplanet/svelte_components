@@ -21,7 +21,7 @@
 		response = [], // forms return empty array if no response
 		onScaleResponse,
 		...attr
-	} = $props<ScaleProps>();
+	}: ScaleProps = $props();
 
 	let rangeValues: number[] = $state([response[0]] || [min]);
 

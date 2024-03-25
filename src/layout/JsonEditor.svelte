@@ -13,7 +13,7 @@
 			event: ComponentEvent<string, HTMLDivElement>
 		) => void;
 	}
-	let { value, id, onJsonEditorInput } = $props<JsonEditorProps>();
+	let { value, id, onJsonEditorInput }: JsonEditorProps = $props();
 	let stringData = $state(JSON.stringify(value, null, 2));
 	let isDarkMode = $state(false);
 	let intervalId: number | null | NodeJS.Timeout = null;

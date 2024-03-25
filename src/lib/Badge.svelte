@@ -12,7 +12,7 @@
 
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	let { color = 'yellow', flat, children, ...attr } = $props<BadgeProps>();
+	let { color = 'yellow', flat, children, ...attr }: BadgeProps = $props();
 </script>
 
 <span

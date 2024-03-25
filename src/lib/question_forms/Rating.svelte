@@ -27,7 +27,7 @@
 		response = [], // forms return empty array if no response
 		onRatingResponse,
 		...attr
-	} = $props<RatingProps>();
+	}: RatingProps = $props();
 
 	// TODO: THIS NEEDS TO BE TESTED
 	$effect(() => {

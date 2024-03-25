@@ -49,7 +49,7 @@
 		onUploadComplete,
 		onUploadError,
 		...attr
-	} = $props<UploadProps>();
+	}: UploadProps = $props();
 
 	// type FileEventTarget = (EventTarget & { files: FileList }) | DataTransfer;
 

@@ -12,7 +12,7 @@
 	import type { Snippet } from 'svelte';
 	import { cubicOut } from 'svelte/easing';
 
-	let { visible = false, children, ...attr } = $props<PopoverProps>();
+	let { visible = false, children, ...attr }: PopoverProps = $props();
 
 	let popoverEl: HTMLDivElement | undefined = $state();
 

@@ -71,7 +71,7 @@
 		onCodeMirrorChange,
 		onCodeMirrorBlur,
 		onCodeMirrorFocus,
-	} = $props<CodeMirrorProps>();
+	}: CodeMirrorProps = $props();
 	let classes = '';
 
 	export { classes as class };

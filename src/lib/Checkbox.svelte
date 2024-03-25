@@ -33,7 +33,7 @@
 		block,
 		onCheckboxChange,
 		...attr
-	} = $props<CheckboxProps>();
+	}: CheckboxProps = $props();
 
 	const checkboxChangeHandler = async (event: Event): Promise<void> => {
 		if (typeof onCheckboxChange === 'function') {

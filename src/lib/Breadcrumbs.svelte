@@ -13,7 +13,7 @@
 </script>
 
 <script lang="ts">
-	let { data, ...attr } = $props<BreadcrumbsProps>();
+	let { data, ...attr }: BreadcrumbsProps = $props();
 </script>
 
 <nav

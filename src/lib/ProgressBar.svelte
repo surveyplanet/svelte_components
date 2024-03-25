@@ -17,7 +17,7 @@
 		speed = 1000, // speed should have a fallback value
 		displayValue,
 		...attr
-	} = $props<ProgressBarProps>();
+	}: ProgressBarProps = $props();
 	let progress = $state(0);
 
 	$effect(() => {

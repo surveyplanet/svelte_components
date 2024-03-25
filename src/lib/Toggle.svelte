@@ -30,7 +30,7 @@
 		prependLabel,
 		onToggleChange,
 		...attr
-	} = $props<ToggleProps>();
+	}: ToggleProps = $props();
 
 	const changeHandler = (event: Event): void => {
 		if (attr.disabled) {

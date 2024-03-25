@@ -25,7 +25,7 @@
 		hideDelay = 0, // when default is 0, it will not hide which is a default behavior
 		children,
 		...attr
-	} = $props<BannerProps>();
+	}: BannerProps = $props();
 
 	let animDuration = 250;
 

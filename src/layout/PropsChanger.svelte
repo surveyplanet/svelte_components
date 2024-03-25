@@ -28,9 +28,9 @@
 		type,
 		onPropsChangerInput,
 		onPropsChangerBlur,
-	} = $props<
-		PropsChangerProps<string | number | boolean | object | undefined | null>
-	>();
+	}: PropsChangerProps<
+		string | number | boolean | object | undefined | null
+	> = $props();
 
 	$effect.pre(() => {
 		if (type?.length) return;

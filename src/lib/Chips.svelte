@@ -32,7 +32,7 @@
 		onChipsClick,
 		onChipsRemove,
 		...attr
-	} = $props<ChipsProps>();
+	}: ChipsProps = $props();
 
 	const getChipId = (chipEl: HTMLButtonElement) => {
 		const parent = chipEl.closest('.sp-chips--chip')! as HTMLButtonElement;
