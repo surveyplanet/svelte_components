@@ -74,6 +74,7 @@
 			}
 		});
 	});
+
 	$effect(() => {
 		if (!events?.length) {
 			return;
@@ -86,7 +87,7 @@
 		) {
 			eventsParsed.push(lastEvent);
 		} else if ('value' in lastEvent) {
-			let eventValue = JSON.stringify(lastEvent.value) || 'undefined';
+			let eventValue = JSON.stringify(lastEvent.value || 'undefined');
 			let eventTarget = `${(lastEvent.target as HTMLElement).nodeName.toLowerCase()}, ${(lastEvent.target as HTMLElement).classList}`;
 			let eventEvent = JSON.stringify(lastEvent.raw);
 
@@ -336,8 +337,28 @@
 		<div id="component-events">
 			<ol>
 				{#each eventsLogs as event (event)}
-					<li class="component-event">
-						<code>{event}</code>
+					<li>
+						<ul>
+							<li class="component-event--value">
+								<span class="component-event--value--label"
+									>Value:</span>
+								<code class="component-event--value--value"
+									>{event.value}</code>
+							</li>
+							<li class="component-event--target">
+								<span class="component-event--target--label"
+									>Target:</span>
+								<code class="component-event--target--value"
+									>{event.target ??
+										event.target.toString()}</code>
+							</li>
+							<li class="component-event--raw">
+								<span class="component-event--raw--label"
+									>Event:</span>
+								<code class="component-event--raw--value"
+									>{event.raw ?? event.raw.toString()}</code>
+							</li>
+						</ul>
 					</li>
 				{/each}
 			</ol>

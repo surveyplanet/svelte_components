@@ -55,7 +55,6 @@
 				<li class="icon-list--item">
 					<Icon
 						{color}
-						{size}
 						name={iconName} />
 					<span class="icon-list--item--name">{iconName}</span>
 				</li>
