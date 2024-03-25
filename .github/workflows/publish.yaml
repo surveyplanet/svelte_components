@@ -30,17 +30,17 @@ jobs:
             - name: Security audit
               run: npm audit --audit-level=moderate --omit=dev --force
 
-            # - name: Check Lint errors
-            #   run: npm run lint
+            - name: Check Lint errors
+              run: npm run lint
 
-            # - name: Check Typescript errors
-            #   run: npm run check
+            - name: Check Typescript errors
+              run: npm run check
 
             - name: Check spelling errors
               run: npm run spell
 
-            # - name: Install Playwright (for tests)
-            #   run: npx playwright install --with-deps
+            - name: Install Playwright (for tests)
+              run: npx playwright install --with-deps
 
             # - name: Build Histoire
             #   run: npm run story:build
@@ -52,8 +52,8 @@ jobs:
             #   run: ./bin/wait-for-histoire.sh
 
             # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
-            # - name: Run Playwright tests
-            #   run: npm run test:ci
+            - name: Run Playwright tests
+              run: npm run test:dev
 
             - name: Package components
               run: npm run build
