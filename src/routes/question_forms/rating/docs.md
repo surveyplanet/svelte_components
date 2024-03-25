@@ -9,7 +9,7 @@
 | `[order]`         | RatingProperties['order']       | The order in which the labels are displayed.                            |
 | `[layout]`        | RatingProperties['layout']      | The layout of the rating component. Options: '1' (default) or 'slider'. |
 | `[response={[]}]` | RatingValue[]                   | Array containing the selected rating options.                           |
-| `[...attr] `      | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node.                           |
+| `[...attr] `      | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node.            |
 
 ### Callbacks
 

@@ -70,7 +70,6 @@
 	}
 
 	&.sp-menu--item--btn--prepend-icon {
-
 		.sp-icon {
 			margin: 0;
 			order: 1;
@@ -83,7 +82,6 @@
 		.sp-menu--item--meta {
 			order: 3;
 		}
-
 	}
 }
 
@@ -133,7 +131,6 @@
 		button {
 			display: inline-block;
 			min-width: fit-content;
-
 		}
 
 		&.sp-menu--item--selected {
@@ -157,7 +154,6 @@
 	// not supported in FF
 	// disable the button hover and focus states for color chip
 	&:has(> button .color-chip) {
-
 		/* styles to apply to the li tag */
 		button {
 			background-color: transparent !important;

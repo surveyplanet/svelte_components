@@ -33,7 +33,6 @@
 	}
 
 	&.sp-radio--prepend {
-
 		// flex-direction: row-reverse;
 		.sp-radio--dot {
 			order: 2;
@@ -107,7 +106,7 @@
 	opacity: 0;
 
 	&:disabled {
-		&+.sp-radio--item {
+		& + .sp-radio--item {
 			.sp-radio--dot {
 				border-color: $color--beige-darker;
 				background-color: $color--beige-dark;
@@ -118,7 +117,7 @@
 	}
 
 	&:checked {
-		&+.sp-radio--item {
+		& + .sp-radio--item {
 			.sp-radio--dot {
 				border-color: $color--darkest;
 				animation: check 0.6s ease;
@@ -138,7 +137,7 @@
 	}
 
 	@include set-focus {
-		&+.sp-radio--item {
+		& + .sp-radio--item {
 			.sp-radio--dot {
 				box-shadow:
 					0px 0px 0px 1px $color--white,

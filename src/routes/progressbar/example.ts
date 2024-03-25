@@ -1,8 +1,6 @@
-import type { ProgressBarProps } from "$lib";
+import type { ProgressBarProps } from '$lib';
 
-export default (
-	data: ProgressBarProps
-) => {
+export default (data: ProgressBarProps) => {
 	return `
 <script lang="ts">
 	import { ProgressBar } from '@surveyplanet/svelte_components';

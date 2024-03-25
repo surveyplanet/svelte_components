@@ -1,8 +1,6 @@
 import type { RangeProps } from '$lib';
 
-export default (
-	data: RangeProps
-) => {
+export default (data: RangeProps) => {
 	return `
 <script lang="ts">
 	import {Range, ComponentEvent} from '@surveyplanet/svelte-components';

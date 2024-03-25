@@ -1,8 +1,6 @@
 import type { FormProps } from '$lib';
 
-export default (
-data: FormProps
-) => {
+export default (data: FormProps) => {
 	return `
 <script lang="ts">
 	import {Form, type FormProps} from '@surveyplanet/svelte-components';

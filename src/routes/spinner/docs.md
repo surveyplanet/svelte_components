@@ -16,7 +16,7 @@
 | `[dragSpeed={10}]` | number                           | The speed at which the spinner input value changes when dragging. |
 | `[placeholder]`    | string                           | The placeholder text for the spinner input.                       |
 | `[size='small']`   | 'small'                          | 'medium'                                                          | 'large' | Size of the spinner input. |
-| `[...attr] `       | HTMLAttributes<HTMLInputElement> | Additional attributes to be expanded on to primary the node.                     |
+| `[...attr] `       | HTMLAttributes<HTMLInputElement> | Additional attributes to be expanded on to primary the node.      |
 
 ### Callbacks
 

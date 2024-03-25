@@ -1,8 +1,6 @@
 import type { ScaleProps } from '$lib';
 
-export default (
-	data: ScaleProps
-) => {
+export default (data: ScaleProps) => {
 	return `
 <script lang="ts">
 	import {Scale} from '@surveyplanet/svelte-components';

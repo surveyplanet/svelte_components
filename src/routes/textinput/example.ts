@@ -1,7 +1,5 @@
 import type { TextInputProps } from '$lib';
-export default (
-	data: TextInputProps
-) => {
+export default (data: TextInputProps) => {
 	return `
 <script lang="ts">
 	import { TextInput, type TextInputProps } from '@surveyplanet/svelte_components';

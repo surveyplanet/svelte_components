@@ -1,8 +1,6 @@
-import type { SpinnerProps } from "$lib";
+import type { SpinnerProps } from '$lib';
 
-export default (
-data: SpinnerProps
-) => {
+export default (data: SpinnerProps) => {
 	return `
 <script lang="ts">
 	import { Spinner } from '@surveyplanet/svelte-components';

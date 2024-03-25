@@ -57,6 +57,7 @@
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"package": "npm run build",
 		"proof": "npm run check && npm run lint && npm run spell && npm run test",
+		"prettier": "prettier --plugin-search-dir . --write .",
 		"release": "semantic-release",
 		"release:dry": "semantic-release --dry-run",
 		"spell": "cspell",

@@ -23,7 +23,7 @@ $indicator--speed: 0.5s;
 		}
 
 		&.sp-tab-bar--plain {
-			li+li {
+			li + li {
 				margin-left: 0; // reset margin on plain block tab bar
 			}
 		}
@@ -43,10 +43,9 @@ $indicator--speed: 0.5s;
 			padding: 0 $size-space--m;
 		}
 
-		li+li {
+		li + li {
 			margin-left: $size-space--l;
 		}
-
 
 		.sp-tab-bar--button {
 			// background-color: $color--blue;
@@ -67,9 +66,7 @@ $indicator--speed: 0.5s;
 		.sp-tab-bar--button--active svg path {
 			stroke: $color--black;
 		}
-
 	}
-
 
 	ul {
 		// position: relative;

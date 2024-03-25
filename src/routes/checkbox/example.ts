@@ -1,8 +1,6 @@
-import type { CheckboxProps } from "$lib";
+import type { CheckboxProps } from '$lib';
 
-export default (
- props: CheckboxProps
-) => {
+export default (props: CheckboxProps) => {
 	return `
 <script lang="ts">
 	import {type CheckboxProps, Checkbox, ComponentEvent} from '@surveyplanet/svelte_components';

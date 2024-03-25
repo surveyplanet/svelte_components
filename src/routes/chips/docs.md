@@ -1,11 +1,11 @@
 ### Properties
 
-| Property        | Type                            | Description                                   |
-| --------------- | ------------------------------- | --------------------------------------------- |
-| `data`          | ChipData[]                      | Array of objects representing the chips.      |
-| `[selectable]`  | Boolean                         | Enables chip selection if `true`.             |
-| `[multiSelect]` | Boolean                         | Allows multiple chip selection if `true`.     |
-| `[removable]`   | Boolean                         | Enables chip removal if `true`.               |
+| Property        | Type                            | Description                                                  |
+| --------------- | ------------------------------- | ------------------------------------------------------------ |
+| `data`          | ChipData[]                      | Array of objects representing the chips.                     |
+| `[selectable]`  | Boolean                         | Enables chip selection if `true`.                            |
+| `[multiSelect]` | Boolean                         | Allows multiple chip selection if `true`.                    |
+| `[removable]`   | Boolean                         | Enables chip removal if `true`.                              |
 | `[...attr] `    | HTMLAttributes<HTMLMenuElement> | Additional attributes to be expanded on to primary the node. |
 
 ### Callbacks

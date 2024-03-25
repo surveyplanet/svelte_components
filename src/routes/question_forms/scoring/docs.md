@@ -13,7 +13,7 @@
 | `[requireAll={false}]`    | ScoringProperties['requireAll']    | Indicates if all labels must receive a score.                      |
 | `[requireUnique={false}]` | ScoringProperties['requireUnique'] | Indicates if each label must have a unique score.                  |
 | `[response={[]}]`         | ScoringValue[]                     | Array containing the selected scoring values.                      |
-| `[...attr] `              | HTMLAttributes<HTMLFormElement>    | Additional attributes to be expanded on to primary the node.                      |
+| `[...attr] `              | HTMLAttributes<HTMLFormElement>    | Additional attributes to be expanded on to primary the node.       |
 
 ### Callbacks
 

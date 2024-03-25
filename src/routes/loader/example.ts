@@ -1,6 +1,6 @@
-import type { LoaderProps } from "$lib";
+import type { LoaderProps } from '$lib';
 
-export default ( data: LoaderProps) => {
+export default (data: LoaderProps) => {
 	return `
 <script lang="ts">
 	import { Loader, type LoaderProps } from '@surveyplanet/svelte_components';

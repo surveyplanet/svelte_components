@@ -1,9 +1,9 @@
 ### Properties
 
-| Property     | Type                        | Description                                     |
-| ------------ | --------------------------- | ----------------------------------------------- |
-| `footerData` | FooterData[]                | Array of objects representing the footer items. |
-| `[...attr] ` | HTMLAttributes<HTMLElement> | Additional attributes to be expanded on to primary the node.   |
+| Property     | Type                        | Description                                                  |
+| ------------ | --------------------------- | ------------------------------------------------------------ |
+| `footerData` | FooterData[]                | Array of objects representing the footer items.              |
+| `[...attr] ` | HTMLAttributes<HTMLElement> | Additional attributes to be expanded on to primary the node. |
 
 ### Interfaces
 

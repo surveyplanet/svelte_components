@@ -1,8 +1,6 @@
 import type { EssayProps } from '$lib';
 
-export default (
-	data: EssayProps
-) => {
+export default (data: EssayProps) => {
 	return `
 <script lang="ts">
 	import {Essay, ComponentEvent} from '@surveyplanet/svelte-components';

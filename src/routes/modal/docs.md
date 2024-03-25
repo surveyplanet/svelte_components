@@ -14,7 +14,7 @@
 | `[footer]`                      | Snippet                        | Custom content for the modal footer.                           |
 | `[body]`                        | Snippet                        | Custom content for the modal body.                             |
 | `[header]`                      | Snippet                        | Custom content for the modal header.                           |
-| `[...attr] `                    | HTMLAttributes<HTMLDivElement> | Additional attributes to be expanded on to primary the node.                  |
+| `[...attr] `                    | HTMLAttributes<HTMLDivElement> | Additional attributes to be expanded on to primary the node.   |
 
 ### Callbacks
 

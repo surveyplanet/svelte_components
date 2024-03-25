@@ -21,17 +21,16 @@
 	}
 
 	&.validation-error {
-
 		input,
 		textarea {
 			border-color: $color--pink;
 		}
 	}
 
-	&>input[type='search'] {
+	& > input[type='search'] {
 		padding-left: $size--32;
 
-		&~.sp-text-input--search-icon {
+		& ~ .sp-text-input--search-icon {
 			// background-color: red;
 			display: block;
 			position: absolute;

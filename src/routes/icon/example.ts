@@ -1,9 +1,6 @@
 import { type IconProps } from '$lib';
 
-export default (
-	data: IconProps
-
-) => {
+export default (data: IconProps) => {
 	return `
 <script lang="ts">
 

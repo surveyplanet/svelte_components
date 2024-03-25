@@ -1,4 +1,4 @@
-import type { MenuProps} from '$lib';
+import type { MenuProps } from '$lib';
 
 export default (data: MenuProps) => {
 	return `

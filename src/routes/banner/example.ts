@@ -1,8 +1,6 @@
-import { type BannerProps } from "$lib"
+import { type BannerProps } from '$lib';
 
-export default (
-	data: BannerProps & { content: string }
-) => {
+export default (data: BannerProps & { content: string }) => {
 	return `
 <script lang="ts">
 	import { Banner } from '@surveyplanet/svelte_components';

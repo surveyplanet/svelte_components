@@ -1,6 +1,5 @@
 @use '@surveyplanet/styles' as *;
 
-
 .sp-avatar {
 	margin: 0;
 	padding: 0;
@@ -34,7 +33,6 @@
 	&.sp-avatar--background--green {
 		background: $color--green-gradient;
 	}
-
 
 	.sp-avatar--image--mascot-cubbi,
 	.sp-avatar--image--mascot-gruffi,
@@ -146,5 +144,4 @@ button.sp-avatar:hover {
 	// 		object-fit: cover;
 	// 	}
 	// }
-
 }

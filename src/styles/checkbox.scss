@@ -34,7 +34,6 @@
 	}
 
 	&.sp-checkbox--prepend {
-
 		// flex-direction: row-reverse;
 		.sp-checkbox--check {
 			order: 2;
@@ -103,7 +102,7 @@ input[type='checkbox'] {
 	appearance: none;
 
 	&:disabled {
-		&+.sp-checkbox--item {
+		& + .sp-checkbox--item {
 			.sp-checkbox--check {
 				border-color: $color--beige-darker;
 				background-color: $color--beige-dark;
@@ -114,7 +113,7 @@ input[type='checkbox'] {
 	}
 
 	&:checked:not(:disabled) {
-		&+.sp-checkbox--item {
+		& + .sp-checkbox--item {
 			.sp-checkbox--check {
 				border-color: $color--darkest;
 				background: $color--darkest;
@@ -134,7 +133,7 @@ input[type='checkbox'] {
 	}
 
 	@include set-focus {
-		&+.sp-checkbox--item {
+		& + .sp-checkbox--item {
 			.sp-checkbox--check {
 				box-shadow:
 					0px 0px 0px 2px $color--beige,

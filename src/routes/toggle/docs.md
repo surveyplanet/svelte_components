@@ -1,15 +1,15 @@
 ### Properties
 
-| Property         | Type                            | Description                                                 |
-| ---------------- | ------------------------------- | ----------------------------------------------------------- |
-| `[on=false]`     | boolean                         | Whether the toggle is on or not.                            |
-| `[id]`           | string                          | The unique identifier for the toggle.                       |
-| `[name]`         | string                          | The name attribute of the toggle.                           |
-| `[disabled]`     | boolean                         | If `true`, the toggle is disabled.                          |
-| `[tall]`         | boolean                         | If `true`, the toggle is tall, providing a larger hit area. |
-| `[label]`        | string                          | The label associated with the toggle.                       |
-| `[prependLabel]` | boolean                         | If `true`, the label is prepended to the toggle.            |
-| `[...attr] `     | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node.               |
+| Property         | Type                            | Description                                                  |
+| ---------------- | ------------------------------- | ------------------------------------------------------------ |
+| `[on=false]`     | boolean                         | Whether the toggle is on or not.                             |
+| `[id]`           | string                          | The unique identifier for the toggle.                        |
+| `[name]`         | string                          | The name attribute of the toggle.                            |
+| `[disabled]`     | boolean                         | If `true`, the toggle is disabled.                           |
+| `[tall]`         | boolean                         | If `true`, the toggle is tall, providing a larger hit area.  |
+| `[label]`        | string                          | The label associated with the toggle.                        |
+| `[prependLabel]` | boolean                         | If `true`, the label is prepended to the toggle.             |
+| `[...attr] `     | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node. |
 
 ### Callbacks
 

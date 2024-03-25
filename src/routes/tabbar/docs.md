@@ -7,7 +7,7 @@
 | `[plain]`                 | boolean                         | Dressed down style with no selection indicator.                                                                                              |
 | `[defaultIndicatorWidth]` | number                          | Set the initial width of the selection indicator manually to prevent it from jumping from 0 (the width set by css) to it's calculated width. |
 | `[defaultIndicatorX]`     | number                          | Set the initial x position of the selection indicator manually to prevent it from jumping from 0 to it's calculated position.                |
-| `[...attr] `              | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node.                                                                                                |
+| `[...attr] `              | HTMLAttributes<HTMLFormElement> | Additional attributes to be expanded on to primary the node.                                                                                 |
 
 ### Callbacks
 

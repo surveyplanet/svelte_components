@@ -1,8 +1,8 @@
 ### Properties
 
-| Property     | Type                             | Description                                   |
-| ------------ | -------------------------------- | --------------------------------------------- |
-| `data`       | SortListData[]                   | The array of items to be sorted.              |
+| Property     | Type                             | Description                                                  |
+| ------------ | -------------------------------- | ------------------------------------------------------------ |
+| `data`       | SortListData[]                   | The array of items to be sorted.                             |
 | `[...attr] ` | HTMLAttributes<HTMLInputElement> | Additional attributes to be expanded on to primary the node. |
 
 ### Callbacks

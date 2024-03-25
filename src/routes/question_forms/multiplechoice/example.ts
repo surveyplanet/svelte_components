@@ -1,8 +1,6 @@
 import type { MultipleChoiceProps } from '$lib';
 
-export default (
-	data: MultipleChoiceProps
-) => {
+export default (data: MultipleChoiceProps) => {
 	return `
 <script lang="ts">
 	import {MultipleChoice, ComponentEvent, type MultipleChoiceProps} from '@surveyplanet/svelte-components';

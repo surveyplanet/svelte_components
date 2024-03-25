@@ -1,8 +1,6 @@
 import type { ImageProps } from '$lib';
 
-export default (
- data: ImageProps
-) => {
+export default (data: ImageProps) => {
 	return `
 <script lang="ts">
 	import {Image, ComponentEvent, type ImageProps} from '@surveyplanet/svelte-components';

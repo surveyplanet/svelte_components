@@ -1,8 +1,6 @@
 import type { RatingProps } from '$lib';
 
-export default (
-	data: RatingProps
-) => {
+export default (data: RatingProps) => {
 	return `
 <script lang="ts">
 	import {Rating, ComponentEvent, type RatingProps} from '@surveyplanet/svelte-components';

@@ -55,7 +55,7 @@
 		cursor: pointer;
 		z-index: 1;
 
-		&:checked+.sp-toggle--track {
+		&:checked + .sp-toggle--track {
 			background-color: $color--darkest;
 
 			&:after {
@@ -64,7 +64,7 @@
 		}
 
 		@include set-focus {
-			&+.sp-toggle--track {
+			& + .sp-toggle--track {
 				box-shadow:
 					0px 0px 0px 1px $color--white,
 					0px 0px 0px 2px $color--beige;
@@ -72,7 +72,7 @@
 		}
 
 		&:disabled {
-			+.sp-toggle--track {
+			+ .sp-toggle--track {
 				background-color: $color--beige-dark;
 
 				&:after {
@@ -96,7 +96,7 @@
 		}
 
 		input[type='checkbox'] {
-			&:checked+.sp-toggle--track {
+			&:checked + .sp-toggle--track {
 				&:after {
 					transform: translateX(calc(100% - 4px));
 				}

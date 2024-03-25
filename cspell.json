@@ -50,21 +50,9 @@
 		"viewbox",
 		"webp"
 	],
-	"ignoreWords": [
-		"xsmall",
-		"cubbi",
-		"gruffi",
-		"sunni",
-		"tummi",
-		"zummi"
-	],
-	"flagWords": [
-		"hte",
-		"survey planet"
-	],
-	"files": [
-		"./**/*.{txt,md,js,ts,yaml,json,svelte}"
-	],
+	"ignoreWords": ["xsmall", "cubbi", "gruffi", "sunni", "tummi", "zummi"],
+	"flagWords": ["hte", "survey planet"],
+	"files": ["./**/*.{txt,md,js,ts,yaml,json,svelte}"],
 	"useGitignore": true,
 	"ignorePaths": [
 		"cspell.json",

@@ -1,8 +1,6 @@
-import type { RadioProps } from "$lib";
+import type { RadioProps } from '$lib';
 
-export default (
- props: RadioProps
-) => {
+export default (props: RadioProps) => {
 	return `
 <script lang="ts">
 	import {type RadioProps, Radio, ComponentEvent} from '@surveyplanet/svelte_components';

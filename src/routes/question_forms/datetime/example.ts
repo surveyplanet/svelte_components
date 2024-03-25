@@ -1,8 +1,6 @@
-import type {  DateTimeProps } from '$lib';
+import type { DateTimeProps } from '$lib';
 
-export default (
-	data: DateTimeProps
-) => {
+export default (data: DateTimeProps) => {
 	return `
 <script lang="ts">
 	import {DateTime, ComponentEvent} from '@surveyplanet/svelte-components';

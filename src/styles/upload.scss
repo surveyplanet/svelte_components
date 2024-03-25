@@ -9,18 +9,16 @@
 	padding: $size-space--xs;
 	border: 2px dashed transparent;
 
-	input[type="file"] {
-		display: none
+	input[type='file'] {
+		display: none;
 	}
 
 	&.sp-image-upload--drag-over {
 		border-color: $color--beige-darker;
 		background-color: $color--beige;
 		border-radius: $size-radius--default;
-
 	}
 }
-
 
 .sp-image-upload--preview {
 	display: flex;

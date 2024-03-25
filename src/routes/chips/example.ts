@@ -1,8 +1,6 @@
-import type {  ChipsProps } from '$lib';
+import type { ChipsProps } from '$lib';
 
-export default (
-	data: ChipsProps ,
-) => {
+export default (data: ChipsProps) => {
 	return `
 <script lang="ts">
 	import { Chips, type ChipData } from '@surveyplanet/svelte_components';

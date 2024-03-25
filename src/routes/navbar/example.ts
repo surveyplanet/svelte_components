@@ -1,9 +1,6 @@
-import type { NavBarProps} from '$lib';
+import type { NavBarProps } from '$lib';
 
-export default (
-	data: NavBarProps,
-
-) => {
+export default (data: NavBarProps) => {
 	return `
 <script lang="ts">
 	import { NavBar, type NavBarData, type MenuData } from '@surveyplanet/svelte_components';

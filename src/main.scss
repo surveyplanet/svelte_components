@@ -98,7 +98,6 @@ body {
 	}
 
 	.resize-handle {
-
 		display: block;
 		width: 10px;
 		height: 100%;
@@ -151,7 +150,6 @@ body {
 		align-items: center;
 		gap: 1rem;
 		background-color: transparent;
-
 	}
 
 	.example-copied {
@@ -160,7 +158,6 @@ body {
 }
 
 #component-details--docs {
-
 	// padding: 0;
 	h3 {
 		background-color: $color--beige-darker;
@@ -277,11 +274,7 @@ body.dark {
 
 		#component-details {
 			border-color: $color--darkest;
-
-
 		}
-
-
 	}
 
 	#main-footer {

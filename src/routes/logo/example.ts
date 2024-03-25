@@ -1,8 +1,6 @@
 import type { LogoProps } from '$lib';
 
-export default (
-data: LogoProps
-) => {
+export default (data: LogoProps) => {
 	return `
 <script lang="ts">
 	import { Logo, type LogoSize } from '@surveyplanet/svelte_components';
