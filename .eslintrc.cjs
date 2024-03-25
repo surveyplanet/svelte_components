@@ -58,8 +58,8 @@ module.exports = {
 				'src/layout/**/*.ts',
 			],
 			rules: {
-				'svelte/a11y-no-static-element-interactions': 'ignore',
-				'a11y-click-events-have-key-events': 'ignore',
+				'svelte/a11y-no-static-element-interactions': 'off',
+				'a11y-click-events-have-key-events': 'off',
 				'svelte/no-at-html-tags': 'warn',
 			},
 		},

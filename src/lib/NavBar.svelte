@@ -39,7 +39,6 @@
 
 	let navBarEl: HTMLElement | undefined = $state();
 	let navBarMenuEl: HTMLElement | undefined = $state();
-	let menuIsBeingUsed = $state(false);
 
 	let padding = 10; // adjust as needed
 
@@ -123,7 +122,7 @@
 		menuVisible = false;
 	};
 
-	const onMenuUpdate = (event: ComponentEvent<string, HTMLButtonElement>) => {
+	const onMenuUpdate = () => {
 		document.body.addEventListener('click', onMenuBlur);
 	};
 

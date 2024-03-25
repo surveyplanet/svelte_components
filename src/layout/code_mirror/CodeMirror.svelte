@@ -51,7 +51,6 @@
 	import { indentWithTab } from '@codemirror/commands';
 	import { indentUnit, type LanguageSupport } from '@codemirror/language';
 	import { debounce } from './util';
-	import { idText } from 'typescript';
 
 	let {
 		value,
@@ -96,7 +95,7 @@
 			create: () => mirrorId,
 			toJSON: (id) => id,
 			fromJSON: (id) => id,
-			update: (id, tr) => id,
+			update: (id) => id,
 		});
 
 		let update_from_prop = false;

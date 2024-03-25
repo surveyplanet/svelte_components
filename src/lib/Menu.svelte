@@ -361,6 +361,7 @@
 						{/if}
 
 						{#if item.html}
+							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 							{@html item.html}
 						{/if}
 

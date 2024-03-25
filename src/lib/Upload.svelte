@@ -184,9 +184,7 @@
 		fileSelected(event);
 	};
 
-	const onButtonClick = (
-		event: ComponentEvent<undefined, HTMLButtonElement>
-	) => {
+	const onButtonClick = () => {
 		if (fileInput) {
 			fileInput.click();
 		}
@@ -196,7 +194,7 @@
 		value = undefined;
 	};
 
-	const fileInputClickHandler = (event: MouseEvent) => {
+	const fileInputClickHandler = () => {
 		// event.stopPropagation();
 	};
 </script>
