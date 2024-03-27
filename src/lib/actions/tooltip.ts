@@ -16,6 +16,7 @@ export interface ToolTipOptions {
 	content: string;
 	placement?: Placement;
 	padding?: number;
+	delay?: number; // in milliseconds
 }
 
 /**
@@ -24,6 +25,8 @@ export interface ToolTipOptions {
  * @param {ToolTipOptions} options - The parameters for the tooltip.
  * @param {ToolTipOptions['content']} [options.content=''] - Text content of the tooltip.
  * @param {ToolTipOptions['placement']} [options.placement='top'] - The placement of the tooltip.
+ * @param {ToolTipOptions['padding']} [options.padding=5] - The padding between the tooltip and the reference element.
+ * @param {ToolTipOptions['delay']} [options.delay=250] - The delay in milliseconds before the tooltip appears.
  * @example
  * ```html
  * <button use:tooltip={{ content: 'Click me', placement="left" }}>Click me</button>
@@ -32,7 +35,7 @@ export interface ToolTipOptions {
 export function tooltip(node: HTMLElement, options: ToolTipOptions) {
 	let tipEl: HTMLSpanElement | undefined;
 	let arrowEl: HTMLSpanElement | undefined;
-	const { placement = 'top', padding = 5 } = options;
+	const { placement = 'top', padding = 5, delay = 250 } = options;
 
 	const update = () => {
 		if (!tipEl) return;
@@ -100,8 +103,10 @@ export function tooltip(node: HTMLElement, options: ToolTipOptions) {
 	};
 
 	const mouseOverHandler = () => {
-		createElement();
-		update();
+		setTimeout(() => {
+			createElement();
+			update();
+		}, delay);
 	};
 
 	const mouseLeaveHandler = () => {

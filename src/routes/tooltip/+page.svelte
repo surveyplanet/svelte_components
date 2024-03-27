@@ -11,11 +11,17 @@
 
 	let padding: ToolTipOptions['padding'] = $state(10);
 
+	let delay: ToolTipOptions['delay'] = $state(2500);
+
 	let changeCount = $state(0);
 
 	let btoaProps = $derived(
 		btoa(JSON.stringify({ content, placement, padding }))
 	);
+
+	const onPropsChangerInput = () => {
+		changeCount++;
+	};
 </script>
 
 <Layout
@@ -27,9 +33,7 @@
 		<PropsChanger
 			label="Content"
 			bind:value={content}
-			onPropsChangerInput={() => {
-				changeCount++;
-			}} />
+			{onPropsChangerInput} />
 		<PropsChanger
 			label="Placement"
 			bind:value={placement}
@@ -47,21 +51,21 @@
 				'left-start',
 				'left-end',
 			]}
-			onPropsChangerInput={() => {
-				changeCount++;
-			}} />
+			{onPropsChangerInput} />
 		<PropsChanger
 			label="Padding"
 			bind:value={padding}
-			onPropsChangerInput={() => {
-				changeCount++;
-			}} />
+			{onPropsChangerInput} />
+		<PropsChanger
+			label="Delay"
+			bind:value={delay}
+			{onPropsChangerInput} />
 	{/snippet}
 	{#snippet main()}
 		{#key changeCount}
 			<div
 				class="hot-spot"
-				use:tooltip={{ content, placement, padding }}>
+				use:tooltip={{ content, placement, padding, delay }}>
 				Hover here
 			</div>
 		{/key}
