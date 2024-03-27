@@ -11,6 +11,7 @@ export const load = () => {
 };
 
 // add ignore files
+const ignoreFiles = ['events', 'actions'];
 
 const getComponentsList = (dirPath: string, parentId = '') => {
 	const componentsList: MenuData[] = [];
@@ -18,7 +19,7 @@ const getComponentsList = (dirPath: string, parentId = '') => {
 	const items = fs.readdirSync(dirPath);
 
 	items.forEach((item) => {
-		if (item === 'events') {
+		if (ignoreFiles.includes(item)) {
 			return;
 		}
 		const itemPath = path.join(dirPath, item);
@@ -43,7 +44,11 @@ const getComponentsList = (dirPath: string, parentId = '') => {
 			});
 		}
 	});
-
+	// this component has to be added manually as it is not a Svelte component
+	componentsList.push({
+		id: '/tooltip',
+		label: formatLabel('Tooltip'),
+	});
 	// Sort the submenu items alphabetically
 	componentsList.sort((a, b) => a.label!.localeCompare(b.label!));
 	// Sort the componentsList array so that items with a submenu are at the top
