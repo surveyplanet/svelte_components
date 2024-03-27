@@ -94,8 +94,14 @@
 			eventsParsed.push(lastEvent);
 		} else if ('value' in lastEvent) {
 			let eventValue = lastEvent.value;
-			let eventTarget = `${(lastEvent.target as HTMLElement).nodeName.toLowerCase()}, ${(lastEvent.target as HTMLElement).classList}`;
+			let eventTarget = ``;
 			let eventEvent = lastEvent.raw;
+
+			if (lastEvent.target) {
+				eventTarget = `${(lastEvent.target as HTMLElement).nodeName.toLowerCase()}, ${(lastEvent.target as HTMLElement).classList}`;
+			} else {
+				eventTarget = 'not defined';
+			}
 
 			eventsParsed.push({
 				value: eventValue,

@@ -31,7 +31,7 @@
 	const rangeSliderStopHandler = (event: Event) => {
 		response = [rangeValues[0], rangeValues[1]];
 		if (typeof onRangeResponse === 'function') {
-			const componentEvent = new ComponentEvent(response, null, event);
+			const componentEvent = new ComponentEvent(response, null, event); // event target is null
 			onRangeResponse(componentEvent);
 		}
 	};
