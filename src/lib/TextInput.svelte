@@ -27,10 +27,10 @@
 		disabled?: boolean;
 		focus?: boolean;
 		cleaveOptions?: CleaveOptions;
-		validationRules?: string[];
-		validationMessage?: string | null;
+		validationRules?: ValidateArgsRule[];
+		validationMessage?: ValidateArgs['message'];
 		size?: 'small' | 'medium' | 'large';
-		validationHideMessage?: boolean | null;
+		validationHideMessage?: boolean;
 		onTextInputInput?: (
 			event: ComponentEvent<string, HTMLInputElement>
 		) => void;
@@ -53,11 +53,16 @@
 </script>
 
 <script lang="ts">
-	import { validate, type ValidatorError } from '@surveyplanet/utilities';
+	import {
+		validate,
+		type ValidatorError,
+		type ValidateArgs,
+	} from '@surveyplanet/utilities';
 	import Cleave from 'cleave.js';
 	import type { CleaveOptions } from 'cleave.js/options';
 	import { Icon, ComponentEvent } from './';
 	import { onMount } from 'svelte';
+	import type { ValidateArgsRule } from '@surveyplanet/utilities/dist/src/validate';
 
 	let {
 		id,
@@ -116,19 +121,23 @@
 	});
 
 	const validateInput = (target: HTMLInputElement) => {
-		const errors: ValidatorError[] = validate(target);
-		console.log('errors', errors);
+		const validateArgs = {
+			value: target.value,
+			rules: validationRules,
+			message: validationMessage,
+		};
 
+		const errors: ValidatorError[] = validate(validateArgs);
 		if (errors.length) {
 			hasValidationErrors = true;
-			console.log('errors', hasValidationErrors);
 			validationDisplayMessage = errors[0].error;
 		}
+
+		return errors;
 	};
 
 	const changeHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
-		validateInput(target);
 		if (!hasValidationErrors && typeof onTextInputChange === 'function') {
 			const componentEvent = new ComponentEvent<string, HTMLInputElement>(
 				target.value,
@@ -140,7 +149,7 @@
 	};
 	const inputHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
-		validateInput(target);
+
 		if (!hasValidationErrors && typeof onTextInputInput === 'function') {
 			const componentEvent = new ComponentEvent<string, HTMLInputElement>(
 				target.value,
@@ -153,12 +162,9 @@
 
 	const keyupHandler = (event: Event) => {
 		const target = event.target as HTMLInputElement;
-		// if the input has errors validate on keyup
+		const errors = validateInput(target);
 		if (hasValidationErrors) {
-			const errors: ValidatorError[] = validate(target);
-
 			hasValidationErrors = errors.length > 0;
-
 			if (hasValidationErrors) {
 				validationDisplayMessage = errors[0].error;
 				return;
@@ -225,7 +231,7 @@
 			class="sp-text-input--label"
 			for={id}>
 			<span class="sp-text-input--label--text">{label}</span>
-			{#if validationRules && validationRules.includes('require')}
+			{#if validationRules && validationRules.includes( { name: 'required' } )}
 				<span class="sp-text-input--label--required">*</span>
 			{/if}
 		</label>

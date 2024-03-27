@@ -18,13 +18,8 @@
 	let readonly: TextInputProps['readonly'] = $state(false);
 	let disabled: TextInputProps['disabled'] = $state(false);
 	let cleaveOptions: TextInputProps['cleaveOptions'] = $state({});
-	let validationRules: TextInputProps['validationRules'] = $state([
-		'required',
-		'email',
-	]);
-	let validationMessage: TextInputProps['validationMessage'] = $state(
-		`What's the matter with you, you don't know your email address?`
-	);
+	let validationRules: TextInputProps['validationRules'] = $state([]);
+	let validationMessage: TextInputProps['validationMessage'] = $state();
 	let size: TextInputProps['size'] = $state('small');
 	let focus: TextInputProps['focus'] = $state(false);
 	let validationHideMessage: TextInputProps['validationHideMessage'] =
@@ -127,6 +122,7 @@
 			bind:value={validationRules} />
 		<PropsChanger
 			label="Validation Message"
+			type="string"
 			bind:value={validationMessage} />
 		<PropsChanger
 			label="Hide Validation Message"

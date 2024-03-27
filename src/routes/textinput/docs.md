@@ -11,8 +11,8 @@
 | `[readonly]`              | boolean                          | If `true`, the text input is read-only.                      |
 | `[disabled]`              | boolean                          | If `true`, the text input is disabled.                       |
 | `[cleaveOptions]`         | CleaveOptions                    | Cleave.js options for formatting the input value.            |
-| `[validationRules]`       | string[]                         | Array of validation rules for the input.                     |
-| `[validationMessage]`     | string                           | Custom validation error message.                             |
+| `[validationRules]`       | ValidateArgsRule[]               | Array of validation rules for the input.                     |
+| `[validationMessage]`     | ValidateArgs['message']          | Custom validation error message.                             |
 | `[size='small']`          | 'small' \| 'medium' \| 'large'   | The size of the text input.                                  |
 | `[validationHideMessage]` | boolean                          | If `true`, hides the validation error message.               |
 | `[...attr] `              | HTMLAttributes<HTMLInputElement> | Additional attributes to be expanded on to primary the node. |

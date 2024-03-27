@@ -39,7 +39,7 @@
 		},
 	]);
 
-	let navMenuData: NavBarProps['navMenuData'] = $state(menuData);
+	let navMenuData = $state<NavBarProps['navMenuData']>(menuData);
 	let vertical: NavBarProps['vertical'] = $state(false);
 
 	const onNavClick = (

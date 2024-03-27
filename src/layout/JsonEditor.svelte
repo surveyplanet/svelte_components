@@ -27,7 +27,7 @@
 	}, 0);
 
 	onDestroy(() => {
-		clearInterval(intervalId as number);
+		clearInterval(intervalId as unknown as number);
 	});
 
 	const onCodeMirrorChange = (
