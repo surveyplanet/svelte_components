@@ -1,6 +1,6 @@
-import { test, expect, type Page, type FrameLocator } from '@playwright/test';
+import { test, expect, type FrameLocator } from '@playwright/test';
 import { setControl, getStyles, getLastEvent, loadStory } from './_utils.js';
-import { delay } from '@surveyplanet/utilities';
+// import { delay } from '@surveyplanet/utilities';
 
 let canvas: FrameLocator;
 test.beforeEach(async ({ page }) => {
@@ -57,10 +57,9 @@ test.describe('Button component', () => {
 		// expect(ripple).not.toBeVisible();
 
 		const event = await getLastEvent(page);
-		expect(event).toEqual({
-			event: '{ "value": "undefined", "target": "span, sp-button--label", "event": "{\\"isTrusted\\":true,\\"__root\\":{}}" }',
-		});
-		// expect(event.data?.detail).toBe('[object Object]');
+		expect(event.value).toBe('not defined');
+		expect(event.target).toBe('span, sp-button--label');
+		expect(event.name).toBe('PointerEvent');
 	});
 
 	test('light', async ({ page }) => {
@@ -272,11 +271,11 @@ test.describe('Button component', () => {
 		const btn = canvas.getByRole('button');
 		await setControl(page, 'Icon', 'select', 'bell');
 		const icon = btn.locator('svg');
-		const iconPath = btn.locator('svg path');
+		// const iconPath = btn.locator('svg path');
 		await expect(icon).toBeVisible();
 
 		const btnStyles = await getStyles(btn);
-		const iconStyles = await getStyles(iconPath);
+		// const iconStyles = await getStyles(iconPath);
 
 		expect(btnStyles.backgroundColor).toBe('rgb(25, 31, 41)');
 		expect(btnStyles.color).toBe('rgb(255, 255, 255)');
@@ -421,7 +420,7 @@ test.describe('Button component', () => {
 		await expect(btn).toBeVisible();
 		await expect(btn).toHaveClass(/sp-button--loader/);
 
-		const btnLabel = btn.locator('.sp-button--label');
+		// const btnLabel = btn.locator('.sp-button--label');
 		const styles = await getStyles(btn);
 
 		const afterEl = await btn.evaluate((el) => {
@@ -514,7 +513,7 @@ test.describe('Button component', () => {
 		expect(afterEl.height).toBe(afterEl.width);
 	});
 
-	test('button medium', async ({ page }) => {
+	test('button medium', async () => {
 		const btn = canvas.getByRole('button');
 		await expect(btn).toBeVisible();
 		const btnRect = await btn.boundingBox();

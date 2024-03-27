@@ -21,8 +21,8 @@ test.describe('Scale component ', () => {
 		await page.mouse.up();
 
 		const events = await getAllEvents(page);
-		// const changeEvents = events.filter((i) => i.name === 'response').length;
-		// expect(changeEvents).toBe(1);
+		// expect(events).toHaveLength(1);
+		console.log(events);
 
 		await expect(slider).toHaveAttribute('aria-valuenow', '0');
 	});

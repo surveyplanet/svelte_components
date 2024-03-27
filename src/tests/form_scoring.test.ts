@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test';
-import { loadStory } from './_utils.js';
+import {
+	// getAllEvents,
+	loadStory,
+} from './_utils.js';
 
 test.describe('Scoring component ', () => {
 	test('basic', async ({ page }) => {
@@ -41,6 +44,8 @@ test.describe('Scoring component ', () => {
 		await expect(tr.nth(2).locator('input').nth(2)).toHaveValue('3');
 		await expect(tr.nth(3).locator('input').nth(3)).toHaveValue('4');
 
+		// const events = await getAllEvents(page);
+		// console.log(events);
 		await reset.click();
 
 		await expect(tr.nth(0).locator('input').nth(0)).not.toBeChecked();

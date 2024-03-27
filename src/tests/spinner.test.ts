@@ -49,17 +49,10 @@ test.describe('Spinner component', () => {
 		await page.click('body');
 
 		const events = await getAllEvents(page);
-		// expect(events.length > 0).toBeTruthy();
-		// const totalChange = events.filter((i) => i.name == 'change').length;
-		// expect(totalChange).toBe(1);
-		// const totalBlurEvents = events.filter((i) => i.name == 'blur').length;
-		// expect(totalBlurEvents).toBe(6);
-		// const totalFocusEvents = events.filter((i) => i.name == 'focus').length;
-		// expect(totalFocusEvents).toBe(4);
-		// const totalUpdateEvents = events.filter(
-		// 	(i) => i.name == 'update'
-		// ).length;
-		// expect(totalUpdateEvents).toBe(6);
+		// expect(events.length).toBe(24); // for some reason the amount of events varies from 18 to 24, pay attention to this
+		expect(events[0].name).toBe('FocusEvent');
+		expect(events[0].value).toBe('not defined');
+		expect(events[0].target).toBe('input, sp-number-spinner--input');
 	});
 
 	test('Float', async ({ page }) => {

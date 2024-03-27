@@ -26,14 +26,12 @@ test.describe('Alert component', () => {
 		await closeBtn.click();
 		await expect(alert).not.toBeVisible();
 		const events = await getAllEvents(page);
-		// const closeEvent = events.find((i) => i.name == 'close');
-		// expect(closeEvent).toBeTruthy();
-		// const openEvent = events.find((i) => i.name == 'open');
-		// expect(openEvent).toBeTruthy();
-		// const inEvent = events.find((i) => i.name == 'in');
-		// expect(inEvent).toBeTruthy();
-		// const outEvent = events.find((i) => i.name == 'out');
-		// expect(outEvent).toBeTruthy();
+		expect(events).toHaveLength(3);
+		expect(events[0]).toEqual({
+			name: 'CustomEvent',
+			value: 'not defined',
+			target: 'div, sp-alert sp-alert--info',
+		});
 	});
 
 	test('success', async ({ page }) => {

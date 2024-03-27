@@ -21,7 +21,13 @@
 	import { html } from '@codemirror/lang-html';
 	import { solarizedDark } from 'cm6-theme-solarized-dark';
 	import { solarizedLight } from 'cm6-theme-solarized-light';
-
+	type LayoutEventType = {
+		value: string;
+		target: EventTarget | null;
+		event:
+			| (typeof ComponentEvent)['prototype']['raw']
+			| (typeof ComponentErrorEvent)['prototype']['error'];
+	};
 	interface LayoutProps {
 		example: string;
 		md: string;
@@ -44,7 +50,7 @@
 	let reload = $state(0); //used to force reload the component
 	let componentsData = $state(createComponentsStore.componentsStore);
 	let componentEvents: HTMLElement | null = $state(null);
-	let eventsLogs: string[] = $state([]);
+	let eventsLogs: LayoutEventType[] = $state([]);
 	let copied = $state(false);
 	let tabSelected = $state('controls');
 
@@ -87,19 +93,17 @@
 		) {
 			eventsParsed.push(lastEvent);
 		} else if ('value' in lastEvent) {
-			let eventValue = JSON.stringify(lastEvent.value || 'undefined');
+			let eventValue = lastEvent.value;
 			let eventTarget = `${(lastEvent.target as HTMLElement).nodeName.toLowerCase()}, ${(lastEvent.target as HTMLElement).classList}`;
-			let eventEvent = JSON.stringify(lastEvent.raw);
+			let eventEvent = lastEvent.raw;
 
 			eventsParsed.push({
 				value: eventValue,
 				target: eventTarget,
-				event: eventEvent,
+				event: eventEvent?.constructor.name,
 			});
 		}
-		eventsLogs = eventsParsed.map((event) =>
-			JSON.stringify(event, null, 2)
-		);
+		eventsLogs = [...eventsParsed] as LayoutEventType[];
 	});
 
 	$effect(() => {
@@ -335,33 +339,43 @@
 			<h3>Events</h3>
 		</header>
 		<div id="component-events">
-			<ol>
-				{#each eventsLogs as event (event)}
-					<li>
-						<ul>
-							<li class="component-event--value">
-								<span class="component-event--value--label"
-									>Value:</span>
-								<code class="component-event--value--value"
-									>{event.value}</code>
-							</li>
-							<li class="component-event--target">
-								<span class="component-event--target--label"
-									>Target:</span>
-								<code class="component-event--target--value"
-									>{event.target ??
-										event.target.toString()}</code>
-							</li>
-							<li class="component-event--raw">
-								<span class="component-event--raw--label"
-									>Event:</span>
-								<code class="component-event--raw--value"
-									>{event.raw ?? event.raw.toString()}</code>
-							</li>
-						</ul>
-					</li>
-				{/each}
-			</ol>
+			<table id="component-events--list">
+				<tbody>
+					<tr>
+						<th class="component-event--value--order">Order</th>
+						<th class="component-event--value--label">Value:</th>
+						<th class="component-event--target--label">Target:</th>
+						<th class="component-event--raw--label">Event:</th>
+					</tr>
+					{#each eventsLogs as event, i (event)}
+						<!-- Add index i here -->
+						<tr class="component-event--row">
+							<td class="component-event--value--order"
+								>{i + 1}</td>
+							<!-- Use index i as order number -->
+
+							<td class="component-event--value--value">
+								{#if event.value}
+									<!-- {JSON.stringify(event.value, null, 2)} -->
+									{#if typeof event.value === 'object'}
+										{JSON.stringify(event.value, null, 2)}
+									{:else}
+										{event.value}
+									{/if}
+								{:else}
+									not defined
+								{/if}
+							</td>
+
+							<td class="component-event--target--value"
+								>{event.target && event.target.toString()}</td>
+
+							<td class="component-event--raw--value"
+								>{event.event && event.event.toString()}</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
 		</div>
 	</footer>
 </div>

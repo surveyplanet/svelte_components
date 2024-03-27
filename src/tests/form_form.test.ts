@@ -33,7 +33,11 @@ test.describe('Form ', () => {
 		await expect(phone).toHaveValue('1234567890');
 
 		const events = await getAllEvents(page);
-		// const changeEvents = events.filter((i) => i.name === 'response').length;
-		// expect(changeEvents).toBe(38);
+		expect(events).toHaveLength(38);
+		expect(events[0].name).toBe('KeyboardEvent');
+		expect(events[0].value).toEqual(
+			'[ { "label": "First name", "value": "J" } ]'
+		);
+		expect(events[0].target).toEqual('input, sp-text-input--input');
 	});
 });

@@ -30,13 +30,11 @@ test.describe('Text Input component', () => {
 		input.type(value);
 		await expect(input).toHaveValue(value);
 		const events = await getAllEvents(page);
-		// expect(events.length > 0).toBeTruthy();
-		// const totalKeyUps = events.filter((i) => i.name == 'keyup').length;
-		// const totalKeyDowns = events.filter((i) => i.name == 'keydown').length;
-		// expect(events[0].name).toBe('focus');
-		// expect(totalKeyUps).toEqual(value.length);
-		// expect(totalKeyDowns).toEqual(value.length);
-		// expect(events[events.length - 1].name).toBe('change');
+		expect(events.length).toBe(140);
+		expect(events[0].name).toBe('FocusEvent');
+		expect(events[1].name).toBe('FocusEvent');
+		expect(events[events.length - 2].name).toBe('InputEvent');
+		expect(events[events.length - 1].name).toBe('KeyboardEvent');
 	});
 
 	test('multiline', async ({ page }) => {
@@ -50,13 +48,11 @@ test.describe('Text Input component', () => {
 		input.type(value);
 		await expect(input).toHaveValue(value);
 		const events = await getAllEvents(page);
-		// expect(events.length > 0).toBeTruthy();
-		// const totalKeyUps = events.filter((i) => i.name == 'keyup').length;
-		// const totalKeyDowns = events.filter((i) => i.name == 'keydown').length;
-		// expect(events[0].name).toBe('focus');
-		// expect(totalKeyUps).toEqual(value.length);
-		// expect(totalKeyDowns).toEqual(value.length);
-		// expect(events[events.length - 1].name).toBe('change');
+		expect(events.length).toBe(140);
+		expect(events[0].name).toBe('FocusEvent');
+		expect(events[1].name).toBe('FocusEvent');
+		expect(events[events.length - 2].name).toBe('InputEvent');
+		expect(events[events.length - 1].name).toBe('KeyboardEvent');
 	});
 
 	test('disabled', async ({ page }) => {

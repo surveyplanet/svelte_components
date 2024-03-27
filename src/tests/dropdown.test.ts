@@ -3,10 +3,10 @@ import { loadStory, setControl, getLastEvent } from './_utils.js';
 import { menuData } from '../routes/menu/menu_data';
 import type { MenuData } from '$lib';
 
-let categories: MenuData['submenu'] = menuData.find(
+const categories: MenuData['submenu'] = menuData.find(
 	(item: MenuData) => (item.label as MenuData['label']) === 'Categories'
 );
-let animals = categories?.submenu.find(
+const animals = categories?.submenu.find(
 	(item: MenuData) => item.label === 'Animals'
 );
 test.describe('Dropdown component', () => {
@@ -42,8 +42,6 @@ test.describe('Dropdown component', () => {
 		await expect(preview.locator('.sp-menu--item')).toHaveCount(7);
 		await toggleBtn.click();
 
-		const changeEvent2 = await getLastEvent(page);
-		// expect(changeEvent2.name).toBe('change');
 		await expect(input).toHaveValue('');
 		await input.click();
 		await expect(preview.locator('.sp-menu--item')).toHaveCount(7);
@@ -57,8 +55,10 @@ test.describe('Dropdown component', () => {
 		await expect(preview.locator('.sp-menu--item')).toHaveCount(2);
 		await preview.locator('.sp-menu--item').nth(1).click();
 
-		const changeEvent1 = await getLastEvent(page);
-		// expect(changeEvent1.name).toBe('change');
+		const changeEvent = await getLastEvent(page);
+		expect(changeEvent.name).toBe('PointerEvent');
+		expect(changeEvent.value).toBe('malayan-tiger');
+		expect(changeEvent.target).toBe('input, sp-dropdown--search');
 		await expect(input).toHaveValue('Malayan tiger');
 		await input.type(' ');
 		await expect(preview.locator('.sp-menu--item').nth(0)).toHaveClass(

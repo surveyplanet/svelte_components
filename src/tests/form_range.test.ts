@@ -24,8 +24,11 @@ test.describe('Range component ', () => {
 		await page.mouse.up();
 
 		const events = await getAllEvents(page);
-		// const changeEvents = events.filter((i) => i.name === 'response').length;
-		// expect(changeEvents).toBe(1);
+		console.log(events);
+		// expect(events).toHaveLength(1);
+		// expect(events[0].name).toBe('Event');
+		// expect(events[0].value).toEqual('[ { "value": 10 } ]');
+		// expect(events[0].target).toEqual('input,');
 
 		await expect(sliderRight).toHaveAttribute('aria-valuenow', '10');
 	});

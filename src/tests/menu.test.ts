@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { loadStory } from './_utils.js';
+import { loadStory, getAllEvents } from './_utils.js';
 
 test.describe('Menu component', () => {
 	test('basic', async ({ page }) => {
@@ -73,6 +73,12 @@ test.describe('Menu component', () => {
 		await category.click();
 		await expect(items.nth(2)).toHaveClass(/sp-menu--item--selected/);
 
+		const events = await getAllEvents(page);
+		expect(events).toHaveLength(11);
+		expect(events[0].name).toBe('PointerEvent');
+		expect(events[0].value).toBe('colors');
+		expect(events[0].target).toBe('button, sp-menu--item--btn');
+
 		// test events
 	});
 	test('Arrow navigation', async ({ page }) => {
@@ -93,5 +99,13 @@ test.describe('Menu component', () => {
 		await page.keyboard.press('ArrowRight');
 
 		await expect(items).toHaveCount(3);
+
+		const events = await getAllEvents(page);
+		expect(events).toHaveLength(2);
+		expect(events[0].name).toBe('PointerEvent');
+		expect(events[0].value).toBe('categories');
+		expect(events[0].target).toBe(
+			'button, sp-menu--item--btn sp-menu--item--btn--prepend-icon'
+		);
 	});
 });

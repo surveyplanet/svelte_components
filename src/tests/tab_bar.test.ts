@@ -39,6 +39,12 @@ test.describe('TabBar component', () => {
 		await expect(tabbarButtonsLabel.nth(2)).toHaveText('Results');
 
 		const tabButtonEvent = await getLastEvent(page);
-		// expect(tabButtonEvent.name).toBe('onTabClick');
+		expect(tabButtonEvent).not.toBeNull();
+		expect(tabButtonEvent).not.toBeUndefined();
+		expect(tabButtonEvent.name).toBe('PointerEvent');
+		expect(tabButtonEvent.value).toBe('preview');
+		expect(tabButtonEvent.target).toBe(
+			'button, sp-tab-bar--button sp-tab-bar--item--active'
+		);
 	});
 });

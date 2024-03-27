@@ -34,8 +34,13 @@ test.describe('Image  component ', () => {
 		await expect(choice1).not.toBeChecked();
 
 		const events = await getAllEvents(page);
-		// const changeEvents = events.filter((i) => i.name === 'response').length;
-		// expect(changeEvents).toBe(2);
+		expect(events).toHaveLength(3);
+		expect(events[0].name).toBe('Event');
+		expect(events[0].value).toEqual(
+			'[ { "label": "Image 1", "value": "https://media.surveyplanet.com/testing/default" } ]'
+		);
+		expect(events[0].target).toEqual('input,');
+
 		await expect(image1).toHaveAttribute(
 			'style',
 			'background-image: url("https://media.surveyplanet.com/w_1000/testing/default.png");'

@@ -30,8 +30,12 @@ test.describe('Sortable libs', () => {
 		await item1.dragTo(item3);
 
 		const events = await getAllEvents(page);
-		// const changeEvents = events.filter((i) => i.name === 'sort').length;
-		// expect(changeEvents).toBe(1);
+		expect(events.length).toBe(2);
+		expect(events[0].name).toBe('DragEvent');
+		expect(events[0].value).toBe(
+			'[ { "label": "Nice", "meta": "image", "image": "https://picsum.photos/200/100" }, { "label": "Nicest ", "meta": "image", "image": "https://picsum.photos/200/300" }, { "label": "Nicer", "meta": "image", "image": "https://picsum.photos/200/200" } ]'
+		);
+		expect(events[0].target).toBe('li, sp-sortable-list--list-item');
 
 		await expect(
 			sortable.locator('.sp-sortable-list--list-item').nth(0)

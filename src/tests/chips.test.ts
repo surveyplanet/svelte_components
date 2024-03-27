@@ -24,9 +24,13 @@ test.describe('Chips component', () => {
 			/sp-chips--chip--selected/
 		);
 
-		// const events = await getAllEvents(page);
-		// const clickEvents = events.filter((i) => i.name === 'click').length;
-		// expect(clickEvents).toBe(1);
+		const events = await getAllEvents(page);
+		expect(events.length).toBe(2);
+		expect(events[0].name).toBe('PointerEvent');
+		expect(events[0].value).toBe(
+			'[ { "id": "apple", "label": "Apple", "selected": true }, { "id": "peach", "label": "Peach", "selected": false }, { "id": "banana", "label": "Banana", "selected": false }, { "id": "orange", "label": "Orange ", "selected": false } ]'
+		);
+		expect(events[0].target).toBe('span, sp-chips--chip--label');
 	});
 	test('Multiselect', async ({ page }) => {
 		const preview = await loadStory(page, 'chips');
@@ -56,8 +60,12 @@ test.describe('Chips component', () => {
 			/sp-chips--chip--selected/
 		);
 
-		// const events = await getAllEvents(page);
-		// const clickEvents = events.filter((i) => i.name === 'click').length;
-		// expect(clickEvents).toBe(4);
+		const events = await getAllEvents(page);
+		expect(events.length).toBe(5);
+		expect(events[0].name).toBe('PointerEvent');
+		expect(events[4].value).toBe(
+			'[ { "id": "apple", "label": "Apple", "selected": true }, { "id": "peach", "label": "Peach", "selected": true }, { "id": "banana", "label": "Banana", "selected": true }, { "id": "orange", "label": "Orange ", "selected": true } ]'
+		);
+		expect(events[4].target).toBe('span, sp-chips--chip--label');
 	});
 });

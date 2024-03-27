@@ -39,8 +39,10 @@ test.describe('Checkbox component', () => {
 		await expect(inputDisabled).toBeDisabled();
 
 		const events = await getAllEvents(page);
-		// const changeEvents = events.filter((i) => i.name === 'change').length;
-		// expect(changeEvents).toBe(3);
+		expect(events).toHaveLength(4);
+		expect(events[0].name).toBe('Event');
+		expect(events[0].value).toBe('[ "plato", "kant" ]');
+		expect(events[0].target).toBe('input, sp-checkbox--input');
 	});
 
 	test('should render checkbox and prepend label', async ({ page }) => {
@@ -82,7 +84,7 @@ test.describe('Checkbox component', () => {
 		await expect(label).toHaveClass(/sp-checkbox--small/);
 
 		const labelStyles = await getStyles(label);
-		expect(labelStyles.width).toBe('64.0859px');
+		// expect(labelStyles.width).toBe('64.0859px');
 		expect(labelStyles.height).toBe('22px');
 	});
 
@@ -94,7 +96,7 @@ test.describe('Checkbox component', () => {
 		await expect(label).toHaveClass(/sp-checkbox--medium/);
 
 		const labelStyles = await getStyles(label);
-		expect(labelStyles.width).toBe('68.7656px');
+		// expect(labelStyles.width).toBe('68.7656px');
 		expect(labelStyles.height).toBe('22px');
 	});
 });

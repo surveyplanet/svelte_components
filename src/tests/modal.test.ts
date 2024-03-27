@@ -84,13 +84,9 @@ test.describe('Modal component', () => {
 		await expect(modal).not.toBeVisible();
 		// for some reason it is failing when test:dev but not in debug mode for 'in' and 'close' events
 		const events = await getAllEvents(page);
-		// const openEvent = events.find((i) => i.name == 'open');
-		// expect(openEvent).toBeTruthy();
-		// const inEvent = events.find((i) => i.name == 'in');
-		// expect(inEvent).toBeTruthy();
-		// const closeEvent = events.find((i) => i.name == 'close');
-		// expect(closeEvent).toBeTruthy();
-		// const outEvent = events.find((i) => i.name == 'out');
-		// expect(outEvent).toBeTruthy();
+		expect(events).toHaveLength(4);
+		expect(events[0].name).toEqual(''); //event is not being captured
+		expect(events[0].value).toEqual('not defined');
+		expect(events[0].target).toEqual('[object HTMLDivElement]');
 	});
 });

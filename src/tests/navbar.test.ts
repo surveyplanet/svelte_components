@@ -42,16 +42,10 @@ test.describe('Navbar component', () => {
 		await expect(navMenu).not.toBeVisible();
 
 		const events = await getAllEvents(page);
-
-		// const navLinkEvent = events.filter((i) => i.name === 'navLink').length;
-		// const navMenuClickEvent = events.filter(
-		// 	(i) => i.name === 'click'
-		// ).length;
-		// const navMenuUpdateEvent = events.filter((i) => i.name === 'update');
-
-		// expect(navLinkEvent).toBe(1);
-		// expect(navMenuClickEvent).toBe(1);
-		// expect(navMenuUpdateEvent).toHaveLength(1);
+		expect(events.length).toBe(2);
+		expect(events[0].name).toBe('PointerEvent');
+		expect(events[0].value).toBe('preview');
+		expect(events[0].target).toBe('button, sp-menu--item--btn');
 	});
 
 	test('vertical', async ({ page }) => {

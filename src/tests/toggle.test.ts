@@ -16,7 +16,6 @@ test.describe('Toggle component', () => {
 		const track = toggle.locator('.sp-toggle--track');
 		const checkbox = toggle.locator('input[type=checkbox]');
 
-		// await expect(checkbox).not.toBeVisible();
 		await expect(toggle).toHaveClass(/sp-toggle--off/);
 		await expect(toggleSwitch).toHaveAttribute('aria-checked', 'false');
 		await expect(label).toBeVisible();
@@ -35,9 +34,9 @@ test.describe('Toggle component', () => {
 		await expect(toggle).toHaveClass(/sp-toggle--on/);
 		await expect(toggleSwitch).toHaveAttribute('aria-checked', 'true');
 		const event = await getLastEvent(page);
-		expect(event).toEqual({
-			event: '{ "value": "false", "target": "input, sp-toggle--input", "event": "{\\"isTrusted\\":true}" }',
-		});
+		expect(event.name).toBe('Event');
+		expect(event.value).toBe('not defined');
+		expect(event.target).toBe('input, sp-toggle--input');
 	});
 
 	test('disabled', async ({ page }) => {

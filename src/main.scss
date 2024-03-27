@@ -87,8 +87,6 @@ body {
 	border-left: 1px solid $color--beige-darker;
 	padding: $size-space--m;
 	width: px-to-rem(400);
-	min-width: 23.75rem;
-	max-width: 85rem;
 	position: relative;
 
 	header {
@@ -158,6 +156,7 @@ body {
 }
 
 #component-details--docs {
+
 	// padding: 0;
 	h3 {
 		background-color: $color--beige-darker;
@@ -225,31 +224,7 @@ body {
 		resize: both;
 		overflow: auto;
 
-		ol {
-			list-style: none;
-			counter-reset: li;
-			padding-left: 0;
 
-			li {
-				counter-increment: li;
-				border-bottom: 1px solid $color--beige-darker;
-
-				&::before {
-					display: inline-block;
-					content: counter(li);
-					margin-right: $size-space--s;
-					background-color: $color--white;
-					// background-color: $color--pink;
-					color: $color--black;
-					min-width: $size--36;
-					height: $size--36;
-					text-align: center;
-					line-height: $size--36;
-					font-size: $font-step--0;
-					// padding: $size-space--s;
-				}
-			}
-		}
 	}
 }
 
@@ -290,18 +265,28 @@ body.dark {
 			}
 		}
 
-		#component-events {
-			ol {
-				li {
-					border-color: $color--darkest;
-					color: white;
 
-					&::before {
-						background-color: $color--darkest;
-						color: $color--white;
-					}
-				}
-			}
-		}
 	}
+}
+
+#component-events--list {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#component-events--list th,
+#component-events--list td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+
+#component-events--list th {
+	background-color: #f2f2f2;
+	color: black;
+}
+
+.component-event--value--order {
+	color: black;
+	font-weight: bold;
 }

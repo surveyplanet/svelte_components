@@ -43,9 +43,9 @@ test.describe('Avatar component', () => {
 
 		await avatar.click();
 		const lastEvent = await getLastEvent(page);
-		expect(lastEvent).toEqual({
-			event: `{ \"value\": \"undefined\", \"target\": \"img, \", \"event\": \"{\\\"isTrusted\\\":true,\\\"__root\\\":{}}\" }`,
-		});
+		expect(lastEvent.name).toBe('PointerEvent');
+		expect(lastEvent.value).toBe('not defined');
+		expect(lastEvent.target).toBe('img,');
 		// expect(lastEvent.data?.detail).toBe('[object Object]');
 	});
 

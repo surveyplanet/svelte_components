@@ -25,7 +25,9 @@ test.describe('Radio component', () => {
 		await expect(radio).toHaveAttribute('value', 'harry');
 
 		const changeEvent = await getLastEvent(page);
-		// expect(changeEvent.name).toBe('change');
+		expect(changeEvent.name).toBe('Event');
+		expect(changeEvent.value).toBe('harry');
+		expect(changeEvent.target).toBe('input, sp-radio--input');
 
 		await expect(label).toBeVisible();
 		await expect(label).toHaveClass(/sp-radio/);

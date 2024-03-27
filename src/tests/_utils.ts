@@ -61,7 +61,7 @@ export const loadStory = async (
 	const componentName: string = name.toLocaleLowerCase();
 	// const componentName = parser.pop();
 
-	let url = `/${componentName}`;
+	const url = `/${componentName}`;
 
 	await page.goto(url);
 
@@ -103,21 +103,21 @@ export const getStyle = async (
 	);
 };
 
-const _parseEventData = (dataTxt: string): object => {
-	if (!dataTxt?.length) {
-		return {};
-	}
+// const _parseEventData = (dataTxt: string): object => {
+// 	if (!dataTxt?.length) {
+// 		return {};
+// 	}
 
-	return Object.fromEntries(
-		dataTxt
-			.replace(/^{ /, '')
-			.replace(/ }$/, '')
-			.split(', ')
-			.map((itm) => {
-				return itm.split(': ');
-			})
-	);
-};
+// 	return Object.fromEntries(
+// 		dataTxt
+// 			.replace(/^{ /, '')
+// 			.replace(/ }$/, '')
+// 			.split(', ')
+// 			.map((itm) => {
+// 				return itm.split(': ');
+// 			})
+// 	);
+// };
 
 /**
  * Retrieve the last event from the Histoire event pane.
@@ -127,20 +127,36 @@ const _parseEventData = (dataTxt: string): object => {
  * @param page {Page} The Playwright page
  * @returns Promise<HistoireEvent> Then event name and data (Does not work with nested objects)
  */
-export const getLastEvent = async (page: Page): Promise<{ event: string }> => {
-	// const events = page.locator('component-events');
-	const eventItem = page.locator('.component-event').last();
+
+type PropsChangerEvent = {
+	name: string;
+	value: string;
+	target: string;
+};
+export const getLastEvent = async (page: Page): Promise<PropsChangerEvent> => {
+	const eventItem = page.locator('tr.component-event--row').last();
 	const hasEventItems = (await eventItem.count()) > 0;
-	console.log('hasEventItems', eventItem, hasEventItems);
 
 	if (!hasEventItems) {
-		return { event: '' };
+		return { name: '', value: '', target: '' };
 	}
 
-	const eventName = eventItem.locator('code').first();
-	const event = await eventName.innerText();
+	const eventName = eventItem
+		.locator('td.component-event--raw--value')
+		.innerText();
+	const eventValue = eventItem
+		.locator('td.component-event--value--value')
+		.innerText();
+	const eventTarget = eventItem
+		.locator('td.component-event--target--value')
+		.innerText();
+	const event = {
+		name: await eventName,
+		value: await eventValue,
+		target: await eventTarget,
+	};
 
-	return { event };
+	return event;
 };
 
 /**
@@ -153,22 +169,40 @@ export const getLastEvent = async (page: Page): Promise<{ event: string }> => {
  */
 export const getAllEvents = async (
 	page: Page
-): Promise<{ event: string }[]> => {
-	const eventItems = page.locator('component-event');
+): Promise<PropsChangerEvent[]> => {
+	const eventItems = page.locator('tr');
+	await expect(eventItems.first()).toBeVisible();
 	const totalEvents = await eventItems.count();
-	const data: { event: string }[] = [];
-	if (totalEvents <= 0) {
+	const data: PropsChangerEvent[] = [];
+	if (totalEvents <= 1) {
 		return data;
 	}
-	for (let i = 0; i < totalEvents; i++) {
-		const eventItem = eventItems.nth(i);
 
-		const eventName = eventItem.locator('code').first();
-
+	let i = 0;
+	let eventItem = page.locator('.component-event--row').nth(i);
+	while ((await eventItem.count()) > 0) {
+		const eventName = await eventItem
+			.locator('td.component-event--raw--value')
+			.innerText();
+		const eventValue = await eventItem
+			.locator('td.component-event--value--value')
+			.innerText();
+		const eventTarget = await eventItem
+			.locator('td.component-event--target--value')
+			.innerText();
 		data.push({
-			event: await eventName.innerText(),
+			name: eventName,
+			value: eventValue,
+			target: eventTarget,
 		});
+
+		i++;
+		eventItem = page.locator('tr').nth(i);
 	}
+
+	// for (let i = 0; i < totalEvents; i++) {
+	// 	const eventItem = eventItems.nth(i);
+	// }
 	return data;
 };
 

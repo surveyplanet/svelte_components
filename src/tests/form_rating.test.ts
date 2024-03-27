@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { loadStory } from './_utils.js';
+import { getAllEvents, loadStory } from './_utils.js';
 
 test.describe('Rating component ', () => {
 	test('basic', async ({ page }) => {
@@ -59,5 +59,13 @@ test.describe('Rating component ', () => {
 		await expect(input4).not.toBeChecked();
 		await expect(input5).not.toBeChecked();
 		await expect(input6).not.toBeChecked();
+
+		const events = await getAllEvents(page);
+		expect(events).toHaveLength(3);
+		expect(events[0].name).toBe('Event');
+		expect(events[0].value).toEqual(
+			'[ { "label": "Very Unsatisfied", "value": 1 } ]'
+		);
+		expect(events[0].target).toEqual('input, sp-radio--input');
 	});
 });
