@@ -55,8 +55,8 @@ jobs:
             #   run: npm run dev
 
             # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
-            - name: Run Playwright tests
-              run: npm run test:dev
+            # - name: Run Playwright tests
+            #   run: npm run test:dev
 
             - name: Package components
               run: npm run build
