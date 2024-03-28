@@ -42,8 +42,11 @@ jobs:
             - name: Install Playwright (for tests)
               run: npx playwright install --with-deps
 
+            - name: Build SvelteKit app
+              run: npm run build
+
             - name: Start SvelteKit app
-              run: npm run dev &
+              run: npm run start &
               env:
                   CI: true
 
