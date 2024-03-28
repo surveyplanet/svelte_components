@@ -51,7 +51,7 @@ jobs:
               run: sleep 10
 
             - name: Run Playwright tests
-              run: npm run test:ci
+              run: npm run test:dev
 
             - name: Package components
               run: npm run build
