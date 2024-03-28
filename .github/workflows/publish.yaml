@@ -51,8 +51,8 @@ jobs:
             # - name: Wait for Histoire server
             #   run: ./bin/wait-for-histoire.sh
 
-            - name: Run dev environment
-              run: npm run dev
+            # - name: Run dev environment
+            #   run: npm run dev
 
             # https://storybook.js.org/tutorials/ui-testing-handbook/react/en/automate/
             - name: Run Playwright tests
