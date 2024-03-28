@@ -46,7 +46,7 @@ jobs:
               run: npm run build
 
             - name: Start SvelteKit app
-              run: npm run start &
+              run: npm run dev &
               env:
                   CI: true
 
