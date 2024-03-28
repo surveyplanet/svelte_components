@@ -45,16 +45,16 @@ jobs:
             - name: Build SvelteKit app
               run: npm run build
 
-            - name: Start SvelteKit app
-              run: npm run dev &
-              env:
-                  CI: true
+            # - name: Start SvelteKit app
+            #   run: npm run dev &
+            #   env:
+            #       CI: true
 
             - name: Wait for SvelteKit app to start
               run: sleep 10
 
             - name: Run Playwright tests
-              run: npm run test:dev
+              run: npm run test:ci
 
             - name: Package components
               run: npm run build
