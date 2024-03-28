@@ -34,7 +34,7 @@ test.describe('Multiple choice  component ', () => {
 		await expect(input3).not.toBeChecked();
 
 		const events = await getAllEvents(page);
-		expect(events).toHaveLength(3);
+		expect(events).toHaveLength(2);
 		expect(events[0].name).toBe('Event');
 		expect(events[0].value).toEqual(
 			'[ { "label": "Harry", "value": true } ]'
@@ -73,7 +73,7 @@ test.describe('Multiple choice  component ', () => {
 		await expect(input2).toBeChecked();
 
 		const events = await getAllEvents(page);
-		expect(events).toHaveLength(4);
+		expect(events).toHaveLength(3);
 		expect(events[0].name).toBe('Event');
 		expect(events[0].value).toEqual(
 			'[ { "label": "Harry", "value": true } ]'
@@ -103,7 +103,7 @@ test.describe('Multiple choice  component ', () => {
 		await expect(inputOther).toBeFocused();
 
 		const events = await getAllEvents(page);
-		expect(events).toHaveLength(5);
+		expect(events).toHaveLength(4);
 		expect(events[0].name).toBe('Event');
 		expect(events[0].value).toEqual(
 			'[ { "label": "Other", "value": "Other option" } ]'

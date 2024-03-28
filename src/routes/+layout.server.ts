@@ -11,7 +11,14 @@ export const load = () => {
 };
 
 // add ignore files
-const ignoreFiles = ['events', 'actions'];
+const ignoreFiles = [
+	'component_error_event.ts',
+	'component_event.ts',
+	'_definitions.ts',
+	'index.ts',
+	'_icon_data.ts',
+	'events',
+];
 
 const getComponentsList = (dirPath: string, parentId = '') => {
 	const componentsList: MenuData[] = [];
@@ -34,8 +41,22 @@ const getComponentsList = (dirPath: string, parentId = '') => {
 				label: formatLabel(item),
 				submenu,
 			});
-		} else if (stats.isFile() && path.extname(item) === '.svelte') {
-			const fileName = path.basename(item, '.svelte');
+		} else if (
+			(stats.isFile() && path.extname(item) === '.svelte') ||
+			path.extname(item) === '.ts'
+		) {
+			if (ignoreFiles.includes(item)) {
+				return;
+			}
+			let fileName;
+			if (path.extname(item) === '.svelte') {
+				fileName = path.basename(item, '.svelte');
+			} else if (path.extname(item) === '.ts') {
+				fileName = path.basename(item, '.ts');
+			}
+			if (!fileName) {
+				return;
+			}
 			componentsList.push({
 				id: parentId
 					? `${parentId}/${fileName}`.toLocaleLowerCase()
@@ -44,11 +65,7 @@ const getComponentsList = (dirPath: string, parentId = '') => {
 			});
 		}
 	});
-	// this component has to be added manually as it is not a Svelte component
-	componentsList.push({
-		id: '/tooltip',
-		label: formatLabel('Tooltip'),
-	});
+
 	// Sort the submenu items alphabetically
 	componentsList.sort((a, b) => a.label!.localeCompare(b.label!));
 	// Sort the componentsList array so that items with a submenu are at the top

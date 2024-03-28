@@ -26,7 +26,7 @@ test.describe('Alert component', () => {
 		await closeBtn.click();
 		await expect(alert).not.toBeVisible();
 		const events = await getAllEvents(page);
-		expect(events).toHaveLength(3);
+		expect(events).toHaveLength(2);
 		expect(events[0]).toEqual({
 			name: 'CustomEvent',
 			value: 'not defined',

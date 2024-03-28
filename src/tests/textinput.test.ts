@@ -30,9 +30,9 @@ test.describe('Text Input component', () => {
 		input.type(value);
 		await expect(input).toHaveValue(value);
 		const events = await getAllEvents(page);
-		expect(events.length).toBe(140);
+		expect(events.length).toBe(139);
 		expect(events[0].name).toBe('FocusEvent');
-		expect(events[1].name).toBe('FocusEvent');
+		expect(events[1].name).toBe('KeyboardEvent');
 		expect(events[events.length - 2].name).toBe('InputEvent');
 		expect(events[events.length - 1].name).toBe('KeyboardEvent');
 	});
@@ -48,9 +48,9 @@ test.describe('Text Input component', () => {
 		input.type(value);
 		await expect(input).toHaveValue(value);
 		const events = await getAllEvents(page);
-		expect(events.length).toBe(140);
+		expect(events.length).toBe(139);
 		expect(events[0].name).toBe('FocusEvent');
-		expect(events[1].name).toBe('FocusEvent');
+		expect(events[1].name).toBe('KeyboardEvent');
 		expect(events[events.length - 2].name).toBe('InputEvent');
 		expect(events[events.length - 1].name).toBe('KeyboardEvent');
 	});

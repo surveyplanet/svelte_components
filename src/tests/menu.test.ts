@@ -74,7 +74,7 @@ test.describe('Menu component', () => {
 		await expect(items.nth(2)).toHaveClass(/sp-menu--item--selected/);
 
 		const events = await getAllEvents(page);
-		expect(events).toHaveLength(11);
+		expect(events).toHaveLength(10);
 		expect(events[0].name).toBe('PointerEvent');
 		expect(events[0].value).toBe('colors');
 		expect(events[0].target).toBe('button, sp-menu--item--btn');
@@ -101,7 +101,7 @@ test.describe('Menu component', () => {
 		await expect(items).toHaveCount(3);
 
 		const events = await getAllEvents(page);
-		expect(events).toHaveLength(2);
+		expect(events).toHaveLength(1);
 		expect(events[0].name).toBe('PointerEvent');
 		expect(events[0].value).toBe('categories');
 		expect(events[0].target).toBe(

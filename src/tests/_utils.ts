@@ -170,17 +170,17 @@ export const getLastEvent = async (page: Page): Promise<PropsChangerEvent> => {
 export const getAllEvents = async (
 	page: Page
 ): Promise<PropsChangerEvent[]> => {
-	const eventItems = page.locator('tr');
+	const eventItems = page.locator('.component-event--row');
 	await expect(eventItems.first()).toBeVisible();
 	const totalEvents = await eventItems.count();
 	const data: PropsChangerEvent[] = [];
-	if (totalEvents <= 1) {
+	if (totalEvents <= 0) {
 		return data;
 	}
 
 	let i = 0;
 	let eventItem = page.locator('.component-event--row').nth(i);
-	while ((await eventItem.count()) > 0) {
+	while (i < totalEvents) {
 		const eventName = await eventItem
 			.locator('td.component-event--raw--value')
 			.innerText();
@@ -197,12 +197,9 @@ export const getAllEvents = async (
 		});
 
 		i++;
-		eventItem = page.locator('tr').nth(i);
+		eventItem = page.locator('.component-event--row').nth(i);
 	}
 
-	// for (let i = 0; i < totalEvents; i++) {
-	// 	const eventItem = eventItems.nth(i);
-	// }
 	return data;
 };
 

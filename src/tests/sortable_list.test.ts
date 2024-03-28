@@ -30,7 +30,7 @@ test.describe('Sortable libs', () => {
 		await item1.dragTo(item3);
 
 		const events = await getAllEvents(page);
-		expect(events.length).toBe(2);
+		expect(events.length).toBe(1);
 		expect(events[0].name).toBe('DragEvent');
 		expect(events[0].value).toBe(
 			'[ { "label": "Nice", "meta": "image", "image": "https://picsum.photos/200/100" }, { "label": "Nicest ", "meta": "image", "image": "https://picsum.photos/200/300" }, { "label": "Nicer", "meta": "image", "image": "https://picsum.photos/200/200" } ]'

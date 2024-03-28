@@ -32,12 +32,9 @@ test.describe('ImageUpload component', () => {
 		);
 
 		const events = await getAllEvents(page);
-		expect(events.length).toBe(2);
+		expect(events.length).toBe(1);
 		expect(events[0].name).toBe('Event');
 		expect(events[0].value).toBe('{ "image": {} }');
 		expect(events[0].target).toContain('input, sp-image-upload--input');
-		expect(events[1].name).toBe('Event');
-		expect(events[1].value).toBe('{ "image": {} }');
-		expect(events[1].target).toContain('input, sp-image-upload--input');
 	});
 });

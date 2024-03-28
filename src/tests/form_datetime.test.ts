@@ -23,7 +23,7 @@ test.describe('Date Time component ', () => {
 		await expect(input).toHaveValue('2021-03-08T00:00');
 
 		const events = await getAllEvents(page);
-		expect(events.length).toBe(2);
+		expect(events.length).toBe(1);
 		expect(events[0].name).toBe('Event');
 		expect(events[0].value).toBe('[ "2021-03-08T00:00:00.000Z" ]');
 		expect(events[0].target).toBe('input, sp-text-input--input');
@@ -51,7 +51,7 @@ test.describe('Date Time component ', () => {
 		await expect(input).toHaveValue('2021-03-08');
 
 		const events = await getAllEvents(page);
-		expect(events.length).toBe(5);
+		expect(events.length).toBe(4);
 		expect(events[0].name).toBe('Event');
 		expect(events[0].value).toBe('[ "1902-03-08T00:00:00.000Z" ]');
 		expect(events[0].target).toBe('input, sp-text-input--input');

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { tooltip, type ToolTipOptions } from '$lib/actions/tooltip';
-	import { Layout, PropsChanger } from '../../layout/index';
+	import { Layout, PropsChanger } from '../../../layout';
 	import { default as source } from './example';
 	import md from './docs.md?raw';
 
@@ -11,7 +11,7 @@
 
 	let padding: ToolTipOptions['padding'] = $state(10);
 
-	let delay: ToolTipOptions['delay'] = $state(2500);
+	let delay: ToolTipOptions['delay'] = $state(250);
 
 	let changeCount = $state(0);
 
@@ -22,6 +22,12 @@
 	const onPropsChangerInput = () => {
 		changeCount++;
 	};
+
+	// document.onmousemove = function (e) {
+	// 	var x = e.pageX;
+	// 	var y = e.pageY;
+	// 	e.target.title = 'X is ' + x + ' and Y is ' + y;
+	// };
 </script>
 
 <Layout

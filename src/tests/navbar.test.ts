@@ -42,7 +42,7 @@ test.describe('Navbar component', () => {
 		await expect(navMenu).not.toBeVisible();
 
 		const events = await getAllEvents(page);
-		expect(events.length).toBe(2);
+		expect(events.length).toBe(1);
 		expect(events[0].name).toBe('PointerEvent');
 		expect(events[0].value).toBe('preview');
 		expect(events[0].target).toBe('button, sp-menu--item--btn');

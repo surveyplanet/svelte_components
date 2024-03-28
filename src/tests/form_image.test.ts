@@ -34,7 +34,7 @@ test.describe('Image  component ', () => {
 		await expect(choice1).not.toBeChecked();
 
 		const events = await getAllEvents(page);
-		expect(events).toHaveLength(3);
+		expect(events).toHaveLength(2);
 		expect(events[0].name).toBe('Event');
 		expect(events[0].value).toEqual(
 			'[ { "label": "Image 1", "value": "https://media.surveyplanet.com/testing/default" } ]'

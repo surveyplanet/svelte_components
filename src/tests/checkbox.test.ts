@@ -39,7 +39,7 @@ test.describe('Checkbox component', () => {
 		await expect(inputDisabled).toBeDisabled();
 
 		const events = await getAllEvents(page);
-		expect(events).toHaveLength(4);
+		expect(events).toHaveLength(3);
 		expect(events[0].name).toBe('Event');
 		expect(events[0].value).toBe('[ "plato", "kant" ]');
 		expect(events[0].target).toBe('input, sp-checkbox--input');

@@ -25,7 +25,7 @@ test.describe('Range component ', () => {
 
 		const events = await getAllEvents(page);
 
-		expect(events).toHaveLength(2);
+		expect(events).toHaveLength(1);
 		expect(events[0].name).toBe('CustomEvent');
 		expect(events[0].value).toEqual('[ 0, 10 ]');
 		expect(events[0].target).toEqual('not defined');
